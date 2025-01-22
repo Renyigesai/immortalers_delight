@@ -1,0 +1,63 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"texture_size": [16, 32],
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "immortalers_delight:block/banana_frond_small",
+		"stalk": "immortalers_delight:block/banana_stalk_small",
+		"frond": "immortalers_delight:block/banana_frond_small"
+	},
+	"elements": [
+		{
+			"from": [0, 15, 12],
+			"to": [16, 15, 28],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 8, 16, 16], "rotation": 180, "texture": "#frond"},
+				"down": {"uv": [0, 4, 16, 16], "texture": "#frond"}
+			}
+		},
+		{
+			"from": [12, 15, 0],
+			"to": [28, 15, 16],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 8, 16, 16], "rotation": 90, "texture": "#frond"},
+				"down": {"uv": [0, 4, 16, 16], "rotation": 90, "texture": "#frond"}
+			}
+		},
+		{
+			"from": [-12, 15, 0],
+			"to": [4, 15, 16],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 8, 16, 16], "rotation": 270, "texture": "#frond"},
+				"down": {"uv": [0, 4, 16, 16], "rotation": 270, "texture": "#frond"}
+			}
+		},
+		{
+			"from": [0, 15, -12],
+			"to": [16, 15, 4],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 8, 16, 16], "texture": "#frond"},
+				"down": {"uv": [0, 4, 16, 16], "rotation": 180, "texture": "#frond"}
+			}
+		},
+		{
+			"from": [6, 0, 6],
+			"to": [10, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 6]},
+			"color": 4,
+			"faces": {
+				"north": {"uv": [0, 2, 4, 10], "texture": "#stalk"},
+				"east": {"uv": [12, 2, 16, 10], "texture": "#stalk"},
+				"south": {"uv": [8, 2, 12, 10], "texture": "#stalk"},
+				"west": {"uv": [4, 2, 8, 10], "texture": "#stalk"},
+				"up": {"uv": [4, 0, 8, 2], "texture": "#stalk"},
+				"down": {"uv": [8, 0, 12, 2], "texture": "#stalk"}
+			}
+		}
+	]
+}

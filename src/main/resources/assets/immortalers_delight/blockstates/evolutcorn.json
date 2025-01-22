@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "immortalers_delight:block/evolutcorn_stage0"
+    },
+    "age=1": {
+      "model": "immortalers_delight:block/evolutcorn_stage1"
+    },
+    "age=2": {
+      "model": "immortalers_delight:block/evolutcorn_stage2"
+    },
+    "age=3": {
+      "model": "immortalers_delight:block/evolutcorn_stage3"
+    },
+    "age=4": {
+      "model": "immortalers_delight:block/evolutcorn_stage4"
+    },
+    "age=5": {
+      "model": "immortalers_delight:block/evolutcorn_stage5"
+    },
+    "age=6": {
+      "model": "immortalers_delight:block/evolutcorn_stage6"
+    },
+    "age=7": {
+      "model": "immortalers_delight:block/evolutcorn_stage7"
+    }
+  }
+}
