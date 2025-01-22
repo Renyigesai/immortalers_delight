@@ -1,7 +1,6 @@
 package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
+import vectorwing.farmersdelight.common.item.DrinkableItem;
 
 public class ImmortalersDelightItems {
 
@@ -45,17 +45,17 @@ public class ImmortalersDelightItems {
                 new BowlFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO)));
         CRETACEOUS_ZEA_BALL = foodItem("cretaceous_zea_ball",ImmortalersDelightFoodProperties.CRETACEOUS_ZEA_BALL);
         COLORFUL_GRILLED_SKEWERS = foodItem("colorful_grilled_skewers",ImmortalersDelightFoodProperties.COLORFUL_GRILLED_SKEWERS);
-        EVOLUTCORN = REGISTER.register("evolutcorn",() ->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.EVOLUTCORN.get(), new Item.Properties().food(ImmortalersDelightFoodProperties.EVOLUTCORN)));
+        EVOLUTCORN = foodItem("evolutcorn",ImmortalersDelightFoodProperties.EVOLUTCORN);
         ROAST_EVOLUTCORN = foodItem("roast_evolutcorn",ImmortalersDelightFoodProperties.ROAST_EVOLUTCORN);
-        EVOLUTCORN_GRAINS = foodItem("evolutcorn_grains",ImmortalersDelightFoodProperties.EVOLUTCORN_GRAINS);
+        EVOLUTCORN_GRAINS = REGISTER.register("evolutcorn_grains",() ->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.EVOLUTCORN.get(),new Item.Properties().food( ImmortalersDelightFoodProperties.EVOLUTCORN_GRAINS)));
         ROAST_EVOLUTCORN_CHOPS = foodItem("roast_evolutcorn_chops",ImmortalersDelightFoodProperties.ROAST_EVOLUTCORN_CHOPS);
         POPOLUTCORN = REGISTER.register("popolutcorn",() -> new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POPOLUTCORN),true));
         PEARLIPEARL = foodItem("pearlipearl",ImmortalersDelightFoodProperties.PEARLIPEARL);
         PEATIC_MUSA_SALAD = REGISTER.register("peatic_musa_salad",() ->
                 new BowlFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD)));
         PEARLIP_MILK_SHAKE = REGISTER.register("pearlip_milk_shake",() ->
-                new DrinkItem(new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE), new ItemStack(Items.GLASS_BOTTLE),true));
+                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE),true,false));
         PEARLIP_PUMPKIN_PIE = foodItem("pearlip_pumpkin_pie",ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE);
         PEARLIPEARL_TART = foodItem("pearlipearl_tart",ImmortalersDelightFoodProperties.PEARLIPEARL_TART);
         ZEA_PANCAKE_SLICE = foodItem("zea_pancake_slice",ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE);

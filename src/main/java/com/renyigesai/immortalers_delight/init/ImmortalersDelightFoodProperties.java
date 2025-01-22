@@ -36,8 +36,7 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties PEATIC_MUSA_SALAD = new FoodProperties.Builder().nutrition(6).fast()
             .saturationMod(1.2f).effect(()-> new MobEffectInstance(MobEffects.HEAL,1,0),1.0F).build();
 
-    public static final FoodProperties PEARLIP_MILK_SHAKE = new FoodProperties.Builder().nutrition(1).fast()
-            .saturationMod(1.0f)
+    public static final FoodProperties PEARLIP_MILK_SHAKE = new FoodProperties.Builder().alwaysEat()
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,600,0),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600,0),1F).build();
 
@@ -49,6 +48,4 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties ZEA_PANCAKE_SLICE = new FoodProperties.Builder().nutrition(3)
             .saturationMod(1.25f).build();
-
-    //PEARLIP_MILK_SHAKE
 }
