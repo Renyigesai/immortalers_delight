@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "immortalers_delight:block/himekaido_door_bottom",
+    "top": "immortalers_delight:block/himekaido_door_top"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immortalers_delight:block/himekaido_slab"
+    },
+    "type=double": {
+      "model": "immortalers_delight:block/himekaido_planks"
+    },
+    "type=top": {
+      "model": "immortalers_delight:block/himekaido_slab_top"
+    }
+  }
+}

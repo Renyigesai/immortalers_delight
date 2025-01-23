@@ -31,6 +31,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIP_MILK_SHAKE;
     public static final RegistryObject<Item> PEARLIP_PUMPKIN_PIE;
     public static final RegistryObject<Item> PEARLIPEARL_TART;
+    public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
+    public static final RegistryObject<Item> PEARLIP_JELLY;
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
 
     static {
@@ -57,6 +59,8 @@ public class ImmortalersDelightItems {
         PEARLIP_MILK_SHAKE = REGISTER.register("pearlip_milk_shake",() ->
                 new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE),true,false));
         PEARLIP_PUMPKIN_PIE = foodItem("pearlip_pumpkin_pie",ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE);
+        PEARLIPEARL_EGGSTEAM = foodItem("pearlipearl_eggsteam",ImmortalersDelightFoodProperties.PEARLIPEARL_EGGSTEAM);
+        PEARLIP_JELLY = foodItem("pearlip_jelly",ImmortalersDelightFoodProperties.PEARLIP_JELLY);
         PEARLIPEARL_TART = foodItem("pearlipearl_tart",ImmortalersDelightFoodProperties.PEARLIPEARL_TART);
         ZEA_PANCAKE_SLICE = foodItem("zea_pancake_slice",ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE);
     }

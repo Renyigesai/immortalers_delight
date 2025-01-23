@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,6 +16,12 @@ public class ImmortalersDelightGroup {
             CreativeModeTab.builder().icon(()-> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
                     .title(Component.translatable("creativetab_immortalers_delight_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_LOG.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_STAIR.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_SLAB.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_TRAPDOOR.get());
                         output.accept(ImmortalersDelightItems.EVOLUTCORN.get());
                         output.accept(ImmortalersDelightItems.EVOLUTCORN_GRAINS.get());
                         output.accept(ImmortalersDelightItems.ROAST_EVOLUTCORN.get());
@@ -27,6 +32,8 @@ public class ImmortalersDelightGroup {
                         output.accept(ImmortalersDelightBlocks.ZEA_PANCAKE.get());
                         output.accept(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get());
                         output.accept(ImmortalersDelightItems.PEARLIPEARL.get());
+                        output.accept(ImmortalersDelightItems.PEARLIPEARL_EGGSTEAM.get());
+                        output.accept(ImmortalersDelightItems.PEARLIP_JELLY.get());
                         output.accept(ImmortalersDelightItems.PEARLIP_PUMPKIN_PIE.get());
                         output.accept(ImmortalersDelightItems.PEARLIPEARL_TART.get());
                         output.accept(ImmortalersDelightItems.PEARLIP_MILK_SHAKE.get());

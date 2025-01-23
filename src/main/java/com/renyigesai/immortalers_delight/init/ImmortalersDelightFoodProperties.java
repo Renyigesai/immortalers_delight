@@ -46,6 +46,14 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties PEARLIPEARL_TART = new FoodProperties.Builder().nutrition(8)
             .saturationMod(1.25f).build();
 
+    public static final FoodProperties PEARLIPEARL_EGGSTEAM = new FoodProperties.Builder().nutrition(2)
+            .saturationMod(0.6f).build();
+
+    public static final FoodProperties PEARLIP_JELLY = new FoodProperties.Builder().nutrition(2)
+            .saturationMod(0.4f).build();
+
+    //PEARLIPEARL_EGGSTEAM
+
     public static final FoodProperties ZEA_PANCAKE_SLICE = new FoodProperties.Builder().nutrition(3)
             .saturationMod(1.25f).build();
 }
