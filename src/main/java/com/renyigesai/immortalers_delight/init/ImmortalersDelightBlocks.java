@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,7 +30,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> HIMEKAIDO_PLANKS = registerBlock("himekaido_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_STAIR = registerBlock("himekaido_stair",
+    public static final RegistryObject<Block> HIMEKAIDO_STAIRS = registerBlock("himekaido_stairs",
             () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(HIMEKAIDO_PLANKS.get())));
 
     public static final RegistryObject<Block> HIMEKAIDO_SLAB = registerBlock("himekaido_slab",
@@ -44,6 +45,9 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> HIMEKAIDO_FENCE = registerBlock("himekaido_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> HIMEKAIDO_FENCE_GATE = registerBlock("himekaido_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
 
     public static final RegistryObject<Block> MILLENIAN_BAMBOO = registerBlock("millenian_bamboo",
             () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO)));
