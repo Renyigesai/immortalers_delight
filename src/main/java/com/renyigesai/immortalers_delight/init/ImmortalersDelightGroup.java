@@ -20,6 +20,7 @@ public class ImmortalersDelightGroup {
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get());
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_STAIR.get());
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_SLAB.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_FENCE.get());
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get());
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_TRAPDOOR.get());
                         output.accept(ImmortalersDelightItems.EVOLUTCORN.get());

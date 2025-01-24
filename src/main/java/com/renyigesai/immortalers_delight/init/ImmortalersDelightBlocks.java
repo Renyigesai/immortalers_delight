@@ -41,6 +41,10 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> HIMEKAIDO_TRAPDOOR = registerBlock("himekaido_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
 
+
+    public static final RegistryObject<Block> HIMEKAIDO_FENCE = registerBlock("himekaido_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
     public static final RegistryObject<Block> MILLENIAN_BAMBOO = registerBlock("millenian_bamboo",
             () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO)));
 
