@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"tag": "forge:salad_ingredients"},
+    {"item": "farmersdelight:onion"},
+    {"item": "immortalers_delight:pearlip"},
+    {"item": "minecraft:bowl"},
+    {"tag": "forge:vegetables/tomato"}
+    ],
+  "result": {
+    "item": "immortalers_delight:peatic_musa_salad",
+    "count": 1
+  }
+}

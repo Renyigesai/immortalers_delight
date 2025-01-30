@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "immortalers_delight:block/himekaido_cabinet_front",
+    "side": "immortalers_delight:block/himekaido_cabinet_side",
+    "top": "immortalers_delight:block/himekaido_cabinet_top"
+  }
+}

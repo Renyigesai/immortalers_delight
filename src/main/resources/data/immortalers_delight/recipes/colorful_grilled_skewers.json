@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "minecraft:baked_potato"},
+    {"item": "minecraft:stick"},
+    {"item": "immortalers_delight:roast_evolutcorn_chops"},
+    {"tag": "forge:cooked_beef"},
+    {"tag": "forge:salad_ingredients"}
+  ],
+  "result": {
+    "item": "immortalers_delight:colorful_grilled_skewers",
+    "count": 1
+  }
+}

@@ -1,12 +1,18 @@
 {
   "values": [
     "immortalers_delight:himekaido_log",
+    "immortalers_delight:himekaido_wood",
+    "immortalers_delight:stripped_himekaido_log",
+    "immortalers_delight:stripped_himekaido_wood",
     "immortalers_delight:himekaido_planks",
     "immortalers_delight:himekaido_stairs",
     "immortalers_delight:himekaido_slab",
     "immortalers_delight:himekaido_door",
     "immortalers_delight:himekaido_trapdoor",
     "immortalers_delight:himekaido_fence",
-    "immortalers_delight:himekaido_fence_gate"
+    "immortalers_delight:himekaido_fence_gate",
+    "immortalers_delight:himekaido_pressure_plate",
+    "immortalers_delight:himekaido_button",
+    "immortalers_delight:himekaido_cabinet"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:pearlipearl_eggsteam"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

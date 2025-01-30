@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:pearlip_pumpkin_pie",
+    "count": 3
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "b b",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:himekaido_planks"
+    },
+    "b": {
+      "item": "immortalers_delight:himekaido_trapdoor"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:himekaido_cabinet",
+    "count": 1
+  }
+}

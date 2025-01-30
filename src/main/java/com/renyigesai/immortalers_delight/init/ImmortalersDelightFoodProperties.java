@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.init;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 
 public class ImmortalersDelightFoodProperties {
 
@@ -22,10 +23,15 @@ public class ImmortalersDelightFoodProperties {
             .saturationMod(0.625f).build();
 
     public static final FoodProperties CRETACEOUS_ZEA_BALL = new FoodProperties.Builder().nutrition(6)
-            .saturationMod(0.45f).build();
+            .saturationMod(0.45f)
+            .effect(()-> new MobEffectInstance(ModEffects.NOURISHMENT.get(),800,0),1.0F)
+            .build();
 
     public static final FoodProperties COLORFUL_GRILLED_SKEWERS = new FoodProperties.Builder().nutrition(9)
             .saturationMod(0.85f).build();
+
+    public static final FoodProperties PEARLIP = new FoodProperties.Builder().nutrition(1)
+            .saturationMod(0.4f).build();
 
     public static final FoodProperties POPOLUTCORN = new FoodProperties.Builder().nutrition(4).fast()
             .saturationMod(0.625f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600,0),1.0F).build();
@@ -47,10 +53,13 @@ public class ImmortalersDelightFoodProperties {
             .saturationMod(0.625f).build();
 
     public static final FoodProperties PEARLIPEARL_EGGSTEAM = new FoodProperties.Builder().nutrition(2)
-            .saturationMod(0.3f).build();
+            .saturationMod(0.3f).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),1200,0),1.0F)
+            .build();
 
     public static final FoodProperties PEARLIP_JELLY = new FoodProperties.Builder().nutrition(2)
-            .saturationMod(0.2f).build();
+            .saturationMod(0.2f).effect(()-> new MobEffectInstance(MobEffects.JUMP,1200,0),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1200,0),1.0F)
+            .build();
 
     //PEARLIPEARL_EGGSTEAM
 

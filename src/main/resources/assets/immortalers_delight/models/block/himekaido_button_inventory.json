@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "immortalers_delight:block/himekaido_planks"
+  }
+}
