@@ -17,7 +17,6 @@ public class ImmortalersDelightItems {
 
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
-//    public static final RegistryObject<Item> BANANA_STALK;
     public static final RegistryObject<Item> PEARLIP;
     public static final RegistryObject<Item> PEARLIP_SHELL;
     public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;

@@ -18,7 +18,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:evolutcorn",
+          "name": "immortalers_delight:evolutcorn_grains",
           "conditions": [
             {
               "condition": "minecraft:location_check",
