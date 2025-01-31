@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:apple",
+          "name": "immortalers_delight:pearlip",
           "conditions": [
             {
               "condition": "minecraft:location_check",
@@ -19,7 +19,6 @@
         {
           "type": "minecraft:item",
           "name": "immortalers_delight:evolutcorn",
-          "functions": [],
           "conditions": [
             {
               "condition": "minecraft:location_check",
