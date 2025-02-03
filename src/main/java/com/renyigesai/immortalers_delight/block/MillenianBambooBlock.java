@@ -61,7 +61,8 @@ public class MillenianBambooBlock extends Block {
                 ItemUtils.givePlayerItem(player,new ItemStack(ImmortalersDelightItems.BOWL_OF_MILLENIAN_BAMBOO.get()));
                 level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             }else {
-                player.displayClientMessage(Component.translatable(""), true);
+                player.displayClientMessage(Component.translatable("block.immortalers_delight.millenian_bamboo.tips.1"), true);
+                return InteractionResult.FAIL;
             }
             return InteractionResult.SUCCESS;
         }

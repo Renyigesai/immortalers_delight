@@ -34,6 +34,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
     public static final RegistryObject<Item> PEARLIP_JELLY;
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
+    public static final RegistryObject<Item> ENCHANTAL_COOLER;
 
     static {
 
@@ -64,6 +65,7 @@ public class ImmortalersDelightItems {
         PEARLIP_JELLY = foodItem("pearlip_jelly",ImmortalersDelightFoodProperties.PEARLIP_JELLY,true);
         PEARLIPEARL_TART = foodItem("pearlipearl_tart",ImmortalersDelightFoodProperties.PEARLIPEARL_TART);
         ZEA_PANCAKE_SLICE = foodItem("zea_pancake_slice",ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE);
+        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
     }
 
     private static RegistryObject<Item> item(String pName) {
@@ -86,7 +88,7 @@ public class ImmortalersDelightItems {
         return new Item.Properties().food(food).craftRemainder(Items.BOWL).stacksTo(16);
     }
 
-    private static RegistryObject<Item> BLOCK(RegistryObject<Block> block) {
+    private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 }

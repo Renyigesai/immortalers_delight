@@ -1,11 +1,10 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightGroup;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.init.*;
+import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
@@ -41,8 +40,10 @@ public class ImmortalersDelightMod {
 
         ImmortalersDelightItems.REGISTER.register(bus);
         ImmortalersDelightBlocks.register(bus);
+        ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         ImmortalersDelightGroup.REGISTER.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
+        ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -70,6 +71,7 @@ public class ImmortalersDelightMod {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());

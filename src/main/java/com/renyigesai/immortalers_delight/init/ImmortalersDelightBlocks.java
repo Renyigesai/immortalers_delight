@@ -2,11 +2,14 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
+import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
+import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -26,8 +29,14 @@ public class ImmortalersDelightBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, ImmortalersDelightMod.MODID);
 
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY =
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ImmortalersDelightMod.MODID);
+
 //    public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
 //            log(MapColor.WOOD, MapColor.PODZOL));
+
+        public static final RegistryObject<Block> ENCHANTAL_COOLER;
+        public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -91,6 +100,15 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> ZEA_PANCAKE = registerBlock("zea_pancake",()->
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    static {
+
+        ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
+                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+        ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
+                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
+    }
+
 
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {
         return new BasicsLogsBlock(BlockBehaviour.Properties.of().mapColor((p_152624_) -> {
