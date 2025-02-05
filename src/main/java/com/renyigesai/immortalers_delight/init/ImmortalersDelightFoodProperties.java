@@ -162,6 +162,7 @@ public class ImmortalersDelightFoodProperties {
                 return new MobEffectInstance((MobEffect)ImmortalersDelightMobEffect.MAGICAL_REVERSE.get(),3,1);
             }, 1.0F)
             .effect(new MobEffectInstance(MobEffects.ABSORPTION,2400,0),1.0F)
+            .alwaysEat()
             .build();
     public static final FoodProperties ENCHANTED_GOLDEN_HIMEKAIDO = new FoodProperties.Builder()
             .nutrition(8)
@@ -171,6 +172,7 @@ public class ImmortalersDelightFoodProperties {
             }, 1.0F)
             .effect(new MobEffectInstance(MobEffects.ABSORPTION,2400,1),1.0F)
             .effect(new MobEffectInstance(MobEffects.HEALTH_BOOST,2400,1),1.0F)
+            .alwaysEat()
             .build();
 
 

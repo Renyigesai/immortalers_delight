@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -95,7 +96,7 @@ public class ImmortalersDelightItems {
                 new ItemNameBlockItem(ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get(), new Item.Properties()));
         ROTTEN_FLESH_CUTS = item("rotten_flesh_cuts");
         HIMEKAIDO_JELLY = item("himekaido_jelly");
-        HIMEKAIDO_CUTS = item("yogurt");
+        HIMEKAIDO_CUTS = item("himekaido_cuts");
         /*
         姬海棠系列食物
          */
@@ -120,14 +121,18 @@ public class ImmortalersDelightItems {
                 ImmortalersDelightFoodProperties.PUFFERFISH_ROLL);
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = foodItem("bowl_of_stewed_rotten_meat_in_clay_pot",
                 ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT);
-        GOLDEN_HIMEKAIDO = foodItem("golden_himekaido",
-                ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO);
-        ENCHANTED_GOLDEN_HIMEKAIDO = foodItem("enchanted_golden_himekaido",
-                ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO);
+        GOLDEN_HIMEKAIDO = fantasticFoodItem("golden_himekaido",
+                ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE,true);
+        ENCHANTED_GOLDEN_HIMEKAIDO = REGISTER.register("enchanted_golden_himekaido",() ->
+                new EnchantedGoldenAppleItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO)));
+
     }
 
     private static RegistryObject<Item> item(String pName) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties()));
+    }
+    private static RegistryObject<Item> fantasticItem(String pName,Rarity soCool) {
+        return REGISTER.register(pName, () -> new Item(new Item.Properties().rarity(soCool)));
     }
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
@@ -137,7 +142,9 @@ public class ImmortalersDelightItems {
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean tool) {
         return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().food(foodProperties),tool));
     }
-
+    private static RegistryObject<Item> fantasticFoodItem(String pName,FoodProperties foodProperties,Rarity soCool, boolean tool) {
+        return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().rarity(soCool).food(foodProperties),tool));
+    }
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean tool,boolean cTool) {
         return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().food(foodProperties),tool,cTool));
     }

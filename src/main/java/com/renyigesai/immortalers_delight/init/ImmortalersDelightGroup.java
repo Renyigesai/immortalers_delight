@@ -52,6 +52,28 @@ public class ImmortalersDelightGroup {
                         output.accept(ImmortalersDelightItems.PEATIC_MUSA_SALAD.get());
                         output.accept(ImmortalersDelightItems.COLORFUL_GRILLED_SKEWERS.get());
 
+                        /*
+                        姬海棠系列物品
+                         */
+                        //output.accept(ImmortalersDelightBlocks.BRAISED_SPIDER_EYES_BLOCK.get());
+                        //output.accept(ImmortalersDelightBlocks.STEWED_ROTTEN_MEAT_POT.get());
+                        output.accept(ImmortalersDelightItems.HIMEKAIDO_CUTS.get());
+                        output.accept(ImmortalersDelightItems.HIMEKAIDO_SEED.get());
+                        output.accept(ImmortalersDelightItems.ROTTEN_FLESH_CUTS.get());
+                        output.accept(ImmortalersDelightItems.HIMEKAIDO_JELLY.get());
+                        output.accept(ImmortalersDelightItems.YOGURT.get());
+                        output.accept(ImmortalersDelightItems.HIMEKAIDO.get());
+                        output.accept(ImmortalersDelightItems.BAKED_POISONOUS_POTATO.get());
+                        output.accept(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get());
+                        output.accept(ImmortalersDelightItems.TARTARE_CHICKEN.get());
+                        output.accept(ImmortalersDelightItems.DIPPED_ROTTEN_FLESH.get());
+                        output.accept(ImmortalersDelightItems.CRISPY_YOGURT_ROTTEN_FLESH.get());
+                        output.accept(ImmortalersDelightItems.MEATY_ROTTEN_TOMATO_BROTH.get());
+                        output.accept(ImmortalersDelightItems.STUFFED_POISONOUS_POTATO.get());
+                        output.accept(ImmortalersDelightItems.PUFFERFISH_ROLL.get());
+                        output.accept(ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT.get());
+                        output.accept(ImmortalersDelightItems.GOLDEN_HIMEKAIDO.get());
+                        output.accept(ImmortalersDelightItems.ENCHANTED_GOLDEN_HIMEKAIDO.get());
                     }))
                     .build());
 
