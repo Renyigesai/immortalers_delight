@@ -36,6 +36,27 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
 
+    /*
+    姬海棠系列物品
+     */
+    public static final RegistryObject<Item> ROTTEN_FLESH_CUTS;
+    public static final RegistryObject<Item> HIMEKAIDO_JELLY;
+    public static final RegistryObject<Item> YOGURT;
+    public static final RegistryObject<Item> HIMEKAIDO;
+    public static final RegistryObject<Item> BAKED_POISONOUS_POTATO;
+    public static final RegistryObject<Item> BRAISED_SPIDER_EYES_IN_GRAVY;
+    public static final RegistryObject<Item> DIPPED_ROTTEN_FLESH;
+    public static final RegistryObject<Item> CRISPY_YOGURT_ROTTEN_FLESH;
+    public static final RegistryObject<Item> MEATY_ROTTEN_TOMATO_BROTH;
+    public static final RegistryObject<Item> STUFFED_POISONOUS_POTATO;
+    public static final RegistryObject<Item> PUFFERFISH_ROLL;
+    public static final RegistryObject<Item> GOLDEN_HIMEKAIDO;
+    public static final RegistryObject<Item> ENCHANTED_GOLDEN_HIMEKAIDO;
+    public static final RegistryObject<Item> HIMEKAIDO_SEED;
+    public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
+    public static final RegistryObject<Item> TARTARE_CHICKEN;
+    public static final RegistryObject<Item> HIMEKAIDO_CUTS;
+
     static {
 
         //Items
@@ -66,6 +87,43 @@ public class ImmortalersDelightItems {
         PEARLIPEARL_TART = foodItem("pearlipearl_tart",ImmortalersDelightFoodProperties.PEARLIPEARL_TART);
         ZEA_PANCAKE_SLICE = foodItem("zea_pancake_slice",ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE);
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
+
+        /*
+        姬海棠系列材料
+         */
+        HIMEKAIDO_SEED = REGISTER.register("himekaido_seed",() ->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get(), new Item.Properties()));
+        ROTTEN_FLESH_CUTS = item("rotten_flesh_cuts");
+        HIMEKAIDO_JELLY = item("himekaido_jelly");
+        HIMEKAIDO_CUTS = item("yogurt");
+        /*
+        姬海棠系列食物
+         */
+        YOGURT = item("yogurt");
+        HIMEKAIDO = foodItem("himekaido",
+                ImmortalersDelightFoodProperties.HIMEKAIDO);
+        BAKED_POISONOUS_POTATO = foodItem("baked_poisonous_potato",
+                ImmortalersDelightFoodProperties.BAKED_POISONOUS_POTATO);
+        BRAISED_SPIDER_EYES_IN_GRAVY = foodItem("braised_spider_eyes_in_gravy",
+                ImmortalersDelightFoodProperties.BRAISED_SPIDER_EYES_IN_GRAVY);
+        TARTARE_CHICKEN = foodItem("tartare_chicken",
+                ImmortalersDelightFoodProperties.TARTARE_CHICKEN);
+        DIPPED_ROTTEN_FLESH = foodItem("dipped_rotten_flesh",
+                ImmortalersDelightFoodProperties.DIPPED_ROTTEN_FLESH);
+        CRISPY_YOGURT_ROTTEN_FLESH = foodItem("crispy_yogurt_rotten_flesh",
+                ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH);
+        MEATY_ROTTEN_TOMATO_BROTH = foodItem("meaty_rotten_tomato_broth",
+                ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH);
+        STUFFED_POISONOUS_POTATO = foodItem("stuffed_poisonous_potato",
+                ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO);
+        PUFFERFISH_ROLL = foodItem("pufferfish_roll",
+                ImmortalersDelightFoodProperties.PUFFERFISH_ROLL);
+        BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = foodItem("bowl_of_stewed_rotten_meat_in_clay_pot",
+                ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT);
+        GOLDEN_HIMEKAIDO = foodItem("golden_himekaido",
+                ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO);
+        ENCHANTED_GOLDEN_HIMEKAIDO = foodItem("enchanted_golden_himekaido",
+                ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO);
     }
 
     private static RegistryObject<Item> item(String pName) {
