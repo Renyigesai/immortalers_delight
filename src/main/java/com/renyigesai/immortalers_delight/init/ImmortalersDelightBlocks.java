@@ -95,8 +95,8 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<StemGrownBlock> BANANA_BUNDLE = BLOCKS.register("banana_bundle",
             ()-> new PeaticMusaRubineaBundleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<Block> BANANA_STALK = BLOCKS.register("banana_stalk",
-            ()-> new BananaStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> PEARLIPEARL_STALK = BLOCKS.register("pearlipearl_stalk",
+            ()-> new PearlipearlStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     public static final RegistryObject<Block> ZEA_PANCAKE = registerBlock("zea_pancake",()->
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));

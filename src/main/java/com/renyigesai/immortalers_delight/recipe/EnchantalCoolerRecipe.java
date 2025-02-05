@@ -114,4 +114,10 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
         }
 
     }
+
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.add(Ingredient.merge(this.inputItems));
+        return nonnulllist;
+    }
 }

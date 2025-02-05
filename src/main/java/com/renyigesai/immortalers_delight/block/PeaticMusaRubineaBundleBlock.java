@@ -75,7 +75,7 @@ public class PeaticMusaRubineaBundleBlock extends StemGrownBlock implements Bone
 
     @Override
     public StemBlock getStem() {
-        return (StemBlock)ImmortalersDelightBlocks.BANANA_STALK.get();
+        return (StemBlock)ImmortalersDelightBlocks.PEARLIPEARL_STALK.get();
     }
 
     @Override

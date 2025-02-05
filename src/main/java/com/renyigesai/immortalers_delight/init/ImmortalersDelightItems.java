@@ -25,6 +25,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ROAST_EVOLUTCORN;
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
     public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
+    public static final RegistryObject<Item> PEARLIPEARL_STALK;
     public static final RegistryObject<Item> POPOLUTCORN;
     public static final RegistryObject<Item> PEARLIPEARL;
     public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
@@ -62,7 +63,7 @@ public class ImmortalersDelightItems {
         //Items
         ANCIENT_FIBER = REGISTER.register("ancient_fiber",() -> new Item(new Item.Properties()));
         PEARLIP_SHELL = item("pearlip_shell");
-//        BANANA_STALK = item("banana_stalk");
+        PEARLIPEARL_STALK = block(ImmortalersDelightBlocks.PEARLIPEARL_STALK);
         PEARLIP = foodItem("pearlip",ImmortalersDelightFoodProperties.PEARLIP);
 
         //Foods
