@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "age=0,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk1" },
+        "age=0,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" },
+        "age=1,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk2" },
+        "age=1,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" },
+        "age=2,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk3" },
+        "age=2,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3" }
+    }
+}
