@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.block;
 
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

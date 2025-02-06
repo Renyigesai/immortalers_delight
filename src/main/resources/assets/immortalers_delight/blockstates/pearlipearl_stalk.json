@@ -1,10 +1,43 @@
 {
     "variants": {
-        "age=0,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk1" },
-        "age=0,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" },
-        "age=1,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk2" },
-        "age=1,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" },
-        "age=2,is_leaves=false": { "model": "immortalers_delight:block/pearlipearl_stalk3" },
-        "age=2,is_leaves=true": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3" }
+        "age=0,is_leaves=false,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk1", "y": 270},
+        "age=0,is_leaves=true,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" , "y": 270},
+        "age=0,is_leaves=true,bloom=true,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" , "y": 270},
+        "age=1,is_leaves=false,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk2" , "y": 270},
+        "age=1,is_leaves=true,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" , "y": 270},
+        "age=1,is_leaves=true,bloom=true,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" , "y": 270},
+        "age=2,is_leaves=false,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk3" , "y": 270},
+        "age=2,is_leaves=true,bloom=false,facing=east": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3" , "y": 270},
+        "age=2,is_leaves=true,bloom=true,facing=east": { "model": "immortalers_delight:block/pearlipearl_bloom" , "y": 270},
+
+        "age=0,is_leaves=false,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk1", "y": 180},
+        "age=0,is_leaves=true,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" , "y": 180},
+        "age=0,is_leaves=true,bloom=true,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1" , "y": 180},
+        "age=1,is_leaves=false,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk2" , "y": 180},
+        "age=1,is_leaves=true,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" , "y": 180},
+        "age=1,is_leaves=true,bloom=true,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2" , "y": 180},
+        "age=2,is_leaves=false,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk3" , "y": 180},
+        "age=2,is_leaves=true,bloom=false,facing=north": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3" , "y": 180},
+        "age=2,is_leaves=true,bloom=true,facing=north": { "model": "immortalers_delight:block/pearlipearl_bloom" , "y": 180},
+
+        "age=0,is_leaves=false,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk1"},
+        "age=0,is_leaves=true,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1"},
+        "age=0,is_leaves=true,bloom=true,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1"},
+        "age=1,is_leaves=false,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk2"},
+        "age=1,is_leaves=true,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2"},
+        "age=1,is_leaves=true,bloom=true,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2"},
+        "age=2,is_leaves=false,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk3"},
+        "age=2,is_leaves=true,bloom=false,facing=south": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3"},
+        "age=2,is_leaves=true,bloom=true,facing=south": { "model": "immortalers_delight:block/pearlipearl_bloom"},
+
+        "age=0,is_leaves=false,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk1", "y": 90},
+        "age=0,is_leaves=true,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1", "y": 90},
+        "age=0,is_leaves=true,bloom=true,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves1", "y": 90},
+        "age=1,is_leaves=false,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk2", "y": 90},
+        "age=1,is_leaves=true,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2", "y": 90},
+        "age=1,is_leaves=true,bloom=true,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves2", "y": 90},
+        "age=2,is_leaves=false,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk3"},
+        "age=2,is_leaves=true,bloom=false,facing=west": { "model": "immortalers_delight:block/pearlipearl_stalk_leaves3", "y": 90},
+        "age=2,is_leaves=true,bloom=true,facing=west": { "model": "immortalers_delight:block/pearlipearl_bloom", "y": 90}
     }
 }

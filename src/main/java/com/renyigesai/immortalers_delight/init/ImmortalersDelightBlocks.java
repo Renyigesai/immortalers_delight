@@ -9,6 +9,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -110,13 +112,13 @@ public class ImmortalersDelightBlocks {
             () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
 
     public static final RegistryObject<Block> MILLENIAN_BAMBOO = registerBlock("millenian_bamboo",
-            () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO)));
+            () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO),ImmortalersDelightItems.BOWL_OF_MILLENIAN_BAMBOO));
 
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<StemGrownBlock> BANANA_BUNDLE = BLOCKS.register("banana_bundle",
-            ()-> new PeaticMusaRubineaBundleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> PEARLIPEARL_BUNDLE = BLOCKS.register("pearlipearl_bundle",
+            ()-> new PearlipearlBeanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     public static final RegistryObject<Block> PEARLIPEARL_STALK = BLOCKS.register("pearlipearl_stalk",
             ()-> new PearlipearlStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
@@ -134,7 +136,7 @@ public class ImmortalersDelightBlocks {
     }
 
     public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = registerBlock("stewed_rotten_meat_pot",()->
-            new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT)));
+            new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
     public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = registerBlock("braised_spider_eyes_block",()->
             new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 

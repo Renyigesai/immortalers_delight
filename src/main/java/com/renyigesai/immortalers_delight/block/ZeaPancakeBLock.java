@@ -67,9 +67,9 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock {
                     return InteractionResult.PASS;
                 }
             }else {
-                Direction direction = player.getDirection().getOpposite();
-                level.removeBlock(pos, false);
-                ItemUtils.spawnItemEntity(level,new ItemStack(Items.BOWL),(double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
+                level.destroyBlock(pos, false);
+                vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
+                        new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
                 level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             }
             return InteractionResult.SUCCESS;

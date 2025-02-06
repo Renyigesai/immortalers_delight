@@ -11,21 +11,38 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 
-public class PearlipearlStalkBlock extends Block implements IPlantable {
+public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements IPlantable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
+    public static final BooleanProperty BLOOM = BooleanProperty.create("bloom");
+    public static final VoxelShape AGE_1 = box(6.0D,0.0D,6.0D,10.0D,16.0D,10.0D);
+    public static final VoxelShape AGE_2 = box(5.0D,0.0D,5.0D,11.0D,16.0D,11.0D);
+    public static final VoxelShape AGE_3 = box(4.0D,0.0D,4.0D,12.0D,16.0D,12.0D);
     public PearlipearlStalkBlock(Properties p_49795_) {
         super(p_49795_);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(IS_LEAVES,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(IS_LEAVES,true).setValue(BLOOM,false).setValue(FACING,Direction.NORTH));
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+        int age = state.getValue(AGE);
+        return switch (age) {
+            case 1 -> AGE_2;
+            case 2 -> AGE_3;
+            default -> AGE_1;
+        };
     }
 
     public void tick(BlockState p_222543_, ServerLevel p_222544_, BlockPos p_222545_, RandomSource p_222546_) {
@@ -45,7 +62,7 @@ public class PearlipearlStalkBlock extends Block implements IPlantable {
                 /*最大高度小于3时尝试向上生长一次*/
                 if (i < 3){
                     level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
-//                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
+                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
                     ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
                 }else {
                     if (age < 2){
@@ -57,29 +74,29 @@ public class PearlipearlStalkBlock extends Block implements IPlantable {
                         }
                     }
                 }
-
                 if (age == 2 && i == 3){
-
+                    level.setBlock(pos,state.setValue(BLOOM,true),3);
                 }
-//                    level.setBlock(pos, state.setValue(IS_FRUIT, true), 3);
-//                if (is_fruit){
-//                    /*尝试结果，不太会方向，后期需要更改*/
-//                    Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
-//                    BlockPos blockpos = pos.relative(direction);
-//                    BlockState blockstate1 = level.getBlockState(blockpos.east());
-//                    BlockState blockstate2 = level.getBlockState(blockpos.south());
-//                    BlockState blockstate3 = level.getBlockState(blockpos.west());
-//                    BlockState blockstate4 = level.getBlockState(blockpos.north());
-//                    boolean temp = blockstate1.isAir() ||
-//                                   blockstate2.isAir() ||
-//                                   blockstate3.isAir() ||
-//                                   blockstate4.isAir();
-//                    if (temp){
-//                        level.setBlockAndUpdate(blockpos, Blocks.STONE.defaultBlockState());
-//                    }
-//                }
+                if (state.getValue(BLOOM)) {
+                    // 遍历水平方向的四个方向
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        // 获取 A 方块相邻的位置
+                        BlockPos neighborPos = pos.below().relative(direction);
+                        // 检查相邻位置是否是空气方块
+                        if (level.getBlockState(neighborPos).isAir()) {
+                            // 设置 B 方块的 BlockState，使其 C 面朝向 A 方块
+                            BlockState bBlockState = ImmortalersDelightBlocks.PEARLIPEARL_BUNDLE.get().defaultBlockState().setValue(FACING, direction.getOpposite()); // C 面朝向 A 方块
+                            // 在相邻位置放置 B 方块
+                            level.setBlockAndUpdate(neighborPos, bBlockState);
+                        }
+                    }
+                }
             }
         }
+    }
+
+    public int getAge(BlockState state){
+        return state.getValue(AGE);
     }
 
     public BlockState updateShape(BlockState p_57179_, Direction p_57180_, BlockState p_57181_, LevelAccessor p_57182_, BlockPos p_57183_, BlockPos p_57184_) {
@@ -115,7 +132,7 @@ public class PearlipearlStalkBlock extends Block implements IPlantable {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(AGE,IS_LEAVES);
+        stateBuilder.add(AGE,IS_LEAVES,BLOOM,FACING);
     }
 
     @Override
