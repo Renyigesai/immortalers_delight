@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "fd_rice",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:himekaido_seed"
+  }
+}

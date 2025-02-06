@@ -56,7 +56,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_SEED;
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     public static final RegistryObject<Item> TARTARE_CHICKEN;
-    public static final RegistryObject<Item> HIMEKAIDO_CUTS;
 
     static {
 
@@ -95,34 +94,37 @@ public class ImmortalersDelightItems {
         HIMEKAIDO_SEED = REGISTER.register("himekaido_seed",() ->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get(), new Item.Properties()));
         ROTTEN_FLESH_CUTS = item("rotten_flesh_cuts");
-        HIMEKAIDO_JELLY = item("himekaido_jelly");
-        HIMEKAIDO_CUTS = item("himekaido_cuts");
         /*
         姬海棠系列食物
          */
-        YOGURT = item("yogurt");
-        HIMEKAIDO = foodItem("himekaido",
-                ImmortalersDelightFoodProperties.HIMEKAIDO);
-        BAKED_POISONOUS_POTATO = foodItem("baked_poisonous_potato",
-                ImmortalersDelightFoodProperties.BAKED_POISONOUS_POTATO);
-        BRAISED_SPIDER_EYES_IN_GRAVY = foodItem("braised_spider_eyes_in_gravy",
-                ImmortalersDelightFoodProperties.BRAISED_SPIDER_EYES_IN_GRAVY);
-        TARTARE_CHICKEN = foodItem("tartare_chicken",
-                ImmortalersDelightFoodProperties.TARTARE_CHICKEN);
-        DIPPED_ROTTEN_FLESH = foodItem("dipped_rotten_flesh",
-                ImmortalersDelightFoodProperties.DIPPED_ROTTEN_FLESH);
-        CRISPY_YOGURT_ROTTEN_FLESH = foodItem("crispy_yogurt_rotten_flesh",
-                ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH);
-        MEATY_ROTTEN_TOMATO_BROTH = foodItem("meaty_rotten_tomato_broth",
-                ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH);
-        STUFFED_POISONOUS_POTATO = foodItem("stuffed_poisonous_potato",
-                ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO);
-        PUFFERFISH_ROLL = foodItem("pufferfish_roll",
-                ImmortalersDelightFoodProperties.PUFFERFISH_ROLL);
-        BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = foodItem("bowl_of_stewed_rotten_meat_in_clay_pot",
-                ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT);
+        HIMEKAIDO_JELLY = REGISTER.register("himekaido_jelly",() ->
+                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)
+                        .food(ImmortalersDelightFoodProperties.HIMEKAIDO_JELLY),true,false));
+        YOGURT = REGISTER.register("yogurt",() ->
+                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)
+                        .food(ImmortalersDelightFoodProperties.YOGURT),true,false));
+        HIMEKAIDO = fantasticFoodItem("himekaido",
+                ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, true, false);
+        BAKED_POISONOUS_POTATO = fantasticFoodItem("baked_poisonous_potato",
+                ImmortalersDelightFoodProperties.BAKED_POISONOUS_POTATO, Rarity.COMMON, true, false);
+        BRAISED_SPIDER_EYES_IN_GRAVY = fantasticFoodItem("braised_spider_eyes_in_gravy",
+                ImmortalersDelightFoodProperties.BRAISED_SPIDER_EYES_IN_GRAVY, Rarity.COMMON, true, true);
+        TARTARE_CHICKEN = fantasticFoodItem("tartare_chicken",
+                ImmortalersDelightFoodProperties.TARTARE_CHICKEN, Rarity.COMMON, true, true);
+        DIPPED_ROTTEN_FLESH = fantasticFoodItem("dipped_rotten_flesh",
+                ImmortalersDelightFoodProperties.DIPPED_ROTTEN_FLESH, Rarity.COMMON, true, false);
+        CRISPY_YOGURT_ROTTEN_FLESH = fantasticFoodItem("crispy_yogurt_rotten_flesh",
+                ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH, Rarity.COMMON, true, true);
+        MEATY_ROTTEN_TOMATO_BROTH = fantasticFoodItem("meaty_rotten_tomato_broth",
+                ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH, Rarity.COMMON,true,true);
+        STUFFED_POISONOUS_POTATO = fantasticFoodItem("stuffed_poisonous_potato",
+                ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO, Rarity.COMMON, true, false);
+        PUFFERFISH_ROLL = fantasticFoodItem("pufferfish_roll",
+                ImmortalersDelightFoodProperties.PUFFERFISH_ROLL,Rarity.COMMON,true,false);
+        BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT =fantasticFoodItem("bowl_of_stewed_rotten_meat_in_clay_pot",
+                ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT, Rarity.COMMON,true,true);
         GOLDEN_HIMEKAIDO = fantasticFoodItem("golden_himekaido",
-                ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE,true);
+                ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE,true,false);
         ENCHANTED_GOLDEN_HIMEKAIDO = REGISTER.register("enchanted_golden_himekaido",() ->
                 new EnchantedGoldenAppleItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO)));
 
@@ -142,7 +144,10 @@ public class ImmortalersDelightItems {
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean tool) {
         return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().food(foodProperties),tool));
     }
-    private static RegistryObject<Item> fantasticFoodItem(String pName,FoodProperties foodProperties,Rarity soCool, boolean tool) {
+    private static RegistryObject<Item> fantasticFoodItem(String pName,FoodProperties foodProperties,Rarity soCool, boolean tool,boolean isBowl) {
+        if (isBowl) {
+            return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().rarity(soCool).food(foodProperties).craftRemainder(Items.BOWL).stacksTo(16),tool));
+        }
         return REGISTER.register(pName, () -> new ConsumableItem(new Item.Properties().rarity(soCool).food(foodProperties),tool));
     }
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean tool,boolean cTool) {

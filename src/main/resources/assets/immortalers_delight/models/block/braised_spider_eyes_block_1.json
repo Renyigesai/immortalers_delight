@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/braised_spider_eyes_block",
+  "textures": {
+    "0": "immortalers_delight:block/braised_spider_eyes_block_1",
+		"particle": "immortalers_delight:block/braised_spider_eyes_block_1"
+  }
+}

@@ -55,9 +55,9 @@ public class ImmortalersDelightGroup {
                         /*
                         姬海棠系列物品
                          */
-                        //output.accept(ImmortalersDelightBlocks.BRAISED_SPIDER_EYES_BLOCK.get());
-                        //output.accept(ImmortalersDelightBlocks.STEWED_ROTTEN_MEAT_POT.get());
-                        output.accept(ImmortalersDelightItems.HIMEKAIDO_CUTS.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get());
+                        output.accept(ImmortalersDelightBlocks.BRAISED_SPIDER_EYES_BLOCK.get());
+                        output.accept(ImmortalersDelightBlocks.STEWED_ROTTEN_MEAT_POT.get());
                         output.accept(ImmortalersDelightItems.HIMEKAIDO_SEED.get());
                         output.accept(ImmortalersDelightItems.ROTTEN_FLESH_CUTS.get());
                         output.accept(ImmortalersDelightItems.HIMEKAIDO_JELLY.get());

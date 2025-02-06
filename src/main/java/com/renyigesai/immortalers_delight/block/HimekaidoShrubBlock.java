@@ -1,138 +1,151 @@
 package com.renyigesai.immortalers_delight.block;
 
-import com.renyigesai.immortalers_delight.world.tree.BigOakTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.world.tree.BigOakTreeGrower;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 
-import java.util.Random;
-
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks.*;
+import java.util.List;
 
 
-public class HimekaidoShrubBlock extends EvolutcornBlock {
+public class HimekaidoShrubBlock extends ReapCropBlock {
+    public static final int FRUITED_AGE = 3;
     public HimekaidoShrubBlock(Properties p_52247_) {
         super(p_52247_);
     }
-    /*
-    AABB（Axis-Aligned Bounding Box，轴对齐包围盒）的偏移量
-     */
-    protected static final int AABB_OFFSET = 1;
-    /*
-    仙人掌的碰撞形状
-     */
-    protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
-    /*
-    仙人掌的轮廓形状
-     */
-    protected static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-
-    /*
-    获取仙人掌的碰撞形状
-     */
-    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return COLLISION_SHAPE;
+    protected static final int EXTRA_HARVEST_AGE = 6;
+    private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
+            Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D),
+            Block.box(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D),
+            Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)
+    };
+    public VoxelShape getShape(BlockState p_51330_, BlockGetter p_51331_, BlockPos p_51332_, CollisionContext p_51333_) {
+        return SHAPE_BY_AGE[this.getAge(p_51330_)];
     }
 
     /*
-    获取仙人掌的轮廓形状
+    生长逻辑，在生长时如果大于阶段3（默认结果状态），反而回退生长阶段
      */
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return OUTLINE_SHAPE;
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+        if (pLevel.getRawBrightness(pPos, 0) >= 9) {
+            int i = this.getAge(pState);
+            if (i < this.getMaxAge()) {
+                if (i > FRUITED_AGE) {
+                    pLevel.setBlock(pPos, this.getStateForAge(i - 1), 2);
+                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                }
+                if (i < FRUITED_AGE) {
+                    float f = getGrowthSpeed(this, pLevel, pPos);
+                    if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(100.0F / f) + 1) == 0)) {
+                        pLevel.setBlock(pPos, this.getStateForAge(i + 1), 2);
+                        net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    }
+                }
+            }
+        }
+    }
+    @Override
+    protected ItemLike getBaseSeedId() {
+        return ImmortalersDelightItems.HIMEKAIDO_SEED.get();
     }
     /**
      * 巨大化
      */
     public void performBonemeal(ServerLevel p_221040_, RandomSource p_221041_, BlockPos p_221042_, BlockState p_221043_) {
-        Random rand = new Random(p_221041_.nextLong());
-        if (rand.nextInt(10) == 0) {
+        /*
+        巨大化条件：此处要求阶段6且生长速度不小于9
+         */
+        if (this.getAge(p_221043_) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, p_221040_, p_221042_) >= 9.0f) {
             BigOakTreeGrower tree = new BigOakTreeGrower(
-                    HIMEKAIDO_LOG.get().defaultBlockState(),
-                    HIMEKAIDO_LEAVES.get().defaultBlockState(),
-                    HIMEKAIDO_SHRUB.get().defaultBlockState()
+                    ImmortalersDelightBlocks.HIMEKAIDO_LOG.get().defaultBlockState(),
+                    ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState(),
+                    ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get().defaultBlockState()
             );
-            tree.setBigTrunkSize(true);
-            tree.setHeight(4,8);
-            tree.setLeafDistanceLimit(5);
+            tree.setHeight(8,5);
+            tree.setLeafDistanceLimit(3);
             tree.generate(p_221040_, p_221041_, p_221042_);
         }
-        else this.growCrops(p_221040_, p_221042_, p_221043_);
+        else p_221040_.setBlock(p_221042_, this.getStateForAge( this.getAge(p_221043_) + 1), 2);
     }
     /**
-     * 定义收获的行为逻辑，代码来源于玩家与南瓜方块交互的方法
-     */
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        /*
-        检查玩家手中物品是否可以执行雕刻操作（如剪刀）
-         */
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.canPerformAction(net.minecraftforge.common.ToolActions.SHEARS_CARVE)) {
-            if (!pLevel.isClientSide) {
-                /*
-                判断方块状态，如果不是指定的收获阶段，直接返回
-                 */
-                if (!(pState == this.defaultBlockState().setValue(AGE,MAX_AGE))) {
-                    return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-                }
-                /*
-                在服务器端播放南瓜雕刻的声音
-                 */
-                pLevel.playSound((Player)null, pPos, SoundEvents.PUMPKIN_CARVE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                /*
-                使方块回到指定的生长状态（默认从头开始生长)
-                 */
-                pLevel.setBlock(pPos, this.defaultBlockState().setValue(AGE, 0), 11);
-                /*
-                调用资源掉落方法
-                 */
-                dropResources(pState, pLevel, pPos);
-                /*
-                在指定位置生成一个包含 4 个南瓜种子的物品实体，并设置其运动速度和方向，这个方法已被弃用
-                 */
-//                ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + 0.5D + (double)direction1.getStepX() * 0.65D, (double)pPos.getY() + 0.1D, (double)pPos.getZ() + 0.5D + (double)direction1.getStepZ() * 0.65D, new ItemStack(Items.PUMPKIN_SEEDS, 4));
-//                itementity.setDeltaMovement(0.05D * (double)direction1.getStepX() + pLevel.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double)direction1.getStepZ() + pLevel.random.nextDouble() * 0.02D);
-//                pLevel.addFreshEntity(itementity);
-                /*
-                 对玩家手中的工具造成 1 点耐久损耗，并触发物品损坏事件
-                 */
-                itemstack.hurtAndBreak(1, pPlayer, (p_55287_) -> {
-                    p_55287_.broadcastBreakEvent(pHand);
-                });
-                /*
-                 触发游戏事件，表示玩家进行了雕刻操作
-                 */
-                pLevel.gameEvent(pPlayer, GameEvent.SHEAR, pPos);
-                /*
-                 给玩家增加使用剪刀的统计数据
-                 */
-                pPlayer.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+     * 定义收获的行为逻辑，并给玩家进行巨大化操作的空间
+     */@Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        int age = state.getValue(AGE);
+        if (age == FRUITED_AGE) {
+            ItemStack hand_stack = player.getItemInHand(hand);
+            /*
+            在阶段3（正常生长的结果阶段），如果不是使用骨粉或生长速度小于5，使用收获方法
+            也就是生长速度小于3收获方法会挤掉骨粉的操作，使得无法催大达到过度生长阶段
+             */
+            if (!(hand_stack.getItem() instanceof BoneMealItem) || getGrowthSpeed(this, level, pos) <= 5.0f) {
+                harvest(state,level,pos,1);
+                return InteractionResult.SUCCESS;
             }
-
             /*
-            根据是否是客户端返回相应的交互结果
+            对if逻辑进行分析可以发现如果阶段3下满足了生长速度，那么使用骨粉时不会触发收获，也就是骨粉将生效，将灌木催大达到过度生长阶段
              */
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
-        } else {
+        } else if (age == EXTRA_HARVEST_AGE || age == MAX_AGE) {
             /*
-            如果玩家手中物品不能雕刻南瓜，则调用父类的交互方法
+            如果是6阶段或7阶段，均可收获
              */
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+            ItemStack hand_stack = player.getItemInHand(hand);
+            if (!(hand_stack.getItem() instanceof BoneMealItem)) {
+                harvest(state,level,pos,1);
+                return InteractionResult.SUCCESS;
+            }
         }
+        /*
+        不满足收获条件，返回父类，骨粉的逻辑在此后处理
+         */
+        return super.use(state, level, pos, player, hand, hitResult);
     }
+    /*
+    收获时用于生成掉落物，以及设置到指定的生长阶段，在超生长阶段回到阶段3也就是能马上再收获一次
+     */
+    public void harvest(BlockState state, Level level, BlockPos pos,int pAge) {
+        boolean temp = false;
+        if (level instanceof ServerLevel level1) {
+            /*
+            遍历战利品表
+             */
+            List<ItemStack> stacks = getDrops(state, level1, pos, null);
+            if (!stacks.isEmpty()){
+                for (ItemStack stack : stacks) {
+                    popResource(level, pos, stack);
+                }
+                temp = true;
+            }
+        }
+        if (temp){
+            /*
+            设置收获后的生长阶段
+             */
+            level.setBlock(pos,state.setValue(AGE,pAge),3);
+            //level.playSound((Player)null, pos, (SoundEvent) ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+            return;
+        }
+        return;
+     }
 }

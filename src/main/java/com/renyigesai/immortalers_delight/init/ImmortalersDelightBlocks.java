@@ -4,13 +4,16 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -53,8 +56,28 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> HIMEKAIDO_SHRUB = registerBlock("himekaido_shrub",() ->
             new HimekaidoShrubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).noCollission().randomTicks().instabreak()));
 
-    public static final RegistryObject<Block> HIMEKAIDO_LEAVES = registerBlock("himekaido_leaves",() ->
-            new HimekaidoLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> HIMEKAIDO_LEAVES = registerBlock("himekaido_leaves",
+            () -> new HimekaidoLeavesGrowing(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction)
+                {
+                    return true;
+                }
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction)
+                {
+                    return 32;
+                }
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction)
+                {
+                    return 65;
+                }
+            }
+    );
+
+    public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = registerBlock("himekaido_fruited_leaves",() ->
+            new HimekaidoLeavesFruited(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
 
     public static final RegistryObject<Block> HIMEKAIDO_PLANKS = registerBlock("himekaido_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
@@ -100,6 +123,7 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> ZEA_PANCAKE = registerBlock("zea_pancake",()->
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     static {
 
         ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
@@ -108,6 +132,11 @@ public class ImmortalersDelightBlocks {
         ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
     }
+
+    public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = registerBlock("stewed_rotten_meat_pot",()->
+            new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT)));
+    public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = registerBlock("braised_spider_eyes_block",()->
+            new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
 
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {

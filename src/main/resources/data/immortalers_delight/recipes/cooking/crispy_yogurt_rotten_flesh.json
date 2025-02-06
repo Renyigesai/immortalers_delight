@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido_jelly"
+    },
+    {
+      "item": "mmortalers_delight:rotten_flesh_cuts"
+    },
+    {
+      "item": "mmortalers_delight:rotten_flesh_cuts"
+    },
+    {
+      "item": "mmortalers_delight:rotten_flesh_cuts"
+    },
+    {
+      "item": "mmortalers_delight:rotten_flesh_cuts"
+    },
+    {
+      "tag": "forge:yogurt"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:crispy_yogurt_rotten_flesh"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

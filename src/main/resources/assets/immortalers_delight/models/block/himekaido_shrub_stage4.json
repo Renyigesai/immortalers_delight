@@ -1,0 +1,6 @@
+{
+  "parent": "immortalers_delight:block/shrub",
+  "textures": {
+    "crop": "immortalers_delight:block/himekaido_shrub_stage4"
+  }
+}

@@ -66,12 +66,18 @@ public class ImmortalersDelightFoodProperties {
     姬海棠系列食物
      */
     public static final FoodProperties HIMEKAIDO = new FoodProperties.Builder()
-            .nutrition(2)
-            .saturationMod(0.3f)
+            .nutrition(3)
+            .saturationMod(0.6f)
             .effect(() -> {
-                return new MobEffectInstance((MobEffect)ImmortalersDelightMobEffect.RELIEVE_POISON.get(), 500, 0);
+                return new MobEffectInstance((MobEffect)ImmortalersDelightMobEffect.RELIEVE_POISON.get(), 25, 0);
             }, 1.0F)
             .build();
+    public static final FoodProperties HIMEKAIDO_JELLY = new FoodProperties.Builder().alwaysEat()
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),120,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.SATURATION,4,0),1.0F).build();
+    public static final FoodProperties YOGURT = new FoodProperties.Builder().alwaysEat()
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),400,0),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.SATURATION,4,0),0.51F).build();
     public static final FoodProperties BAKED_POISONOUS_POTATO = new FoodProperties.Builder()
             .nutrition(6)
             .saturationMod(0.55f)
