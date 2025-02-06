@@ -29,16 +29,16 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
         RenderSystem.setShaderTexture(0, TEXTURE);
 
         // 计算 GUI 的左上角位置
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+//        int x = (width - imageWidth) / 2;
+//        int y = (height - imageHeight) / 2;
 
         // 绘制背景
-        pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(TEXTURE, mouseX, mouseY, 0, 0, imageWidth, imageHeight);
 
         // 绘制进度条
         int progress = menu.getBlockEntity().cookingTotalTime;
         int progressWidth = (int) (24 * (progress / 100.0f)); // 根据进度计算宽度
-        pGuiGraphics.blit(TEXTURE, x + 89, y + 34, 176, 0, progressWidth, 17); // 绘制进度条
+        pGuiGraphics.blit(TEXTURE, mouseX + 89, mouseY + 34, 176, 0, progressWidth, 17); // 绘制进度条
     }
 
     @Override

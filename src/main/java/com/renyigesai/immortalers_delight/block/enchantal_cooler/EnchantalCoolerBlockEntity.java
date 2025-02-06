@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
@@ -11,25 +12,35 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
+import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity {
 
     private final ItemStackHandler inventory = new ItemStackHandler(5); // 5 个槽位
     public int cookingTotalTime;
+    private ResourceLocation[] lastRecipeIDs;
 
     public EnchantalCoolerBlockEntity(BlockPos pos, BlockState state) {
         super(ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(), pos, state);
+        lastRecipeIDs = new ResourceLocation[3];
+
     }
 
     public void addItem(ItemStack item) {
@@ -158,41 +169,83 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity {
                 (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
+    public static void updateBlock(EnchantalCoolerBlockEntity enchantalCoolerBlockEntity) {
+        Level world = enchantalCoolerBlockEntity.getLevel();
+        BlockPos pos = enchantalCoolerBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
+
     public static void craftTick(Level level, BlockPos pos, BlockState state, EnchantalCoolerBlockEntity blockEntity) {
-        blockEntity.craftItem(level, blockEntity, pos, state);
+        blockEntity.craftItem(level, pos, state, blockEntity);
         setChanged(level, pos, state);
         if (!level.isClientSide) {
             level.sendBlockUpdated(pos, state, state, 3);
         }
     }
 
-    //bug待修
-    private void craftItem(Level level, EnchantalCoolerBlockEntity blockEntity, BlockPos pos, BlockState state) {
-        boolean temp = false;
-        for (int i = 0; i < 4; i++) {
+    private void craftItem(Level level, BlockPos pos, BlockState state, EnchantalCoolerBlockEntity blockEntity){
+        int size = this.inventory.getSlots() - 1;
+        boolean craft = true;
+        Optional<EnchantalCoolerRecipe> recipe = Optional.empty();
+        ItemStack[] recipeArr;
+        for (int i = 0; i < size; i++) {
             ItemStack slotStack = inventory.getStackInSlot(i);
-            if (!slotStack.isEmpty()) {
-                Optional<EnchantalCoolerRecipe> recipe = getCurrentRecipe(i);
-                if (recipe.isPresent()) {
-                    if (cookingTotalTime < 100) {
-                        cookingTotalTime++;
-                    } else {
-                        cookingTotalTime = 0;
-                        ItemStack resultItem = recipe.get().getResultItem(level.registryAccess());
-                        inventory.setStackInSlot(i, ItemStack.EMPTY);
-                        inventory.setStackInSlot(4, resultItem);
-                        temp = true;
+            if (!slotStack.isEmpty()){
+                recipe = getCurrentRecipe(i);
+                if (recipe.isPresent()&& !recipe.get().getIngredients().isEmpty()){
+                    if (recipe.get().getIngredients().get(0).test(slotStack)){
+                        recipeArr = recipe.get().getIngredients().get(0).getItems();
+                        if (!recipeArr[i].is(slotStack.getItem())){
+                            craft = false;
+                            break;
+                        }
+                    }else {
+                        craft = false;
                     }
+                }else {
+                    craft = false;
                 }
-            } else {
-                cookingTotalTime = 0;
+            }else {
+                craft = false;
             }
         }
-        if (temp) {
-            setChanged();
-            level.sendBlockUpdated(pos, state, state, 3);
+        if (craft){
+            ItemStack resultItemTemp = recipe.get().getResultItem(null);
+            ItemStack resultItem = new ItemStack(resultItemTemp.getItem(), resultItemTemp.getCount());
+            if (!resultItem.isEmpty()){
+                if (cookingTotalTime < 200){
+                    cookingTotalTime ++;
+                }else {
+                    cookingTotalTime = 0;
+                    for (int i = 0; i < size; i++) {
+                        ItemStack removeItem = this.inventory.getStackInSlot(i);
+                        removeItem.shrink(1);
+                    }
+                    this.inventory.setStackInSlot(4, resultItem);
+                    updateBlock(blockEntity);
+                    level.sendBlockUpdated(pos, state, state, 3);
+                }
+            }
         }
     }
+
+//    public Optional<CampfireCookingRecipe> getMatchingRecipe(Container recipeWrapper, int slot) {
+//        if (level == null) return Optional.empty();
+//
+//        if (lastRecipeIDs[slot] != null) {
+//            Recipe<Container> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
+//                    .getRecipeMap(ImmortalersDelightRecipeTypes.SERIALIZERS)
+//                    .get(lastRecipeIDs[slot]);
+//            if (recipe instanceof CampfireCookingRecipe && recipe.matches(recipeWrapper, level)) {
+//                return Optional.of((CampfireCookingRecipe) recipe);
+//            }
+//        }
+//
+//        return level.getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING, recipeWrapper, level);
+//    }
+
 
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe(int slot) {
         ItemStack stack = inventory.getStackInSlot(slot);
@@ -201,4 +254,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity {
         }
         return Optional.empty();
     }
+
+
 }

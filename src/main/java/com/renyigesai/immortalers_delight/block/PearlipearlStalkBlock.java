@@ -20,12 +20,12 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 
-public class BananaStalkBlock extends Block implements IPlantable {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
-    public static final BooleanProperty IS_FRUIT = BooleanProperty.create("is_fruit");
-    public BananaStalkBlock(Properties p_49795_) {
+public class PearlipearlStalkBlock extends Block implements IPlantable {
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+    public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
+    public PearlipearlStalkBlock(Properties p_49795_) {
         super(p_49795_);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(IS_FRUIT,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(IS_LEAVES,false));
     }
 
     public void tick(BlockState p_222543_, ServerLevel p_222544_, BlockPos p_222545_, RandomSource p_222546_) {
@@ -42,38 +42,42 @@ public class BananaStalkBlock extends Block implements IPlantable {
             }
             if (ForgeHooks.onCropsGrowPre(level, pos, state, randomSource.nextInt(3) == 0)) {
                 int age = state.getValue(AGE);
-                boolean is_fruit = state.getValue(IS_FRUIT);
-                /*最大高度小于4时尝试向上生长一次*/
-                if (i < 4){
-                    /*每个茎age需达到7才能向上生长*/
-                    if (age < 7){
-                        level.setBlock(pos, state.setValue(AGE, age + 1), 3);
-                        ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
-                    }else {
-                            level.setBlock(pos, state.setValue(AGE, 0), 3);
-                            level.setBlockAndUpdate(pos.above(),
-                                    ImmortalersDelightBlocks.BANANA_STALK.get().defaultBlockState());
-                    }
-                    /*到达最大高度时再开始尝试结果（单独的一个方块状态后面调用模型会更简单）*/
+                /*最大高度小于3时尝试向上生长一次*/
+                if (i < 3){
+                    level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
+//                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
+                    ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
                 }else {
-                    level.setBlock(pos, state.setValue(IS_FRUIT, true), 3);
-                }
-                if (is_fruit){
-                    /*尝试结果，不太会方向，后期需要更改*/
-                    Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
-                    BlockPos blockpos = pos.relative(direction);
-                    BlockState blockstate1 = level.getBlockState(blockpos.east());
-                    BlockState blockstate2 = level.getBlockState(blockpos.south());
-                    BlockState blockstate3 = level.getBlockState(blockpos.west());
-                    BlockState blockstate4 = level.getBlockState(blockpos.north());
-                    boolean temp = blockstate1.isAir() ||
-                                   blockstate2.isAir() ||
-                                   blockstate3.isAir() ||
-                                   blockstate4.isAir();
-                    if (temp){
-                        level.setBlockAndUpdate(blockpos, Blocks.STONE.defaultBlockState());
+                    if (age < 2){
+                        /*每个茎age需达到3才能变粗*/
+                        for (int j = 0; j < 3; j++) {
+                            boolean b = j != 2 && j != 1;
+                            int n = level.getBlockState(pos.below(j)).getValue(AGE)!= 2?level.getBlockState(pos.below(j)).getValue(AGE)+1:2;
+                            level.setBlock(pos.below(j),state.setValue(AGE,n).setValue(IS_LEAVES,b), 3);
+                        }
                     }
                 }
+
+                if (age == 2 && i == 3){
+
+                }
+//                    level.setBlock(pos, state.setValue(IS_FRUIT, true), 3);
+//                if (is_fruit){
+//                    /*尝试结果，不太会方向，后期需要更改*/
+//                    Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
+//                    BlockPos blockpos = pos.relative(direction);
+//                    BlockState blockstate1 = level.getBlockState(blockpos.east());
+//                    BlockState blockstate2 = level.getBlockState(blockpos.south());
+//                    BlockState blockstate3 = level.getBlockState(blockpos.west());
+//                    BlockState blockstate4 = level.getBlockState(blockpos.north());
+//                    boolean temp = blockstate1.isAir() ||
+//                                   blockstate2.isAir() ||
+//                                   blockstate3.isAir() ||
+//                                   blockstate4.isAir();
+//                    if (temp){
+//                        level.setBlockAndUpdate(blockpos, Blocks.STONE.defaultBlockState());
+//                    }
+//                }
             }
         }
     }
@@ -111,7 +115,7 @@ public class BananaStalkBlock extends Block implements IPlantable {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(AGE,IS_FRUIT);
+        stateBuilder.add(AGE,IS_LEAVES);
     }
 
     @Override
