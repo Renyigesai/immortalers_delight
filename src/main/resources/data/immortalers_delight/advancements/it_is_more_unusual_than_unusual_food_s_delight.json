@@ -1,0 +1,130 @@
+{
+  "parent": "immortalers_delight:root",
+  "criteria": {
+    "b": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:bowl_of_stewed_rotten_meat_in_clay_pot"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "c": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:braised_spider_eyes_in_gravy"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "d": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:tartare_chicken"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "e": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:dipped_rotten_flesh"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "f": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:meaty_rotten_tomato_broth"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "g": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:stuffed_poisonous_potato"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "h": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:pufferfish_roll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "i": {
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:crispy_yogurt_rotten_flesh"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.immortalers_delight.it_is_more_unusual_than_unusual_food_s_delight.descr"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:stuffed_poisonous_potato"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.immortalers_delight.it_is_more_unusual_than_unusual_food_s_delight.title"
+    }
+  },
+  "requirements": [
+    [
+      "b"
+    ],
+    [
+      "c"
+    ],
+    [
+      "d"
+    ],
+    [
+      "e"
+    ],
+    [
+      "f"
+    ],
+    [
+      "g"
+    ],
+    [
+      "h"
+    ],
+    [
+      "i"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}
