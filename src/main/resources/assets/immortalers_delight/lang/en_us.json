@@ -59,6 +59,7 @@
   "block.immortalers_delight.himekaido_shrub": "Himekaido Shrub",
   "block.immortalers_delight.stewed_rotten_meat_pot": "Stewed Rotten Meat Pot",
   "block.immortalers_delight.braised_spider_eyes_block": "Braised Spider Eyes in Gravy",
+  "block.immortalers_delight.spoon_block.tips.1": "You need a bowl to eat it.",
   "effect.immortalers_delight.weak_poison": "Weak Poison",
   "effect.immortalers_delight.weak_wither": "Weak Wither",
   "effect.immortalers_delight.relieve_poison": "Relieve Poison",
@@ -66,5 +67,8 @@
   "effect.immortalers_delight.resistance_to_arthropod": "Resistance to Arthropod",
   "effect.immortalers_delight.resistance_to_abyssal": "Resistance to Abyssal",
   "effect.immortalers_delight.resistance_to_illager": "Resistance to Illager",
-  "effect.immortalers_delight.magical_reverse": "Magical Reverse"
+  "effect.immortalers_delight.magical_reverse": "Magical Reverse",
+  "advancements.immortalers_delight.immortalers_delight.title": "Immortalers Delight",
+  "advancements.immortalers_delight.immortalers_delight.descr": "An ancient taste, waiting to be unearthed."
+
 }

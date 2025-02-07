@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
@@ -28,6 +30,18 @@ public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements 
         super(p_54120_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, Integer.valueOf(0)));
     }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(FACING)) {
+            default -> box(3, 0, 6, 13, 12, 16);
+            case NORTH -> box(3, 0, 0, 13, 12, 10);
+            case EAST -> box(6, 0, 3, 16, 12, 13);
+            case WEST -> box(0, 0, 3, 10, 12, 13);
+        };
+    }
+
+
 
     public void randomTick(BlockState p_221000_, ServerLevel p_221001_, BlockPos p_221002_, RandomSource p_221003_) {
         if (true) {

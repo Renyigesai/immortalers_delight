@@ -37,7 +37,6 @@
   "block.immortalers_delight.zea_pancake": "玉黍烙",
   "block.immortalers_delight.millenian_bamboo": "千年竹",
   "effect.immortalers_delight.incandescence": "灼热",
-
   "item.immortalers_delight.himekaido_cuts": "姬海棠果粒",
   "item.immortalers_delight.himekaido_seed": "姬海棠种子",
   "item.immortalers_delight.rotten_flesh_cuts": "腐肉碎",
@@ -59,6 +58,7 @@
   "block.immortalers_delight.himekaido_shrub": "姬海棠灌木",
   "block.immortalers_delight.stewed_rotten_meat_pot": "瓦罐烂肉炖",
   "block.immortalers_delight.braised_spider_eyes_block": "四眼丸子",
+  "block.immortalers_delight.spoon_block.tips.1": "你需要一个碗以食用它。",
   "effect.immortalers_delight.weak_poison": "弱中毒",
   "effect.immortalers_delight.weak_wither": "弱凋零",
   "effect.immortalers_delight.relieve_poison": "解毒",
@@ -66,6 +66,8 @@
   "effect.immortalers_delight.resistance_to_arthropod": "虫毒抵抗",
   "effect.immortalers_delight.resistance_to_abyssal": "渊毒抵抗",
   "effect.immortalers_delight.resistance_to_illager": "厄毒抵抗",
-  "effect.immortalers_delight.magical_reverse": "奇迹般的转变"
+  "effect.immortalers_delight.magical_reverse": "奇迹般的转变",
+  "advancements.immortalers_delight.immortalers_delight.title": "千古乐事",
+  "advancements.immortalers_delight.immortalers_delight.descr": "远古之味，静待出土。"
 
 }
