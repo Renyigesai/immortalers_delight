@@ -1,0 +1,38 @@
+{
+  "parent": "immortalers_delight:root",
+  "criteria": {
+    "pearlipearl": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:pearlipearl"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "immortalers_delight.advancement.get_pearlipearl.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "immortalers_delight.advancement.get_pearlipearl"
+    }
+  },
+  "requirements": [
+    [
+      "pearlipearl"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

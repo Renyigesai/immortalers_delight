@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "seeds": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "immortalers_delight:textures/block/himekaido_log.png",
+    "description": {
+      "translate": "immortalers_delight.advancement.root.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "immortalers_delight.advancement.root"
+    }
+  },
+  "requirements": [
+    [
+      "seeds"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
