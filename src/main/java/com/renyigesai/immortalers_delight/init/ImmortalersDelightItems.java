@@ -26,7 +26,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ROAST_EVOLUTCORN;
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
     public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
-    public static final RegistryObject<Item> PEARLIPEARL_STALK;
+//    public static final RegistryObject<Item> PEARLIPEARL_STALK;
     public static final RegistryObject<Item> POPOLUTCORN;
     public static final RegistryObject<Item> PEARLIPEARL;
     public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
@@ -63,8 +63,8 @@ public class ImmortalersDelightItems {
         //Items
         ANCIENT_FIBER = REGISTER.register("ancient_fiber",() -> new Item(new Item.Properties()));
         PEARLIP_SHELL = item("pearlip_shell");
-        PEARLIPEARL_STALK = block(ImmortalersDelightBlocks.PEARLIPEARL_STALK);
-        PEARLIP = foodItem("pearlip",ImmortalersDelightFoodProperties.PEARLIP);
+//        PEARLIPEARL_STALK = block(ImmortalersDelightBlocks.PEARLIPEARL_STALK);
+        PEARLIP = REGISTER.register ("pearlip",()-> new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_BUNDLE.get(),new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIP)));
 
         //Foods
         BOWL_OF_MILLENIAN_BAMBOO = REGISTER.register("bowl_of_millenian_bamboo",()->
@@ -77,7 +77,7 @@ public class ImmortalersDelightItems {
                 new ItemNameBlockItem(ImmortalersDelightBlocks.EVOLUTCORN.get(),new Item.Properties().food( ImmortalersDelightFoodProperties.EVOLUTCORN_GRAINS)));
         ROAST_EVOLUTCORN_CHOPS = foodItem("roast_evolutcorn_chops",ImmortalersDelightFoodProperties.ROAST_EVOLUTCORN_CHOPS);
         POPOLUTCORN = REGISTER.register("popolutcorn",() -> new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POPOLUTCORN),true));
-        PEARLIPEARL = foodItem("pearlipearl",ImmortalersDelightFoodProperties.PEARLIPEARL);
+        PEARLIPEARL = REGISTER.register ("pearlipearl",()-> new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get(),new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIPEARL)));
         PEATIC_MUSA_SALAD = REGISTER.register("peatic_musa_salad",() ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD),true));
         PEARLIP_MILK_SHAKE = REGISTER.register("pearlip_milk_shake",() ->

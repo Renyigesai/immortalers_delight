@@ -24,7 +24,8 @@ public class ReapCropBlock extends CropBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int age = state.getValue(AGE);
-        if (age == MAX_AGE) {
+        ItemStack handStack = player.getItemInHand(hand);
+        if (age == MAX_AGE && handStack.isEmpty()) {
             boolean temp = false;
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);

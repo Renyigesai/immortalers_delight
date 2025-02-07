@@ -2,32 +2,26 @@
   "type": "minecraft:gift",
   "pools": [
     {
+      "rolls": 1,
       "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:pearlip",
-          "conditions": [
-            {
-              "condition": "minecraft:location_check",
-              "predicate": {
-                "biome": "minecraft:jungle"
-              }
-            }
-          ]
+          "name": "immortalers_delight:evolutcorn_grains"
         },
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:evolutcorn_grains",
-          "conditions": [
-            {
-              "condition": "minecraft:location_check",
-              "predicate": {
-                "biome": "minecraft:plains"
-              }
-            }
-          ]
+          "name": "immortalers_delight:pearlip"
         },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:himekaido_seed"
+        }
+      ]
+    },
+    {
+      "bonus_rolls": 0,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:torchflower_seeds"
@@ -37,7 +31,15 @@
           "name": "minecraft:pitcher_pod"
         }
       ],
-      "rolls": 1
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:location_check",
+          "predicate": {
+            "biome": "minecraft:plains"
+          }
+        }
+      ]
     }
   ],
   "random_sequence": "minecraft:gameplay/sniffer_digging"
