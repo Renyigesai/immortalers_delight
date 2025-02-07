@@ -35,6 +35,8 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack handStack = player.getItemInHand(hand);
+        if (handStack.isEmpty()){
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);
                 if (!stacks.isEmpty()){
@@ -44,6 +46,7 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
                     level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState());
                     return InteractionResult.SUCCESS;
                 }
+            }
             }
         return super.use(state, level, pos, player, hand, hitResult);
     }
