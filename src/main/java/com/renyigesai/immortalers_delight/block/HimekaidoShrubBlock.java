@@ -76,7 +76,7 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
         /*
         巨大化条件：此处要求阶段6且生长速度不小于9
          */
-        if (this.getAge(p_221043_) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, p_221040_, p_221042_) >= 9.0f) {
+        if (this.getAge(p_221043_) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, p_221040_, p_221042_) >= 3.0f) {
             BigOakTreeGrower tree = new BigOakTreeGrower(
                     ImmortalersDelightBlocks.HIMEKAIDO_LOG.get().defaultBlockState(),
                     ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState(),
@@ -99,7 +99,7 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
             在阶段3（正常生长的结果阶段），如果不是使用骨粉或生长速度小于5，使用收获方法
             也就是生长速度小于3收获方法会挤掉骨粉的操作，使得无法催大达到过度生长阶段
              */
-            if (!(hand_stack.getItem() instanceof BoneMealItem) || getGrowthSpeed(this, level, pos) <= 5.0f) {
+            if (!(hand_stack.getItem() instanceof BoneMealItem) || getGrowthSpeed(this, level, pos) <= 3.0f) {
                 harvest(state,level,pos,1);
                 return InteractionResult.SUCCESS;
             }

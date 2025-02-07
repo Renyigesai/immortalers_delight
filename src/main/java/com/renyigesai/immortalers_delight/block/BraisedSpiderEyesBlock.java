@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -45,7 +46,7 @@ public class BraisedSpiderEyesBlock extends HorizontalDirectionalBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
             if (hand_stack.is(Items.BOWL)) {
-                return cut(state, level, pos, player);
+                return takeServing(state, level, pos, player);
             }
             if (!hand_stack.is(Items.BOWL)){
                 return eat(state, level, pos, player);
@@ -65,23 +66,23 @@ public class BraisedSpiderEyesBlock extends HorizontalDirectionalBlock {
                     return InteractionResult.PASS;
                 }
             }else {
-                Direction direction = player.getDirection().getOpposite();
-                level.removeBlock(pos, false);
-                ItemUtils.spawnItemEntity(level,new ItemStack(Items.BOWL),(double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
+                level.destroyBlock(pos, false);
+                vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
+                        new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
                 level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             }
             return InteractionResult.SUCCESS;
     }
 
-    public InteractionResult cut(BlockState state, Level level, BlockPos pos, Player player){
+    public InteractionResult takeServing(BlockState state, Level level, BlockPos pos, Player player){
         int bites = state.getValue(BITES);
-        Direction direction = player.getDirection().getOpposite();
         if (bites < 4){
             setBlock(bites,state,level,pos);
-            ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get()),(double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
+            ItemUtils.givePlayerItem(player,new ItemStack(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get()));
         }else {
-            level.removeBlock(pos, false);
-            ItemUtils.spawnItemEntity(level,new ItemStack(Items.BOWL),(double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
+            level.destroyBlock(pos, false);
+            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
+                    new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
         }
         level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;

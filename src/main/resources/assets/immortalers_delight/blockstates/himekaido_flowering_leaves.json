@@ -2,7 +2,7 @@
   
   "variants": {
     "": {
-      "model": "immortalers_delight:block/himekaido_leaves_stage0"
+      "model": "immortalers_delight:block/himekaido_leaves_stage1"
     },
     "age=1": {
       "model": "immortalers_delight:block/himekaido_leaves_stage0"
