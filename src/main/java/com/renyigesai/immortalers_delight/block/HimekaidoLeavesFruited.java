@@ -43,7 +43,8 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
                     for (ItemStack stack : stacks) {
                         popResource(level, pos, stack);
                     }
-                    level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState());
+                    int distance = state.getValue(DISTANCE);
+                    level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
                     return InteractionResult.SUCCESS;
                 }
             }
