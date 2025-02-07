@@ -7,37 +7,49 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:evolutcorn_grains"
+          "name": "minecraft:pitcher_pod"
         },
-        {
-          "type": "minecraft:item",
-          "name": "immortalers_delight:pearlip"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "immortalers_delight:himekaido_seed"
-        }
-      ]
-    },
-    {
-      "bonus_rolls": 0,
-      "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:torchflower_seeds"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:pitcher_pod"
-        }
-      ],
-      "rolls": 1,
-      "conditions": [
+          "name": "immortalers_delight:evolutcorn_grains",
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "biome": "minecraft:plains"
+              }
+            }
+          ]
+        },
         {
-          "condition": "minecraft:location_check",
-          "predicate": {
-            "biome": "minecraft:plains"
-          }
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pearlipearl",
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "biome": "minecraft:jungle"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:himekaido_seed",
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "biome": "minecraft:forest"
+              }
+            }
+          ]
         }
       ]
     }

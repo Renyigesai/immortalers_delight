@@ -2,8 +2,6 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
-import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
-import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -35,8 +33,8 @@ public class ImmortalersDelightBlocks {
 //    public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
 //            log(MapColor.WOOD, MapColor.PODZOL));
 
-        public static final RegistryObject<Block> ENCHANTAL_COOLER;
-        public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
+//        public static final RegistryObject<Block> ENCHANTAL_COOLER;
+//        public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -126,11 +124,11 @@ public class ImmortalersDelightBlocks {
 
     static {
 
-        ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
-                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
-
-        ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
-                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
+//        ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
+//                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+//
+//        ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
+//                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
     }
 
     public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = registerBlock("stewed_rotten_meat_pot",()->

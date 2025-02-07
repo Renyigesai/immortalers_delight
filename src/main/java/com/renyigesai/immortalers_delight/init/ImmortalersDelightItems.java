@@ -36,7 +36,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
     public static final RegistryObject<Item> PEARLIP_JELLY;
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
-    public static final RegistryObject<Item> ENCHANTAL_COOLER;
+//    public static final RegistryObject<Item> ENCHANTAL_COOLER;
 
     /*
     姬海棠系列物品
@@ -87,7 +87,7 @@ public class ImmortalersDelightItems {
         PEARLIP_JELLY = foodItem("pearlip_jelly",ImmortalersDelightFoodProperties.PEARLIP_JELLY,true);
         PEARLIPEARL_TART = foodItem("pearlipearl_tart",ImmortalersDelightFoodProperties.PEARLIPEARL_TART);
         ZEA_PANCAKE_SLICE = foodItem("zea_pancake_slice",ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE);
-        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
+//        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
 
         /*
         姬海棠系列材料
