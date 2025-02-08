@@ -1,0 +1,38 @@
+{
+  "parent": "immortalers_delight:wundor_forbodaeppel",
+  "criteria": {
+    "stewed_rotten_meat_pot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:stewed_rotten_meat_pot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:stewed_rotten_meat_pot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.immortalers_delight.get_stewed_rotten_meat_pot"
+    }
+  },
+  "requirements": [
+    [
+      "stewed_rotten_meat_pot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

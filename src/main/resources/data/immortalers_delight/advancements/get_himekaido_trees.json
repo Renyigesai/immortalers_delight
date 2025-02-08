@@ -1,0 +1,90 @@
+{
+  "parent": "immortalers_delight:wundor_forbodaeppel",
+  "criteria": {
+    "himekaido_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:himekaido_log"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "himekaido_wood": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:himekaido_wood"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "himekaido_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:himekaido_leaves"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "himekaido_fruited_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:himekaido_fruited_leaves"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "himekaido_flowering_leaves": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:himekaido_flowering_leaves"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.immortalers_delight.get_himekaido_trees.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:himekaido_fruited_leaves"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.immortalers_delight.get_himekaido_trees"
+    }
+  },
+  "requirements": [
+    [
+      "himekaido_log",
+      "himekaido_wood",
+      "himekaido_leaves",
+      "himekaido_flowering_leaves",
+      "himekaido_fruited_leaves"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
