@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:evolutcorn_grains"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:evolutcorn_grain_bag",
+    "count": 1
+  }
+}

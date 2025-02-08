@@ -4,7 +4,7 @@
   "ingredients": [
     {"item": "immortalers_delight:himekaido_jelly"},
     {"item": "farmersdelight:chicken_cuts"},
-    {"item": "farmersdelight:chicken_cuts"},
+    {"tag": "forge:raw_chicken"},
     {"item": "minecraft:spider_eye"},
     {"tag": "forge:eggs"},
     {"item": "minecraft:bowl"}

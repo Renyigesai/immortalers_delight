@@ -16,6 +16,12 @@ public class ImmortalersDelightGroup {
             CreativeModeTab.builder().icon(()-> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
                     .title(Component.translatable("creativetab_immortalers_delight_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
+
+                        output.accept(ImmortalersDelightBlocks.EVOLUTCORN_GRAIN_BAG.get());
+                        output.accept(ImmortalersDelightBlocks.HIMEKAIDO_CRATE.get());
+                        output.accept(ImmortalersDelightBlocks.PEARLIP_CRATE.get());
+                        output.accept(ImmortalersDelightBlocks.EVOLUTCORN_BLOCK.get());
+
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_LOG.get());
                         output.accept(ImmortalersDelightBlocks.STRIPPED_HIMEKAIDO_LOG.get());
                         output.accept(ImmortalersDelightBlocks.HIMEKAIDO_WOOD.get());

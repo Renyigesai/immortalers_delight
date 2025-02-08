@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "immortalers_delight:block/evolutcorn_grains_bag_bottom",
+    "east": "immortalers_delight:block/evolutcorn_grains_bag_side",
+    "north": "immortalers_delight:block/evolutcorn_grains_bag_side_tied",
+    "particle": "immortalers_delight:block/evolutcorn_grains_bag_top",
+    "south": "immortalers_delight:block/evolutcorn_grains_bag_side_tied",
+    "up": "immortalers_delight:block/evolutcorn_grains_bag_top",
+    "west": "immortalers_delight:block/evolutcorn_grains_bag_side"
+  }
+}

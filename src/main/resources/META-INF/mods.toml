@@ -19,7 +19,7 @@ description = '''${mod_description}'''
 
 logoFile = "logo.png"
 
-[[dependencies."immortalers_delight"]] #optional
+[[dependencies."immortalers_delight"]]
 
 modId = "forge"
 
