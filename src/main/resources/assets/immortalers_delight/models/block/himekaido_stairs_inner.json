@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "immortalers_delight:block/himekaido_planks",
-    "side": "immortalers_delight:block/himekaido_planks",
-    "top": "immortalers_delight:block/himekaido_planks"
-  }
-}

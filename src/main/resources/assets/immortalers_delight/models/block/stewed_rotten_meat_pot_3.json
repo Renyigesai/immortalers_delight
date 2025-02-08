@@ -1,7 +1,0 @@
-{
-  "parent": "immortalers_delight:block/stewed_rotten_meat_pot",
-  "textures": {
-    "1": "immortalers_delight:block/stewed_rotten_meat_pot_3",
-		"particle": "immortalers_delight:block/stewed_rotten_meat_pot_3"
-  }
-}

@@ -1,0 +1,56 @@
+{
+    "dependencies": [
+        {
+            "uuid": "d8eb8174-d18f-4705-b1da-7dc6cf0080e2",
+            "version": [
+                3,
+                0,
+                0
+            ]
+        },
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.15.0"
+        }
+    ],
+    "format_version": 2,
+    "header": {
+        "description": "pack.description",
+        "min_engine_version": [
+            1,
+            21,
+            60
+        ],
+        "name": "immortalers_delight",
+        "uuid": "bff50989-9f74-49a1-8342-3465cef7a563",
+        "version": [
+            3,
+            0,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "pack.description",
+            "type": "data",
+            "uuid": "b0855ccd-cdc8-4a27-ad17-cf00fcb261e3",
+            "version": [
+                3,
+                0,
+                0
+            ]
+        },
+        {
+            "description": "script",
+            "entry": "scripts/main.js",
+            "language": "javascript",
+            "type": "script",
+            "uuid": "c0290469-77f9-1f71-be52-f38c9e18abb0",
+            "version": [
+                3,
+                0,
+                0
+            ]
+        }
+    ]
+}

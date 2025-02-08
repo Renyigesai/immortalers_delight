@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "end": "immortalers_delight:block/himekaido_log_top",
-    "side": "immortalers_delight:block/himekaido_log"
-  }
-}

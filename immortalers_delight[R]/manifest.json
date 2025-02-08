@@ -1,0 +1,40 @@
+{
+    "dependencies": [
+        {
+            "uuid": "bff50989-9f74-49a1-8342-3465cef7a563",
+            "version": [
+                3,
+                0,
+                0
+            ]
+        }
+    ],
+    "format_version": 2,
+    "header": {
+        "description": "pack.description",
+        "min_engine_version": [
+            1,
+            21,
+            60
+        ],
+        "name": "immortalers_delight",
+        "uuid": "d8eb8174-d18f-4705-b1da-7dc6cf0080e2",
+        "version": [
+            3,
+            0,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "description": "pack.description",
+            "type": "resources",
+            "uuid": "cde1efa2-09fc-443a-9c46-9191296159ee",
+            "version": [
+                3,
+                0,
+                0
+            ]
+        }
+    ]
+}
