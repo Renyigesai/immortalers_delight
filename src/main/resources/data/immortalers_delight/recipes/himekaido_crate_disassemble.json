@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido_crate"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:himekaido",
+    "count": 9
+  }
+}

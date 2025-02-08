@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip_crate"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:pearlip",
+    "count": 9
+  }
+}
