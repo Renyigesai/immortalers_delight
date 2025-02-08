@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "immortalers_delight:braised_spider_eyes_in_gravy"
+        }
+      }
+    },
+    "description": {
+      "identifier": "immortalers_delight:braised_spider_eyes_in_gravy",
+      "menu_category": {
+        "category": "equipment",
+        "group": "farmersdelight:itemGroup.name.equipment"
+      }
+    }
+  }
+}

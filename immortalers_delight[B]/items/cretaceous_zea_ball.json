@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "immortalers_delight:cretaceous_zea_ball"
+        }
+      }
+    },
+    "description": {
+      "identifier": "immortalers_delight:cretaceous_zea_ball",
+      "menu_category": {
+        "category": "equipment",
+        "group": "farmersdelight:itemGroup.name.equipment"
+      }
+    }
+  }
+}

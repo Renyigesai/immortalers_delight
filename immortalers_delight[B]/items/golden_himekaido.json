@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "immortalers_delight:golden_himekaido"
+        }
+      }
+    },
+    "description": {
+      "identifier": "immortalers_delight:golden_himekaido",
+      "menu_category": {
+        "category": "equipment",
+        "group": "farmersdelight:itemGroup.name.equipment"
+      }
+    }
+  }
+}

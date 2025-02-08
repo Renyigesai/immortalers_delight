@@ -1,0 +1,126 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    "immortalers_delight:ancient_fiber": {
+      "textures": "textures/items/ancient_fiber"
+    },
+    "immortalers_delight:baked_poisonous_potato": {
+      "textures": "textures/items/baked_poisonous_potato"
+    },
+    "immortalers_delight:bowl_of_millenian_bamboo": {
+      "textures": "textures/items/bowl_of_millenian_bamboo"
+    },
+    "immortalers_delight:bowl_of_stewed_rotten_meat_in_clay_pot": {
+      "textures": "textures/items/bowl_of_stewed_rotten_meat_in_clay_pot"
+    },
+    "immortalers_delight:braised_spider_eyes_block": {
+      "textures": "textures/items/braised_spider_eyes_block"
+    },
+    "immortalers_delight:braised_spider_eyes_in_gravy": {
+      "textures": "textures/items/braised_spider_eyes_in_gravy"
+    },
+    "immortalers_delight:colorful_grilled_skewers": {
+      "textures": "textures/items/colorful_grilled_skewers"
+    },
+    "immortalers_delight:cretaceous_zea_ball": {
+      "textures": "textures/items/cretaceous_zea_ball"
+    },
+    "immortalers_delight:crispy_yogurt_rotten_flesh": {
+      "textures": "textures/items/crispy_yogurt_rotten_flesh"
+    },
+    "immortalers_delight:dipped_rotten_flesh": {
+      "textures": "textures/items/dipped_rotten_flesh"
+    },
+    "immortalers_delight:evolutcorn": {
+      "textures": "textures/items/evolutcorn"
+    },
+    "immortalers_delight:evolutcorn_grains": {
+      "textures": "textures/items/evolutcorn_grains"
+    },
+    "immortalers_delight:golden_himekaido": {
+      "textures": "textures/items/golden_himekaido"
+    },
+    "immortalers_delight:himekaido": {
+      "textures": "textures/items/himekaido"
+    },
+    "immortalers_delight:himekaido_door": {
+      "textures": "textures/items/himekaido_door"
+    },
+    "immortalers_delight:himekaido_jelly": {
+      "textures": "textures/items/himekaido_jelly"
+    },
+    "immortalers_delight:himekaido_seed": {
+      "textures": "textures/items/himekaido_seed"
+    },
+    "immortalers_delight:meaty_rotten_tomato_broth": {
+      "textures": "textures/items/meaty_rotten_tomato_broth"
+    },
+    "immortalers_delight:millenian_bamboo": {
+      "textures": "textures/items/millenian_bamboo"
+    },
+    "immortalers_delight:pearlip": {
+      "textures": "textures/items/pearlip"
+    },
+    "immortalers_delight:pearlip_jelly": {
+      "textures": "textures/items/pearlip_jelly"
+    },
+    "immortalers_delight:pearlip_milk_shake": {
+      "textures": "textures/items/pearlip_milk_shake"
+    },
+    "immortalers_delight:pearlip_pumpkin_pie": {
+      "textures": "textures/items/pearlip_pumpkin_pie"
+    },
+    "immortalers_delight:pearlip_shell": {
+      "textures": "textures/items/pearlip_shell"
+    },
+    "immortalers_delight:pearlipearl": {
+      "textures": "textures/items/pearlipearl"
+    },
+    "immortalers_delight:pearlipearl_eggsteam": {
+      "textures": "textures/items/pearlipearl_eggsteam"
+    },
+    "immortalers_delight:pearlipearl_tart": {
+      "textures": "textures/items/pearlipearl_tart"
+    },
+    "immortalers_delight:peatic_musa_salad": {
+      "textures": "textures/items/peatic_musa_salad"
+    },
+    "immortalers_delight:popolutcorn": {
+      "textures": "textures/items/popolutcorn"
+    },
+    "immortalers_delight:pufferfish_roll": {
+      "textures": "textures/items/pufferfish_roll"
+    },
+    "immortalers_delight:roast_evolutcorn": {
+      "textures": "textures/items/roast_evolutcorn"
+    },
+    "immortalers_delight:roast_evolutcorn_chops": {
+      "textures": "textures/items/roast_evolutcorn_chops"
+    },
+    "immortalers_delight:rotten_flesh_cuts": {
+      "textures": "textures/items/rotten_flesh_cuts"
+    },
+    "immortalers_delight:stewed_rotten_meat_pot": {
+      "textures": "textures/items/stewed_rotten_meat_pot"
+    },
+    "immortalers_delight:stuffed_poisonous_potato": {
+      "textures": "textures/items/stuffed_poisonous_potato"
+    },
+    "immortalers_delight:tartare_chicken": {
+      "textures": "textures/items/tartare_chicken"
+    },
+    "immortalers_delight:wheat": {
+      "textures": "textures/items/wheat"
+    },
+    "immortalers_delight:yogurt": {
+      "textures": "textures/items/yogurt"
+    },
+    "immortalers_delight:zea_pancake": {
+      "textures": "textures/items/zea_pancake"
+    },
+    "immortalers_delight:zea_pancake_slice": {
+      "textures": "textures/items/zea_pancake_slice"
+    }
+  },
+  "texture_name": "atlas.items"
+}

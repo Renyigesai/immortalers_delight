@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "immortalers_delight:pearlipearl_eggsteam"
+        }
+      }
+    },
+    "description": {
+      "identifier": "immortalers_delight:pearlipearl_eggsteam",
+      "menu_category": {
+        "category": "equipment",
+        "group": "farmersdelight:itemGroup.name.equipment"
+      }
+    }
+  }
+}
