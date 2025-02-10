@@ -15,7 +15,10 @@ public class DrinkItem extends DrinkableItem {
         super(properties);
         this.containerSlice = containerSlice;
     }
-
+    public DrinkItem(Properties properties, Item containerSlice) {
+        super(properties);
+        this.containerSlice = containerSlice.getDefaultInstance();
+    }
     public DrinkItem(Item.Properties properties, ItemStack containerSlice,boolean hasFoodEffectTooltip) {
         super(properties, hasFoodEffectTooltip);
         this.containerSlice = containerSlice;
