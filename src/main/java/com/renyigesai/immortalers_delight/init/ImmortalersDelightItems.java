@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
@@ -10,6 +11,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
+
+import static com.renyigesai.immortalers_delight.init.ImmortalersDelightGroup.IMMORTALERS_DELIGHT_TAB;
 
 public class ImmortalersDelightItems {
 
@@ -57,7 +60,12 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_SEED;
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     public static final RegistryObject<Item> TARTARE_CHICKEN;
+    /*
+     溪竹相关物品
+     */
 
+    public static final RegistryObject<Item> EMPTY_BAMBOO_CUP;
+    public static final RegistryObject<Item> LEISAMBOO_TEA;
     static {
 
         //Items
@@ -90,6 +98,14 @@ public class ImmortalersDelightItems {
 //        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
 
         /*
+         溪竹相关物品
+        */
+        EMPTY_BAMBOO_CUP = REGISTER.register("empty_bamboo_cup",() ->
+                new Item(new Item.Properties().stacksTo(16)));
+        LEISAMBOO_TEA = REGISTER.register("leisamboo_tea",() ->
+                new DrinkItem(new Item.Properties().stacksTo(1),EMPTY_BAMBOO_CUP.get()));
+
+        /*
         姬海棠系列材料
          */
         HIMEKAIDO_SEED = REGISTER.register("himekaido_seed",() ->
@@ -104,8 +120,8 @@ public class ImmortalersDelightItems {
         YOGURT = REGISTER.register("yogurt",() ->
                 new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)
                         .food(ImmortalersDelightFoodProperties.YOGURT),true,false));
-        HIMEKAIDO = fantasticFoodItem("himekaido",
-                ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, true, false);
+        STUFFED_POISONOUS_POTATO = fantasticFoodItem("stuffed_poisonous_potato",
+                ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO, Rarity.COMMON, true, false);
         BAKED_POISONOUS_POTATO = fantasticFoodItem("baked_poisonous_potato",
                 ImmortalersDelightFoodProperties.BAKED_POISONOUS_POTATO, Rarity.COMMON, true, false);
         BRAISED_SPIDER_EYES_IN_GRAVY = fantasticFoodItem("braised_spider_eyes_in_gravy",
@@ -118,12 +134,13 @@ public class ImmortalersDelightItems {
                 ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH, Rarity.COMMON, true, true);
         MEATY_ROTTEN_TOMATO_BROTH = fantasticFoodItem("meaty_rotten_tomato_broth",
                 ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH, Rarity.COMMON,true,true);
-        STUFFED_POISONOUS_POTATO = fantasticFoodItem("stuffed_poisonous_potato",
-                ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO, Rarity.COMMON, true, false);
+
         PUFFERFISH_ROLL = fantasticFoodItem("pufferfish_roll",
                 ImmortalersDelightFoodProperties.PUFFERFISH_ROLL,Rarity.COMMON,true,false);
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT =fantasticFoodItem("bowl_of_stewed_rotten_meat_in_clay_pot",
                 ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT, Rarity.COMMON,true,true);
+        HIMEKAIDO = fantasticFoodItem("himekaido",
+                ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, true, false);
         GOLDEN_HIMEKAIDO = fantasticFoodItem("golden_himekaido",
                 ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE,true,false);
         ENCHANTED_GOLDEN_HIMEKAIDO = REGISTER.register("enchanted_golden_himekaido",() ->
