@@ -36,58 +36,58 @@ public class ImmortalersDelightBlocks {
 //        public static final RegistryObject<Block> ENCHANTAL_COOLER;
 //        public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
 
-    public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    public static final RegistryObject<Block> HIMEKAIDO_WOOD = registerBlock("himekaido_wood",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_WOOD = registerBlock("stripped_himekaido_wood",() ->
+    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_WOOD = BLOCKS.register("stripped_himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_LOG = registerBlock("stripped_himekaido_log",() ->
+    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_LOG = BLOCKS.register("stripped_himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    public static final RegistryObject<Block> HIMEKAIDO_SHRUB = registerBlock("himekaido_shrub",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_SHRUB = BLOCKS.register("himekaido_shrub",() ->
             new HimekaidoShrubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).noCollission().randomTicks().instabreak()));
-    public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = registerBlock("himekaido_fruited_leaves",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = BLOCKS.register("himekaido_fruited_leaves",() ->
         new HimekaidoLeavesFruited(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
-    public static final RegistryObject<Block> HIMEKAIDO_FLOWERING_LEAVES = registerBlock("himekaido_flowering_leaves",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_FLOWERING_LEAVES = BLOCKS.register("himekaido_flowering_leaves",() ->
         new HimekaidoLeavesGrowing((HimekaidoLeavesFruited) HIMEKAIDO_FRUITED_LEAVES.get(), BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
-    public static final RegistryObject<Block> HIMEKAIDO_LEAVES = registerBlock("himekaido_leaves",() ->
+    public static final RegistryObject<Block> HIMEKAIDO_LEAVES = BLOCKS.register("himekaido_leaves",() ->
             new HimekaidoLeavesGrowing((HimekaidoLeavesGrowing) HIMEKAIDO_FLOWERING_LEAVES.get(), BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_PLANKS = registerBlock("himekaido_planks",
+    public static final RegistryObject<Block> HIMEKAIDO_PLANKS = BLOCKS.register("himekaido_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_STAIRS = registerBlock("himekaido_stairs",
+    public static final RegistryObject<Block> HIMEKAIDO_STAIRS = BLOCKS.register("himekaido_stairs",
             () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(HIMEKAIDO_PLANKS.get())));
 
-    public static final RegistryObject<Block> HIMEKAIDO_SLAB = registerBlock("himekaido_slab",
+    public static final RegistryObject<Block> HIMEKAIDO_SLAB = BLOCKS.register("himekaido_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_DOOR = registerBlock("himekaido_door",
+    public static final RegistryObject<Block> HIMEKAIDO_DOOR = BLOCKS.register("himekaido_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
 
-    public static final RegistryObject<Block> HIMEKAIDO_TRAPDOOR = registerBlock("himekaido_trapdoor",
+    public static final RegistryObject<Block> HIMEKAIDO_TRAPDOOR = BLOCKS.register("himekaido_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
 
-    public static final RegistryObject<Block> HIMEKAIDO_FENCE = registerBlock("himekaido_fence",
+    public static final RegistryObject<Block> HIMEKAIDO_FENCE = BLOCKS.register("himekaido_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_FENCE_GATE = registerBlock("himekaido_fence_gate",
+    public static final RegistryObject<Block> HIMEKAIDO_FENCE_GATE = BLOCKS.register("himekaido_fence_gate",
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
 
-    public static final RegistryObject<Block> HIMEKAIDO_PRESSURE_PLATE = registerBlock("himekaido_pressure_plate",
+    public static final RegistryObject<Block> HIMEKAIDO_PRESSURE_PLATE = BLOCKS.register("himekaido_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
 
-    public static final RegistryObject<Block> HIMEKAIDO_BUTTON = registerBlock("himekaido_button",
+    public static final RegistryObject<Block> HIMEKAIDO_BUTTON = BLOCKS.register("himekaido_button",
             () ->woodenButton(BlockSetType.OAK));
 
-    public static final RegistryObject<Block> HIMEKAIDO_CABINET = registerBlock("himekaido_cabinet",
+    public static final RegistryObject<Block> HIMEKAIDO_CABINET = BLOCKS.register("himekaido_cabinet",
             () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
 
-    public static final RegistryObject<Block> MILLENIAN_BAMBOO = registerBlock("millenian_bamboo",
+    public static final RegistryObject<Block> MILLENIAN_BAMBOO = BLOCKS.register("millenian_bamboo",
             () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO),ImmortalersDelightItems.BOWL_OF_MILLENIAN_BAMBOO));
 
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
@@ -99,7 +99,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> PEARLIPEARL_STALK = BLOCKS.register("pearlipearl_stalk",
             ()-> new PearlipearlStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(1.0F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).randomTicks()));
 
-    public static final RegistryObject<Block> ZEA_PANCAKE = registerBlock("zea_pancake",()->
+    public static final RegistryObject<Block> ZEA_PANCAKE = BLOCKS.register("zea_pancake",()->
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     static {
@@ -111,21 +111,21 @@ public class ImmortalersDelightBlocks {
 //                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
     }
 
-    public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = registerBlock("stewed_rotten_meat_pot",()->
+    public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = BLOCKS.register("stewed_rotten_meat_pot",()->
             new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
-    public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = registerBlock("braised_spider_eyes_block",()->
+    public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = BLOCKS.register("braised_spider_eyes_block",()->
             new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    public static final RegistryObject<Block> EVOLUTCORN_GRAIN_BAG = registerBlock("evolutcorn_grain_bag",()->
+    public static final RegistryObject<Block> EVOLUTCORN_GRAIN_BAG = BLOCKS.register("evolutcorn_grain_bag",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
 
-    public static final RegistryObject<Block> HIMEKAIDO_CRATE = registerBlock("himekaido_crate",()->
+    public static final RegistryObject<Block> HIMEKAIDO_CRATE = BLOCKS.register("himekaido_crate",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<Block> PEARLIP_CRATE = registerBlock("pearlip_crate",()->
+    public static final RegistryObject<Block> PEARLIP_CRATE = BLOCKS.register("pearlip_crate",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
-    public static final RegistryObject<Block> EVOLUTCORN_BLOCK = registerBlock("evolutcorn_block",()->
+    public static final RegistryObject<Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
 
     //EVOLUTCORN_BLOCK
@@ -146,15 +146,6 @@ public class ImmortalersDelightBlocks {
         return new ButtonBlock(blockbehaviour$properties, p_278239_, 30, true);
     }
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ImmortalersDelightItems.REGISTER.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-    }
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

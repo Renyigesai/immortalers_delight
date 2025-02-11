@@ -36,7 +36,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightItems.REGISTER.register(bus);
         ImmortalersDelightBlocks.register(bus);
         ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
-        ImmortalersDelightGroup.REGISTER.register(bus);
+        ImmortalersDelightGroup.CREATIVE_TABS.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
 //        ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
