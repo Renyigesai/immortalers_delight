@@ -15,7 +15,10 @@ public class DamageResistPotionEffect {
     @SubscribeEvent
     public static void onCreatureHurt(LivingHurtEvent evt) {
         LivingEntity hurtOne = evt.getEntity();
-        LivingEntity attacker = (LivingEntity) evt.getSource().getEntity();
+        LivingEntity attacker = null;
+        if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
+            attacker = livingEntity;
+        }
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
             return;
         }

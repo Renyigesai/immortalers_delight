@@ -5,14 +5,11 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
-import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 import java.util.LinkedHashSet;
 import java.util.function.Supplier;
@@ -166,12 +163,6 @@ public class ImmortalersDelightItems {
         ANCIENT_FIBER = registerWithTab("ancient_fiber",() ->
                 new Item(basicItem()));
 
-        CRETACEOUS_ZEA_BALL = registerWithTab("cretaceous_zea_ball",()->
-                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CRETACEOUS_ZEA_BALL),true));
-
-        COLORFUL_GRILLED_SKEWERS = registerWithTab("colorful_grilled_skewers",()->
-                new Item(foodItem(ImmortalersDelightFoodProperties.COLORFUL_GRILLED_SKEWERS)));
-
         EVOLUTCORN = registerWithTab("evolutcorn",()->
                 new Item(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN)));
 
@@ -184,28 +175,39 @@ public class ImmortalersDelightItems {
         ROAST_EVOLUTCORN_CHOPS =registerWithTab("roast_evolutcorn_chops",()->
                 new Item(foodItem(ImmortalersDelightFoodProperties.ROAST_EVOLUTCORN_CHOPS)));
 
+        CRETACEOUS_ZEA_BALL = registerWithTab("cretaceous_zea_ball",()->
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CRETACEOUS_ZEA_BALL),true));
+
+        COLORFUL_GRILLED_SKEWERS = registerWithTab("colorful_grilled_skewers",()->
+                new Item(foodItem(ImmortalersDelightFoodProperties.COLORFUL_GRILLED_SKEWERS)));
+
         POPOLUTCORN = registerWithTab("popolutcorn",() ->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POPOLUTCORN), true));
 
+        ZEA_PANCAKE = registerWithTab("zea_pancake", () ->
+                new BlockItem(ImmortalersDelightBlocks.ZEA_PANCAKE.get(), basicItem()));
+
+        ZEA_PANCAKE_SLICE = registerWithTab("zea_pancake_slice",() ->
+                new Item(foodItem(ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE)));
 
         PEATIC_MUSA_SALAD = registerWithTab("peatic_musa_salad",() ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD), true));
 
-        PEARLIP_MILK_SHAKE = registerWithTab("pearlip_milk_shake",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE), true, false));
+        PEARLIP = registerWithTab ("pearlip",()->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_BUNDLE.get(),new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIP)));
 
-        PEARLIP_PUMPKIN_PIE = registerWithTab("pearlip_pumpkin_pie",() ->
-                new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE)));
         PEARLIPEARL = registerWithTab ("pearlipearl",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get(),new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIPEARL)));
 
         PEARLIP_SHELL = registerWithTab("pearlip_shell",() ->
                 new Item(basicItem()));
 
-//        PEARLIPEARL_STALK = block(ImmortalersDelightBlocks.PEARLIPEARL_STALK);
+        PEARLIP_MILK_SHAKE = registerWithTab("pearlip_milk_shake",() ->
+                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE), true, false));
 
-        PEARLIP = registerWithTab ("pearlip",()->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_BUNDLE.get(),new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIP)));
+        PEARLIP_PUMPKIN_PIE = registerWithTab("pearlip_pumpkin_pie",() ->
+                new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE)));
+
         PEARLIPEARL_EGGSTEAM = registerWithTab("pearlipearl_eggsteam",()->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_EGGSTEAM),true));
 
@@ -214,11 +216,6 @@ public class ImmortalersDelightItems {
 
         PEARLIPEARL_TART = registerWithTab("pearlipearl_tart",() ->
                 new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_TART)));
-        ZEA_PANCAKE = registerWithTab("zea_pancake", () ->
-                new BlockItem(ImmortalersDelightBlocks.ZEA_PANCAKE.get(), basicItem()));
-
-        ZEA_PANCAKE_SLICE = registerWithTab("zea_pancake_slice",() ->
-                new Item(foodItem(ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE)));
 //        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
 
         /*

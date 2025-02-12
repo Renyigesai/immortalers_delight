@@ -49,7 +49,7 @@ public class ImmortalersDelightBlocks {
             log(MapColor.WOOD, MapColor.PODZOL));
 
     public static final RegistryObject<Block> HIMEKAIDO_SHRUB = BLOCKS.register("himekaido_shrub",() ->
-            new HimekaidoShrubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).noCollission().randomTicks().instabreak()));
+            new HimekaidoShrubBlock(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH).noCollission().randomTicks().instabreak()));
     public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = BLOCKS.register("himekaido_fruited_leaves",() ->
         new HimekaidoLeavesFruited(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> HIMEKAIDO_FLOWERING_LEAVES = BLOCKS.register("himekaido_flowering_leaves",() ->

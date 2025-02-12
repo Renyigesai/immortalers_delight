@@ -2,6 +2,8 @@ package com.renyigesai.immortalers_delight.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -143,7 +145,7 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
             设置收获后的生长阶段
              */
             level.setBlock(pos,state.setValue(AGE,pAge),3);
-            //level.playSound((Player)null, pos, (SoundEvent) ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+            level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
             return;
         }
         return;
