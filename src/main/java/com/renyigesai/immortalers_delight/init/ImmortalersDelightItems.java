@@ -5,7 +5,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -48,6 +48,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_CRATE;
     public static final RegistryObject<Item> PEARLIP_CRATE;
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
+    public static final RegistryObject<Item> HIMEKAIDO_SIGN;
     //物品 Items
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
@@ -159,6 +160,11 @@ public class ImmortalersDelightItems {
 
         HIMEKAIDO_BUTTON = registerWithTab("himekaido_button", () ->
                 new BlockItem(ImmortalersDelightBlocks.HIMEKAIDO_BUTTON.get(), basicItem()));
+        HIMEKAIDO_SIGN = registerWithTab("himekaido_sign",() ->
+                new SignItem((new Item.Properties()).stacksTo(16),
+                        ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
+                        ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
+                        ));
 
 
         //Items

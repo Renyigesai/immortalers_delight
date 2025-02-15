@@ -37,6 +37,7 @@ public class ImmortalersDelightMod {
 
         ImmortalersDelightItems.REGISTER.register(bus);
         ImmortalersDelightBlocks.register(bus);
+        ImmortalersDelightBlockEntityTypes.TILES.register(bus);
         ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         ImmortalersDelightGroup.CREATIVE_TABS.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
