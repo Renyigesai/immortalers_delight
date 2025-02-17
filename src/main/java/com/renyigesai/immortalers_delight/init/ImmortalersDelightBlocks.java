@@ -118,6 +118,7 @@ public class ImmortalersDelightBlocks {
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     static {
+        //方块实体 Block Entity
 
         ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
                 new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));

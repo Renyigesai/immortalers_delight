@@ -2,14 +2,17 @@
   "type": "immortalers_delight:enchantal_cooler",
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+      "item": "immortalers_delight:pearlip"
     },
     {
-      "item": "minecraft:gold_ingot"
+      "item": "farmersdelight:milk_bottle"
     }
   ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
   "output": {
-    "item": "minecraft:diamond",
+    "item": "immortalers_delight:pearlip_milk_shake",
     "count": 1
   }
 }

@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -101,6 +102,8 @@ public class ImmortalersDelightItems {
 
 
     static {
+        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
+
         EVOLUTCORN_GRAIN_BAG = registerWithTab("evolutcorn_grain_bag", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_GRAIN_BAG.get(), basicItem()));
 
@@ -165,8 +168,6 @@ public class ImmortalersDelightItems {
                         ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
                         ));
-
-
         //Items
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
@@ -224,8 +225,6 @@ public class ImmortalersDelightItems {
 
         PEARLIPEARL_TART = registerWithTab("pearlipearl_tart", () ->
                 new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_TART)));
-        ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
-
         /*
          溪竹相关物品
         */

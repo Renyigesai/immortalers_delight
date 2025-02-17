@@ -32,7 +32,11 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
         addSlot(new SlotItemHandler(blockEntity.getInventory(), 2, 52, 35));
         addSlot(new SlotItemHandler(blockEntity.getInventory(), 3, 70, 35));
         // 添加输出槽 (4)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 4, 137, 55));
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 4, 137, 25));
+        // 添加燃料槽 (0)
+        addSlot(new SlotItemHandler(blockEntity.getFuelslot(), 0, 24, 55));
+        //添加容器槽 (0)
+        addSlot(new SlotItemHandler(blockEntity.getContainerSlot(), 0, 137, 55));
         // 添加玩家物品栏
         layoutPlayerInventorySlots(8, 84);
     }

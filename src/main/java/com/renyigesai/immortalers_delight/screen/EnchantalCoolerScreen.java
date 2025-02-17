@@ -22,13 +22,6 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
     }
 
     @Override
-    protected void init() {
-        super.init();
-        this.inventoryLabelY = 10000;
-        this.titleLabelY = 10000;
-    }
-
-    @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float partialTicks, int mouseX, int mouseY) {
         // 设置渲染系统
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -43,9 +36,14 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         // 绘制进度条
-        int progress = menu.getBlockEntity().cookingTotalTime;
-        int progressWidth = (int) (24 * (progress / 100.0f)); // 根据进度计算宽度
+        int width = menu.getBlockEntity().cookingTotalTime;
+        int progressWidth = (int) (24 * (width / 100.0f));
         pGuiGraphics.blit(TEXTURE, x + 103, y + 26, 177, 19, progressWidth, 17); // 绘制进度条
+        int residualDye = menu.getBlockEntity().residualDye;
+        int pngNewY = 86 - 10 * residualDye;
+        int newY = y + 48 - 10 * residualDye;
+        pGuiGraphics.blit(TEXTURE, x + 27, newY, 176, pngNewY, 9, menu.getBlockEntity().residualDye*10);
+
     }
 
     @Override
@@ -58,15 +56,6 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
         // 渲染物品栏提示
         renderTooltip(poseStack, mouseX, mouseY);
     }
-
-//    @Override
-//    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-//        // 绘制标题
-//        this.font.draw(poseStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 0x404040);
-//
-//        // 绘制玩家物品栏标题
-//        this.font.draw(poseStack, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 0x404040);
-//    }
 
     @Override
     protected void renderLabels(GuiGraphics p_281635_, int p_282681_, int p_283686_) {

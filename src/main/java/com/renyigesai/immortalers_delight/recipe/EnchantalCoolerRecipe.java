@@ -12,17 +12,25 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.Nullable;
+import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
 public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
     private final ResourceLocation id;
+    private final ItemStack container;
 
-    public EnchantalCoolerRecipe(NonNullList<Ingredient> ingredient1, ItemStack output1, ResourceLocation id) {
-        this.inputItems = ingredient1;
-        this.output = output1;
+    public EnchantalCoolerRecipe(NonNullList<Ingredient> ingredient, ItemStack output,ItemStack container, ResourceLocation id) {
+        this.inputItems = ingredient;
+        this.output = output;
         this.id = id;
+        if (container.isEmpty()){
+            this.container = ItemStack.EMPTY;
+        }else {
+            this.container = container;
+        }
     }
 
     @Override
@@ -48,6 +56,10 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
+    }
+
+    public ItemStack getContainer() {
+        return container.copy();
     }
 
     @Override
@@ -90,8 +102,9 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
             for (int i = 0; i < ingredients.size(); i++) {
                 inputs.add(Ingredient.fromJson(ingredients.get(i)));
             }
+            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
 
-            return new EnchantalCoolerRecipe(inputs, output, pRecipeId);
+            return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
         }
 
         @Override
@@ -102,9 +115,9 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
             for (int i = 0; i < ingredientCount; i++) {
                 inputs.set(i, Ingredient.fromNetwork(pBuffer));
             }
-
+            ItemStack container = pBuffer.readItem();
             ItemStack output = pBuffer.readItem();
-            return new EnchantalCoolerRecipe(inputs, output, pRecipeId);
+            return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
         }
 
         @Override
@@ -114,8 +127,8 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
             for (Ingredient ingredient : pRecipe.getIngredients()) {
                 ingredient.toNetwork(pBuffer);
             }
-
             pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeItem(pRecipe.container);
         }
     }
 

@@ -64,6 +64,7 @@
   "block.immortalers_delight.himekaido_crate": "箱装姬海棠",
   "block.immortalers_delight.pearlip_crate": "箱装珍珠棱蕉",
   "block.immortalers_delight.evolutcorn_block": "白垩玉黍块",
+  "block.immortalers_delight.enchantal_cooler": "魔凝机",
   "effect.immortalers_delight.incandescence": "灼热",
   "effect.immortalers_delight.weak_poison": "弱中毒",
   "effect.immortalers_delight.weak_wither": "弱凋零",
@@ -83,9 +84,9 @@
   "advancements.immortalers_delight.treow_meregrot.descr": "获得来自丛林的黑色宝珠。",
   "advancements.immortalers_delight.wundor_forbodaeppel.title": "乐园禁果",
   "advancements.immortalers_delight.wundor_forbodaeppel.descr": "获得来自森林的奇迹之籽",
-
   "advancement.immortalers_delight.get_himekaido_trees": "拔苗助长",
   "advancement.immortalers_delight.get_himekaido_trees.desc": "肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。",
   "advancement.immortalers_delight.get_stewed_rotten_meat_pot": "注意卫生",
-  "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "纹饰虽美，但作为餐具，还是洁净更重要。"
+  "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "纹饰虽美，但作为餐具，还是洁净更重要。",
+  "container.enchantal_cooler": "魔凝机"
 }
