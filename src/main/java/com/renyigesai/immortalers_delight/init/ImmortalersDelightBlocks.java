@@ -38,16 +38,13 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ENCHANTAL_COOLER;
     public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
 
-
-
-//    public static final RegistryObject<Block> HIMEKAIDO_LOG = registerBlock("himekaido_log",() ->
-//            log(MapColor.WOOD, MapColor.PODZOL));
-
-//        public static final RegistryObject<Block> ENCHANTAL_COOLER;
-//        public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
-
     public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
+
+    public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
+            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape()));
+    public static final RegistryObject<Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
+            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape()));
 
     public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -143,9 +140,6 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
-
-    //EVOLUTCORN_BLOCK
-
 
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {
         return new BasicsLogsBlock(BlockBehaviour.Properties.of().mapColor((p_152624_) -> {

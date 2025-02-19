@@ -6,7 +6,6 @@ import com.renyigesai.immortalers_delight.item.DrinkItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -93,15 +92,17 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     public static final RegistryObject<Item> TARTARE_CHICKEN;
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
+
     /*
      溪竹相关物品
      */
-
+    public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
     public static final RegistryObject<Item> EMPTY_BAMBOO_CUP;
     public static final RegistryObject<Item> LEISAMBOO_TEA;
 
 
     static {
+
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
 
         EVOLUTCORN_GRAIN_BAG = registerWithTab("evolutcorn_grain_bag", () ->
@@ -228,6 +229,9 @@ public class ImmortalersDelightItems {
         /*
          溪竹相关物品
         */
+        CONTAINS_TEA_LEISAMBOO = registerWithTab("contains_tea_leisamboo",()->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.LEISAMBOO_CROP.get(),new Item.Properties()));
+
         EMPTY_BAMBOO_CUP = registerWithTab("empty_bamboo_cup", () ->
                 new Item(new Item.Properties().stacksTo(16)));
 
@@ -237,7 +241,7 @@ public class ImmortalersDelightItems {
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
                 new BlockItem(ImmortalersDelightBlocks.MILLENIAN_BAMBOO.get(), basicItem()));
         BOWL_OF_MILLENIAN_BAMBOO = registerWithTab("bowl_of_millenian_bamboo", () ->
-                new Item(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO)));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO)));
         /*
         姬海棠系列材料
          */
@@ -274,21 +278,21 @@ public class ImmortalersDelightItems {
                 new BlockItem(ImmortalersDelightBlocks.BRAISED_SPIDER_EYES_BLOCK.get(), basicItem()));
 
         BRAISED_SPIDER_EYES_IN_GRAVY = registerWithTab("braised_spider_eyes_in_gravy", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.BRAISED_SPIDER_EYES_IN_GRAVY, Rarity.COMMON, false), true));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BRAISED_SPIDER_EYES_IN_GRAVY), true));
 
 
         TARTARE_CHICKEN = registerWithTab("tartare_chicken", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.TARTARE_CHICKEN, Rarity.COMMON, false), true));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TARTARE_CHICKEN), true));
 
 
         DIPPED_ROTTEN_FLESH = registerWithTab("dipped_rotten_flesh", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.DIPPED_ROTTEN_FLESH, Rarity.COMMON, false), true));
 
         CRISPY_YOGURT_ROTTEN_FLESH = registerWithTab("crispy_yogurt_rotten_flesh", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH, Rarity.COMMON, false), true));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.CRISPY_YOGURT_ROTTEN_FLESH), true));
 
         MEATY_ROTTEN_TOMATO_BROTH = registerWithTab("meaty_rotten_tomato_broth", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH, Rarity.COMMON, false), true));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.MEATY_ROTTEN_TOMATO_BROTH), true));
 
         PUFFERFISH_ROLL = registerWithTab("pufferfish_roll", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.PUFFERFISH_ROLL, Rarity.COMMON, false), true));
@@ -297,7 +301,7 @@ public class ImmortalersDelightItems {
                 new BlockItem(ImmortalersDelightBlocks.STEWED_ROTTEN_MEAT_POT.get(), basicItem()));
 
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = registerWithTab("bowl_of_stewed_rotten_meat_in_clay_pot", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT, Rarity.COMMON, false), true));
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT), true));
 
 
     }

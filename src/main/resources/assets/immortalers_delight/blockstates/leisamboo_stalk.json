@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "is_leaves=false,is_tea=false": { "model": "immortalers_delight:block/leisamboo_stalk"},
+    "is_leaves=false,is_tea=true": { "model": "immortalers_delight:block/leisamboo_stalk_tea"},
+    "is_leaves=true,is_tea=true": { "model": "immortalers_delight:block/leisamboo_stalk_tea"},
+    "is_leaves=true,is_tea=false": { "model": "immortalers_delight:block/leisamboo_stalk_leaves"}
+  }
+}
