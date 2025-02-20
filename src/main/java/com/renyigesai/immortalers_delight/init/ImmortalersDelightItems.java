@@ -96,9 +96,16 @@ public class ImmortalersDelightItems {
     /*
      溪竹相关物品
      */
+    public static final RegistryObject<Item> LEAF_TEA;
     public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
     public static final RegistryObject<Item> EMPTY_BAMBOO_CUP;
     public static final RegistryObject<Item> LEISAMBOO_TEA;
+    public static final RegistryObject<Item> ICED_BLACK_TEA;
+    public static final RegistryObject<Item> PEARLIPEARL_MILK_TEA;
+    public static final RegistryObject<Item> PEARLIPEARL_MILK_GREEN;
+    public static final RegistryObject<Item> STOVE_BLACK_TEA;
+    public static final RegistryObject<Item> LEAF_GREEN_TEA;
+    public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
 
 
     static {
@@ -229,6 +236,10 @@ public class ImmortalersDelightItems {
         /*
          溪竹相关物品
         */
+
+        LEAF_TEA = registerWithTab("leaf_tea",()->
+                new DrinkableItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
+
         CONTAINS_TEA_LEISAMBOO = registerWithTab("contains_tea_leisamboo",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.LEISAMBOO_CROP.get(),new Item.Properties()));
 
@@ -236,10 +247,29 @@ public class ImmortalersDelightItems {
                 new Item(new Item.Properties().stacksTo(16)));
 
         LEISAMBOO_TEA = registerWithTab("leisamboo_tea", () ->
-                new DrinkItem(new Item.Properties().stacksTo(1), EMPTY_BAMBOO_CUP.get()));
+                new DrinkableItem(leisambooDrinksItem()));
+
+        ICED_BLACK_TEA = registerWithTab("iced_black_tea",() ->
+                new DrinkableItem(leisambooDrinksItem()));
+
+        PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",() ->
+                new DrinkableItem(leisambooDrinksItem()));
+
+        PEARLIPEARL_MILK_GREEN = registerWithTab("pearlipearl_milk_green",() ->
+                new DrinkableItem(leisambooDrinksItem()));
+
+        STOVE_BLACK_TEA = registerWithTab("stove_black_tea",() ->
+                new DrinkableItem(leisambooDrinksItem()));
+
+        LEAF_GREEN_TEA = registerWithTab("leaf_green_tea",() ->
+                new DrinkableItem(leisambooDrinksItem()));
+
+        BRITISH_YELLOW_TEA = registerWithTab("british_yellow_tea",() ->
+                new DrinkableItem(leisambooDrinksItem()));
 
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
                 new BlockItem(ImmortalersDelightBlocks.MILLENIAN_BAMBOO.get(), basicItem()));
+
         BOWL_OF_MILLENIAN_BAMBOO = registerWithTab("bowl_of_millenian_bamboo", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO)));
         /*
@@ -326,6 +356,10 @@ public class ImmortalersDelightItems {
 
     public static Item.Properties drinkItem() {
         return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16);
+    }
+
+    public static Item.Properties leisambooDrinksItem() {
+        return (new Item.Properties()).craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16);
     }
 
     private static Item.Properties fantasticItem(Rarity soCool) {

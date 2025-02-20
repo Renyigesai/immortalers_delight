@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:leaf_tea"
+    },
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:empty_bamboo_cup"
+  },
+  "output": {
+    "item": "immortalers_delight:leaf_green_tea",
+    "count": 1
+  }
+}

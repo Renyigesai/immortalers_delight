@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:stove_black_tea"
+    },
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:empty_bamboo_cup"
+  },
+  "output": {
+    "item": "immortalers_delight:iced_black_tea",
+    "count": 1
+  }
+}
