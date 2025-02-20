@@ -272,13 +272,9 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity {
         if (outputStack.isEmpty()){
             return true;
         }
-        if (resultItem.is(outputStack.getItem())){
-            if (outputStack.getCount() != outputStack.getMaxStackSize()){
+        if (resultItem.is(outputStack.getItem()) && outputStack.getCount() != outputStack.getMaxStackSize()){
                 return true;
-            }
-            return true;
-        }else {
-            return false;
         }
+        return false;
     }
 }
