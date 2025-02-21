@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.init.*;
+import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;

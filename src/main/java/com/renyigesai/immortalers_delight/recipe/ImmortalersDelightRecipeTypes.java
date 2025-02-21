@@ -1,7 +1,6 @@
-package com.renyigesai.immortalers_delight.init;
+package com.renyigesai.immortalers_delight.recipe;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
