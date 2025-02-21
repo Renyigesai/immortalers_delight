@@ -5,6 +5,10 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSign
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
+import com.renyigesai.immortalers_delight.screen.overlay.AftertasteHungerOverlay;
+import com.renyigesai.immortalers_delight.screen.overlay.GasPoisonHealthOverlay;
+import com.renyigesai.immortalers_delight.screen.overlay.WeakPoisonHealthOverlay;
+import com.renyigesai.immortalers_delight.screen.overlay.WeakWitherHealthOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Block;
@@ -30,7 +34,7 @@ import org.slf4j.Logger;
 public class ImmortalersDelightMod {
 
     public static final String MODID = "immortalers_delight";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public ImmortalersDelightMod() {
@@ -82,6 +86,10 @@ public class ImmortalersDelightMod {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            WeakWitherHealthOverlay.init();
+            WeakPoisonHealthOverlay.init();
+            AftertasteHungerOverlay.init();
+            GasPoisonHealthOverlay.init();
         }
     }
 }

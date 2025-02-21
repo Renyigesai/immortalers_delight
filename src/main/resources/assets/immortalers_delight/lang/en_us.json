@@ -101,5 +101,8 @@
   "advancement.immortalers_delight.get_himekaido_trees.desc": "Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.",
   "advancement.immortalers_delight.get_stewed_rotten_meat_pot": "Bewaria þīne clǽne",
   "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "Although the patterns are beautiful, when it comes to tableware, cleanliness is of greater importance.",
-  "container.enchantal_cooler": "Enchantal Cooler"
+  "container.enchantal_cooler": "Enchantal Cooler",
+  "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "Although the patterns are beautiful, when it comes to tableware, cleanliness is of greater importance.",
+
+  "farmersdelight.tooltip.enchanted_golden_himekaido": "Within 1 second after consumption, be immune to harmful effects below level V (including instant effects)."
 }

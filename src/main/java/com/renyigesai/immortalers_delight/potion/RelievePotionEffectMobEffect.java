@@ -7,16 +7,19 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.MAGICAL_REVERSE;
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.RELIEVE_POISON;
+import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
 public class RelievePotionEffectMobEffect extends MobEffect {
+    public MobEffect FD_Nourished = vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT.get();
+    public MobEffect FD_Comfit = vectorwing.farmersdelight.common.registry.ModEffects.COMFORT.get();
+
     public Map<MobEffect,MobEffect> reverseEffect = (new ImmutableMap.Builder<MobEffect,MobEffect>())
             .put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE)
             .put(MobEffects.UNLUCK,MobEffects.LUCK)
@@ -24,9 +27,12 @@ public class RelievePotionEffectMobEffect extends MobEffect {
             .put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED)
             .put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING)
             .put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION)
+            .put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER)
             .put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED)
             .put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST)
-            .put(MobEffects.POISON,MobEffects.REGENERATION)
+            .put(MobEffects.POISON,FD_Comfit)
+            .put(MobEffects.WITHER,MobEffects.REGENERATION)
+            .put(MobEffects.HUNGER,FD_Nourished)
             .put(MobEffects.HARM,MobEffects.HEAL)
             .build();
     public RelievePotionEffectMobEffect() {
@@ -64,20 +70,20 @@ public class RelievePotionEffectMobEffect extends MobEffect {
         }
 
         /*
-        下面是金魔法果反转效果的实现
+        下面是金魔法果反转效果的实现，已弃用
          */
-        if (this == MAGICAL_REVERSE.get()) {
+        if (this == GREAT_MISERY.get()) {
             /*
-            对饥饿进行特殊处理，其将变为20分之1时间的饱和。
+            对反胃进行特殊处理，其将变为20分之1时间的饱和。
              */
-            if (pEntity.hasEffect(MobEffects.HUNGER)){
-                int lv = pEntity.hasEffect(MobEffects.HUNGER)? Objects.requireNonNull(pEntity.getEffect(MobEffects.HUNGER)).getAmplifier():0;
-                int time = pEntity.hasEffect(MobEffects.HUNGER)? Objects.requireNonNull(pEntity.getEffect(MobEffects.HUNGER)).getDuration():0;
+            if (pEntity.hasEffect(MobEffects.CONFUSION)){
+                int lv = pEntity.hasEffect(MobEffects.CONFUSION)? Objects.requireNonNull(pEntity.getEffect(MobEffects.CONFUSION)).getAmplifier():0;
+                int time = pEntity.hasEffect(MobEffects.CONFUSION)? Objects.requireNonNull(pEntity.getEffect(MobEffects.CONFUSION)).getDuration():0;
                 time /= 20;
                 MobEffectInstance Saturation = new MobEffectInstance(
                         MobEffects.SATURATION,time,lv);
                 pEntity.addEffect(Saturation);
-                pEntity.removeEffect(MobEffects.HUNGER);
+                pEntity.removeEffect(MobEffects.CONFUSION);
             }
             /*
             获取实体的EffectMap进行遍历
@@ -92,6 +98,13 @@ public class RelievePotionEffectMobEffect extends MobEffect {
                      */
                     if (!mobeffect.isBeneficial()) {
                         /*
+                         获取当前效果的等级和时间，并对对反转后的效果等级进行限制
+                         */
+                        MobEffectInstance mobeffectinstance = effectsMap.get(mobeffect);
+                        int time = mobeffectinstance.getDuration();
+                        int lv = mobeffectinstance.getAmplifier();
+
+                        /*
                         如果逆转用的map收录了当前效果
                          */
                         if (reverseEffect.containsKey(mobeffect)){
@@ -100,22 +113,21 @@ public class RelievePotionEffectMobEffect extends MobEffect {
                              */
                             MobEffect reversedEffect =reverseEffect.get(mobeffect);
                             /*
-                            获取当前效果的等级和时间，并对对反转后的效果等级进行限制
-                             */
-                            MobEffectInstance mobeffectinstance = effectsMap.get(mobeffect);
-                            int time = mobeffectinstance.getDuration();
-                            int lv = mobeffectinstance.getAmplifier() > amplifier ? amplifier : mobeffectinstance.getAmplifier();
-                            /*
                             添加逆转后的效果
                              */
+                            int tureLv = mobeffectinstance.getAmplifier() > amplifier ? amplifier : mobeffectinstance.getAmplifier();
                             MobEffectInstance buffToAdd = new MobEffectInstance(
-                                    reversedEffect,time,lv);
+                                    reversedEffect,time,tureLv);
                             pEntity.addEffect(buffToAdd);
                         }
                         /*
-                        无论是否可以逆转，对负面效果都逐条进行删除
+                        无论是否可以逆转，令负面效果的等级降低lv级
                          */
                         pEntity.removeEffect(mobeffect);
+                        if (lv > amplifier) {
+                            MobEffectInstance lowEffect = new MobEffectInstance(mobeffect,time,lv - amplifier);
+                            pEntity.addEffect(lowEffect);
+                        }
                     }
                 }
             } catch (ConcurrentModificationException concurrentmodificationexception) {

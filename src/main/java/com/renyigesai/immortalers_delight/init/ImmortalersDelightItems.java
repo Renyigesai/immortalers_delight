@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.init;
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
+import com.renyigesai.immortalers_delight.item.GoldenFabricArmor;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -107,6 +108,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> LEAF_GREEN_TEA;
     public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
 
+
+    public static final RegistryObject<Item> KWAT_WHEAT;
+    public static final RegistryObject<Item> GOLDEN_FABRIC;
+    public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
 
     static {
 
@@ -333,7 +338,12 @@ public class ImmortalersDelightItems {
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = registerWithTab("bowl_of_stewed_rotten_meat_in_clay_pot", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT), true));
 
-
+        KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false), true));
+        GOLDEN_FABRIC = registerWithTab("golden_fabric", () ->
+                new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
+        GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
+                new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {

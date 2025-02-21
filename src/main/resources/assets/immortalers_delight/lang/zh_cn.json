@@ -35,6 +35,9 @@
   "item.immortalers_delight.pufferfish_roll": "河豚寿司",
   "item.immortalers_delight.bowl_of_stewed_rotten_meat_in_clay_pot": "碗装的瓦罐烂肉炖",
   "item.immortalers_delight.golden_himekaido": "金姬海棠果",
+  "item.immortalers_delight.kwat_wheat": "瓦斯麦",
+  "item.immortalers_delight.golden_fabric": "金丝织缕",
+  "item.immortalers_delight.golden_fabric_veil": "绯炵金纱",
   "item.immortalers_delight.enchanted_golden_himekaido": "金魔法果",
   "item.immortalers_delight.contains_tea_leisamboo": "含茶竹节",
   "item.immortalers_delight.empty_bamboo_cup": "空竹杯",
@@ -101,5 +104,10 @@
   "advancement.immortalers_delight.get_himekaido_trees.desc": "肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。",
   "advancement.immortalers_delight.get_stewed_rotten_meat_pot": "注意卫生",
   "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "纹饰虽美，但作为餐具，还是洁净更重要。",
-  "container.enchantal_cooler": "魔凝机"
+  "container.enchantal_cooler": "魔凝机",
+  "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc": "纹饰虽美，但作为餐具，还是洁净更重要。",
+
+  "farmersdelight.tooltip.golden_himekaido": "食用后，免疫并反转 II 级以下的有害效果",
+  "farmersdelight.tooltip.enchanted_golden_himekaido": "食用后 1 秒内，免疫并反转 V 级以下的有害效果(包括瞬时效果)",
+  "farmersdelight.tooltip.golden_fabric": "制成面纱以抵御绯烬尘霾"
 }

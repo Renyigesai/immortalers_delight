@@ -2,7 +2,10 @@ package com.renyigesai.immortalers_delight.potion;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+
+import java.util.Objects;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.WEAK_WITHER;
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.WEAK_POISON;
@@ -17,26 +20,29 @@ public class DamageOnTimeMobEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
         if (this == WEAK_POISON.get()) {
-            if (pEntity.getHealth() > pEntity.getMaxHealth() * 0.5) {
-                float damage = 1.0F;
-                for (int i = 0; i< amplifier; i++) {
-                    damage *= 2.0F;
-                }
+            if (pEntity.hasEffect(MobEffects.POISON)) {
+                int lv = pEntity.hasEffect(MobEffects.POISON)? Objects.requireNonNull(pEntity.getEffect(MobEffects.POISON)).getAmplifier():0;
+                if (lv > amplifier) {
+                    pEntity.removeEffect(WEAK_POISON.get());
+                } else pEntity.removeEffect(MobEffects.POISON);
+            }else if (pEntity.getHealth() > pEntity.getMaxHealth() * 0.5) {
+                float damage = 1 << amplifier;
                 if (damage >= pEntity.getMaxHealth() * 0.5) {
                     pEntity.setHealth((float) (pEntity.getMaxHealth() * 0.5));
                 }else pEntity.hurt(pEntity.damageSources().magic(), damage);
             }
         }
         if (this == WEAK_WITHER.get()) {
-            if (pEntity.getHealth() > 1.0F) {
-                float damage = 1.0F;
-                int exponent = amplifier;
-                for (int i=0;i<exponent;i++) {
-                    damage *= 2.0F;
-                }
+            if (pEntity.hasEffect(MobEffects.WITHER)) {
+                int lv = pEntity.hasEffect(MobEffects.WITHER)? Objects.requireNonNull(pEntity.getEffect(MobEffects.WITHER)).getAmplifier():0;
+                if (lv > amplifier) {
+                    pEntity.removeEffect(WEAK_WITHER.get());
+                } else pEntity.removeEffect(MobEffects.WITHER);
+            }else if (pEntity.getHealth() > 1.0F) {
+                float damage = 1 << amplifier;
                 if (damage >= pEntity.getHealth()) {
                     pEntity.setHealth(1.0F);
-                }else pEntity.hurt(pEntity.damageSources().magic(), damage);
+                }else pEntity.hurt(pEntity.damageSources().wither(), damage);
             }
         }
     }
