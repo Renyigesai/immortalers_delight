@@ -12,6 +12,6 @@ public class ImmortalersDelightBlockEntityTypes{
 
     public static final DeferredRegister<BlockEntityType<?>> TILES =  DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ImmortalersDelightMod.MODID);
     public static final RegistryObject<BlockEntityType<HimekaidoSignBlockEntity>> SIGN = TILES.register("sign", () ->
-            BlockEntityType.Builder.of(HimekaidoSignBlockEntity::new, new Block[]{ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get()}).build(null));
+            BlockEntityType.Builder.of(HimekaidoSignBlockEntity::new, new Block[]{ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()}).build(null));
 
 }

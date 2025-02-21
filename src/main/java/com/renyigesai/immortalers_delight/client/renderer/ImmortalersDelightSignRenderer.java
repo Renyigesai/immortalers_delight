@@ -37,8 +37,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vectorwing.farmersdelight.client.renderer.CanvasSignRenderer;
-import vectorwing.farmersdelight.common.block.state.CanvasSign;
 
 import java.util.List;
 import java.util.Map;
@@ -47,12 +45,13 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
     public ImmortalersDelightSignRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
         this.font = context.getFont();
-        this.signModels = WoodType.values().collect(ImmutableMap.toImmutableMap((p_173645_) -> {
-            return p_173645_;
-        }, (p_173651_) -> {
-            return new SignRenderer.SignModel(context.bakeLayer(ModelLayers.createSignModelName(p_173651_)));
+        this.signModels = WoodType.values().collect(ImmutableMap.toImmutableMap((woodType) -> {
+            return woodType;
+        }, (woodType) -> {
+            return new SignRenderer.SignModel(context.bakeLayer(ModelLayers.createSignModelName(woodType)));
         }));
     }
+
     private static final String STICK = "stick";
     private static final int BLACK_TEXT_OUTLINE_COLOR = -988212;
     private static final int OUTLINE_RENDER_DISTANCE = Mth.square(16);
@@ -61,15 +60,13 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
     private final Map<WoodType, SignRenderer.SignModel> signModels;
     private final Font font;
 
-
-
-    public void render(SignBlockEntity p_112497_, float p_112498_, PoseStack p_112499_, MultiBufferSource p_112500_, int p_112501_, int p_112502_) {
-        BlockState blockstate = p_112497_.getBlockState();
-        SignBlock signblock = (SignBlock)blockstate.getBlock();
-        WoodType woodtype = SignBlock.getWoodType(signblock);
-        SignRenderer.SignModel signrenderer$signmodel = this.signModels.get(woodtype);
-        signrenderer$signmodel.stick.visible = blockstate.getBlock() instanceof StandingSignBlock;
-        this.renderSignWithText(p_112497_, p_112499_, p_112500_, p_112501_, p_112502_, blockstate, signblock, woodtype, signrenderer$signmodel);
+    public void render(SignBlockEntity signBlockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlayColor) {
+        BlockState blockState = signBlockEntity.getBlockState();
+        SignBlock signBlock = (SignBlock)blockState.getBlock();
+        WoodType woodType = SignBlock.getWoodType(signBlock);
+        SignRenderer.SignModel signModel = this.signModels.get(woodType);
+        signModel.stick.visible = blockState.getBlock() instanceof StandingSignBlock;
+        this.renderSignWithText(signBlockEntity, poseStack, bufferSource, light, overlayColor, blockState, signBlock, woodType, signModel);
     }
 
     public float getSignModelRenderScale() {
@@ -80,110 +77,109 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
         return 0.6666667F;
     }
 
-    void renderSignWithText(SignBlockEntity p_279389_, PoseStack p_279331_, MultiBufferSource p_279303_, int p_279396_, int p_279203_, BlockState p_279391_, SignBlock p_279224_, WoodType p_279162_, Model p_279444_) {
-        p_279331_.pushPose();
-        this.translateSign(p_279331_, -p_279224_.getYRotationDegrees(p_279391_), p_279391_);
-        this.renderSign(p_279331_, p_279303_, p_279396_, p_279203_, p_279162_, p_279444_);
-        this.renderSignText(p_279389_.getBlockPos(), p_279389_.getFrontText(), p_279331_, p_279303_, p_279396_, p_279389_.getTextLineHeight(), p_279389_.getMaxTextLineWidth(), true);
-        this.renderSignText(p_279389_.getBlockPos(), p_279389_.getBackText(), p_279331_, p_279303_, p_279396_, p_279389_.getTextLineHeight(), p_279389_.getMaxTextLineWidth(), false);
-        p_279331_.popPose();
+    void renderSignWithText(SignBlockEntity signBlockEntity, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlayColor, BlockState blockState, SignBlock signBlock, WoodType woodType, Model signModel) {
+        poseStack.pushPose();
+        this.translateSign(poseStack, -signBlock.getYRotationDegrees(blockState), blockState);
+        this.renderSign(poseStack, bufferSource, light, overlayColor, woodType, signModel);
+        this.renderSignText(signBlockEntity.getBlockPos(), signBlockEntity.getFrontText(), poseStack, bufferSource, light, signBlockEntity.getTextLineHeight(), signBlockEntity.getMaxTextLineWidth(), true);
+        this.renderSignText(signBlockEntity.getBlockPos(), signBlockEntity.getBackText(), poseStack, bufferSource, light, signBlockEntity.getTextLineHeight(), signBlockEntity.getMaxTextLineWidth(), false);
+        poseStack.popPose();
     }
 
-    void translateSign(PoseStack p_278074_, float p_277875_, BlockState p_277559_) {
-        p_278074_.translate(0.5F, 0.75F * this.getSignModelRenderScale(), 0.5F);
-        p_278074_.mulPose(Axis.YP.rotationDegrees(p_277875_));
-        if (!(p_277559_.getBlock() instanceof StandingSignBlock)) {
-            p_278074_.translate(0.0F, -0.3125F, -0.4375F);
+    void translateSign(PoseStack poseStack, float rotationAngle, BlockState blockState) {
+        poseStack.translate(0.5F, 0.75F * this.getSignModelRenderScale(), 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotationAngle));
+        if (!(blockState.getBlock() instanceof StandingSignBlock)) {
+            poseStack.translate(0.0F, -0.3125F, -0.4375F);
         }
-
     }
 
-    void renderSign(PoseStack p_279104_, MultiBufferSource p_279408_, int p_279494_, int p_279344_, WoodType p_279170_, Model p_279159_) {
-        p_279104_.pushPose();
-        float f = this.getSignModelRenderScale();
-        p_279104_.scale(f, -f, -f);
-        Material material = this.getSignMaterial(p_279170_);
-        VertexConsumer vertexconsumer = material.buffer(p_279408_, p_279159_::renderType);
-        this.renderSignModel(p_279104_, p_279494_, p_279344_, p_279159_, vertexconsumer);
-        p_279104_.popPose();
+    void renderSign(PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlayColor, WoodType woodType, Model signModel) {
+        poseStack.pushPose();
+        float scale = this.getSignModelRenderScale();
+        poseStack.scale(scale, -scale, -scale);
+        Material material = this.getSignMaterial(woodType);
+        VertexConsumer vertexConsumer = material.buffer(bufferSource, signModel::renderType);
+        this.renderSignModel(poseStack, light, overlayColor, signModel, vertexConsumer);
+        poseStack.popPose();
     }
 
-    void renderSignModel(PoseStack p_250252_, int p_249399_, int p_249042_, Model p_250082_, VertexConsumer p_251093_) {
-        SignRenderer.SignModel signrenderer$signmodel = (SignRenderer.SignModel)p_250082_;
-        signrenderer$signmodel.root.render(p_250252_, p_251093_, p_249399_, p_249042_);
+    void renderSignModel(PoseStack poseStack, int light, int overlayColor, Model signModel, VertexConsumer vertexConsumer) {
+        SignRenderer.SignModel signRendererSignModel = (SignRenderer.SignModel) signModel;
+        signRendererSignModel.root.render(poseStack, vertexConsumer, light, overlayColor);
     }
 
-    Material getSignMaterial(WoodType p_251961_) {
-        return Sheets.getSignMaterial(p_251961_);
+    Material getSignMaterial(WoodType woodType) {
+        return Sheets.getSignMaterial(woodType);
     }
 
-    void renderSignText(BlockPos p_279403_, SignText p_279361_, PoseStack p_279234_, MultiBufferSource p_279338_, int p_279300_, int p_279179_, int p_279357_, boolean p_279325_) {
-        p_279234_.pushPose();
-        this.translateSignText(p_279234_, p_279325_, this.getTextOffset());
-        int i = getDarkColor(p_279361_);
-        int j = 4 * p_279179_ / 2;
-        FormattedCharSequence[] aformattedcharsequence = p_279361_.getRenderMessages(Minecraft.getInstance().isTextFilteringEnabled(), (p_277227_) -> {
-            List<FormattedCharSequence> list = this.font.split(p_277227_, p_279357_);
-            return list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
+    void renderSignText(BlockPos blockPos, SignText signText, PoseStack poseStack, MultiBufferSource bufferSource, int light, int lineHeight, int maxLineWidth, boolean isFrontText) {
+        poseStack.pushPose();
+        this.translateSignText(poseStack, isFrontText, this.getTextOffset());
+        int darkColor = getDarkColor(signText);
+        int outlineOffset = 4 * lineHeight / 2;
+        FormattedCharSequence[] renderMessages = signText.getRenderMessages(Minecraft.getInstance().isTextFilteringEnabled(), (message) -> {
+            List<FormattedCharSequence> lines = this.font.split(message, maxLineWidth);
+            return lines.isEmpty() ? FormattedCharSequence.EMPTY : lines.get(0);
         });
-        int k;
-        boolean flag;
-        int l;
-        if (p_279361_.hasGlowingText()) {
-            k = p_279361_.getColor().getTextColor();
-            flag = isOutlineVisible(p_279403_, k);
-            l = 15728880;
+        int textColor;
+        boolean outlineVisible;
+        int renderTypeColor;
+        if (signText.hasGlowingText()) {
+            textColor = signText.getColor().getTextColor();
+            outlineVisible = isOutlineVisible(blockPos, textColor);
+            renderTypeColor = 15728880;
         } else {
-            k = i;
-            flag = false;
-            l = p_279300_;
+            textColor = darkColor;
+            outlineVisible = false;
+            renderTypeColor = light;
         }
 
-        for(int i1 = 0; i1 < 4; ++i1) {
-            FormattedCharSequence formattedcharsequence = aformattedcharsequence[i1];
-            float f = (float)(-this.font.width(formattedcharsequence) / 2);
-            if (flag) {
-                this.font.drawInBatch8xOutline(formattedcharsequence, f, (float)(i1 * p_279179_ - j), k, i, p_279234_.last().pose(), p_279338_, l);
+        for (int i = 0; i < 4; ++i) {
+            FormattedCharSequence formattedMessage = renderMessages[i];
+            float xOffset = (float)(-this.font.width(formattedMessage) / 2);
+            if (outlineVisible) {
+                this.font.drawInBatch8xOutline(formattedMessage, xOffset, (float)(i * lineHeight - outlineOffset), textColor, darkColor, poseStack.last().pose(), bufferSource, renderTypeColor);
             } else {
-                this.font.drawInBatch(formattedcharsequence, f, (float)(i1 * p_279179_ - j), k, false, p_279234_.last().pose(), p_279338_, Font.DisplayMode.POLYGON_OFFSET, 0, l);
+                this.font.drawInBatch(formattedMessage, xOffset, (float)(i * lineHeight - outlineOffset), textColor, false, poseStack.last().pose(), bufferSource, Font.DisplayMode.POLYGON_OFFSET, 0, renderTypeColor);
             }
         }
 
-        p_279234_.popPose();
+        poseStack.popPose();
     }
 
-    private void translateSignText(PoseStack p_279133_, boolean p_279134_, Vec3 p_279280_) {
-        if (!p_279134_) {
-            p_279133_.mulPose(Axis.YP.rotationDegrees(180.0F));
+    private void translateSignText(PoseStack poseStack, boolean isFrontText, Vec3 textOffset) {
+        if (!isFrontText) {
+            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
         }
 
-        float f = 0.015625F * this.getSignTextRenderScale();
-        p_279133_.translate(p_279280_.x, p_279280_.y, p_279280_.z);
-        p_279133_.scale(f, -f, f);
+        float scale = 0.015625F * this.getSignTextRenderScale();
+        poseStack.translate(textOffset.x, textOffset.y, textOffset.z);
+        poseStack.scale(scale, -scale, scale);
     }
 
     Vec3 getTextOffset() {
         return TEXT_OFFSET;
     }
 
-    static boolean isOutlineVisible(BlockPos p_277741_, int p_278022_) {
-        if (p_278022_ == DyeColor.BLACK.getTextColor()) {
+    static boolean isOutlineVisible(BlockPos blockPos, int textColor) {
+        if (textColor == DyeColor.BLACK.getTextColor()) {
             return true;
         } else {
             Minecraft minecraft = Minecraft.getInstance();
-            LocalPlayer localplayer = minecraft.player;
-            if (localplayer != null && minecraft.options.getCameraType().isFirstPerson() && localplayer.isScoping()) {
+            LocalPlayer localPlayer = minecraft.player;
+            if (localPlayer != null && minecraft.options.getCameraType().isFirstPerson() && localPlayer.isScoping()) {
                 return true;
             } else {
                 Entity entity = minecraft.getCameraEntity();
-                return entity != null && entity.distanceToSqr(Vec3.atCenterOf(p_277741_)) < (double)OUTLINE_RENDER_DISTANCE;
+                return entity != null && entity.distanceToSqr(Vec3.atCenterOf(blockPos)) < (double)OUTLINE_RENDER_DISTANCE;
             }
         }
     }
 
-    static int getDarkColor(SignText p_277914_) {
-        int i = p_277914_.getColor().getTextColor();
-        if (i == DyeColor.BLACK.getTextColor() && p_277914_.hasGlowingText()) {
+    static int getDarkColor(SignText text) {
+        int i = text.getColor().getTextColor();
+        if (i == DyeColor.BLACK.getTextColor() && text.hasGlowingText()) {
             return -988212;
         } else {
             double d0 = 0.4D;
@@ -194,8 +190,8 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
         }
     }
 
-    public static SignRenderer.SignModel createSignModel(EntityModelSet p_173647_, WoodType p_173648_) {
-        return new SignRenderer.SignModel(p_173647_.bakeLayer(ModelLayers.createSignModelName(p_173648_)));
+    public static SignRenderer.SignModel createSignModel(EntityModelSet modelSet, WoodType woodType) {
+        return new SignRenderer.SignModel(modelSet.bakeLayer(ModelLayers.createSignModelName(woodType)));
     }
 
     public static LayerDefinition createSignLayer() {
@@ -217,8 +213,8 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
             this.stick = p_173657_.getChild("stick");
         }
 
-        public void renderToBuffer(PoseStack p_112510_, VertexConsumer p_112511_, int p_112512_, int p_112513_, float p_112514_, float p_112515_, float p_112516_, float p_112517_) {
-            this.root.render(p_112510_, p_112511_, p_112512_, p_112513_, p_112514_, p_112515_, p_112516_, p_112517_);
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int p_112512_, int p_112513_, float p_112514_, float p_112515_, float p_112516_, float p_112517_) {
+            this.root.render(poseStack, consumer, p_112512_, p_112513_, p_112514_, p_112515_, p_112516_, p_112517_);
         }
     }
 }

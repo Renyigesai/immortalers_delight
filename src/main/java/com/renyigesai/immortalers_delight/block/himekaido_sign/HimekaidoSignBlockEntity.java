@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class HimekaidoSignBlockEntity extends SignBlockEntity {
-    public HimekaidoSignBlockEntity(BlockPos p_155700_, BlockState p_155701_) {
-        this(ImmortalersDelightBlockEntityTypes.SIGN.get(), p_155700_, p_155701_);
+    public HimekaidoSignBlockEntity(BlockPos pos, BlockState state) {
+        this(ImmortalersDelightBlockEntityTypes.SIGN.get(), pos, state);
     }
-    public HimekaidoSignBlockEntity(BlockEntityType p_249609_, BlockPos p_248914_, BlockState p_249550_) {
-        super(p_249609_, p_248914_, p_249550_);
+    public HimekaidoSignBlockEntity(BlockEntityType blockEntityType, BlockPos blockPos, BlockState blockState) {
+        super(blockEntityType, blockPos, blockState);
     }
 }

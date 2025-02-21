@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
+import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
@@ -9,6 +10,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -69,7 +71,13 @@ public class ImmortalersDelightMod {
     public static class ClientModEvents {
 
         @SubscribeEvent
+        public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ImmortalersDelightBlockEntityTypes.SIGN.get(), ImmortalersDelightSignRenderer::new);
+        }
+
+        @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");

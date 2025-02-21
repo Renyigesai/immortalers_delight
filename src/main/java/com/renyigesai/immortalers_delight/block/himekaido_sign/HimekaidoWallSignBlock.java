@@ -21,7 +21,7 @@ public class HimekaidoWallSignBlock extends WallSignBlock {
 
     @Override
     public float getYRotationDegrees(BlockState p_277705_) {
-        return 0;
+        return p_277705_.getValue(FACING).toYRot();
     }
 
 }

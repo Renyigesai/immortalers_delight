@@ -5,10 +5,7 @@ import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.block.state.properties.*;
 
 public class HimekaidoStandingSignBlock extends StandingSignBlock {
 
@@ -17,13 +14,13 @@ public class HimekaidoStandingSignBlock extends StandingSignBlock {
         super(p_56273_, p_56274_);
     }
     @Override
-    public BlockEntity newBlockEntity(BlockPos p_154556_, BlockState p_154557_) {
-        return new HimekaidoSignBlockEntity(p_154556_, p_154557_);
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new HimekaidoSignBlockEntity(blockPos, blockState);
     }
 
     @Override
-    public float getYRotationDegrees(BlockState p_277705_) {
-        return 0;
+    public float getYRotationDegrees(BlockState blockState) {
+        return  RotationSegment.convertToDegrees(blockState.getValue(ROTATION));
     }
 
 }
