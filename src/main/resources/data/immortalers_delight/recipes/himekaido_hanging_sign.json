@@ -4,20 +4,20 @@
   "group": "bark",
   "key": {
     "#": {
-      "item": "immortalers_delight:himekaido_plank"
+      "item": "immortalers_delight:stripped_himekaido_log"
     },
     "A": {
-      "item": "minecraft:stick"
+      "item": "minecraft:chain"
     }
   },
   "pattern": [
+    "A A",
     "###",
-    "###",
-    " A "
+    "###"
   ],
   "result": {
-    "count": 3,
-    "item": "immortalers_delight:himekaido_sign"
+    "count": 6,
+    "item": "immortalers_delight:himekaido_hanging_sign"
   },
   "show_notification": true
 }

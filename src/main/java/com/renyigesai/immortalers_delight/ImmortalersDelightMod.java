@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
+import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
@@ -77,6 +78,7 @@ public class ImmortalersDelightMod {
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ImmortalersDelightBlockEntityTypes.SIGN.get(), ImmortalersDelightSignRenderer::new);
+            event.registerBlockEntityRenderer(ImmortalersDelightBlockEntityTypes.HANGING_SIGN.get(), ImmortalersDelightHangingSignRenderer::new);
         }
 
         @SubscribeEvent

@@ -50,6 +50,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIP_CRATE;
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
     public static final RegistryObject<Item> HIMEKAIDO_SIGN;
+    public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
     //物品 Items
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
@@ -181,6 +182,12 @@ public class ImmortalersDelightItems {
                         ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
                         ));
+        HIMEKAIDO_HANGING_SIGN = registerWithTab("himekaido_hanging_sign",() ->
+                new HangingSignItem(
+                        ImmortalersDelightBlocks.HIMEKAIDO_HANGING_SIGN.get(),
+                        ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get(),
+                        (new Item.Properties()).stacksTo(16)
+                ));
         //Items
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));

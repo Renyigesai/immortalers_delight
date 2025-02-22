@@ -3,14 +3,13 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
-import com.renyigesai.immortalers_delight.block.himekaido_sign.HimekaidoSignBlockEntity;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
-import com.renyigesai.immortalers_delight.block.himekaido_sign.HimekaidoStandingSignBlock;
-import com.renyigesai.immortalers_delight.block.himekaido_sign.HimekaidoWallSignBlock;
+import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightCeilingHangingSignBlock;
+import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
+import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
+import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -24,8 +23,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
-
-import java.util.function.Supplier;
 
 public class ImmortalersDelightBlocks {
 
@@ -97,9 +94,14 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> MILLENIAN_BAMBOO = BLOCKS.register("millenian_bamboo",
             () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO),ImmortalersDelightItems.BOWL_OF_MILLENIAN_BAMBOO));
     public static final RegistryObject<Block> HIMEKAIDO_SIGN = BLOCKS.register("himekaido_sign",
-            () ->  new HimekaidoStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+            () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
     public static final RegistryObject<Block>  HIMEKAIDO_WALL_SIGN = BLOCKS.register("himekaido_wall_sign",
-            () -> new HimekaidoWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+            () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+
+    public static final RegistryObject<Block> HIMEKAIDO_HANGING_SIGN = BLOCKS.register("himekaido_hanging_sign",
+            () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+    public static final RegistryObject<Block>  HIMEKAIDO_WALL_HANGING_SIGN = BLOCKS.register("himekaido_wall_hanging_sign",
+            () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
 
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
