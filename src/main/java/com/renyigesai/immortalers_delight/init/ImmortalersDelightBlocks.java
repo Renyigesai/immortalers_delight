@@ -103,6 +103,51 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block>  HIMEKAIDO_WALL_HANGING_SIGN = BLOCKS.register("himekaido_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
+    /**
+     * 溪柱制品
+     */
+    public static final RegistryObject<Block> LEISAMBOO_PLANKS = BLOCKS.register("leisamboo_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> LEISAMBOO_STAIRS = BLOCKS.register("leisamboo_stairs",
+            () -> new StairBlock(LEISAMBOO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(LEISAMBOO_PLANKS.get())));
+
+    public static final RegistryObject<Block> LEISAMBOO_SLAB = BLOCKS.register("leisamboo_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> LEISAMBOO_DOOR = BLOCKS.register("leisamboo_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> LEISAMBOO_TRAPDOOR = BLOCKS.register("leisamboo_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> LEISAMBOO_FENCE = BLOCKS.register("leisamboo_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> LEISAMBOO_FENCE_GATE = BLOCKS.register("leisamboo_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+
+    public static final RegistryObject<Block> LEISAMBOO_PRESSURE_PLATE = BLOCKS.register("leisamboo_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> LEISAMBOO_BUTTON = BLOCKS.register("leisamboo_button",
+            () ->woodenButton(BlockSetType.OAK));
+
+    public static final RegistryObject<Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
+            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+
+    public static final RegistryObject<Block> LEISAMBOO_SIGN = BLOCKS.register("leisamboo_sign",
+            () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+    public static final RegistryObject<Block>  LEISAMBOO_WALL_SIGN = BLOCKS.register("leisamboo_wall_sign",
+            () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+
+    public static final RegistryObject<Block> LEISAMBOO_HANGING_SIGN = BLOCKS.register("leisamboo_hanging_sign",
+            () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+    public static final RegistryObject<Block>  LEISAMBOO_WALL_HANGING_SIGN = BLOCKS.register("leisamboo_wall_hanging_sign",
+            () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+
+
+
+
 
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));

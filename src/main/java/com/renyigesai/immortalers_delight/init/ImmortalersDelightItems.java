@@ -51,6 +51,20 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
     public static final RegistryObject<Item> HIMEKAIDO_SIGN;
     public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
+
+    public static final RegistryObject<Item> LEISAMBOO_PLANKS;
+    public static final RegistryObject<Item> LEISAMBOO_STAIRS;
+    public static final RegistryObject<Item> LEISAMBOO_SLAB;
+    /*public static final RegistryObject<Item> LEISAMBOO_DOOR;
+    public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;*/
+    public static final RegistryObject<Item> LEISAMBOO_FENCE;
+    public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
+    public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
+    public static final RegistryObject<Item> LEISAMBOO_BUTTON;
+    /*public static final RegistryObject<Item> LEISAMBOO_CABINET;
+    public static final RegistryObject<Item> LEISAMBOO_SIGN;
+    public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;*/
+
     //物品 Items
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
@@ -188,6 +202,45 @@ public class ImmortalersDelightItems {
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get(),
                         (new Item.Properties()).stacksTo(16)
                 ));
+
+        LEISAMBOO_PLANKS = registerWithTab("leisamboo_planks", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), basicItem()));
+        /*LEISAMBOO_CABINET = registerWithTab("himekaido_cabinet", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_CABINET.get(), basicItem()));*/
+        LEISAMBOO_STAIRS = registerWithTab("leisamboo_stairs", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_STAIRS.get(), basicItem()));
+
+        LEISAMBOO_SLAB = registerWithTab("leisamboo_slab", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_SLAB.get(), basicItem()));
+
+        /*LEISAMBOO_DOOR = registerWithTab("himekaido_door", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), basicItem()));
+
+        LEISAMBOO_TRAPDOOR = registerWithTab("himekaido_trapdoor", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_TRAPDOOR.get(), basicItem()));*/
+
+        LEISAMBOO_FENCE = registerWithTab("leisamboo_fence", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_FENCE.get(), basicItem()));
+
+        LEISAMBOO_FENCE_GATE = registerWithTab("leisamboo_fence_gate", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_FENCE_GATE.get(), basicItem()));
+
+        LEISAMBOO_PRESSURE_PLATE = registerWithTab("leisamboo_pressure_plate", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PRESSURE_PLATE.get(), basicItem()));
+
+        LEISAMBOO_BUTTON = registerWithTab("leisamboo_button", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_BUTTON.get(), basicItem()));
+        /*LEISAMBOO_SIGN = registerWithTab("himekaido_sign",() ->
+                new SignItem((new Item.Properties()).stacksTo(16),
+                        ImmortalersDelightBlocks.LEISAMBOO_SIGN.get(),
+                        ImmortalersDelightBlocks.LEISAMBOO_WALL_SIGN.get()
+                ));
+        LEISAMBOO_HANGING_SIGN = registerWithTab("himekaido_hanging_sign",() ->
+                new HangingSignItem(
+                        ImmortalersDelightBlocks.LEISAMBOO_HANGING_SIGN.get(),
+                        ImmortalersDelightBlocks.LEISAMBOO_WALL_HANGING_SIGN.get(),
+                        (new Item.Properties()).stacksTo(16)
+                ));*/
         //Items
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));

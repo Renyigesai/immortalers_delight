@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "immortalers_delight:block/leisamboo_pressure_plate"
+    },
+    "powered=true": {
+      "model": "immortalers_delight:block/leisamboo_pressure_plate_down"
+    }
+  }
+}
