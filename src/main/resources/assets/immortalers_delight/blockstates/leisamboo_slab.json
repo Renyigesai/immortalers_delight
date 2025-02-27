@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immortalers_delight:block/leisamboo_slab"
+    },
+    "type=double": {
+      "model": "immortalers_delight:block/leisamboo_planks"
+    },
+    "type=top": {
+      "model": "immortalers_delight:block/leisamboo_slab_top"
+    }
+  }
+}

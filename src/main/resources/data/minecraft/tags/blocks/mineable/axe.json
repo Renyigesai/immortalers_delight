@@ -15,6 +15,17 @@
     "immortalers_delight:himekaido_button",
     "immortalers_delight:himekaido_cabinet",
     "immortalers_delight:himekaido_crate",
-    "immortalers_delight:pearlip_crate"
+    "immortalers_delight:pearlip_crate",
+
+    "immortalers_delight:leisamboo_planks",
+    "immortalers_delight:leisamboo_stairs",
+    "immortalers_delight:leisamboo_slab",
+    "immortalers_delight:leisamboo_door",
+    "immortalers_delight:leisamboo_trapdoor",
+    "immortalers_delight:leisamboo_fence",
+    "immortalers_delight:leisamboo_fence_gate",
+    "immortalers_delight:leisamboo_pressure_plate",
+    "immortalers_delight:leisamboo_button",
+    "immortalers_delight:leisamboo_cabinet"
   ]
 }

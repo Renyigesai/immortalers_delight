@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "immortalers_delight:leisamboo_planks"
+  }
+}

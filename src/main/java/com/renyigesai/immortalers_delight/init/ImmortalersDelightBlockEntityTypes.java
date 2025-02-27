@@ -26,4 +26,5 @@ public class ImmortalersDelightBlockEntityTypes{
                             ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get()
             }).build(null));
 
+
 }
