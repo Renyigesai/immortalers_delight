@@ -39,7 +39,7 @@ public class EnchantalCoolerCategory implements IRecipeCategory<EnchantalCoolerR
 
     @Override
     public Component getTitle() {
-        return Component.translatable("block.immortalers_delight.enchantal_cooler");
+        return Component.translatable("container.enchantal_cooler");
     }
 
     @Override

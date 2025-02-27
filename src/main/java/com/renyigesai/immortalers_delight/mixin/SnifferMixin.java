@@ -48,6 +48,8 @@ public abstract class SnifferMixin extends Animal {
                 serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,1));
             } else if (biomeHolder.is(BiomeTags.IS_FOREST)) {
                 serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,2));
+            } else if (biomeHolder.is(BiomeTags.IS_RIVER)) {
+                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,3));
             }
         }
     }
@@ -58,9 +60,11 @@ public abstract class SnifferMixin extends Animal {
         ItemStack stack1 = new ItemStack(ImmortalersDelightItems.PEARLIPEARL.get());
         ItemStack stack2 = new ItemStack(ImmortalersDelightItems.EVOLUTCORN_GRAINS.get());
         ItemStack stack3 = new ItemStack(ImmortalersDelightItems.HIMEKAIDO_SEED.get());
+        ItemStack stack4 = new ItemStack(ImmortalersDelightItems.CONTAINS_TEA_LEISAMBOO.get());
         itemStacks.add(stack1);
         itemStacks.add(stack2);
         itemStacks.add(stack3);
+        itemStacks.add(stack4);
         return new ItemEntity(serverlevel, blockpos.getX(), blockpos.getY(), blockpos.getZ(),
                 new ItemStack(itemStacks.get(i).getItem()));
 

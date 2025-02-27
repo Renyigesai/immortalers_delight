@@ -9,7 +9,7 @@
     }
   ],
   "container": {
-    "item": "immortalers_delight:empty_bamboo_cup"
+    "item": "minecraft:glass_bottle"
   },
   "output": {
     "item": "immortalers_delight:leaf_green_tea",
