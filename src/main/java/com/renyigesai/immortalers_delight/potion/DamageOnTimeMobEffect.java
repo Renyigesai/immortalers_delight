@@ -4,6 +4,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class DamageOnTimeMobEffect extends MobEffect {
                 if (lv > amplifier) {
                     pEntity.removeEffect(WEAK_POISON.get());
                 } else pEntity.removeEffect(MobEffects.POISON);
-            }else if (pEntity.getHealth() > pEntity.getMaxHealth() * 0.5) {
+            }else if (pEntity.getHealth() > pEntity.getMaxHealth() * 0.5 && pEntity.getMobType() != MobType.UNDEAD) {
                 float damage = 1 << amplifier;
                 if (damage >= pEntity.getMaxHealth() * 0.5) {
                     pEntity.setHealth((float) (pEntity.getMaxHealth() * 0.5));

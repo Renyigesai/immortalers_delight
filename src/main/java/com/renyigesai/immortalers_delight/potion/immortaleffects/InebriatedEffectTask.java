@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,11 +31,11 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
             this.expireTime = TimekeepingTask.getImmortalTickTime() + (long) (durationSeconds * 1000);
             this.amplifier = amplifier;
             this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
-            derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,100);
-            derivativeEffect.put(MobEffects.BLINDNESS,100);
-            derivativeEffect.put(MobEffects.WEAKNESS,100);
-            derivativeEffect.put(MobEffects.CONFUSION,100);
-            derivativeEffect.put(MobEffects.POISON,100);
+        derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,3600);
+        derivativeEffect.put(MobEffects.BLINDNESS,100);
+        derivativeEffect.put(MobEffects.WEAKNESS,3600);
+        derivativeEffect.put(MobEffects.CONFUSION,3600);
+        derivativeEffect.put(MobEffects.POISON,3600);
     }
     public InebriatedEffectTask(int initialDelay, int delay, int taskID, LivingEntity entity, Long durationSeconds, int amplifier) {
         super(initialDelay, delay,taskID);
@@ -43,10 +44,10 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
         this.amplifier = amplifier;
         this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
         derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,3600);
-        derivativeEffect.put(MobEffects.BLINDNESS,3600);
+        derivativeEffect.put(MobEffects.BLINDNESS,100);
         derivativeEffect.put(MobEffects.WEAKNESS,3600);
         derivativeEffect.put(MobEffects.CONFUSION,3600);
-        derivativeEffect.put(MobEffects.HUNGER,3600);
+        derivativeEffect.put(MobEffects.POISON,3600);
     }
 
     public Map<MobEffect,Integer> derivativeEffect = new ConcurrentHashMap<MobEffect,Integer>();
@@ -88,13 +89,15 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
     }
 
     public void ethanolDamage (LivingEntity pEntity, int amplifier) {
-        float damage = (float) (pEntity.getMaxHealth() * 0.06 );
-        damage = damage > 1.2F ? damage : 1.2F;
+        float damage = (float) (pEntity.getMaxHealth() * 0.08 );
+        damage = damage > 1.6F ? damage : 1.6F;
         /*
         瓦斯毒伤害，由于需要派生中毒，伤害由setHealth进行以免撞到无敌时间
          */
         if (pEntity.getHealth() - damage > 0) {
-            if (tick % (32 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage);
+            if (tick % (64 >> amplifier) == 0
+                    && pEntity.getMobType() != MobType.UNDEAD
+                    && pEntity.getHealth() - (damage * 2) > 0) pEntity.setHealth(pEntity.getHealth() - damage);
             /*
             瓦斯毒派生其他DeBuff，通过Map记录DeBuff时间以使得派生的DeBuff也无法通过常规手段解掉
              */
@@ -134,7 +137,7 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
                     derivativeEffectName.add(entry.getKey());
                 }
                 int size = derivativeEffectName.size() - 1 > 0 ? derivativeEffectName.size() - 1 : 0;
-                ImmortalersDelightMod.LOGGER.info("现在有几个能用的DeBuff？" + derivativeEffectName.size());
+                ImmortalersDelightMod.LOGGER.info("这里是酒精的计划任务，现在有几个能用的DeBuff？" + derivativeEffectName.size());
                 MobEffect randEffect = derivativeEffectName.get(pEntity.getRandom().nextInt(size));
                 int time = derivativeEffect.get(randEffect) == null ? derivativeEffect.get(randEffect) : 0;
                 derivativeEffect.put(randEffect, time + 100);
@@ -143,9 +146,10 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
             /*
             使用setHealth要管杀管埋，写一个秒杀处理负血量情况
              */
-            pEntity.hurt(pEntity.damageSources().fellOutOfWorld(),pEntity.getMaxHealth() * 2);
+            pEntity.hurt(pEntity.damageSources().magic(),pEntity.getMaxHealth() * 2);
             if (pEntity.isAlive() || !pEntity.isRemoved()) {
                 pEntity.setHealth(0);
+                pEntity.hurt(pEntity.damageSources().fellOutOfWorld(),pEntity.getMaxHealth() * 2);
                 //pEntity.die(pEntity.damageSources().fellOutOfWorld());
             }
             this.cancel();

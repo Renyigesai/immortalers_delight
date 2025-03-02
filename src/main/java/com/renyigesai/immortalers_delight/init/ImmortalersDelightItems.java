@@ -2,10 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.item.DrinkItem;
-import com.renyigesai.immortalers_delight.item.GasToxicFoodItem;
-import com.renyigesai.immortalers_delight.item.GoldenFabricArmor;
-import com.renyigesai.immortalers_delight.item.InebriatedToxicFoodItem;
+import com.renyigesai.immortalers_delight.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -385,10 +382,10 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
 
         GOLDEN_HIMEKAIDO = registerWithTab("golden_himekaido", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false), true));
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false), true,true));
 
         ENCHANTED_GOLDEN_HIMEKAIDO = registerWithTab("enchanted_golden_himekaido", () ->
-                new EnchantedGoldenAppleItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO)));
+                new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
 
         HIMEKAIDO_JELLY = registerWithTab("himekaido_jelly", () ->
                 new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.HIMEKAIDO_JELLY), true, false));

@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.item;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.MagicalReverseEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -49,6 +50,8 @@ public class EnchantedGoldenHimekaidoFoodItem extends EnchantAbleFoodItem{
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get());
                     GasPoisonEffect.removeImmortalEffect(pLivingEntity);
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
+                    InebriatedEffect.removeImmortalEffect(pLivingEntity);
+                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
                 }
             }
         }

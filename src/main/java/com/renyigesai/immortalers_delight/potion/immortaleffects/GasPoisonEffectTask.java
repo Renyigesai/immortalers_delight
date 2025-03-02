@@ -39,10 +39,10 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
             this.amplifier = amplifier;
             this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
         this.derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,100);
-        this.derivativeEffect.put(MobEffects.BLINDNESS,100);
+        this.derivativeEffect.put(MobEffects.BLINDNESS,3600);
         this.derivativeEffect.put(MobEffects.WEAKNESS,100);
         this.derivativeEffect.put(MobEffects.CONFUSION,100);
-        this.derivativeEffect.put(MobEffects.POISON,100);
+        this.derivativeEffect.put(MobEffects.HUNGER,100);
 
     }
     public GasPoisonEffectTask(int initialDelay, int delay, int taskID, LivingEntity entity, Long durationSeconds, int amplifier) {
@@ -52,10 +52,10 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
         this.amplifier = amplifier;
         this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
         this.derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,100);
-        this.derivativeEffect.put(MobEffects.BLINDNESS,100);
+        this.derivativeEffect.put(MobEffects.BLINDNESS,3600);
         this.derivativeEffect.put(MobEffects.WEAKNESS,100);
         this.derivativeEffect.put(MobEffects.CONFUSION,100);
-        this.derivativeEffect.put(MobEffects.POISON,100);
+        this.derivativeEffect.put(MobEffects.HUNGER,100);
     }
     public synchronized void expireNow() {
         maxDurationTicks = tick;
@@ -105,13 +105,13 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
     }
 
     public void gasDamage(LivingEntity pEntity, int amplifier) {
-        float damage = (float) (pEntity.getMaxHealth() * 0.08 );
-        damage = damage > 1.6F ? damage : 1.6F;
+        float damage = (float) (pEntity.getMaxHealth() * 0.06 );
+        damage = damage > 1.2F ? damage : 1.2F;
         /*
         瓦斯毒伤害，由于需要派生中毒，伤害由setHealth进行以免撞到无敌时间
          */
         if (pEntity.getHealth() - damage > 0) {
-            if (tick % (64 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage);
+            if (tick % (32 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage);
             /*
             瓦斯毒派生其他DeBuff，通过Map记录DeBuff时间以使得派生的DeBuff也无法通过常规手段解掉
              */
@@ -160,9 +160,10 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
             /*
             使用setHealth要管杀管埋，写一个秒杀处理负血量情况
              */
-            pEntity.hurt(pEntity.damageSources().fellOutOfWorld(),pEntity.getMaxHealth() * 2);
+            pEntity.hurt(pEntity.damageSources().magic(),pEntity.getMaxHealth() * 2);
             if (pEntity.isAlive() || !pEntity.isRemoved()) {
                 pEntity.setHealth(0);
+                pEntity.hurt(pEntity.damageSources().fellOutOfWorld(),pEntity.getMaxHealth() * 2);
                 //pEntity.die(pEntity.damageSources().fellOutOfWorld());
             }
             this.cancel();
