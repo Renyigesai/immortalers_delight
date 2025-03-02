@@ -90,8 +90,8 @@ public class AftertasteHungerOverlay {
 						&& player.isHurt()
 						&& stats.getFoodLevel() >= 18;
 
-		// 如果玩家有 AFTERTASTE 效果，则绘制余味覆盖层
-		if (player.getEffect(ImmortalersDelightMobEffect.AFTERTASTE.get()) != null) {
+		// 如果玩家有 LINGERING_FLAVOR 效果，则绘制余味覆盖层
+		if (player.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get()) != null) {
 			drawAftertasteOverlay(stats, minecraft, graphics, left, top, isPlayerHealingWithSaturation);
 		}
 	}
@@ -223,7 +223,7 @@ public class AftertasteHungerOverlay {
 //						&& player.isHurt()
 //						&& stats.getFoodLevel() >= 18;
 //
-//		if (player.getEffect(ImmortalersDelightMobEffect.AFTERTASTE.get()) != null) {
+//		if (player.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get()) != null) {
 //			drawAftertasteOverlay(stats, minecraft, graphics, left, top, isPlayerHealingWithSaturation);
 //		}
 //	}

@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/tartare_chicken_big_meal",
+  "textures": {
+    "0": "immortalers_delight:block/tartare_chicken_big_meal_1",
+		"particle": "immortalers_delight:block/tartare_chicken_big_meal_1"
+  }
+}

@@ -5,13 +5,11 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.BaseImmortalMapSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
-import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.BaseImmortalMapSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -35,7 +33,7 @@ public class BaseImmortalEffect {
      */
     private static final Map<UUID, EffectData> entityHasEffect = new ConcurrentHashMap<>();
     private static boolean pausing = true;
-    private MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.AFTERTASTE.get();
+    private MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.LINGERING_FLAVOR.get();
 
     public static void setPausing(boolean pFirst) {
         pausing = pFirst;
@@ -64,7 +62,7 @@ public class BaseImmortalEffect {
         计算效果的结束时刻，使用自定义的计时器以绕开WorldTime相关操作
          */
         long expireTime = TimekeepingTask.getImmortalTickTime() + (long) (durationSeconds * 1000);
-        MobEffectInstance effectInstance = new MobEffectInstance(ImmortalersDelightMobEffect.AFTERTASTE.get(), (int) (durationSeconds *20), amplifier);
+        MobEffectInstance effectInstance = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(), (int) (durationSeconds *20), amplifier);
         entity.addEffect(effectInstance);
         /*
         构造新的计划任务，在其中执行buff的逻辑
@@ -151,21 +149,21 @@ public class BaseImmortalEffect {
         这是能解不能续的实现，其原理为如果断Effect则解除Buff状态
         由于Task本身就是为了独立的持续时间而生，所以默认就是不能续的，只需要写一个解buff就好
          */
-//        if (!entity.hasEffect(ImmortalersDelightMobEffect.AFTERTASTE.get())) {
+//        if (!entity.hasEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())) {
 //            removeImmortalEffect(entity);
 //        }
         /*
         这是能续不能解的实现，其原理为如果Map内的实体没有对应Effect则一直给他补充Effect，使不能解除
         而如果有，则会在Effect和Buff状态的持续时间取其大来更新Map的记录，使续药水效果可以作用于Buff状态
          */
-        if (!entity.hasEffect(ImmortalersDelightMobEffect.AFTERTASTE.get())) {
+        if (!entity.hasEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())) {
             ImmortalersDelightMod.LOGGER.info("effect被解除，正在刷新effect！");
-            MobEffectInstance newOne = new MobEffectInstance(ImmortalersDelightMobEffect.AFTERTASTE.get(),durationTicks ,amplifier);
+            MobEffectInstance newOne = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(),durationTicks ,amplifier);
             entity.addEffect(newOne);
             return;
         }
-        int lv = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.AFTERTASTE.get())).getAmplifier();
-        int time = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.AFTERTASTE.get())).getDuration();
+        int lv = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())).getAmplifier();
+        int time = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())).getDuration();
         ImmortalersDelightMod.LOGGER.info("目前的Effect时间是：" + time);
         ImmortalersDelightMod.LOGGER.info("目前的Effect等级是：" + lv);
         ImmortalersDelightMod.LOGGER.info("目前的Buff时间是：" + durationTicks);
@@ -200,7 +198,7 @@ public class BaseImmortalEffect {
         /*
         在这里处理一些善后工作，这不是药水效果所以要记得手动善后
          */
-        entity.removeEffect(ImmortalersDelightMobEffect.AFTERTASTE.get());
+        entity.removeEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get());
         if (entityHasEffect.get(uuid) == null) {return;}
         Integer taskID = entityHasEffect.get(uuid).getTaskId();
         ScheduledExecuteTask task = BaseImmortalEffectTask.getTaskFromID(taskID);

@@ -1,5 +1,8 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.mojang.datafixers.util.Pair;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -7,7 +10,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -60,6 +66,7 @@ public class BraisedSpiderEyesBlock extends HorizontalDirectionalBlock {
                 if (player.canEat(false)){
                     setBlock(bites, state, level, pos);
                     player.getFoodData().eat(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get(), new ItemStack(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get()));
+                    addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.BRAISED_SPIDER_EYES_IN_GRAVY.get()),level,player);
                     level.gameEvent(player, GameEvent.EAT, pos);
                     level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
                 }else {
@@ -73,7 +80,32 @@ public class BraisedSpiderEyesBlock extends HorizontalDirectionalBlock {
             }
             return InteractionResult.SUCCESS;
     }
-
+    /**
+     * 该方法用于处理实体食用物品后添加对应的药水效果。
+     * 当实体食用某个可食用物品时，会根据物品的属性尝试为实体添加相应的药水效果。
+     *
+     * @param p_21064_ 被食用的物品栈，包含了具体的物品及其数量等信息。
+     * @param p_21065_ 实体所在的游戏世界，用于判断是否为客户端，以及获取随机数生成器。
+     * @param p_21066_ 食用物品的实体，即要添加药水效果的对象。
+     */
+    private void addFoodPoisonEffect(ItemStack p_21064_, Level p_21065_, LivingEntity p_21066_) {
+        // 从物品栈中获取具体的物品
+        Item item = p_21064_.getItem();
+        // 检查该物品是否为可食用物品
+        if (item.isEdible()) {
+            // 遍历物品的食物属性中定义的所有药水效果及其概率
+            for (Pair<MobEffectInstance, Float> pair : p_21064_.getFoodProperties(p_21066_).getEffects()) {
+                // 条件判断：
+                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
+                // 2. 药水效果实例不为空，确保有有效的药水效果。
+                if (!p_21065_.isClientSide && pair.getFirst() != null && pair.getFirst().getEffect() == ImmortalersDelightMobEffect.GAS_POISON.get()) {
+                    // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
+                    // 然后将该药水效果添加到食用物品的实体上。
+                    p_21066_.addEffect(new MobEffectInstance(pair.getFirst()));
+                }
+            }
+        }
+    }
     public InteractionResult takeServing(BlockState state, Level level, BlockPos pos, Player player){
         int bites = state.getValue(BITES);
         if (bites < 4){

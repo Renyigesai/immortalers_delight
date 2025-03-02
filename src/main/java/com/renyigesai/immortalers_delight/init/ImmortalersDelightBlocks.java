@@ -13,7 +13,9 @@ import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
@@ -23,6 +25,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+
+import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
 
@@ -175,6 +179,10 @@ public class ImmortalersDelightBlocks {
             new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
     public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = BLOCKS.register("braised_spider_eyes_block",()->
             new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final RegistryObject<Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
+            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
+            new TartareChickenBigMealBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     public static final RegistryObject<Block> EVOLUTCORN_GRAIN_BAG = BLOCKS.register("evolutcorn_grain_bag",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
@@ -184,10 +192,26 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> PEARLIP_CRATE = BLOCKS.register("pearlip_crate",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> BEEF_CRATE = BLOCKS.register("beef_crate",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> COOKED_BEEF_CRATE = BLOCKS.register("cooked_beef_crate",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> CHICKEN_CRATE = BLOCKS.register("chicken_crate",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<Block> SPIDER_EYE_CRATE = BLOCKS.register("spider_eye_crate",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
 
+    public static final RegistryObject<Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",
+            () -> new CulturalLegacyEffectToolBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().lightLevel(ageBlockEmission(2)).instabreak().sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)));
+
+    private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {
+        return (p_50763_) -> {
+            return p_50763_.getValue(BlockStateProperties.AGE_7) + exLightValue;
+        };
+    }
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {
         return new BasicsLogsBlock(BlockBehaviour.Properties.of().mapColor((p_152624_) -> {
             return p_152624_.getValue(BasicsLogsBlock.AXIS) == Direction.Axis.Y ? p_285370_ : p_285126_;

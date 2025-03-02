@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "immortalers_delight:raw_sniffer_steak"
+    },
+    "X": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "item": "immortalers_delight:rotating_roast_meat"
+  },
+  "show_notification": true
+}

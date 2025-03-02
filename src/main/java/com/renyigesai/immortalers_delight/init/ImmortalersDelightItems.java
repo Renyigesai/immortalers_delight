@@ -3,7 +3,9 @@ package com.renyigesai.immortalers_delight.init;
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
+import com.renyigesai.immortalers_delight.item.GasToxicFoodItem;
 import com.renyigesai.immortalers_delight.item.GoldenFabricArmor;
+import com.renyigesai.immortalers_delight.item.InebriatedToxicFoodItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -128,6 +130,25 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GOLDEN_FABRIC;
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
 
+//    public static final RegistryObject<Item> BEEF_CRATE;
+//
+//    public static final RegistryObject<Item> COOKED_BEEF_CRATE;
+//
+//    public static final RegistryObject<Item> CHICKEN_CRATE;
+//
+//    public static final RegistryObject<Item> SPIDER_EYE_CRATE;
+
+    public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
+    public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
+    public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
+    public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
+
+    public static final RegistryObject<Item> SNIFFER_HIDE;
+
+    public static final RegistryObject<Item> CLEAR_WATER_VODKA;
+
+    public static final RegistryObject<Item> ROTATING_ROAST_MEAT;
+
     static {
 
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
@@ -140,6 +161,18 @@ public class ImmortalersDelightItems {
 
         PEARLIP_CRATE = registerWithTab("pearlip_crate", () ->
                 new BlockItem(ImmortalersDelightBlocks.PEARLIP_CRATE.get(), basicItem()));
+
+//        BEEF_CRATE = registerWithTab("beef_crate", () ->
+//                new BlockItem(ImmortalersDelightBlocks.BEEF_CRATE.get(), basicItem()));
+//
+//        COOKED_BEEF_CRATE = registerWithTab("cooked_beef_crate", () ->
+//                new BlockItem(ImmortalersDelightBlocks.COOKED_BEEF_CRATE.get(), basicItem()));
+//
+//        CHICKEN_CRATE = registerWithTab("chicken_crate", () ->
+//                new BlockItem(ImmortalersDelightBlocks.CHICKEN_CRATE.get(), basicItem()));
+//
+//        SPIDER_EYE_CRATE = registerWithTab("spider_eye_crate", () ->
+//                new BlockItem(ImmortalersDelightBlocks.SPIDER_EYE_CRATE.get(), basicItem()));
 
         EVOLUTCORN_BLOCK = registerWithTab("evolutcorn_block", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_BLOCK.get(), basicItem()));
@@ -399,11 +432,33 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT), true));
 
         KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false), true));
+                new GasToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false),true,false));
+        CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
+                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA, Rarity.COMMON, false),true,false,false,true));
+
         GOLDEN_FABRIC = registerWithTab("golden_fabric", () ->
                 new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
+
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
+
+        RAW_SNIFFER_SLICE = registerWithTab("raw_sniffer_slice", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));
+
+        COOKED_SNIFFER_SLICE = registerWithTab("cooked_sniffer_slice", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_SLICE, Rarity.COMMON, false), true));
+
+        RAW_SNIFFER_STEAK = registerWithTab("raw_sniffer_steak", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK, Rarity.COMMON, false), true));
+
+        COOKED_SNIFFER_STEAK = registerWithTab("cooked_sniffer_steak", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, Rarity.COMMON, false), true));
+
+        ROTATING_ROAST_MEAT = registerWithTab("rotating_roast_meat", () ->
+                new BlockItem(ImmortalersDelightBlocks.ROTATING_ROAST_MEAT.get(), basicItem()));
+        SNIFFER_HIDE = registerWithTab("sniffer_hide", () ->
+                new ConsumableItem(fantasticItem(Rarity.COMMON)));
+
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {

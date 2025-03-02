@@ -1,22 +1,16 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
-import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Objects;
 
 public class BaseImmortalEffectTask extends ScheduledExecuteTask {
-    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.AFTERTASTE.get();
+    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.LINGERING_FLAVOR.get();
     private final LivingEntity pLivingEntity;
     private final Long expireTime;
     /*

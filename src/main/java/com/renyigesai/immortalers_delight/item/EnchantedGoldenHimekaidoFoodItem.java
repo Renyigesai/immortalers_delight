@@ -46,7 +46,7 @@ public class EnchantedGoldenHimekaidoFoodItem extends EnchantAbleFoodItem{
                     MagicalReverseEffect.applyImmortalEffect(pLivingEntity,getReverseDuration(),getReverseAmplifier());
                     System.out.println("这里是物品，已为实体添加不朽效果");
                     BaseImmortalEffect.removeImmortalEffect(pLivingEntity);
-                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.AFTERTASTE.get());
+                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get());
                     GasPoisonEffect.removeImmortalEffect(pLivingEntity);
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
                 }

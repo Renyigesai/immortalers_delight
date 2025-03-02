@@ -43,7 +43,7 @@ public class DebugItem extends Item {
         MobEffectInstance gas = new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0);
         pLivingEntity.addEffect(gas);
         GasPoisonEffect.applyImmortalEffect(pLivingEntity,5.0,0);
-//        MobEffectInstance gas1 = new MobEffectInstance(ImmortalersDelightMobEffect.AFTERTASTE.get(),1200,0);
+//        MobEffectInstance gas1 = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(),1200,0);
 //        pLivingEntity.addEffect(gas1);
 //        BaseImmortalEffect.applyImmortalEffect(pLivingEntity,50.0,0);
         return pStack;

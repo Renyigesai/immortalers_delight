@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/flesh_block_base_2",
+  "textures": {
+    "0": "immortalers_delight:block/beef_block_row_2",
+		"particle": "immortalers_delight:block/beef_block_row_2"
+  }
+}

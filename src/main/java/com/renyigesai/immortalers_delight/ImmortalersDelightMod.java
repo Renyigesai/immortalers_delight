@@ -6,10 +6,7 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSign
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
-import com.renyigesai.immortalers_delight.screen.overlay.AftertasteHungerOverlay;
-import com.renyigesai.immortalers_delight.screen.overlay.GasPoisonHealthOverlay;
-import com.renyigesai.immortalers_delight.screen.overlay.WeakPoisonHealthOverlay;
-import com.renyigesai.immortalers_delight.screen.overlay.WeakWitherHealthOverlay;
+import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Block;
@@ -91,7 +88,9 @@ public class ImmortalersDelightMod {
             WeakWitherHealthOverlay.init();
             WeakPoisonHealthOverlay.init();
             AftertasteHungerOverlay.init();
-            GasPoisonHealthOverlay.init();
+            KeepFastHungerOverlay.init();
+            BurnTheBoatsHealthOverlay.init();
+            //GasPoisonHealthOverlay.init();
         }
     }
 }

@@ -192,7 +192,33 @@ public class ImmortalersDelightFoodProperties {
             .saturationMod(0.1f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.SATURATION,3,0),1.0F).build();
-
+    public static final FoodProperties RAW_SNIFFER_SLICE = new FoodProperties.Builder()
+            .nutrition(2)
+            .saturationMod(0.5f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,60,0),1.0F)
+            .build();
+    public static final FoodProperties COOKED_SNIFFER_SLICE = new FoodProperties.Builder()
+            .nutrition(3)
+            .saturationMod(1.45f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,80,0),1.0F)
+            .build();
+    public static final FoodProperties RAW_SNIFFER_STEAK = new FoodProperties.Builder()
+            .nutrition(4)
+            .saturationMod(0.5f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,120,0),1.0F)
+            .build();
+    public static final FoodProperties COOKED_SNIFFER_STEAK = new FoodProperties.Builder()
+            .nutrition(9)
+            .saturationMod(0.8f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,300,0),1.0F)
+            .build();
+    public static final FoodProperties CLEAR_WATER_VODKA = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),12000,0),1.0F)
+            .effect(new MobEffectInstance(MobEffects.REGENERATION,1500,0),1.0F)
+            .effect(new MobEffectInstance(MobEffects.ABSORPTION,900,9),1.0F)
+            .effect(new MobEffectInstance(MobEffects.HEAL,1,1),1.0F)
+            .build();
 
     //PEARLIPEARL_EGGSTEAM
 
