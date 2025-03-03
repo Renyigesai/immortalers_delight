@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:evolutcorn_grains"
+    },
+    "b": {
+      "tag": "forge:milk"
+    },
+    "c": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:evolutcorn_pie_crust",
+    "count": 1
+  }
+}

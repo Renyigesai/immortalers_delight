@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "ccc",
+    "efe"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:himekaido_jelly"
+    },
+    "b": {
+      "item": "minecraft:torchflower"
+    },
+    "c": {
+      "item": "immortalers_delight:yogurt"
+    },
+    "e": {
+      "item": "minecraft:sugar"
+    },
+    "f": {
+      "item": "immortalers_delight:evolutcorn_pie_crust"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:himekaido_yogurt_pie",
+    "count": 1
+  }
+}

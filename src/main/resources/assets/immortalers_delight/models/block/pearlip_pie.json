@@ -1,0 +1,9 @@
+{
+  "parent": "farmersdelight:block/pie",
+  "textures": {
+    "particle": "immortalers_delight:block/pearlip_pie_top",
+    "bottom": "immortalers_delight:block/evolutcorn_pie_bottom",
+    "side": "immortalers_delight:block/evolutcorn_pie_side",
+    "top": "immortalers_delight:block/pearlip_pie_top"
+  }
+}

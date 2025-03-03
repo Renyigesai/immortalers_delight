@@ -21,8 +21,6 @@ public class ImmortalersDelightItems {
 
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, ImmortalersDelightMod.MODID);
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
-
-    //方块物品 BlockItems
     public static final RegistryObject<Item> HIMEKAIDO_LOG;
     public static final RegistryObject<Item> HIMEKAIDO_WOOD;
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_WOOD;
@@ -41,7 +39,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_BUTTON;
     public static final RegistryObject<Item> HIMEKAIDO_CABINET;
     public static final RegistryObject<Item> MILLENIAN_BAMBOO;
-    public static final RegistryObject<Item> ZEA_PANCAKE;
     public static final RegistryObject<Item> STEWED_ROTTEN_MEAT_POT;
     public static final RegistryObject<Item> BRAISED_SPIDER_EYES_BLOCK;
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
@@ -50,33 +47,34 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
     public static final RegistryObject<Item> HIMEKAIDO_SIGN;
     public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
-
     public static final RegistryObject<Item> LEISAMBOO_PLANKS;
     public static final RegistryObject<Item> LEISAMBOO_STAIRS;
     public static final RegistryObject<Item> LEISAMBOO_SLAB;
-    /*public static final RegistryObject<Item> LEISAMBOO_DOOR;
-    public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;*/
     public static final RegistryObject<Item> LEISAMBOO_FENCE;
     public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
     public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
     public static final RegistryObject<Item> LEISAMBOO_BUTTON;
-    /*public static final RegistryObject<Item> LEISAMBOO_CABINET;
-    public static final RegistryObject<Item> LEISAMBOO_SIGN;
-    public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;*/
-
-    //物品 Items
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
-    public static final RegistryObject<Item> PEARLIP;
-    public static final RegistryObject<Item> PEARLIP_SHELL;
-    public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
-    public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
+    public static final RegistryObject<Item> PITCHER_POD_PETAL;
+    /*
+    玉米系列物品
+    */
     public static final RegistryObject<Item> EVOLUTCORN;
     public static final RegistryObject<Item> ROAST_EVOLUTCORN;
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
     public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
-    //    public static final RegistryObject<Item> PEARLIPEARL_STALK;
     public static final RegistryObject<Item> POPOLUTCORN;
+    public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
+    public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
+    public static final RegistryObject<Item> ZEA_PANCAKE;
+    public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
+    public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
+    /*
+    香蕉系列物品
+    */
+    public static final RegistryObject<Item> PEARLIP;
+    public static final RegistryObject<Item> PEARLIP_SHELL;
     public static final RegistryObject<Item> PEARLIPEARL;
     public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
     public static final RegistryObject<Item> PEARLIP_MILK_SHAKE;
@@ -84,9 +82,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIPEARL_TART;
     public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
     public static final RegistryObject<Item> PEARLIP_JELLY;
-    public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
-//    public static final RegistryObject<Item> ENCHANTAL_COOLER;
-
+    public static final RegistryObject<Item> PEARLIP_PIE;
+    public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
     /*
     姬海棠系列物品
      */
@@ -107,7 +104,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     public static final RegistryObject<Item> TARTARE_CHICKEN;
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
-
+    public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
+    public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
     /*
      溪竹相关物品
      */
@@ -121,29 +119,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STOVE_BLACK_TEA;
     public static final RegistryObject<Item> LEAF_GREEN_TEA;
     public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
-
-
     public static final RegistryObject<Item> KWAT_WHEAT;
     public static final RegistryObject<Item> GOLDEN_FABRIC;
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
-
-//    public static final RegistryObject<Item> BEEF_CRATE;
-//
-//    public static final RegistryObject<Item> COOKED_BEEF_CRATE;
-//
-//    public static final RegistryObject<Item> CHICKEN_CRATE;
-//
-//    public static final RegistryObject<Item> SPIDER_EYE_CRATE;
-
     public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
     public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
     public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
     public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
-
     public static final RegistryObject<Item> SNIFFER_HIDE;
-
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
-
     public static final RegistryObject<Item> ROTATING_ROAST_MEAT;
 
     static {
@@ -158,18 +142,6 @@ public class ImmortalersDelightItems {
 
         PEARLIP_CRATE = registerWithTab("pearlip_crate", () ->
                 new BlockItem(ImmortalersDelightBlocks.PEARLIP_CRATE.get(), basicItem()));
-
-//        BEEF_CRATE = registerWithTab("beef_crate", () ->
-//                new BlockItem(ImmortalersDelightBlocks.BEEF_CRATE.get(), basicItem()));
-//
-//        COOKED_BEEF_CRATE = registerWithTab("cooked_beef_crate", () ->
-//                new BlockItem(ImmortalersDelightBlocks.COOKED_BEEF_CRATE.get(), basicItem()));
-//
-//        CHICKEN_CRATE = registerWithTab("chicken_crate", () ->
-//                new BlockItem(ImmortalersDelightBlocks.CHICKEN_CRATE.get(), basicItem()));
-//
-//        SPIDER_EYE_CRATE = registerWithTab("spider_eye_crate", () ->
-//                new BlockItem(ImmortalersDelightBlocks.SPIDER_EYE_CRATE.get(), basicItem()));
 
         EVOLUTCORN_BLOCK = registerWithTab("evolutcorn_block", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_BLOCK.get(), basicItem()));
@@ -235,19 +207,12 @@ public class ImmortalersDelightItems {
 
         LEISAMBOO_PLANKS = registerWithTab("leisamboo_planks", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), basicItem()));
-        /*LEISAMBOO_CABINET = registerWithTab("himekaido_cabinet", () ->
-                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_CABINET.get(), basicItem()));*/
+
         LEISAMBOO_STAIRS = registerWithTab("leisamboo_stairs", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_STAIRS.get(), basicItem()));
 
         LEISAMBOO_SLAB = registerWithTab("leisamboo_slab", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_SLAB.get(), basicItem()));
-
-        /*LEISAMBOO_DOOR = registerWithTab("himekaido_door", () ->
-                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), basicItem()));
-
-        LEISAMBOO_TRAPDOOR = registerWithTab("himekaido_trapdoor", () ->
-                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_TRAPDOOR.get(), basicItem()));*/
 
         LEISAMBOO_FENCE = registerWithTab("leisamboo_fence", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_FENCE.get(), basicItem()));
@@ -260,21 +225,12 @@ public class ImmortalersDelightItems {
 
         LEISAMBOO_BUTTON = registerWithTab("leisamboo_button", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_BUTTON.get(), basicItem()));
-        /*LEISAMBOO_SIGN = registerWithTab("himekaido_sign",() ->
-                new SignItem((new Item.Properties()).stacksTo(16),
-                        ImmortalersDelightBlocks.LEISAMBOO_SIGN.get(),
-                        ImmortalersDelightBlocks.LEISAMBOO_WALL_SIGN.get()
-                ));
-        LEISAMBOO_HANGING_SIGN = registerWithTab("himekaido_hanging_sign",() ->
-                new HangingSignItem(
-                        ImmortalersDelightBlocks.LEISAMBOO_HANGING_SIGN.get(),
-                        ImmortalersDelightBlocks.LEISAMBOO_WALL_HANGING_SIGN.get(),
-                        (new Item.Properties()).stacksTo(16)
-                ));*/
-        //Items
+
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
-
+        /*
+        玉米系列物品
+        */
         EVOLUTCORN = registerWithTab("evolutcorn", () ->
                 new Item(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN)));
 
@@ -302,9 +258,18 @@ public class ImmortalersDelightItems {
         ZEA_PANCAKE_SLICE = registerWithTab("zea_pancake_slice", () ->
                 new Item(foodItem(ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE)));
 
+        EVOLUTCORN_PIE_CRUST = registerWithTab("evolutcorn_pie_crust",()->
+                new Item(new Item.Properties()));
+
+        PEARLIP_PIE = block(ImmortalersDelightBlocks.PEARLIP_PIE);
+
+        PEARLIP_PIE_SLICE = foodItem("pearlip_pie_slice",ImmortalersDelightFoodProperties.PEARLIP_PIE_SLICE);
+
         PEATIC_MUSA_SALAD = registerWithTab("peatic_musa_salad", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD), true));
-
+        /*
+        香蕉系列物品
+        */
         PEARLIP = registerWithTab("pearlip", () ->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.PEARLIPEARL_BUNDLE.get(), new Item.Properties().food(ImmortalersDelightFoodProperties.PEARLIP)));
 
@@ -331,7 +296,6 @@ public class ImmortalersDelightItems {
         /*
          溪竹相关物品
         */
-
         LEAF_TEA = registerWithTab("leaf_tea",()->
                 new DrinkableItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
 
@@ -368,16 +332,18 @@ public class ImmortalersDelightItems {
         BOWL_OF_MILLENIAN_BAMBOO = registerWithTab("bowl_of_millenian_bamboo", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO)));
         /*
-        姬海棠系列材料
+        姬海棠系列物品
          */
         HIMEKAIDO_SEED = registerWithTab("himekaido_seed", () ->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get(), new Item.Properties()));
 
         ROTTEN_FLESH_CUTS = registerWithTab("rotten_flesh_cuts", () ->
                 new Item(new Item.Properties()));
-        /*
-        姬海棠系列食物
-         */
+
+        HIMEKAIDO_YOGURT_PIE = block(ImmortalersDelightBlocks.HIMEKAIDO_YOGURT_PIE);
+
+        HIMEKAIDO_YOGURT_PIE_SLICE = foodItem("himekaido_yogurt_pie_slice",ImmortalersDelightFoodProperties.HIMEKAIDO_YOGURT_PIE_SLICE);
+
         HIMEKAIDO = registerWithTab("himekaido", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
 
@@ -427,7 +393,11 @@ public class ImmortalersDelightItems {
 
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = registerWithTab("bowl_of_stewed_rotten_meat_in_clay_pot", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT), true));
-
+        /*
+        暂时为其他物品
+        */
+        PITCHER_POD_PETAL = registerWithTab("pitcher_pod_petal",()->
+                new Item(new Item.Properties()));
         KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
                 new GasToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false),true,false));
         CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
@@ -470,6 +440,10 @@ public class ImmortalersDelightItems {
 
     public static Item.Properties foodItem(FoodProperties food) {
         return (new Item.Properties()).food(food);
+    }
+
+    public static RegistryObject<Item> foodItem(String name,FoodProperties food) {
+        return registerWithTab(name,()->new Item(new Item.Properties().food(food)));
     }
 
     public static Item.Properties bowlFoodItem(FoodProperties food) {

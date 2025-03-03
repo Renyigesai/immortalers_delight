@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido_yogurt_pie"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:himekaido_yogurt_pie_slice",
+      "count": 4
+    }
+  ]
+}

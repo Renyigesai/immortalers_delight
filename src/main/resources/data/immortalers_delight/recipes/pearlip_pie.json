@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "ccc",
+    "efe"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    "b": {
+      "item": "minecraft:honey_bottle"
+    },
+    "c": {
+      "item": "immortalers_delight:pearlip"
+    },
+    "e": {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    "f": {
+      "item": "immortalers_delight:evolutcorn_pie_crust"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:pearlip_pie",
+    "count": 1
+  }
+}

@@ -220,8 +220,12 @@ public class ImmortalersDelightFoodProperties {
             .effect(new MobEffectInstance(MobEffects.HEAL,1,1),1.0F)
             .build();
 
-    //PEARLIPEARL_EGGSTEAM
-
     public static final FoodProperties ZEA_PANCAKE_SLICE = new FoodProperties.Builder().nutrition(3)
+            .saturationMod(0.65f).build();
+
+    public static final FoodProperties PEARLIP_PIE_SLICE = new FoodProperties.Builder().nutrition(3)
+            .saturationMod(0.65f).build();
+
+    public static final FoodProperties HIMEKAIDO_YOGURT_PIE_SLICE = new FoodProperties.Builder().nutrition(3)
             .saturationMod(0.65f).build();
 }

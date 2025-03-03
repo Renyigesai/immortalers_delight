@@ -10,6 +10,8 @@ import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingS
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,7 +27,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+import vectorwing.farmersdelight.common.block.PieBlock;
 
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
@@ -149,10 +153,6 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block>  LEISAMBOO_WALL_HANGING_SIGN = BLOCKS.register("leisamboo_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
-
-
-
-
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
@@ -206,6 +206,12 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",
             () -> new CulturalLegacyEffectToolBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().lightLevel(ageBlockEmission(2)).instabreak().sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> PEARLIP_PIE = BLOCKS.register("pearlip_pie",()->
+            new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.PEARLIP_PIE_SLICE));
+
+    public static final RegistryObject<Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
+            new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
 
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {
         return (p_50763_) -> {
