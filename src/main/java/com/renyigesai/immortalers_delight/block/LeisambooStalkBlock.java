@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
@@ -21,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 
-public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWaterloggedBlock {
+public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWaterloggedBlock,BonemealableBlock {
     public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
     public static final BooleanProperty IS_TEA = BooleanProperty.create("is_tea");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -51,15 +52,27 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
             }
             if (ForgeHooks.onCropsGrowPre(level, pos, state, randomSource.nextInt(3) == 0)) {
                 /*最大高度小于3时尝试向上生长一次*/
-                if (i < 2){
-                    level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
-                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
-                    ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
-                }
-                if (i == 2){
-                    level.setBlock(pos,state.setValue(IS_TEA,true),3);
-                }
+//                if (i < 2){
+//                    level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
+//                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
+//                    ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
+//                }
+//                if (i == 2){
+//                    level.setBlock(pos,state.setValue(IS_TEA,true),3);
+//                }
+                growBamboo(state,level,pos,i);
             }
+        }
+    }
+
+    public void growBamboo(BlockState state, ServerLevel level, BlockPos pos,int i){
+        if (i < 2){
+            level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
+            level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
+            ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
+        }
+        if (i == 2){
+            level.setBlock(pos,state.setValue(IS_TEA,true),3);
         }
     }
 
@@ -113,5 +126,24 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
     @Override
     public BlockState getPlant(BlockGetter blockGetter, BlockPos blockPos) {
         return defaultBlockState();
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return pLevel.getBlockState(pPos.above()).isAir();
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource pRandom, BlockPos pos, BlockState pState) {
+        int i;
+        for(i = 1; level.getBlockState(pos.below(i)).is(this); ++i) {
+        }
+        growBamboo(pState,level,pos,i);
+
     }
 }

@@ -2,7 +2,9 @@ package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -47,6 +49,14 @@ public class EnchantalCoolerBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof EnchantalCoolerBlockEntity enchantalCoolerBlockEntity && enchantalCoolerBlockEntity.cookingTotalTime > 0){
+            pLevel.addParticle(ParticleTypes.SMOKE,pPos.getX() + 0.5,pPos.getY() + 0.5,pPos.getZ() + 0.5,0.0,0.0,0.0);
+        }
+    }
+
+    @Override
     public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
         super.use(blockstate, world, pos, entity, hand, hit);
         if(!world.isClientSide()) {
@@ -67,6 +77,18 @@ public class EnchantalCoolerBlock extends BaseEntityBlock {
     public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         return tileEntity instanceof MenuProvider menuProvider ? menuProvider : null;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof EnchantalCoolerBlockEntity blenderBlockEntity) {
+                blenderBlockEntity.drops(blenderBlockEntity);
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+            super.onRemove(state, world, pos, newState, isMoving);
+        }
     }
 
     @Nullable

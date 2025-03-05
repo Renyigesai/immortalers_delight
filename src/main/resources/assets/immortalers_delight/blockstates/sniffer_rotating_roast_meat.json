@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "lit=false,bites=0": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat"},
+    "lit=false,bites=1": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat"},
+    "lit=false,bites=2": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat"},
+    "lit=false,bites=3": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat"},
+
+    "lit=true,bites=0": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat_lit"},
+    "lit=true,bites=1": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat_lit"},
+    "lit=true,bites=2": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat_lit"},
+    "lit=true,bites=3": {"model": "immortalers_delight:block/sniffer_rotating_roast_meat_lit"}
+  }
+}

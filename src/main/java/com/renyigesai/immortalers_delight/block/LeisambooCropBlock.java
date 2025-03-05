@@ -8,7 +8,9 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -23,7 +25,7 @@ import net.minecraftforge.common.IForgeShearable;
 
 import javax.annotation.Nullable;
 
-public class LeisambooCropBlock extends BushBlock implements LiquidBlockContainer, IForgeShearable {
+public class LeisambooCropBlock extends BushBlock implements LiquidBlockContainer, IForgeShearable,BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final VoxelShape BOX = box(2.0D,0.0D,2.0D,14.0D,8.0D,14.0D);
     public LeisambooCropBlock(Properties pProperties) {
@@ -76,5 +78,25 @@ public class LeisambooCropBlock extends BushBlock implements LiquidBlockContaine
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        return true;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        int age = pState.getValue(AGE);
+        if (age != 2){
+            pLevel.setBlock(pPos,pState.setValue(AGE,age+1),3);
+        }else {
+            pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.LEISAMBOO_STALK.get().defaultBlockState().setValue(LeisambooStalkBlock.WATERLOGGED,true));
+        }
     }
 }

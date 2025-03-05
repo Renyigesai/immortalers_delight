@@ -1,0 +1,9 @@
+{
+  "parent": "immortalers_delight:custom/rotating_roast_meat",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "immortalers_delight:block/sniffer_rotating_roast_meat",
+    "4": "immortalers_delight:block/barbecue_stand",
+    "particle": "immortalers_delight:block/sniffer_rotating_roast_meat"
+  }
+}

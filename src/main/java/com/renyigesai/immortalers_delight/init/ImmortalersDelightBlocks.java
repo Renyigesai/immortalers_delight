@@ -42,6 +42,7 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> ENCHANTAL_COOLER;
     public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
+    public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -165,22 +166,17 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ZEA_PANCAKE = BLOCKS.register("zea_pancake",()->
             new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    static {
-        //方块实体 Block Entity
-
-        ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
-                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
-
-        ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
-                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
-    }
-
     public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = BLOCKS.register("stewed_rotten_meat_pot",()->
             new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
     public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = BLOCKS.register("braised_spider_eyes_block",()->
             new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     public static final RegistryObject<Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
             new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
+    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
+            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
             new TartareChickenBigMealBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
@@ -212,6 +208,19 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
             new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
+
+    static {
+        //方块实体 Block Entity
+
+        ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
+                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+        ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
+                ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
+
+        ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
+                ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));
+    }
 
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {
         return (p_50763_) -> {

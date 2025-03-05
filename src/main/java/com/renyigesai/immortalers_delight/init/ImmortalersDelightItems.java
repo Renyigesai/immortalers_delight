@@ -128,7 +128,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
     public static final RegistryObject<Item> SNIFFER_HIDE;
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
-    public static final RegistryObject<Item> ROTATING_ROAST_MEAT;
+    public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
 
     static {
 
@@ -409,21 +409,22 @@ public class ImmortalersDelightItems {
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
 
-        RAW_SNIFFER_SLICE = registerWithTab("raw_sniffer_slice", () ->
+        RAW_SNIFFER_SLICE = REGISTER.register("raw_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));
 
-        COOKED_SNIFFER_SLICE = registerWithTab("cooked_sniffer_slice", () ->
+        COOKED_SNIFFER_SLICE = REGISTER.register("cooked_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_SLICE, Rarity.COMMON, false), true));
 
-        RAW_SNIFFER_STEAK = registerWithTab("raw_sniffer_steak", () ->
+        RAW_SNIFFER_STEAK = REGISTER.register("raw_sniffer_steak", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK, Rarity.COMMON, false), true));
 
-        COOKED_SNIFFER_STEAK = registerWithTab("cooked_sniffer_steak", () ->
+        COOKED_SNIFFER_STEAK = REGISTER.register("cooked_sniffer_steak", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, Rarity.COMMON, false), true));
 
-        ROTATING_ROAST_MEAT = registerWithTab("rotating_roast_meat", () ->
-                new BlockItem(ImmortalersDelightBlocks.ROTATING_ROAST_MEAT.get(), basicItem()));
-        SNIFFER_HIDE = registerWithTab("sniffer_hide", () ->
+        SNIFFER_ROTATING_ROAST_MEAT = REGISTER.register("sniffer_rotating_roast_meat",()->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.SNIFFER_ROTATING_ROAST_MEAT.get(), new Item.Properties()));
+
+        SNIFFER_HIDE = REGISTER.register("sniffer_hide", () ->
                 new ConsumableItem(fantasticItem(Rarity.COMMON)));
 
     }
