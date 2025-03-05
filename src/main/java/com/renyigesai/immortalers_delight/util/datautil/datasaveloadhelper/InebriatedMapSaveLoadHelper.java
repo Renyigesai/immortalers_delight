@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 // 使用自定义数据存储的示例类
 @Mod.EventBusSubscriber
@@ -24,8 +25,9 @@ public class InebriatedMapSaveLoadHelper {
             InebriatedWorldData data = InebriatedWorldData.get(serverLevel);
             // 获取自定义数据存储实例
             InebriatedDataStorage customData = data.getCustomData();
+            Map<UUID,EffectData> copyMap = new ConcurrentHashMap<>(entitiesHasInebriatedEffect);
             // 设置自定义信息
-            customData.setEntitiesHasInebriatedEffect(entitiesHasInebriatedEffect);
+            customData.setEntitiesHasInebriatedEffect(copyMap);
             // 标记数据已更改，以便保存
             data.setDirty();
         }

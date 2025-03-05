@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -106,7 +107,7 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
 
     public void gasDamage(LivingEntity pEntity, int amplifier) {
         float damage = (float) (pEntity.getMaxHealth() * 0.06 );
-        damage = damage > 1.2F ? damage : 1.2F;
+        damage = pLivingEntity instanceof Player ? Math.max(damage, 1.2F) : Math.min(damage, 1.2F);
         /*
         瓦斯毒伤害，由于需要派生中毒，伤害由setHealth进行以免撞到无敌时间
          */

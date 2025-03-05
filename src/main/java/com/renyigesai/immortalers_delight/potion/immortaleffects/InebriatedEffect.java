@@ -206,11 +206,21 @@ public class InebriatedEffect {
     private static void LoadEntityMap(Level serverLevel) {
 
         ImmortalersDelightMod.LOGGER.info("正在读取存盘的Effect实体Map");
+        entityHasEffect.clear();
         Map<UUID, EffectData> oldMap = InebriatedMapSaveLoadHelper.loadEntityHasEffect(serverLevel);
+
         if (oldMap == null) {
             ImmortalersDelightMod.LOGGER.info("存盘表为null！");
             pausing = false;
             return;
+        }
+        ImmortalersDelightMod.LOGGER.info("正在检查存盘的Map，读取到的存盘Map是：");
+        // 输出读取到的 Map
+        for (Map.Entry<UUID, EffectData> entry : oldMap.entrySet()) {
+            UUID uuid = entry.getKey();
+            EffectData effectData = entry.getValue();
+            ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
+                    ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
         }
         //entityHasEffect = new ConcurrentHashMap<>();
             /*
