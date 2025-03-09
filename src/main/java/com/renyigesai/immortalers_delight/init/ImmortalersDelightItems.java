@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -38,6 +39,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_PRESSURE_PLATE;
     public static final RegistryObject<Item> HIMEKAIDO_BUTTON;
     public static final RegistryObject<Item> HIMEKAIDO_CABINET;
+    public static final RegistryObject<Item> HIMEKAIDO_BOAT;
     public static final RegistryObject<Item> MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> STEWED_ROTTEN_MEAT_POT;
     public static final RegistryObject<Item> BRAISED_SPIDER_EYES_BLOCK;
@@ -209,7 +211,8 @@ public class ImmortalersDelightItems {
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get(),
                         (new Item.Properties()).stacksTo(16)
                 ));
-
+        HIMEKAIDO_BOAT = registerWithTab("himekaido_boat",()->
+                new ImmortalersBoatItem(false, ImmortalersBoat.Type.HIMEKAIDO, basicItem().stacksTo(1)));
         LEISAMBOO_PLANKS = registerWithTab("leisamboo_planks", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), basicItem()));
 
