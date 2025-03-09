@@ -37,6 +37,7 @@ public class WarmCurrentSurgesMobEffect extends MobEffect {
 
             //除雪的逻辑实现
             if (!(pEntity.level().isClientSide)) {
+                System.out.println("yes");
                 Level level = pEntity.level();
                 int randPos = pEntity.getRandom().nextInt(9);
                 for(int i = -1; i <= 1; ++i) {
