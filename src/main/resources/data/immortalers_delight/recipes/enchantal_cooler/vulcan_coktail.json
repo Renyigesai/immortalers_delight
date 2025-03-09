@@ -2,20 +2,17 @@
   "type": "immortalers_delight:enchantal_cooler",
   "ingredients": [
     {
-      "tag": "minecraft:leaves"
+      "item": "minecraft:nether_wart"
     },
     {
-      "tag": "minecraft:leaves"
-    },
-    {
-      "item": "minecraft:water_bucket"
+      "item": "minecraft:torchflower"
     }
   ],
   "container": {
     "item": "minecraft:glass_bottle"
   },
   "output": {
-    "item": "immortalers_delight:leaf_tea",
+    "item": "immortalers_delight:vulcan_coktail",
     "count": 1
   }
 }

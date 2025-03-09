@@ -228,4 +228,20 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties HIMEKAIDO_YOGURT_PIE_SLICE = new FoodProperties.Builder().nutrition(3)
             .saturationMod(0.65f).build();
+
+    public static final FoodProperties EVOLUTCORN_BEER = new FoodProperties.Builder()
+            .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1800,2),1F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1F)
+            .build();
+
+    public static final FoodProperties DREUMK_WINE = new FoodProperties.Builder()
+            .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1800,2),1F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),6000),1.0F)
+            .build();
+
+    public static final FoodProperties VULCAN_COKTAIL = new FoodProperties.Builder()
+            .effect(() ->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),600),1F)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),9600),1F)
+            .build();
 }

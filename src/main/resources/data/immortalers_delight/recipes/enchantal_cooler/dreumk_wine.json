@@ -2,20 +2,17 @@
   "type": "immortalers_delight:enchantal_cooler",
   "ingredients": [
     {
-      "tag": "minecraft:leaves"
+      "item": "immortalers_delight:himekaido"
     },
     {
-      "tag": "minecraft:leaves"
-    },
-    {
-      "item": "minecraft:water_bucket"
+      "item": "minecraft:nether_wart"
     }
   ],
   "container": {
     "item": "minecraft:glass_bottle"
   },
   "output": {
-    "item": "immortalers_delight:leaf_tea",
+    "item": "immortalers_delight:dreumk_wine",
     "count": 1
   }
 }

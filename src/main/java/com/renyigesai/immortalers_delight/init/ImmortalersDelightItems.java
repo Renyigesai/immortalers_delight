@@ -70,6 +70,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ZEA_PANCAKE;
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
     public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
+    public static final RegistryObject<Item> EVOLUTCORN_BEER;
     /*
     香蕉系列物品
     */
@@ -106,6 +107,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
+    public static final RegistryObject<Item> DREUMK_WINE;
     /*
      溪竹相关物品
      */
@@ -129,6 +131,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_HIDE;
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
     public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
+
+    public static final RegistryObject<Item> VULCAN_COKTAIL;
+
 
     static {
 
@@ -267,6 +272,9 @@ public class ImmortalersDelightItems {
 
         PEATIC_MUSA_SALAD = registerWithTab("peatic_musa_salad", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD), true));
+
+        EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
+                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
         /*
         香蕉系列物品
         */
@@ -393,6 +401,9 @@ public class ImmortalersDelightItems {
 
         BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT = registerWithTab("bowl_of_stewed_rotten_meat_in_clay_pot", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT), true));
+
+        DREUMK_WINE = registerWithTab("dreumk_wine",()->
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true,false));
         /*
         暂时为其他物品
         */
@@ -427,6 +438,9 @@ public class ImmortalersDelightItems {
         SNIFFER_HIDE = REGISTER.register("sniffer_hide", () ->
                 new ConsumableItem(fantasticItem(Rarity.COMMON)));
 
+        VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));
+
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
@@ -455,6 +469,10 @@ public class ImmortalersDelightItems {
         return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16);
     }
 
+    public static Item.Properties drinkItem(FoodProperties foodProperties) {
+        return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(foodProperties);
+    }
+
     public static Item.Properties leisambooDrinksItem() {
         return (new Item.Properties()).craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16);
     }
@@ -470,7 +488,6 @@ public class ImmortalersDelightItems {
         }
         return (new Item.Properties().rarity(soCool).food(foodProperties));
     }
-
 
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
