@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "immortalers_delight.refmap.json",
   "mixins": [
-    "PlayerMixin",
     "SnifferMixin"
   ],
   "client": [
