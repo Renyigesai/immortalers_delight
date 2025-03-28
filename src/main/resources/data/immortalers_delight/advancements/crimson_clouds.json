@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:kwat_wheat_seeds"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.crimson_clouds.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.crimson_clouds.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:kwat_wheat_seeds"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

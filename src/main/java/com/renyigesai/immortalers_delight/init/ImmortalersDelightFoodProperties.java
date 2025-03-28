@@ -244,4 +244,17 @@ public class ImmortalersDelightFoodProperties {
             .effect(() ->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),600),1F)
             .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),9600),1F)
             .build();
+
+    public static final FoodProperties KWAT_WHEAT_TOAST = new FoodProperties.Builder().nutrition(12).saturationMod(0.6f).build();
+
+    public static final FoodProperties KWAT_WHEAT_TOAST_SLICE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+    public static final FoodProperties NETHER_CREAM_SOUP = new FoodProperties.Builder().nutrition(6).saturationMod(0.75f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600,1),1F)
+            .effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),1200),1F).build();
+
+    public static final FoodProperties NETHER_CREAM_BREAD = new FoodProperties.Builder().nutrition(8).saturationMod(0.375f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),2400),1F)
+            .effect(new MobEffectInstance(MobEffects.SATURATION,60),1F).build();
+
 }

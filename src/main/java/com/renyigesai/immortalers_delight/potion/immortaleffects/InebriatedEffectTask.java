@@ -44,6 +44,7 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
         this.expireTime = TimekeepingTask.getImmortalTickTime() + (long) (durationSeconds * 1000);
         this.amplifier = amplifier;
         this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
+        ImmortalersDelightMod.LOGGER.info("这里是酒精Buff的Task，开始执行，定义的持续时间是" + maxDurationTicks);
         derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,3600);
         derivativeEffect.put(MobEffects.BLINDNESS,100);
         derivativeEffect.put(MobEffects.WEAKNESS,3600);
@@ -75,12 +76,14 @@ public class InebriatedEffectTask extends ScheduledExecuteTask {
             time = pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get())?
                     Objects.requireNonNull(pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration()):0;
             if (lv > amplifier) amplifier = lv;
-            if (time > duration) maxDurationTicks = tick + time;
+            if (time - duration > 20) {maxDurationTicks = tick + time;}
         } else if (tick > 1){
             /*
             实现不能解的行为：不断给实体补充对应效果，使得Effect的最短持续时间依赖于计划任务的持续时间
              */
+            ImmortalersDelightMod.LOGGER.info("持续时间的原始值是" + (maxDurationTicks - tick) + ",");
             MobEffectInstance mobEffectInstance = new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),duration,amplifier);
+            ImmortalersDelightMod.LOGGER.info("这里是酒精的计划任务，检查到buff被解，正在补充buff，数据为" + duration + " " + amplifier);
             pLivingEntity.addEffect(mobEffectInstance);
         }
         /*

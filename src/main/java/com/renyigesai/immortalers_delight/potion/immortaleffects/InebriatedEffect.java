@@ -1,12 +1,14 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.InebriatedMapSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -120,6 +122,7 @@ public class InebriatedEffect {
 //        ImmortalersDelightMod.LOGGER.info("附一个现在的时间" + TimekeepingTask.getImmortalTickTime());
         if (TimekeepingTask.getImmortalTickTime() > expireTime) {
             removeImmortalEffect(entity);
+            entity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1,0,false,false));
         } else {
             /*
             此处为具体的效果方法逻辑
@@ -140,7 +143,7 @@ public class InebriatedEffect {
 
                 Long durationTime = expireTime - TimekeepingTask.getImmortalTickTime();
 //                ImmortalersDelightMod.LOGGER.info("你这B玩意还有多久结束？" + durationTime);
-                ScheduledExecuteTask newTask = buildEffectTask(taskID,entity,durationTime,entityHasEffect.get(uuid).getAmplifier());
+                ScheduledExecuteTask newTask = buildEffectTask(taskID,entity,durationTime/1000,entityHasEffect.get(uuid).getAmplifier());
                 newTask.start();
 //                System.out.println("计划任务异常！已创建新的计划任务");
 //                ImmortalersDelightMod.LOGGER.info("计划任务异常！已创建新的计划任务");
@@ -233,8 +236,10 @@ public class InebriatedEffect {
             修正时刻，存盘的Map里存的时间理论上为[上次关服时间 + 剩余持续时间]，因此减去一个上次关服时间再加上当前时间即可保持持续时间不变
              */
             Long trueTime = dataOld.getTime() - ExitTimeSaveLoadHelper.loadExitTime(serverLevel) + TimekeepingTask.getImmortalTickTime();
-            EffectData newOne = new EffectData(dataOld, trueTime, dataOld.getAmplifier(), dataOld.getTaskId());
-            entityHasEffect.put(uuidOld,newOne);
+            if (trueTime > TimekeepingTask.getImmortalTickTime()) {
+                EffectData newOne = new EffectData(dataOld, trueTime, dataOld.getAmplifier(), dataOld.getTaskId());
+                entityHasEffect.put(uuidOld,newOne);
+            }
         }
         ImmortalersDelightMod.LOGGER.info("存盘Map读取完毕，当前Effect实体Map为：");
         pausing = false;

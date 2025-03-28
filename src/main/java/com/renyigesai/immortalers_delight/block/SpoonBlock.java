@@ -36,7 +36,6 @@ public class SpoonBlock extends Block {
     public static final IntegerProperty SERVINGS = IntegerProperty.create("servings", 0, 3);
     public static final VoxelShape BOX = box(0.0D,0.0D,0.0D,16.0D,16.0D,16.0D);
 
-//    public final ItemStack spoonItem;
     public final Supplier<Item> spoonItem;
 
     public SpoonBlock(BlockBehaviour.Properties p_49795_, Supplier<Item> spoonItem) {

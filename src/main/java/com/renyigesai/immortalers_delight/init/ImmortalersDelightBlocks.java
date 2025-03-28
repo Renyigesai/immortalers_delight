@@ -209,6 +209,12 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
             new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
 
+    public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
+            () -> new KwatWheatCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> NETHER_BREAD_CREAM_SOUP = BLOCKS.register("nether_bread_cream_soup",
+            () -> new KwatWheatToastStewedVegetablesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     static {
         //方块实体 Block Entity
 

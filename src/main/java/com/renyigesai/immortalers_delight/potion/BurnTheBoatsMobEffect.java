@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
@@ -13,4 +14,11 @@ public class BurnTheBoatsMobEffect extends MobEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
+
+
+
+//    @Override
+//    protected String getOrCreateDescriptionId() {
+//        return "test";
+//    }
 }

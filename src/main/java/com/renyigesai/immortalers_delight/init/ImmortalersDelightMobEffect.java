@@ -21,7 +21,7 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> RESISTANCE_TO_ABYSSAL = REGISTRY.register("resistance_to_abyssal", DamageResistMobEffect::new);
     public static final RegistryObject<MobEffect> RESISTANCE_TO_ILLAGER = REGISTRY.register("resistance_to_illager", DamageResistMobEffect::new);
     public static final RegistryObject<MobEffect> RESISTANCE_TO_SURROUNDINGS = REGISTRY.register("resistance_to_surroundings", DamageResistMobEffect::new);
-    public static final RegistryObject<MobEffect> GREAT_MISERY = REGISTRY.register("great_misery", RelievePotionEffectMobEffect::new);
+//    public static final RegistryObject<MobEffect> GREAT_MISERY = REGISTRY.register("great_misery", RelievePotionEffectMobEffect::new);
     public static final RegistryObject<MobEffect> MAGICAL_REVERSE = REGISTRY.register("magical_reverse", IncandescenceMobEffect::new);
 
     public static final RegistryObject<MobEffect> GAS_POISON = REGISTRY.register("gas_poison", IncandescenceMobEffect::new);

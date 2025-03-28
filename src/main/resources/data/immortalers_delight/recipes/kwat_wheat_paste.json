@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    "b": {
+      "item": "minecraft:potion"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:kwat_wheat_paste",
+    "count": 1
+  }
+}

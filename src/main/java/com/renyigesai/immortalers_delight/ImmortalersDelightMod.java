@@ -9,6 +9,7 @@ import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,6 +28,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
+import java.util.Locale;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ImmortalersDelightMod.MODID)
 public class ImmortalersDelightMod {
@@ -36,7 +39,6 @@ public class ImmortalersDelightMod {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public ImmortalersDelightMod() {
-//        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -46,6 +48,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         ImmortalersDelightGroup.CREATIVE_TABS.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
+        ImmortalersDelightParticleTypes.REGISTRY.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);

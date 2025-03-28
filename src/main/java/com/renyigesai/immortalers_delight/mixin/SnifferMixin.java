@@ -13,6 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.Tags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -50,6 +51,8 @@ public abstract class SnifferMixin extends Animal {
                 serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,2));
             } else if (biomeHolder.is(BiomeTags.IS_RIVER)) {
                 serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,3));
+            } else if (biomeHolder.is(Biomes.CRIMSON_FOREST)) {
+                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,4));
             }
         }
     }
@@ -61,10 +64,12 @@ public abstract class SnifferMixin extends Animal {
         ItemStack stack2 = new ItemStack(ImmortalersDelightItems.EVOLUTCORN_GRAINS.get());
         ItemStack stack3 = new ItemStack(ImmortalersDelightItems.HIMEKAIDO_SEED.get());
         ItemStack stack4 = new ItemStack(ImmortalersDelightItems.CONTAINS_TEA_LEISAMBOO.get());
+        ItemStack stack5 = new ItemStack(ImmortalersDelightItems.KWAT_WHEAT_SEEDS.get());
         itemStacks.add(stack1);
         itemStacks.add(stack2);
         itemStacks.add(stack3);
         itemStacks.add(stack4);
+        itemStacks.add(stack5);
         return new ItemEntity(serverlevel, blockpos.getX(), blockpos.getY(), blockpos.getZ(),
                 new ItemStack(itemStacks.get(i).getItem()));
 
