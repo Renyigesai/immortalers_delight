@@ -179,7 +179,10 @@
   "effect.immortalers_delight.burn_the_boats.description": "Grant Power III, Speed III, Urgency III, Jump III, and Resistance III for 15 seconds when health falls below a certain percentage. Causes the health bar to be partially covered with shields and flaming swords, and the covered part marks the health that triggers the effect.",
   "effect.immortalers_delight.cultural_legacy.description": "Increase the Enchantment level of the Enchantment table when near the Enchantment Table, and gain a certain amount of experience at the end of the effect.\nIt must take effect within the detection range of the bookshelf attached to the magic table, and the detection is about once every 4 seconds. A level 1 effect increases the enchantment level by 8 levels, and then each level increases the enchantment level by 4 levels, with a maximum effect of 8 levels, that is, a maximum of 36 enchantment levels.\n\nThis effect also allows the first and second enchantment options of the Enchanted table to reach level 30 (4 effects are required, Level 2 effects only allow the second enchantment to reach level 30), making it possible to consume level 2 or even level 1 for level 30 enchantment.",
   "effect.immortalers_delight.warm_current_surges.description": "Warm Current Surges",
-  "death.attack.punishment": "%1$s He died of the wrath of nature",
-  "death.attack.punishment.item": "%1$s was killed by %2$s using %3$s",
-  "death.attack.punishment.player": "%1$ died whilst trying to escap %2$s"
+  "death.attack.drunk": "%1$s Drunk on the asphalt",
+  "death.attack.drunk.item": "%1$s was killed by %2$s using %3$s",
+  "death.attack.drunk.player": "%1$ died whilst trying to escap %2$s",
+  "death.attack.gas": "%1$s It was gassed and turned into bacon",
+  "death.attack.gas.item": "%1$s was killed by %2$s using %3$s",
+  "death.attack.gas.player": "%1$ died whilst trying to escap %2$s"
 }

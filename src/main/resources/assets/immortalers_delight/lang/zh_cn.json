@@ -179,7 +179,10 @@
   "effect.immortalers_delight.burn_the_boats.description": "在生命值低于一定比例时，给予生物15秒力量III、速度III、急迫III、跳跃提升III、抗性提升III。使得生命条部分被盾牌与燃火的剑覆盖，覆盖的部分标记了触发该效果的生命值。",
   "effect.immortalers_delight.cultural_legacy.description": "在附魔台附近时，提升附魔台的附魔等级，效果结束时获得一定量经验。\n需要在附魔台的书架检测范围内生效，检测约4秒一次。1级效果可以提升8级附魔等级，此后每级效果提升4级附魔等级，最高生效8级，即最多提升36级附魔等级。\n该效果可令附魔台的第一、二条附魔选项也达到30级（需要4级效果，2级效果仅能使得第二条附魔达到30级），使得可以消耗2等级甚至1等级进行30级附魔。",
   "effect.immortalers_delight.warm_current_surges.description": "燃起来了",
-  "death.attack.punishment": "%1$s 因触怒自然而亡",
-  "death.attack.punishment.item": "%1$ 被 %2$s 杀死 %3$s",
-  "death.attack.punishment.player": "%1$ 在试图逃跑时死亡 %2$s"
+  "death.attack.drunk": "%1$s 醉倒在柏油路上",
+  "death.attack.drunk.item": "%1$ 被 %2$s 杀死 %3$s",
+  "death.attack.drunk.player": "%1$ 在试图逃跑时死亡 %2$s",
+  "death.attack.gas": "%1$s 被瓦斯毒气熏成了腊肉",
+  "death.attack.gas.item": "%1$ 被 %2$s 杀死 %3$s",
+  "death.attack.gas.player": "%1$ 在试图逃跑时死亡 %2$s"
 }
