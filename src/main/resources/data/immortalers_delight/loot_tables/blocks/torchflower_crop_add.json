@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:torchflower_seeds",
+          "functions": [],
+          "conditions": []
+        }
+      ],
+      "functions": []
+    }
+  ],
+  "functions": [],
+  "random_sequence": "immortalers_delight:blocks/torchflower_crop_add"
+}

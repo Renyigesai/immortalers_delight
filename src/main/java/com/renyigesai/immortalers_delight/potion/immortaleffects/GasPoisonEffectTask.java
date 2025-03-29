@@ -5,6 +5,10 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -112,7 +116,10 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
         瓦斯毒伤害，由于需要派生中毒，伤害由setHealth进行以免撞到无敌时间
          */
         if (pEntity.getHealth() - damage > 0) {
-            if (tick % (32 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage);
+            if (tick % (32 >> amplifier) == 0){//tick % (32 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage
+                pEntity.invulnerableTime = 0;
+                pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))), damage);
+            }
             /*
             瓦斯毒派生其他DeBuff，通过Map记录DeBuff时间以使得派生的DeBuff也无法通过常规手段解掉
              */
