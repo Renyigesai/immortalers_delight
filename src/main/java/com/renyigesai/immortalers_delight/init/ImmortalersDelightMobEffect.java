@@ -3,6 +3,9 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.potion.*;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -30,6 +33,6 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> KEEP_A_FAST = REGISTRY.register("keep_a_fast",KeepFastMobEffect::new);
     public static final RegistryObject<MobEffect> BURN_THE_BOATS = REGISTRY.register("burn_the_boats", BurnTheBoatsMobEffect::new);
     public static final RegistryObject<MobEffect> CULTURAL_LEGACY = REGISTRY.register("cultural_legacy", CulturalLegacyMobEffect::new);
-    public static final RegistryObject<MobEffect> WARM_CURRENT_SURGES = REGISTRY.register("warm_current_surges", WarmCurrentSurgesMobEffect::new);
+    public static final RegistryObject<MobEffect> WARM_CURRENT_SURGES = REGISTRY.register("warm_current_surges",()-> new WarmCurrentSurgesMobEffect().addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",3.0, AttributeModifier.Operation.ADDITION));
 
 }

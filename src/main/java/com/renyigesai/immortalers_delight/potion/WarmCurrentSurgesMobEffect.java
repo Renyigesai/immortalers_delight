@@ -1,8 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffect;
@@ -10,7 +7,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Objects;
@@ -37,35 +33,22 @@ public class WarmCurrentSurgesMobEffect extends MobEffect {
 
             //除雪的逻辑实现
             if (!(pEntity.level().isClientSide)) {
-                System.out.println("yes");
                 Level level = pEntity.level();
-                int randPos = pEntity.getRandom().nextInt(9);
-                for(int i = -1; i <= 1; ++i) {
-                    for(int j = -1; j <= 1; ++j) {
-                        BlockPos blockPos = pEntity.getOnPos().offset(i, 1, j);
-                        if (pEntity.isInPowderSnow) {
-                            removeSnow(level,pEntity.getOnPos().above());
-                            removeSnow(level,pEntity.getOnPos().above().above());
-                            break;
-                        }
-                        if (i + 1 + (j + 1) * 3 == randPos){
-                            removeSnow(level,blockPos);
-                            removeSnow(level,blockPos.above());
-                            break;
-                        }
-                    }
-                }
+                removeSnow(level,pEntity.getX(),pEntity.getY(),pEntity.getZ());
             }
         }
     }
-    public void removeSnow(Level pLevel, BlockPos blockPos) {
+    public void removeSnow(Level pLevel, double x,double y,double z) {
+        BlockPos blockPos = BlockPos.containing(x,y,z);
         BlockState blockstate = pLevel.getBlockState(blockPos);
         if (blockstate.is(BlockTags.SNOW)) {
-            pLevel.setBlock(blockPos, Blocks.AIR.defaultBlockState(),2);
+            for (int i = 0; i < 2; i++) {
+                pLevel.destroyBlock(BlockPos.containing(x,y+i,z),false);
+            }
         }
     }
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % 40 == 0;
+        return true;
     }
 }

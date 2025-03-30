@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.world.InteractionHand;
@@ -78,6 +79,10 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
         if (!pLevel.isClientSide) {
             if (outStack.getItem() instanceof GoldenHimkaidoFoodItem thisItem) {
                 if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
+                    if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0) < 3600) {
+                        InebriatedEffect.removeImmortalEffect(pLivingEntity);
+                        pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
+                    }
                     reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
                     new ScheduledExecuteTask(1, 1) {
                         private int tick = 0;
