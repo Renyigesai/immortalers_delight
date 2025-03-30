@@ -371,16 +371,16 @@ public class ImmortalersDelightItems {
         酒類物品
         */
         EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
-                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
+                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER, Rarity.COMMON, false),true,false,false,true));
 
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true,false));
+                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.DREUMK_WINE, Rarity.COMMON, false),true,false,false,true));
 
         CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
                 new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA, Rarity.COMMON, false),true,false,false,true));
 
         VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));
+                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL, Rarity.COMMON, false),true,false,false,true));
 
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
                 new BlockItem(ImmortalersDelightBlocks.MILLENIAN_BAMBOO.get(), basicItem()));
