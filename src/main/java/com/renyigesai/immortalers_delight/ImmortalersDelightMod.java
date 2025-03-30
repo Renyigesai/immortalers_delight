@@ -1,15 +1,15 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
+import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.init.*;
-import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -51,6 +51,8 @@ public class ImmortalersDelightMod {
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
+        ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -83,6 +85,8 @@ public class ImmortalersDelightMod {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
+            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
 
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code
@@ -93,6 +97,7 @@ public class ImmortalersDelightMod {
             AftertasteHungerOverlay.init();
             KeepFastHungerOverlay.init();
             BurnTheBoatsHealthOverlay.init();
+
             //GasPoisonHealthOverlay.init();
         }
     }
