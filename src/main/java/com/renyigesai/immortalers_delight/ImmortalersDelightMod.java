@@ -5,7 +5,6 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRendere
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.init.*;
-import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
@@ -84,7 +83,8 @@ public class ImmortalersDelightMod {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
+            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
+            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
 
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code

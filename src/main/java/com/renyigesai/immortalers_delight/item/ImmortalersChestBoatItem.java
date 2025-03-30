@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
-import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
+import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -8,8 +8,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -22,14 +20,14 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ImmortalersBoatItem extends Item {
+public class ImmortalersChestBoatItem extends Item {
     private static final Predicate<Entity> ENTITY_PREDICATE;
-    private final ImmortalersBoat.Type type;
+    private final ImmortalersChestBoat.Type type;
     private final boolean hasChest;
 
-    public ImmortalersBoatItem(ImmortalersBoat.Type pType, Item.Properties pProperties) {
+    public ImmortalersChestBoatItem(ImmortalersChestBoat.Type pType, Properties pProperties) {
         super(pProperties);
-        this.hasChest =false;
+        this.hasChest = true;
         this.type = pType;
     }
 
@@ -53,8 +51,8 @@ public class ImmortalersBoatItem extends Item {
             }
 
             if ($$4.getType() == HitResult.Type.BLOCK) {
-                ImmortalersBoat boat = (ImmortalersBoat) this.getBoat(pLevel, $$4);
-                ((ImmortalersBoat)boat).setVariant(this.type);
+                ImmortalersChestBoat boat = (ImmortalersChestBoat) this.getBoat(pLevel, $$4);
+                ((ImmortalersChestBoat)boat).setVariant(this.type);
                 boat.setYRot(pPlayer.getYRot());
                 if (!pLevel.noCollision(boat, boat.getBoundingBox())) {
                     return InteractionResultHolder.fail($$3);
@@ -76,8 +74,8 @@ public class ImmortalersBoatItem extends Item {
         }
     }
 
-    private ImmortalersBoat getBoat(Level pLevel, HitResult pHitResult) {
-        return /*this.hasChest ? new ImmortalersChestBoat(pLevel, pHitResult.getLocation().x, pHitResult.getLocation().y, pHitResult.getLocation().z) : */new ImmortalersBoat(pLevel, pHitResult.getLocation().x, pHitResult.getLocation().y, pHitResult.getLocation().z);
+    private ImmortalersChestBoat getBoat(Level pLevel, HitResult pHitResult) {
+        return /*this.hasChest ? new ImmortalersChestBoat(pLevel, pHitResult.getLocation().x, pHitResult.getLocation().y, pHitResult.getLocation().z) : */new ImmortalersChestBoat(pLevel, pHitResult.getLocation().x, pHitResult.getLocation().y, pHitResult.getLocation().z);
     }
 
     static {
