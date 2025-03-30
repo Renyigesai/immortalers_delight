@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 
+import com.renyigesai.immortalers_delight.block.WrappedHandler;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
@@ -23,10 +24,18 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
@@ -36,6 +45,13 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private final ItemStackHandler fuelslot = new ItemStackHandler(1);// 1 个燃料槽位
     public int cookingTotalTime;
     public int residualDye;
+    private static final int[] INPUT_SLOTS = new int[]{0,1,2,3};
+    private static final int[] OUTPUT_SLOTS = new int[]{4};
+    private static final int[] FUEL_SLOTS = new int[]{0};
+    private static final int[] CONTAINER_SLOTS = new int[]{0};
+
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final EnumMap<Direction, LazyOptional<WrappedHandler>> directionHandlers = new EnumMap<>(Direction.class);
 
     public EnchantalCoolerBlockEntity(BlockPos pos, BlockState state) {
         super(ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(), pos, state);
@@ -76,6 +92,19 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             }
         }
         return true;
+    }
+
+    public boolean getIntList(int i,int[] intList){
+        for (int j = 0; j < intList.length; j++) {
+            if (intList[j] == i){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Direction getDirection(){
+        return this.getBlockState().getValue(EnchantalCoolerBlock.FACING);
     }
 
     public void drops(EnchantalCoolerBlockEntity blockEntity) {
@@ -129,6 +158,36 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         for (int i = 0; i < inventory.getSlots(); i++) {
             inventory.setStackInSlot(i, ItemStack.EMPTY);
         }
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        Direction facing = getDirection();
+
+        lazyItemHandler = LazyOptional.of(() -> inventory);
+
+        directionHandlers.put(Direction.UP, LazyOptional.of(
+                () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,INPUT_SLOTS) && canPlaceItem(i,s))));
+
+        directionHandlers.put(Direction.DOWN, LazyOptional.of(
+                () -> new WrappedHandler(inventory, (i) -> getIntList(i,OUTPUT_SLOTS), (i, s) -> false)));
+
+        directionHandlers.put(facing, LazyOptional.of(
+                () -> new WrappedHandler(fuelslot, (i) -> false, (i,s) -> getIntList(i,FUEL_SLOTS))));
+
+        for (Direction dir : Direction.values()) {
+            if (dir != Direction.UP && dir != Direction.DOWN && dir != facing) {
+                directionHandlers.put(dir, LazyOptional.of(
+                        () -> new WrappedHandler(containerslot, (i) -> false, (i, s) -> getIntList(i,CONTAINER_SLOTS) && canPlaceItem(i,s))));
+            }
+        }
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
     }
 
     @Override
@@ -299,8 +358,13 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public int[] getSlotsForFace(Direction pSide) {
-        return new int[]{0,1,2,3,4};
+    public int @NotNull [] getSlotsForFace(Direction pSide) {
+        if (pSide == getDirection()){
+            return FUEL_SLOTS;
+        } else if (pSide == Direction.DOWN) {
+            return OUTPUT_SLOTS;
+        }
+        return pSide == Direction.UP?INPUT_SLOTS:CONTAINER_SLOTS;
     }
 
     @Override
@@ -316,5 +380,16 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return false;
+    }
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+    if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (side == null) {
+            return lazyItemHandler.cast();
+        }
+        return directionHandlers.getOrDefault(side, LazyOptional.empty()).cast();
+    }
+    return super.getCapability(cap, side);
     }
 }
