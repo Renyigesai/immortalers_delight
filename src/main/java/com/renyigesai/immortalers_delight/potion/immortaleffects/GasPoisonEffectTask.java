@@ -40,7 +40,7 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
             this.amplifier = amplifier;
             this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
         this.derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,100);
-        this.derivativeEffect.put(MobEffects.BLINDNESS,3600);
+        this.derivativeEffect.put(MobEffects.BLINDNESS,900);
         this.derivativeEffect.put(MobEffects.WEAKNESS,100);
         this.derivativeEffect.put(MobEffects.CONFUSION,100);
         this.derivativeEffect.put(MobEffects.HUNGER,100);
@@ -53,7 +53,7 @@ public class GasPoisonEffectTask extends ScheduledExecuteTask {
         this.amplifier = amplifier;
         this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
         this.derivativeEffect.put(MobEffects.MOVEMENT_SLOWDOWN,100);
-        this.derivativeEffect.put(MobEffects.BLINDNESS,3600);
+        this.derivativeEffect.put(MobEffects.BLINDNESS,900);
         this.derivativeEffect.put(MobEffects.WEAKNESS,100);
         this.derivativeEffect.put(MobEffects.CONFUSION,100);
         this.derivativeEffect.put(MobEffects.HUNGER,100);

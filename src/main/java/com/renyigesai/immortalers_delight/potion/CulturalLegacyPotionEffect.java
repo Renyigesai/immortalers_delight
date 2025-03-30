@@ -1,17 +1,43 @@
 package com.renyigesai.immortalers_delight.potion;
-//
-//import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
-//import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-//import net.minecraft.core.BlockPos;
-//import net.minecraft.world.level.Level;
-//import net.minecraft.world.level.block.Blocks;
-//import net.minecraft.world.level.block.state.BlockState;
-//import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
-//import net.minecraftforge.eventbus.api.SubscribeEvent;
-//import net.minecraftforge.fml.common.Mod;
-//
-//@Mod.EventBusSubscriber
-//public class CulturalLegacyPotionEffect {
+
+import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod.EventBusSubscriber
+public class CulturalLegacyPotionEffect {
+
+    @SubscribeEvent
+    public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
+        if (event != null && event.getEntity() != null) {
+            ItemStack stack = event.getItem();
+            Entity entity = event.getEntity();
+            if (entity instanceof LivingEntity livingEntity) {
+                if (stack.getItem().isEdible()) {
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.PUFFERFISH_ROLL) {
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1));
+                    }
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT) {
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.HEAL, 1));
+                    }
+                }
+            }
+        }
+    }
 //    @SubscribeEvent
 //    public static void onEnchantmentLevelSet(EnchantmentLevelSetEvent event) {
 //        if (event == null || event.isCanceled()) {
@@ -66,4 +92,4 @@ package com.renyigesai.immortalers_delight.potion;
 //        int newLevel = originalLevel - goldBlockCount;
 //        return Math.max(0, newLevel);
 //    }
-//}
+}
