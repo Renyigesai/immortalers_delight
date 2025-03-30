@@ -226,7 +226,6 @@ public class ImmortalersDelightItems {
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get(),
                         (new Item.Properties()).stacksTo(16)
                 ));//暂时藏起来
-                ));
         HIMEKAIDO_BOAT = registerWithTab("himekaido_boat",()->
                 new ImmortalersBoatItem(ImmortalersBoat.Type.HIMEKAIDO, basicItem().stacksTo(1)));
 
@@ -357,46 +356,24 @@ public class ImmortalersDelightItems {
                 new Item(new Item.Properties().stacksTo(16)));
 
         LEISAMBOO_TEA = registerWithTab("leisamboo_tea", () ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA),true, false));
 
         ICED_BLACK_TEA = registerWithTab("iced_black_tea",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true, false));
 
         PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_TEA),true, false));
 
         PEARLIPEARL_MILK_GREEN = registerWithTab("pearlipearl_milk_green",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_GREEN),true, false));
 
         STOVE_BLACK_TEA = registerWithTab("stove_black_tea",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.STOVE_BLACK_TEA),true, false));
 
         LEAF_GREEN_TEA = registerWithTab("leaf_green_tea",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.LEAF_GREEN_TEA),true, false));
 
         BRITISH_YELLOW_TEA = registerWithTab("british_yellow_tea",() ->
-                new DrinkableItem(new Item.Properties().craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16)));
-
-        /*
-        酒類物品
-        */
-        EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
-                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
-
-        DREUMK_WINE = registerWithTab("dreumk_wine",()->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true,false));
-
-        CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
-                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA, Rarity.COMMON, false),true,false,false,true));
-
-        VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.BRITISH_YELLOW_TEA),true, false));
 
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
@@ -417,7 +394,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
 
         GOLDEN_HIMEKAIDO = registerWithTab("golden_himekaido", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false), true,true));
+                new GoldenHimkaidoFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false),true,true,false));
 
         ENCHANTED_GOLDEN_HIMEKAIDO = registerWithTab("enchanted_golden_himekaido", () ->
                 new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
@@ -478,8 +455,8 @@ public class ImmortalersDelightItems {
         KWAT_WHEAT_TOAST_SLICE = foodItem("kwat_wheat_toast_slice",ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_SLICE);
 
         NETHER_BREAD_CREAM_SOUP = block(ImmortalersDelightBlocks.NETHER_BREAD_CREAM_SOUP);
-        KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
-                new GasToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false),true,false));
+//        KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
+//                new GasToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false),true,false));
 
         NETHER_CREAM_SOUP = registerWithTab("nether_cream_soup",() ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_CREAM_SOUP),true,false));

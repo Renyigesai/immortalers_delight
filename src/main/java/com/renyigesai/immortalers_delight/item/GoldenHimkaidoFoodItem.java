@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -12,11 +13,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
     private static final int EAT_DURATION = 20;
@@ -24,33 +27,47 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
 
     private final int reverseAmplifier;
 
-    public MobEffect FD_Nourished = vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT.get();
-    public MobEffect FD_Comfit = vectorwing.farmersdelight.common.registry.ModEffects.COMFORT.get();
+    public MobEffect FD_Nourished = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":nourishment");
 
-    public Map<MobEffect,MobEffect> reverseEffect = (new ImmutableMap.Builder<MobEffect,MobEffect>())
-            .put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE)
-            .put(MobEffects.UNLUCK,MobEffects.LUCK)
-            .put(MobEffects.GLOWING,MobEffects.INVISIBILITY)
-            .put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED)
-            .put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING)
-            .put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION)
-            .put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER)
-            .put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED)
-            .put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST)
-            .put(MobEffects.POISON,FD_Comfit)
-            .put(MobEffects.WITHER,MobEffects.REGENERATION)
-            .put(MobEffects.HUNGER,FD_Nourished)
-            .put(MobEffects.HARM,MobEffects.HEAL)
-            .build();
+    public MobEffect FD_Comfit = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":comfort");
+
+    public Map<MobEffect,MobEffect> reverseEffect = new ConcurrentHashMap<MobEffect,MobEffect>();
+
     public GoldenHimkaidoFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean hasCustomToolTip, boolean isFoil) {
         super(properties, hasFoodEffectTooltip, hasCustomToolTip, isFoil);
         reverseDuration = 0;
         reverseAmplifier = 0;
+        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
     public GoldenHimkaidoFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean isFoil, int reverseLevel, int reverseTime) {
         super(properties, hasFoodEffectTooltip, true, isFoil);
         reverseDuration = reverseTime;
         reverseAmplifier = reverseLevel;
+        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
 
     public int getReverseDuration() {return this.reverseDuration;}
