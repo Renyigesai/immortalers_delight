@@ -25,7 +25,7 @@ public class ImmortalersBoat extends Boat {
         super(pEntityType, pLevel);
     }
     public ImmortalersBoat(Level level, double pX, double pY, double pZ) {
-        this(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), level);
+        this(ImmortalersDelightEntities.HIMEKAIDO_BOAT.get(), level);
         this.setPos(pX, pY, pZ);
         this.xo = pX;
         this.yo = pY;

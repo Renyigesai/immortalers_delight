@@ -2,17 +2,20 @@ package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
 import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import vectorwing.farmersdelight.FarmersDelight;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MagicalReverseEffectTask extends ScheduledExecuteTask {
     private final LivingEntity pLivingEntity;
@@ -32,6 +35,19 @@ public class MagicalReverseEffectTask extends ScheduledExecuteTask {
             this.expireTime = TimekeepingTask.getImmortalTickTime() + (long) (durationSeconds * 1000);
             this.amplifier = amplifier;
             this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
+        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
     public MagicalReverseEffectTask(int initialDelay, int delay, int taskID, LivingEntity entity, Long durationSeconds, int amplifier) {
         super(initialDelay, delay,taskID);
@@ -39,25 +55,29 @@ public class MagicalReverseEffectTask extends ScheduledExecuteTask {
         this.expireTime = TimekeepingTask.getImmortalTickTime() + (long) (durationSeconds * 1000);
         this.amplifier = amplifier;
         this.maxDurationTicks = (int) (durationSeconds * 20 > Integer.MAX_VALUE ? Integer.MAX_VALUE : durationSeconds * 20);
+        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
-    public MobEffect FD_Nourished = vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT.get();
-    public MobEffect FD_Comfit = vectorwing.farmersdelight.common.registry.ModEffects.COMFORT.get();
+//    public MobEffect FD_Nourished = vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT.get();
+//    public MobEffect FD_Comfit = vectorwing.farmersdelight.common.registry.ModEffects.COMFORT.get();
 
-    public Map<MobEffect,MobEffect> reverseEffect = (new ImmutableMap.Builder<MobEffect,MobEffect>())
-            .put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE)
-            .put(MobEffects.UNLUCK,MobEffects.LUCK)
-            .put(MobEffects.GLOWING,MobEffects.INVISIBILITY)
-            .put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED)
-            .put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING)
-            .put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION)
-            .put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER)
-            .put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED)
-            .put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST)
-            .put(MobEffects.POISON,FD_Comfit)
-            .put(MobEffects.WITHER,MobEffects.REGENERATION)
-            .put(MobEffects.HUNGER,FD_Nourished)
-            .put(MobEffects.HARM,MobEffects.HEAL)
-            .build();
+    public MobEffect FD_Nourished = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":nourishment");
+
+    public MobEffect FD_Comfit = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":comfort");
+
+    public Map<MobEffect,MobEffect> reverseEffect = new ConcurrentHashMap<MobEffect,MobEffect>();
+
 
     @Override
     public void run() {

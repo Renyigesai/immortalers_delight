@@ -7,14 +7,18 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
-import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;
-import net.minecraft.client.model.*;
+import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.WaterPatchModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -23,83 +27,60 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
-import java.util.Map;
-import java.util.stream.Stream;
+public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
+    private static final ResourceLocation BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/himekaido.png");
+    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/himekaido.png");
 
-public class ImmortalersBoatRenderer extends EntityRenderer<ImmortalersBoat> {
-    private final Map<ImmortalersBoat.Type, Pair<ResourceLocation, ListModel<Boat>>> boatResources;
+    private final boolean hasChest;
+    private ListModel<Boat> boatModel;
 
-    public ImmortalersBoatRenderer(EntityRendererProvider.Context pContext, boolean pChestBoat) {
-        super(pContext);
-        this.shadowRadius = 0.8F;
-        this.boatResources = Stream.of(ImmortalersBoat.Type.values()).collect(ImmutableMap.toImmutableMap((p_173938_) -> p_173938_, (p_247941_) -> Pair.of(new ResourceLocation(getTextureLocation(p_247941_, pChestBoat)), this.createBoatModel(pContext, p_247941_, pChestBoat))));
-    }
-
-
-    private ListModel<Boat> createBoatModel(EntityRendererProvider.Context pContext, ImmortalersBoat.Type pType, boolean pChestBoat) {
-        ModelLayerLocation modellayerlocation = pChestBoat ? createChestBoatModelName(pType) : createBoatModelName(pType);
-        ModelPart modelpart = pContext.bakeLayer(modellayerlocation);
-        return (pChestBoat ? new ChestBoatModel(modelpart) : new BoatModel(modelpart));
-    }
-    public static ModelLayerLocation createBoatModelName(ImmortalersBoat.Type pType) {
-        return createLocation("boat/" + pType.getName(), "main");
-    }
-    public static ModelLayerLocation createChestBoatModelName(ImmortalersBoat.Type pType) {
-        return createLocation("chest_boat/" + pType.getName(), "main");
-    }
-    private static ModelLayerLocation createLocation(String pPath, String pModel) {
-        return new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, pPath), pModel);
-    }
-    private static String getTextureLocation(ImmortalersBoat.Type pType, boolean pChestBoat) {
-        return pChestBoat ? "textures/entity/chest_boat/" + pType.getName() + ".png" : "textures/entity/boat/" + pType.getName() + ".png";
+    public ImmortalersBoatRenderer(EntityRendererProvider.Context context, boolean hasChest) {
+        super(context);
+        this.shadowRadius = 0.8f;
+        this.hasChest = hasChest;
+        this.boatModel = this.createBoatModel(context, Boat.Type.OAK, hasChest);
     }
 
-    public void render(ImmortalersBoat pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.0F, 0.375F, 0.0F);
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - pEntityYaw));
-        float f = (float)pEntity.getHurtTime() - pPartialTicks;
-        float f1 = pEntity.getDamage() - pPartialTicks;
-        if (f1 < 0.0F) {
-            f1 = 0.0F;
+    private ListModel<Boat> createBoatModel(EntityRendererProvider.Context context, Boat.Type type, boolean bl) {
+        ModelLayerLocation modelLayerLocation = bl ? ModelLayers.createChestBoatModelName(type) : ModelLayers.createBoatModelName(type);
+        ModelPart modelPart = context.bakeLayer(modelLayerLocation);
+        return bl ? new ChestBoatModel(modelPart) : new BoatModel(modelPart);
+    }
+
+
+    @Override
+    public void render(Boat boat, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
+        poseStack.pushPose();
+        poseStack.translate(0.0f, 0.375f, 0.0f);
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0f - f));
+        float h = (float)boat.getHurtTime() - g;
+        float j = boat.getDamage() - g;
+        if (j < 0.0f) {
+            j = 0.0f;
         }
-
-        if (f > 0.0F) {
-            pPoseStack.mulPose(Axis.XP.rotationDegrees(Mth.sin(f) * f * f1 / 10.0F * (float)pEntity.getHurtDir()));
+        if (h > 0.0f) {
+            poseStack.mulPose(Axis.XP.rotationDegrees(Mth.sin(h) * h * j / 10.0f * (float)boat.getHurtDir()));
         }
-
-        float f2 = pEntity.getBubbleAngle(pPartialTicks);
-        if (!Mth.equal(f2, 0.0F)) {
-            pPoseStack.mulPose((new Quaternionf()).setAngleAxis(pEntity.getBubbleAngle(pPartialTicks) * 0.017453292F, 1.0F, 0.0F, 1.0F));
+        if (!Mth.equal(boat.getBubbleAngle(g), 0.0f)) {
+            poseStack.mulPose(new Quaternionf().setAngleAxis(boat.getBubbleAngle(g) * ((float)Math.PI / 180), 1.0f, 0.0f, 1.0f));
         }
-
-        Pair<ResourceLocation, ListModel<Boat>> pair = this.getModelWithLocation(pEntity);
-        ResourceLocation resourcelocation = pair.getFirst();
-        ListModel<Boat> listmodel = pair.getSecond();
-        pPoseStack.scale(-1.0F, -1.0F, 1.0F);
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
-        listmodel.setupAnim(pEntity, pPartialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
-        VertexConsumer vertexconsumer = pBuffer.getBuffer(listmodel.renderType(resourcelocation));
-        listmodel.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        if (!pEntity.isUnderWater()) {
-            VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RenderType.waterMask());
-            if (listmodel instanceof WaterPatchModel waterpatchmodel) {
-                waterpatchmodel.waterPatch().render(pPoseStack, vertexconsumer1, pPackedLight, OverlayTexture.NO_OVERLAY);
+        poseStack.scale(-1.0f, -1.0f, 1.0f);
+        poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
+        this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
+        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE));
+        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        if (!boat.isUnderWater()) {
+            VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
+            if (this.boatModel instanceof WaterPatchModel waterPatchModel) {
+                waterPatchModel.waterPatch().render(poseStack, vertexConsumer2, i, OverlayTexture.NO_OVERLAY);
             }
         }
-
-        pPoseStack.popPose();
-        super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
+        poseStack.popPose();
+        super.render(boat, f, g, poseStack, multiBufferSource, i);
     }
 
-    /** @deprecated */
-    @Deprecated
-    public ResourceLocation getTextureLocation(ImmortalersBoat pEntity) {
-        return this.getModelWithLocation(pEntity).getFirst();
+    @Override
+    public ResourceLocation getTextureLocation(Boat boat) {
+        return this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE;
     }
-
-    public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(ImmortalersBoat boat) {
-        return this.boatResources.get(boat.getBoatVariant());
-    }
-
 }

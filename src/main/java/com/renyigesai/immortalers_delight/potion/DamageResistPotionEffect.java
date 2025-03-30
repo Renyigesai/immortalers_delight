@@ -34,15 +34,15 @@ public class DamageResistPotionEffect {
                 else if (attacker.getMobType() == MobType.ARTHROPOD && hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ARTHROPOD.get())){
                     int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ARTHROPOD.get())?hurtOne.getEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ARTHROPOD.get()).getAmplifier():0;
                     damage /= lv == 0 ? 0.75F : 2*lv;
-                    MobEffectInstance speed = new MobEffectInstance(MobEffects.MOVEMENT_SPEED,(lv + 1)*10,3);
+                    MobEffectInstance speed = new MobEffectInstance(MobEffects.MOVEMENT_SPEED,(lv + 2)*10,3);
                     hurtOne.addEffect(speed);
                 }
                 else if (attacker.getMobType() == MobType.WATER && hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ABYSSAL.get())){
                     int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ABYSSAL.get())?hurtOne.getEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ABYSSAL.get()).getAmplifier():0;
                     damage /= lv == 0 ? 0.75F : 2*lv;
-                    MobEffectInstance conduitPower = new MobEffectInstance(lv > 1 ? MobEffects.CONDUIT_POWER : MobEffects.WATER_BREATHING,(lv + 1)*10,0);
+                    MobEffectInstance conduitPower = new MobEffectInstance(lv > 1 ? MobEffects.CONDUIT_POWER : MobEffects.WATER_BREATHING,(lv + 2)*40,0);
                     hurtOne.addEffect(conduitPower);
-                    MobEffectInstance swingSpeed = new MobEffectInstance(MobEffects.DOLPHINS_GRACE,(lv + 2)*10,lv);
+                    MobEffectInstance swingSpeed =lv > 1 ? new MobEffectInstance(MobEffects.HEAL,1, 0) : new MobEffectInstance(MobEffects.DOLPHINS_GRACE,(lv + 2)*40,lv);
                     hurtOne.addEffect(swingSpeed);
                 }
                 else if (attacker.getMobType() == MobType.ILLAGER && hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get())){
