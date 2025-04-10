@@ -133,11 +133,24 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> KWAT_WHEAT;
     public static final RegistryObject<Item> KWAT_WHEAT_DOUGH;
     public static final RegistryObject<Item> KWAT_WHEAT_PASTE;
+    public static final RegistryObject<Item> KWAT_WHEAT_DOUFU;
+    public static final RegistryObject<Item> FRY_KWAT_WHEAT_DOUFU;
+    public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST_SLICE;
     public static final RegistryObject<Item> NETHER_BREAD_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_BREAD;
+    /*
+    火把花相关物品
+    */
+    public static final RegistryObject<Item> TORCHFLOWER_MUSTARD;
+    public static final RegistryObject<Item> HOT_HI_SOUP;
+    public static final RegistryObject<Item> INCANDESCENCE_SUSHI;
+    public static final RegistryObject<Item> TORCHFLOWER_CAKE;
+    public static final RegistryObject<Item> TORCHFLOWER_CURRY_RICE;
+    public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
+    public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
 
     public static final RegistryObject<Item> GOLDEN_FABRIC;
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
@@ -148,7 +161,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_HIDE;
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
     public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
-
     public static final RegistryObject<Item> VULCAN_COKTAIL;
     //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
 
@@ -460,6 +472,14 @@ public class ImmortalersDelightItems {
         NETHER_CREAM_BREAD = registerWithTab("nether_cream_bread",() ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_CREAM_BREAD),true,false));
 
+        KWAT_WHEAT_DOUFU = foodItem("kwat_wheat_doufu",ImmortalersDelightFoodProperties.KWAT_WHEAT_DOUFU);
+
+        FRY_KWAT_WHEAT_DOUFU = registerWithTab("fry_kwat_wheat_doufu",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.FRY_KWAT_WHEAT_DOUFU),true,false));
+
+        JADE_AND_RUBY_SOUP = registerWithTab("jade_and_ruby_soup",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),true));
+
         GOLDEN_FABRIC = register("golden_fabric", () ->
                 new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
 
@@ -483,6 +503,25 @@ public class ImmortalersDelightItems {
 
         SNIFFER_HIDE = REGISTER.register("sniffer_hide", () ->
                 new ConsumableItem(fantasticItem(Rarity.COMMON)));
+
+        /*火把花相关物品*/
+        TORCHFLOWER_MUSTARD = registerWithTab("torchflower_mustard",()->
+                new Item(new Item.Properties()));
+
+        TORCHFLOWER_COOKIE = foodItem("torchflower_cookie",ImmortalersDelightFoodProperties.TORCHFLOWER_COOKIE,true);
+
+        TORCHFLOWER_CAKE = foodItem("torchflower_cake",ImmortalersDelightFoodProperties.TORCHFLOWER_CAKE,true);
+
+        TORCHFLOWER_CURRY_RICE = registerWithTab("torchflower_curry_rice",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TORCHFLOWER_CURRY_RICE),true));
+
+        EXTRA_SPICY_PASTA = registerWithTab("extra_spicy_pasta",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.EXTRA_SPICY_PASTA),true));
+
+        HOT_HI_SOUP = registerWithTab("hot_hi_soup",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.HOT_HI_SOUP),true));
+
+        INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
 
 
         //酒品
@@ -520,6 +559,10 @@ public class ImmortalersDelightItems {
 
     public static RegistryObject<Item> foodItem(String name,FoodProperties food) {
         return registerWithTab(name,()->new Item(new Item.Properties().food(food)));
+    }
+
+    public static RegistryObject<Item> foodItem(String name,FoodProperties food,boolean hasFoodEffectTooltip) {
+        return registerWithTab(name,()->new ConsumableItem(new Item.Properties().food(food),hasFoodEffectTooltip));
     }
 
     public static Item.Properties bowlFoodItem(FoodProperties food) {

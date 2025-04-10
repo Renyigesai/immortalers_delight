@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -76,8 +77,10 @@ public class KwatWheatCrop extends ReapCropBlock {
                 List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(5.0D, 5.0D, 5.0D));
                 if (!list.isEmpty()) {
                     for (LivingEntity livingentity : list) {
-                        livingentity.hurt(level.damageSources().cactus(), 1.0F);
-                        GasPoisonEffect.applyImmortalEffect(livingentity,5.1,0);
+                        if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
+                            livingentity.hurt(level.damageSources().cactus(), 1.0F);
+                            GasPoisonEffect.applyImmortalEffect(livingentity,5.1,0);
+                        }
                     }
                 }
                 spawnParticle(level, pPos);

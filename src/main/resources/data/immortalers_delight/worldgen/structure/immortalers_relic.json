@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#minecraft:has_structure/trail_ruins",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "start_pool": "immortalers_delight:immortalers_relic/immortalers_relic",
+  "size": 6,
+  "start_height": {
+    "absolute": 0
+  },
+  "terrain_adaptation": "beard_thin",
+  "project_start_to_heightmap": "WORLD_SURFACE",
+  "max_distance_from_center": 80,
+  "use_expansion_hack": false
+}
