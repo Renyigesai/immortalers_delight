@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:mashed_potatoes"
+    },
+    {
+      "item": "immortalers_delight:himekaido_jelly"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:mashed_potato_with_jam"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "tag": "forge:salad_ingredients"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:jade_and_ruby_soup"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

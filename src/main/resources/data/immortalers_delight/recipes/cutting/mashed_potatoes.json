@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "tool": {
+    "item": "minecraft:grindstone"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:mashed_potatoes",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:torchflower_mustard"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "tag": "forge:raw_beef"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:hot_hi_soup"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:salmon"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "item": "immortalers_delight:torchflower_mustard"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:incandescence_sushi",
+    "count": 1
+  }
+}

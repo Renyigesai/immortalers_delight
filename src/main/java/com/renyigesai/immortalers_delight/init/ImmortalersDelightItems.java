@@ -93,6 +93,10 @@ public class ImmortalersDelightItems {
     /*
     姬海棠系列物品
      */
+    public static final RegistryObject<Item> MASHED_POTATOES;
+    public static final RegistryObject<Item> MASHED_POISONOUS_POTATO;
+    public static final RegistryObject<Item> MASHED_POTATO_WITH_JAM;
+    public static final RegistryObject<Item> MASHED_POISONOUS_POTATO_WITH_JAM;
     public static final RegistryObject<Item> ROTTEN_FLESH_CUTS;
     public static final RegistryObject<Item> HIMEKAIDO_JELLY;
     public static final RegistryObject<Item> YOGURT;
@@ -397,6 +401,17 @@ public class ImmortalersDelightItems {
         姬海棠系列物品
          */
 
+        MASHED_POTATOES = foodItem("mashed_potatoes",ImmortalersDelightFoodProperties.MASHED_POTATOES);
+
+        MASHED_POISONOUS_POTATO = registerWithTab("mashed_poisonous_potato",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.MASHED_POISONOUS_POTATO)));
+
+        MASHED_POTATO_WITH_JAM = registerWithTab("mashed_potato_with_jam",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.MASHED_POTATO_WITH_JAM).craftRemainder(Items.BOWL),true));
+
+        MASHED_POISONOUS_POTATO_WITH_JAM = registerWithTab("mashed_poisonous_potato_with_jam",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.MASHED_POISONOUS_POTATO_WITH_JAM).craftRemainder(Items.BOWL),true));
+
         HIMEKAIDO_YOGURT_PIE = block(ImmortalersDelightBlocks.HIMEKAIDO_YOGURT_PIE);
 
         HIMEKAIDO_YOGURT_PIE_SLICE = foodItem("himekaido_yogurt_pie_slice",ImmortalersDelightFoodProperties.HIMEKAIDO_YOGURT_PIE_SLICE);
@@ -504,7 +519,10 @@ public class ImmortalersDelightItems {
         SNIFFER_HIDE = REGISTER.register("sniffer_hide", () ->
                 new ConsumableItem(fantasticItem(Rarity.COMMON)));
 
-        /*火把花相关物品*/
+        /*
+        火把花相关物品
+        */
+
         TORCHFLOWER_MUSTARD = registerWithTab("torchflower_mustard",()->
                 new Item(new Item.Properties()));
 
