@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:torchflower"
+    }
+  ],
+  "tool": {
+    "item": "minecraft:stick"
+  },
+  "result": [
+    {
+      "item": "minecraft:torchflower_seeds",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    "efe"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:milk_bucket"
+    },
+    "b": {
+      "item": "minecraft:sniffer_egg"
+    },
+    "c": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "d": {
+      "item": "minecraft:sugar"
+    },
+    "e": {
+      "item": "immortalers_delight:kwat_wheat_dough"
+    },
+    "f": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:scarlet_devils_cake",
+    "count": 1
+  },
+  "show_notification": true
+}
