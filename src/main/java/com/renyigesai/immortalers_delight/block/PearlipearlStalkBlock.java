@@ -74,7 +74,10 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
                         }
                     }
                 }
-                if (age == 2 && i == 3){
+                if (i == 3 && !state.getValue(IS_LEAVES)){
+                    level.setBlock(pos,state.setValue(IS_LEAVES,true),3);
+                }
+                if (age == 2 && i == 3 && state.getValue(IS_LEAVES)){
                     level.setBlock(pos,state.setValue(BLOOM,true),3);
                 }
                 if (state.getValue(BLOOM)) {

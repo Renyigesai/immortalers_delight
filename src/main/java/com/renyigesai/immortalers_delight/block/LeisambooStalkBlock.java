@@ -130,12 +130,21 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
 
     @Override
     public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return pLevel.getBlockState(pPos.above()).isAir();
+        int i;
+        for (i = 1; pLevel.getBlockState(pPos.below(i)).is(this); i++) {
+
+        }
+        if (i == 1){
+            return pLevel.getBlockState(pPos.above()).isAir();
+        }else if (i == 2){
+            return !pState.getValue(IS_LEAVES) || !pState.getValue(IS_TEA);
+        }
+        return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        return true;
+    public boolean isBonemealSuccess(Level level, RandomSource pRandom, BlockPos pos, BlockState pState) {
+        return isValidBonemealTarget(level,pos,pState,level.isClientSide);
     }
 
     @Override
