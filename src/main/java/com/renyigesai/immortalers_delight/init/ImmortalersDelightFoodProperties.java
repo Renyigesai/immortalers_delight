@@ -300,6 +300,18 @@ public class ImmortalersDelightFoodProperties {
             .effect(new MobEffectInstance(MobEffects.SATURATION,60),1F).build();
 
     public static final FoodProperties HOT_HI_SOUP = new FoodProperties.Builder().nutrition(8).saturationMod(0.375f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600),1F).build();
+
+    public static final FoodProperties INCANDESCENCE_SUSHI = new FoodProperties.Builder().nutrition(8).saturationMod(0.375f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600),1F).build();
+
+    public static final FoodProperties TORCHFLOWER_CAKE = new FoodProperties.Builder().nutrition(4).saturationMod(0.5f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600),1F)
+            .effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),1200),1F).build();
+
+    public static final FoodProperties TORCHFLOWER_CURRY_RICE = new FoodProperties.Builder().nutrition(15).saturationMod(1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1200),1F).build();
+    public static final FoodProperties HOT_HI_SOUP = new FoodProperties.Builder().nutrition(8).saturationMod(0.375f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),600),1F).build();
 
     public static final FoodProperties INCANDESCENCE_SUSHI = new FoodProperties.Builder().nutrition(8).saturationMod(0.375f)
@@ -313,8 +325,14 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),1200),1F).build();
 
     public static final FoodProperties EXTRA_SPICY_PASTA = new FoodProperties.Builder().nutrition(12).saturationMod(0.35f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1200),1F).build();
+    public static final FoodProperties EXTRA_SPICY_PASTA = new FoodProperties.Builder().nutrition(12).saturationMod(0.35f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),1200),1F).build();
 
+    public static final FoodProperties TORCHFLOWER_COOKIE = new FoodProperties.Builder().nutrition(1).saturationMod(0.5f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),200),1F).fast().build();
+
+    //TORCHFLOWER_COOKIE
     public static final FoodProperties TORCHFLOWER_COOKIE = new FoodProperties.Builder().nutrition(1).saturationMod(0.5f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),200),1F).fast().build();
 

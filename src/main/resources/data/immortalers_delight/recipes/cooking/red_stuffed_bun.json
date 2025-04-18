@@ -1,0 +1,35 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_dough"
+    },
+    [
+      {
+        "tag": "forge:raw_chicken"
+      },
+      {
+        "tag": "forge:raw_pork"
+      },
+      {
+        "tag": "forge:raw_beef"
+      }
+    ],
+    {
+      "item": "minecraft:torchflower"
+    },
+    {
+      "item": "minecraft:crimson_fungus"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "recipe_book_tab": "misc",
+  "result": {
+    "count": 1,
+    "item": "immortalers_delight:red_stuffed_bun"
+  }
+}

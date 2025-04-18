@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/scarlet_devils_cake",
+  "textures": {
+    "0": "immortalers_delight:block/scarlet_devils_cake_0",
+		"particle": "immortalers_delight:block/scarlet_devils_cake_0"
+  }
+}

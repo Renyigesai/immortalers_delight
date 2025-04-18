@@ -541,6 +541,25 @@ public class ImmortalersDelightItems {
 
         INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
 
+        /*火把花相关物品*/
+        TORCHFLOWER_MUSTARD = registerWithTab("torchflower_mustard",()->
+                new Item(new Item.Properties()));
+
+        TORCHFLOWER_COOKIE = foodItem("torchflower_cookie",ImmortalersDelightFoodProperties.TORCHFLOWER_COOKIE,true);
+
+        TORCHFLOWER_CAKE = foodItem("torchflower_cake",ImmortalersDelightFoodProperties.TORCHFLOWER_CAKE,true);
+
+        TORCHFLOWER_CURRY_RICE = registerWithTab("torchflower_curry_rice",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TORCHFLOWER_CURRY_RICE),true));
+
+        EXTRA_SPICY_PASTA = registerWithTab("extra_spicy_pasta",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.EXTRA_SPICY_PASTA),true));
+
+        HOT_HI_SOUP = registerWithTab("hot_hi_soup",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.HOT_HI_SOUP),true));
+
+        INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
+
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
