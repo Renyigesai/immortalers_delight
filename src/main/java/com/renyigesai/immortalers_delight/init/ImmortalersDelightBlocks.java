@@ -215,6 +215,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> NETHER_BREAD_CREAM_SOUP = BLOCKS.register("nether_bread_cream_soup",
             () -> new KwatWheatToastStewedVegetablesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
+            () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     static {
         //方块实体 Block Entity
 

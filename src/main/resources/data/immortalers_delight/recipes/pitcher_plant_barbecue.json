@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"tag": "forge:cooked_beef"},
+    {"tag": "forge:cooked_beef"},
+    {"tag": "forge:crops/cabbage"},
+    {"tag": "forge:crops/cabbage"},
+    {"item": "immortalers_delight:pitcher_pod_petal"},
+    {"item": "immortalers_delight:pitcher_pod_petal"},
+    {"item": "minecraft:stick"}
+  ],
+  "result": {
+    "item": "immortalers_delight:pitcher_plant_barbecue",
+    "count": 3
+  }
+}

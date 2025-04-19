@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "tag": "forge:cooked_beef"
+    },
+    {
+      "tag": "forge:crops/tomato"
+    },
+    {
+      "tag": "forge:crops/tomato"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:pod_shell_burger_meat"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

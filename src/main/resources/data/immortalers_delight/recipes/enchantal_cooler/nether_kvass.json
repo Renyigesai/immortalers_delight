@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:nether_kvass",
+    "count": 1
+  }
+}

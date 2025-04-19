@@ -1,0 +1,30 @@
+{
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "immortalers_delight:block/pod_shell_burger_meat",
+		"particle": "immortalers_delight:block/pod_shell_burger_meat"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 1, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 3]},
+			"faces": {
+				"north": {"uv": [0, 14.5, 7, 15], "texture": "#0"},
+				"east": {"uv": [0, 7, 7, 7.5], "texture": "#0"},
+				"south": {"uv": [0, 14.5, 7, 15], "texture": "#0"},
+				"west": {"uv": [0, 7, 7, 7.5], "texture": "#0"},
+				"up": {"uv": [7, 0, 14, 7], "texture": "#0"},
+				"down": {"uv": [0, 7.5, 7, 14.5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [10, 2, 12],
+			"color": 0,
+			"children": [0]
+		}
+	]
+}

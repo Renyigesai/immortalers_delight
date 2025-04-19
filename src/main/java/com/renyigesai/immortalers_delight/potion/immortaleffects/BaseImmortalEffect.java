@@ -109,8 +109,8 @@ public class BaseImmortalEffect {
         /*
         如果当前系统时间超过了结束时刻，取消效果（将实体从Map中移除，取消计划任务）
          */
-        ImmortalersDelightMod.LOGGER.info("你这B玩意还有多久结束？" + durationTime + "秒");
-        ImmortalersDelightMod.LOGGER.info("这里是Buff模板的Tick方法，汇报一个现在的时间" + TimekeepingTask.getImmortalTickTime());
+//        ImmortalersDelightMod.LOGGER.info("你这B玩意还有多久结束？" + durationTime + "秒");
+//        ImmortalersDelightMod.LOGGER.info("这里是Buff模板的Tick方法，汇报一个现在的时间" + TimekeepingTask.getImmortalTickTime());
         if (TimekeepingTask.getImmortalTickTime() > expireTime) {
             removeImmortalEffect(entity);
         }
@@ -129,17 +129,17 @@ public class BaseImmortalEffect {
              */
             ScheduledExecuteTask task = BaseImmortalEffectTask.getTaskFromID(taskID);
             if (task == null) {
-                ImmortalersDelightMod.LOGGER.info("WTF怎么没找到计划任务？让我看看现在的实体表是什么玩意");
+//                ImmortalersDelightMod.LOGGER.info("WTF怎么没找到计划任务？让我看看现在的实体表是什么玩意");
                 for (Map.Entry<UUID, EffectData> entry : entityHasEffect.entrySet()) {
                     UUID uuid1 = entry.getKey();
                     EffectData effectData = entry.getValue();
-                    ImmortalersDelightMod.LOGGER.info("UUID: " + uuid1 + ", Effect Level: " + effectData.getAmplifier() +
-                            ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+//                    ImmortalersDelightMod.LOGGER.info("UUID: " + uuid1 + ", Effect Level: " + effectData.getAmplifier() +
+//                            ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
                 }
                 ScheduledExecuteTask newTask = buildEffectTask(taskID,entity, (double) durationTime / 1000,amplifier);
                 newTask.start();
-                System.out.println("计划任务异常！已创建新的计划任务");
-                ImmortalersDelightMod.LOGGER.info("计划任务异常！已创建新的计划任务");
+//                System.out.println("计划任务异常！已创建新的计划任务");
+//                ImmortalersDelightMod.LOGGER.info("计划任务异常！已创建新的计划任务");
             }
         }
     }
@@ -157,18 +157,18 @@ public class BaseImmortalEffect {
         而如果有，则会在Effect和Buff状态的持续时间取其大来更新Map的记录，使续药水效果可以作用于Buff状态
          */
         if (!entity.hasEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())) {
-            ImmortalersDelightMod.LOGGER.info("effect被解除，正在刷新effect！");
+//            ImmortalersDelightMod.LOGGER.info("effect被解除，正在刷新effect！");
             MobEffectInstance newOne = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(),durationTicks ,amplifier);
             entity.addEffect(newOne);
             return;
         }
         int lv = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())).getAmplifier();
         int time = Objects.requireNonNull(entity.getEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get())).getDuration();
-        ImmortalersDelightMod.LOGGER.info("目前的Effect时间是：" + time);
-        ImmortalersDelightMod.LOGGER.info("目前的Effect等级是：" + lv);
-        ImmortalersDelightMod.LOGGER.info("目前的Buff时间是：" + durationTicks);
-        ImmortalersDelightMod.LOGGER.info("目前的Buff等级是：" + amplifier);
-        ImmortalersDelightMod.LOGGER.info("目前的时间差是：" + (time - durationTicks <= 0 ? -(time - durationTicks) : time - durationTicks));
+//        ImmortalersDelightMod.LOGGER.info("目前的Effect时间是：" + time);
+//        ImmortalersDelightMod.LOGGER.info("目前的Effect等级是：" + lv);
+//        ImmortalersDelightMod.LOGGER.info("目前的Buff时间是：" + durationTicks);
+//        ImmortalersDelightMod.LOGGER.info("目前的Buff等级是：" + amplifier);
+//        ImmortalersDelightMod.LOGGER.info("目前的时间差是：" + (time - durationTicks <= 0 ? -(time - durationTicks) : time - durationTicks));
         if (lv > amplifier || (time - durationTicks <= 0 ? -(time - durationTicks) : time - durationTicks) > 50) {
             ImmortalersDelightMod.LOGGER.info("Buff被续，即将更新Map");
             Long maxTime = time > durationTicks ? TimekeepingTask.getImmortalTickTime() + time*50 : expireTime;
@@ -225,10 +225,10 @@ public class BaseImmortalEffect {
      */
     private static void LoadEntityMap(Level serverLevel) {
 
-        ImmortalersDelightMod.LOGGER.info("正在读取存盘的Effect实体Map");
+//        ImmortalersDelightMod.LOGGER.info("正在读取存盘的Effect实体Map");
         Map<UUID, EffectData> oldMap = BaseImmortalMapSaveLoadHelper.loadEntityHasEffect(serverLevel);
         if (oldMap == null) {
-            ImmortalersDelightMod.LOGGER.info("存盘表为null！");
+//            ImmortalersDelightMod.LOGGER.info("存盘表为null！");
             pausing = false;
             return;
         }
@@ -246,14 +246,14 @@ public class BaseImmortalEffect {
             EffectData newOne = new EffectData(dataOld, trueTime, dataOld.getAmplifier(), dataOld.getTaskId());
             entityHasEffect.put(uuidOld,newOne);
         }
-        ImmortalersDelightMod.LOGGER.info("存盘Map读取完毕，当前Effect实体Map为：");
+//        ImmortalersDelightMod.LOGGER.info("存盘Map读取完毕，当前Effect实体Map为：");
         pausing = false;
         // 输出读取到的 Map
         for (Map.Entry<UUID, EffectData> entry : entityHasEffect.entrySet()) {
             UUID uuid = entry.getKey();
             EffectData effectData = entry.getValue();
-            ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
-                    ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+//            ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
+//                    ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
         }
     }
     /**

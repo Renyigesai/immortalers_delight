@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "immortalers_delight:kwat_wheat_paste"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

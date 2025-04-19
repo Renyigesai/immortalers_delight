@@ -90,6 +90,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIP_JELLY;
     public static final RegistryObject<Item> PEARLIP_PIE;
     public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
+    public static final RegistryObject<Item> ICE_PEARLIP;
+    public static final RegistryObject<Item> CHOCOLATE_PEARLIP_STICKS;
     /*
     姬海棠系列物品
      */
@@ -130,6 +132,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STOVE_BLACK_TEA;
     public static final RegistryObject<Item> LEAF_GREEN_TEA;
     public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
+    public static final RegistryObject<Item> LEISAMBOO_TEA_CAKE;
+
     /*
     瓦斯麦相关物品
     */
@@ -139,6 +143,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> KWAT_WHEAT_PASTE;
     public static final RegistryObject<Item> KWAT_WHEAT_DOUFU;
     public static final RegistryObject<Item> FRY_KWAT_WHEAT_DOUFU;
+    public static final RegistryObject<Item> SUTFFED_KWAT_WHEAT_DOUFU;
     public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST_SLICE;
@@ -156,6 +161,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
     public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
 
+
+    public static final RegistryObject<Item> PITCHER_PLANT_BARBECUE;
+    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
+    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
+
     public static final RegistryObject<Item> GOLDEN_FABRIC;
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
     public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
@@ -166,6 +176,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
     public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
     public static final RegistryObject<Item> VULCAN_COKTAIL;
+    public static final RegistryObject<Item> NETHER_KVASS;
+    public static final RegistryObject<Item> PURGATORY_ALE;
     //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
 
 
@@ -362,6 +374,10 @@ public class ImmortalersDelightItems {
 
         PEARLIPEARL_TART = registerWithTab("pearlipearl_tart", () ->
                 new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_TART)));
+
+        ICE_PEARLIP = foodItem("ice_pearlip",ImmortalersDelightFoodProperties.ICE_PEARLIP);
+
+        CHOCOLATE_PEARLIP_STICKS = foodItem("chocolate_pearlip_sticks",ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS);
         /*
          溪竹相关物品
         */
@@ -397,6 +413,9 @@ public class ImmortalersDelightItems {
 
         BOWL_OF_MILLENIAN_BAMBOO = registerWithTab("bowl_of_millenian_bamboo", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO),true, false));
+
+        LEISAMBOO_TEA_CAKE = registerWithTab("leisamboo_tea_cake",()->
+                new Item(new Item.Properties()));
         /*
         姬海棠系列物品
          */
@@ -492,6 +511,9 @@ public class ImmortalersDelightItems {
         FRY_KWAT_WHEAT_DOUFU = registerWithTab("fry_kwat_wheat_doufu",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.FRY_KWAT_WHEAT_DOUFU),true,false));
 
+        SUTFFED_KWAT_WHEAT_DOUFU = registerWithTab("sutffed_kwat_wheat_doufu",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SUTFFED_DOUFU),true));
+
         JADE_AND_RUBY_SOUP = registerWithTab("jade_and_ruby_soup",()->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),true));
 
@@ -541,19 +563,32 @@ public class ImmortalersDelightItems {
 
         INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
 
+        PITCHER_PLANT_BARBECUE = registerWithTab("pitcher_plant_barbecue",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.PITCHER_PLANT_BARBECUE),true));
+
+        POD_SHELL_BURGER_MEAT = block(ImmortalersDelightBlocks.POD_SHELL_BURGER_MEAT);
+        POD_SHELL_BURGER_MEAT_CUBE = registerWithTab("pod_shell_burger_meat_cube",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POD_SHELL_BURGER_MEAT_CUBE),true));
+
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true,false));
 
         EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
-                new InebriatedToxicFoodItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
 
         VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));
 
         CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
-                new InebriatedToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA, Rarity.COMMON, false),true,false,false,true));
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA),true,false,false,true));
+
+        NETHER_KVASS = registerWithTab("nether_kvass", () ->
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.NETHER_KVASS),true,false,false,true));
+
+        PURGATORY_ALE = registerWithTab("purgatory_ale",()->
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
 
     }
 

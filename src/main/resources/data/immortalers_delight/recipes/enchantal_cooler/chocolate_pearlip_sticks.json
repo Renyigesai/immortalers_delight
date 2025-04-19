@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:chocolate_pearlip_sticks",
+    "count": 1
+  }
+}
