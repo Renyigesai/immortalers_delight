@@ -17,13 +17,17 @@ public class ImmortalersDelightBlockEntityTypes{
             BlockEntityType.Builder.of(ImmortalersDelightSignBlockEntity::new,
                     new Block[]{
                             ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
-                            ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
+                            ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get(),
+                            ImmortalersDelightBlocks.LEISAMBOO_SIGN.get(),
+                            ImmortalersDelightBlocks.LEISAMBOO_WALL_SIGN.get()
             }).build(null));
     public static final RegistryObject<BlockEntityType<ImmortalersDelightHangingSignBlockEntity>> HANGING_SIGN = TILES.register("hanging_sign", () ->
             BlockEntityType.Builder.of(ImmortalersDelightHangingSignBlockEntity::new,
                     new Block[]{
                             ImmortalersDelightBlocks.HIMEKAIDO_HANGING_SIGN.get(),
-                            ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get()
+                            ImmortalersDelightBlocks.HIMEKAIDO_WALL_HANGING_SIGN.get(),
+                            ImmortalersDelightBlocks.LEISAMBOO_HANGING_SIGN.get(),
+                            ImmortalersDelightBlocks.LEISAMBOO_WALL_HANGING_SIGN.get()
             }).build(null));
 
 
