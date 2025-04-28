@@ -59,6 +59,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
     public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
     public static final RegistryObject<Item> LEISAMBOO_BUTTON;
+    public static final RegistryObject<Item> LEISAMBOO_SIGN;
+    public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
@@ -305,6 +307,17 @@ public class ImmortalersDelightItems {
 
         LEISAMBOO_BUTTON = registerWithTab("leisamboo_button", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_BUTTON.get(), basicItem()));
+        LEISAMBOO_SIGN = registerWithTab("leisamboo_sign",() ->
+                new SignItem((new Item.Properties()).stacksTo(16),
+                        ImmortalersDelightBlocks.LEISAMBOO_SIGN.get(),
+                        ImmortalersDelightBlocks.LEISAMBOO_WALL_SIGN.get()
+                ));
+        LEISAMBOO_HANGING_SIGN = registerWithTab("leisamboo_hanging_sign",() ->
+                new HangingSignItem(
+                        ImmortalersDelightBlocks.LEISAMBOO_HANGING_SIGN.get(),
+                        ImmortalersDelightBlocks.LEISAMBOO_WALL_HANGING_SIGN.get(),
+                        (new Item.Properties()).stacksTo(16)
+                ));
 
         /*
         古木
