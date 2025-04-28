@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "immortalers_delight:block/ancient_wood_planks",
+    "side": "immortalers_delight:block/ancient_wood_planks",
+    "top": "immortalers_delight:block/ancient_wood_planks"
+  }
+}

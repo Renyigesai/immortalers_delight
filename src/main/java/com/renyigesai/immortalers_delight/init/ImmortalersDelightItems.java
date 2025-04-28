@@ -116,9 +116,29 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     public static final RegistryObject<Item> TARTARE_CHICKEN;
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
+    public static final RegistryObject<Item> ANCIENT_STOVE;
+    public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
     public static final RegistryObject<Item> DREUMK_WINE;
+    /*
+    古木相关
+    */
+    public static final RegistryObject<Item> ANCIENT_WOOD_LOG;
+    public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD_LOG;
+    public static final RegistryObject<Item> ANCIENT_WOOD;
+    public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
+    public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
+    public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
+    public static final RegistryObject<Item> ANCIENT_WOOD_STAIRS;
+    public static final RegistryObject<Item> ANCIENT_WOOD_SLAB;
+    public static final RegistryObject<Item> ANCIENT_WOOD_DOOR;
+    public static final RegistryObject<Item> ANCIENT_WOOD_TRAPDOOR;
+    public static final RegistryObject<Item> ANCIENT_WOOD_FENCE;
+    public static final RegistryObject<Item> ANCIENT_WOOD_FENCE_GATE;
+    public static final RegistryObject<Item> ANCIENT_WOOD_PRESSURE_PLATE;
+    public static final RegistryObject<Item> ANCIENT_WOOD_BUTTON;
+
     /*
      溪竹相关物品
      */
@@ -184,6 +204,10 @@ public class ImmortalersDelightItems {
     static {
 
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
+
+        ANCIENT_STOVE = block(ImmortalersDelightBlocks.ANCIENT_STOVE);
+
+        OXIDIZED_ANCIENT_STOVE = block(ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE);
 
         EVOLUTCORN_GRAIN_BAG = registerWithTab("evolutcorn_grain_bag", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_GRAIN_BAG.get(), basicItem()));
@@ -281,6 +305,24 @@ public class ImmortalersDelightItems {
 
         LEISAMBOO_BUTTON = registerWithTab("leisamboo_button", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_BUTTON.get(), basicItem()));
+
+        /*
+        古木
+        */
+        ANCIENT_WOOD_LOG = block(ImmortalersDelightBlocks.ANCIENT_WOOD_LOG);
+        STRIPPED_ANCIENT_WOOD_LOG = block(ImmortalersDelightBlocks.STRIPPED_ANCIENT_WOOD_LOG);
+        ANCIENT_WOOD = block(ImmortalersDelightBlocks.ANCIENT_WOOD);
+        STRIPPED_ANCIENT_WOOD = block(ImmortalersDelightBlocks.STRIPPED_ANCIENT_WOOD);
+        ANCIENT_WOOD_PLANKS = block(ImmortalersDelightBlocks.ANCIENT_WOOD_PLANKS);
+        ANCIENT_WOOD_CABINET = block(ImmortalersDelightBlocks.ANCIENT_WOOD_CABINET);
+        ANCIENT_WOOD_SLAB = block(ImmortalersDelightBlocks.ANCIENT_WOOD_SLAB);
+        ANCIENT_WOOD_DOOR = block(ImmortalersDelightBlocks.ANCIENT_WOOD_DOOR);
+        ANCIENT_WOOD_TRAPDOOR = block(ImmortalersDelightBlocks.ANCIENT_WOOD_TRAPDOOR);
+        ANCIENT_WOOD_STAIRS = block(ImmortalersDelightBlocks.ANCIENT_WOOD_STAIRS);
+        ANCIENT_WOOD_FENCE = block(ImmortalersDelightBlocks.ANCIENT_WOOD_FENCE);
+        ANCIENT_WOOD_FENCE_GATE = block(ImmortalersDelightBlocks.ANCIENT_WOOD_FENCE_GATE);
+        ANCIENT_WOOD_PRESSURE_PLATE = block(ImmortalersDelightBlocks.ANCIENT_WOOD_PRESSURE_PLATE);
+        ANCIENT_WOOD_BUTTON = block(ImmortalersDelightBlocks.ANCIENT_WOOD_BUTTON);
 
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));

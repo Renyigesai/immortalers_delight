@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "immortalers_delight:block/ancient_stove_bottom",
+    "up": "immortalers_delight:block/ancient_stove_top",
+    "north": "immortalers_delight:block/ancient_stove",
+    "east": "immortalers_delight:block/ancient_stove_side",
+    "south": "immortalers_delight:block/ancient_stove_side",
+    "west": "immortalers_delight:block/ancient_stove_side",
+    "particle": "immortalers_delight:block/ancient_stove_bottom"
+  },
+  "render_type": "solid"
+}

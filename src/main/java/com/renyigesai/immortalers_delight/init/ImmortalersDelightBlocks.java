@@ -2,6 +2,8 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
+import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
+import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightCeilingHangingSignBlock;
@@ -42,6 +44,8 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> ENCHANTAL_COOLER;
     public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
+    public static final RegistryObject<Block> ANCIENT_STOVE;
+    public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
@@ -111,6 +115,51 @@ public class ImmortalersDelightBlocks {
             () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
     public static final RegistryObject<Block>  HIMEKAIDO_WALL_HANGING_SIGN = BLOCKS.register("himekaido_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
+    /*
+    古木
+    */
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_LOG = BLOCKS.register("ancient_wood_log",() ->
+            log(MapColor.WOOD, MapColor.PODZOL));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD = BLOCKS.register("ancient_wood",() ->
+            log(MapColor.WOOD, MapColor.PODZOL));
+
+    public static final RegistryObject<Block> STRIPPED_ANCIENT_WOOD = BLOCKS.register("stripped_ancient_wood",() ->
+            log(MapColor.WOOD, MapColor.PODZOL));
+
+    public static final RegistryObject<Block> STRIPPED_ANCIENT_WOOD_LOG = BLOCKS.register("stripped_ancient_wood_log",() ->
+            log(MapColor.WOOD, MapColor.PODZOL));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_PLANKS = BLOCKS.register("ancient_wood_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_CABINET = BLOCKS.register("ancient_wood_cabinet",
+            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_STAIRS = BLOCKS.register("ancient_wood_stairs",
+            () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(ANCIENT_WOOD_PLANKS.get())));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_SLAB = BLOCKS.register("ancient_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_DOOR = BLOCKS.register("ancient_wood_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+        public static final RegistryObject<Block> ANCIENT_WOOD_TRAPDOOR = BLOCKS.register("ancient_wood_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_FENCE = BLOCKS.register("ancient_wood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_FENCE_GATE = BLOCKS.register("ancient_wood_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_PRESSURE_PLATE = BLOCKS.register("ancient_wood_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> ANCIENT_WOOD_BUTTON = BLOCKS.register("ancient_wood_button",
+            () ->woodenButton(BlockSetType.OAK));
 
     /**
      * 溪柱制品
@@ -218,6 +267,12 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
             () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    public static final RegistryObject<Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove",
+            () -> new OxidizedAncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)) {
+            });
+
+    //oxidized
+
     static {
         //方块实体 Block Entity
 
@@ -226,6 +281,12 @@ public class ImmortalersDelightBlocks {
 
         ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
+
+        ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
+                new AncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)));
+
+        ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",
+                ()-> BlockEntityType.Builder.of(AncientStoveBlockEntity::new, ANCIENT_STOVE.get()).build(null));
 
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));

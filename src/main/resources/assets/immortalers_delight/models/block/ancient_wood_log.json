@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "immortalers_delight:block/ancient_wood_log_top",
+    "side": "immortalers_delight:block/ancient_wood_log"
+  }
+}
