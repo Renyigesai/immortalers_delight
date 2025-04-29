@@ -38,7 +38,6 @@ public class ImmortalersDelightMod {
 
     public static final String MODID = "immortalers_delight";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public ImmortalersDelightMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -100,8 +99,6 @@ public class ImmortalersDelightMod {
             AftertasteHungerOverlay.init();
             KeepFastHungerOverlay.init();
             BurnTheBoatsHealthOverlay.init();
-
-            //GasPoisonHealthOverlay.init();
         }
     }
 }
