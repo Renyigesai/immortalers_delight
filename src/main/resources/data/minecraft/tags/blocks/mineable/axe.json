@@ -26,6 +26,20 @@
     "immortalers_delight:leisamboo_fence_gate",
     "immortalers_delight:leisamboo_pressure_plate",
     "immortalers_delight:leisamboo_button",
-    "immortalers_delight:leisamboo_cabinet"
+    "immortalers_delight:leisamboo_cabinet",
+
+    "immortalers_delight:ancient_wood_log",
+    "immortalers_delight:ancient_wood",
+    "immortalers_delight:stripped_ancient_wood_log",
+    "immortalers_delight:stripped_ancient_wood",
+    "immortalers_delight:ancient_wood_planks",
+    "immortalers_delight:ancient_wood_stairs",
+    "immortalers_delight:ancient_wood_slab",
+    "immortalers_delight:ancient_wood_door",
+    "immortalers_delight:ancient_wood_trapdoor",
+    "immortalers_delight:ancient_wood_fence",
+    "immortalers_delight:ancient_wood_fence_gate",
+    "immortalers_delight:ancient_wood_pressure_plate",
+    "immortalers_delight:ancient_wood_button"
   ]
 }

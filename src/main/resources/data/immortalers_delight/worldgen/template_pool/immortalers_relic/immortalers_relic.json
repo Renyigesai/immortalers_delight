@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_1",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_1",
         "processors": "minecraft:empty"
       }
     },
@@ -16,7 +16,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_2",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_2",
         "processors": "minecraft:empty"
       }
     },
@@ -25,7 +25,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_3",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_3",
         "processors": "minecraft:empty"
       }
     },
@@ -34,7 +34,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_4",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_4",
         "processors": "minecraft:empty"
       }
     },
@@ -43,7 +43,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_5",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_5",
         "processors": "minecraft:empty"
       }
     },
@@ -52,7 +52,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_6",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_6",
         "processors": "minecraft:empty"
       }
     },
@@ -61,7 +61,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_7",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_7",
         "processors": "minecraft:empty"
       }
     },
@@ -70,7 +70,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_8",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_8",
         "processors": "minecraft:empty"
       }
     },
@@ -79,7 +79,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_9",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_9",
         "processors": "minecraft:empty"
       }
     },
@@ -88,7 +88,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "immortalers_delight:immortalers_relic/fq_dg_10",
+        "location": "immortalers_delight:immortalers_relic/immortalers_relic_10",
         "processors": "minecraft:empty"
       }
     }

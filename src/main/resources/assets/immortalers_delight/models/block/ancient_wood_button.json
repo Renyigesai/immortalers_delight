@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "immortalers_delight:block/ancient_wood_planks"
+  }
+}

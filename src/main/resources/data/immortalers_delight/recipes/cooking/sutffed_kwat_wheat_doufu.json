@@ -1,0 +1,36 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:fry_kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:fry_kwat_wheat_doufu"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    [
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:red_mushroom"
+      }
+    ],
+    [
+      {
+        "tag": "forge:raw_beef"
+      },
+      {
+        "tag": "forge:raw_pork"
+      }
+    ]
+  ],
+  "result": {
+    "item": "immortalers_delight:sutffed_kwat_wheat_doufu",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

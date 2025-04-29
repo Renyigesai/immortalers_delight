@@ -49,13 +49,13 @@ public class GasPoisonMapSaveLoadHelper {
     public static void onWorldSave(LevelEvent.Save event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
             saveEntityHasEffect(serverLevel, GasPoisonEffect.getEntityMap());
-            ImmortalersDelightMod.LOGGER.info("这里是世界保存，正在保存实体Map");
+//            ImmortalersDelightMod.LOGGER.info("这里是世界保存，正在保存实体Map");
             // 输出读取到的 Map
             for (Map.Entry<UUID, EffectData> entry : GasPoisonEffect.getEntityMap().entrySet()) {
                 UUID uuid = entry.getKey();
                 EffectData effectData = entry.getValue();
-                ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
-                        ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+//                ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
+//                        ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
             }
             GasPoisonEffect.setPausing(true);
         }

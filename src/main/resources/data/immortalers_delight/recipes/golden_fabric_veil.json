@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "item": "minecraft:rabbit_hide"
+      "item": "minecraft:leather"
     },
     "Y": {
       "item": "immortalers_delight:golden_fabric"

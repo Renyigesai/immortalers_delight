@@ -7,5 +7,6 @@ import static net.minecraft.world.level.block.state.properties.WoodType.register
 
 public class ImmortalersDelightWoodSetType {
     public static final BlockSetType HIMEKAIDO = BlockSetType.register(new BlockSetType("himekaido"));
+    public static final BlockSetType LEISAMBOO = BlockSetType.register(new BlockSetType("leisamboo"));
 
 }
