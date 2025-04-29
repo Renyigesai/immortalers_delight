@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/end_portal_frame",
+  "textures": {
+        "particle": "immortalers_delight:block/ancient_wood_planks",
+        "bottom": "immortalers_delight:block/ancient_wood_planks",
+        "top": "immortalers_delight:block/ancient_wood_planks",
+        "side": "immortalers_delight:block/ancient_wood_planks"
+    }
+}

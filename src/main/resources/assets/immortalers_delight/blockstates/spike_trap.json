@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,tilt=full": {
+      "model": "immortalers_delight:block/spike_trap_2",
+      "y": 90
+    },
+    "facing=east,tilt=none": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 90
+    },
+    "facing=east,tilt=partial": {
+      "model": "immortalers_delight:block/spike_trap_1",
+      "y": 90
+    },
+    "facing=east,tilt=unstable": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 90
+    },
+    "facing=north,tilt=full": {
+      "model": "immortalers_delight:block/spike_trap_2"
+    },
+    "facing=north,tilt=none": {
+      "model": "immortalers_delight:block/spike_trap"
+    },
+    "facing=north,tilt=partial": {
+      "model": "immortalers_delight:block/spike_trap_1"
+    },
+    "facing=north,tilt=unstable": {
+      "model": "immortalers_delight:block/spike_trap"
+    },
+    "facing=south,tilt=full": {
+      "model": "immortalers_delight:block/spike_trap_2",
+      "y": 180
+    },
+    "facing=south,tilt=none": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 180
+    },
+    "facing=south,tilt=partial": {
+      "model": "immortalers_delight:block/spike_trap_1",
+      "y": 180
+    },
+    "facing=south,tilt=unstable": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 180
+    },
+    "facing=west,tilt=full": {
+      "model": "immortalers_delight:block/spike_trap_2",
+      "y": 270
+    },
+    "facing=west,tilt=none": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 270
+    },
+    "facing=west,tilt=partial": {
+      "model": "immortalers_delight:block/spike_trap_1",
+      "y": 270
+    },
+    "facing=west,tilt=unstable": {
+      "model": "immortalers_delight:block/spike_trap",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "render_type": "minecraft:cutout",
+  "parent": "minecraft:block/iron_bars_side_alt",
+  "textures": {
+        "particle": "immortalers_delight:block/spike_bar",
+        "bars": "immortalers_delight:block/spike_bar",
+        "edge": "immortalers_delight:block/spike_bar"
+    }
+}

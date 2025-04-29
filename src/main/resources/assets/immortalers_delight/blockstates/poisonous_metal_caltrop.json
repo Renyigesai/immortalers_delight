@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "extended=false,facing=down": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 180
+    },
+    "extended=false,facing=east": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 90
+    },
+    "extended=false,facing=north": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90
+    },
+    "extended=false,facing=south": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 180
+    },
+    "extended=false,facing=up": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop"
+    },
+    "extended=false,facing=west": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 270
+    },
+    "extended=true,facing=down": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 180
+    },
+    "extended=true,facing=east": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 90
+    },
+    "extended=true,facing=north": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90
+    },
+    "extended=true,facing=south": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 180
+    },
+    "extended=true,facing=up": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop"
+    },
+    "extended=true,facing=west": {
+      "model": "immortalers_delight:block/poisonous_metal_caltrop",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
