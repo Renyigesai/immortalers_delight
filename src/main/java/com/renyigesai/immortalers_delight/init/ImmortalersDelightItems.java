@@ -200,7 +200,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> VULCAN_COKTAIL;
     public static final RegistryObject<Item> NETHER_KVASS;
     public static final RegistryObject<Item> PURGATORY_ALE;
+    //public static final RegistryObject<Item> ELIXIR_OF_IMMORTALITY;
+    //public static final RegistryObject<Item> PALE_DEW_WINE;
     //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
+    public static final RegistryObject<Item> SCARLET_DEVILS_CAKE;
+    public static final RegistryObject<Item> SCARLET_DEVILS_CAKE_SLICE;
+    public static final RegistryObject<Item> RED_STUFFED_BUN;
+    //public static final RegistryObject<Item> SPICY_PUDDING;
+
 
 
     static {
@@ -572,6 +579,18 @@ public class ImmortalersDelightItems {
         JADE_AND_RUBY_SOUP = registerWithTab("jade_and_ruby_soup",()->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),true));
 
+        SCARLET_DEVILS_CAKE = registerWithTab("scarlet_devils_cake", () ->
+                new BlockItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem()));
+
+        SCARLET_DEVILS_CAKE_SLICE = registerWithTab("scarlet_devils_cake_slice",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE_SLICE),true,false));
+
+        RED_STUFFED_BUN = registerWithTab("red_stuffed_bun",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.RED_STUFFED_BUN),true,false));
+
+//        SPICY_PUDDING = registerWithTab("spicy_pudding",()->
+//                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SPICY_PUDDING),true,false));
+
         GOLDEN_FABRIC = register("golden_fabric", () ->
                 new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
 
@@ -617,26 +636,6 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.HOT_HI_SOUP),true));
 
         INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
-
-        /*火把花相关物品*/
-        TORCHFLOWER_MUSTARD = registerWithTab("torchflower_mustard",()->
-                new Item(new Item.Properties()));
-
-        TORCHFLOWER_COOKIE = foodItem("torchflower_cookie",ImmortalersDelightFoodProperties.TORCHFLOWER_COOKIE,true);
-
-        TORCHFLOWER_CAKE = foodItem("torchflower_cake",ImmortalersDelightFoodProperties.TORCHFLOWER_CAKE,true);
-
-        TORCHFLOWER_CURRY_RICE = registerWithTab("torchflower_curry_rice",()->
-                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TORCHFLOWER_CURRY_RICE),true));
-
-        EXTRA_SPICY_PASTA = registerWithTab("extra_spicy_pasta",()->
-                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.EXTRA_SPICY_PASTA),true));
-
-        HOT_HI_SOUP = registerWithTab("hot_hi_soup",()->
-                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.HOT_HI_SOUP),true));
-
-        INCANDESCENCE_SUSHI = foodItem("incandescence_sushi",ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI,true);
-
         PITCHER_PLANT_BARBECUE = registerWithTab("pitcher_plant_barbecue",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.PITCHER_PLANT_BARBECUE),true));
 
@@ -663,6 +662,9 @@ public class ImmortalersDelightItems {
 
         PURGATORY_ALE = registerWithTab("purgatory_ale",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
+
+//        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
+//                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));
 
     }
 

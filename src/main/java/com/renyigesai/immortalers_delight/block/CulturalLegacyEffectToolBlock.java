@@ -124,11 +124,13 @@ public class CulturalLegacyEffectToolBlock extends ReapCropBlock{
         // 以附魔台为中心，检查 5*5 范围内的方块
         int goldBlockCount = maxAgeToolBlocksInRange(level, pos, 2); // 2 表示从中心到边缘的距离
 
-        // 根据金块数量计算新的附魔等级
-        int newLevel = calculateNewLevel(event.getEnchantLevel(), goldBlockCount);
+        if (goldBlockCount > 0) {
+            // 如果有金,根据金块数量计算新的附魔等级
+            int newLevel = calculateNewLevel(event.getEnchantLevel(), goldBlockCount);
 
-        // 设置新的附魔等级
-        event.setEnchantLevel(newLevel);
+            // 设置新的附魔等级
+            event.setEnchantLevel(newLevel);
+        }
     }
 
     /**

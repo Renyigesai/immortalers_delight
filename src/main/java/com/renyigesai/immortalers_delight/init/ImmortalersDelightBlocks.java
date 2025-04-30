@@ -11,6 +11,8 @@ import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightW
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import net.minecraft.core.Direction;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +33,8 @@ import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -229,6 +233,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
             new TartareChickenBigMealBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    public static final RegistryObject<Block> SCARLET_DEVILS_CAKE = BLOCKS.register("scarlet_devils_cake",()->
+            new ScarletDevilsCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     public static final RegistryObject<Block> EVOLUTCORN_GRAIN_BAG = BLOCKS.register("evolutcorn_grain_bag",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
 
@@ -271,6 +278,33 @@ public class ImmortalersDelightBlocks {
             () -> new OxidizedAncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)) {
             });
 
+    public static final RegistryObject<Block> POISONOUS_SPIKE_TRAP = BLOCKS.register("poisonous_spike_trap",
+            () -> new SpikeTrapBlock(2.0F,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
+            });
+    public static final RegistryObject<Block> SPIKE_TRAP = BLOCKS.register("spike_trap",
+            () -> new SpikeTrapBlock(3.0F,BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
+            });
+
+    public static final RegistryObject<Block> POISONOUS_LONG_SPIKE_TRAP = BLOCKS.register("poisonous_long_spike_trap",
+            () -> new SpikeTrapBlock(true,2.0F,
+                    BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
+    public static final RegistryObject<Block> LONG_SPIKE_TRAP = BLOCKS.register("long_spike_trap",
+            () -> new SpikeTrapBlock(true,4.0F,
+                    BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
+//
+    public static final RegistryObject<Block> POISONOUS_METAL_CALTROP = BLOCKS.register("poisonous_metal_caltrop",
+            () -> new MetalCaltropBlock(false,2.0F,
+                    BlockBehaviour.Properties.copy(Blocks.PISTON).strength(55.0F, 1200.0F)) {
+            });
+    public static final RegistryObject<Block> METAL_CALTROP = BLOCKS.register("metal_caltrop",
+            () -> new MetalCaltropBlock(false,3.0F,
+                    BlockBehaviour.Properties.copy(Blocks.PISTON).strength(55.0F, 1200.0F).pushReaction(PushReaction.NORMAL)) {
+            });
+    public static final RegistryObject<Block> SPIKE_BAR_BASE = BLOCKS.register("spike_bar_base",
+            () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> SPIKE_BAR = BLOCKS.register("spike_bar",
+            () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
     //oxidized
 
     static {
