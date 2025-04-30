@@ -446,7 +446,7 @@ public class ImmortalersDelightItems {
                 new DrinkableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA),true, false));
 
         ICED_BLACK_TEA = registerWithTab("iced_black_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.ICED_BLACK_TEA.get(), new Item.Properties().food(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true));
 
         PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",() ->
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_TEA),true, false));

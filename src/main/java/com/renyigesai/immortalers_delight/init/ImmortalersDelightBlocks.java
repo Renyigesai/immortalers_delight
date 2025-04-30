@@ -271,6 +271,15 @@ public class ImmortalersDelightBlocks {
             () -> new OxidizedAncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)) {
             });
 
+    /*
+    饮料方块
+    */
+
+    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
+            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+
+
     //oxidized
 
     static {
