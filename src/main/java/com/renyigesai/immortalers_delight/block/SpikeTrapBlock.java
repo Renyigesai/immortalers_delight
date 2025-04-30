@@ -11,12 +11,16 @@ import javax.annotation.Nullable;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -174,7 +178,7 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
     // 当有投射物击中时的处理方法
     public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
         // 设置倾斜状态为FULL，并安排下一次方块刻和播放声音
-        this.setTiltAndScheduleTick(pState, pLevel, pHit.getBlockPos(), Tilt.FULL, SoundEvents.BIG_DRIPLEAF_TILT_DOWN);
+        this.setTiltAndScheduleTick(pState, pLevel, pHit.getBlockPos(), Tilt.FULL, SoundEvents.PISTON_EXTEND);
     }
 
     // 获取方块的流体状态的方法
@@ -208,7 +212,19 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
             //return pDirection == Direction.UP && pNeighborState.is(this) ? Blocks.BIG_DRIPLEAF_STEM.withPropertiesOf(pState) : super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
             //如果上方不是空气，返回激活状态
             boolean isGround = pDirection == Direction.UP && isFaceFull(pNeighborState.getCollisionShape(pLevel, pPos.above()), Direction.DOWN);
-            //if (isGround) this.setTiltAndScheduleTick(pState, (Level) pLevel, pPos, Tilt.FULL, SoundEvents.BIG_DRIPLEAF_TILT_DOWN);
+            if (isGround) {
+                Double rare = isLongType ? 3.0D : 1.0D;
+                //在弹出时会造成范围伤害
+                List<LivingEntity> list = pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(pPos.above()).inflate(rare, rare, rare));
+                if (!list.isEmpty()) {
+                    for (LivingEntity livingentity : list) {
+                        //造成伤害并添加buff，对非玩家生物造成的伤害不会致死
+                        if (livingentity instanceof Player || livingentity.getHealth() > entity_damage) {
+                            livingentity.hurt(livingentity.level().damageSources().cactus(), entity_damage);
+                        }
+                    }
+                }
+            };
             return isGround ? this.withPropertiesOf(pState).setValue(TILT, Tilt.FULL) : super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
         }
     }
@@ -275,10 +291,11 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
             Tilt tilt = pState.getValue(TILT);
             // 根据不同的倾斜状态进行处理
             if (tilt == Tilt.UNSTABLE) {
-                this.setTiltAndScheduleTick(pState, pLevel, pPos, Tilt.PARTIAL, SoundEvents.BIG_DRIPLEAF_TILT_DOWN);
+                this.setTiltAndScheduleTick(pState, pLevel, pPos, Tilt.PARTIAL, SoundEvents.NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF);
             } else if (tilt == Tilt.PARTIAL) {
+                Double rare = isLongType ? 3.0D : 1.0D;
                 //在弹出时会造成范围伤害
-                List<LivingEntity> list = pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(pPos.above()).inflate(3.0D, 3.0D, 3.0D));
+                List<LivingEntity> list = pLevel.getEntitiesOfClass(LivingEntity.class, new AABB(pPos.above()).inflate(rare, rare, rare));
                 if (!list.isEmpty()) {
                     for (LivingEntity livingentity : list) {
                         //造成伤害并添加buff，对非玩家生物造成的伤害不会致死
@@ -287,7 +304,7 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
                         }
                     }
                 }
-                this.setTiltAndScheduleTick(pState, pLevel, pPos, Tilt.FULL, SoundEvents.BIG_DRIPLEAF_TILT_DOWN);
+                this.setTiltAndScheduleTick(pState, pLevel, pPos, Tilt.FULL, SoundEvents.PISTON_EXTEND);
             } else if (tilt == Tilt.FULL) {
                 resetTilt(pState, pLevel, pPos);
             }
@@ -341,7 +358,7 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
         setTilt(pState, pLevel, pPos, Tilt.NONE);
         // 如果当前倾斜状态不是NONE，播放倾斜上升的声音
         if (pState.getValue(TILT) != Tilt.NONE) {
-            playTiltSound(pLevel, pPos, SoundEvents.BIG_DRIPLEAF_TILT_UP);
+            playTiltSound(pLevel, pPos, SoundEvents.PISTON_CONTRACT);
         }
 
     }

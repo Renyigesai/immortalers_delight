@@ -1,31 +1,66 @@
 package com.renyigesai.immortalers_delight.item;
 
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import vectorwing.farmersdelight.common.item.DrinkableItem;
+import net.minecraft.world.level.block.Block;
+import vectorwing.farmersdelight.common.Configuration;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
-public class DrinkItem extends DrinkableItem {
+import java.util.List;
 
-    public final ItemStack containerSlice;
+public class DrinkItem extends ItemNameBlockItem {
 
-    public DrinkItem(Properties properties, ItemStack containerSlice) {
-        super(properties);
-        this.containerSlice = containerSlice;
-    }
-    public DrinkItem(Properties properties, Item containerSlice) {
-        super(properties);
-        this.containerSlice = containerSlice.getDefaultInstance();
-    }
-    public DrinkItem(Item.Properties properties, ItemStack containerSlice,boolean hasFoodEffectTooltip) {
-        super(properties, hasFoodEffectTooltip);
-        this.containerSlice = containerSlice;
+    public final boolean hasPotionEffectTooltip;
+
+    public DrinkItem(Block pBlock, Properties pProperties, boolean hasPotionEffectTooltip) {
+        super(pBlock, pProperties);
+        this.hasPotionEffectTooltip = hasPotionEffectTooltip;
     }
 
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        ItemStack itemstack = super.finishUsingItem(itemStack, level, livingEntity);
-        return livingEntity instanceof Player && ((Player)livingEntity).getAbilities().instabuild ? itemstack : new ItemStack(containerSlice.getItem());
+    public DrinkItem(Block pBlock, Properties pProperties) {
+        super(pBlock, pProperties);
+        this.hasPotionEffectTooltip = false;
     }
+
+    public int getUseDuration(ItemStack stack) {
+        return 32;
+    }
+
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK;
+    }
+
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack heldStack = player.getItemInHand(hand);
+        if (heldStack.isEdible()) {
+            if (player.canEat(heldStack.getFoodProperties(player).canAlwaysEat())) {
+                player.startUsingItem(hand);
+                return InteractionResultHolder.consume(heldStack);
+            } else {
+                return InteractionResultHolder.fail(heldStack);
+            }
+        } else {
+            return ItemUtils.startUsingInstantly(level, player, hand);
+        }
+    }
+
+    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+            if (this.hasPotionEffectTooltip) {
+                TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
+            }
+        }
+    }
+
+//    @Override
+//    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+//        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+//        List<MobEffectInstance> list = new ArrayList<>();
+//        listPotionEffects(pStack, list::add);
+//        PotionUtils.addPotionTooltip(list, pTooltip, 1.0F);
+//    }
 }

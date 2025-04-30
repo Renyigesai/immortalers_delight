@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.Tilt;
 import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -119,8 +121,8 @@ public class CulturalLegacyPotionEffect {
         BlockState blockState1 = level.getBlockState(entity.blockPosition());
 
         if (blockState.getBlock() == ImmortalersDelightBlocks.SPIKE_BAR.get()) {
-            if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
-                entity.hurt(entity.damageSources().cactus(), 2.0f);
+            if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 3.0f) {
+                entity.hurt(entity.damageSources().cactus(), 3.0f);
             }
         }
         if (blockState.getBlock() == ImmortalersDelightBlocks.LONG_SPIKE_TRAP.get() && blockState.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
@@ -150,4 +152,5 @@ public class CulturalLegacyPotionEffect {
             }
         }
     }
+
 }

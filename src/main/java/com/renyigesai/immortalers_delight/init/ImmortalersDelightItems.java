@@ -55,6 +55,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> LEISAMBOO_PLANKS;
     public static final RegistryObject<Item> LEISAMBOO_STAIRS;
     public static final RegistryObject<Item> LEISAMBOO_SLAB;
+    public static final RegistryObject<Item> LEISAMBOO_CABINET;
+    public static final RegistryObject<Item> LEISAMBOO_DOOR;
+    public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;
     public static final RegistryObject<Item> LEISAMBOO_FENCE;
     public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
     public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
@@ -209,6 +212,37 @@ public class ImmortalersDelightItems {
     //public static final RegistryObject<Item> SPICY_PUDDING;
 
 
+    public static final RegistryObject<Item> POISONOUS_LONG_SPIKE_TRAP;
+    public static final RegistryObject<Item> LONG_SPIKE_TRAP;
+    public static final RegistryObject<Item> POISONOUS_SPIKE_TRAP;
+    public static final RegistryObject<Item> SPIKE_TRAP;
+    public static final RegistryObject<Item> POISONOUS_METAL_CALTROP;
+    public static final RegistryObject<Item> METAL_CALTROP;
+    public static final RegistryObject<Item> SPIKE_BAR_BASE;
+    public static final RegistryObject<Item> SPIKE_BAR;
+    public static final RegistryObject<Item> MUD_TILES;
+    public static final RegistryObject<Item> MUD_TILES_STAIRS;
+    public static final RegistryObject<Item> MUD_TILES_SLAB;
+    public static final RegistryObject<Item> MUD_TILES_WALL;
+    public static final RegistryObject<Item> CRACKED_MUD_TILES;
+    public static final RegistryObject<Item> CRACKED_MUD_TILES_STAIRS;
+    public static final RegistryObject<Item> CRACKED_MUD_TILES_SLAB;
+    public static final RegistryObject<Item> CRACKED_MUD_TILES_WALL;
+    public static final RegistryObject<Item> MOSSY_MUD_BRICK;
+    public static final RegistryObject<Item> MOSSY_MUD_BRICK_STAIRS;
+    public static final RegistryObject<Item> MOSSY_MUD_BRICK_SLAB;
+    public static final RegistryObject<Item> MOSSY_MUD_BRICK_WALL;
+    public static final RegistryObject<Item>CRACKED_MUD_BRICK;
+    public static final RegistryObject<Item>CRACKED_MUD_BRICK_STAIRS;
+    public static final RegistryObject<Item>CRACKED_MUD_BRICK_SLAB;
+    public static final RegistryObject<Item>CRACKED_MUD_BRICK_WALL;
+    public static final RegistryObject<Item>CHISELED_MUD_BRICK;
+    public static final RegistryObject<Item>PACKED_MUD_STAIRS;
+    public static final RegistryObject<Item>PACKED_MUD_SLAB;
+    public static final RegistryObject<Item>PACKED_MUD_WALL;
+
+    public static final RegistryObject<Item> INFESTED_GRAVEL;
+    public static final RegistryObject<Item> INFESTED_SAND;
 
     static {
 
@@ -300,8 +334,14 @@ public class ImmortalersDelightItems {
         LEISAMBOO_STAIRS = registerWithTab("leisamboo_stairs", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_STAIRS.get(), basicItem()));
 
+        LEISAMBOO_CABINET = block(ImmortalersDelightBlocks.LEISAMBOO_CABINET);
+
         LEISAMBOO_SLAB = registerWithTab("leisamboo_slab", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_SLAB.get(), basicItem()));
+
+        LEISAMBOO_DOOR = block(ImmortalersDelightBlocks.LEISAMBOO_DOOR);
+
+        LEISAMBOO_TRAPDOOR = block(ImmortalersDelightBlocks.LEISAMBOO_TRAPDOOR);
 
         LEISAMBOO_FENCE = registerWithTab("leisamboo_fence", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_FENCE.get(), basicItem()));
@@ -346,6 +386,46 @@ public class ImmortalersDelightItems {
 
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
+
+        /*
+        泥砖
+         */
+        MUD_TILES = block(ImmortalersDelightBlocks.MUD_TILES);
+        MUD_TILES_STAIRS = block(ImmortalersDelightBlocks.MUD_TILES_STAIRS);
+        MUD_TILES_SLAB = block(ImmortalersDelightBlocks.MUD_TILES_SLAB);
+        MUD_TILES_WALL = block(ImmortalersDelightBlocks.MUD_TILES_WALL);
+        CRACKED_MUD_TILES = block(ImmortalersDelightBlocks.CRACKED_MUD_TILES);
+        CRACKED_MUD_TILES_STAIRS = block(ImmortalersDelightBlocks.CRACKED_MUD_TILES_STAIRS);
+        CRACKED_MUD_TILES_SLAB = block(ImmortalersDelightBlocks.CRACKED_MUD_TILES_SLAB);
+        CRACKED_MUD_TILES_WALL = block(ImmortalersDelightBlocks.CRACKED_MUD_TILES_WALL);
+        MOSSY_MUD_BRICK = block(ImmortalersDelightBlocks.MOSSY_MUD_BRICK);
+        MOSSY_MUD_BRICK_STAIRS = block(ImmortalersDelightBlocks.MOSSY_MUD_BRICK_STAIRS);
+        MOSSY_MUD_BRICK_SLAB = block(ImmortalersDelightBlocks.MOSSY_MUD_BRICK_SLAB);
+        MOSSY_MUD_BRICK_WALL = block(ImmortalersDelightBlocks.MOSSY_MUD_BRICK_WALL);
+        CRACKED_MUD_BRICK = block(ImmortalersDelightBlocks.CRACKED_MUD_BRICK);
+        CRACKED_MUD_BRICK_STAIRS = block(ImmortalersDelightBlocks.CRACKED_MUD_BRICK_STAIRS);
+        CRACKED_MUD_BRICK_SLAB = block(ImmortalersDelightBlocks.CRACKED_MUD_BRICK_SLAB);
+        CRACKED_MUD_BRICK_WALL = block(ImmortalersDelightBlocks.CRACKED_MUD_BRICK_WALL);
+        CHISELED_MUD_BRICK = block(ImmortalersDelightBlocks.CHISELED_MUD_BRICK);
+        PACKED_MUD_STAIRS = block(ImmortalersDelightBlocks.PACKED_MUD_STAIRS);
+        PACKED_MUD_SLAB = block(ImmortalersDelightBlocks.PACKED_MUD_SLAB);
+        PACKED_MUD_WALL = block(ImmortalersDelightBlocks.PACKED_MUD_WALL);
+
+
+        /*
+        地牢工具箱
+         */
+        POISONOUS_LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_LONG_SPIKE_TRAP);
+        LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.LONG_SPIKE_TRAP);
+        POISONOUS_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_SPIKE_TRAP);
+        SPIKE_TRAP = block(ImmortalersDelightBlocks.SPIKE_TRAP);
+        POISONOUS_METAL_CALTROP = block(ImmortalersDelightBlocks.POISONOUS_METAL_CALTROP);
+        METAL_CALTROP = block(ImmortalersDelightBlocks.METAL_CALTROP);
+        SPIKE_BAR_BASE = block(ImmortalersDelightBlocks.SPIKE_BAR_BASE);
+        SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
+        INFESTED_GRAVEL = block(ImmortalersDelightBlocks.INFESTED_GRAVEL);
+        INFESTED_SAND = block(ImmortalersDelightBlocks.INFESTED_SAND);
+
         /*
         材料类物品
         */
@@ -453,7 +533,7 @@ public class ImmortalersDelightItems {
                 new DrinkableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA),true, false));
 
         ICED_BLACK_TEA = registerWithTab("iced_black_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.ICED_BLACK_TEA.get(), new Item.Properties().food(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true));
 
         PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",() ->
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_TEA),true, false));

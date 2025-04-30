@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "immortalers_delight:block/mud_tiles"
+  }
+}

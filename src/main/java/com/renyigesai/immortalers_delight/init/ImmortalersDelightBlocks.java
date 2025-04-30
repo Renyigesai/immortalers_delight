@@ -165,6 +165,69 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ANCIENT_WOOD_BUTTON = BLOCKS.register("ancient_wood_button",
             () ->woodenButton(BlockSetType.OAK));
 
+    /*
+    泥砖
+     */
+    public static final RegistryObject<Block> MUD_TILES = BLOCKS.register("mud_tiles",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> MUD_TILES_STAIRS = BLOCKS.register("mud_tiles_stairs",
+            () -> new StairBlock(MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.copy(MUD_TILES.get())));
+
+    public static final RegistryObject<Block> MUD_TILES_SLAB = BLOCKS.register("mud_tiles_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> MUD_TILES_WALL = BLOCKS.register("mud_tiles_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
+    public static final RegistryObject<Block> CRACKED_MUD_TILES = BLOCKS.register("cracked_mud_tiles",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> CRACKED_MUD_TILES_STAIRS = BLOCKS.register("cracked_mud_tiles_stairs",
+            () -> new StairBlock(CRACKED_MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.copy(CRACKED_MUD_TILES.get())));
+
+    public static final RegistryObject<Block> CRACKED_MUD_TILES_SLAB = BLOCKS.register("cracked_mud_tiles_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> CRACKED_MUD_TILES_WALL = BLOCKS.register("cracked_mud_tiles_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
+    public static final RegistryObject<Block> MOSSY_MUD_BRICK = BLOCKS.register("mossy_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> MOSSY_MUD_BRICK_STAIRS = BLOCKS.register("mossy_mud_brick_stairs",
+            () -> new StairBlock(MOSSY_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.copy(MOSSY_MUD_BRICK.get())));
+
+    public static final RegistryObject<Block> MOSSY_MUD_BRICK_SLAB = BLOCKS.register("mossy_mud_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> MOSSY_MUD_BRICK_WALL = BLOCKS.register("mossy_mud_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
+    public static final RegistryObject<Block> CRACKED_MUD_BRICK = BLOCKS.register("cracked_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> CRACKED_MUD_BRICK_STAIRS = BLOCKS.register("cracked_mud_brick_stairs",
+            () -> new StairBlock(CRACKED_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.copy(CRACKED_MUD_BRICK.get())));
+
+    public static final RegistryObject<Block> CRACKED_MUD_BRICK_SLAB = BLOCKS.register("cracked_mud_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> CRACKED_MUD_BRICK_WALL = BLOCKS.register("cracked_mud_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
+    public static final RegistryObject<Block> CHISELED_MUD_BRICK = BLOCKS.register("chiseled_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> PACKED_MUD_STAIRS = BLOCKS.register("packed_mud_stairs",
+            () -> new StairBlock(Blocks.PACKED_MUD.defaultBlockState(),BlockBehaviour.Properties.copy(Blocks.PACKED_MUD)));
+
+    public static final RegistryObject<Block> PACKED_MUD_SLAB = BLOCKS.register("packed_mud_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+
+    public static final RegistryObject<Block> PACKED_MUD_WALL = BLOCKS.register("packed_mud_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
     /**
      * 溪柱制品
      */
@@ -278,19 +341,28 @@ public class ImmortalersDelightBlocks {
             () -> new OxidizedAncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)) {
             });
 
+    /*
+    饮料方块
+    */
+
+    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
+            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+
+
     public static final RegistryObject<Block> POISONOUS_SPIKE_TRAP = BLOCKS.register("poisonous_spike_trap",
             () -> new SpikeTrapBlock(2.0F,
                     BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
             });
     public static final RegistryObject<Block> SPIKE_TRAP = BLOCKS.register("spike_trap",
-            () -> new SpikeTrapBlock(3.0F,BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
+            () -> new SpikeTrapBlock(4.0F,BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
             });
 
     public static final RegistryObject<Block> POISONOUS_LONG_SPIKE_TRAP = BLOCKS.register("poisonous_long_spike_trap",
             () -> new SpikeTrapBlock(true,2.0F,
                     BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
     public static final RegistryObject<Block> LONG_SPIKE_TRAP = BLOCKS.register("long_spike_trap",
-            () -> new SpikeTrapBlock(true,4.0F,
+            () -> new SpikeTrapBlock(true,6.0F,
                     BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
 //
     public static final RegistryObject<Block> POISONOUS_METAL_CALTROP = BLOCKS.register("poisonous_metal_caltrop",
@@ -305,6 +377,13 @@ public class ImmortalersDelightBlocks {
             () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> SPIKE_BAR = BLOCKS.register("spike_bar",
             () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
+
+    public static final RegistryObject<Block> INFESTED_SAND = BLOCKS.register("infested_sand",
+            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_SAND,BlockBehaviour.Properties.copy(Blocks.SAND)));
+
+    public static final RegistryObject<Block> INFESTED_GRAVEL = BLOCKS.register("infested_gravel",
+            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_GRAVEL,BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+
     //oxidized
 
     static {

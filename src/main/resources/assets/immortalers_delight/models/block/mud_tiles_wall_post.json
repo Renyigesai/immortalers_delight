@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "immortalers_delight:block/mud_tiles"
+  }
+}

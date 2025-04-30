@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immortalers_delight:block/cracked_mud_tiles_slab"
+    },
+    "type=double": {
+      "model": "immortalers_delight:block/cracked_mud_tiles"
+    },
+    "type=top": {
+      "model": "immortalers_delight:block/cracked_mud_tiles_slab_top"
+    }
+  }
+}

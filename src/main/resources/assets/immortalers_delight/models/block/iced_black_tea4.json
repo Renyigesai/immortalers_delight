@@ -1,0 +1,9 @@
+{
+  "parent": "immortalers_delight:custom/drinks4",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "2": "immortalers_delight:block/iced_black_tea",
+    "3": "immortalers_delight:block/cup",
+    "particle": "minecraft:block/glass"
+  }
+}
