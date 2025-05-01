@@ -11,6 +11,8 @@ import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -89,7 +91,7 @@ public class ImmortalersDelightMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
             EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
-
+            ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
