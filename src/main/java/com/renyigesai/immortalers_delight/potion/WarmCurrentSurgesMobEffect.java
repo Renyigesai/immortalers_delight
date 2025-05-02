@@ -17,7 +17,7 @@ public class WarmCurrentSurgesMobEffect extends MobEffect {
 
 
     public WarmCurrentSurgesMobEffect() {
-        super(MobEffectCategory.HARMFUL, -39424);
+        super(MobEffectCategory.BENEFICIAL, -39424);
     }
 
     @Override
