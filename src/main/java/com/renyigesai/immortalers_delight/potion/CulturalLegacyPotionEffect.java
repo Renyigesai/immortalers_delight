@@ -1,11 +1,14 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
 import com.renyigesai.immortalers_delight.block.SpikeTrapBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +27,11 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber
 public class CulturalLegacyPotionEffect {
@@ -50,6 +58,28 @@ public class CulturalLegacyPotionEffect {
                             livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 3000));
                             livingEntity.addEffect(new MobEffectInstance(MobEffects.LUCK, 600));
                         }
+                    }
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE) {
+//                        Map<MobEffect, MobEffectInstance> effectsMap = livingEntity.getActiveEffectsMap();
+//                        Iterator<MobEffect> iterator = effectsMap.keySet().iterator();
+//                        try {
+//                            while(iterator.hasNext()) {
+//                                MobEffect mobeffect = iterator.next();
+//                                //if (mobeffect != MobEffects.NIGHT_VISION) {
+//                                    livingEntity.removeEffect(mobeffect);
+//                                //}
+//                            }
+//                        } catch (ConcurrentModificationException concurrentmodificationexception) {
+//                        }
+//                        for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(stack.getFoodProperties(livingEntity)).getEffects()) {
+//                            livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
+//                        }
+                    }
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE) {
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 3));
+                    }
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.PEARLIP_PIE_SLICE) {
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.HEAL, 1));
                     }
                 }
             }

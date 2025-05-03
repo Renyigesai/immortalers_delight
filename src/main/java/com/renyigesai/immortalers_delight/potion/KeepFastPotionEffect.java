@@ -23,8 +23,8 @@ public class KeepFastPotionEffect {
                     && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
                     && entity instanceof Player player) {
                 if ( !player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get())
-//                        || event.getOldEffectInstance() == null
-//                        || event.getOldEffectInstance().getEffect() != ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                        || event.getOldEffectInstance() == null
+                        || event.getOldEffectInstance().getEffect() != ImmortalersDelightMobEffect.KEEP_A_FAST.get()
                 ) {
                     FoodData foodData = player.getFoodData();
                     foodData.setFoodLevel(foodData.getFoodLevel() / 2);

@@ -20,9 +20,9 @@ public class VitalityMobEffect extends MobEffect {
                 if (!player.isHurt()) return;
                 FoodData foodData = player.getFoodData();
                 if (foodData.getFoodLevel() >= 20) {
-                    player.heal((amplifier * 0.5F + 1));
+                    player.heal(0.5F*(amplifier + 1));
                 } else if (foodData.getFoodLevel() >= 18) {
-                    player.heal(0.75F*(amplifier*0.5F + 1));
+                    player.heal(0.375F*(amplifier + 1));
                 }
             } else {
                 if (pEntity.getHealth() > 0.7 * pEntity.getMaxHealth()) {
@@ -34,6 +34,6 @@ public class VitalityMobEffect extends MobEffect {
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % (amplifier > 0 ? 10 : 20) == 0;
+        return duration % 10 == 0;
     }
 }

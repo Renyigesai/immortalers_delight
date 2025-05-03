@@ -26,7 +26,7 @@ public class KeepFastMobEffect extends MobEffect {
             if (differenceValue > 0 && player.getRandom().nextInt(amplifier + 2) != 0) {
                 player.getFoodData().eat(differenceValue, 0.1F);
             }
-            int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(MobEffects.DAMAGE_BOOST).getDuration() : 0;
+            int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()).getDuration() : 0;
             if (time > 0) {
                 if (time == 1) {
                     foodData.eat(foodLevel, saturation / (foodLevel * 2));

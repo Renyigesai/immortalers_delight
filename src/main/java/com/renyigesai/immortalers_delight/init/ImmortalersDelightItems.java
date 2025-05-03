@@ -493,7 +493,8 @@ public class ImmortalersDelightItems {
 
         PEARLIP_PIE = block(ImmortalersDelightBlocks.PEARLIP_PIE);
 
-        PEARLIP_PIE_SLICE = foodItem("pearlip_pie_slice",ImmortalersDelightFoodProperties.PEARLIP_PIE_SLICE);
+        PEARLIP_PIE_SLICE = registerWithTab("pearlip_pie_slice", () ->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEARLIP_PIE_SLICE), true));
 
         PEATIC_MUSA_SALAD = registerWithTab("peatic_musa_salad", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD), true));
@@ -506,7 +507,7 @@ public class ImmortalersDelightItems {
                 new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.PEARLIP_MILK_SHAKE), true, false));
 
         PEARLIP_PUMPKIN_PIE = registerWithTab("pearlip_pumpkin_pie", () ->
-                new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE)));
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.PEARLIP_PUMPKIN_PIE),true));
 
         PEARLIPEARL_EGGSTEAM = registerWithTab("pearlipearl_eggsteam", () ->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_EGGSTEAM), true));
@@ -515,11 +516,13 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.PEARLIP_JELLY), true));
 
         PEARLIPEARL_TART = registerWithTab("pearlipearl_tart", () ->
-                new Item(foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_TART)));
+                new ConsumableItem((foodItem(ImmortalersDelightFoodProperties.PEARLIPEARL_TART)), true,false));
 
-        ICE_PEARLIP = foodItem("ice_pearlip",ImmortalersDelightFoodProperties.ICE_PEARLIP);
+        ICE_PEARLIP = registerWithTab("ice_pearlip", () ->
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.ICE_PEARLIP), true));
 
-        CHOCOLATE_PEARLIP_STICKS = foodItem("chocolate_pearlip_sticks",ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS);
+        CHOCOLATE_PEARLIP_STICKS = registerWithTab("chocolate_pearlip_sticks", () ->
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS), true));
         /*
          溪竹相关物品
         */
@@ -557,7 +560,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO),true, false));
 
         LEISAMBOO_TEA_CAKE = registerWithTab("leisamboo_tea_cake",()->
-                new Item(new Item.Properties()));
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true, false));
         /*
         姬海棠系列物品
          */

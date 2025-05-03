@@ -5,6 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -19,10 +22,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+
+import static com.renyigesai.immortalers_delight.block.PearlipearlStalkBlock.IS_LEAVES;
 
 public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -41,22 +47,30 @@ public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements 
         };
     }
 
+    public int getAge(BlockState state){
+        return state.getValue(AGE);
+    }
 
-
-    public void randomTick(BlockState p_221000_, ServerLevel p_221001_, BlockPos p_221002_, RandomSource p_221003_) {
-        if (true) {
-            int i = p_221000_.getValue(AGE);
-            if (i < 2 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(p_221001_, p_221002_, p_221000_, p_221001_.random.nextInt(5) == 0)) {
-                p_221001_.setBlock(p_221002_, p_221000_.setValue(AGE, i + 1), 2);
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(p_221001_, p_221002_, p_221000_);
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        //if (!pLevel.isAreaLoaded(pPos, 1) || pLevel.getRawBrightness(pPos, 0) <= 9) return;
+        int i = pState.getValue(AGE);
+        if (i < 2 ) {
+            if (pLevel.getBlockState(pPos.above().relative(pState.getValue(FACING))).is(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get())
+                    && pLevel.getBlockState(pPos.above().relative(pState.getValue(FACING))).getValue(IS_LEAVES) == ImmortalersDelightBlocks.PEARLIPEARL_STALK.get().defaultBlockState().setValue(PearlipearlStalkBlock.IS_LEAVES,true).getValue(IS_LEAVES)
+                    && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pLevel.random.nextInt(8) == 0)
+            ) {
+                pLevel.setBlock(pPos, pState.setValue(AGE, i + 1), 2);
+                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
             }
+
         }
 
     }
 
     public boolean canSurvive(BlockState p_51767_, LevelReader p_51768_, BlockPos p_51769_) {
         BlockState blockstate = p_51768_.getBlockState(p_51769_.relative(p_51767_.getValue(FACING)));
-        return blockstate.is(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get());
+        return blockstate.is(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get())
+                && blockstate.getValue(IS_LEAVES) != ImmortalersDelightBlocks.PEARLIPEARL_STALK.get().defaultBlockState().setValue(PearlipearlStalkBlock.IS_LEAVES,true).getValue(IS_LEAVES);
     }
 
     @Nullable
@@ -81,16 +95,36 @@ public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements 
         return p_51772_ == p_51771_.getValue(FACING) && !p_51771_.canSurvive(p_51774_, p_51775_) ? Blocks.AIR.defaultBlockState() : super.updateShape(p_51771_, p_51772_, p_51773_, p_51774_, p_51775_, p_51776_);
     }
 
-    public boolean isValidBonemealTarget(LevelReader p_256189_, BlockPos p_51753_, BlockState p_51754_, boolean p_51755_) {
-        return p_51754_.getValue(AGE) < 2;
+    // 判断是否可以对当前方块使用骨粉的方法
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+        // 获取上方方块的状态
+        BlockState blockstate = pLevel.getBlockState(pPos.above());
+        // 判断上方方块是否可以被替换
+        //return canReplace(blockstate);
+        return  false;
     }
 
-    public boolean isBonemealSuccess(Level p_220995_, RandomSource p_220996_, BlockPos p_220997_, BlockState p_220998_) {
-        return true;
+    // 判断使用骨粉是否成功的方法，这里总是返回true
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        //return true;
+        return false;
     }
 
-    public void performBonemeal(ServerLevel p_220990_, RandomSource p_220991_, BlockPos p_220992_, BlockState p_220993_) {
-        p_220990_.setBlock(p_220992_, p_220993_.setValue(AGE, Integer.valueOf(p_220993_.getValue(AGE) + 1)), 2);
+    // 使用骨粉后的处理方法，在上方放置茎和叶子方块
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+//        // 获取上方方块的位置和状态
+//        BlockPos blockpos = pPos.above();
+//        BlockState blockstate = pLevel.getBlockState(blockpos);
+//        // 如果上方可以放置方块
+//        if (canPlaceAt(pLevel, blockpos, blockstate)) {
+//            // 获取当前方块的朝向
+//            Direction direction = pState.getValue(FACING);
+//            // 放置茎方块
+//            SpikeTrapBlock.place(pLevel, pPos, pState.getFluidState(), direction);
+//            // 放置叶子方块
+//            place(pLevel, blockpos, blockstate.getFluidState(), direction);
+//        }
+
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_51778_) {

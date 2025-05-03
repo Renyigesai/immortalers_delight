@@ -12,11 +12,22 @@
     },
     {
       "item": "immortalers_delight:pearlip"
-    }
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
   ],
   "result": {
     "item": "immortalers_delight:pearlip_pumpkin_pie",
-    "count": 3
+    "count": 4
   },
   "experience": 0.35,
   "cookingtime": 200
