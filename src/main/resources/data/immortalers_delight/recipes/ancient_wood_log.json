@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:logs"
+    },
+    "b": {
+      "item": "immortalers_delight:ancient_wood_log"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:ancient_wood_log",
+    "count": 9
+  }
+}

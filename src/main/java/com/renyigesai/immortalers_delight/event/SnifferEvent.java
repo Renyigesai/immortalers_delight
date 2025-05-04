@@ -42,7 +42,7 @@ public class SnifferEvent {
         itemStackHashMap.put(Tags.Biomes.IS_PLAINS, new ItemStack(ImmortalersDelightItems.EVOLUTCORN_GRAINS.get()));
         itemStackHashMap.put(BiomeTags.IS_FOREST, new ItemStack(ImmortalersDelightItems.HIMEKAIDO_SEED.get()));
         itemStackHashMap.put(BiomeTags.IS_RIVER, new ItemStack(ImmortalersDelightItems.CONTAINS_TEA_LEISAMBOO.get()));
-        itemStackHashMap.put(ImmortalersDelightBiomeTags.IS_CRIMSON_FOREST, new ItemStack(ImmortalersDelightItems.PEARLIPEARL.get()));
+        itemStackHashMap.put(ImmortalersDelightBiomeTags.IS_CRIMSON_FOREST, new ItemStack(ImmortalersDelightItems.KWAT_WHEAT_SEEDS.get()));
         return itemStackHashMap;
     }
 }
