@@ -345,8 +345,24 @@ public class ImmortalersDelightBlocks {
     饮料方块
     */
 
-    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
-            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+//    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
+//            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+    public static final RegistryObject<Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
+
+    public static final RegistryObject<Block> PEARLIPEARL_MILK_TEA = drinksBlock("pearlipearl_milk_tea");
+
+    public static final RegistryObject<Block> PEARLIPEARL_MILK_GREEN = drinksBlock("pearlipearl_milk_green");
+
+    public static final RegistryObject<Block> STOVE_BLACK_TEA = drinksBlock("stove_black_tea");
+
+    public static final RegistryObject<Block> LEAF_GREEN_TEA = drinksBlock("leaf_green_tea");
+
+    public static final RegistryObject<Block> BRITISH_YELLOW_TEA = drinksBlock("british_yellow_tea");
+
+    public static final RegistryObject<Block> LEAF_TEA = drinksBlock("leaf_tea");
+
+    public static final RegistryObject<Block> YOGURT = drinksBlock("yogurt");
 
 
 
@@ -423,6 +439,10 @@ public class ImmortalersDelightBlocks {
         }
 
         return new ButtonBlock(blockbehaviour$properties, p_278239_, 30, true);
+    }
+
+    private static RegistryObject<Block> drinksBlock(String name){
+        return BLOCKS.register(name,()->new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     }
 
 

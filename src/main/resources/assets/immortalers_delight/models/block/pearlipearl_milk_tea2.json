@@ -1,0 +1,9 @@
+{
+  "parent": "immortalers_delight:custom/milk_tea2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "immortalers_delight:block/pearlipearl_milk_tea",
+    "1": "immortalers_delight:block/cup",
+    "particle": "minecraft:block/glass"
+  }
+}

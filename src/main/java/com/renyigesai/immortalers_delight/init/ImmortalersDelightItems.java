@@ -524,7 +524,7 @@ public class ImmortalersDelightItems {
          溪竹相关物品
         */
         LEAF_TEA = registerWithTab("leaf_tea",()->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.LEAF_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.LEAF_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.LEAF_TEA),true));
 
         EMPTY_BAMBOO_CUP = registerWithTab("empty_bamboo_cup", () ->
                 new Item(new Item.Properties().stacksTo(16)));
@@ -532,23 +532,23 @@ public class ImmortalersDelightItems {
         LEISAMBOO_TEA = registerWithTab("leisamboo_tea", () ->
                 new DrinkableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA),true, false));
 
-        ICED_BLACK_TEA = registerWithTab("iced_black_tea",() ->
-                new DrinkItem(ImmortalersDelightBlocks.ICED_BLACK_TEA.get(), new Item.Properties().food(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true));
+        ICED_BLACK_TEA = registerWithTab("iced_black_tea",()->
+                new DrinkItem(ImmortalersDelightBlocks.ICED_BLACK_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true));
 
-        PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_TEA),true, false));
+        PEARLIPEARL_MILK_TEA = registerWithTab("pearlipearl_milk_tea",()->
+                new DrinkItem(ImmortalersDelightBlocks.PEARLIPEARL_MILK_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_TEA),true));
 
-        PEARLIPEARL_MILK_GREEN = registerWithTab("pearlipearl_milk_green",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_GREEN),true, false));
+        PEARLIPEARL_MILK_GREEN = registerWithTab("pearlipearl_milk_green",()->
+                new DrinkItem(ImmortalersDelightBlocks.PEARLIPEARL_MILK_GREEN.get(), drinkItem(ImmortalersDelightFoodProperties.PEARLIPEARL_MILK_GREEN),true));
 
         STOVE_BLACK_TEA = registerWithTab("stove_black_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.STOVE_BLACK_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.STOVE_BLACK_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.STOVE_BLACK_TEA),true));
 
         LEAF_GREEN_TEA = registerWithTab("leaf_green_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.LEAF_GREEN_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.LEAF_GREEN_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.LEAF_GREEN_TEA),true));
 
         BRITISH_YELLOW_TEA = registerWithTab("british_yellow_tea",() ->
-                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.BRITISH_YELLOW_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.BRITISH_YELLOW_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.BRITISH_YELLOW_TEA),true));
 
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
                 new BlockItem(ImmortalersDelightBlocks.MILLENIAN_BAMBOO.get(), basicItem()));
@@ -590,7 +590,7 @@ public class ImmortalersDelightItems {
                 new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.HIMEKAIDO_JELLY), true, false));
 
         YOGURT = registerWithTab("yogurt", () ->
-                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.YOGURT), true, false));
+                new DrinkItem(ImmortalersDelightBlocks.YOGURT.get(), drinkItem(ImmortalersDelightFoodProperties.YOGURT),true));
 
         STUFFED_POISONOUS_POTATO = registerWithTab("stuffed_poisonous_potato", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.STUFFED_POISONOUS_POTATO, Rarity.COMMON, false), true));
@@ -778,16 +778,8 @@ public class ImmortalersDelightItems {
         return (new Item.Properties()).food(food).craftRemainder(Items.BOWL).stacksTo(16);
     }
 
-    public static Item.Properties drinkItem() {
-        return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16);
-    }
-
     public static Item.Properties drinkItem(FoodProperties foodProperties) {
         return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(foodProperties);
-    }
-
-    public static Item.Properties leisambooDrinksItem() {
-        return (new Item.Properties()).craftRemainder(EMPTY_BAMBOO_CUP.get()).stacksTo(16);
     }
 
     public static Item.Properties leisambooDrinksItem(FoodProperties foodProperties) {

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:enchanted_golden_himekaido"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.the_ability_to_trigger_miracles.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.the_ability_to_trigger_miracles.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:enchanted_golden_himekaido"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

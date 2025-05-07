@@ -1,0 +1,34 @@
+{
+  "parent": "immortalers_delight:crimson_clouds",
+  "criteria": {
+    "all_effects": {
+      "conditions": {
+        "effects": {
+          "immortalers_delight:gas_poison": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.immortalers_delight.fog_lifting_movement.descr"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.immortalers_delight.fog_lifting_movement.title"
+    }
+  },
+  "requirements": [
+    [
+      "all_effects"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

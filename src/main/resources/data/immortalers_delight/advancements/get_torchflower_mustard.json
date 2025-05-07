@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:torchflower_mustard"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_torchflower_mustard.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_torchflower_mustard.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:torchflower_mustard"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

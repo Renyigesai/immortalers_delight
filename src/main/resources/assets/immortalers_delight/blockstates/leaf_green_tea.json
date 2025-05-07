@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,pile=1": {
+      "model": "immortalers_delight:block/leaf_green_tea1",
+      "y": 270
+    },
+    "facing=east,pile=2": {
+      "model": "immortalers_delight:block/leaf_green_tea2",
+      "y": 270
+    },
+    "facing=east,pile=3": {
+      "model": "immortalers_delight:block/leaf_green_tea3",
+      "y": 270
+    },
+    "facing=east,pile=4": {
+      "model": "immortalers_delight:block/leaf_green_tea4",
+      "y": 270
+    },
+    "facing=north,pile=1": {
+      "model": "immortalers_delight:block/leaf_green_tea1",
+      "y": 180
+    },
+    "facing=north,pile=2": {
+      "model": "immortalers_delight:block/leaf_green_tea2",
+      "y": 180
+    },
+    "facing=north,pile=3": {
+      "model": "immortalers_delight:block/leaf_green_tea3",
+      "y": 180
+    },
+    "facing=north,pile=4": {
+      "model": "immortalers_delight:block/leaf_green_tea4",
+      "y": 180
+    },
+    "facing=south,pile=1": {
+      "model": "immortalers_delight:block/leaf_green_tea1"
+    },
+    "facing=south,pile=2": {
+      "model": "immortalers_delight:block/leaf_green_tea2"
+    },
+    "facing=south,pile=3": {
+      "model": "immortalers_delight:block/leaf_green_tea3"
+    },
+    "facing=south,pile=4": {
+      "model": "immortalers_delight:block/leaf_green_tea4"
+    },
+    "facing=west,pile=1": {
+      "model": "immortalers_delight:block/leaf_green_tea1",
+      "y": 90
+    },
+    "facing=west,pile=2": {
+      "model": "immortalers_delight:block/leaf_green_tea2",
+      "y": 90
+    },
+    "facing=west,pile=3": {
+      "model": "immortalers_delight:block/leaf_green_tea3",
+      "y": 90
+    },
+    "facing=west,pile=4": {
+      "model": "immortalers_delight:block/leaf_green_tea4",
+      "y": 90
+    }
+  }
+}

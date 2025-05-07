@@ -1,0 +1,40 @@
+{
+  "parent": "immortalers_delight:root",
+  "criteria": {
+    "all_effects": {
+      "conditions": {
+        "effects": {
+          "immortalers_delight:resistance_to_undead": {},
+          "immortalers_delight:resistance_to_arthropod": {},
+          "immortalers_delight:resistance_to_abyssal": {},
+          "immortalers_delight:resistance_to_illager": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.immortalers_delight.all_resistance_effects.descr"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:bedrock"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.immortalers_delight.all_resistance_effects.title"
+    }
+  },
+  "requirements": [
+    [
+      "all_effects"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}
