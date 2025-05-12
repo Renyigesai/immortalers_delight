@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:cracked_mud_brick"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:cracked_mud_brick_wall",
+    "count": 6
+  }
+}

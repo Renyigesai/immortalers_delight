@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:mossy_mud_brick"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:mossy_mud_brick_slab",
+    "count": 3
+  }
+}

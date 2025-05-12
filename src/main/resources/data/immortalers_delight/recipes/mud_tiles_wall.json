@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:mud_tiles"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:mud_tiles_wall",
+    "count": 6
+  }
+}

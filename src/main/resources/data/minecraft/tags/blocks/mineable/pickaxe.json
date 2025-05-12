@@ -1,4 +1,25 @@
 {
   "values": [
+    "immortalers_delight:enchantal_cooler",
+    "immortalers_delight:mud_tiles",
+    "immortalers_delight:mud_tiles_wall",
+    "immortalers_delight:mud_tiles_slab",
+    "immortalers_delight:mud_tiles_stairs",
+    "immortalers_delight:cracked_mud_tiles",
+    "immortalers_delight:cracked_mud_tiles_wall",
+    "immortalers_delight:cracked_mud_tiles_stairs",
+    "immortalers_delight:cracked_mud_tiles_slab",
+    "immortalers_delight:mossy_mud_brick",
+    "immortalers_delight:mossy_mud_brick_wall",
+    "immortalers_delight:mossy_mud_brick_stairs",
+    "immortalers_delight:mossy_mud_brick_slab",
+    "immortalers_delight:cracked_mud_brick",
+    "immortalers_delight:cracked_mud_brick_wall",
+    "immortalers_delight:cracked_mud_brick_stairs",
+    "immortalers_delight:cracked_mud_brick_slab",
+    "immortalers_delight:chiseled_mud_brick",
+    "immortalers_delight:packed_mud_wall",
+    "immortalers_delight:packed_mud_stairs",
+    "immortalers_delight:packed_mud_slab"
   ]
 }
