@@ -194,8 +194,7 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties KWAT_WHEAT = new FoodProperties.Builder().alwaysEat()
             .nutrition(3)
             .saturationMod(0.1f)
-            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.SATURATION,3,0),1.0F).build();
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0),1.0F).build();
     public static final FoodProperties RAW_SNIFFER_SLICE = new FoodProperties.Builder()
             .nutrition(2)
             .saturationMod(0.5f)
