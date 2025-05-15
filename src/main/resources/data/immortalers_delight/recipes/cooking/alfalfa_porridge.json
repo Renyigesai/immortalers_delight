@@ -1,0 +1,37 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:grass"
+    },
+    {
+      "item": "minecraft:grass"
+    },
+    {
+      "item": "minecraft:fern"
+    },
+    {
+      "item": "minecraft:fern"
+    },
+    {
+      "item": "immortalers_delight:alfalfa"
+    },
+    [
+      {
+        "tag": "forge:crops/rice"
+      },
+      {
+        "tag": "forge:seeds/rice"
+      }
+    ]
+
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:alfalfa_porridge"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

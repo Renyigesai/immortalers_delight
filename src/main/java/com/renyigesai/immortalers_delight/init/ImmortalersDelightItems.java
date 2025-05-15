@@ -244,6 +244,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> INFESTED_GRAVEL;
     public static final RegistryObject<Item> INFESTED_SAND;
 
+    /*ALFALFA*/
+    public static final RegistryObject<Item> ALFALFA_SEEDS;
+    public static final RegistryObject<Item> ALFALFA;
+    public static final RegistryObject<Item> ALFALFA_PORRIDGE;
+
     static {
 
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
@@ -468,6 +473,11 @@ public class ImmortalersDelightItems {
 
         KWAT_WHEAT = registerWithTab("kwat_wheat", () ->
                 new GasToxicFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT, Rarity.COMMON, false),true,false));
+
+        ALFALFA_SEEDS = registerWithTab("alfalfa_seeds",()->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.ALFALFA.get(),basicItem()));
+
+        ALFALFA = registerWithTab("alfalfa",()-> new Item(basicItem()));
 
         /*
         玉米系列物品
@@ -722,6 +732,9 @@ public class ImmortalersDelightItems {
         POD_SHELL_BURGER_MEAT = block(ImmortalersDelightBlocks.POD_SHELL_BURGER_MEAT);
         POD_SHELL_BURGER_MEAT_CUBE = registerWithTab("pod_shell_burger_meat_cube",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POD_SHELL_BURGER_MEAT_CUBE),true));
+
+        ALFALFA_PORRIDGE = registerWithTab("alfalfa_porridge",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE),true));
 
 
         //酒品

@@ -400,6 +400,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> INFESTED_GRAVEL = BLOCKS.register("infested_gravel",
             () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_GRAVEL,BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
 
+    public static final RegistryObject<Block> ALFALFA = BLOCKS.register("alfalfa",
+            () -> new AlfalfaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+
     //oxidized
 
     static {

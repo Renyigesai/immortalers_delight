@@ -393,6 +393,6 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),3600),1F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1F).alwaysEat().build();
 
-    //PURGATORY_ALE
+    public static final FoodProperties ALFALFA_PORRIDGE  = new FoodProperties.Builder().nutrition(6).saturationMod(0.35F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.KEEP_A_FAST.get(),10200),1F).effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),800),1F).build();
 
 }
