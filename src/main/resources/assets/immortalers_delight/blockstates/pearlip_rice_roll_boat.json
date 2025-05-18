@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=east,servings=0": {"model": "immortalers_delight:block/pearlip_rice_roll_boat6", "y": 270},
+    "facing=east,servings=1": {"model": "immortalers_delight:block/pearlip_rice_roll_boat5", "y": 270},
+    "facing=east,servings=2": {"model": "immortalers_delight:block/pearlip_rice_roll_boat4", "y": 270},
+    "facing=east,servings=3": {"model": "immortalers_delight:block/pearlip_rice_roll_boat3", "y": 270},
+    "facing=east,servings=4": {"model": "immortalers_delight:block/pearlip_rice_roll_boat2", "y": 270},
+    "facing=east,servings=5": {"model": "immortalers_delight:block/pearlip_rice_roll_boat1", "y": 270},
+
+    "facing=north,servings=0": {"model": "immortalers_delight:block/pearlip_rice_roll_boat6", "y": 180},
+    "facing=north,servings=1": {"model": "immortalers_delight:block/pearlip_rice_roll_boat5", "y": 180},
+    "facing=north,servings=2": {"model": "immortalers_delight:block/pearlip_rice_roll_boat4", "y": 180},
+    "facing=north,servings=3": {"model": "immortalers_delight:block/pearlip_rice_roll_boat3", "y": 180},
+    "facing=north,servings=4": {"model": "immortalers_delight:block/pearlip_rice_roll_boat2", "y": 180},
+    "facing=north,servings=5": {"model": "immortalers_delight:block/pearlip_rice_roll_boat1", "y": 180},
+
+    "facing=south,servings=0": {"model": "immortalers_delight:block/pearlip_rice_roll_boat6"},
+    "facing=south,servings=1": {"model": "immortalers_delight:block/pearlip_rice_roll_boat5"},
+    "facing=south,servings=2": {"model": "immortalers_delight:block/pearlip_rice_roll_boat4"},
+    "facing=south,servings=3": {"model": "immortalers_delight:block/pearlip_rice_roll_boat3"},
+    "facing=south,servings=4": {"model": "immortalers_delight:block/pearlip_rice_roll_boat2"},
+    "facing=south,servings=5": {"model": "immortalers_delight:block/pearlip_rice_roll_boat1"},
+
+    "facing=west,servings=0": {"model": "immortalers_delight:block/pearlip_rice_roll_boat6", "y": 90},
+    "facing=west,servings=1": {"model": "immortalers_delight:block/pearlip_rice_roll_boat5", "y": 90},
+    "facing=west,servings=2": {"model": "immortalers_delight:block/pearlip_rice_roll_boat4", "y": 90},
+    "facing=west,servings=3": {"model": "immortalers_delight:block/pearlip_rice_roll_boat3", "y": 90},
+    "facing=west,servings=4": {"model": "immortalers_delight:block/pearlip_rice_roll_boat2", "y": 90},
+    "facing=west,servings=5": {"model": "immortalers_delight:block/pearlip_rice_roll_boat1", "y": 90}
+  }
+}

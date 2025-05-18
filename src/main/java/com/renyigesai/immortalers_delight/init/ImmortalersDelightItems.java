@@ -249,6 +249,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ALFALFA;
     public static final RegistryObject<Item> ALFALFA_PORRIDGE;
 
+    public static final RegistryObject<Item> BANANA_BOX_SALMON;
+    public static final RegistryObject<Item> BANANA_BOX_COD;
+    public static final RegistryObject<Item> PEARLIP_RICE_ROLL_BOAT;
+
+
     static {
 
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
@@ -567,7 +572,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO),true, false));
 
         LEISAMBOO_TEA_CAKE = registerWithTab("leisamboo_tea_cake",()->
-                new Item(new Item.Properties()));
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true));
         /*
         姬海棠系列物品
          */
@@ -735,6 +740,15 @@ public class ImmortalersDelightItems {
 
         ALFALFA_PORRIDGE = registerWithTab("alfalfa_porridge",()->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE),true));
+
+        BANANA_BOX_COD = registerWithTab("banana_box_cod",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.BANANA_BOX_COD),true));
+
+        BANANA_BOX_SALMON = registerWithTab("banana_box_salmon",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.BANANA_BOX_SALMON),true));
+
+        PEARLIP_RICE_ROLL_BOAT = registerWithTab("pearlip_rice_roll_boat",()->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_RICE_ROLL_BOAT.get(),new Item.Properties().stacksTo(1)));
 
 
         //酒品

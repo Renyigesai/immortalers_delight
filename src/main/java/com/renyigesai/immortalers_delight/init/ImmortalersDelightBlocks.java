@@ -403,6 +403,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ALFALFA = BLOCKS.register("alfalfa",
             () -> new AlfalfaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
+    public static final RegistryObject<Block> PEARLIP_RICE_ROLL_BOAT = BLOCKS.register("pearlip_rice_roll_boat",
+            () -> new PearlipRiceRollBoatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     //oxidized
 
     static {

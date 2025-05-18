@@ -395,4 +395,8 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties ALFALFA_PORRIDGE  = new FoodProperties.Builder().nutrition(6).saturationMod(0.35F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.KEEP_A_FAST.get(),10200),1F).effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),800),1F).build();
 
+    public static final FoodProperties BANANA_BOX_SALMON  = new FoodProperties.Builder().nutrition(7).saturationMod(0.7F).effect(new MobEffectInstance(MobEffects.WATER_BREATHING,600),1F).build();
+    public static final FoodProperties BANANA_BOX_COD  = new FoodProperties.Builder().nutrition(7).saturationMod(0.6F).effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,600),1F).build();
+    public static final FoodProperties LEISAMBOO_TEA_CAKE  = new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_SURROUNDINGS.get(),600),1F).build();
+
 }
