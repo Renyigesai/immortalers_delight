@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.checkerframework.checker.units.qual.C;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
@@ -81,6 +82,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
     public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
     public static final RegistryObject<Item> EVOLUTCORN_BEER;
+    public static final RegistryObject<Item> STICKY_BEER;
     /*
     香蕉系列物品
     */
@@ -97,6 +99,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
     public static final RegistryObject<Item> ICE_PEARLIP;
     public static final RegistryObject<Item> CHOCOLATE_PEARLIP_STICKS;
+    public static final RegistryObject<Item> PERFECT_SUMMER_ICE;
+    public static final RegistryObject<Item> TWILIGHT_GELATO;
     /*
     姬海棠系列物品
      */
@@ -126,6 +130,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
     public static final RegistryObject<Item> DREUMK_WINE;
+    public static final RegistryObject<Item> SCARLET_GELATO;
+    public static final RegistryObject<Item> HIMEKAIDO_CHAZUKE;
     /*
     古木相关
     */
@@ -535,6 +541,11 @@ public class ImmortalersDelightItems {
         ICE_PEARLIP = foodItem("ice_pearlip",ImmortalersDelightFoodProperties.ICE_PEARLIP);
 
         CHOCOLATE_PEARLIP_STICKS = foodItem("chocolate_pearlip_sticks",ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS);
+
+        PERFECT_SUMMER_ICE = foodItem("perfect_summer_ice",ImmortalersDelightFoodProperties.PERFECT_SUMMER_ICE);
+
+        TWILIGHT_GELATO = registerWithTab("twilight_gelato",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.TWILIGHT_GELATO),true));
         /*
          溪竹相关物品
         */
@@ -591,6 +602,12 @@ public class ImmortalersDelightItems {
         HIMEKAIDO_YOGURT_PIE = block(ImmortalersDelightBlocks.HIMEKAIDO_YOGURT_PIE);
 
         HIMEKAIDO_YOGURT_PIE_SLICE = foodItem("himekaido_yogurt_pie_slice",ImmortalersDelightFoodProperties.HIMEKAIDO_YOGURT_PIE_SLICE);
+
+        SCARLET_GELATO = registerWithTab("scarlet_gelato",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.SCARLET_GELATO),true));
+
+        HIMEKAIDO_CHAZUKE = registerWithTab("himekaido_chazuke",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO_CHAZUKE),true));
 
         HIMEKAIDO = registerWithTab("himekaido", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
@@ -757,6 +774,9 @@ public class ImmortalersDelightItems {
 
         EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
+
+        STICKY_BEER = registerWithTab("sticky_beer",()->
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.STICKY_BEER), true, false));
 
         VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));

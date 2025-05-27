@@ -233,9 +233,13 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,2700,2),1F)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1F).build();
 
+    public static final FoodProperties STICKY_BEER = new FoodProperties.Builder()
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),400),1f)
+            .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,2),1f)
+            .alwaysEat().build();
+
     public static final FoodProperties DREUMK_WINE = new FoodProperties.Builder()
             .alwaysEat()
-            //.effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,1800,2),1F)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1F)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),6000),1.0F).alwaysEat().build();
 
@@ -398,5 +402,9 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties BANANA_BOX_SALMON  = new FoodProperties.Builder().nutrition(7).saturationMod(0.7F).effect(new MobEffectInstance(MobEffects.WATER_BREATHING,600),1F).build();
     public static final FoodProperties BANANA_BOX_COD  = new FoodProperties.Builder().nutrition(7).saturationMod(0.6F).effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,600),1F).build();
     public static final FoodProperties LEISAMBOO_TEA_CAKE  = new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_SURROUNDINGS.get(),600),1F).build();
+    public static final FoodProperties SCARLET_GELATO  = new FoodProperties.Builder().nutrition(8).saturationMod(0.5F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),2400),1F).alwaysEat().build();
+    public static final FoodProperties HIMEKAIDO_CHAZUKE  = new FoodProperties.Builder().nutrition(9).saturationMod(0.35F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),2400),1F).build();
+    public static final FoodProperties PERFECT_SUMMER_ICE  = new FoodProperties.Builder().nutrition(4).saturationMod(0.25F).alwaysEat().build();
+    public static final FoodProperties TWILIGHT_GELATO  = new FoodProperties.Builder().nutrition(8).saturationMod(0.5F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,1200),1f).alwaysEat().build();
 
 }
