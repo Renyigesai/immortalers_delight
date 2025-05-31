@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:baked_poisonous_potato"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.what_s_this_have_a_eat.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.what_s_this_have_a_eat.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:baked_poisonous_potato"
+          ]
+        }
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

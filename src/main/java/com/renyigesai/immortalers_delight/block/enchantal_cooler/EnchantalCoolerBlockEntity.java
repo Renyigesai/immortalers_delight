@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,10 +34,7 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
 
@@ -268,65 +266,81 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         }
         return false;
     }
-
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
-        // 创建一个 SimpleContainer 来存储输入物品
-        SimpleContainer inventory = new SimpleContainer(5); // 假设输入容器大小为 4
+        SimpleContainer inventory = new SimpleContainer(5);
+        List<ItemStack> inputs = new ArrayList<>();
+
         for (int i = 0; i < 5; i++) {
-            inventory.setItem(i, this.inventory.getStackInSlot(i));
+            ItemStack stack = this.inventory.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                inputs.add(stack);
+            }
         }
-        // 获取当前世界的配方管理器
-        if (level == null) {
-            return Optional.empty();
+
+        for (int i = 0; i < inputs.size(); i++) {
+            inventory.setItem(i, inputs.get(i));
         }
-        // 获取匹配的配方
+
         return level.getRecipeManager()
                 .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
     }
 
     private void craftItem() {
         Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
+        if (recipeOptional.isEmpty()) {
+            cookingTotalTime = 0; // 重置进度
+            return;
+        }
 
-        if (recipeOptional.isPresent()) {
-            EnchantalCoolerRecipe recipe = recipeOptional.get();
+        EnchantalCoolerRecipe recipe = recipeOptional.get();
+        ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
+        ItemStack outputStack = inventory.getStackInSlot(4);
 
-            boolean canCraft = false;
-            for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                if (recipe.getIngredients().get(i).test(inventory.getStackInSlot(i)) && isContainer()) {
-                    canCraft = true;
-                    break;
+        if (!canCraft(resultItem, outputStack) || !isContainer()) {
+            cookingTotalTime = 0;
+            return;
+        }
+
+        List<Ingredient> ingredientsToConsume = new ArrayList<>(recipe.getIngredients());
+        List<Integer> slotsToConsume = new ArrayList<>();
+
+        outer:
+        for (Ingredient ingredient : ingredientsToConsume) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack stack = inventory.getStackInSlot(i);
+                if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
+                    slotsToConsume.add(i);
+                    continue outer;
                 }
             }
+            cookingTotalTime = 0;
+            return;
+        }
 
-            ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-            ItemStack outputStack = inventory.getStackInSlot(4);
-            if (canCraft && residualDye > 0 && canCraft(resultItem,outputStack)) {
-
-                if (cookingTotalTime < 100){
-                    cookingTotalTime ++;
-                }else {
-                    for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                        if (inventory.getStackInSlot(i).hasCraftingRemainingItem()){
-                            ejectIngredientRemainder(inventory.getStackInSlot(i).getCraftingRemainingItem());
-                        }
-                        inventory.extractItem(i, 1, false);
-                    }
-                    if (!recipe.getContainer().isEmpty() && recipe.getContainer().is(this.containerslot.getStackInSlot(0).getItem())){
-                        containerslot.extractItem(0,1,false);
-                    }
-
-                    if (outputStack.isEmpty()) {
-                        inventory.setStackInSlot(4, resultItem);
-                    } else if (outputStack.getItem() == resultItem.getItem()) {
-                        outputStack.grow(resultItem.getCount());
-                    }
-                    residualDye --;
-                    cookingTotalTime = 0;
-
-                    setChanged();
-                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        if (cookingTotalTime < 100) {
+            cookingTotalTime++;
+        } else {
+            for (int slot : slotsToConsume) {
+                ItemStack stack = inventory.getStackInSlot(slot);
+                if (stack.hasCraftingRemainingItem()) {
+                    ejectIngredientRemainder(stack.getCraftingRemainingItem());
                 }
+                inventory.extractItem(slot, 1, false);
             }
+
+            if (!recipe.getContainer().isEmpty()) {
+                containerslot.extractItem(0,1,false);
+            }
+
+            if (outputStack.isEmpty()) {
+                inventory.setStackInSlot(4, resultItem);
+            } else {
+                outputStack.grow(resultItem.getCount());
+            }
+
+            cookingTotalTime = 0;
+            setChanged();
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 

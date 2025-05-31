@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "farmersdelight:cod_slice"
+    },
+    {
+      "item": "farmersdelight:cod_slice"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "immortalers_delight:banana_box_cod"
+  }
+}

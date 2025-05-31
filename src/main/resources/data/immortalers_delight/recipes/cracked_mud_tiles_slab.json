@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:cracked_mud_tiles"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:cracked_mud_tiles_slab",
+    "count": 3
+  }
+}

@@ -4,21 +4,29 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks.HIMEKAIDO_LEAVES;
 
 public class HimekaidoLeavesGrowing extends LeavesBlock {
     private final LeavesBlock fruit;
+    public static final BooleanProperty GROW = BooleanProperty.create("grow");
     public HimekaidoLeavesGrowing(LeavesBlock pFruit, Properties p_49795_) {
         super(p_49795_);
         fruit = pFruit;
+        this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(GROW,true));
     }
     protected BooleanProperty getPersistentProperty() {
         return PERSISTENT;
@@ -59,16 +67,36 @@ public class HimekaidoLeavesGrowing extends LeavesBlock {
         /*
         执行生长逻辑
          */
+//        if (!pState.getValue(GROW)) return;
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(35) == 0)) {
             int distance = pState.getValue(DISTANCE);
             pLevel.setBlockAndUpdate(pPos, this.fruit.defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
-            System.out.println("结果方法执行完毕，当前位置" + pPos);
             net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
         }
     }
     @Override
     public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
         return true;
+    }
+
+//    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+//        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+//        BlockState blockstate = this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)).setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
+//        return updateDistance(blockstate, pContext.getLevel(), pContext.getClickedPos());
+//    }
+
+//    @Override
+//    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+//        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
+//        if (!pLevel.isClientSide()){
+//            if (Math.random() < 0.3) {
+//                pLevel.setBlock(pPos, pState.setValue(GROW, false),3);
+//            }
+//        }
+//    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(DISTANCE, PERSISTENT, WATERLOGGED,GROW);
     }
 }

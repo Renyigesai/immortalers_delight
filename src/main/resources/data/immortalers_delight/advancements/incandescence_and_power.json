@@ -1,0 +1,35 @@
+{
+  "parent": "immortalers_delight:root",
+  "criteria": {
+    "all_effects": {
+      "conditions": {
+        "effects": {
+          "minecraft:strength": {},
+          "immortalers_delight:incandescence": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.immortalers_delight.incandescence_and_power.descr"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:popolutcorn"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.immortalers_delight.incandescence_and_power.title"
+    }
+  },
+  "requirements": [
+    [
+      "all_effects"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

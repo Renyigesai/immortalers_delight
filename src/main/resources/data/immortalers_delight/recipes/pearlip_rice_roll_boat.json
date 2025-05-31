@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:banana_box_salmon"
+    },
+    {
+      "item": "immortalers_delight:banana_box_cod"
+    },
+    {
+      "item": "immortalers_delight:banana_box_salmon"
+    },
+    {
+      "item": "immortalers_delight:banana_box_cod"
+    },
+    {
+      "item": "immortalers_delight:banana_box_salmon"
+    },
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "minecraft:white_banner"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "immortalers_delight:pearlip_rice_roll_boat"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:mud_bricks"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:mud_tiles",
+    "count": 4
+  }
+}

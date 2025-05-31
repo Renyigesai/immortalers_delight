@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:leisamboo_tea"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_leisamboo_tea.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_leisamboo_tea.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:leisamboo_tea"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:the_eternal_flow"
+}
