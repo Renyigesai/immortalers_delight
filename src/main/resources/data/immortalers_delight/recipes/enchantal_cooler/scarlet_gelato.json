@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "output": {
+    "item": "immortalers_delight:scarlet_gelato",
+    "count": 1
+  }
+}

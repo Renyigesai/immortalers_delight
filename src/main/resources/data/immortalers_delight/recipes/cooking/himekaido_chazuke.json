@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    },
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:himekaido_chazuke"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}
