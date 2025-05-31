@@ -1,12 +1,12 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffectTask;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
-import com.renyigesai.immortalers_delight.util.datautil.EffectData;
-import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
-import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffectTask;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.util.datautil.EffectData;
+//import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
+//import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -42,7 +42,7 @@ public class DebugItem extends Item {
 //        }
         MobEffectInstance gas = new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0);
         pLivingEntity.addEffect(gas);
-        GasPoisonEffect.applyImmortalEffect(pLivingEntity,5.0,0);
+        //GasPoisonEffect.applyImmortalEffect(pLivingEntity,5.0,0);
 //        MobEffectInstance gas1 = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(),1200,0);
 //        pLivingEntity.addEffect(gas1);
 //        BaseImmortalEffect.applyImmortalEffect(pLivingEntity,50.0,0);

@@ -8,8 +8,7 @@ import net.minecraft.world.entity.MobType;
 
 import java.util.Objects;
 
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.WEAK_WITHER;
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.WEAK_POISON;
+import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
 public class DamageOnTimeMobEffect extends MobEffect {
 
@@ -21,16 +20,16 @@ public class DamageOnTimeMobEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
         if (this == WEAK_POISON.get()) {
+            float minHealth = pEntity.hasEffect(INEBRIATED.get()) ? 1.0F : pEntity.getMaxHealth() * 0.5F;
             if (pEntity.hasEffect(MobEffects.POISON)) {
                 int lv = pEntity.hasEffect(MobEffects.POISON)? Objects.requireNonNull(pEntity.getEffect(MobEffects.POISON)).getAmplifier():0;
                 if (lv > amplifier) {
                     pEntity.removeEffect(WEAK_POISON.get());
                 } else pEntity.removeEffect(MobEffects.POISON);
-            }else if (pEntity.getHealth() > pEntity.getMaxHealth() * 0.5 && pEntity.getMobType() != MobType.UNDEAD) {
+            }else if (pEntity.getHealth() > minHealth && pEntity.getMobType() != MobType.UNDEAD) {
                 float damage = 1 << amplifier;
-                if (damage >= pEntity.getMaxHealth() * 0.5) {
-                    pEntity.setHealth((float) (pEntity.getMaxHealth() * 0.5));
-                }else pEntity.hurt(pEntity.damageSources().magic(), damage);
+                if (damage > pEntity.getHealth() - minHealth) {damage = pEntity.getHealth() - minHealth;}
+                pEntity.hurt(pEntity.damageSources().magic(), damage);
             }
         }
         if (this == WEAK_WITHER.get()) {

@@ -30,6 +30,13 @@ public class Config {
 
     private static final ForgeConfigSpec.BooleanValue WEAK_POISON_HEALTH_OVERLAY = BUILDER.comment("Whether to enable the health value display override for the weak potion effect").define("useWeakPoisonOverLay", true);
 
+    public static final ForgeConfigSpec.ConfigValue<String> POWER_BATTLE_MODE = BUILDER
+            .comment("Greatly enhance effects and monsters. Use for that games using mods with additional cultivation content- such as Curios, any Skill mods or Guns mods.")
+            .comment("true: Always enabled this mode.")
+            .comment("default: Automatically determine whether to enable it based on the player's combat performance.")
+            .comment("false: Never enabled this mode.")
+            .define("powerBattleMode", "default");
+
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean logDirtBlock;
@@ -38,6 +45,8 @@ public class Config {
     public static Set<Item> items;
 
     public static boolean weakPoisonHealthOverlay;
+
+    public static String powerBattleMode;
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof final String itemName && ForgeRegistries.ITEMS.containsKey(new ResourceLocation(itemName));
@@ -53,5 +62,7 @@ public class Config {
         items = ITEM_STRINGS.get().stream().map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName))).collect(Collectors.toSet());
 
         weakPoisonHealthOverlay = WEAK_POISON_HEALTH_OVERLAY.get();
+
+        powerBattleMode = POWER_BATTLE_MODE.get();
     }
 }

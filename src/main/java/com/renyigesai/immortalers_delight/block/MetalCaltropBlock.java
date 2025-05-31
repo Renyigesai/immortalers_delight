@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

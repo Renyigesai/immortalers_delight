@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

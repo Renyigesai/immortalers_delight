@@ -1,8 +1,8 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -26,7 +26,7 @@ public class GoldenFabricArmor extends ArmorItem {
         LivingEntity hurtOne = evt.getEntity();
         ItemStack itemStackHelm = hurtOne.getItemBySlot(EquipmentSlot.HEAD);
         if (!(itemStackHelm.getItem() instanceof GoldenFabricArmor)) return;
-        GasPoisonEffect.removeImmortalEffect(hurtOne);
+        //GasPoisonEffect.removeImmortalEffect(hurtOne);
         hurtOne.removeEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
         if (evt.getSource().getEntity() instanceof LivingEntity attacker){
             if (attacker == null) return;

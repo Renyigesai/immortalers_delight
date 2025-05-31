@@ -2,7 +2,7 @@ package com.renyigesai.immortalers_delight.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.KEEP_A_FAST;
 
 public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
     private static final int EAT_DURATION = 20;
@@ -80,7 +82,7 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
             if (outStack.getItem() instanceof GoldenHimkaidoFoodItem thisItem) {
                 if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
                     if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0) < 3600) {
-                        InebriatedEffect.removeImmortalEffect(pLivingEntity);
+                        //InebriatedEffect.removeImmortalEffect(pLivingEntity);
                         pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
                     }
                     reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
@@ -126,18 +128,6 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
     }
 
     public void reverseEffect(LivingEntity pEntity, int amplifier) {
-            /*
-            对反胃进行特殊处理，其将变为20分之1时间的饱和。
-             */
-        if (pEntity.hasEffect(MobEffects.CONFUSION)){
-            int lv = pEntity.hasEffect(MobEffects.CONFUSION)? Objects.requireNonNull(pEntity.getEffect(MobEffects.CONFUSION)).getAmplifier():0;
-            int time = pEntity.hasEffect(MobEffects.CONFUSION)? Objects.requireNonNull(pEntity.getEffect(MobEffects.CONFUSION)).getDuration():0;
-            time /= 20;
-            MobEffectInstance Saturation = new MobEffectInstance(
-                    MobEffects.SATURATION,time,lv);
-            pEntity.addEffect(Saturation);
-            pEntity.removeEffect(MobEffects.CONFUSION);
-        }
             /*
             获取实体的EffectMap进行遍历
              */

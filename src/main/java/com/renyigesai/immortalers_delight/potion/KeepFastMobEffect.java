@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -26,6 +27,7 @@ public class KeepFastMobEffect extends MobEffect {
             if (differenceValue > 0 && player.getRandom().nextInt(amplifier + 2) != 0) {
                 player.getFoodData().eat(differenceValue, 0.1F);
             }
+            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
             int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()).getDuration() : 0;
             if (time > 0) {
                 if (time == 1) {
@@ -33,17 +35,19 @@ public class KeepFastMobEffect extends MobEffect {
                     if (foodLevel * 2 > 20 && amplifier > 1) player.heal(foodLevel * 2 - 20);
                     if (saturation * 2 >= 20 && amplifier > 0) player.heal(saturation * 2 - 20);
                 }
-                if (time % 10 == 0 && foodLevel >= 9) {
-                    float health = 0;
-                    if (time % 40 == 0) {
-                        foodData.setFoodLevel(foodLevel - 1);
-                        health +=1.0f;
+                if (isPowerful) {
+                    if (time % (10/(amplifier + 1)) == 0 && foodLevel >= 9) {
+                        float health = 0;
+                        if (time % 40 == 0) {
+                            foodData.setFoodLevel(foodLevel - 1);
+                            health +=1.0f;
+                        }
+                        if (saturation > 0.0F) {
+                            health += (saturation > 1.0f ? 1.0f : saturation) * (amplifier + 1);
+                            foodData.setSaturation(saturation - 1.5F > 0.0F ? saturation - 1.5F : 0.0F);
+                        }
+                        player.heal(health);
                     }
-                    if (saturation > 0.0F) {
-                        health += saturation > 1.0f ? 1.0f : saturation;
-                        foodData.setSaturation(saturation - 1.5F > 0.0F ? saturation - 1.5F : 0.0F);
-                    }
-                    player.heal(health);
                 }
             }
         }

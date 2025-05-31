@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:evolutcorn_hard_candy",
+    "count": 3
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

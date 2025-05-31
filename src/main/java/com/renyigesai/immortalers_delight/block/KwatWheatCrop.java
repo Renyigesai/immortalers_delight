@@ -3,7 +3,7 @@ package com.renyigesai.immortalers_delight.block;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -79,7 +79,7 @@ public class KwatWheatCrop extends ReapCropBlock {
                     for (LivingEntity livingentity : list) {
                         if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
                             livingentity.hurt(level.damageSources().cactus(), 1.0F);
-                            GasPoisonEffect.applyImmortalEffect(livingentity,5.1,0);
+                            //GasPoisonEffect.applyImmortalEffect(livingentity,5.1,0);
                         }
                     }
                 }

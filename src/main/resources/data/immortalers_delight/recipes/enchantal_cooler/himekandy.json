@@ -1,0 +1,26 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "container": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "immortalers_delight:himekandy",
+    "count": 1
+  }
+}

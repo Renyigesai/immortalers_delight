@@ -1,10 +1,10 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.MagicalReverseEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.MagicalReverseEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
@@ -44,13 +44,13 @@ public class EnchantedGoldenHimekaidoFoodItem extends EnchantAbleFoodItem{
         if (!pLevel.isClientSide) {
             if (outStack.getItem() instanceof EnchantedGoldenHimekaidoFoodItem thisItem) {
                 if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
-                    MagicalReverseEffect.applyImmortalEffect(pLivingEntity,getReverseDuration(),getReverseAmplifier());
-                    System.out.println("这里是物品，已为实体添加不朽效果");
-                    BaseImmortalEffect.removeImmortalEffect(pLivingEntity);
+                    //MagicalReverseEffect.applyImmortalEffect(pLivingEntity,getReverseDuration(),getReverseAmplifier());
+                    //System.out.println("这里是物品，已为实体添加不朽效果");
+                    //BaseImmortalEffect.removeImmortalEffect(pLivingEntity);
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get());
-                    GasPoisonEffect.removeImmortalEffect(pLivingEntity);
+                    //GasPoisonEffect.removeImmortalEffect(pLivingEntity);
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
-                    InebriatedEffect.removeImmortalEffect(pLivingEntity);
+                    //InebriatedEffect.removeImmortalEffect(pLivingEntity);
                     pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
                 }
             }

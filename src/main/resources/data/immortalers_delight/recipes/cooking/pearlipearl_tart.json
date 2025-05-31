@@ -11,13 +11,10 @@
       "item": "minecraft:egg"
     },
     {
-      "item": "minecraft:egg"
-    },
-    {
       "tag": "forge:milk"
     },
     {
-      "item": "immortalers_delight:evolutcorn_pie_crust"
+      "item": "immortalers_delight:custard_tart_pastry"
     }
   ],
   "result": {

@@ -1,7 +1,13 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
-import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
+import com.renyigesai.immortalers_delight.client.model.SkelverfishBomberModel;
+import com.renyigesai.immortalers_delight.client.model.SkelverfishThrasherModel;
+import com.renyigesai.immortalers_delight.client.model.StrangeArmourStandModel;
+import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishBomberRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishThrasherRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.StrangeArmourStandRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.AncientStoveBlockEntityRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
@@ -11,6 +17,8 @@ import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -29,11 +37,13 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ImmortalersDelightMod.MODID)
@@ -80,12 +90,28 @@ public class ImmortalersDelightMod {
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+        private static final Map<ModelLayerLocation, Supplier<LayerDefinition>> modelLayers = new HashMap<>();
+        @SubscribeEvent
+        public static void registerModelLayerListener(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            modelLayers.put(SkelverfishBomberModel.SKELVERFISH_BOMBER, SkelverfishBomberModel::createBodyLayer);
+            modelLayers.put(SkelverfishThrasherModel.SKELVERFISH_THRASHER, SkelverfishThrasherModel::createBodyLayer);
+            modelLayers.put(StrangeArmourStandModel.STRANGE_ARMOUR_STAND, StrangeArmourStandModel::createBodyLayer);
+
+            for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
+                event.registerLayerDefinition(entry.getKey(), entry.getValue());
+            }
+        }
 
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ImmortalersDelightBlockEntityTypes.SIGN.get(), ImmortalersDelightSignRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlockEntityTypes.HANGING_SIGN.get(), ImmortalersDelightHangingSignRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), AncientStoveBlockEntityRenderer::new);
+
+            event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get(), SkelverfishRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_BOMBER.get(), SkelverfishBomberRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(), SkelverfishThrasherRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(), StrangeArmourStandRenderer::new);
         }
 
         @SubscribeEvent

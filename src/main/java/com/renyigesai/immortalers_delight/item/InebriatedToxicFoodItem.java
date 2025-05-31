@@ -3,8 +3,8 @@ package com.renyigesai.immortalers_delight.item;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -72,7 +72,7 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
                         int time = pair.getFirst().getDuration() + oldTime;
                         int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
                         livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
-                        InebriatedEffect.applyImmortalEffect(livingEntity,(double) time / 20 + 0.1,lv);
+                        //InebriatedEffect.applyImmortalEffect(livingEntity,(double) time / 20 + 0.1,lv);
                     }
                     else  livingEntity.addEffect(pair.getFirst());
                 }

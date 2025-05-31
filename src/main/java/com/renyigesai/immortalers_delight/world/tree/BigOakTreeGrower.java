@@ -620,8 +620,8 @@ public class BigOakTreeGrower extends AbstractTreeGrower {
             引用上文方法，生成树叶节点列表、树叶、树干和树叶节点底部支撑
              */
             this.generateLeafNodeList();
-            this.generateLeaves();
             this.generateTrunk();
+            this.generateLeaves();
             this.generateLeafNodeBases();
             this.world = null; //Fix vanilla Mem leak, holds latest world
             return true;

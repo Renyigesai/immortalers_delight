@@ -5,7 +5,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.item.*;
-import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
+//import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -83,6 +83,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
     public static final RegistryObject<Item> EVOLUTCORN_BEER;
     public static final RegistryObject<Item> STICKY_BEER;
+    public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
+    public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
     /*
     香蕉系列物品
     */
@@ -209,7 +211,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> VULCAN_COKTAIL;
     public static final RegistryObject<Item> NETHER_KVASS;
     public static final RegistryObject<Item> PURGATORY_ALE;
-    //public static final RegistryObject<Item> ELIXIR_OF_IMMORTALITY;
+    public static final RegistryObject<Item> HIMEKANDY;
     //public static final RegistryObject<Item> PALE_DEW_WINE;
     //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
     public static final RegistryObject<Item> SCARLET_DEVILS_CAKE;
@@ -259,6 +261,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BANANA_BOX_COD;
     public static final RegistryObject<Item> PEARLIP_RICE_ROLL_BOAT;
 
+
+    //public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
 
     static {
 
@@ -490,6 +494,7 @@ public class ImmortalersDelightItems {
 
         ALFALFA = registerWithTab("alfalfa",()-> new Item(basicItem()));
 
+        CUSTARD_TART_PASTRY = registerWithTab("custard_tart_pastry",()-> new Item(basicItem()));
         /*
         玉米系列物品
         */
@@ -507,7 +512,7 @@ public class ImmortalersDelightItems {
                 new BlockItem(ImmortalersDelightBlocks.ZEA_PANCAKE.get(), basicItem()));
 
         ZEA_PANCAKE_SLICE = registerWithTab("zea_pancake_slice", () ->
-                new Item(foodItem(ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE)));
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.ZEA_PANCAKE_SLICE), true));
 
         EVOLUTCORN_PIE_CRUST = registerWithTab("evolutcorn_pie_crust",()->
                 new Item(new Item.Properties()));
@@ -519,6 +524,9 @@ public class ImmortalersDelightItems {
 
         PEATIC_MUSA_SALAD = registerWithTab("peatic_musa_salad", () ->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.PEATIC_MUSA_SALAD), true));
+
+        EVOLUTCORN_HARD_CANDY = registerWithTab("evolutcorn_hard_candy", () ->
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_HARD_CANDY), false));
 
         /*
         香蕉系列物品
@@ -542,14 +550,14 @@ public class ImmortalersDelightItems {
         ICE_PEARLIP = registerWithTab("ice_pearlip", () ->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.ICE_PEARLIP), true));
 
-        CHOCOLATE_PEARLIP_STICKS = foodItem("chocolate_pearlip_sticks",ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS);
+        CHOCOLATE_PEARLIP_STICKS = registerWithTab("chocolate_pearlip_sticks", () ->
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS), true));
 
-        PERFECT_SUMMER_ICE = foodItem("perfect_summer_ice",ImmortalersDelightFoodProperties.PERFECT_SUMMER_ICE);
+        PERFECT_SUMMER_ICE = registerWithTab("perfect_summer_ice",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.PERFECT_SUMMER_ICE),true));
 
         TWILIGHT_GELATO = registerWithTab("twilight_gelato",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.TWILIGHT_GELATO),true));
-        CHOCOLATE_PEARLIP_STICKS = registerWithTab("chocolate_pearlip_sticks", () ->
-                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CHOCOLATE_PEARLIP_STICKS), true));
         /*
          溪竹相关物品
         */
@@ -587,8 +595,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_MILLENIAN_BAMBOO),true, false));
 
         LEISAMBOO_TEA_CAKE = registerWithTab("leisamboo_tea_cake",()->
-                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true));
-                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true, false));
+                new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true, true));
         /*
         姬海棠系列物品
          */
@@ -606,7 +613,8 @@ public class ImmortalersDelightItems {
 
         HIMEKAIDO_YOGURT_PIE = block(ImmortalersDelightBlocks.HIMEKAIDO_YOGURT_PIE);
 
-        HIMEKAIDO_YOGURT_PIE_SLICE = foodItem("himekaido_yogurt_pie_slice",ImmortalersDelightFoodProperties.HIMEKAIDO_YOGURT_PIE_SLICE);
+        HIMEKAIDO_YOGURT_PIE_SLICE = registerWithTab("himekaido_yogurt_pie_slice",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.HIMEKAIDO_YOGURT_PIE_SLICE),true));
 
         SCARLET_GELATO = registerWithTab("scarlet_gelato",()->
                 new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.SCARLET_GELATO),true));
@@ -624,7 +632,10 @@ public class ImmortalersDelightItems {
                 new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
 
         HIMEKAIDO_JELLY = registerWithTab("himekaido_jelly", () ->
-                new DrinkableItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(ImmortalersDelightFoodProperties.HIMEKAIDO_JELLY), true, false));
+                new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
+
+        HIMEKANDY = registerWithTab("himekandy", () ->
+                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKANDY, Rarity.COMMON, false), true));
 
         YOGURT = registerWithTab("yogurt", () ->
                 new DrinkItem(ImmortalersDelightBlocks.YOGURT.get(), drinkItem(ImmortalersDelightFoodProperties.YOGURT),true));
@@ -798,6 +809,9 @@ public class ImmortalersDelightItems {
 //        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
 //                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));
 
+        //刷怪蛋
+//        STRANGE_ARMOUR_STAND_SPAWN_EGG = registerWithTab("strange_armour_stand_spawn_egg",()->
+//                new SpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(),0x252525,0x4D4D4D,new Item.Properties()));
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {

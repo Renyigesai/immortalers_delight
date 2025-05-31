@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,25 +16,19 @@ public class VitalityMobEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
-        if (!pEntity.getCommandSenderWorld().isClientSide){
-            if (pEntity instanceof Player player) {
-                if (!player.isHurt()) return;
-                FoodData foodData = player.getFoodData();
-                if (foodData.getFoodLevel() >= 20) {
-                    player.heal(0.5F*(amplifier + 1));
-                } else if (foodData.getFoodLevel() >= 18) {
-                    player.heal(0.375F*(amplifier + 1));
-                }
-            } else {
-                if (pEntity.getHealth() > 0.7 * pEntity.getMaxHealth()) {
-                    pEntity.heal(1.0F*(amplifier + 1));
-                }
-            }
+        if (!pEntity.level().isClientSide){
+            if (!(pEntity.getHealth() > 0.0F && pEntity.getHealth() < pEntity.getMaxHealth())) return;
+            float healthProgress = pEntity.getHealth() / pEntity.getMaxHealth();
+            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            if (isPowerful) {
+                float buffer = pEntity.getMaxHealth() * 0.005F;
+                pEntity.heal(healthProgress * healthProgress * (1 << amplifier) * buffer);
+            } else pEntity.heal(healthProgress * healthProgress * (amplifier + 1));
         }
     }
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % 10 == 0;
+        return duration % 20 == 0;
     }
 }

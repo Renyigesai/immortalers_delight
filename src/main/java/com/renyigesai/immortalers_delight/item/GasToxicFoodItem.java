@@ -1,7 +1,7 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -46,7 +46,7 @@ public class GasToxicFoodItem extends EnchantAbleFoodItem {
                     p_21066_.addEffect(new MobEffectInstance(pair.getFirst()));
                     double time = (double) pair.getFirst().getDuration() / 20;
                     int lv = pair.getFirst().getAmplifier();
-                    GasPoisonEffect.applyImmortalEffect(p_21066_,time + 0.1,lv);
+                    //GasPoisonEffect.applyImmortalEffect(p_21066_,time + 0.1,lv);
                 }
             }
         }

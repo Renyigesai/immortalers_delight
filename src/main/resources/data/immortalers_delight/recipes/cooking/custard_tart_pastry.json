@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn_grains"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:custard_tart_pastry",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}
