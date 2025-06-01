@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:iced_black_tea"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.eat_iced_black_tea.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.eat_iced_black_tea.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:iced_black_tea"
+          ]
+        }
+      }
+    }
+  },
+  "parent": "immortalers_delight:ice_extract"
+}

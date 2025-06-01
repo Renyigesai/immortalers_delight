@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:alfalfa_porridge"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.eat_alfalfa_porridge.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.eat_alfalfa_porridge.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "immortalers_delight:alfalfa_porridge"
+          ]
+        }
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_alfalfa_seeds"
+}

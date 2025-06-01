@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:pitcher_pod_petal"
+      "item": "minecraft:pitcher_pod"
     },
     "title": {
-      "translate": "advancements.immortalers_delight.get_pitcher_pod_petal.title"
+      "translate": "advancements.immortalers_delight.get_pitcher_pod.title"
     },
     "description": {
-      "translate": "advancements.immortalers_delight.get_pitcher_pod_petal.descr"
+      "translate": "advancements.immortalers_delight.get_pitcher_pod.descr"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,12 +21,12 @@
         "items": [
           {
             "items": [
-              "immortalers_delight:pitcher_pod_petal"
+              "minecraft:pitcher_pod"
             ]
           }
         ]
       }
     }
   },
-  "parent": "immortalers_delight:get_pitcher_pod"
+  "parent": "immortalers_delight:root"
 }

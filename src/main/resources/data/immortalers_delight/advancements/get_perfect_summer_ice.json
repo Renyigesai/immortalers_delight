@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:pitcher_pod_petal"
+      "item": "immortalers_delight:perfect_summer_ice"
     },
     "title": {
-      "translate": "advancements.immortalers_delight.get_pitcher_pod_petal.title"
+      "translate": "advancements.immortalers_delight.get_perfect_summer_ice.title"
     },
     "description": {
-      "translate": "advancements.immortalers_delight.get_pitcher_pod_petal.descr"
+      "translate": "advancements.immortalers_delight.get_perfect_summer_ice.descr"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,12 +21,12 @@
         "items": [
           {
             "items": [
-              "immortalers_delight:pitcher_pod_petal"
+              "immortalers_delight:perfect_summer_ice"
             ]
           }
         ]
       }
     }
   },
-  "parent": "immortalers_delight:get_pitcher_pod"
+  "parent": "immortalers_delight:ice_extract"
 }
