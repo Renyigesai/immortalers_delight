@@ -7,15 +7,20 @@
     {
       "tag": "forge:milk"
     },
-    {
-      "item": "minecraft:egg"
-    }
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
   ],
   "container": {
-    "item": "minecraft:wheat"
+    "item": "minecraft:glass_bottle"
   },
-  "output": {
-    "item": "immortalers_delight:scarlet_gelato",
+  "result": {
+    "item": "immortalers_delight:yogurt",
     "count": 1
   }
 }

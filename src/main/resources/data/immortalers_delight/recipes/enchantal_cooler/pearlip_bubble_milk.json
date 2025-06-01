@@ -1,0 +1,26 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:pearlip_bubble_milk",
+    "count": 1
+  }
+}

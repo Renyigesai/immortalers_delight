@@ -15,7 +15,8 @@
     "item": "minecraft:bowl"
   },
   "result": {
-    "item": "immortalers_delight:leisamboo_tea_cake"
+    "item": "immortalers_delight:leisamboo_tea_cake",
+    "count": 3
   },
   "experience": 0.35,
   "cookingtime": 200

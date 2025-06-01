@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:cherry_pearlipearl_tea"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:gleeman_tear",
+    "count": 1
+  }
+}

@@ -5,17 +5,17 @@
       "item": "immortalers_delight:himekaido"
     },
     {
-      "tag": "forge:milk"
+      "item": "immortalers_delight:scarlet_gelato"
     },
     {
-      "item": "minecraft:egg"
+      "item": "immortalers_delight:himekaido_jelly"
     }
   ],
   "container": {
-    "item": "minecraft:wheat"
+    "item": "minecraft:bowl"
   },
   "output": {
-    "item": "immortalers_delight:scarlet_gelato",
+    "item": "immortalers_delight:scarlet_sundae",
     "count": 1
   }
 }

@@ -31,17 +31,20 @@ public class FoodItemEventHelper {
                     //大红包子的隐藏幸运效果
                     if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.RED_STUFFED_BUN) {
                         if (livingEntity.getRandom().nextInt(3) == 0) {
-                            livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 3000));
+                            livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000,1));
                             livingEntity.addEffect(new MobEffectInstance(MobEffects.LUCK, 600));
                         }
                     }
-                    //西竹茶饼的解除buff
-                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE) {
+                    //棱珠牛奶的解除buff
+                    if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.PEARLIP_BUBBLE_MILK) {
                         livingEntity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
                         for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(stack.getFoodProperties(livingEntity)).getEffects()) {
                             livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
                         }
                     }
+                    //            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION,200,1),1f)
+//            .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST,2400),1f)
+//            .effect(() -> new MobEffectInstance(MobEffects.HEAL,1),1f)
                 }
             }
         }

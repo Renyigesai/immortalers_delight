@@ -8,17 +8,17 @@
       "item": "immortalers_delight:pitcher_pod_petal"
     },
     {
-      "item": "immortalers_delight:pitcher_pod_petal"
+      "item": "immortalers_delight:torchflower_mustard"
     },
     {
       "item": "minecraft:egg"
     }
   ],
   "container": {
-    "item": "minecraft:pitcher_pod"
+    "item": "farmersdelight:hot_cocoa"
   },
   "output": {
-    "item": "immortalers_delight:twilight_gelato",
+    "item": "immortalers_delight:aromatic_pod_affogato",
     "count": 1
   }
 }

@@ -1,0 +1,30 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "minecraft:packed_ice"
+    },
+    
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "container": {
+    "item": "immortalers_delight:pearlip_milk_shake"
+  },
+  "output": {
+    "item": "immortalers_delight:tropical_fruity_cyclone",
+    "count": 1
+  }
+}

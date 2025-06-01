@@ -2,10 +2,13 @@
   "type": "immortalers_delight:enchantal_cooler",
   "ingredients": [
     {
-      "item": "immortalers_delight:himekaido"
+      "tag": "forge:milk"
     },
     {
-      "tag": "forge:milk"
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
     },
     {
       "item": "minecraft:egg"
@@ -15,7 +18,7 @@
     "item": "minecraft:wheat"
   },
   "output": {
-    "item": "immortalers_delight:scarlet_gelato",
+    "item": "immortalers_delight:chocoreeze",
     "count": 1
   }
 }
