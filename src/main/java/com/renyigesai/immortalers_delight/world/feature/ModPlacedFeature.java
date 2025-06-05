@@ -1,15 +1,19 @@
 package com.renyigesai.immortalers_delight.world.feature;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
@@ -22,6 +26,7 @@ public class ModPlacedFeature {
     public static final ResourceKey<PlacedFeature> SUSPICIOUS_DIRT_PLACED = createKey("suspicious_dirt_placed");
     public static final ResourceKey<PlacedFeature> SUSPICIOUS_SOUL_SAND_PLACED = createKey("suspicious_soul_sand_placed");
     public static final ResourceKey<PlacedFeature> END_ORE_PLACED = createKey("end_ore_placed");
+    public static final ResourceKey<PlacedFeature> TRAVASTRUGGLER_TREE_PLACED = createKey("travastruggler_tree_placed");
     /**
      * 注册使用的主方法，实际矿物生成器的注册在此处进行，这个方法应在Init或主类进行调用
      * @param context
@@ -76,6 +81,8 @@ public class ModPlacedFeature {
                         )
                 )
         );
+        Holder<ConfiguredFeature<?, ?>> holder2 = configuredFeatures.getOrThrow(TreeFeatures.OAK);
+        PlacementUtils.register(context, TRAVASTRUGGLER_TREE_PLACED, holder2, PlacementUtils.filteredByBlockSurvival(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get()));
     }
     private static ResourceKey<PlacedFeature> createKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ImmortalersDelightMod.MODID, name));

@@ -68,6 +68,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_SAPLING;
+
     /*
     玉米系列物品
     */
@@ -847,6 +852,11 @@ public class ImmortalersDelightItems {
 
         PURGATORY_ALE = registerWithTab("purgatory_ale",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
+
+        TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
+        TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES);
+        TRAVASTRUGGLER_LEAVES_TRAVARICE = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES_TRAVARICE);
+        TRAVASTRUGGLER_SAPLING = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING);
 
 //        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
 //                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));

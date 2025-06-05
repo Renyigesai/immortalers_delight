@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.world.feature;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -36,6 +37,7 @@ public class ModConfigureFeature {
 
 
     public static final ResourceKey<ConfiguredFeature<?,?>> OAK_LIKE_TREE_KEY = registerKey("end_ore_cof");
+    public static final ResourceKey<ConfiguredFeature<?,?>> TRAVASTRUGGLER_TREE_KYE = registerKey("travastruggler_tree");
 
     /**
      * 注册使用的主方法，实际矿物规则的注册在此处进行，这个方法应在Init或主类进行调用
@@ -88,6 +90,23 @@ public class ModConfigureFeature {
                  */
                 BlockStateProvider.simple(HIMEKAIDO_LEAVES.get()),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
+                /*
+                对于树生长条件的检测器
+                 */
+                new TwoLayersFeatureSize(1,0,2)
+        ).build());
+
+        register(context, TRAVASTRUGGLER_TREE_KYE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                /*
+                确定树干方块，随后是树干放置器。其参数为基础高度+随机额外高度1+随机额外高度2
+                 */
+                BlockStateProvider.simple(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG.get()),
+                new StraightTrunkPlacer(4,3,2),
+                /*
+                确定树叶方块，随后是树叶放置器（半圆形放置器），即金合欢或大丛林树的树冠
+                 */
+                BlockStateProvider.simple(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get()),
+                new BlobFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), 2),
                 /*
                 对于树生长条件的检测器
                  */

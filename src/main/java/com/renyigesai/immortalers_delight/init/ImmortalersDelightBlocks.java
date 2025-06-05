@@ -10,6 +10,7 @@ import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightC
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
+import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -342,11 +343,17 @@ public class ImmortalersDelightBlocks {
             });
 
     /*
+    通天竹
+    */
+    public static final RegistryObject<Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(new TravastrugglerTreeGrower(),BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", () -> new TravastrugglerLogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(1.0F).sound(SoundType.BAMBOO).ignitedByLava()));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+
+
+    /*
     饮料方块
     */
-
-//    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
-//            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
     public static final RegistryObject<Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
 
