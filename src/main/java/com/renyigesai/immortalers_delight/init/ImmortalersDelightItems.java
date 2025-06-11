@@ -260,6 +260,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> INFESTED_GRAVEL;
     public static final RegistryObject<Item> INFESTED_SAND;
 
+    public static final RegistryObject<Item> INFESTED_COAL_BLOCK;
+    public static final RegistryObject<Item> INFESTED_COPPER_BLOCK;
+    public static final RegistryObject<Item> INFESTED_IRON_BLOCK;
+    public static final RegistryObject<Item> INFESTED_REDSTONE_BLOCK;
+    public static final RegistryObject<Item> INFESTED_LAPIS_BLOCK;
+    public static final RegistryObject<Item> INFESTED_GOLD_BLOCK;
+    public static final RegistryObject<Item> INFESTED_EMERALD_BLOCK;
+    public static final RegistryObject<Item> INFESTED_DIAMOND_BLOCK;
+
     /*ALFALFA*/
     public static final RegistryObject<Item> ALFALFA_SEEDS;
     public static final RegistryObject<Item> ALFALFA;
@@ -271,6 +280,7 @@ public class ImmortalersDelightItems {
 
 
     //public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+
 
 
     static {
@@ -454,6 +464,14 @@ public class ImmortalersDelightItems {
         SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
         INFESTED_GRAVEL = block(ImmortalersDelightBlocks.INFESTED_GRAVEL);
         INFESTED_SAND = block(ImmortalersDelightBlocks.INFESTED_SAND);
+        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
+        INFESTED_COPPER_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COPPER_BLOCK);
+        INFESTED_IRON_BLOCK = block(ImmortalersDelightBlocks.INFESTED_IRON_BLOCK);
+        INFESTED_REDSTONE_BLOCK = block(ImmortalersDelightBlocks.INFESTED_REDSTONE_BLOCK);
+        INFESTED_LAPIS_BLOCK = block(ImmortalersDelightBlocks.INFESTED_LAPIS_BLOCK);
+        INFESTED_GOLD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_GOLD_BLOCK);
+        INFESTED_EMERALD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_EMERALD_BLOCK);
+        INFESTED_DIAMOND_BLOCK = block(ImmortalersDelightBlocks.INFESTED_DIAMOND_BLOCK);
 
         /*
         材料类物品

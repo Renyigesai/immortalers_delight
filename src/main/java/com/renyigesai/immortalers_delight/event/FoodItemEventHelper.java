@@ -42,9 +42,6 @@ public class FoodItemEventHelper {
                             livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
                         }
                     }
-                    //            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION,200,1),1f)
-//            .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST,2400),1f)
-//            .effect(() -> new MobEffectInstance(MobEffects.HEAL,1),1f)
                 }
             }
         }

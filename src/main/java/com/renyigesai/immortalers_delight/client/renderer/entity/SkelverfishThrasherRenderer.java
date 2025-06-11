@@ -6,8 +6,9 @@ import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 
-public class SkelverfishThrasherRenderer extends MobRenderer<SkelverfishThrasher, SkelverfishThrasherModel<SkelverfishThrasher>> {
+public class SkelverfishThrasherRenderer<T extends LivingEntity> extends MobRenderer<SkelverfishThrasher, SkelverfishThrasherModel<SkelverfishThrasher>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_thrasher.png");
 
     public SkelverfishThrasherRenderer(EntityRendererProvider.Context pContext) {

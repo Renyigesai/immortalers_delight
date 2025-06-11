@@ -16,6 +16,7 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> INCANDESCENCE = REGISTRY.register("incandescence", IncandescenceMobEffect::new);
 
 
+    public static final RegistryObject<MobEffect> LINGERING_FLAVOR = REGISTRY.register("lingering_flavor", IncandescenceMobEffect::new);
     public static final RegistryObject<MobEffect> WEAK_POISON = REGISTRY.register("weak_poison", DamageOnTimeMobEffect::new);
     public static final RegistryObject<MobEffect> WEAK_WITHER = REGISTRY.register("weak_wither", DamageOnTimeMobEffect::new);
     public static final RegistryObject<MobEffect> RELIEVE_POISON = REGISTRY.register("relieve_poison", RelievePotionEffectMobEffect::new);
@@ -30,8 +31,7 @@ public class ImmortalersDelightMobEffect {
 
     public static final RegistryObject<MobEffect> GAS_POISON = REGISTRY.register("gas_poison", GasPoisonMobEffect::new);
     public static final RegistryObject<MobEffect> INEBRIATED = REGISTRY.register("inebriated", InebriatedMobEffect::new);
-    public static final RegistryObject<MobEffect> LINGERING_FLAVOR = REGISTRY.register("lingering_flavor", IncandescenceMobEffect::new);
-      public static final RegistryObject<MobEffect> BURN_THE_BOATS = REGISTRY.register("burn_the_boats", BurnTheBoatsMobEffect::new);
+    public static final RegistryObject<MobEffect> BURN_THE_BOATS = REGISTRY.register("burn_the_boats", BurnTheBoatsMobEffect::new);
     public static final RegistryObject<MobEffect> CULTURAL_LEGACY = REGISTRY.register("cultural_legacy", CulturalLegacyMobEffect::new);
     public static final RegistryObject<MobEffect> VITALITY = REGISTRY.register("vitality", VitalityMobEffect::new);
     public static final RegistryObject<MobEffect> SATIATED = REGISTRY.register("satiated", SatiatedMobEffect::new);

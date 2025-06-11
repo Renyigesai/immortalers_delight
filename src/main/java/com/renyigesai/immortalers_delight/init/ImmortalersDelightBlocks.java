@@ -400,6 +400,27 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> INFESTED_GRAVEL = BLOCKS.register("infested_gravel",
             () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_GRAVEL,BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
 
+    public static final RegistryObject<Block> INFESTED_COAL_BLOCK = BLOCKS.register("infested_coal_block",
+            () -> new InfestedOreBlock(Blocks.COAL_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK)));
+    public static final RegistryObject<Block> INFESTED_COPPER_BLOCK = BLOCKS.register("infested_copper_block",
+            () -> new InfestedOreBlock(Blocks.COPPER_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)));
+
+    public static final RegistryObject<Block> INFESTED_IRON_BLOCK = BLOCKS.register("infested_iron_block",
+            () -> new InfestedOreBlock(Blocks.IRON_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.METAL)));
+
+    public static final RegistryObject<Block> INFESTED_REDSTONE_BLOCK = BLOCKS.register("infested_redstone_block",
+            () -> new InfestedOreBlock(Blocks.REDSTONE_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.FIRE)));
+    public static final RegistryObject<Block> INFESTED_LAPIS_BLOCK = BLOCKS.register("infested_lapis_block",
+            () -> new InfestedOreBlock(Blocks.LAPIS_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS)));
+
+    public static final RegistryObject<Block> INFESTED_GOLD_BLOCK = BLOCKS.register("infested_gold_block",
+            () -> new InfestedOreBlock(Blocks.GOLD_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.GOLD)));
+    public static final RegistryObject<Block> INFESTED_EMERALD_BLOCK = BLOCKS.register("infested_emerald_block",
+            () -> new InfestedOreBlock(Blocks.EMERALD_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.EMERALD)));
+
+    public static final RegistryObject<Block> INFESTED_DIAMOND_BLOCK = BLOCKS.register("infested_diamond_block",
+            () -> new InfestedOreBlock(Blocks.DIAMOND_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND)));
+
     public static final RegistryObject<Block> ALFALFA = BLOCKS.register("alfalfa",
             () -> new AlfalfaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 

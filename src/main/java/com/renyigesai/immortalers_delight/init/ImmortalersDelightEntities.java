@@ -3,10 +3,7 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;
-import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
-import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
-import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
-import com.renyigesai.immortalers_delight.entities.living.StrangeArmourStand;
+import com.renyigesai.immortalers_delight.entities.living.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
@@ -24,8 +21,8 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("immortal_chest_boat", () -> EntityType.Builder.<ImmortalersChestBoat>of(ImmortalersChestBoat::new, MobCategory.MISC)
                     .sized(1.375f, 0.5625f).build("immortal_chest_boat"));
 
-    public static final RegistryObject<EntityType<SkelverfishBase>> SKELVERFISH_AMBUSHER =
-            ENTITY_TYPES.register("skelverfish_ambusher", () -> EntityType.Builder.of(SkelverfishBase::new, MobCategory.MONSTER)
+    public static final RegistryObject<EntityType<SkelverfishAmbusher>> SKELVERFISH_AMBUSHER =
+            ENTITY_TYPES.register("skelverfish_ambusher", () -> EntityType.Builder.of(SkelverfishAmbusher::new, MobCategory.MONSTER)
                     .sized(0.4f, 0.3f).build("skelverfish_ambusher"));
     public static final RegistryObject<EntityType<SkelverfishBomber>> SKELVERFISH_BOMBER =
             ENTITY_TYPES.register("skelverfish_bomber", () -> EntityType.Builder.of(SkelverfishBomber::new, MobCategory.MONSTER)

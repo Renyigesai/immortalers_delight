@@ -1,9 +1,11 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
@@ -13,9 +15,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.SwellGoal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -25,11 +29,12 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber
 public class SkelverfishBomber extends SkelverfishBase{
     // 同步数据ID：膨胀状态方向、是否带电、是否被点燃
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(SkelverfishBomber.class, EntityDataSerializers.INT);
@@ -46,6 +51,12 @@ public class SkelverfishBomber extends SkelverfishBase{
         super(pEntityType, pLevel);
     }
 
+    public static AttributeSupplier.@NotNull Builder createSkelverfishBomberAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, 1.0D);
+    }
     /**
      * 定义同步数据（网络同步的实体属性）
      */
@@ -109,16 +120,15 @@ public class SkelverfishBomber extends SkelverfishBase{
      * 免疫火焰、爆炸伤害，受到火焰伤害时为自身记录受到过的火焰伤害，用于强化爆炸
      * 若受到非火焰非爆炸且不是同类造成的伤害，令自身退出引燃状态
      */
+    @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.isInvulnerableTo(pSource)) {
             return false;
         } else if (!pSource.is(DamageTypeTags.IS_EXPLOSION) && !pSource.is(DamageTypeTags.IS_FIRE)) {
             if (pSource.getEntity() instanceof LivingEntity && !(pSource.getEntity() instanceof Silverfish)) {
                 this.setSwellDir(-1);
-                return super.hurt(pSource, pAmount);
-            } else {
-                return super.hurt(pSource, pAmount);
             }
+            return super.hurt(pSource, pAmount);
         } else {
             if (pSource.is(DamageTypeTags.IS_FIRE)) {
                 int safeAmount = pAmount > Short.MAX_VALUE ? Short.MAX_VALUE : (int)pAmount;
@@ -130,6 +140,7 @@ public class SkelverfishBomber extends SkelverfishBase{
     /**
      * 每游戏刻更新实体的位置和逻辑
      */
+    @Override
     public void tick() {
         if (this.isAlive()) {
             this.oldSwell = this.swell; // 保存上一时刻的膨胀值
@@ -151,6 +162,13 @@ public class SkelverfishBomber extends SkelverfishBase{
             if (this.swell >= this.maxSwell) {
                 this.swell = this.maxSwell;
                 this.explodeCreeper(); // 达到最大膨胀值时爆炸
+            }
+        }
+        if (this.isDeadOrDying()) {
+            this.swell += 1;
+            if (this.swell >= (this.maxSwell > 20 ? 20 : this.maxSwell)) {
+                this.explodeCreeper();//死亡时爆炸
+                this.swell = 0;
             }
         }
         super.tick();
@@ -222,7 +240,7 @@ public class SkelverfishBomber extends SkelverfishBase{
             this.level().explode(this, this.getX(), this.getY(), this.getZ(),
                     (float)this.explosionRadius * f, Level.ExplosionInteraction.MOB);
 
-            this.discard(); // 移除实体
+            if (!this.isDeadOrDying()) this.discard(); // 移除实体
             this.spawnLingeringCloud(); // 生成滞留云（如果爬行者有状态效果）
         }
     }
@@ -249,4 +267,5 @@ public class SkelverfishBomber extends SkelverfishBase{
             this.level().addFreshEntity(areaeffectcloud); // 添加到世界
         }
     }
+
 }

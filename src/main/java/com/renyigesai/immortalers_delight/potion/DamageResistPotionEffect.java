@@ -29,6 +29,7 @@ public class DamageResistPotionEffect {
 
         if (!hurtOne.level().isClientSide) {
             if (attacker != null){
+                System.out.println("超凡模式启动了吗？" + isPowerful );
                 float damage = evt.getAmount();
                 if (attacker.getMobType() == MobType.UNDEAD && hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get())){
                     int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get())?hurtOne.getEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get()).getAmplifier():0;

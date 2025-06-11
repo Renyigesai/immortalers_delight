@@ -1,12 +1,16 @@
 package com.renyigesai.immortalers_delight.event;
 
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber
 public class SkelverfishEventHelper {
@@ -22,6 +26,24 @@ public class SkelverfishEventHelper {
                     (bomber.level().getDifficulty() == Difficulty.NORMAL ? 5.0F + f * 4.0F : 0.0F) +
                     (bomber.level().getDifficulty() == Difficulty.HARD ? 6.0F + f * 3.0F : 0.0F);
             event.setAmount(event.getAmount() + extraDamage); // 提升爆炸伤害，造成攻击力200%或400%爆炸伤害
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAttack(LivingHurtEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(attacker.getType());
+            if (entityId != null && !attacker.level().isClientSide) {
+                String idString = entityId.toString();
+                if (idString.equals(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.getId().toString())) {
+                    int hurtArmor = event.getEntity().getArmorValue();
+                    if (hurtArmor > 0) {
+                        if (hurtArmor > 20) hurtArmor = 20;
+                        float damageBuffer = (1/(1-(hurtArmor * 0.04f))) > 3.0f ? 3.0f : (1/(1-(hurtArmor * 0.04f)));
+                        event.setAmount(event.getAmount() * damageBuffer);
+                    }
+                }
+            }
         }
     }
 }

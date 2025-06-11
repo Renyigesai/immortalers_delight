@@ -3,6 +3,10 @@ package com.renyigesai.immortalers_delight.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.client.animation.SkelverfishThrasherAnimation;
+import com.renyigesai.immortalers_delight.client.animation.StrangeArmourStandAnimation;
+import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
+import com.renyigesai.immortalers_delight.entities.living.StrangeArmourStand;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
-public class SkelverfishThrasherModel<T extends Entity> extends HierarchicalModel<T> {
+public class SkelverfishThrasherModel<T extends SkelverfishThrasher> extends HierarchicalModel<T> {
     public static final ModelLayerLocation SKELVERFISH_THRASHER = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "skelverfish_thrasher"), "main");
     private final ModelPart bodyPart_2;
     private final ModelPart bodyPart_0;
@@ -115,8 +119,8 @@ public class SkelverfishThrasherModel<T extends Entity> extends HierarchicalMode
 
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-
-        if (true) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        if (pEntity.attackAnimationDuration <= 0) {
             // 循环处理每个身体部分
             for (int i = 0; i < bodyParts.length; ++i) {
                 // 计算身体部分的 y 轴旋转角度（与蠹虫模型相同）
@@ -132,6 +136,7 @@ public class SkelverfishThrasherModel<T extends Entity> extends HierarchicalMode
             bodyLayers[2].yRot = bodyParts[1].yRot * 0.9F;  // layer2 对应 segment1
             bodyLayers[2].x = bodyParts[1].x;
         }
+        this.animate(SkelverfishThrasher.attackAnimationState, SkelverfishThrasherAnimation.ATTACK,pAgeInTicks, 1.0f);
     }
 
     @Override

@@ -78,6 +78,6 @@ public class ArmorSpiritAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isEnemyWithinAttackDistanse(LivingEntity target, double squaredDistance) {
-        return squaredDistance <= this.getAttackReachSqr(target);
+        return squaredDistance <= 4.0 + this.getAttackReachSqr(target);
     }
 }
