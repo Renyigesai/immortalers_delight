@@ -30,47 +30,47 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
 
     private final int reverseAmplifier;
 
-    public MobEffect FD_Nourished = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":nourishment");
+    //public MobEffect FD_Nourished = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":nourishment");
 
-    public MobEffect FD_Comfit = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":comfort");
+    //public MobEffect FD_Comfit = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":comfort");
 
-    public Map<MobEffect,MobEffect> reverseEffect = new ConcurrentHashMap<MobEffect,MobEffect>();
+    //public Map<MobEffect,MobEffect> reverseEffect = new ConcurrentHashMap<MobEffect,MobEffect>();
 
     public GoldenHimkaidoFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean hasCustomToolTip, boolean isFoil) {
         super(properties, hasFoodEffectTooltip, hasCustomToolTip, isFoil);
         reverseDuration = 0;
         reverseAmplifier = 0;
-        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
-        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
-        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
-        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
-        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
-        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
-        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
-        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
-        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
-        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
-        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
-        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
-        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
+//        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+//        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+//        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+//        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+//        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+//        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+//        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+//        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+//        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+//        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+//        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+//        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+//        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
     public GoldenHimkaidoFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean isFoil, int reverseLevel, int reverseTime) {
         super(properties, hasFoodEffectTooltip, true, isFoil);
         reverseDuration = reverseTime;
         reverseAmplifier = reverseLevel;
-        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
-        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
-        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
-        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
-        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
-        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
-        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
-        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
-        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
-        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
-        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
-        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
-        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
+//        this.reverseEffect.put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE);
+//        this.reverseEffect.put(MobEffects.UNLUCK,MobEffects.LUCK);
+//        this.reverseEffect.put(MobEffects.GLOWING,MobEffects.INVISIBILITY);
+//        this.reverseEffect.put(MobEffects.MOVEMENT_SLOWDOWN,MobEffects.MOVEMENT_SPEED);
+//        this.reverseEffect.put(MobEffects.LEVITATION,MobEffects.SLOW_FALLING);
+//        this.reverseEffect.put(MobEffects.BLINDNESS,MobEffects.NIGHT_VISION);
+//        this.reverseEffect.put(MobEffects.DARKNESS,MobEffects.CONDUIT_POWER);
+//        this.reverseEffect.put(MobEffects.DIG_SLOWDOWN,MobEffects.DIG_SPEED);
+//        this.reverseEffect.put(MobEffects.WEAKNESS,MobEffects.DAMAGE_BOOST);
+//        this.reverseEffect.put(MobEffects.POISON,FD_Comfit);
+//        this.reverseEffect.put(MobEffects.WITHER,MobEffects.REGENERATION);
+//        this.reverseEffect.put(MobEffects.HUNGER,FD_Nourished);
+//        this.reverseEffect.put(MobEffects.HARM,MobEffects.HEAL);
     }
 
     public int getReverseDuration() {return this.reverseDuration;}
@@ -78,37 +78,37 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
     public int getReverseAmplifier() {return this.reverseAmplifier;}
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         ItemStack outStack = pStack.copy();
-        if (!pLevel.isClientSide) {
-            if (outStack.getItem() instanceof GoldenHimkaidoFoodItem thisItem) {
-                if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
-                    if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0) < 3600) {
-                        //InebriatedEffect.removeImmortalEffect(pLivingEntity);
-                        pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
-                    }
-                    reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
-                    new ScheduledExecuteTask(1, 1) {
-                        private int tick = 0;
-
-                        @Override
-                        public void run() {
-                            if (++tick > thisItem.reverseDuration || !pLivingEntity.isAlive()) {
-                                if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-                                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get());
-                                }
-                                this.cancel();
-                                return;
-                            }
-                            if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-                                reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
-                            } else if (tick > 1){
-                                this.cancel();
-                            }
-                        }
-
-                    }.start();
-                }
-            }
-        }
+//        if (!pLevel.isClientSide) {
+//            if (outStack.getItem() instanceof GoldenHimkaidoFoodItem thisItem) {
+//                if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
+//                    if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0) < 3600) {
+//                        //InebriatedEffect.removeImmortalEffect(pLivingEntity);
+//                        pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
+//                    }
+//                    reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
+//                    new ScheduledExecuteTask(1, 1) {
+//                        private int tick = 0;
+//
+//                        @Override
+//                        public void run() {
+//                            if (++tick > thisItem.reverseDuration || !pLivingEntity.isAlive()) {
+//                                if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
+//                                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get());
+//                                }
+//                                this.cancel();
+//                                return;
+//                            }
+//                            if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
+//                                reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
+//                            } else if (tick > 1){
+//                                this.cancel();
+//                            }
+//                        }
+//
+//                    }.start();
+//                }
+//            }
+//        }
 //        if (pLivingEntity instanceof Player && !((Player)pLivingEntity).getAbilities().instabuild) {
 //            outStack.shrink(1);
 //        }
@@ -127,54 +127,54 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem{
         return ItemUtils.startUsingInstantly(p_42927_, p_42928_, p_42929_);
     }
 
-    public void reverseEffect(LivingEntity pEntity, int amplifier) {
-            /*
-            获取实体的EffectMap进行遍历
-             */
-        Map<MobEffect, MobEffectInstance> effectsMap = pEntity.getActiveEffectsMap();
-        Iterator<MobEffect> iterator = effectsMap.keySet().iterator();
-        try {
-            while(iterator.hasNext()) {
-                MobEffect mobeffect = iterator.next();
-                    /*
-                    如果不是正面效果，比较是否可以逆转，随后逐条进行删除
-                     */
-                if (!mobeffect.isBeneficial()) {
-                        /*
-                         获取当前效果的等级和时间，并对对反转后的效果等级进行限制
-                         */
-                    MobEffectInstance mobeffectinstance = effectsMap.get(mobeffect);
-                    int time = mobeffectinstance.getDuration();
-                    int lv = mobeffectinstance.getAmplifier();
-
-                        /*
-                        如果逆转用的map收录了当前效果
-                         */
-                    if (reverseEffect.containsKey(mobeffect)){
-                            /*
-                            获取逆转后的效果
-                             */
-                        MobEffect reversedEffect =reverseEffect.get(mobeffect);
-                            /*
-                            添加逆转后的效果
-                             */
-                        int tureLv = mobeffectinstance.getAmplifier() > amplifier ? amplifier : mobeffectinstance.getAmplifier();
-                        MobEffectInstance buffToAdd = new MobEffectInstance(
-                                reversedEffect,time,tureLv);
-                        pEntity.addEffect(buffToAdd);
-                    }
-                        /*
-                        无论是否可以逆转，令负面效果的等级降低lv级
-                         */
-                    pEntity.removeEffect(mobeffect);
-                    if (lv > amplifier) {
-                        MobEffectInstance lowEffect = new MobEffectInstance(mobeffect,time,lv - amplifier);
-                        pEntity.addEffect(lowEffect);
-                    }
-                }
-            }
-        } catch (ConcurrentModificationException concurrentmodificationexception) {
-        }
-    }
+//    public void reverseEffect(LivingEntity pEntity, int amplifier) {
+//            /*
+//            获取实体的EffectMap进行遍历
+//             */
+//        Map<MobEffect, MobEffectInstance> effectsMap = pEntity.getActiveEffectsMap();
+//        Iterator<MobEffect> iterator = effectsMap.keySet().iterator();
+//        try {
+//            while(iterator.hasNext()) {
+//                MobEffect mobeffect = iterator.next();
+//                    /*
+//                    如果不是正面效果，比较是否可以逆转，随后逐条进行删除
+//                     */
+//                if (!mobeffect.isBeneficial()) {
+//                        /*
+//                         获取当前效果的等级和时间，并对对反转后的效果等级进行限制
+//                         */
+//                    MobEffectInstance mobeffectinstance = effectsMap.get(mobeffect);
+//                    int time = mobeffectinstance.getDuration();
+//                    int lv = mobeffectinstance.getAmplifier();
+//
+//                        /*
+//                        如果逆转用的map收录了当前效果
+//                         */
+//                    if (reverseEffect.containsKey(mobeffect)){
+//                            /*
+//                            获取逆转后的效果
+//                             */
+//                        MobEffect reversedEffect =reverseEffect.get(mobeffect);
+//                            /*
+//                            添加逆转后的效果
+//                             */
+//                        int tureLv = mobeffectinstance.getAmplifier() > amplifier ? amplifier : mobeffectinstance.getAmplifier();
+//                        MobEffectInstance buffToAdd = new MobEffectInstance(
+//                                reversedEffect,time,tureLv);
+//                        pEntity.addEffect(buffToAdd);
+//                    }
+//                        /*
+//                        无论是否可以逆转，令负面效果的等级降低lv级
+//                         */
+//                    pEntity.removeEffect(mobeffect);
+//                    if (lv > amplifier) {
+//                        MobEffectInstance lowEffect = new MobEffectInstance(mobeffect,time,lv - amplifier);
+//                        pEntity.addEffect(lowEffect);
+//                    }
+//                }
+//            }
+//        } catch (ConcurrentModificationException concurrentmodificationexception) {
+//        }
+//    }
 
 }

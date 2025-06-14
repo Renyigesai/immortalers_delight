@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class CoolMobEffect extends MobEffect {
-    public static boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
 
     public CoolMobEffect() {
         super(MobEffectCategory.BENEFICIAL, -39424);

@@ -21,6 +21,7 @@ public class GasPoisonPotionEffect {
         if (event != null && event.getEntity() != null) {
             LivingEntity entity = event.getEntity();
 
+            if (entity instanceof Player player && player.isCreative()) return;
             if (!entity.getCommandSenderWorld().isClientSide
                     && entity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get())
                     && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())

@@ -10,5 +10,5 @@ import static net.minecraft.world.level.block.state.properties.WoodType.register
 public class ImmortalersDelightWoodType {
     public static final WoodType HIMEKAIDO = register(new WoodType("himekaido", ImmortalersDelightWoodSetType.HIMEKAIDO)); ;
     public static final WoodType LEISAMBOO = register(new WoodType("leisamboo", ImmortalersDelightWoodSetType.LEISAMBOO));
-
+    public static final WoodType PEARLIP_SHELL = register(new WoodType("pearlip_shell", ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 }

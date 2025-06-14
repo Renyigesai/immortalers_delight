@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bark",
+  "key": {
+    "#": {
+      "item": "immortalers_delight:pearlip_shell_planks"
+    },
+    "A": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "A A",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "item": "immortalers_delight:pearlip_shell_hanging_sign"
+  },
+  "show_notification": true
+}

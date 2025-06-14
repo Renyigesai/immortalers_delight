@@ -65,9 +65,26 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> LEISAMBOO_BUTTON;
     public static final RegistryObject<Item> LEISAMBOO_SIGN;
     public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;
+    public static final RegistryObject<Item> PEARLIP_SHELL_PLANKS;
+    public static final RegistryObject<Item> PEARLIP_SHELL_STAIRS;
+    public static final RegistryObject<Item> PEARLIP_SHELL_SLAB;
+    public static final RegistryObject<Item> PEARLIP_SHELL_CABINET;
+    public static final RegistryObject<Item> PEARLIP_SHELL_DOOR;
+    public static final RegistryObject<Item> PEARLIP_SHELL_TRAPDOOR;
+    public static final RegistryObject<Item> PEARLIP_SHELL_FENCE;
+    public static final RegistryObject<Item> PEARLIP_SHELL_FENCE_GATE;
+    public static final RegistryObject<Item> PEARLIP_SHELL_PRESSURE_PLATE;
+    public static final RegistryObject<Item> PEARLIP_SHELL_BUTTON;
+    public static final RegistryObject<Item> PEARLIP_SHELL_SIGN;
+    public static final RegistryObject<Item> PEARLIP_SHELL_HANGING_SIGN;
     public static final RegistryObject<Item> ANCIENT_FIBER;
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
+    public static final RegistryObject<Item> TRAVASTRUGGLER_SAPLING;
+
     /*
     玉米系列物品
     */
@@ -260,14 +277,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> INFESTED_GRAVEL;
     public static final RegistryObject<Item> INFESTED_SAND;
 
-    public static final RegistryObject<Item> INFESTED_COAL_BLOCK;
-    public static final RegistryObject<Item> INFESTED_COPPER_BLOCK;
-    public static final RegistryObject<Item> INFESTED_IRON_BLOCK;
-    public static final RegistryObject<Item> INFESTED_REDSTONE_BLOCK;
-    public static final RegistryObject<Item> INFESTED_LAPIS_BLOCK;
-    public static final RegistryObject<Item> INFESTED_GOLD_BLOCK;
-    public static final RegistryObject<Item> INFESTED_EMERALD_BLOCK;
-    public static final RegistryObject<Item> INFESTED_DIAMOND_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_COAL_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_COPPER_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_IRON_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_REDSTONE_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_LAPIS_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_GOLD_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_EMERALD_BLOCK;
+//    public static final RegistryObject<Item> INFESTED_DIAMOND_BLOCK;
 
     /*ALFALFA*/
     public static final RegistryObject<Item> ALFALFA_SEEDS;
@@ -367,6 +384,9 @@ public class ImmortalersDelightItems {
         HIMEKAIDO_CHEST_BOAT = registerWithTab("himekaido_chest_boat",()->
                 new ImmortalersChestBoatItem(ImmortalersChestBoat.Type.HIMEKAIDO, basicItem().stacksTo(1)));
 
+        /*
+        溪竹装饰方块
+         */
         LEISAMBOO_PLANKS = registerWithTab("leisamboo_planks", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), basicItem()));
 
@@ -402,6 +422,47 @@ public class ImmortalersDelightItems {
                 new HangingSignItem(
                         ImmortalersDelightBlocks.LEISAMBOO_HANGING_SIGN.get(),
                         ImmortalersDelightBlocks.LEISAMBOO_WALL_HANGING_SIGN.get(),
+                        (new Item.Properties()).stacksTo(16)
+                ));
+
+        /*
+        棱蕉装饰方块
+         */
+        PEARLIP_SHELL_PLANKS = registerWithTab("pearlip_shell_planks", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_PLANKS.get(), basicItem()));
+
+        PEARLIP_SHELL_STAIRS = registerWithTab("pearlip_shell_stairs", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_STAIRS.get(), basicItem()));
+
+        PEARLIP_SHELL_CABINET = block(ImmortalersDelightBlocks.PEARLIP_SHELL_CABINET);
+
+        PEARLIP_SHELL_SLAB = registerWithTab("pearlip_shell_slab", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_SLAB.get(), basicItem()));
+
+        PEARLIP_SHELL_DOOR = block(ImmortalersDelightBlocks.PEARLIP_SHELL_DOOR);
+
+        PEARLIP_SHELL_TRAPDOOR = block(ImmortalersDelightBlocks.PEARLIP_SHELL_TRAPDOOR);
+
+        PEARLIP_SHELL_FENCE = registerWithTab("pearlip_shell_fence", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_FENCE.get(), basicItem()));
+
+        PEARLIP_SHELL_FENCE_GATE = registerWithTab("pearlip_shell_fence_gate", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_FENCE_GATE.get(), basicItem()));
+
+        PEARLIP_SHELL_PRESSURE_PLATE = registerWithTab("pearlip_shell_pressure_plate", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_PRESSURE_PLATE.get(), basicItem()));
+
+        PEARLIP_SHELL_BUTTON = registerWithTab("pearlip_shell_button", () ->
+                new BlockItem(ImmortalersDelightBlocks.PEARLIP_SHELL_BUTTON.get(), basicItem()));
+        PEARLIP_SHELL_SIGN = registerWithTab("pearlip_shell_sign",() ->
+                new SignItem((new Item.Properties()).stacksTo(16),
+                        ImmortalersDelightBlocks.PEARLIP_SHELL_SIGN.get(),
+                        ImmortalersDelightBlocks.PEARLIP_SHELL_WALL_SIGN.get()
+                ));
+        PEARLIP_SHELL_HANGING_SIGN = registerWithTab("pearlip_shell_hanging_sign",() ->
+                new HangingSignItem(
+                        ImmortalersDelightBlocks.PEARLIP_SHELL_HANGING_SIGN.get(),
+                        ImmortalersDelightBlocks.PEARLIP_SHELL_WALL_HANGING_SIGN.get(),
                         (new Item.Properties()).stacksTo(16)
                 ));
 
@@ -464,14 +525,14 @@ public class ImmortalersDelightItems {
         SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
         INFESTED_GRAVEL = block(ImmortalersDelightBlocks.INFESTED_GRAVEL);
         INFESTED_SAND = block(ImmortalersDelightBlocks.INFESTED_SAND);
-        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
-        INFESTED_COPPER_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COPPER_BLOCK);
-        INFESTED_IRON_BLOCK = block(ImmortalersDelightBlocks.INFESTED_IRON_BLOCK);
-        INFESTED_REDSTONE_BLOCK = block(ImmortalersDelightBlocks.INFESTED_REDSTONE_BLOCK);
-        INFESTED_LAPIS_BLOCK = block(ImmortalersDelightBlocks.INFESTED_LAPIS_BLOCK);
-        INFESTED_GOLD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_GOLD_BLOCK);
-        INFESTED_EMERALD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_EMERALD_BLOCK);
-        INFESTED_DIAMOND_BLOCK = block(ImmortalersDelightBlocks.INFESTED_DIAMOND_BLOCK);
+//        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
+//        INFESTED_COPPER_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COPPER_BLOCK);
+//        INFESTED_IRON_BLOCK = block(ImmortalersDelightBlocks.INFESTED_IRON_BLOCK);
+//        INFESTED_REDSTONE_BLOCK = block(ImmortalersDelightBlocks.INFESTED_REDSTONE_BLOCK);
+//        INFESTED_LAPIS_BLOCK = block(ImmortalersDelightBlocks.INFESTED_LAPIS_BLOCK);
+//        INFESTED_GOLD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_GOLD_BLOCK);
+//        INFESTED_EMERALD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_EMERALD_BLOCK);
+//        INFESTED_DIAMOND_BLOCK = block(ImmortalersDelightBlocks.INFESTED_DIAMOND_BLOCK);
 
         /*
         材料类物品
@@ -593,7 +654,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.CHOCOREEZE),true, false));
 
         TROPICAL_FRUITY_CYCLONE = registerWithTab("tropical_fruity_cyclone",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.TROPICAL_FRUITY_CYCLONE),true, false));
+                new PowerfulAbleFoodItem(drinkItem(ImmortalersDelightFoodProperties.TROPICAL_FRUITY_CYCLONE),ImmortalersDelightFoodProperties.TROPICAL_FRUITY_CYCLONE_POWERED,true, false));
 
         BANANA_BOX_COD = registerWithTab("banana_box_cod",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.BANANA_BOX_COD),true));
@@ -865,6 +926,11 @@ public class ImmortalersDelightItems {
 
         PURGATORY_ALE = registerWithTab("purgatory_ale",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
+
+        TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
+        TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES);
+        TRAVASTRUGGLER_LEAVES_TRAVARICE = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES_TRAVARICE);
+        TRAVASTRUGGLER_SAPLING = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING);
 
 //        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
 //                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));

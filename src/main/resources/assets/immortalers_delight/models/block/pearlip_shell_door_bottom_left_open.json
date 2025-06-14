@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "immortalers_delight:block/pearlip_shell_door_bottom",
+    "top": "immortalers_delight:block/pearlip_shell_door_top"
+  }
+}

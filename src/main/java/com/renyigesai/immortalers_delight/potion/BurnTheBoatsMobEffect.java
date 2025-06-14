@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class BurnTheBoatsMobEffect extends MobEffect {
-    public static boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
     public BurnTheBoatsMobEffect() {
         super(MobEffectCategory.BENEFICIAL, -39424);
     }
@@ -15,8 +14,6 @@ public class BurnTheBoatsMobEffect extends MobEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
-
-
 
 //    @Override
 //    protected String getOrCreateDescriptionId() {

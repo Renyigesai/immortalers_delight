@@ -40,12 +40,12 @@ public class CoolPotionEffect {
         }
         LivingEntity hurtOne = evt.getEntity();
 
-        if (!hurtOne.level().isClientSide && CoolMobEffect.isPowerful && hurtOne.getRemainingFireTicks() <= 1) {
+        if (!hurtOne.level().isClientSide && DifficultyModeHelper.isPowerBattleMode()) {
             if (!evt.getSource().is(DamageTypeTags.BYPASSES_ARMOR) || !evt.getSource().is(DamageTypeTags.BYPASSES_SHIELD)){
                 if (hurtOne.hasEffect(ImmortalersDelightMobEffect.COOL.get())) {
                     int lv = hurtOne.getEffect(ImmortalersDelightMobEffect.COOL.get()).getAmplifier();
                     lv++;
-                    float buffer = (float) (0.9344*Math.exp(-0.1154*lv));
+                    float buffer = hurtOne.getRemainingFireTicks() <= 1 ? (float) (0.9675*Math.exp(-0.0372*lv)) : (float) (0.9344*Math.exp(-0.1154*lv));
                     evt.setAmount(Math.min(evt.getAmount()*buffer, evt.getAmount()));
                 }
             }

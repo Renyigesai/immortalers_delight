@@ -35,7 +35,7 @@ public class KeepFastMobEffect extends MobEffect {
                     if (foodLevel * 2 > 20 && amplifier > 1) player.heal(foodLevel * 2 - 20);
                     if (saturation * 2 >= 20 && amplifier > 0) player.heal(saturation * 2 - 20);
                 }
-                if (isPowerful) {
+                if (isPowerful && player.isHurt()) {
                     if (time % (10/(amplifier + 1)) == 0 && foodLevel >= 9) {
                         float health = 0;
                         if (time % 40 == 0) {

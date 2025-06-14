@@ -24,13 +24,15 @@ public class BurnTheBoatsPotionEffect {
         if (evt.isCanceled() ) {
             return;
         }
+        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         if (hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())) {
             int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;
-
+            lv++;
             float workHealth = (hurtOne.getMaxHealth() * lv) / (2 * (lv + 1)) > 3 * (lv + 1) ? 3 * (lv + 1) : (hurtOne.getMaxHealth() * lv / (2 * (lv + 1)));
-            if (BurnTheBoatsMobEffect.isPowerful) {
+            if (isPowerful) {
                 if (hurtOne.getHealth() - evt.getAmount() < workHealth) {
+
                     int lvStrong = hurtOne.hasEffect(MobEffects.DAMAGE_BOOST) ? Objects.requireNonNull(hurtOne.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() + 1 : 0;
                     int lvSpeed = hurtOne.hasEffect(MobEffects.MOVEMENT_SPEED)? Objects.requireNonNull(hurtOne.getEffect(MobEffects.MOVEMENT_SPEED)).getAmplifier()+1 :0;
                     int lvDigSpeed = hurtOne.hasEffect(MobEffects.DIG_SPEED)? Objects.requireNonNull(hurtOne.getEffect(MobEffects.DIG_SPEED)).getAmplifier()+1 :0;
@@ -39,7 +41,7 @@ public class BurnTheBoatsPotionEffect {
                     MobEffectInstance speed = new MobEffectInstance(MobEffects.MOVEMENT_SPEED,300, lvSpeed >= lv * 3 ? lv * 3 : lvSpeed + 2);
                     MobEffectInstance dig = new MobEffectInstance(MobEffects.DIG_SPEED,300, lvDigSpeed >= lv * 3 ? lv * 3 : lvDigSpeed + 2);
                     MobEffectInstance jump = new MobEffectInstance(MobEffects.JUMP,300, lvJump >= lv * 3 ? lv * 3 : lvJump + 2);
-                    MobEffectInstance resist = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,300, 2);
+                    MobEffectInstance resist = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,300, lv > 1 ? 3 : 2);
                     hurtOne.addEffect(strong);
                     hurtOne.addEffect(speed);
                     hurtOne.addEffect(dig);
@@ -70,8 +72,9 @@ public class BurnTheBoatsPotionEffect {
         if (evt.isCanceled() ) {
             return;
         }
+        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
-        if (BurnTheBoatsMobEffect.isPowerful && hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())) {
+        if (isPowerful && hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())) {
             int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;
             for (int i = 0; i < lv; i++) {
                 evt.setAmount(evt.getAmount() * 0.8f);

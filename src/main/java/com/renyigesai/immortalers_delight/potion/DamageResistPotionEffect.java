@@ -11,8 +11,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 
-import static com.renyigesai.immortalers_delight.potion.DamageResistMobEffect.isPowerful;
 
 @Mod.EventBusSubscriber
 public class DamageResistPotionEffect {
@@ -21,6 +21,7 @@ public class DamageResistPotionEffect {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
             return;
         }
+        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
@@ -29,7 +30,7 @@ public class DamageResistPotionEffect {
 
         if (!hurtOne.level().isClientSide) {
             if (attacker != null){
-                System.out.println("超凡模式启动了吗？" + isPowerful );
+                //System.out.println("超凡模式启动了吗？" + isPowerful );
                 float damage = evt.getAmount();
                 if (attacker.getMobType() == MobType.UNDEAD && hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get())){
                     int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get())?hurtOne.getEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get()).getAmplifier():0;
@@ -47,7 +48,7 @@ public class DamageResistPotionEffect {
                     damage = damage / (lv + 2);
                     MobEffectInstance oxygenBuff = new MobEffectInstance(isPowerful ? MobEffects.CONDUIT_POWER : MobEffects.WATER_BREATHING,(lv + 2)*40,lv);
                     hurtOne.addEffect(oxygenBuff);
-                    MobEffectInstance healBuff =isPowerful ? new MobEffectInstance(MobEffects.HEAL,1, lv) : new MobEffectInstance(MobEffects.REGENERATION,52,lv);
+                    MobEffectInstance healBuff =isPowerful ? new MobEffectInstance(MobEffects.HEAL,1, lv) : new MobEffectInstance(ModEffects.COMFORT.get(),52,lv);
                     hurtOne.addEffect(healBuff);
                     hurtOne.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE,(lv + 2)*40,lv));
                 }

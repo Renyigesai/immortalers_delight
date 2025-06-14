@@ -30,9 +30,12 @@ public class DeepnessPotionEffect {
                 if (hurtOne.hasEffect(ImmortalersDelightMobEffect.DEEPNESS.get())){
                     int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.DEEPNESS.get())?hurtOne.getEffect(ImmortalersDelightMobEffect.DEEPNESS.get()).getAmplifier():0;
                     attacker.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,40 + lv * 20,lv));
-                    if (DeepnessMobEffect.isPowerful && attacker.hasEffect(MobEffects.WEAKNESS)) {
+                    if (DifficultyModeHelper.isPowerBattleMode() && attacker.hasEffect(MobEffects.WEAKNESS)) {
                         lv++;
-                        float buffer = (float) (0.9675*Math.exp(-0.0372*lv));
+                        float buffer = 1.0F;
+                        for (int i = 0; i < lv; i++) {
+                            buffer  = buffer * 0.8F;
+                        }
                         evt.setAmount(Math.min(damage*buffer, damage));
                     }
                 }

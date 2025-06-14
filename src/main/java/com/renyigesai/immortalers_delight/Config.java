@@ -8,15 +8,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Forge's config APIs
 @Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config {
+    static final ForgeConfigSpec SPEC;
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     private static final ForgeConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER.comment("Whether to log the dirt block on common setup").define("logDirtBlock", true);
@@ -37,7 +36,58 @@ public class Config {
             .comment("false: Never enabled this mode.")
             .define("powerBattleMode", "default");
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_NORMAL_EFFECT;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
+    static {
+        BUILDER.push("ReverseNormalEffect")
+                .comment("Potion effects that can be reversed. Effect in this Map will be remove every tick. ",
+                        "It does not prevent the application of effects, so it may not completely block the activation of harmful potion effects sometimes if only use this.",
+                        "\"input-effect-n\" means ID of the effect to be converted,\"output-effect-n\" means ID of the effect that conversion result.",
+                        "Format: [[\"input-effect-1\", \"output-effect-1\"], [\"input-effect-2\", \"output-effect-2\"], ...etc]");
+        REVERSE_NORMAL_EFFECT = BUILDER
+                .defineList("reverseNormalEffect", Arrays.asList
+                                (
+                                        Arrays.asList("minecraft:bad_omen", "minecraft:hero_of_the_village"),
+                                        Arrays.asList("minecraft:unluck", "minecraft:luck"),
+                                        Arrays.asList("minecraft:glowing", "minecraft:invisibility"),
+                                        Arrays.asList("minecraft:slowness", "minecraft:speed"),
+                                        Arrays.asList("minecraft:levitation", "minecraft:slow_falling"),
+                                        Arrays.asList("minecraft:darkness", "minecraft:conduit_power"),
+                                        Arrays.asList("minecraft:mining_fatigue", "minecraft:haste"),
+                                        Arrays.asList("minecraft:weakness", "minecraft:strength"),
+                                        Arrays.asList("minecraft:poison", "immortalers_delight:lingering_infusion"),
+                                        Arrays.asList("minecraft:hunger", "immortalers_delight:satiated"),
+                                        Arrays.asList("minecraft:wither", "immortalers_delight:vitality"),
+                                        Arrays.asList("minecraft:nausea", "farmersdelight:nourishment"),
+                                        Arrays.asList("minecraft:blindness", "minecraft:night_vision"),
+                                        Arrays.asList("immortalers_delight:weak_poison", "farmersdelight:comfort"),
+                                        Arrays.asList("immortalers_delight:weak_wither", "minecraft:regeneration"),
+                                        Arrays.asList("twilightforest:frosty", "immortalers_delight:cool"),
+                                        Arrays.asList("aether:inebriation", "aether:remedy")
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof String);
+
+        BUILDER.pop();
+
+        BUILDER.push("ReverseInstantEffect")
+                .comment("It takes effect when the effect in this Map is being applied, blocking its application and reversing it.",
+                        "It only takes effect when the effect is being added, so it alone cannot convert existing effects.",
+                        "\"input-effect-n\" means ID of the effect to be converted,\"output-effect-n\" means ID of the effect that conversion result.",
+                        "Format: [[\"input-effect-1\", \"output-effect-1\"], [\"input-effect-2\", \"output-effect-2\"], ...etc]");
+        REVERSE_INSTANT_EFFECT = BUILDER
+                .defineList("reverseInstantEffect", Arrays.asList
+                                (
+                                        Arrays.asList("minecraft:instant_damage", "minecraft:instant_health"),
+                                        Arrays.asList("minecraft:blindness", "minecraft:night_vision")
+
+                                        ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof String);
+
+        BUILDER.pop();
+
+        SPEC = BUILDER.build();
+    }
 
     public static boolean logDirtBlock;
     public static int magicNumber;
@@ -47,6 +97,7 @@ public class Config {
     public static boolean weakPoisonHealthOverlay;
 
     public static String powerBattleMode;
+
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof final String itemName && ForgeRegistries.ITEMS.containsKey(new ResourceLocation(itemName));
@@ -64,5 +115,6 @@ public class Config {
         weakPoisonHealthOverlay = WEAK_POISON_HEALTH_OVERLAY.get();
 
         powerBattleMode = POWER_BATTLE_MODE.get();
+
     }
 }

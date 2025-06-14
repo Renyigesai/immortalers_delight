@@ -28,6 +28,17 @@
     "immortalers_delight:leisamboo_button",
     "immortalers_delight:leisamboo_cabinet",
 
+    "immortalers_delight:pearlip_shell_planks",
+    "immortalers_delight:pearlip_shell_stairs",
+    "immortalers_delight:pearlip_shell_slab",
+    "immortalers_delight:pearlip_shell_door",
+    "immortalers_delight:pearlip_shell_trapdoor",
+    "immortalers_delight:pearlip_shell_fence",
+    "immortalers_delight:pearlip_shell_fence_gate",
+    "immortalers_delight:pearlip_shell_pressure_plate",
+    "immortalers_delight:pearlip_shell_button",
+    "immortalers_delight:pearlip_shell_cabinet",
+
     "immortalers_delight:ancient_wood_log",
     "immortalers_delight:ancient_wood",
     "immortalers_delight:stripped_ancient_wood_log",
@@ -40,6 +51,8 @@
     "immortalers_delight:ancient_wood_fence",
     "immortalers_delight:ancient_wood_fence_gate",
     "immortalers_delight:ancient_wood_pressure_plate",
-    "immortalers_delight:ancient_wood_button"
+    "immortalers_delight:ancient_wood_button",
+
+    "immortalers_delight:travastruggler_log"
   ]
 }

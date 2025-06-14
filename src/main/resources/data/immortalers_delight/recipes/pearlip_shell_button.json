@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip_shell_planks"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:pearlip_shell_button"
+  }
+}

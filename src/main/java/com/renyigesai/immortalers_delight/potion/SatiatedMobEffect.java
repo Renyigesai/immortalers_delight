@@ -12,7 +12,7 @@ import net.minecraft.world.food.FoodData;
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.MAGICAL_REVERSE;
 
 public class SatiatedMobEffect extends MobEffect {
-    public static boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+    public static boolean isPowerful = true;
 
     public SatiatedMobEffect() {
         super(MobEffectCategory.BENEFICIAL, -39424);
@@ -20,6 +20,7 @@ public class SatiatedMobEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+        isPowerful = DifficultyModeHelper.isPowerBattleMode();
         if (!pEntity.level().isClientSide()) {
             pEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, amplifier));
             if (isPowerful) {

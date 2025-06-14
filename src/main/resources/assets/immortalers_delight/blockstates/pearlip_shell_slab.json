@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immortalers_delight:block/pearlip_shell_slab"
+    },
+    "type=double": {
+      "model": "immortalers_delight:block/pearlip_shell_planks"
+    },
+    "type=top": {
+      "model": "immortalers_delight:block/pearlip_shell_slab_top"
+    }
+  }
+}

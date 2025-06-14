@@ -1,0 +1,7 @@
+{
+  "render_type": "minecraft:cutout",
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "immortalers_delight:block/travastruggler_leaves_travarice"
+  }
+}

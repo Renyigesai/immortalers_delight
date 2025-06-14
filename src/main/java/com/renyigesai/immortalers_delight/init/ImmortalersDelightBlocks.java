@@ -10,6 +10,7 @@ import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightC
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
+import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -270,6 +271,48 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block>  LEISAMBOO_WALL_HANGING_SIGN = BLOCKS.register("leisamboo_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEISAMBOO_HANGING_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
 
+    /*
+    棱蕉制品
+     */
+    public static final RegistryObject<Block> PEARLIP_SHELL_PLANKS = BLOCKS.register("pearlip_shell_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_STAIRS = BLOCKS.register("pearlip_shell_stairs",
+            () -> new StairBlock(PEARLIP_SHELL_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(PEARLIP_SHELL_PLANKS.get())));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_SLAB = BLOCKS.register("pearlip_shell_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> PEARLIP_SHELL_DOOR = BLOCKS.register("pearlip_shell_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_TRAPDOOR = BLOCKS.register("pearlip_shell_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_FENCE = BLOCKS.register("pearlip_shell_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_FENCE_GATE = BLOCKS.register("pearlip_shell_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_PRESSURE_PLATE = BLOCKS.register("pearlip_shell_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_BUTTON = BLOCKS.register("pearlip_shell_button",
+            () ->woodenButton(BlockSetType.OAK));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_CABINET = BLOCKS.register("pearlip_shell_cabinet",
+            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_SIGN = BLOCKS.register("pearlip_shell_sign",
+            () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
+    public static final RegistryObject<Block>  PEARLIP_SHELL_WALL_SIGN = BLOCKS.register("pearlip_shell_wall_sign",
+            () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(PEARLIP_SHELL_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
+
+    public static final RegistryObject<Block> PEARLIP_SHELL_HANGING_SIGN = BLOCKS.register("pearlip_shell_hanging_sign",
+            () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
+    public static final RegistryObject<Block>  PEARLIP_SHELL_WALL_HANGING_SIGN = BLOCKS.register("pearlip_shell_wall_hanging_sign",
+            () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(PEARLIP_SHELL_HANGING_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
+
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
@@ -342,11 +385,17 @@ public class ImmortalersDelightBlocks {
             });
 
     /*
+    通天竹
+    */
+    public static final RegistryObject<Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(new TravastrugglerTreeGrower(),BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", () -> new TravastrugglerLogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(1.0F).sound(SoundType.BAMBOO).ignitedByLava()));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+
+
+    /*
     饮料方块
     */
-
-//    public static final RegistryObject<Block> ICED_BLACK_TEA = BLOCKS.register("iced_black_tea",
-//            () -> new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
     public static final RegistryObject<Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
 

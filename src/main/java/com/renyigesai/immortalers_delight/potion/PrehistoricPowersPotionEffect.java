@@ -15,7 +15,6 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber
 public class PrehistoricPowersPotionEffect {
-    public static boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
     @SubscribeEvent
     public static void onCreatureHurt(LivingHurtEvent evt) {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)) {
@@ -23,7 +22,7 @@ public class PrehistoricPowersPotionEffect {
         }
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
-
+        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
             attacker = livingEntity;
         }

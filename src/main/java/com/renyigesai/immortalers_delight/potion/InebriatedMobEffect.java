@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 
@@ -28,17 +29,20 @@ public class InebriatedMobEffect extends MobEffect {
                 boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
                 float health = pEntity.getHealth();
                 float damage = pEntity.getMaxHealth() * 0.08F > 1.6F ? pEntity.getMaxHealth() * 0.08F : 1.6F;
-                pEntity.invulnerableTime = 0;
-                pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))), damage);
-                pEntity.invulnerableTime = 0;
-                if (isPowerful && (health - damage) > 0 && pEntity.getHealth() > (health - damage)) {
-                    pEntity.setHealth(health - damage);
+                boolean isOP = pEntity instanceof Player player && player.isCreative();
+                if (!isOP || isPowerful) {
+                    pEntity.invulnerableTime = 0;
+                    pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))), damage);
+                    pEntity.invulnerableTime = 0;
+                    if (isPowerful && (health - damage) > 0 && pEntity.getHealth() > (health - damage)) {
+                        pEntity.setHealth(health - damage);
+                    }
+                    pEntity.addEffect(new MobEffectInstance(WEAK_POISON.get(), 902, amplifier + 1));
+                    pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, time, amplifier));
+                    pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, time, amplifier));
+                    pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, amplifier));
+                    pEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, time, amplifier));
                 }
-                pEntity.addEffect(new MobEffectInstance(WEAK_POISON.get(), 902, amplifier + 1));
-                pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, time, amplifier));
-                pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, time, amplifier));
-                pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, amplifier));
-                pEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, time, amplifier));
             }
         }
     }
