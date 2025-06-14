@@ -41,6 +41,7 @@ public class SkelverfishThrasherAttackGoal extends MeleeAttackGoal {
         super.start();
         this.attackTimer = 0;
         this.cooldown = ATTACK_DELAY;
+        this.mob.setAggressive(false);
     }
 
     /**

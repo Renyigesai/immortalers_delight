@@ -44,7 +44,7 @@ public class SkelverfishBomber extends SkelverfishBase{
 
     private int oldSwell;         // 上一时刻的膨胀值
     private int swell;            // 当前膨胀值（自爆倒计时）
-    private int maxSwell = 12;    // 最大膨胀值（爆炸前的总时间）
+    private int maxSwell = 18;    // 最大膨胀值（爆炸前的总时间）
     private int explosionRadius = 1; // 爆炸半径
     private int maxFireDamage = 0;   // 最大所受火焰伤害
     public SkelverfishBomber(EntityType<? extends Silverfish> pEntityType, Level pLevel) {

@@ -1,16 +1,27 @@
 package com.renyigesai.immortalers_delight.event;
 
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
+import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber
 public class SkelverfishEventHelper {
@@ -30,7 +41,7 @@ public class SkelverfishEventHelper {
     }
 
     @SubscribeEvent
-    public static void onAttack(LivingHurtEvent event) {
+    public static void onAmbusherAttack(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(attacker.getType());
             if (entityId != null && !attacker.level().isClientSide) {
@@ -45,5 +56,12 @@ public class SkelverfishEventHelper {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onThrasherJoinWorld(EntityJoinLevelEvent event) {
+//        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
+//            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));
+//        }
     }
 }

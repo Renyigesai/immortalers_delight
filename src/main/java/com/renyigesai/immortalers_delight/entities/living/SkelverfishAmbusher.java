@@ -3,6 +3,8 @@ package com.renyigesai.immortalers_delight.entities.living;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -35,6 +37,7 @@ public class SkelverfishAmbusher extends SkelverfishBase{
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,-1,0));
         if (pDifficulty.getDifficulty().getId() >= Difficulty.HARD.getId()) {
             this.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(
                     new AttributeModifier(HARD_HEALTH,

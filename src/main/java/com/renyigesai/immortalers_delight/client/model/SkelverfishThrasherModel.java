@@ -136,7 +136,7 @@ public class SkelverfishThrasherModel<T extends SkelverfishThrasher> extends Hie
             bodyLayers[2].yRot = bodyParts[1].yRot * 0.9F;  // layer2 对应 segment1
             bodyLayers[2].x = bodyParts[1].x;
         }
-        this.animate(SkelverfishThrasher.attackAnimationState, SkelverfishThrasherAnimation.ATTACK,pAgeInTicks, 1.0f);
+        this.animate(pEntity.attackAnimationState, SkelverfishThrasherAnimation.ATTACK,pAgeInTicks, 1.0f);
     }
 
     @Override

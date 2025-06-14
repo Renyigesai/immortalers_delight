@@ -32,7 +32,7 @@ import java.util.UUID;
 public class SkelverfishThrasher extends SkelverfishBase{
     public static final UUID HARD_ATTACK = UUID.fromString("1023c998-0635-c985-eeff-d30fbfb8d26f");
     public static final UUID NORMAL_ATTACK = UUID.fromString("d7ce190e-b28e-9617-db38-7beba96bbe40");
-    public static AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationDuration = 0;
     public SkelverfishThrasher(EntityType<? extends Silverfish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -86,18 +86,16 @@ public class SkelverfishThrasher extends SkelverfishBase{
     }
 
     private void setUpAnimationState(){
-        System.out.println("当前的骷髅虫动画持续时间：" + attackAnimationDuration);
-        if (!this.isAggressive() || this.attackAnimationDuration < 0){
-            System.out.println("骷髅虫终止攻击动画");
+        if (attackAnimationDuration >= 0) System.out.println("当前骷髅虫的ID为："+this.getId()+"，attackAnimationDuration:"+attackAnimationDuration);
+        if (this.attackAnimationDuration < 0){
+            System.out.println("当前重击虫,ID为 "+this.getId()+" 将结束攻击动画");
             attackAnimationState.stop();
         }
         if (this.isAggressive() && this.attackAnimationDuration <= 0){
             attackAnimationDuration = 10;
-            System.out.println("骷髅虫启动攻击动画");
             attackAnimationState.start(this.tickCount);
-        }else {
-            --this.attackAnimationDuration;
         }
+        --this.attackAnimationDuration;
     }
     @Override
     public boolean doHurtTarget(Entity pEntity) {
