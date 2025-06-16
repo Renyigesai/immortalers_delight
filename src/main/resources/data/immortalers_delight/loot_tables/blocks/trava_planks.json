@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "immortalers_delight:travarice"
+          "name": "immortalers_delight:trava_planks"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "immortalers_delight:blocks/travastruggler_sapling"
+  "random_sequence": "immortalers_delight:blocks/trava_planks"
 }

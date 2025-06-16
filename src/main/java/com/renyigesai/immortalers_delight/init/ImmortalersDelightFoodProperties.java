@@ -533,4 +533,7 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,3600,1),1.0F)
             .alwaysEat().build();
 
+    public static final FoodProperties COOKED_TRAVARICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.4F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),600),1.0F).build();
+
+    public static final FoodProperties TRAVEER = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F).alwaysEat().build();
 }

@@ -322,10 +322,12 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         } else {
             for (int slot : slotsToConsume) {
                 ItemStack stack = inventory.getStackInSlot(slot);
-                if (stack.hasCraftingRemainingItem()) {
-                    ejectIngredientRemainder(stack.getCraftingRemainingItem());
+                if (!stack.is(Items.WATER_BUCKET)) {
+                    if (stack.hasCraftingRemainingItem()) {
+                        ejectIngredientRemainder(stack.getCraftingRemainingItem());
+                    }
+                    inventory.extractItem(slot, 1, false);
                 }
-                inventory.extractItem(slot, 1, false);
             }
 
             if (!recipe.getContainer().isEmpty()) {

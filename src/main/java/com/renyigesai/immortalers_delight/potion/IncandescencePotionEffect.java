@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
@@ -15,20 +16,20 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
+import java.util.Objects;
+
 @Mod.EventBusSubscriber
 public class IncandescencePotionEffect {
     @SubscribeEvent
     public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         if (event != null && event.getEntity() != null) {
-            ItemStack stack = event.getItem();
-            Entity entity = event.getEntity();
-            if (entity instanceof LivingEntity livingEntity) {
-                if (stack.getItem().isEdible() && livingEntity.hasEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get())) {
-                    int lv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()).getAmplifier() : 0;
-                    int time = livingEntity.hasEffect(MobEffects.DAMAGE_BOOST) ? livingEntity.getEffect(MobEffects.DAMAGE_BOOST).getDuration() : 0;
-//                    livingEntity.removeEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, time + 100, lv));
-                }
+            ItemStack stack = event.getResultStack();
+            LivingEntity entity = event.getEntity();
+            if (stack.getItem().isEdible() && entity.hasEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()) && noIncandescenceFood(stack,entity)) {
+                int lv = entity.hasEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()) ? entity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()).getAmplifier() : 0;
+                int time = entity.hasEffect(MobEffects.DAMAGE_BOOST) ? entity.getEffect(MobEffects.DAMAGE_BOOST).getDuration() : 0;
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, time + 100, lv));
             }
         }
     }
@@ -62,5 +63,15 @@ public class IncandescencePotionEffect {
                 }
             }
         }
+    }
+
+    public static boolean noIncandescenceFood(ItemStack stack, LivingEntity entity){
+        List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(entity)).getEffects();
+        for (Pair<MobEffectInstance, Float> effect : effects) {
+            if (effect.getFirst().getEffect() == ImmortalersDelightMobEffect.INCANDESCENCE.get()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

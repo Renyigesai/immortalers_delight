@@ -81,9 +81,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
     public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
+    public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
+    public static final RegistryObject<Item> TRAVA_PLANKS;
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
-    public static final RegistryObject<Item> TRAVASTRUGGLER_SAPLING;
 
     /*
     玉米系列物品
@@ -190,6 +191,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GLEEMAN_TEAR;
     public static final RegistryObject<Item> FRUIT_TEA;
     public static final RegistryObject<Item> LEISAMBOO_TEA_CAKE;
+
+    /*
+    通天竹相关
+    */
+    public static final RegistryObject<Item> TRAVAPLANK;
+    public static final RegistryObject<Item> TRAVARICE;
+    public static final RegistryObject<Item> COOKED_TRAVARICE;
+    public static final RegistryObject<Item> TRAVEER;
 
     /*
     瓦斯麦相关物品
@@ -714,6 +723,14 @@ public class ImmortalersDelightItems {
         LEISAMBOO_TEA_CAKE = registerWithTab("leisamboo_tea_cake",()->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true, false));
 
+        /*
+        通天竹
+        */
+        TRAVAPLANK = registerWithTab("travaplank",()->new Item(basicItem()));
+        TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
+        COOKED_TRAVARICE = registerWithTab("cooked_travarice",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.COOKED_TRAVARICE),true));
+
+
 
         /*
         姬海棠系列物品
@@ -927,10 +944,13 @@ public class ImmortalersDelightItems {
         PURGATORY_ALE = registerWithTab("purgatory_ale",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
 
+        TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false,false,true));
+
         TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
+        STRIPPED_TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG);
+        TRAVA_PLANKS = block(ImmortalersDelightBlocks.TRAVA_PLANKS);
         TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES);
         TRAVASTRUGGLER_LEAVES_TRAVARICE = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES_TRAVARICE);
-        TRAVASTRUGGLER_SAPLING = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING);
 
 //        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
 //                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));
