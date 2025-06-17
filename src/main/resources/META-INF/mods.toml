@@ -1,26 +1,29 @@
-
-modLoader = "javafml"
-loaderVersion = "${loader_version_range}"
-license = "MIT License"
-
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT License"
 [[mods]]
-modId = "immortalers_delight"
-version = "${mod_version}"
-displayName = "Immortalers Deligh"
+modId="immortalers_delight"
+version="1.20.1-forge-1.0.8"
+displayName="ImmortalersDelight"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/immortalers-delight"
 authors="Komeiji_Hako,Renyigesai,babel491734,ShangguanXi"
-description = '''${mod_description}'''
-logoFile = "logo.png"
-
+description='''Immortaler's Delight is a feast for archaeologists and delighted farmers! It brings a bounty of ancient crops, discovered by Sniffers in different biomes, and cooked into various effective delicacies. Welcome to the feast!'''
+logoFile="logo.png"
 [[dependencies."immortalers_delight"]]
-modId = "forge"
-mandatory = true
-versionRange = "${forge_version_range}"
-ordering = "NONE"
-side = "BOTH"
-
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
 [[dependencies."immortalers_delight"]]
-modId = "minecraft"
-mandatory = true
-versionRange = "${minecraft_version_range}"
-ordering = "NONE"
-side = "BOTH"
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+[[dependencies."immortalers_delight"]]
+modId="farmersdelight"
+mandatory=true
+versionRange="[1.20.1-1.2.8,)"
+ordering="NONE"
+side="BOTH"
