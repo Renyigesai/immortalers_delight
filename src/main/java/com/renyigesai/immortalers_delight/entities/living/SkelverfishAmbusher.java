@@ -1,23 +1,25 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
+import net.minecraft.client.model.SilverfishModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public class SkelverfishAmbusher extends SkelverfishBase{
@@ -31,8 +33,28 @@ public class SkelverfishAmbusher extends SkelverfishBase{
     public static AttributeSupplier.@NotNull Builder createSkelverfishAmbusherAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.MOVEMENT_SPEED, 0.28D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        List<Entity> list = this.level().getEntities(this, this.getBoundingBox().inflate(0.2F, -0.01F, 0.2F), EntitySelector.pushableBy(this));
+        if (!list.isEmpty()) {
+            boolean flag = !this.level().isClientSide && !(this.getControllingPassenger() instanceof Player);
+
+            for (Entity entity : list) {
+                if (!entity.hasPassenger(this)) {
+                    if (flag && this.getPassengers().size() < 4 && !entity.isPassenger() && entity.getBbWidth() < 1.375F && entity instanceof Silverfish) {
+                        entity.startRiding(this);
+                    } else {
+                        this.push(entity);
+                    }
+                }
+            }
+        }
     }
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {

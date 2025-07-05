@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.event;
 
+import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
@@ -20,7 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -66,6 +69,16 @@ public class SkelverfishEventHelper {
     public static void onThrasherJoinWorld(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Sniffer sniffer) {
             sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.0D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
+        }
+//        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
+//            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));
+//        }
+    }
+
+    @SubscribeEvent
+    public static void onSilverfishsIntoStone(EntityMobGriefingEvent event) {
+        if (event.getEntity() instanceof SkelverfishBase skelverfishBase) {
+            event.setResult(Event.Result.DENY);
         }
 //        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
 //            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));

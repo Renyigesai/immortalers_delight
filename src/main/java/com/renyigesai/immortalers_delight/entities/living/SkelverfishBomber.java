@@ -54,7 +54,7 @@ public class SkelverfishBomber extends SkelverfishBase{
     public static AttributeSupplier.@NotNull Builder createSkelverfishBomberAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.MOVEMENT_SPEED, 0.23D)
                 .add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
     /**

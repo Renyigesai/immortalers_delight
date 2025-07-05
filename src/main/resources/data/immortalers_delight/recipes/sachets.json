@@ -11,19 +11,24 @@
       "item": "immortalers_delight:sniffer_fur"
     },
     "b": {
-      "item": "minecraft:string"
+      "item": "immortalers_delight:ancient_fiber"
     },
     "c": {
-      "item": "minecraft:melon_seeds"
+      "item": "immortalers_delight:alfalfa"
     },
-    "d": {
-      "item": "minecraft:spruce_wood"
-    },
+    "d": [
+      {
+        "item": "immortalers_delight:ancient_wood_log"
+      },
+      {
+        "item": "immortalers_delight:ancient_wood"
+      }
+    ],
     "e": {
-      "item": "minecraft:pumpkin_seeds"
+      "item": "immortalers_delight:alfalfa"
     },
     "f": {
-      "item": "farmersdelight:cabbage_seeds"
+      "item": "immortalers_delight:alfalfa"
     }
   },
   "result": {

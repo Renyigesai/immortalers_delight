@@ -12,7 +12,7 @@
     }
   ],
   "container": {
-    "item": "minecraft:wheat"
+    "item": "immortalers_delight:custard_tart_pastry"
   },
   "output": {
     "item": "immortalers_delight:scarlet_gelato",

@@ -7,9 +7,11 @@ import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -315,6 +317,9 @@ public class ImmortalersDelightItems {
 
 
     //public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
+    public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
+    public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
 
 
     public static final RegistryObject<Item> SACHETS;
@@ -999,7 +1004,17 @@ public class ImmortalersDelightItems {
 
         //刷怪蛋
 //        STRANGE_ARMOUR_STAND_SPAWN_EGG = registerWithTab("strange_armour_stand_spawn_egg",()->
-//                new SpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(),0x252525,0x4D4D4D,new Item.Properties()));
+//                new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
+
+        SKELVERFISH_AMBUSHER_SPAWN_EGG = registerWithTab("skelverfish_ambusher_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER,1645516,6845733,new Item.Properties()));
+        SKELVERFISH_BOMBER_SPAWN_EGG = registerWithTab("skelverfish_bomber_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_BOMBER,1645516,6845733,new Item.Properties()));
+        SKELVERFISH_THRASHER_SPAWN_EGG = registerWithTab("skelverfish_thrasher_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
+
+
+
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {

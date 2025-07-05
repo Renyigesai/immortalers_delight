@@ -72,7 +72,7 @@ public class FoodItemEventHelper {
 
         if (!hurtOne.level().isClientSide) {
             if (hurtOne.getUseItem().getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
-                if (hurtOne.getTicksUsingItem() > 0) {
+                if (hurtOne.getTicksUsingItem() > (isPowerful ? 16 : 32)) {
                     if (isPowerful) {
                         float buffer = 0.4f - (0.6F * hurtOne.getTicksUsingItem() / hurtOne.getUseItem().getUseDuration());
                         if (buffer > 0) {
