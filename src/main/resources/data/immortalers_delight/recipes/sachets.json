@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    "cde",
+    "afa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:sniffer_fur"
+    },
+    "b": {
+      "item": "minecraft:string"
+    },
+    "c": {
+      "item": "minecraft:melon_seeds"
+    },
+    "d": {
+      "item": "minecraft:spruce_wood"
+    },
+    "e": {
+      "item": "minecraft:pumpkin_seeds"
+    },
+    "f": {
+      "item": "farmersdelight:cabbage_seeds"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:sachets",
+    "count": 1
+  },
+  "show_notification": true
+}

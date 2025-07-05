@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
+import com.renyigesai.immortalers_delight.client.model.AncientWoodBoatModel;
+import com.renyigesai.immortalers_delight.client.model.AncientWoodChestBoatModel;
 import com.renyigesai.immortalers_delight.client.model.SkelverfishBomberModel;
 import com.renyigesai.immortalers_delight.client.model.SkelverfishThrasherModel;
 import com.renyigesai.immortalers_delight.client.model.StrangeArmourStandModel;
@@ -8,6 +10,7 @@ import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishBomb
 import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.entity.SkelverfishThrasherRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.entity.StrangeArmourStandRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.AncientWoodBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.AncientStoveBlockEntityRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
@@ -23,7 +26,6 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -96,8 +98,8 @@ public class ImmortalersDelightMod {
             modelLayers.put(SkelverfishBomberModel.SKELVERFISH_BOMBER, SkelverfishBomberModel::createBodyLayer);
             modelLayers.put(SkelverfishThrasherModel.SKELVERFISH_THRASHER, SkelverfishThrasherModel::createBodyLayer);
             modelLayers.put(StrangeArmourStandModel.STRANGE_ARMOUR_STAND, StrangeArmourStandModel::createBodyLayer);
-
-            for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
+            modelLayers.put(AncientWoodBoatModel.ANCIENT_BOAT, AncientWoodBoatModel::createBodyLayer);
+            modelLayers.put(AncientWoodChestBoatModel.ANCIENT_CHEST_BOAT, AncientWoodChestBoatModel::createBodyLayer);       for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
             }
         }
@@ -116,8 +118,10 @@ public class ImmortalersDelightMod {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
-            EntityRenderers.register(ImmortalersDelightEntities.HIMEKAIDO_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
+            EntityRenderers.register(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, false));
+            EntityRenderers.register(ImmortalersDelightEntities.ANCIENT_WOOD_BOAT.get(), pContext -> new AncientWoodBoatRenderer(pContext, false));
+            EntityRenderers.register(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
+            EntityRenderers.register(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), pContext -> new AncientWoodBoatRenderer(pContext, true));
             ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // Some client setup code

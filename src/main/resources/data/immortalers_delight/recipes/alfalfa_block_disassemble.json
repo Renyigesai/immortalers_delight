@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:alfalfa_block"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:alfalfa",
+    "count": 9
+  }
+}

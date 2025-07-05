@@ -57,9 +57,9 @@ public class ImmortalersDelightBlocks {
             log(MapColor.WOOD, MapColor.PODZOL));
 
     public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
-            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape()));
+            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
-            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape()));
+            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY)));
 
     public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -360,6 +360,12 @@ public class ImmortalersDelightBlocks {
             new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final RegistryObject<Block> KWAT_WHEAT_BLOCK = BLOCKS.register("kwat_wheat_block",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final RegistryObject<Block> ALFALFA_BLOCK = BLOCKS.register("alfalfa_block",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final RegistryObject<Block> LEISAMBOO_BLOCK = BLOCKS.register("leisamboo_block",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
 
     public static final RegistryObject<Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",

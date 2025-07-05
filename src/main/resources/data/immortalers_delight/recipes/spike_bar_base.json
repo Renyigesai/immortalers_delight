@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_bars"
+    },
+    "b": {
+      "item": "immortalers_delight:spike_bar_base"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:spike_bar_base",
+    "count": 9
+  }
+}

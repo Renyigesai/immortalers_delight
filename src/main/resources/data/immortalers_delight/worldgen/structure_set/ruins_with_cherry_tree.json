@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "immortalers_delight:ruins_with_cherry_tree",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 4876039101208943858,
+    "spacing": 34,
+    "separation": 18
+  }
+}

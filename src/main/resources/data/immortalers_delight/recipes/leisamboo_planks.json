@@ -4,20 +4,11 @@
   "group": "planks",
   "ingredients": [
     {
-      "item": "immortalers_delight:empty_bamboo_cup"
-    },
-    {
-      "item": "immortalers_delight:empty_bamboo_cup"
-    },
-    {
-      "item": "immortalers_delight:empty_bamboo_cup"
-    },
-    {
-      "item": "immortalers_delight:empty_bamboo_cup"
+      "item": "immortalers_delight:leisamboo_block"
     }
   ],
   "result": {
-    "count": 1,
+    "count": 2,
     "item": "immortalers_delight:leisamboo_planks"
   }
 }

@@ -1,0 +1,69 @@
+{
+  "name": "ruins_with_cherry_tree",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_1",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_2",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_3",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_4",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_5",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_6",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "immortalers_delight:ruins_with_cherry_tree/ruins_with_cherry_tree_7",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

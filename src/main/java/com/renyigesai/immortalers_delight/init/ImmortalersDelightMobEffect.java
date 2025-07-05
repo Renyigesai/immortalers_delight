@@ -39,6 +39,7 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> PREHISTORIC_POWERS = REGISTRY.register("prehistoric_powers", PrehistoricPowersMobEffect::new);
     public static final RegistryObject<MobEffect> COOL = REGISTRY.register("cool", CoolMobEffect::new);
     public static final RegistryObject<MobEffect> DEEPNESS = REGISTRY.register("deepness", DeepnessMobEffect::new);
+    public static final RegistryObject<MobEffect> ESTEEMED_GUEST = REGISTRY.register("esteemed_guest", EsteemedGuestMobEffect::new);
 
     public static final RegistryObject<MobEffect> LINGERING_INFUSION = REGISTRY.register("lingering_infusion",()-> new LingeringInfusionMobEffect().addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModifier.Operation.ADDITION));
 

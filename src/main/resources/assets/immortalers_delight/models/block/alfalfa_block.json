@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "immortalers_delight:block/alfalfa_block_bottom",
+    "side": "immortalers_delight:block/alfalfa_block_side",
+    "top": "immortalers_delight:block/alfalfa_block_top"
+  }
+}

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,7 +27,10 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
     public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
     public static final BooleanProperty IS_TEA = BooleanProperty.create("is_tea");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final VoxelShape BOX = box(4.0D,0.0D,4.0D,12.0D,16.0D,12.0D);
+    public static final VoxelShape[] BOX = new VoxelShape[]{
+            box(6.0D,0.0D,6.0D,10.0D,16.0D,10.0D),
+            box(5.0D,0.0D,5.0D,11.0D,16.0D,11.0D)
+    };
 
     public LeisambooStalkBlock(Properties pProperties) {
         super(pProperties);
@@ -35,7 +39,7 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return BOX;
+        return BOX[pState.getValue(IS_TEA) ? 1 : 0];
     }
 
     public void tick(BlockState p_222543_, ServerLevel p_222544_, BlockPos p_222545_, RandomSource p_222546_) {

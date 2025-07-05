@@ -1,15 +1,11 @@
 package com.renyigesai.immortalers_delight.client.renderer;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.entities.ImmortalersBoat;
-import com.renyigesai.immortalers_delight.entities.ImmortalersChestBoat;import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
+import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
+import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.ListModel;
@@ -28,9 +24,12 @@ import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
 public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
-    private static final ResourceLocation BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/himekaido.png");
-    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/himekaido.png");
-
+    private static final ResourceLocation HIMEKAIDO_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/himekaido.png");
+    private static final ResourceLocation HIMEKAIDO_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/himekaido.png");
+    private static final ResourceLocation ANCIENT_WOOD_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_wood.png");
+    private static final ResourceLocation ANCIENT_WOOD_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_wood.png");
+    private static final ResourceLocation PEARLIP_SHELL_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/pearlip_shell.png");
+    private static final ResourceLocation PEARLIP_SHELL_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/pearlip_shell.png");
     private final boolean hasChest;
     private ListModel<Boat> boatModel;
 
@@ -67,7 +66,7 @@ public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
         poseStack.scale(-1.0f, -1.0f, 1.0f);
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
         this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
-        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE));
+        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(getTextureLocation(boat)));
         this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
         if (!boat.isUnderWater()) {
             VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
@@ -81,6 +80,40 @@ public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
 
     @Override
     public ResourceLocation getTextureLocation(Boat boat) {
-        return this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE;
+        if (boat instanceof ImmortalersBoat immortalersBoat) {
+            String type = immortalersBoat.getBoatVariant().getSerializedName();
+            switch (type) {
+                case "ancient_wood" -> {
+                    return this.hasChest ? ANCIENT_WOOD_CHEST_BOAT_TEXTURE : ANCIENT_WOOD_BOAT_TEXTURE;
+                }
+                case "himekaido" -> {
+                    return this.hasChest ? HIMEKAIDO_CHEST_BOAT_TEXTURE : HIMEKAIDO_BOAT_TEXTURE;
+                }
+                case "leisamboo" -> {
+                    return this.hasChest ? HIMEKAIDO_CHEST_BOAT_TEXTURE : HIMEKAIDO_BOAT_TEXTURE;
+                }
+                case "pearlip_shell" -> {
+                    return this.hasChest ? PEARLIP_SHELL_CHEST_BOAT_TEXTURE : PEARLIP_SHELL_BOAT_TEXTURE;
+                }
+            }
+        }
+        if (boat instanceof ImmortalersChestBoat immortalersChestBoat) {
+            String type = immortalersChestBoat.getBoatVariant().getSerializedName();
+            switch (type) {
+                case "ancient_wood" -> {
+                    return this.hasChest ? ANCIENT_WOOD_CHEST_BOAT_TEXTURE : ANCIENT_WOOD_BOAT_TEXTURE;
+                }
+                case "himekaido" -> {
+                    return this.hasChest ? HIMEKAIDO_CHEST_BOAT_TEXTURE : HIMEKAIDO_BOAT_TEXTURE;
+                }
+                case "leisamboo" -> {
+                    return this.hasChest ? HIMEKAIDO_CHEST_BOAT_TEXTURE : HIMEKAIDO_BOAT_TEXTURE;
+                }
+                case "pearlip_shell" -> {
+                    return this.hasChest ? PEARLIP_SHELL_CHEST_BOAT_TEXTURE : PEARLIP_SHELL_BOAT_TEXTURE;
+                }
+            }
+        }
+        return this.hasChest ? ANCIENT_WOOD_CHEST_BOAT_TEXTURE : ANCIENT_WOOD_BOAT_TEXTURE;
     }
 }

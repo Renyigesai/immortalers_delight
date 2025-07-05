@@ -1,8 +1,9 @@
-package com.renyigesai.immortalers_delight.entities;
+package com.renyigesai.immortalers_delight.entities.boat;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -22,27 +24,22 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.ContainerEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.IntFunction;
 
 public class ImmortalersChestBoat extends ChestBoat {
-    private NonNullList<ItemStack> itemStacks = NonNullList.withSize(27, ItemStack.EMPTY);
+    private NonNullList<ItemStack> modItemStacks = NonNullList.withSize(27, ItemStack.EMPTY);
     @Nullable
     private ResourceLocation lootTable;
     private long lootTableSeed;
@@ -52,7 +49,7 @@ public class ImmortalersChestBoat extends ChestBoat {
     }
 
     public ImmortalersChestBoat(Level level, double x, double y, double z) {
-        this(ImmortalersDelightEntities.HIMEKAIDO_CHEST_BOAT.get(), level);
+        this(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -73,21 +70,36 @@ public class ImmortalersChestBoat extends ChestBoat {
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         this.addChestVehicleSaveData(compoundTag);
-        compoundTag.putString("Type", this.getVariant().getSerializedName());
+        compoundTag.putString("ModType", this.getBoatVariant().getSerializedName());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.readChestVehicleSaveData(compoundTag);
-        if (compoundTag.contains("Type", 8)) {
-            this.setVariant(ImmortalersChestBoat.Type.byName(compoundTag.getString("Type")));
+        if (compoundTag.contains("ModType", 8)) {
+            this.setVariant(ImmortalersChestBoat.Type.byName(compoundTag.getString("ModType")));
         }
     }
 
     @Override
+    public Item getDropItem() {
+        return switch (getBoatVariant()) {
+            case HIMEKAIDO -> ImmortalersDelightItems.HIMEKAIDO_BOAT.get();
+            case ANCIENT_WOOD -> ImmortalersDelightItems.ANCIENT_WOOD_BOAT.get();
+            case LEISAMBOO -> Items.BIRCH_BOAT;
+            case PEARLIP_SHELL -> ImmortalersDelightItems.PEARLIP_SHELL_BOAT.get();
+        };
+    }
+    @Override
     public void destroy(DamageSource damageSource) {
-        super.destroy(damageSource);
+        if (this.getBoatVariant() == ImmortalersChestBoat.Type.ANCIENT_WOOD) {
+            Level level = this.level();
+            BlockPos pos = this.blockPosition();
+            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
+                    new ItemStack(Items.STICK,2),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+            this.spawnAtLocation(new ItemStack(ImmortalersDelightItems.ANCIENT_WOOD_PLANKS.get(),3));
+        } else super.destroy(damageSource);
         this.chestVehicleDestroyed(damageSource, this.level(), this);
     }
 
@@ -119,11 +131,6 @@ public class ImmortalersChestBoat extends ChestBoat {
             this.gameEvent(GameEvent.CONTAINER_OPEN, player);
             PiglinAi.angerNearbyPiglins(player, true);
         }
-    }
-
-    @Override
-    public Item getDropItem() {
-        return ImmortalersDelightItems.HIMEKAIDO_CHEST_BOAT.get();
     }
 
     @Override
@@ -207,12 +214,12 @@ public class ImmortalersChestBoat extends ChestBoat {
 
     @Override
     public NonNullList<ItemStack> getItemStacks() {
-        return this.itemStacks;
+        return this.modItemStacks;
     }
 
     @Override
     public void clearItemStacks() {
-        this.itemStacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        this.modItemStacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
     }
 
     @Override
@@ -220,21 +227,28 @@ public class ImmortalersChestBoat extends ChestBoat {
         this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
     }
 
-    public static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(ImmortalersChestBoat.class, EntityDataSerializers.INT);
+    // ---------------------------------------------------------------------------------------------------------------------
+    //下面是关于船的变种的代码
+    public static final EntityDataAccessor<Integer> DATA_ID_MOD_TYPE = SynchedEntityData.defineId(ImmortalersChestBoat.class, EntityDataSerializers.INT);
     public void setVariant(ImmortalersChestBoat.Type pVariant) {
-        this.entityData.set(DATA_ID_TYPE, pVariant.ordinal());
+        this.entityData.set(DATA_ID_MOD_TYPE, pVariant.ordinal());
     }
 
     public ImmortalersChestBoat.Type getBoatVariant() {
-        return ImmortalersChestBoat.Type.byId(this.entityData.get(DATA_ID_TYPE));
+        return Type.byId(this.entityData.get(DATA_ID_MOD_TYPE));
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_ID_TYPE, ImmortalersChestBoat.Type.HIMEKAIDO.ordinal());
+        this.entityData.define(DATA_ID_MOD_TYPE, ImmortalersChestBoat.Type.HIMEKAIDO.ordinal());
     }
     public static enum Type implements StringRepresentable {
-        HIMEKAIDO(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get(), "himekaido");
+        HIMEKAIDO(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get(), "himekaido"),
+        LEISAMBOO(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), "leisamboo"),
+
+        PEARLIP_SHELL(ImmortalersDelightBlocks.PEARLIP_SHELL_PLANKS.get(), "pearlip_shell"),
+
+        ANCIENT_WOOD(ImmortalersDelightBlocks.ANCIENT_WOOD_PLANKS.get(), "ancient_wood");
 
         private final String name;
         private final Block planks;
@@ -246,7 +260,7 @@ public class ImmortalersChestBoat extends ChestBoat {
             this.planks = pPlanks;
         }
 
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return this.name;
         }
 

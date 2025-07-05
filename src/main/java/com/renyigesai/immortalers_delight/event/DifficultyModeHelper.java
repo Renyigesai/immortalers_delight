@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.event;
 
 import com.renyigesai.immortalers_delight.Config;
+import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.DifficultyModeSaveLoadHelper;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -69,5 +72,16 @@ public class DifficultyModeHelper {
         if (Config.powerBattleMode != null && Config.powerBattleMode.equals("true")) return true;
         if (Config.powerBattleMode != null && Config.powerBattleMode.equals("false")) return false;
         return isPowerBattleMode;
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoad(LevelEvent.Load event) {
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            if (DifficultyModeSaveLoadHelper.loadDifficultyMode(serverLevel) != null) {
+                isPowerBattleMode = DifficultyModeSaveLoadHelper.loadDifficultyMode(serverLevel);
+                //System.out.println("[ImmortalersDelight] 读取存档中信息成功！");
+            }
+        }
+        //System.out.println("现在的模式设置是：" + isPowerBattleMode);
     }
 }

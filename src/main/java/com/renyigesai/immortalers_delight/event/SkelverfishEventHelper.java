@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.event;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
@@ -13,8 +14,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -60,6 +64,9 @@ public class SkelverfishEventHelper {
 
     @SubscribeEvent
     public static void onThrasherJoinWorld(EntityJoinLevelEvent event) {
+        if (event.getEntity() instanceof Sniffer sniffer) {
+            sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.0D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
+        }
 //        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
 //            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));
 //        }
