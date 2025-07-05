@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
@@ -15,20 +16,20 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
+import java.util.Objects;
+
 @Mod.EventBusSubscriber
 public class CoolPotionEffect {
     @SubscribeEvent
     public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         if (event != null && event.getEntity() != null) {
-            ItemStack stack = event.getItem();
-            Entity entity = event.getEntity();
-            if (entity instanceof LivingEntity livingEntity) {
-                if (stack.getItem().isEdible() && livingEntity.hasEffect(ImmortalersDelightMobEffect.COOL.get())) {
-                    int lv = livingEntity.hasEffect(ImmortalersDelightMobEffect.COOL.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.COOL.get()).getAmplifier() : 0;
-                    int time = livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE).getDuration() : 0;
-//                    livingEntity.removeEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, time + (lv > 3 ? 100 * lv : 100), Math.min(lv, 3)));
-                }
+            ItemStack stack = event.getResultStack();
+            LivingEntity livingEntity = event.getEntity();
+            if (stack.getItem().isEdible() && livingEntity.hasEffect(ImmortalersDelightMobEffect.COOL.get()) && noCoolFood(stack,livingEntity)) {
+                int lv = livingEntity.hasEffect(ImmortalersDelightMobEffect.COOL.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.COOL.get()).getAmplifier() : 0;
+                int time = livingEntity.hasEffect(MobEffects.DAMAGE_RESISTANCE) ? livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE).getDuration() : 0;
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, time + (lv > 3 ? 100 * lv : 100), Math.min(lv, 3)));
             }
         }
     }
@@ -50,5 +51,15 @@ public class CoolPotionEffect {
                 }
             }
         }
+    }
+
+    public static boolean noCoolFood(ItemStack stack, LivingEntity entity){
+        List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(entity)).getEffects();
+        for (Pair<MobEffectInstance, Float> effect : effects) {
+            if (effect.getFirst().getEffect() == ImmortalersDelightMobEffect.COOL.get()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

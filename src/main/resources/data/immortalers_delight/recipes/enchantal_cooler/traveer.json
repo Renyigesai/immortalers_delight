@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "immortalers_delight:travarice"
+    },
+    {
+      "item": "immortalers_delight:travarice"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:traveer",
+    "count": 1
+  }
+}

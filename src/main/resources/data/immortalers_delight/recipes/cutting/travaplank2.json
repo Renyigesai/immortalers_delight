@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:stripped_travastruggler_log"
+    }
+  ],
+  "tool": {
+    "item": "forge:tools/axes"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:travaplank",
+      "count": 4
+    }
+  ]
+}

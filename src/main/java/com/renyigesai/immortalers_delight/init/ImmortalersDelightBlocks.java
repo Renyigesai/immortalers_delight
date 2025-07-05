@@ -394,7 +394,9 @@ public class ImmortalersDelightBlocks {
     通天竹
     */
     public static final RegistryObject<Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(new TravastrugglerTreeGrower(),BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", () -> new TravastrugglerLogBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(1.0F).sound(SoundType.BAMBOO).ignitedByLava()));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", ()-> travastrugglerLog());
+    public static final RegistryObject<Block> STRIPPED_TRAVASTRUGGLER_LOG = BLOCKS.register("stripped_travastruggler_log", ()-> travastrugglerLog());
+    public static final RegistryObject<Block> TRAVA_PLANKS = BLOCKS.register("trava_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2).ignitedByLava().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
 
@@ -512,6 +514,12 @@ public class ImmortalersDelightBlocks {
         return new BasicsLogsBlock(BlockBehaviour.Properties.of().mapColor((p_152624_) -> {
             return p_152624_.getValue(BasicsLogsBlock.AXIS) == Direction.Axis.Y ? p_285370_ : p_285126_;
         }).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    private static BasicsLogsBlock travastrugglerLog() {
+        return new TravastrugglerLogBlock(BlockBehaviour.Properties.of().mapColor((p_152624_) -> {
+            return p_152624_.getValue(BasicsLogsBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_YELLOW : MapColor.PLANT;
+        }).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.BAMBOO).ignitedByLava());
     }
 
     private static ButtonBlock woodenButton(BlockSetType p_278239_, FeatureFlag... p_278229_) {
