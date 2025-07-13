@@ -12,10 +12,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.piglin.PiglinBrute;
+import net.minecraft.world.entity.monster.piglin.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +24,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Optional;
 
 @Mod.EventBusSubscriber
 public class EsteemedGuestPotionEffect {
@@ -36,6 +37,9 @@ public class EsteemedGuestPotionEffect {
                 if (piglin.getTarget().hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get())) {
                     piglin.setTarget(null);
                     piglin.setAggressive(false);
+                    piglin.getBrain().setMemory(MemoryModuleType.ANGRY_AT, Optional.empty());
+                    piglin.getBrain().setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, Optional.empty());
+                    piglin.getBrain().setMemory(MemoryModuleType.NEAREST_TARGETABLE_PLAYER_NOT_WEARING_GOLD, Optional.empty());
                 }
             }
         }

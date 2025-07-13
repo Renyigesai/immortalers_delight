@@ -7,7 +7,6 @@ import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -222,6 +221,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST;
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST_SLICE;
+    public static final RegistryObject<Item> GOLDEN_KWAT_TOAST;
+    public static final RegistryObject<Item> GOLDEN_KWAT_TOAST_SLICE;
     public static final RegistryObject<Item> NETHER_BREAD_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_BREAD;
@@ -858,6 +859,12 @@ public class ImmortalersDelightItems {
         KWAT_WHEAT_TOAST = registerWithTab("kwat_wheat_toast",() ->new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST),ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_POWERED,true,false));
 
         KWAT_WHEAT_TOAST_SLICE = registerWithTab("kwat_wheat_toast_slice",() ->new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_SLICE),ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_SLICE_POWERED,true,false));
+
+        GOLDEN_KWAT_TOAST = registerWithTab("golden_kwat_toast",() ->
+                new GoldenToastItem(foodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST),ImmortalersDelightFoodProperties.GOLDEN_TOAST_POWERED,true,true));
+
+        GOLDEN_KWAT_TOAST_SLICE = registerWithTab("golden_kwat_toast_slice",() ->
+                new GoldenToastItem(foodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE),ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE_POWERED,true,true));
 
         NETHER_BREAD_CREAM_SOUP = block(ImmortalersDelightBlocks.NETHER_BREAD_CREAM_SOUP);
 

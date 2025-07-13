@@ -68,7 +68,7 @@ public class SkelverfishEventHelper {
     @SubscribeEvent
     public static void onThrasherJoinWorld(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Sniffer sniffer) {
-            sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.0D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
+            sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.5D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
         }
 //        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
 //            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));

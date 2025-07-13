@@ -535,6 +535,21 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,1100,1),1.0F)
             .alwaysEat().build();
 
+    public static final FoodProperties GOLDEN_TOAST = new FoodProperties.Builder()
+            .nutrition(12).saturationMod(0.75f)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,300,1),1.0F)
+            .alwaysEat().build();
+
+    public static final FoodProperties GOLDEN_TOAST_SLICE = new FoodProperties.Builder()
+            .nutrition(4).saturationMod(0.75f)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,200,1),1.0F)
+            .alwaysEat().build();
+
+
     /*======================================================Powered=====================================================*/
     public static final FoodProperties TROPICAL_FRUITY_CYCLONE_POWERED = new FoodProperties.Builder()
             .nutrition(4).saturationMod(1.25F)
@@ -763,4 +778,17 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,20,2),1.0F)
             .build();
 
+    public static final FoodProperties GOLDEN_TOAST_POWERED = new FoodProperties.Builder()
+            .nutrition(12).saturationMod(0.75f)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1800,2),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1800,3),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,1100,1),1.0F)
+            .alwaysEat().build();
+
+    public static final FoodProperties GOLDEN_TOAST_SLICE_POWERED = new FoodProperties.Builder()
+            .nutrition(4).saturationMod(0.75f)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,300,1),1.0F)
+            .alwaysEat().build();
 }

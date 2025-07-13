@@ -79,23 +79,4 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
             }
         }
     }
-    @SubscribeEvent
-    public void onPlayerFeed(PlayerInteractEvent.EntityInteractSpecific event) {
-        if (event.getEntity() != null && event.getTarget() instanceof LivingEntity target){
-            Player player = event.getEntity();
-            Level level = player.level();
-            ItemStack itemStack = event.getItemStack();
-            if (!(level instanceof ServerLevel serverLevel) || itemStack == ItemStack.EMPTY) return;
-            if (itemStack.getItem() == ImmortalersDelightItems.CLEAR_WATER_VODKA.get()) {
-                addInebriatedEffect(itemStack,serverLevel,target);
-                if (!player.getAbilities().instabuild) {
-                    itemStack.shrink(1);
-                    BlockPos pos = player.getOnPos().above();
-                    vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(Items.GLASS_BOTTLE),
-                            pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
-                }
-            }
-            //AidSupportAbility.onItemUse(player, itemStack);
-        }
-    }
 }
