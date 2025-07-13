@@ -56,7 +56,7 @@ public class EntityNbtHelper {
                                 // 计算方向矢量
                                 Vec3 directionVector = sourceEntityPos.subtract(hurtEntityPos);
                                 hurtOne.setDeltaMovement(hurtOne.getDeltaMovement().add(directionVector));
-                                System.out.println("生物具有特定的NBT标签 {Tags: [test]}");
+                                /*System.out.println("生物具有特定的NBT标签 {Tags: [test]}");*/
                                 break;
                             }
                         }

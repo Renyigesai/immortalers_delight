@@ -86,9 +86,9 @@ public class SkelverfishThrasher extends SkelverfishBase{
     }
 
     private void setUpAnimationState(){
-        if (attackAnimationDuration >= 0) System.out.println("当前骷髅虫的ID为："+this.getId()+"，attackAnimationDuration:"+attackAnimationDuration);
+        if (attackAnimationDuration >= 0) /*System.out.println("当前骷髅虫的ID为："+this.getId()+"，attackAnimationDuration:"+attackAnimationDuration)*/;
         if (this.attackAnimationDuration < 0){
-            System.out.println("当前重击虫,ID为 "+this.getId()+" 将结束攻击动画");
+            /*System.out.println("当前重击虫,ID为 "+this.getId()+" 将结束攻击动画");*/
             attackAnimationState.stop();
         }
         if (this.isAggressive() && this.attackAnimationDuration <= 0){

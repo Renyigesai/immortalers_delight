@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
@@ -85,10 +86,10 @@ public class ImmortalersChestBoat extends ChestBoat {
     @Override
     public Item getDropItem() {
         return switch (getBoatVariant()) {
-            case HIMEKAIDO -> ImmortalersDelightItems.HIMEKAIDO_BOAT.get();
-            case ANCIENT_WOOD -> ImmortalersDelightItems.ANCIENT_WOOD_BOAT.get();
+            case HIMEKAIDO -> ImmortalersDelightItems.HIMEKAIDO_CHEST_BOAT.get();
+            case ANCIENT_WOOD -> ImmortalersDelightItems.ANCIENT_WOOD_CHEST_BOAT.get();
             case LEISAMBOO -> Items.BIRCH_BOAT;
-            case PEARLIP_SHELL -> ImmortalersDelightItems.PEARLIP_SHELL_BOAT.get();
+            case PEARLIP_SHELL -> ImmortalersDelightItems.PEARLIP_SHELL_CHEST_BOAT.get();
         };
     }
     @Override
@@ -111,18 +112,18 @@ public class ImmortalersChestBoat extends ChestBoat {
         super.remove(removalReason);
     }
 
-    @Override
-    public InteractionResult interact(Player player, InteractionHand interactionHand) {
-        if (!this.canAddPassenger(player) || player.isSecondaryUseActive()) {
-            InteractionResult interactionResult = this.interactWithContainerVehicle(player);
-            if (interactionResult.consumesAction()) {
-                this.gameEvent(GameEvent.CONTAINER_OPEN, player);
-                PiglinAi.angerNearbyPiglins(player, true);
-            }
-            return interactionResult;
-        }
-        return super.interact(player, interactionHand);
-    }
+//    @Override
+//    public InteractionResult interact(Player player, InteractionHand interactionHand) {
+//        if (!this.canAddPassenger(player) || player.isSecondaryUseActive()) {
+//            InteractionResult interactionResult = this.interactWithContainerVehicle(player);
+//            if (interactionResult.consumesAction()) {
+//                this.gameEvent(GameEvent.CONTAINER_OPEN, player);
+//                PiglinAi.angerNearbyPiglins(player, true);
+//            }
+//            return interactionResult;
+//        }
+//        return super.interact(player, interactionHand);
+//    }
 
     @Override
     public void openCustomInventoryScreen(Player player) {
@@ -227,6 +228,8 @@ public class ImmortalersChestBoat extends ChestBoat {
         this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
     }
 
+
+
     // ---------------------------------------------------------------------------------------------------------------------
     //下面是关于船的变种的代码
     public static final EntityDataAccessor<Integer> DATA_ID_MOD_TYPE = SynchedEntityData.defineId(ImmortalersChestBoat.class, EntityDataSerializers.INT);
@@ -283,5 +286,6 @@ public class ImmortalersChestBoat extends ChestBoat {
         public static ImmortalersChestBoat.Type byName(String pName) {
             return CODEC.byName(pName, HIMEKAIDO);
         }
+
     }
 }

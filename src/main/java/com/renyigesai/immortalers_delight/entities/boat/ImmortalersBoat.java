@@ -8,11 +8,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,30 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.IntFunction;
 
 public class ImmortalersBoat extends Boat {
-    protected final float[] paddlePositions = new float[2];
-    protected float invFriction;
-    protected float outOfControlTicks;
     protected float deltaRotation;
-    protected int lerpSteps;
-    protected double lerpX;
-    protected double lerpY;
-    protected double lerpZ;
-    protected double lerpYRot;
-    protected double lerpXRot;
-    protected boolean inputLeft;
-    protected boolean inputRight;
-    protected boolean inputUp;
-    protected boolean inputDown;
-    protected double waterLevel;
-    protected float landFriction;
-    protected Boat.Status status;
-    protected Boat.Status oldStatus;
-    protected double lastYd;
-    protected boolean isAboveBubbleColumn;
-    protected boolean bubbleColumnDirectionIsDown;
-    protected float bubbleMultiplier;
-    protected float bubbleAngle;
-    protected float bubbleAngleO;
 
     public static final EntityDataAccessor<Integer> DATA_ID_MOD_TYPE = SynchedEntityData.defineId(ImmortalersBoat.class, EntityDataSerializers.INT);
 
@@ -104,7 +87,7 @@ public class ImmortalersBoat extends Boat {
             this.setVariant(Type.byName(pCompound.getString("ModType")));
         }
     }
-    public static enum Type implements StringRepresentable {
+    public enum Type implements StringRepresentable {
         HIMEKAIDO(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get(), "himekaido"),
         LEISAMBOO(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), "leisamboo"),
 
@@ -146,4 +129,31 @@ public class ImmortalersBoat extends Boat {
             return CODEC.byName(pName, HIMEKAIDO);
         }
     }
+
+
+    @Override
+    public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
+        if (this.getBoatVariant() == Type.ANCIENT_WOOD){
+            ItemStack hand = pPlayer.getItemInHand(pHand);
+            if (hand.is(ItemTags.LOGS) && hand.getCount() >= 5){
+                AncientWoodBoat largeBoat = new AncientWoodBoat(this.level(), this.getX(), this.getY(), this.getZ());
+                if (!pPlayer.getAbilities().instabuild) {
+                    hand.shrink(5);
+                }
+                largeBoat.setVariant(this.getBoatVariant());
+                this.level().addFreshEntity(largeBoat);
+                this.level().playLocalSound(this.getX(),this.getY(),this.getZ(), SoundEvents.WOOD_BREAK, SoundSource.BLOCKS,0.8F,0.8F,false);
+                this.discard();
+                return InteractionResult.SUCCESS;
+            }else {
+                return super.interact(pPlayer,pHand);
+            }
+        }
+        return super.interact(pPlayer,pHand);
+    }
+
+    public InteractionResult imm$Interact(Player pPlayer, InteractionHand pHand){
+        return super.interact(pPlayer,pHand);
+    }
+
 }
