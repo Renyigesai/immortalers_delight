@@ -3,7 +3,12 @@ package com.renyigesai.immortalers_delight.entities.boat;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
@@ -153,6 +158,24 @@ public class AncientWoodBoat extends ImmortalersBoat {
                 passenger.setYHeadRot(passenger.getYHeadRot() + (float) j);
             }
         }
+    }
+
+    @Override
+    public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
+            ItemStack hand = pPlayer.getItemInHand(pHand);
+            if (hand.is(Items.CHEST) && hand.getCount() >= 5){
+                AncientWoodChestBoat boat = new AncientWoodChestBoat(this.level(), this.getX(), this.getY(), this.getZ());
+                if (!pPlayer.getAbilities().instabuild) {
+                    hand.shrink(5);
+                }
+                boat.setVariant(ImmortalersChestBoat.Type.ANCIENT_WOOD);
+                this.level().addFreshEntity(boat);
+                this.level().playLocalSound(this.getX(),this.getY(),this.getZ(), SoundEvents.WOOD_BREAK, SoundSource.BLOCKS,0.8F,0.8F,false);
+                this.discard();
+                return InteractionResult.SUCCESS;
+            }else {
+                return super.imm$Interact(pPlayer,pHand);
+            }
     }
 
 }

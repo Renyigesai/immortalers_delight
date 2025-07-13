@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,20 +36,20 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        ItemStack handStack = player.getItemInHand(hand);
-        if (handStack.isEmpty()){
+        if (Config.rightClickHarvest) {
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);
-                if (!stacks.isEmpty()){
+                if (!stacks.isEmpty()) {
                     for (ItemStack stack : stacks) {
                         popResource(level, pos, stack);
                     }
                     int distance = state.getValue(DISTANCE);
                     level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
+                    level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
             }
-            }
+        }
         return super.use(state, level, pos, player, hand, hitResult);
     }
 }
