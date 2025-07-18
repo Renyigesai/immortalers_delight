@@ -34,6 +34,7 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
         super(properties,hasFoodEffectTooltip,hasCustomTooltip);
         foil = false;
     }
+    //弃用
     public InebriatedToxicFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip, boolean isFoil, boolean canFeed) {
         super(properties,hasFoodEffectTooltip,hasCustomTooltip);
         foil = isFoil;

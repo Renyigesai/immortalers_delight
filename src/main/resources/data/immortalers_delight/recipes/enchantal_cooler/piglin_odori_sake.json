@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    {
+      "item": "minecraft:torchflower"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "container": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "output": {
+    "item": "immortalers_delight:piglin_odori_sake",
+    "count": 1
+  }
+}

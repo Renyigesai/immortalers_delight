@@ -23,7 +23,10 @@ public class GasPoisonMobEffect extends MobEffect {
         if (this == GAS_POISON.get() && !pEntity.level().isClientSide()) {
             boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
             float health = pEntity.getHealth();
-            float damage = pEntity.getMaxHealth() * 0.06F > 1.2F ? pEntity.getMaxHealth() * 0.06F : 1.2F;
+            float damage = (20 > pEntity.getMaxHealth() ? 20 : pEntity.getMaxHealth()) * 0.06F;
+            if (!isPowerful && damage > 6 + 3 * amplifier) {
+                damage = 6+3*amplifier;
+            }
             boolean isOP = pEntity instanceof Player player && player.isCreative();
             if (!isOP || isPowerful) {
                 pEntity.invulnerableTime = 0;

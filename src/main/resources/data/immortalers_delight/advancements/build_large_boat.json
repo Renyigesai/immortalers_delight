@@ -1,0 +1,45 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:ancient_wood_boat"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.build_large_boat.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.build_large_boat.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_to_boat": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": [
+                "#immortalers_delight:boat_needs/ancient_boat_need_1"
+              ]
+            },
+            "offhand": {
+              "items": [
+                "#immortalers_delight:boat_needs/ancient_boat_need_2"
+              ]
+            }
+          }
+        },
+        "entity": {
+          "type":[
+            "immortalers_delight:immortal_boat"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [["use_to_boat"]],
+  "parent": "immortalers_delight:root"
+}

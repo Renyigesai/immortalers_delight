@@ -1,0 +1,36 @@
+{
+  "parent": "immortalers_delight:crimson_clouds",
+  "criteria": {
+    "all_effects": {
+      "conditions": {
+        "effects": {
+          "immortalers_delight:esteemed_guest": {
+            "amplifier": {"min":1}
+          }
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.immortalers_delight.esteemed_guest.descr"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "immortalers_delight:golden_kwat_toast"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.immortalers_delight.esteemed_guest.title"
+    }
+  },
+  "requirements": [
+    [
+      "all_effects"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

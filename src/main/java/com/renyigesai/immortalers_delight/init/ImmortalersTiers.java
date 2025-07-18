@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.init;
 
+import com.renyigesai.immortalers_delight.item.ImmortalersBoatItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -26,6 +28,12 @@ public enum ImmortalersTiers implements Tier {
 //    NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> {
 //        return Ingredient.of(Items.NETHERITE_INGOT);
 //    }),
+    RUSTY_IRON(1, 225, 5.0F, 1.0F, 11, () -> {
+        return Ingredient.of(Items.IRON_INGOT);
+    }),
+    ANCIENT_KNIFE(2, 750, 6.0F, 2.0F, 14, () -> {
+        return Ingredient.of(ImmortalersDelightItems.RUSTY_ANCIENT_BLADE.get());
+    }),
     MAGIC_POWERED(4, 32, 25.0F, 4.0F, 22, () -> {
         return Ingredient.of(Items.LAPIS_BLOCK);
     });

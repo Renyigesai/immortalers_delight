@@ -29,6 +29,12 @@ public class Config {
 
     private static final ForgeConfigSpec.BooleanValue WEAK_POISON_HEALTH_OVERLAY = BUILDER.comment("Whether to enable the health value display override for the weak potion effect").define("useWeakPoisonOverLay", true);
 
+    private static final ForgeConfigSpec.IntValue ANCIENT_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_boat_need_1 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_1]", 5, 0, Short.MAX_VALUE);
+
+    private static final ForgeConfigSpec.IntValue ANCIENT_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_boat_need_2 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_2]", 2, 0, Short.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_1 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_1]", 5, 0, Short.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_2 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_2]", 1, 0, Short.MAX_VALUE);
+
     public static final ForgeConfigSpec.ConfigValue<String> POWER_BATTLE_MODE = BUILDER
             .comment("Greatly enhance effects and monsters. Use for that games using mods with additional cultivation content- such as Curios, any Skill mods or Guns mods.")
             .comment("true: Always enabled this mode.")
@@ -92,6 +98,10 @@ public class Config {
 
     public static boolean logDirtBlock;
     public static int magicNumber;
+    public static int ancientBoatNeeded_1;
+    public static int ancientChestBoatNeeded_1;
+    public static int ancientBoatNeeded_2;
+    public static int ancientChestBoatNeeded_2;
     public static String magicNumberIntroduction;
     public static Set<Item> items;
     public static boolean rightClickHarvest;
@@ -109,6 +119,10 @@ public class Config {
     static void onLoad(final ModConfigEvent event) {
         logDirtBlock = LOG_DIRT_BLOCK.get();
         magicNumber = MAGIC_NUMBER.get();
+        ancientBoatNeeded_1 = ANCIENT_BOAT_NEEDED_1_NUMBER.get();
+        ancientChestBoatNeeded_1 = ANCIENT_CHEST_BOAT_NEEDED_1_NUMBER.get();
+        ancientBoatNeeded_2 = ANCIENT_BOAT_NEEDED_2_NUMBER.get();
+        ancientChestBoatNeeded_2 = ANCIENT_CHEST_BOAT_NEEDED_2_NUMBER.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items

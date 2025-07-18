@@ -10,11 +10,16 @@
     "a": {
       "item": "immortalers_delight:sniffer_fur"
     },
-    "b": {
-      "item": "immortalers_delight:ancient_fiber"
-    },
+    "b": [
+      {
+        "item": "immortalers_delight:ancient_fiber"
+      },
+      {
+        "item": "minecraft:string"
+      }
+    ],
     "c": {
-      "item": "immortalers_delight:alfalfa"
+      "item": "immortalers_delight:alfalfa_seeds"
     },
     "d": [
       {
@@ -25,10 +30,10 @@
       }
     ],
     "e": {
-      "item": "immortalers_delight:alfalfa"
+      "item": "immortalers_delight:alfalfa_seeds"
     },
     "f": {
-      "item": "immortalers_delight:alfalfa"
+      "item": "immortalers_delight:alfalfa_seeds"
     }
   },
   "result": {

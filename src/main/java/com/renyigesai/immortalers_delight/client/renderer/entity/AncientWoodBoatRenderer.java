@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.client.model.AncientWoodBoatModel;
 import com.renyigesai.immortalers_delight.client.model.AncientWoodChestBoatModel;
+import com.renyigesai.immortalers_delight.entities.boat.AncientWoodChestBoat;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -22,7 +23,8 @@ import org.joml.Quaternionf;
 
 public class AncientWoodBoatRenderer extends EntityRenderer<Boat> {
     private static final ResourceLocation BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_boat.png");
-    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_boat.png");
+    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_canopies_boat.png");
+    private static final ResourceLocation CHEST_BOAT_NO_CANOPIES_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_chest_boat.png");
 
     private final boolean hasChest;
     private ListModel<Boat> boatModel;
@@ -63,7 +65,7 @@ public class AncientWoodBoatRenderer extends EntityRenderer<Boat> {
         poseStack.scale(-1.0f, -1.0f, 1.0f);
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
         this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
-        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE));
+        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(getTextureLocation(boat)));
         this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
         if (!boat.isUnderWater()) {
             VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
@@ -77,6 +79,9 @@ public class AncientWoodBoatRenderer extends EntityRenderer<Boat> {
 
     @Override
     public ResourceLocation getTextureLocation(Boat boat) {
+        if (boat instanceof AncientWoodChestBoat ancientWoodChestBoat) {
+            return ancientWoodChestBoat.hasCanopies() ? CHEST_BOAT_TEXTURE : CHEST_BOAT_NO_CANOPIES_TEXTURE;
+        }
         return this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE;
     }
 }

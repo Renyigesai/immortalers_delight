@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:wooden_shovel"
+    "minecraft:stick",
+    "#forge:rods/wooden"
   ]
 }

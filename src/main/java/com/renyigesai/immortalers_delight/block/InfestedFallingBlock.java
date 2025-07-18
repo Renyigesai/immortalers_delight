@@ -22,6 +22,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Fallable;
 import net.minecraft.world.level.block.InfestedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
@@ -62,6 +63,7 @@ public class InfestedFallingBlock extends InfestedBlock implements Fallable {
     触发游戏事件 BLOCK_DESTROY，通知系统该位置的方块被破坏。
      */
     public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
+        if (pLevel instanceof ServerLevel serverLevel) this.spawnInfestation(serverLevel, pPos);
         Vec3 vec3 = pFallingBlock.getBoundingBox().getCenter();
         pLevel.levelEvent(2001, BlockPos.containing(vec3), Block.getId(pFallingBlock.getBlockState()));
         pLevel.gameEvent(pFallingBlock, GameEvent.BLOCK_DESTROY, vec3);

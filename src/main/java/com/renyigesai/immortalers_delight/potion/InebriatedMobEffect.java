@@ -28,7 +28,10 @@ public class InebriatedMobEffect extends MobEffect {
             if (time > 3600) {
                 boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
                 float health = pEntity.getHealth();
-                float damage = pEntity.getMaxHealth() * 0.08F > 1.6F ? pEntity.getMaxHealth() * 0.08F : 1.6F;
+                float damage = (20 > pEntity.getMaxHealth() ? 20 : pEntity.getMaxHealth()) * 0.08F;
+                if (!isPowerful && damage > 8 + 4 * amplifier) {
+                    damage = 8+4*amplifier;
+                }
                 boolean isOP = pEntity instanceof Player player && player.isCreative();
                 if (!isOP || isPowerful) {
                     pEntity.invulnerableTime = 0;

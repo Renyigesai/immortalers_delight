@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -48,10 +49,14 @@ import static net.minecraftforge.common.Tags.Items.ENCHANTING_FUELS;
 public class DrillRodItem extends DiggerItem {
     private final TagKey<Block> extraBlocks;
     private final int tooltipCount;
+    private final float attackDamage;
+    private final float attackSpeed;
     public DrillRodItem(float pAttackDamageModifier, float pAttackSpeedModifier, Tier pTier, TagKey<Block> pBlocks, TagKey<Block> pExtraBlocks, Properties pProperties, int tooltipCount) {
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, pBlocks, pProperties);
         this.extraBlocks = pExtraBlocks;
         this.tooltipCount = tooltipCount;
+        this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
+        this.attackSpeed = pAttackSpeedModifier;
     }
 
     @Override
@@ -59,12 +64,17 @@ public class DrillRodItem extends DiggerItem {
         return pState.is(this.extraBlocks) ? this.speed : super.getDestroySpeed(pStack, pState);
     }
 
-//    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-//        stack.hurtAndBreak(1, attacker, (user) -> {
-//            user.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-//        });
-//        return true;
-//    }
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
+    {
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
+        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        if (equipmentSlot == EquipmentSlot.MAINHAND) {
+            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage + (isPowerful ? 4.0F : 0), AttributeModifier.Operation.ADDITION));
+            multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed, AttributeModifier.Operation.ADDITION));
+            return multimap;
+        } else return super.getDefaultAttributeModifiers(equipmentSlot);
+    }
 
     @Override
     public boolean mineBlock(@NotNull ItemStack pStack, Level pLevel, @NotNull BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {

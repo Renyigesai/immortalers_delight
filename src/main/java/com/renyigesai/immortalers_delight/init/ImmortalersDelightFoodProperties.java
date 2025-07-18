@@ -435,11 +435,20 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties PURGATORY_ALE = new FoodProperties.Builder()
             .alwaysEat()
-            .effect(()->new MobEffectInstance(MobEffects.DAMAGE_BOOST,150,3),1F)
             .effect(()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,1000,1),1F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1200,2),1F)
+            .effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,1200,1),1F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1200),1F).build();
+
+
+    public static final FoodProperties PIGLIN_ODORI_SAKE = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(MobEffects.DAMAGE_BOOST,150,3),1F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1500,3),1F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),3000,1),1F)
+            .effect(()->new MobEffectInstance(MobEffects.FIRE_RESISTANCE,6000),1F)
             .effect(()->new MobEffectInstance(MobEffects.HARM,1),1F)
-            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1F).alwaysEat().build();
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),3600),1F).build();
 
     public static final FoodProperties ALFALFA_PORRIDGE  = new FoodProperties.Builder().nutrition(10).saturationMod(0.6F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.KEEP_A_FAST.get(),10200),1F).effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),800),1F).effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SPEED,3600),1F).build();
 
@@ -537,17 +546,26 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties GOLDEN_TOAST = new FoodProperties.Builder()
             .nutrition(12).saturationMod(0.75f)
-            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200,1),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200,1),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),300),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,2400,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,2400,1),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,300,1),1.0F)
             .alwaysEat().build();
 
     public static final FoodProperties GOLDEN_TOAST_SLICE = new FoodProperties.Builder()
             .nutrition(4).saturationMod(0.75f)
-            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),100),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,2400),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,2400),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,200,1),1.0F)
             .alwaysEat().build();
+
+    public static final FoodProperties SEALED_ANCIENT_RATIONS  = new FoodProperties.Builder()
+            .nutrition(13).saturationMod(0.75f)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL,1,2),1f)
+            .effect(()->new MobEffectInstance(MobEffects.REGENERATION,100,2),1F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),1200,1),1F)
+            .build();
 
 
     /*======================================================Powered=====================================================*/
@@ -780,15 +798,24 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties GOLDEN_TOAST_POWERED = new FoodProperties.Builder()
             .nutrition(12).saturationMod(0.75f)
-            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1800,2),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1800,3),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),1200),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,3600,2),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,3600,3),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,1100,1),1.0F)
             .alwaysEat().build();
 
     public static final FoodProperties GOLDEN_TOAST_SLICE_POWERED = new FoodProperties.Builder()
             .nutrition(4).saturationMod(0.75f)
-            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,1200,1),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,1200,1),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,300,1),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),400),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.HEALTH_BOOST,2400,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,2400,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,600,1),1.0F)
             .alwaysEat().build();
+
+    public static final FoodProperties SEALED_ANCIENT_RATIONS_POWERED  = new FoodProperties.Builder()
+            .nutrition(13).saturationMod(0.75f)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL,1,5),1f)
+            .effect(()->new MobEffectInstance(MobEffects.REGENERATION,300,2),1F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),1500,1),1F)
+            .build();
 }

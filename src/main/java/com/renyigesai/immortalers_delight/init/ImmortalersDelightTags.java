@@ -14,7 +14,7 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createItemTag("boat_needs/ancient_boat_need_2");
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_1 = createItemTag("boat_needs/ancient_chest_boat_need_1");
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createItemTag("boat_needs/ancient_chest_boat_need_2");
-    //public static final TagKey<Item>  = createItemTag("boat_needs/ancient_boat_need_1");
+    public static final TagKey<Item> IMMORTAL_KNIFES = createItemTag("tools/immortal_knifes");
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
 
     private static TagKey<Biome> createBiomeTag(String pName) {

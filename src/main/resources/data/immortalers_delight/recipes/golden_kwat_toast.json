@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "bcb",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:gold_ingot"
+    },
+    "b": {
+      "item": "immortalers_delight:golden_fabric"
+    },
+    "c": {
+      "item": "immortalers_delight:kwat_wheat_toast"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:golden_kwat_toast",
+    "count": 1
+  }
+}

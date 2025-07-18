@@ -77,6 +77,8 @@ public class SnifferBrushItem extends BrushItem {
                     }
 
                     if (pLevel instanceof ServerLevel serverLevel && entity instanceof Sniffer sniffer) {
+                        if (serverLevel.getGameTime() % 4 == 0) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false, false, true));
+
                         int itemDamage = 0;
                         CompoundTag tag = sniffer.getPersistentData();
 

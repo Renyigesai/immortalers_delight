@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_toast"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knifes"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:kwat_wheat_toast_slice",
+      "count": 3
+    }
+  ]
+}

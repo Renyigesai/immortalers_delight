@@ -257,6 +257,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> VULCAN_COKTAIL;
     public static final RegistryObject<Item> NETHER_KVASS;
     public static final RegistryObject<Item> PURGATORY_ALE;
+    public static final RegistryObject<Item> PIGLIN_ODORI_SAKE;
     public static final RegistryObject<Item> HIMEKANDY;
     //public static final RegistryObject<Item> PALE_DEW_WINE;
     //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
@@ -325,6 +326,9 @@ public class ImmortalersDelightItems {
 
     public static final RegistryObject<Item> SACHETS;
     public static final RegistryObject<Item> DRILL_ROD_WAND;
+    public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
+    public static final RegistryObject<Item> ANCIENT_BLADE;
+    public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
     static {
 
@@ -861,10 +865,10 @@ public class ImmortalersDelightItems {
         KWAT_WHEAT_TOAST_SLICE = registerWithTab("kwat_wheat_toast_slice",() ->new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_SLICE),ImmortalersDelightFoodProperties.KWAT_WHEAT_TOAST_SLICE_POWERED,true,false));
 
         GOLDEN_KWAT_TOAST = registerWithTab("golden_kwat_toast",() ->
-                new GoldenToastItem(foodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST),ImmortalersDelightFoodProperties.GOLDEN_TOAST_POWERED,true,true));
+                new GoldenToastItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST,Rarity.RARE,false),ImmortalersDelightFoodProperties.GOLDEN_TOAST_POWERED,true,true,1));
 
         GOLDEN_KWAT_TOAST_SLICE = registerWithTab("golden_kwat_toast_slice",() ->
-                new GoldenToastItem(foodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE),ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE_POWERED,true,true));
+                new GoldenToastItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE,Rarity.RARE,false),ImmortalersDelightFoodProperties.GOLDEN_TOAST_SLICE_POWERED,true,true,2));
 
         NETHER_BREAD_CREAM_SOUP = block(ImmortalersDelightBlocks.NETHER_BREAD_CREAM_SOUP);
 
@@ -932,10 +936,20 @@ public class ImmortalersDelightItems {
                 new SnifferBrushItem((new Item.Properties()).durability(781).rarity(Rarity.UNCOMMON)));
 
         SACHETS = registerWithTab("sachets", () ->
-                new ConsumableItem(fantasticItem(Rarity.UNCOMMON)));
+                new ConsumableItem(fantasticItem(Rarity.UNCOMMON),false,true));
 
         DRILL_ROD_WAND = registerWithTab("drill_rod_wand", () ->
-                new DrillRodItem(3,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,new Item.Properties(),4));
+                new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));
+
+        RUSTY_ANCIENT_BLADE = registerWithTab("rusty_ancient_blade", () ->
+                new ImmortalersKnifeItem(1,ImmortalersTiers.RUSTY_IRON,2,-2.0f,new Item.Properties()));
+
+        ANCIENT_BLADE = registerWithTab("ancient_blade", () ->
+                new ImmortalersKnifeItem(2,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,fantasticItem(Rarity.UNCOMMON)));
+
+        SEALED_ANCIENT_RATIONS = registerWithTab("sealed_ancient_rations",()->
+                new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));
+
         /*
         火把花相关物品
         */
@@ -993,12 +1007,15 @@ public class ImmortalersDelightItems {
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA),true,false,false,true));
 
         NETHER_KVASS = registerWithTab("nether_kvass", () ->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.NETHER_KVASS),true,false,false,true));
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.NETHER_KVASS),true,false));
 
         PURGATORY_ALE = registerWithTab("purgatory_ale",()->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false,false,true));
+                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false));
 
-        TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false,false,true));
+        PIGLIN_ODORI_SAKE = registerWithTab("piglin_odori_sake",()->
+                new InebriatedToxicFoodItem((new Item.Properties()).craftRemainder(Items.WITHER_SKELETON_SKULL).stacksTo(16).food(ImmortalersDelightFoodProperties.PIGLIN_ODORI_SAKE),true,false));
+
+        TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
 
         TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
         STRIPPED_TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG);

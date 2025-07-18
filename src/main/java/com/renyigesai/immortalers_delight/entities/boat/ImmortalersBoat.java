@@ -1,8 +1,10 @@
 package com.renyigesai.immortalers_delight.entities.boat;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -135,21 +137,32 @@ public class ImmortalersBoat extends Boat {
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
         if (this.getBoatVariant() == Type.ANCIENT_WOOD){
             ItemStack hand = pPlayer.getItemInHand(pHand);
-            if (hand.is(ItemTags.LOGS) && hand.getCount() >= 5){
-                AncientWoodBoat largeBoat = new AncientWoodBoat(this.level(), this.getX(), this.getY(), this.getZ());
-                if (!pPlayer.getAbilities().instabuild) {
-                    hand.shrink(5);
-                }
-                largeBoat.setVariant(this.getBoatVariant());
-                this.level().addFreshEntity(largeBoat);
-                this.level().playLocalSound(this.getX(),this.getY(),this.getZ(), SoundEvents.WOOD_BREAK, SoundSource.BLOCKS,0.8F,0.8F,false);
-                this.discard();
+            ItemStack otherHand = pPlayer.getItemInHand(pHand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
+            if (this.buildLargeBoat(hand,otherHand,pPlayer)) {
                 return InteractionResult.SUCCESS;
-            }else {
+            } else if (this.buildLargeBoat(otherHand,hand,pPlayer)) {
+                return InteractionResult.SUCCESS;
+            } else {
                 return super.interact(pPlayer,pHand);
             }
         }
         return super.interact(pPlayer,pHand);
+    }
+
+    private boolean buildLargeBoat(ItemStack hand, ItemStack otherHand, Player pPlayer) {
+        if (hand.is(ImmortalersDelightTags.ANCIENT_BOAT_NEED_1) && hand.getCount() >= Config.ancientBoatNeeded_1
+                && otherHand.is(ImmortalersDelightTags.ANCIENT_BOAT_NEED_2) && otherHand.getCount() >= Config.ancientBoatNeeded_2){
+            AncientWoodBoat largeBoat = new AncientWoodBoat(this.level(), this.getX(), this.getY(), this.getZ());
+            if (!pPlayer.getAbilities().instabuild) {
+                hand.shrink(Config.ancientBoatNeeded_1);
+                otherHand.shrink(Config.ancientBoatNeeded_2);
+            }
+            largeBoat.setVariant(this.getBoatVariant());
+            this.level().addFreshEntity(largeBoat);
+            this.level().playLocalSound(this.getX(),this.getY(),this.getZ(), SoundEvents.WOOD_BREAK, SoundSource.BLOCKS,0.8F,0.8F,false);
+            this.discard();
+            return true;
+        } else return false;
     }
 
     public InteractionResult imm$Interact(Player pPlayer, InteractionHand pHand){

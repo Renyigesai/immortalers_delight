@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knifes"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:pearlip_shell"
+    },
+    {
+      "item": "immortalers_delight:pearlipearl"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:pitcher_pod"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knifes"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:pitcher_pod_petal",
+      "count": 4
+    }
+  ]
+}

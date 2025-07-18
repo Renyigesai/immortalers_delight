@@ -4,11 +4,16 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -22,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class AncientWoodChestBoat extends ImmortalersChestBoat{
     private static final int CONTAINER_SIZE = 54;
+    private static final EntityDataAccessor<Boolean> DATA_HAS_CANOPIES = SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.BOOLEAN);
     private NonNullList<ItemStack> bigItemStacks = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
     @Nullable
     private ResourceLocation lootTable;
@@ -35,6 +41,28 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
         this.xo = x;
         this.yo = y;
         this.zo = z;
+    }
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_HAS_CANOPIES, false);
+    }
+    @Override
+    protected void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        if (this.entityData.get(DATA_HAS_CANOPIES)) {
+            compoundTag.putBoolean("HasCanopies", true);
+        }
+    }
+    @Override
+    protected void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.entityData.set(DATA_HAS_CANOPIES, compoundTag.getBoolean("HasCanopies"));
+    }
+    public boolean hasCanopies() {
+        return this.entityData.get(DATA_HAS_CANOPIES);
+    }
+    public void setCanopies(boolean canopies) {
+        this.entityData.set(DATA_HAS_CANOPIES, canopies);
     }
     @Override
     public NonNullList<ItemStack> getItemStacks() {

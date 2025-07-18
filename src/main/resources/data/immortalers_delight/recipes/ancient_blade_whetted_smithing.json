@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "immortalers_delight:golden_fabric"
+  },
+  "base": {
+    "item": "immortalers_delight:rusty_ancient_blade"
+  },
+  "result": {
+    "item": "immortalers_delight:ancient_blade"
+  },
+  "template": {
+    "item": "minecraft:blade_pottery_sherd"
+  }
+}
