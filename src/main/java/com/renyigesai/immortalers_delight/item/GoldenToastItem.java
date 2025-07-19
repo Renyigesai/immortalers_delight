@@ -1,15 +1,21 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.EffectInstance;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -39,7 +45,16 @@ public class GoldenToastItem extends PowerfulAbleFoodItem{
         ItemStack outStack = pStack.copy();
         boolean flag = false;
         if (pLevel instanceof ServerLevel serverLevel && pStack.getItem() instanceof GoldenToastItem thisItem) {
-
+            List<LivingEntity> entities = serverLevel.getEntitiesOfClass(
+                    LivingEntity.class,
+                    pLivingEntity.getBoundingBox().inflate(12)
+            );
+            for (LivingEntity entity : entities) {
+                if (entity instanceof AbstractPiglin) {
+                    flag = true;
+                    break;
+                }
+            }
             if (flag) {
                 int time = 300;
                 if (thisItem.type_id == 1) time = 12000;
