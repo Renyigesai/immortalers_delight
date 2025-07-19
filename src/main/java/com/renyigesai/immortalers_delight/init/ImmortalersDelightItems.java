@@ -933,10 +933,10 @@ public class ImmortalersDelightItems {
 
 
         SNIFFER_FUR_BRUSH = registerWithTab("sniffer_fur_brush", () ->
-                new SnifferBrushItem((new Item.Properties()).durability(781).rarity(Rarity.UNCOMMON)));
+                new SnifferBrushItem(fantasticItem(Rarity.UNCOMMON).durability(384)));
 
         SACHETS = registerWithTab("sachets", () ->
-                new ConsumableItem(fantasticItem(Rarity.UNCOMMON),false,true));
+                new SachetsItem(fantasticItem(Rarity.UNCOMMON).durability(64),false,true));
 
         DRILL_ROD_WAND = registerWithTab("drill_rod_wand", () ->
                 new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));

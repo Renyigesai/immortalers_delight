@@ -39,22 +39,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:flower_pot",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:gunpowder",
           "weight": 1,
           "functions": [
@@ -68,11 +52,6 @@
               "add": false
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh",
-          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -104,22 +83,6 @@
           "type": "minecraft:item",
           "name": "minecraft:grass",
           "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gray_terracotta",
-          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -187,14 +150,14 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_iron_block",
+          "name": "minecraft:flower_pot",
           "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 1,
                 "max": 4
               },
               "add": false
@@ -203,7 +166,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold_block",
+          "name": "minecraft:gray_terracotta",
           "weight": 2,
           "functions": [
             {
@@ -211,73 +174,9 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 2
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:lapis_block",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
                 "max": 4
               },
               "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:emerald",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              },
-              "add": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "immortalers_delight:rusty_ancient_blade",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:splash_potion",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:5800360,CustomPotionEffects:[{Id:1,Duration:9600},{Id:10,Duration:1200},{Id:11,Duration:1200,Amplifier:3},{Id:19,Duration:7200,Amplifier:3},{Id:20,Duration:6000,Amplifier:3}]}"
             }
           ]
         },
@@ -315,17 +214,65 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:oak_trapdoor",
-          "weight": 1,
+          "name": "minecraft:raw_iron_block",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_gold_block",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 2
               },
               "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:rusty_ancient_blade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:splash_potion",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomPotionColor:5800360,CustomPotionEffects:[{Id:1,Duration:9600},{Id:10,Duration:1200},{Id:11,Duration:1200,Amplifier:3},{Id:19,Duration:7200,Amplifier:3},{Id:20,Duration:6000,Amplifier:3}]}"
             }
           ]
         },

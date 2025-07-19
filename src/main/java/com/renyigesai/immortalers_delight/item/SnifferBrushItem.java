@@ -62,11 +62,15 @@ public class SnifferBrushItem extends BrushItem {
         if (pRemainingUseDuration >= 0 && pLivingEntity instanceof Player player) {
             HitResult hitResult = this.calculateHitResult(player);
             if (hitResult instanceof EntityHitResult entityHitResult && hitResult.getType() == HitResult.Type.ENTITY) {
+                //被刷毛的嗅探兽不移动
+                if (pRemainingUseDuration % 4 == 0 && pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer sniffer) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false,  false));
+
                 if ((this.getUseDuration(pStack) - pRemainingUseDuration + 1) == this.getUseDuration(pStack)/2) {
                     Entity entity = entityHitResult.getEntity();
                     BlockPos blockPos = entity.blockPosition();
                     pLevel.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS);
 
+                    //客户端渲染爱心粒子
                     if (entity instanceof Sniffer sniffer) {
                         double d0 = sniffer.getRandom().nextGaussian() * 0.05D;
                         double d1 = sniffer.getRandom().nextGaussian() * 0.05D;
@@ -76,12 +80,13 @@ public class SnifferBrushItem extends BrushItem {
                         }
                     }
 
+                    //处理服务端逻辑
                     if (pLevel instanceof ServerLevel serverLevel && entity instanceof Sniffer sniffer) {
-                        if (serverLevel.getGameTime() % 4 == 0) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false, false, true));
 
                         int itemDamage = 0;
                         CompoundTag tag = sniffer.getPersistentData();
 
+                        //被刷毛的嗅探兽回血
                         float needHPS = sniffer.getMaxHealth() * 0.05f;
                         int lv = 0;
                         for (int i = 0; i < 10; i++) {
@@ -91,31 +96,31 @@ public class SnifferBrushItem extends BrushItem {
                             }
                         }
                         sniffer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 599, lv + 1));
+                        //回血消耗刷子耐久
                         if (!player.getAbilities().instabuild) {
                             itemDamage +=10;
                         }
 
+                        //初始化冷却nbt
                         if (tag.get(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN) == null) tag.putInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, 0);
 
+                        //判断刷毛冷却是否完毕
                         boolean flag = !tag.contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) || tag.getInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN) <= 0;
+                        //刷毛具体逻辑，创造玩家无视冷却
                         if (player.getAbilities().instabuild || flag) {
+                            //生成掉落物
                             BlockPos pos = player.getOnPos().above();
                             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(pLevel,new ItemStack(ImmortalersDelightItems.SNIFFER_FUR.get()),
                                     pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
-                            double d0 = sniffer.getRandom().nextGaussian() * 0.05D;
-                            double d1 = sniffer.getRandom().nextGaussian() * 0.05D;
-                            double d2 = sniffer.getRandom().nextGaussian() * 0.05D;
-                            for(int i = 0; i < sniffer.getRandom().nextInt(5, 8); ++i) {
-                                serverLevel.sendParticles(
-                                        ImmortalersDelightParticleTypes.SNIFFER_FUR.get(), d0, d1, d2, 1, 0, 0, 0, 0.025
-                                );
-                            }
+                            //生成掉毛粒子
+                            spawnSnifferFurParticle(serverLevel,sniffer.getOnPos().above( ));
+                            //刷毛消耗耐久，并设置冷却
                             if (!player.getAbilities().instabuild) {
                                 itemDamage += 20;
                                 tag.putInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, 1728 * (2 + player.getRandom().nextInt(4)));
                             }
                         }
-
+                        //实际消耗耐久
                         if (!player.getAbilities().instabuild) {
                             EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
                             pStack.hurtAndBreak(itemDamage, player, (action) -> {
@@ -134,4 +139,20 @@ public class SnifferBrushItem extends BrushItem {
         }
     }
 
+    private void spawnSnifferFurParticle(Level level, BlockPos pPos) {
+        if (level instanceof ServerLevel serverLevel) {
+            Vec3 center = new Vec3(pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5);
+            double radius = 3.0;
+            for (int i = 0; i < 16; i++) {
+                double angle = 2 * Math.PI * Math.random();
+                double r = radius * Math.sqrt(Math.random());
+                double x = center.x + r * Math.cos(angle);
+                double z = center.z + r * Math.sin(angle);
+                double y = center.y + angle * 0.5F;
+                serverLevel.sendParticles(
+                        ImmortalersDelightParticleTypes.SNIFFER_FUR.get(), x, y, z, 1, 0, 0, 0, 0.025
+                );
+            }
+        }
+    }
 }

@@ -39,16 +39,7 @@ public class GoldenToastItem extends PowerfulAbleFoodItem{
         ItemStack outStack = pStack.copy();
         boolean flag = false;
         if (pLevel instanceof ServerLevel serverLevel && pStack.getItem() instanceof GoldenToastItem thisItem) {
-            List<LivingEntity> entities = serverLevel.getEntitiesOfClass(
-                    LivingEntity.class,
-                    pLivingEntity.getBoundingBox().inflate(12)
-            );
-            for (LivingEntity entity : entities) {
-                if (entity instanceof AbstractPiglin) {
-                    flag = true;
-                    break;
-                }
-            }
+
             if (flag) {
                 int time = 300;
                 if (thisItem.type_id == 1) time = 12000;

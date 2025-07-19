@@ -86,12 +86,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:music_disc_11",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:music_disc_13",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -127,7 +127,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:redstone",
-          "weight": 1,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -196,7 +196,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
-          "weight": 1,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -212,7 +212,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:chest",
-          "weight": 1,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_nbt",
@@ -226,6 +226,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:rusty_ancient_blade",
+          "weight": 1
         }
       ]
     }

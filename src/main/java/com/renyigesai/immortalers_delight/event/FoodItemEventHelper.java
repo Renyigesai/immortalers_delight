@@ -168,11 +168,11 @@ public class FoodItemEventHelper {
         if (!event.getEntity().level().isClientSide()) {
             if (event.getEntity() instanceof AbstractPiglin piglin && piglin.getPersistentData().contains(DELETE_PIGLIN,Tag.TAG_LONG)) {
                 if (TimekeepingTask.getImmortalTickTime() % 500 <= 50) {
-                    spawnParticle(piglin.level(), piglin.blockPosition());
+                    spawnParticle(piglin.level(), piglin.blockPosition(),0);
                 }
                 if (TimekeepingTask.getImmortalTickTime() == 4000 + piglin.getPersistentData().getLong(DELETE_PIGLIN)) {
                     for (int i = 0; i < 2; i++) {
-                        spawnParticle(piglin.level(), piglin.blockPosition());
+                        spawnParticle(piglin.level(), piglin.blockPosition(),1);
                     }
                     piglin.level().playLocalSound(piglin.getX(),piglin.getY(),piglin.getZ(), SoundEvents.PIGLIN_CELEBRATE, SoundSource.HOSTILE,0.8F,0.8F,false);
                     piglin.discard();
@@ -181,19 +181,26 @@ public class FoodItemEventHelper {
         }
     }
 
-    private static void spawnParticle(Level level, BlockPos pPos) {
+    private static void spawnParticle(Level level, BlockPos pPos,int type) {
         if (level instanceof ServerLevel serverLevel) {
             Vec3 center = new Vec3(pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5);
-            double radius = 0.32;
-            for (int i = 0; i < 3; i++) {
+            double radius = 0.32 + type;
+            for (int i = 0; i < 3 + 12 * type; i++) {
                 double angle = 2 * Math.PI * Math.random();
                 double r = radius * Math.sqrt(Math.random());
                 double x = center.x + r * Math.cos(angle);
                 double z = center.z + r * Math.sin(angle);
                 double y = center.y;
-                serverLevel.sendParticles(
-                        ParticleTypes.HEART, x, y, z, 1, 0, 0, 0, 0.025
-                );
+                if (type == 0) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.HEART, x, y, z, 1, 0, 0, 0, 0.025
+                    );
+                }
+                if (type == 1) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.WITCH, x, y, z, 1, 0, 0, 0, 0.025
+                    );
+                }
             }
         }
     }

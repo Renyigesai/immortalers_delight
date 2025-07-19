@@ -162,8 +162,8 @@ public class EsteemedGuestPotionEffect {
                 }
             }
             for (int i = 0; i < 2; i++) {
-                if (i % 2 == 0) spawnParticle(friend.level(),friend.blockPosition());
-                if (i % 2 == 1) spawnParticle(target.level(),target.blockPosition());
+                if (i % 2 == 0) spawnParticle(friend.level(),friend.blockPosition(),1);
+                if (i % 2 == 1) spawnParticle(target.level(),target.blockPosition(),0);
             }
         }
     }
@@ -224,7 +224,7 @@ public class EsteemedGuestPotionEffect {
         patterns.add(patternTag);
     }
 
-    private static void spawnParticle(Level level, BlockPos pPos) {
+    private static void spawnParticle(Level level, BlockPos pPos, int type) {
         if (level instanceof ServerLevel serverLevel) {
             Vec3 center = new Vec3(pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5);
             double radius = 1.5;
@@ -234,9 +234,15 @@ public class EsteemedGuestPotionEffect {
                 double x = center.x + r * Math.cos(angle);
                 double z = center.z + r * Math.sin(angle);
                 double y = center.y + angle * 0.5;
-                serverLevel.sendParticles(
-                        ParticleTypes.ANGRY_VILLAGER, x, y, z, 1, 0, 0, 0, 0.025
-                );
+                if (type == 0) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.ANGRY_VILLAGER, x, y, z, 1, 0, 0, 0, 0.025
+                    );
+                }if (type == 1) {
+                    serverLevel.sendParticles(
+                            ParticleTypes.WITCH, x, y, z, 1, 0, 0, 0, 0.025
+                    );
+                }
             }
         }
     }

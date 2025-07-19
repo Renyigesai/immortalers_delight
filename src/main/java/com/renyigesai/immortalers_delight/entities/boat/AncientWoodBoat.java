@@ -22,6 +22,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AncientWoodBoat extends ImmortalersBoat {
 
@@ -47,8 +51,8 @@ public class AncientWoodBoat extends ImmortalersBoat {
     }
 
     @Override
-    protected boolean canAddPassenger(Entity passenger) {
-        if (this.getPassengers().size() >= this.getMaxPassengers() - 1 && BigPassenger(passenger)) {
+    protected boolean canAddPassenger(@NotNull Entity passenger) {
+        if (passengerSize(passenger) > this.getMaxPassengers() - this.getPassengers().size()) {
             return false;
         } else {
             return passenger.getBbWidth() < 2.5F && super.canAddPassenger(passenger);
@@ -60,24 +64,24 @@ public class AncientWoodBoat extends ImmortalersBoat {
     }
     @Override
     protected int getMaxPassengers() {
-        return this.getBigPassengerNumber() == 1 ? 3 : getBigPassengerNumber() == 2 ? 2 : 5;
+        return 5 - this.passengersNeedExtraSeats();
     }
 
-    private static boolean BigPassenger(Entity passenger) {
-        return passenger.getBbWidth() >= 1.375F;
+    private static int passengerSize(Entity passenger) {
+        return passenger.getBbWidth() > 1.8F ? 3
+                : passenger.getBbWidth() > 1.375F ? 2
+                : 1;
     }
-
-    private int getBigPassengerNumber() {
+    private int passengersNeedExtraSeats() {
         int i = 0;
         for (Entity passenger : this.getPassengers()) {
-            if (BigPassenger(passenger))
-                i += 1;
+            i += (passengerSize(passenger) - 1);
         }
         return i;
     }
 
     public static boolean isAnimalEsque(Entity passenger) {
-        return passenger instanceof Animal || passenger instanceof HoglinBase || (BigPassenger(passenger) && passenger instanceof Spider);
+        return passenger instanceof Animal || passenger instanceof HoglinBase || (passengerSize(passenger) > 1 && passenger instanceof Spider);
     }
     @Override
     public void positionRider(Entity passenger, Entity.MoveFunction function) {
@@ -85,34 +89,64 @@ public class AncientWoodBoat extends ImmortalersBoat {
             float x = -0.2F;
             float z = 0.0F;
             int index = this.getPassengers().indexOf(passenger);
-            int bigPassengerNumber = this.getBigPassengerNumber();
+            int occupiedSeats = this.passengersNeedExtraSeats();
 
             boolean rotate = false;
 
-            if (bigPassengerNumber > 0) {
-                if (this.getPassengers().size() == 3){
-                    if (bigPassengerNumber == 1) {
-                    int bigIndex = 0;
-                    for (int i = 0; i < this.getPassengers().size(); i++) {
-                        if (BigPassenger(this.getPassengers().get(i))) {
-                            bigIndex = i;
-                            break;
-                        }
-                    }
-                    if (BigPassenger(passenger)) {
-                        rotate = isAnimalEsque(passenger);
-                        x -= 0.5F;
-                    } else {
-                        x += 0.8F;
-                        if (bigIndex == 0 && index == 1 || bigIndex > 0 && index == 0) {
-                            z += 0.5F;
-                        } else {
-                            z -= 0.5F;
-                        }
+            if (occupiedSeats > 0) {
+                List<Integer> bigPassengerIndex = new ArrayList<>();
+                for (int i = 0; i < this.getPassengers().size(); i++) {
+                    if (passengerSize(this.getPassengers().get(i)) > 1) {
+                        bigPassengerIndex.add(i);
                     }
                 }
+
+                if (this.getPassengers().size() == 4) {
+                    if (passengerSize(passenger) > 1) {
+                        rotate = isAnimalEsque(passenger);
+                        x -= 1.0F;
+                    } else {
+                        int bigIndex = bigPassengerIndex.get(0);
+                        if (bigIndex == 0 && index == 1 || bigIndex > 0 && index == 0) {
+                            x += 1.2F;
+                        } else {
+                            x += 0.2F;
+                            if (index % 2 == 0) {
+                                z += 0.5F;
+                            } else {
+                                z -= 0.5F;
+                            }
+                        }
+                    }
+                }else if (this.getPassengers().size() == 3){
+                    if (bigPassengerIndex.size() == 2) {
+                        int bigIndex = bigPassengerIndex.get(0);
+
+                        if (passengerSize(passenger) > 1) {
+                            rotate = isAnimalEsque(passenger);
+                            x -= index == bigIndex ? 1.1F : -0.3F;
+                        } else {
+                            x += 1.2F;
+                        }
+                    }
+
+                    if (bigPassengerIndex.size() == 1) {
+                        int bigIndex = bigPassengerIndex.get(0);
+
+                        if (passengerSize(passenger) > 1) {
+                            rotate = isAnimalEsque(passenger);
+                            x -= 0.5F;
+                        } else {
+                            x += 0.8F;
+                            if (bigIndex == 0 && index == 1 || bigIndex > 0 && index == 0) {
+                                z += 0.5F;
+                            } else {
+                                z -= 0.5F;
+                            }
+                        }
+                    }
                 } else if (this.getPassengers().size() == 2) {
-                    if (bigPassengerNumber == 1) {
+                    if (bigPassengerIndex.size() == 1) {
                         rotate = isAnimalEsque(passenger);
                         if (index == 0) {
                             x += 0.8F;
@@ -120,7 +154,7 @@ public class AncientWoodBoat extends ImmortalersBoat {
                             x -= 0.6F;
                         }
                     }
-                    if (bigPassengerNumber == 2) {
+                    if (bigPassengerIndex.size() == 2) {
                         if (index == 0) {
                             x += 0.8F;
                         } else {
@@ -154,7 +188,7 @@ public class AncientWoodBoat extends ImmortalersBoat {
             passenger.setYRot(passenger.getYRot() + this.deltaRotation);
             passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
             this.clampRotation(passenger);
-            if (passenger instanceof LivingEntity living && (rotate || (isAnimalEsque(passenger) && !BigPassenger(passenger) && this.getPassengers().size() > 1))) {
+            if (passenger instanceof LivingEntity living && (rotate || (isAnimalEsque(passenger) && passengerSize(passenger) == 1 && this.getPassengers().size() > 1))) {
                 int j = passenger.getId() % 2 == 0 ? 90 : 270;
                 passenger.setYBodyRot(living.yBodyRot + (float) j);
                 passenger.setYHeadRot(passenger.getYHeadRot() + (float) j);
