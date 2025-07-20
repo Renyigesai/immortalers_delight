@@ -44,8 +44,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ImmortalersDelightHangingSignRenderer extends HangingSignRenderer {
-
-
     public ImmortalersDelightHangingSignRenderer(BlockEntityRendererProvider.Context pContext) {
         super(pContext);
     }

@@ -397,8 +397,8 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", ()-> travastrugglerLog());
     public static final RegistryObject<Block> STRIPPED_TRAVASTRUGGLER_LOG = BLOCKS.register("stripped_travastruggler_log", ()-> travastrugglerLog());
     public static final RegistryObject<Block> TRAVA_PLANKS = BLOCKS.register("trava_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2).ignitedByLava().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.COLOR_GRAY)));
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new TravastrugglerLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new TravastrugglerLeavesTravariceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
 
 
     /*
