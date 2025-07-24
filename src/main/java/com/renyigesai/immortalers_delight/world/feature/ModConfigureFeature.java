@@ -36,7 +36,7 @@ public class ModConfigureFeature {
     public static final ResourceKey<ConfiguredFeature<?,?>> END_ORE_COF = registerKey("end_ore_cof");
 
 
-    public static final ResourceKey<ConfiguredFeature<?,?>> OAK_LIKE_TREE_KEY = registerKey("end_ore_cof");
+    public static final ResourceKey<ConfiguredFeature<?,?>> HIMEKAIDO_TREE_KEY = registerKey("himekaido_tree");
     public static final ResourceKey<ConfiguredFeature<?,?>> TRAVASTRUGGLER_TREE_KYE = registerKey("travastruggler_tree");
 
     /**
@@ -79,7 +79,7 @@ public class ModConfigureFeature {
         /*
         树的世界生成
          */
-        register(context, OAK_LIKE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+        register(context, HIMEKAIDO_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 /*
                 确定树干方块，随后是树干放置器。其参数为基础高度+随机额外高度1+随机额外高度2
                  */
@@ -88,7 +88,7 @@ public class ModConfigureFeature {
                 /*
                 确定树叶方块，随后是树叶放置器（半圆形放置器），即金合欢或大丛林树的树冠
                  */
-                BlockStateProvider.simple(HIMEKAIDO_LEAVES.get()),
+                BlockStateProvider.simple(Blocks.STONE),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
                 /*
                 对于树生长条件的检测器
@@ -97,19 +97,10 @@ public class ModConfigureFeature {
         ).build());
 
         register(context, TRAVASTRUGGLER_TREE_KYE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                /*
-                确定树干方块，随后是树干放置器。其参数为基础高度+随机额外高度1+随机额外高度2
-                 */
                 BlockStateProvider.simple(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG.get()),
                 new StraightTrunkPlacer(4,3,2),
-                /*
-                确定树叶方块，随后是树叶放置器（半圆形放置器），即金合欢或大丛林树的树冠
-                 */
                 BlockStateProvider.simple(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get()),
                 new BlobFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), 2),
-                /*
-                对于树生长条件的检测器
-                 */
                 new TwoLayersFeatureSize(1,0,2)
         ).build());
     }

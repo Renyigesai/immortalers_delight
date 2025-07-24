@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.renyigesai.immortalers_delight.block.tree.HimekaidoTreeGrower;
+import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -14,6 +16,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -74,21 +78,17 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
     /**
      * 巨大化
      */
-    public void performBonemeal(ServerLevel p_221040_, RandomSource p_221041_, BlockPos p_221042_, BlockState p_221043_) {
+    public void performBonemeal(ServerLevel serverLevel, RandomSource source, BlockPos pos, BlockState state) {
         /*
         巨大化条件：此处要求阶段6且生长速度不小于9
          */
-        if (this.getAge(p_221043_) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, p_221040_, p_221042_) >= 3.0f) {
-            BigOakTreeGrower tree = new BigOakTreeGrower(
-                    ImmortalersDelightBlocks.HIMEKAIDO_LOG.get().defaultBlockState(),
-                    ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState(),
-                    ImmortalersDelightBlocks.HIMEKAIDO_SHRUB.get().defaultBlockState()
-            );
-            tree.setHeight(8,5);
-            tree.setLeafDistanceLimit(3);
-            tree.generate(p_221040_, p_221041_, p_221042_);
+        if (this.getAge(state) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, serverLevel, pos) >= 3.0f) {
+            HimekaidoTreeGrower tree = new HimekaidoTreeGrower();
+//            tree.setHeight(8,5);
+//            tree.setLeafDistanceLimit(3);
+            tree.growTree(serverLevel,serverLevel.getChunkSource().getGenerator(),pos,state,source);
         }
-        else p_221040_.setBlock(p_221042_, this.getStateForAge( this.getAge(p_221043_) + 1), 2);
+        else serverLevel.setBlock(pos, this.getStateForAge( this.getAge(state) + 1), 2);
     }
     /**
      * 定义收获的行为逻辑，并给玩家进行巨大化操作的空间

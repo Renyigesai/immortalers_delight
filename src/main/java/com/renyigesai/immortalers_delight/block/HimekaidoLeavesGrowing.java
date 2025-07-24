@@ -6,14 +6,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -67,7 +63,7 @@ public class HimekaidoLeavesGrowing extends LeavesBlock {
         /*
         执行生长逻辑
          */
-//        if (!pState.getValue(GROW)) return;
+        if (!pState.getValue(GROW)) return;
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(35) == 0)) {
             int distance = pState.getValue(DISTANCE);
@@ -80,23 +76,15 @@ public class HimekaidoLeavesGrowing extends LeavesBlock {
         return true;
     }
 
-//    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-//        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+//        super.getStateForPlacement()
+        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
 //        BlockState blockstate = this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)).setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
-//        return updateDistance(blockstate, pContext.getLevel(), pContext.getClickedPos());
-//    }
-
-//    @Override
-//    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
-//        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
-//        if (!pLevel.isClientSide()){
-//            if (Math.random() < 0.3) {
-//                pLevel.setBlock(pPos, pState.setValue(GROW, false),3);
-//            }
-//        }
-//    }
+//        return super.getStateForPlacement();
+        return this.defaultBlockState().setValue(PERSISTENT,true).setValue(WATERLOGGED,fluidstate.getType() == Fluids.WATER).setValue(GROW,false);
+    }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(DISTANCE, PERSISTENT, WATERLOGGED,GROW);
+        pBuilder.add(DISTANCE, PERSISTENT, WATERLOGGED, GROW);
     }
 }

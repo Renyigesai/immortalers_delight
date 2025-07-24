@@ -743,13 +743,13 @@ public class ImmortalersDelightItems {
                 new DrinkItem(ImmortalersDelightBlocks.BRITISH_YELLOW_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.BRITISH_YELLOW_TEA),true));
 
         CHERRY_PEARLIPEARL_TEA = registerWithTab("cherry_pearlipearl_tea",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.CHERRY_PEARLIPEARL_TEA),true, false));
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.CHERRY_PEARLIPEARL_TEA),true, false));
 
         GLEEMAN_TEAR = registerWithTab("gleeman_tear",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.GLEEMAN_TEAR),true, false));
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.GLEEMAN_TEAR),true, false));
 
         FRUIT_TEA = registerWithTab("fruit_tea",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.FRUIT_TEA),true, false));
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.FRUIT_TEA),true, false));
 
         MILLENIAN_BAMBOO = registerWithTab("millenian_bamboo", () ->
                 new BlockItem(ImmortalersDelightBlocks.MILLENIAN_BAMBOO.get(), basicItem()));

@@ -89,22 +89,22 @@ public class ImmortalersDelightBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
 
     public static final RegistryObject<Block> HIMEKAIDO_DOOR = BLOCKS.register("himekaido_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.HIMEKAIDO));
 
     public static final RegistryObject<Block> HIMEKAIDO_TRAPDOOR = BLOCKS.register("himekaido_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.HIMEKAIDO));
 
     public static final RegistryObject<Block> HIMEKAIDO_FENCE = BLOCKS.register("himekaido_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<Block> HIMEKAIDO_FENCE_GATE = BLOCKS.register("himekaido_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.HIMEKAIDO));
 
     public static final RegistryObject<Block> HIMEKAIDO_PRESSURE_PLATE = BLOCKS.register("himekaido_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.HIMEKAIDO));
 
     public static final RegistryObject<Block> HIMEKAIDO_BUTTON = BLOCKS.register("himekaido_button",
-            () ->woodenButton(BlockSetType.OAK));
+            () ->woodenButton(ImmortalersDelightWoodSetType.HIMEKAIDO));
 
     public static final RegistryObject<Block> HIMEKAIDO_CABINET = BLOCKS.register("himekaido_cabinet",
             () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
@@ -149,22 +149,22 @@ public class ImmortalersDelightBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
 
     public static final RegistryObject<Block> ANCIENT_WOOD_DOOR = BLOCKS.register("ancient_wood_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
 
         public static final RegistryObject<Block> ANCIENT_WOOD_TRAPDOOR = BLOCKS.register("ancient_wood_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
 
     public static final RegistryObject<Block> ANCIENT_WOOD_FENCE = BLOCKS.register("ancient_wood_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<Block> ANCIENT_WOOD_FENCE_GATE = BLOCKS.register("ancient_wood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.ANCIENT_WOOD));
 
     public static final RegistryObject<Block> ANCIENT_WOOD_PRESSURE_PLATE = BLOCKS.register("ancient_wood_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE),BlockSetType.OAK));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
 
     public static final RegistryObject<Block> ANCIENT_WOOD_BUTTON = BLOCKS.register("ancient_wood_button",
-            () ->woodenButton(BlockSetType.OAK));
+            () ->woodenButton(ImmortalersDelightWoodSetType.ANCIENT_WOOD));
 
     /*
     泥砖
@@ -241,22 +241,22 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> LEISAMBOO_SLAB = BLOCKS.register("leisamboo_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
     public static final RegistryObject<Block> LEISAMBOO_DOOR = BLOCKS.register("leisamboo_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.LEISAMBOO));
 
     public static final RegistryObject<Block> LEISAMBOO_TRAPDOOR = BLOCKS.register("leisamboo_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.LEISAMBOO));
 
     public static final RegistryObject<Block> LEISAMBOO_FENCE = BLOCKS.register("leisamboo_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<Block> LEISAMBOO_FENCE_GATE = BLOCKS.register("leisamboo_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.LEISAMBOO));
 
     public static final RegistryObject<Block> LEISAMBOO_PRESSURE_PLATE = BLOCKS.register("leisamboo_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.LEISAMBOO));
 
     public static final RegistryObject<Block> LEISAMBOO_BUTTON = BLOCKS.register("leisamboo_button",
-            () ->woodenButton(BlockSetType.OAK));
+            () ->woodenButton(ImmortalersDelightWoodSetType.LEISAMBOO));
 
     public static final RegistryObject<Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
             () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
@@ -283,22 +283,22 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> PEARLIP_SHELL_SLAB = BLOCKS.register("pearlip_shell_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
     public static final RegistryObject<Block> PEARLIP_SHELL_DOOR = BLOCKS.register("pearlip_shell_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_TRAPDOOR = BLOCKS.register("pearlip_shell_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),BlockSetType.OAK));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_FENCE = BLOCKS.register("pearlip_shell_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_FENCE_GATE = BLOCKS.register("pearlip_shell_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.PEARLIP_SHELL));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_PRESSURE_PLATE = BLOCKS.register("pearlip_shell_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),BlockSetType.OAK));
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_BUTTON = BLOCKS.register("pearlip_shell_button",
-            () ->woodenButton(BlockSetType.OAK));
+            () ->woodenButton(ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 
     public static final RegistryObject<Block> PEARLIP_SHELL_CABINET = BLOCKS.register("pearlip_shell_cabinet",
             () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
