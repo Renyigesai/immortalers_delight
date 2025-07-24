@@ -31,10 +31,6 @@ public class DrinkItem extends ItemNameBlockItem {
     }
 
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity consumer) {
-//        if (!level.isClientSide) {
-//            this.affectConsumer(stack, level, consumer);
-//        }
-
         ItemStack containerStack = stack.getCraftingRemainingItem();
         Player player;
         if (stack.isEdible()) {

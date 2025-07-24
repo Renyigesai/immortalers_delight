@@ -12,5 +12,6 @@ public class ImmortalersDelightWoodType {
     public static final WoodType LEISAMBOO = register(new WoodType("leisamboo", ImmortalersDelightWoodSetType.LEISAMBOO));
     public static final WoodType PEARLIP_SHELL = register(new WoodType("pearlip_shell", ImmortalersDelightWoodSetType.PEARLIP_SHELL));
     public static final WoodType ANCIENT_WOOD = register(new WoodType("ancient_wood", ImmortalersDelightWoodSetType.ANCIENT_WOOD));
+    public static final WoodType TRAVASTRUGGLER = register(new WoodType("travastruggler", ImmortalersDelightWoodSetType.TRAVASTRUGGLER));
 
 }

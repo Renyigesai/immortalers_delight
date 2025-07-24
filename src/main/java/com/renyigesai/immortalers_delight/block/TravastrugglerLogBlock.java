@@ -20,6 +20,4 @@ public class TravastrugglerLogBlock extends BasicsLogsBlock {
             case Z -> Shapes.or(box(0, 0, 0, 3, 16, 16), box(13, 0, 0, 16, 16, 16), box(3, 0, 0, 13, 3, 16), box(3, 13, 0, 13, 16, 16));
         };
     }
-
-
 }
