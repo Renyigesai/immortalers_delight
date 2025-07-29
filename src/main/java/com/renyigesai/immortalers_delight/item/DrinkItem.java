@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -63,15 +64,6 @@ public class DrinkItem extends ItemNameBlockItem {
         }
     }
 
-//    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-//        if (pEntityLiving instanceof Player player && !player.getAbilities().instabuild){
-//            com.renyigesai.immortalers_delight.util.ItemUtils.givePlayerItem(player,pStack.getCraftingRemainingItem());
-//        }
-//        return super.finishUsingItem(pStack,pLevel,pEntityLiving);
-//        ItemStack itemstack = super.finishUsingItem(pStack, pLevel, pEntityLiving);
-//        return pEntityLiving instanceof Player && ((Player)pEntityLiving).getAbilities().instabuild ? itemstack : new ItemStack(itemstack.getCraftingRemainingItem().getItem());
-//    }
-
     public int getUseDuration(ItemStack stack) {
         return 32;
     }
@@ -95,18 +87,11 @@ public class DrinkItem extends ItemNameBlockItem {
     }
 
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
             if (this.hasPotionEffectTooltip) {
                 TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
             }
         }
     }
-
-//    @Override
-//    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-//        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-//        List<MobEffectInstance> list = new ArrayList<>();
-//        listPotionEffects(pStack, list::add);
-//        PotionUtils.addPotionTooltip(list, pTooltip, 1.0F);
-//    }
 }

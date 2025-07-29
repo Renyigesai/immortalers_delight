@@ -722,7 +722,7 @@ public class ImmortalersDelightItems {
                 new Item(new Item.Properties().stacksTo(16)));
 
         LEISAMBOO_TEA = registerWithTab("leisamboo_tea", () ->
-                new DrinkableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.LEISAMBOO_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA)));
 
         ICED_BLACK_TEA = registerWithTab("iced_black_tea",()->
                 new DrinkItem(ImmortalersDelightBlocks.ICED_BLACK_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.ICED_BLACK_TEA),true));
@@ -992,16 +992,16 @@ public class ImmortalersDelightItems {
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true,false));
+                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.DREUMK_WINE.get(), drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true));
 
         EVOLUTCORN_BEER = registerWithTab("evolutcorn_beer",()->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true, false));
+                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.EVOLUTCORN_BEER.get(),drinkItem(ImmortalersDelightFoodProperties.EVOLUTCORN_BEER), true));
 
         STICKY_BEER = registerWithTab("sticky_beer",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.STICKY_BEER), true, false));
 
         VULCAN_COKTAIL = registerWithTab("vulcan_coktail",()->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true,false));
+                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.VULCAN_COKTAIL.get(), drinkItem(ImmortalersDelightFoodProperties.VULCAN_COKTAIL),true));
 
         CLEAR_WATER_VODKA = registerWithTab("clear_water_vodka", () ->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.CLEAR_WATER_VODKA),true,false,false,true));
@@ -1013,7 +1013,7 @@ public class ImmortalersDelightItems {
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PURGATORY_ALE),true,false));
 
         PIGLIN_ODORI_SAKE = registerWithTab("piglin_odori_sake",()->
-                new InebriatedToxicFoodItem((new Item.Properties()).craftRemainder(Items.WITHER_SKELETON_SKULL).stacksTo(16).food(ImmortalersDelightFoodProperties.PIGLIN_ODORI_SAKE),true,false));
+                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.PIGLIN_ODORI_SAKE.get(), (new Item.Properties()).craftRemainder(Items.WITHER_SKELETON_SKULL).stacksTo(16).food(ImmortalersDelightFoodProperties.PIGLIN_ODORI_SAKE),true));
 
         TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
 

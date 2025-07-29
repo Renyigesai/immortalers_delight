@@ -7,12 +7,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 public class EnchantalCoolerMenu extends AbstractContainerMenu {
 
@@ -23,20 +27,31 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
     public EnchantalCoolerMenu(int windowId, Inventory playerInventory, EnchantalCoolerBlockEntity blockEntity) {
         super(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), windowId);
         this.blockEntity = blockEntity;
+        ItemStackHandler inventory = blockEntity.getInventory();
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
 
         // 添加输入槽 (0-3)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 0, 52, 17));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 1, 70, 17));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 2, 52, 35));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 3, 70, 35));
-        // 添加输出槽 (4)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 4, 137, 25));
-        // 添加燃料槽 (0)
-        addSlot(new SlotItemHandler(blockEntity.getFuelslot(), 0, 24, 55));
-        //添加容器槽 (0)
-        addSlot(new SlotItemHandler(blockEntity.getContainerSlot(), 0, 137, 55));
+        addSlot(new SlotItemHandler(inventory, 0, 52, 17));
+        addSlot(new SlotItemHandler(inventory, 1, 70, 17));
+        addSlot(new SlotItemHandler(inventory, 2, 52, 35));
+        addSlot(new SlotItemHandler(inventory, 3, 70, 35));
+        // 添加容器槽 (4)
+        addSlot(new SlotItemHandler(inventory, blockEntity.CONTAINER_SLOT, 137, 55));
+        // 添加输出槽 (5)
+        addSlot(new SlotItemHandler(inventory, blockEntity.OUTPUT_SLOT, 137, 25){
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return false;
+            }
+        });
+        // 添加燃料槽 (6)
+        addSlot(new SlotItemHandler(inventory, blockEntity.FUEL_SLOT, 24, 55){
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return blockEntity.isFuel(stack);
+            }
+        });
         // 添加玩家物品栏
         layoutPlayerInventorySlots(8, 84);
     }
@@ -77,27 +92,42 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
+    public ItemStack quickMoveStack(Player player, int slotIndex) {
+        ItemStack originalStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(slotIndex);
+
         if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
-            if (index < 5) {
-                if (!this.moveItemStackTo(itemstack1, 5, 41, true)) {
+            ItemStack stackInSlot = slot.getItem();
+            originalStack = stackInSlot.copy();
+            if (slotIndex < 7) {
+                if (!this.moveItemStackTo(stackInSlot, 7, 43, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
-                return ItemStack.EMPTY;
             }
-
-            if (itemstack1.isEmpty()) {
+            else{
+                if (blockEntity.isFuel(stackInSlot)){
+                    if (!this.moveItemStackTo(stackInSlot, 6, 7, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }else {
+                    if (!this.moveItemStackTo(stackInSlot, 0, 6, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (!this.moveItemStackTo(stackInSlot, 0, 6, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+            if (stackInSlot.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
+            if (stackInSlot.getCount() == originalStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
         }
-        return itemstack;
+        return originalStack;
     }
 
     @Override

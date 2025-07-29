@@ -405,6 +405,8 @@ public class ImmortalersDelightBlocks {
     饮料方块
     */
 
+    public static final RegistryObject<Block> LEISAMBOO_TEA = BLOCKS.register("leisamboo_tea",()->new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.3F)));
+
     public static final RegistryObject<Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
 
     public static final RegistryObject<Block> PEARLIPEARL_MILK_TEA = drinksBlock("pearlipearl_milk_tea");
@@ -420,6 +422,14 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> LEAF_TEA = drinksBlock("leaf_tea");
 
     public static final RegistryObject<Block> YOGURT = drinksBlock("yogurt");
+
+    public static final RegistryObject<Block> EVOLUTCORN_BEER = drinksBlock("evolutcorn_beer");
+
+    public static final RegistryObject<Block> VULCAN_COKTAIL = drinksBlock("vulcan_coktail");
+
+    public static final RegistryObject<Block> DREUMK_WINE = drinksBlock("dreumk_wine");
+
+    public static final RegistryObject<Block> PIGLIN_ODORI_SAKE = BLOCKS.register("piglin_odori_sake",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.3F)));
 
 
 

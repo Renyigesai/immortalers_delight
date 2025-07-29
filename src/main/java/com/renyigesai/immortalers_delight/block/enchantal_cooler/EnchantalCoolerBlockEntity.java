@@ -13,6 +13,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
@@ -38,15 +41,17 @@ import java.util.*;
 
 public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
 
-    private final ItemStackHandler inventory = new ItemStackHandler(5);// 5个槽位
-    private final ItemStackHandler containerslot = new ItemStackHandler(1);// 1 个容器槽位
-    private final ItemStackHandler fuelslot = new ItemStackHandler(1);// 1 个燃料槽位
+    private final ItemStackHandler inventory = new ItemStackHandler(7);// 7个槽位
     public int cookingTotalTime;
     public int residualDye;
+    public int CONTAINER_SLOT = 4;
+    public int OUTPUT_SLOT = 5;
+    public int FUEL_SLOT = 6;
     private static final int[] INPUT_SLOTS = new int[]{0,1,2,3};
-    private static final int[] OUTPUT_SLOTS = new int[]{4};
-    private static final int[] FUEL_SLOTS = new int[]{0};
-    private static final int[] CONTAINER_SLOTS = new int[]{0};
+    private static final int[] OUTPUT_SLOTS = new int[]{5};
+    private static final int[] FUEL_SLOTS = new int[]{6};
+    private static final int[] CONTAINER_SLOTS = new int[]{4};
+    private boolean newVersion = false;
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final EnumMap<Direction, LazyOptional<WrappedHandler>> directionHandlers = new EnumMap<>(Direction.class);
@@ -57,14 +62,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
     public ItemStackHandler getInventory() {
         return this.inventory;
-    }
-
-    public ItemStackHandler getFuelslot() {
-        return this.fuelslot;
-    }
-
-    public ItemStackHandler getContainerSlot() {
-        return this.containerslot;
     }
 
     @Override
@@ -79,7 +76,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     public int getContainerSize() {
-        return inventory.getSlots(); // 返回槽位数量
+        return inventory.getSlots();
     }
 
     @Override
@@ -90,6 +87,27 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             }
         }
         return true;
+    }
+
+    private boolean hasInput() {
+        for(int i = 0; i < 4; ++i) {
+            if (!this.inventory.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean fuelSupplement(){
+        return this.residualDye < 3;
+    }
+
+    private boolean isFuelEmpty(){
+        return this.residualDye == 0;
+    }
+
+    public boolean isFuel(ItemStack fuel){
+        return fuel.is(Items.LAPIS_LAZULI) || fuel.is(ItemTags.create(new ResourceLocation("immortalers_delight:enchantal_cooler_fuel")));
     }
 
     public boolean getIntList(int i,int[] intList){
@@ -107,17 +125,11 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
     public void drops(EnchantalCoolerBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.inventory.getSlots());
-        SimpleContainer containerslot = new SimpleContainer(blockEntity.containerslot.getSlots());
-        SimpleContainer fuelslot = new SimpleContainer(blockEntity.fuelslot.getSlots());
         for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
             inventory.setItem(i, blockEntity.inventory.getStackInSlot(i));
         }
-        containerslot.setItem(0,blockEntity.containerslot.getStackInSlot(0));
-        fuelslot.setItem(0,blockEntity.fuelslot.getStackInSlot(0));
         if (this.level != null) {
             Containers.dropContents(this.level, this.worldPosition, inventory);
-            Containers.dropContents(this.level, this.worldPosition, containerslot);
-            Containers.dropContents(this.level, this.worldPosition, fuelslot);
         }
     }
 
@@ -172,12 +184,12 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
                 () -> new WrappedHandler(inventory, (i) -> getIntList(i,OUTPUT_SLOTS), (i, s) -> false)));
 
         directionHandlers.put(facing, LazyOptional.of(
-                () -> new WrappedHandler(fuelslot, (i) -> false, (i,s) -> getIntList(i,FUEL_SLOTS))));
+                () -> new WrappedHandler(inventory, (i) -> false, (i,s) -> getIntList(i,FUEL_SLOTS))));
 
         for (Direction dir : Direction.values()) {
             if (dir != Direction.UP && dir != Direction.DOWN && dir != facing) {
                 directionHandlers.put(dir, LazyOptional.of(
-                        () -> new WrappedHandler(containerslot, (i) -> false, (i, s) -> getIntList(i,CONTAINER_SLOTS) && canPlaceItem(i,s))));
+                        () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,CONTAINER_SLOTS) && canPlaceItem(i,s))));
             }
         }
     }
@@ -191,14 +203,33 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        if (tag.contains("Inventory")) {
-            inventory.deserializeNBT(tag.getCompound("Inventory"));
-        }
-        if (tag.contains("Containerslot")) {
-            containerslot.deserializeNBT(tag.getCompound("Containerslot"));
-        }
-        if (tag.contains("Fuelslot")) {
-            fuelslot.deserializeNBT(tag.getCompound("Fuelslot"));
+        if (!newVersion){
+            ItemStackHandler newInventory = new ItemStackHandler(7);
+            ItemStackHandler oldInventory = new ItemStackHandler(5);
+            ItemStackHandler oldFuel = new ItemStackHandler(1);
+            ItemStackHandler oldContainerslot = new ItemStackHandler(1);
+            if (tag.contains("Inventory")) {
+                oldInventory.deserializeNBT(tag.getCompound("Inventory"));
+                inventory.deserializeNBT(newInventory.serializeNBT());
+            }
+            if (tag.contains("Containerslot")) {
+                oldContainerslot.deserializeNBT(tag.getCompound("Containerslot"));
+            }
+            if (tag.contains("Fuelslot")) {
+                oldFuel.deserializeNBT(tag.getCompound("Fuelslot"));
+            }
+            inventory.setStackInSlot(0,oldInventory.getStackInSlot(0));
+            inventory.setStackInSlot(1,oldInventory.getStackInSlot(1));
+            inventory.setStackInSlot(2,oldInventory.getStackInSlot(2));
+            inventory.setStackInSlot(3,oldInventory.getStackInSlot(3));
+            inventory.setStackInSlot(OUTPUT_SLOT,oldInventory.getStackInSlot(4));
+            inventory.setStackInSlot(CONTAINER_SLOT,oldContainerslot.getStackInSlot(0));
+            inventory.setStackInSlot(FUEL_SLOT,oldFuel.getStackInSlot(0));
+            newVersion = true;
+        }else {
+            if (tag.contains("Inventory")) {
+                inventory.deserializeNBT(tag.getCompound("Inventory"));
+            }
         }
         cookingTotalTime = tag.getInt("CookingTotalTime");
         residualDye = tag.getInt("ResidualDye");
@@ -208,8 +239,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Inventory", inventory.serializeNBT());
-        tag.put("Containerslot", containerslot.serializeNBT());
-        tag.put("Fuelslot", fuelslot.serializeNBT());
         tag.putInt("CookingTotalTime", cookingTotalTime);
         tag.putInt("ResidualDye", residualDye);
     }
@@ -238,20 +267,21 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
                 (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
-    public static void updateBlock(EnchantalCoolerBlockEntity enchantalCoolerBlockEntity) {
-        Level world = enchantalCoolerBlockEntity.getLevel();
-        BlockPos pos = enchantalCoolerBlockEntity.getBlockPos();
-        BlockState state = world.getBlockState(pos);
-        setChanged(world, pos, state);
-        world.sendBlockUpdated(pos, state, state, 3);
-    }
-
     public static void craftTick(Level level, BlockPos pos, BlockState state, EnchantalCoolerBlockEntity blockEntity) {
-        blockEntity.craftItem();
-        blockEntity.fillFuel();
-        setChanged(level, pos, state);
-        if (!level.isClientSide) {
-            level.sendBlockUpdated(pos, state, state, 3);
+        boolean flag = false;
+        if (!blockEntity.isFuelEmpty() && blockEntity.hasInput()){
+            flag = true;
+            blockEntity.craftItem();
+        }
+        if (blockEntity.fuelSupplement()){
+            flag = true;
+            blockEntity.fillFuel();
+        }
+        if (flag){
+            setChanged(level, pos, state);
+            if (!level.isClientSide) {
+                level.sendBlockUpdated(pos, state, state, 3);
+            }
         }
     }
 
@@ -259,7 +289,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
         if (recipeOptional.isPresent()){
             EnchantalCoolerRecipe recipe = recipeOptional.get();
-            if (recipe.getContainer().is(this.containerslot.getStackInSlot(0).getItem())){
+            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
                 return true;
             }
             return recipe.getContainer().isEmpty();
@@ -267,10 +297,10 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         return false;
     }
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(5);
+        SimpleContainer inventory = new SimpleContainer(4);
         List<ItemStack> inputs = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             ItemStack stack = this.inventory.getStackInSlot(i);
             if (!stack.isEmpty()) {
                 inputs.add(stack);
@@ -288,13 +318,12 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private void craftItem() {
         Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
         if (recipeOptional.isEmpty()) {
-            cookingTotalTime = 0; // 重置进度
+            cookingTotalTime = 0;
             return;
         }
-
         EnchantalCoolerRecipe recipe = recipeOptional.get();
         ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-        ItemStack outputStack = inventory.getStackInSlot(4);
+        ItemStack outputStack = inventory.getStackInSlot(5);
 
         if (!canCraft(resultItem, outputStack) || !isContainer()) {
             cookingTotalTime = 0;
@@ -306,7 +335,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
         outer:
         for (Ingredient ingredient : ingredientsToConsume) {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 4; i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
                 if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
                     slotsToConsume.add(i);
@@ -331,18 +360,16 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             }
 
             if (!recipe.getContainer().isEmpty()) {
-                containerslot.extractItem(0,1,false);
+                inventory.extractItem(CONTAINER_SLOT,1,false);
             }
 
             if (outputStack.isEmpty()) {
-                inventory.setStackInSlot(4, resultItem);
+                inventory.setStackInSlot(5, resultItem);
             } else {
                 outputStack.grow(resultItem.getCount());
             }
-
+            residualDye --;
             cookingTotalTime = 0;
-            setChanged();
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 
@@ -354,12 +381,10 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     private void fillFuel(){
-        if (this.residualDye < 3){
-            ItemStack stack = this.fuelslot.getStackInSlot(0);
-            if (stack.is(Items.LAPIS_LAZULI)){
-                this.residualDye ++;
-                stack.shrink(1);
-            }
+        ItemStack stack = inventory.getStackInSlot(FUEL_SLOT);
+        if (isFuel(stack)) {
+            this.residualDye++;
+            stack.shrink(1);
         }
     }
 
@@ -368,7 +393,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             return true;
         }
         if (resultItem.is(outputStack.getItem()) && outputStack.getCount() != outputStack.getMaxStackSize()){
-                return true;
+            return true;
         }
         return false;
     }
@@ -385,12 +410,12 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     public boolean canPlaceItem(int pIndex, ItemStack pStack) {
-        return pIndex != 4;
+        return pIndex != OUTPUT_SLOT;
     }
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return canPlaceItem(pIndex,pItemStack);
+        return this.canPlaceItem(pIndex,pItemStack);
     }
 
     @Override
