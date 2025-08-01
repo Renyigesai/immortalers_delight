@@ -459,7 +459,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> SPIKE_BAR_BASE = BLOCKS.register("spike_bar_base",
             () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> SPIKE_BAR = BLOCKS.register("spike_bar",
-            () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
+            () -> new SpikeBarBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
 
     public static final RegistryObject<Block> INFESTED_SAND = BLOCKS.register("infested_sand",
             () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_SAND,BlockBehaviour.Properties.copy(Blocks.SAND)));

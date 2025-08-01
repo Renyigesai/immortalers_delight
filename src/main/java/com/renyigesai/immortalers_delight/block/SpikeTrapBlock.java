@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.block;
 
 import com.google.common.collect.ImmutableMap;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
@@ -22,11 +24,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -157,6 +161,7 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
         place(pLevel, blockpos$mutableblockpos, pLevel.getFluidState(blockpos$mutableblockpos), pDirection);
     }
 
+
     // 判断方块是否可以被替换的静态方法
     private static boolean canReplace(BlockState pState) {
         return pState.isAir() || pState.is(Blocks.WATER) || pState.is(Blocks.SMALL_DRIPLEAF);
@@ -244,7 +249,6 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
         return false;
     }
 
-    // 使用骨粉后的处理方法，在上方放置茎和叶子方块
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
 //        // 获取上方方块的位置和状态
 //        BlockPos blockpos = pPos.above();
@@ -403,6 +407,59 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         // 添加水logged、朝向和倾斜状态属性
         pBuilder.add(WATERLOGGED, FACING, TILT);
+    }
+
+    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity entity) {
+        super.stepOn(pLevel, pPos, pState, entity);
+        if (entity instanceof LivingEntity living){
+            if (pState.is(ImmortalersDelightBlocks.LONG_SPIKE_TRAP.get())){
+                onLongSpikeTrap(pState,living);
+                return;
+            }
+            if (pState.is(ImmortalersDelightBlocks.POISONOUS_LONG_SPIKE_TRAP.get())){
+                onPoisonousLongSpikeTrap(pState,living);
+                return;
+            }
+            if (pState.is(ImmortalersDelightBlocks.POISONOUS_METAL_CALTROP.get())){
+                onPoisonousMetalCaltrop(pState,living);
+                return;
+            }
+            if (pState.is(ImmortalersDelightBlocks.POISONOUS_SPIKE_TRAP.get())){
+                onPoisonousSpikeTrap(pState,living);
+                return;
+            }
+        }
+    }
+
+    private void onLongSpikeTrap(BlockState state,LivingEntity entity){
+        if (state.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
+            if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 4.0f) {
+                entity.hurt(entity.damageSources().cactus(), 4.0f);
+            }
+        }
+    }
+
+    private void onPoisonousLongSpikeTrap(BlockState state,LivingEntity entity){
+        if (state.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
+            if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
+                entity.hurt(entity.damageSources().cactus(), 2.0f);
+                if(!(entity.hasEffect(ImmortalersDelightMobEffect.WEAK_POISON.get()) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.WEAK_POISON.get(), 100, 4));
+            }
+        }
+    }
+
+    private void onPoisonousMetalCaltrop(BlockState state,LivingEntity entity){
+        if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
+            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,30, 3));
+        }
+    }
+
+    private void onPoisonousSpikeTrap(BlockState state,LivingEntity entity){
+        if (state.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
+            if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
+                if(!(entity.hasEffect(ImmortalersDelightMobEffect.WEAK_POISON.get()) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
+            }
+        }
     }
 
 }
