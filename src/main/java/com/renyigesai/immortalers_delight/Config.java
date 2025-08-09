@@ -45,6 +45,8 @@ public class Config {
     public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_NORMAL_EFFECT;
     public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
     private static final ForgeConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
+
+    private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
         BUILDER.push("ReverseNormalEffect")
                 .comment("Potion effects that can be reversed. Effect in this Map will be remove every tick. ",
@@ -105,6 +107,7 @@ public class Config {
     public static String magicNumberIntroduction;
     public static Set<Item> items;
     public static boolean rightClickHarvest;
+    public static double mininProbability;
 
     public static boolean weakPoisonHealthOverlay;
 
@@ -132,6 +135,7 @@ public class Config {
 
         powerBattleMode = POWER_BATTLE_MODE.get();
         rightClickHarvest = RIGHT_CLICK_HARVEST.get();
+        mininProbability = MININ_PROBABILITY.get();
 
     }
 }

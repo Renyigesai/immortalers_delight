@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.mixin;
 
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import jdk.jfr.Label;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,9 +14,12 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import org.spongepowered.asm.mixin.Final;
@@ -25,8 +29,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Mixin(Sniffer.class)
@@ -41,43 +47,13 @@ public abstract class SnifferMixin extends Animal {
         super(p_27557_, p_27558_);
     }
 
-    @Inject(method = "dropSeed",at = @At(value = "INVOKE",target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",shift = At.Shift.AFTER))
-    private void dropSeed(CallbackInfo ci){
+    @Inject(method = "dropSeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;getHeadBlock()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER),locals = LocalCapture.CAPTURE_FAILHARD)
+    private void dropSeed(CallbackInfo ci, ServerLevel serverlevel, LootTable loottable, LootParams lootparams, List<ItemStack> list){
         Level level = this.level();
-        BlockPos blockpos = this.getHeadBlock();
-        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,blockpos);
+        BlockPos headBlock = getHeadBlock();
+        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,headBlock,new ArrayList<>(list));
         MinecraftForge.EVENT_BUS.post(snifferDropSeedEvent);
+        list.clear();
+        list.addAll(snifferDropSeedEvent.getStacks());
     }
-
-//    @Unique
-//    private ItemEntity getSeedEntity(ServerLevel serverlevel, BlockPos blockpos, int i){
-//        List<ItemStack> itemStacks = new ArrayList<>();
-//        ItemStack stack1 = new ItemStack(ImmortalersDelightItems.PEARLIPEARL.get());
-//        ItemStack stack2 = new ItemStack(ImmortalersDelightItems.EVOLUTCORN_GRAINS.get());
-//        ItemStack stack3 = new ItemStack(ImmortalersDelightItems.HIMEKAIDO_SEED.get());
-//        ItemStack stack4 = new ItemStack(ImmortalersDelightItems.CONTAINS_TEA_LEISAMBOO.get());
-//        ItemStack stack5 = new ItemStack(ImmortalersDelightItems.KWAT_WHEAT_SEEDS.get());
-//        itemStacks.add(stack1);
-//        itemStacks.add(stack2);
-//        itemStacks.add(stack3);
-//        itemStacks.add(stack4);
-//        itemStacks.add(stack5);
-//        return new ItemEntity(serverlevel, blockpos.getX(), blockpos.getY(), blockpos.getZ(),
-//                new ItemStack(itemStacks.get(i).getItem()));
-//
-//    }
-
-    //            Holder<Biome> biomeHolder = this.level().getBiome(blockpos);
-//            if (biomeHolder.is(BiomeTags.IS_JUNGLE)){
-//                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,0));
-//            } else if (biomeHolder.is(Tags.Biomes.IS_PLAINS)) {
-//                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,1));
-//            } else if (biomeHolder.is(BiomeTags.IS_FOREST)) {
-//                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,2));
-//            } else if (biomeHolder.is(BiomeTags.IS_RIVER)) {
-//                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,3));
-//            } else if (biomeHolder.is(Biomes.CRIMSON_FOREST)) {
-//                serverlevel.addFreshEntity(getSeedEntity(serverlevel,blockpos,4));
-//            }
-//        }
 }
