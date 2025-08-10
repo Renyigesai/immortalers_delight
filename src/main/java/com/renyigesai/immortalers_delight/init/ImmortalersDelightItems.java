@@ -267,14 +267,14 @@ public class ImmortalersDelightItems {
     //public static final RegistryObject<Item> SPICY_PUDDING;
 
 
-    public static final RegistryObject<Item> POISONOUS_LONG_SPIKE_TRAP;
-    public static final RegistryObject<Item> LONG_SPIKE_TRAP;
-    public static final RegistryObject<Item> POISONOUS_SPIKE_TRAP;
-    public static final RegistryObject<Item> SPIKE_TRAP;
-    public static final RegistryObject<Item> POISONOUS_METAL_CALTROP;
-    public static final RegistryObject<Item> METAL_CALTROP;
+//    public static final RegistryObject<Item> POISONOUS_LONG_SPIKE_TRAP;
+//    public static final RegistryObject<Item> LONG_SPIKE_TRAP;
+//    public static final RegistryObject<Item> POISONOUS_SPIKE_TRAP;
+//    public static final RegistryObject<Item> SPIKE_TRAP;
+//    public static final RegistryObject<Item> POISONOUS_METAL_CALTROP;
+//    public static final RegistryObject<Item> METAL_CALTROP;
     public static final RegistryObject<Item> SPIKE_BAR_BASE;
-    public static final RegistryObject<Item> SPIKE_BAR;
+//    public static final RegistryObject<Item> SPIKE_BAR;
     public static final RegistryObject<Item> MUD_TILES;
     public static final RegistryObject<Item> MUD_TILES_STAIRS;
     public static final RegistryObject<Item> MUD_TILES_SLAB;
@@ -322,12 +322,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
     public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
+    public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
 
 
     public static final RegistryObject<Item> SACHETS;
     public static final RegistryObject<Item> DRILL_ROD_WAND;
     public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
     public static final RegistryObject<Item> ANCIENT_BLADE;
+    public static final RegistryObject<Item> REPEATING_CROSSBOW;
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
     static {
@@ -558,14 +561,14 @@ public class ImmortalersDelightItems {
         /*
         地牢工具箱
          */
-        POISONOUS_LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_LONG_SPIKE_TRAP);
-        LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.LONG_SPIKE_TRAP);
-        POISONOUS_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_SPIKE_TRAP);
-        SPIKE_TRAP = block(ImmortalersDelightBlocks.SPIKE_TRAP);
-        POISONOUS_METAL_CALTROP = block(ImmortalersDelightBlocks.POISONOUS_METAL_CALTROP);
-        METAL_CALTROP = block(ImmortalersDelightBlocks.METAL_CALTROP);
+//        POISONOUS_LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_LONG_SPIKE_TRAP);
+//        LONG_SPIKE_TRAP = block(ImmortalersDelightBlocks.LONG_SPIKE_TRAP);
+//        POISONOUS_SPIKE_TRAP = block(ImmortalersDelightBlocks.POISONOUS_SPIKE_TRAP);
+//        SPIKE_TRAP = block(ImmortalersDelightBlocks.SPIKE_TRAP);
+//        POISONOUS_METAL_CALTROP = block(ImmortalersDelightBlocks.POISONOUS_METAL_CALTROP);
+//        METAL_CALTROP = block(ImmortalersDelightBlocks.METAL_CALTROP);
         SPIKE_BAR_BASE = block(ImmortalersDelightBlocks.SPIKE_BAR_BASE);
-        SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
+        //SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
         INFESTED_GRAVEL = block(ImmortalersDelightBlocks.INFESTED_GRAVEL);
         INFESTED_SAND = block(ImmortalersDelightBlocks.INFESTED_SAND);
 //        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
@@ -947,6 +950,9 @@ public class ImmortalersDelightItems {
         ANCIENT_BLADE = registerWithTab("ancient_blade", () ->
                 new ImmortalersKnifeItem(2,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,fantasticItem(Rarity.UNCOMMON)));
 
+        REPEATING_CROSSBOW = registerWithTab("repeating_crossbow",()->
+                new RepeatingCrossbowItem((new Item.Properties()).stacksTo(1).durability(465)));
+
         SEALED_ANCIENT_RATIONS = registerWithTab("sealed_ancient_rations",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));
 
@@ -1036,6 +1042,10 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_BOMBER,1645516,6845733,new Item.Properties()));
         SKELVERFISH_THRASHER_SPAWN_EGG = registerWithTab("skelverfish_thrasher_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
+        STRANGE_ARMOUR_STAND_SPAWN_EGG = registerWithTab("strange_armour_stand_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
+        SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,1645516,6845733,new Item.Properties()));
 
 
 

@@ -2,7 +2,6 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.living.*;
-import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,5 +14,7 @@ public class ImmortalersDelightEntityAttributes {
         event.put(ImmortalersDelightEntities.SKELVERFISH_BOMBER.get(), SkelverfishBomber.createSkelverfishBomberAttributes().build());
         event.put(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(), SkelverfishThrasher.createSkelverfishThrasherAttributes().build());
         event.put(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(), StrangeArmourStand.createAttributes().build());
+        event.put(ImmortalersDelightEntities.SCAVENGER.get(), Scavenger.createScavengerAttributes().build());
+        event.put(ImmortalersDelightEntities.TERRACOTTA_GOLEM.get(), TerracottaGolem.createTerracottaGolemAttributes().build());
     }
 }
