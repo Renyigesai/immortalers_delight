@@ -14,6 +14,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+// 建议删除整个类
 public class TerracottaGolemMessage {
     private final int id;
     private final int size;
@@ -64,16 +65,17 @@ public class TerracottaGolemMessage {
 
         @OnlyIn(Dist.CLIENT)
         public static void openInventory(TerracottaGolemMessage packet) {
-            Player player = Minecraft.getInstance().player;
-            if (player != null) {
-                Entity entity = player.level().getEntity(packet.getEntityId());
-                if (entity instanceof TerracottaGolem golem) {
-                    LocalPlayer clientplayerentity = Minecraft.getInstance().player;
-                    TerracottaGolemMenu container = new TerracottaGolemMenu(packet.getId(), player.getInventory(), golem.getInventory(), golem);
-                    clientplayerentity.containerMenu = container;
-                    Minecraft.getInstance().setScreen(new TerracottaGolemScreen(container, player.getInventory(), golem));
-                }
-            }
+            // 这个类以及其相关的注册代码可以删除，用不到
+//            Player player = Minecraft.getInstance().player;
+//            if (player != null) {
+//                Entity entity = player.level().getEntity(packet.getEntityId());
+//                if (entity instanceof TerracottaGolem golem) {
+//                    LocalPlayer clientplayerentity = Minecraft.getInstance().player;
+//                    TerracottaGolemMenu container = new TerracottaGolemMenu(packet.getId(), player.getInventory(), golem.getInventory(), golem);
+//                    clientplayerentity.containerMenu = container;
+//                    Minecraft.getInstance().setScreen(new TerracottaGolemScreen(container, player.getInventory(), golem));
+//                }
+//            }
         }
     }
 }

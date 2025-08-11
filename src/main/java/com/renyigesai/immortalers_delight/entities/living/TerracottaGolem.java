@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
-import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -27,11 +27,12 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Llama;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.DyeColor;
@@ -41,17 +42,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent;
-import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-import static com.renyigesai.immortalers_delight.ImmortalersDelightMod.NETWORK_WRAPPER;
 import static com.renyigesai.immortalers_delight.potion.EsteemedGuestPotionEffect.FRIEND_TO;
 
 public class TerracottaGolem extends TamableAnimal implements ContainerListener, HasCustomInventoryScreen, RangedAttackMob, NeutralMob {
@@ -336,18 +333,11 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
 //        }
         if(pPlayer instanceof ServerPlayer serverplayer) {
             if (isAlive()) {
-                if (serverplayer.containerMenu != serverplayer.inventoryMenu) {
-                    serverplayer.closeContainer();
-                }
 
-                //this.setAttackState(3);
-                serverplayer.nextContainerCounter();
-                MenuProvider provider = new TerracottaGolemMenu.TerracottaGolemMenuProvider(this.inventory, this);
-                //NETWORK_WRAPPER.send(PacketDistributor.PLAYER.with(() -> serverplayer), new TerracottaGolemMessage(serverplayer.containerCounter, this.inventory.getContainerSize(), this.getId()));
-                serverplayer.containerMenu = new TerracottaGolemMenu(serverplayer.containerCounter, serverplayer.getInventory(), this.inventory, this);
-//                serverplayer.initMenu(serverplayer.containerMenu);
-                serverplayer.openMenu(provider);
-                MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(serverplayer, serverplayer.containerMenu));
+                // 删除冗余代码并转用简洁的打开方式
+                NetworkHooks.openScreen(serverplayer,
+                        new SimpleMenuProvider((containerId, inv, ServerPlayer) -> new TerracottaGolemMenu(containerId,inv,this), Component.translatable(ImmortalersDelightMod.MODID + ".container.terracotta_golem")),
+                        friendlyByteBuf -> friendlyByteBuf.writeVarInt(this.getId())); // 写入实体id，随后传入客户端
             }
         }
     }
@@ -497,7 +487,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
 
         System.out.println("readAdditionalSaveData读完了狼的nbt");
         this.createInventory();
-        ListTag listtag = pCompound.getList("Items", 9);
+        ListTag listtag = pCompound.getList("Items", 10); // 更改为正确的tag类型，防止读取时出错
 
         for(int i = 0; i < listtag.size(); ++i) {
             CompoundTag compoundtag = listtag.getCompound(i);

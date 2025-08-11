@@ -1,38 +1,33 @@
 package com.renyigesai.immortalers_delight.screen;
 
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
-import net.minecraft.core.BlockPos;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TerracottaGolemMenu extends AbstractContainerMenu {
     private final Container horseContainer;
     private final TerracottaGolem horse;
 
-    public TerracottaGolemMenu(int pContainerId, Inventory pPlayerInventory, Container pContainer, final TerracottaGolem pHorse) {
-        super((MenuType<?>)null, pContainerId);
-        this.horseContainer = pContainer;
+    // 客户端专用构造函数
+    public TerracottaGolemMenu(int id, Inventory inventory, FriendlyByteBuf buf)
+    {
+        this(id,inventory, (TerracottaGolem)inventory.player.level().getEntity(buf.readVarInt())); // 反序列化实体id，再调用统一构造
+    }
+
+    // 统一构造函数
+    public TerracottaGolemMenu(int pContainerId, Inventory pPlayerInventory, final TerracottaGolem pHorse) {
+        super(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), pContainerId);
+        this.horseContainer = pHorse.getInventory();
         this.horse = pHorse;
         int i = 3;
-        pContainer.startOpen(pPlayerInventory.player);
+        horseContainer.startOpen(pPlayerInventory.player);
         int j = -18;
 //        this.addSlot(new Slot(pContainer, 0, 8, 18) {
 //            /**
@@ -77,7 +72,7 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
         if (this.hasChest(pHorse)) {
             for(int k = 0; k < 4; ++k) {
                 for(int l = 0; l < pHorse.getInventoryColumns(); ++l) {
-                    this.addSlot(new Slot(pContainer, 3 + l + k * pHorse.getInventoryColumns(), 80 + l * 18, 8 + k * 18));
+                    this.addSlot(new Slot(horseContainer, 3 + l + k * pHorse.getInventoryColumns(), 80 + l * 18, 8 + k * 18));
                 }
             }
         }
@@ -94,18 +89,12 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
 
     }
 
-//    public TerracottaGolemMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
-//
-//    }
-//
-//    public static TerracottaGolemMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
-//        LivingEntity entity = data.get
-//        this.level.getEntity
-//        if (blockEntity instanceof EnchantalCoolerBlockEntity) {
-//            return new TerracottaGolemMenu(windowId, playerInventory, (EnchantalCoolerBlockEntity) blockEntity);
-//        }
-//        throw new IllegalStateException("Block entity is not an EnchantalCoolerBlockEntity!");
-//    }
+    // 给予客户端一个getDisplayName的路径
+    public TerracottaGolem getHorse()
+    {
+        return horse;
+    }
+
 
     /**
      * Determines whether supplied player can use this container
@@ -177,21 +166,4 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
         this.horseContainer.stopOpen(pPlayer);
     }
 
-    public static class TerracottaGolemMenuProvider implements MenuProvider {
-        private final Container horseContainer;
-        private final TerracottaGolem horse;
-        public TerracottaGolemMenuProvider(SimpleContainer pMenuInventory, TerracottaGolem pHorse) {
-            super();
-            this.horseContainer = pMenuInventory;
-            this.horse = pHorse;
-        }
-        @Override
-        public Component getDisplayName() {
-            return Component.translatable(ImmortalersDelightMod.MODID + "container.terracotta_golem");
-        }
-        @Override
-        public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-            return new TerracottaGolemMenu(pContainerId, pPlayerInventory, horseContainer,horse);
-        }
-    }
 }
