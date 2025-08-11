@@ -418,5 +418,6 @@
   "death.attack.drunk.player": "%1$ 在试图逃跑时死亡 %2$s",
   "death.attack.gas": "%1$s 被瓦斯毒气熏成了腊肉",
   "death.attack.gas.item": "%1$ 被 %2$s 杀死 %3$s",
-  "death.attack.gas.player": "%1$ 在试图逃跑时死亡 %2$s"
+  "death.attack.gas.player": "%1$ 在试图逃跑时死亡 %2$s",
+  "immortalers_delight.container.terracotta_golem": "测试标题"
 }

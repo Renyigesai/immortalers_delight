@@ -13,6 +13,7 @@ import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
 import com.renyigesai.immortalers_delight.network.CommonProxy;
 import com.renyigesai.immortalers_delight.network.ClientProxy;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
+import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -178,6 +179,8 @@ public class ImmortalersDelightMod {
             EntityRenderers.register(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), pContext -> new AncientWoodBoatRenderer(pContext, true));
             ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
+            // 注册UI界面
+            MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
