@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,16 +30,17 @@ public class PrehistoricPowersPotionEffect {
 
         if (!hurtOne.level().isClientSide && attacker != null) {
             if (attacker.hasEffect(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get()) && attacker.hasEffect(MobEffects.DAMAGE_BOOST)){
-                int lvStrong = hurtOne.hasEffect(MobEffects.DAMAGE_BOOST) ? Objects.requireNonNull(hurtOne.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier() + 1 : 0;
-                int lv = attacker.getEffect(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get()).getAmplifier();
+                int lvStrong = Objects.requireNonNull(attacker.getEffect(MobEffects.DAMAGE_BOOST)).getAmplifier();
+                int lv = Objects.requireNonNull(attacker.getEffect(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get())).getAmplifier();
                 float d0 = evt.getAmount();
                 float d1 = 1.3F;
-                int n = (isPowerful ? 1 : 0) + (lv > lvStrong ? lvStrong : lv);
+                int n = (isPowerful && lv > 0 ? 1 : 0) + (lv > lvStrong ? lvStrong : lv);
                 for (int i = 0; i < n; i++) {
-                    d1 *= d1;
+                    d1 *= !(attacker instanceof Player) ? d1 : 1.3F;
                 }
-                float dn = d0 * d1 + (d1-(isPowerful ? 0 : 1))/0.3F;
-                if (isPowerful) {dn += d0;}
+                if (isPowerful) ++d1;
+                float dn = d0 * d1 + (d1-1)/0.3F;
+                System.out.println("n=" + n + " d1=" + d1);
                 evt.setAmount(dn);
             }
         }

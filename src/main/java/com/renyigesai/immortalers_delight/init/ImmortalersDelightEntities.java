@@ -44,4 +44,12 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("strange_armour_stand", () -> EntityType.Builder.of(StrangeArmourStand::new, MobCategory.MONSTER)
                     .sized(0.6f, 2.0f).build("strange_armour_stand"));
 
+    public static final RegistryObject<EntityType<Scavenger>> SCAVENGER =
+            ENTITY_TYPES.register("scavenger", () -> EntityType.Builder.of(Scavenger::new, MobCategory.MONSTER)
+                    .sized(0.6f, 2.0f).build("scavenger"));
+
+
+    public static final RegistryObject<EntityType<TerracottaGolem>> TERRACOTTA_GOLEM =
+            ENTITY_TYPES.register("terracotta_golem", () -> EntityType.Builder.of(TerracottaGolem::new, MobCategory.MISC)
+                    .sized(2.0f, 2.0f).clientTrackingRange(10).build("terracotta_golem"));
 }

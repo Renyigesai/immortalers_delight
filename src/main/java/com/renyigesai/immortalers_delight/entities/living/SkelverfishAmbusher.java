@@ -37,6 +37,17 @@ public class SkelverfishAmbusher extends SkelverfishBase{
                 .add(Attributes.ATTACK_DAMAGE, 2.0D);
     }
 
+//    public boolean doHurtTarget(Entity pEntity) {
+//        if (!super.doHurtTarget(pEntity)) {
+//            return false;
+//        } else {
+//            if (pEntity instanceof LivingEntity livingEntity) {
+//                livingEntity.setHealth((LivingEntity))
+//            }
+//
+//            return true;
+//        }
+//    }
     @Override
     public void tick() {
         super.tick();

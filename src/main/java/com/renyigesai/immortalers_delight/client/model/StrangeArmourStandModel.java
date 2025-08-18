@@ -99,8 +99,8 @@ public class StrangeArmourStandModel<T extends Entity> extends HierarchicalModel
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
 
-        //this.animateWalk(StrangeArmourStandAnimation.WALK, pLimbSwing, pLimbSwingAmount,2f,2.5f);
-        this.animate(StrangeArmourStand.idleAnimationState, StrangeArmourStandAnimation.IDLE, 0.5f);
+        this.animateWalk(StrangeArmourStandAnimation.WALK, pLimbSwing, pLimbSwingAmount,2f,2.5f);
+        this.animate(StrangeArmourStand.idleAnimationState, StrangeArmourStandAnimation.IDLE,pAgeInTicks, 0.5f);
         this.animate(StrangeArmourStand.attackAnimationState, StrangeArmourStandAnimation.ATTACK,pAgeInTicks, 1.0f);
     }
 
