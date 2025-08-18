@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_paste"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:braised_pork",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

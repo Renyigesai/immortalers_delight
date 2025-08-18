@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:nether_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import net.minecraft.tags.BlockTags;
@@ -330,6 +331,18 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_BLADE;
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
+    /*诡怨藤*/
+    public static final RegistryObject<Item> WARPED_LAUREL_SEEDS;
+    public static final RegistryObject<Item> WARPED_LAUREL;
+    public static final RegistryObject<Item> LU_CHICKEN_LEGS;
+    public static final RegistryObject<Item> NETHER_SOUP;
+    public static final RegistryObject<Item> BRAISED_PORK;
+    public static final RegistryObject<Item> WARPED_LAUREL_CHICKEN_SOUP;
+    public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
+
+    /*温泉桶*/
+    public static final RegistryObject<Item> HOT_SPRING_BUCKET;
+
     static {
 
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
@@ -626,6 +639,13 @@ public class ImmortalersDelightItems {
         ALFALFA = registerWithTab("alfalfa",()-> new Item(basicItem()));
 
         CUSTARD_TART_PASTRY = registerWithTab("custard_tart_pastry",()-> new Item(basicItem()));
+
+        WARPED_LAUREL_SEEDS = registerWithTab("warped_laurel_seeds",()->
+                new ItemNameBlockItem(ImmortalersDelightBlocks.WARPED_LAUREL_CROP.get(), new Item.Properties()));
+
+        WARPED_LAUREL = registerWithTab("warped_laurel",()->
+                new Item(new Item.Properties()));
+
         /*
         玉米系列物品
         */
@@ -898,13 +918,12 @@ public class ImmortalersDelightItems {
         RED_STUFFED_BUN = registerWithTab("red_stuffed_bun",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.RED_STUFFED_BUN),ImmortalersDelightFoodProperties.RED_STUFFED_BUN_POWERED,true,false));
 
-//        SPICY_PUDDING = registerWithTab("spicy_pudding",()->
-//                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SPICY_PUDDING),true,false));
 
         /*
         冒险相关物品
          */
-        GOLDEN_FABRIC = register("golden_fabric", () ->
+
+        GOLDEN_FABRIC = registerWithTab("golden_fabric", () ->
                 new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
 
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
@@ -989,6 +1008,13 @@ public class ImmortalersDelightItems {
         ALFALFA_PORRIDGE = registerWithTab("alfalfa_porridge",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE),ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE_POWERED,true,false));
 
+        /*诡怨桂相关物品*/
+        LU_CHICKEN_LEGS = foodItem("lu_chicken_legs",ImmortalersDelightFoodProperties.LU_CHICKEN_LEGS,true);
+        NETHER_SOUP = registerWithTab("nether_soup",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_SOUP),true));
+        BRAISED_PORK = registerWithTab("braised_pork",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BRAISED_PORK),true));
+        WARPED_LAUREL_CHICKEN_SOUP = registerWithTab("warped_laurel_chicken_soup",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.WARPED_LAUREL_CHICKEN_SOUP),true));
+        APOLLYON_CAKE_ROLL = foodItem("apollyon_cake_roll",ImmortalersDelightFoodProperties.APOLLYON_CAKE_ROLL,true);
+
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
@@ -1036,6 +1062,8 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_BOMBER,1645516,6845733,new Item.Properties()));
         SKELVERFISH_THRASHER_SPAWN_EGG = registerWithTab("skelverfish_thrasher_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
+
+        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 
 

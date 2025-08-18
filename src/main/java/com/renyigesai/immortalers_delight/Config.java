@@ -132,7 +132,6 @@ public class Config {
         items = ITEM_STRINGS.get().stream().map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName))).collect(Collectors.toSet());
 
         weakPoisonHealthOverlay = WEAK_POISON_HEALTH_OVERLAY.get();
-
         powerBattleMode = POWER_BATTLE_MODE.get();
         rightClickHarvest = RIGHT_CLICK_HARVEST.get();
         mininProbability = MININ_PROBABILITY.get();

@@ -15,6 +15,8 @@ import com.renyigesai.immortalers_delight.client.renderer.AncientStoveBlockEntit
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
@@ -62,6 +64,8 @@ public class ImmortalersDelightMod {
         ImmortalersDelightBlocks.register(bus);
         ImmortalersDelightBlockEntityTypes.TILES.register(bus);
         ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
+        ImmortalersDelightFluids.REGISTRY.register(bus);
+        ImmortalersDelightFluidTypes.REGISTRY.register(bus);
         ImmortalersDelightGroup.CREATIVE_TABS.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);

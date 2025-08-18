@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "tag": "forge:eggs"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:apollyon_cake_roll",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -11,6 +11,7 @@ import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightW
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
+import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -52,6 +53,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ANCIENT_STOVE;
     public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
+    public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -494,6 +496,10 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> PEARLIP_RICE_ROLL_BOAT = BLOCKS.register("pearlip_rice_roll_boat",
             () -> new PearlipRiceRollBoatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    /*诡怨藤*/
+    public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
+            new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART)));
+
     //oxidized
 
     static {
@@ -513,6 +519,8 @@ public class ImmortalersDelightBlocks {
 
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));
+
+        HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block", HotSpringFluidsBlock::new);
     }
 
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {

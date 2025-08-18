@@ -26,7 +26,7 @@ public class ReapCropBlock extends CropBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (Config.rightClickHarvest) {//通过配置文件决定是否使用右键收获
             int age = state.getValue(AGE);
-            if (age == MAX_AGE) {
+            if (age == getMaxAge()) {
                 boolean temp = false;
                 if (level instanceof ServerLevel level1) {
                     List<ItemStack> stacks = getDrops(state, level1, pos, null);

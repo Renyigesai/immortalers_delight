@@ -818,4 +818,10 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(MobEffects.REGENERATION,300,2),1F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),1500,1),1F)
             .build();
+
+    public static final FoodProperties LU_CHICKEN_LEGS  = new FoodProperties.Builder().nutrition(13).saturationMod(0.75f).effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(),600),1f).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),600),1F).build();
+    public static final FoodProperties NETHER_SOUP  = new FoodProperties.Builder().nutrition(13).saturationMod(0.75f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),100),1f).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),600),1F).build();
+    public static final FoodProperties BRAISED_PORK  = new FoodProperties.Builder().nutrition(13).saturationMod(0.75f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1200),1f).effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),1200),1F).build();
+    public static final FoodProperties WARPED_LAUREL_CHICKEN_SOUP  = new FoodProperties.Builder().nutrition(13).saturationMod(0.75f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),100),1f).effect(()->new MobEffectInstance(ModEffects.NOURISHMENT.get(),2400),1F).build();
+    public static final FoodProperties APOLLYON_CAKE_ROLL  = new FoodProperties.Builder().nutrition(13).saturationMod(0.75f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),6000),1f).effect(new  MobEffectInstance(MobEffects.DARKNESS,3600),1F).build();
 }
