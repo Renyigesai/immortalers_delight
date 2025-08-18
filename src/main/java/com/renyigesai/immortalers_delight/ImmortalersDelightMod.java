@@ -8,6 +8,8 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRendere
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
 import com.renyigesai.immortalers_delight.network.CommonProxy;
@@ -83,6 +85,8 @@ public class ImmortalersDelightMod {
         ImmortalersDelightBlockEntityTypes.TILES.register(bus);
         ImmortalersDelightBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         ImmortalersDelightGroup.CREATIVE_TABS.register(bus);
+        ImmortalersDelightFluidTypes.REGISTRY.register(bus);
+        ImmortalersDelightFluids.REGISTRY.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
