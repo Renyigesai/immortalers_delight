@@ -25,6 +25,8 @@ public class ImmortalersDelightRecipeTypes {
             RECIPE_TYPE.register(bus);
 			SERIALIZERS.register(EnchantalCoolerRecipe.Type.ID,() ->EnchantalCoolerRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register(EnchantalCoolerRecipe.Type.ID,() ->EnchantalCoolerRecipe.Type.INSTANCE);
+            SERIALIZERS.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Type.INSTANCE);
         });
     }
 }

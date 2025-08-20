@@ -786,9 +786,9 @@ public class ImmortalersDelightItems {
         /*
         通天竹
         */
-        TRAVAPLANK = registerWithTab("travaplank",()->new Item(basicItem()));
-        TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
-        COOKED_TRAVARICE = registerWithTab("cooked_travarice",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.COOKED_TRAVARICE),true));
+        TRAVAPLANK = register("travaplank",()->new Item(basicItem()));
+        TRAVARICE = register("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
+        COOKED_TRAVARICE = register("cooked_travarice",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.COOKED_TRAVARICE),true));
 
 
 
@@ -1047,13 +1047,13 @@ public class ImmortalersDelightItems {
         PIGLIN_ODORI_SAKE = registerWithTab("piglin_odori_sake",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.PIGLIN_ODORI_SAKE.get(), (new Item.Properties()).craftRemainder(Items.WITHER_SKELETON_SKULL).stacksTo(16).food(ImmortalersDelightFoodProperties.PIGLIN_ODORI_SAKE),true));
 
-        TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
+        TRAVEER = register("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
 
-        TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
-        STRIPPED_TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG);
-        TRAVA_PLANKS = block(ImmortalersDelightBlocks.TRAVA_PLANKS);
-        TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES);
-        TRAVASTRUGGLER_LEAVES_TRAVARICE = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES_TRAVARICE);
+        TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG,true);
+        STRIPPED_TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG,true);
+        TRAVA_PLANKS = block(ImmortalersDelightBlocks.TRAVA_PLANKS,true);
+        TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES,true);
+        TRAVASTRUGGLER_LEAVES_TRAVARICE = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES_TRAVARICE,true);
 
 //        PALE_DEW_WINE = registerWithTab("pale_dew_wine",()->
 //                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.PALE_DEW_WINE),true,false));
@@ -1130,6 +1130,10 @@ public class ImmortalersDelightItems {
 
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
+    private static RegistryObject<Item> block(RegistryObject<Block> block,boolean hide) {
+        return register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 }
 

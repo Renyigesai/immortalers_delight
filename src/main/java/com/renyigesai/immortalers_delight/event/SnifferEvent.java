@@ -62,6 +62,7 @@ public class SnifferEvent {
         itemStackHashMap.put(BiomeTags.IS_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_forest",level),level,pos));
         itemStackHashMap.put(BiomeTags.IS_RIVER, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_river",level),level,pos));
         itemStackHashMap.put(ImmortalersDelightTags.IS_CRIMSON_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_crimson_forest",level),level,pos));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_WARPED_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_warped_forest",level),level,pos));
         return itemStackHashMap;
     }
 
