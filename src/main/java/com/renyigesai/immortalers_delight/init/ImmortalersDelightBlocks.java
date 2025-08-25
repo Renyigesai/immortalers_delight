@@ -449,7 +449,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> LONG_SPIKE_TRAP = BLOCKS.register("long_spike_trap",
             () -> new SpikeTrapBlock(true,6.0F,
                     BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
-//
+
     public static final RegistryObject<Block> POISONOUS_METAL_CALTROP = BLOCKS.register("poisonous_metal_caltrop",
             () -> new MetalCaltropBlock(false,2.0F,
                     BlockBehaviour.Properties.copy(Blocks.PISTON).strength(55.0F, 1200.0F)) {
@@ -498,7 +498,7 @@ public class ImmortalersDelightBlocks {
 
     /*诡怨藤*/
     public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
-            new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART)));
+            new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
 
     //oxidized
 

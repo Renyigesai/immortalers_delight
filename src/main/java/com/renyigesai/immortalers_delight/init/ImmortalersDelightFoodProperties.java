@@ -491,7 +491,7 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties EVOLUTCORN_HARD_CANDY = new FoodProperties.Builder()
             .nutrition(4).saturationMod(1.2F).alwaysEat()
-            .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,40,4),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,100,3),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,40,1),1.0F)
             .build();
 
@@ -786,7 +786,7 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties EVOLUTCORN_HARD_CANDY_POWERED = new FoodProperties.Builder()
             .nutrition(4).saturationMod(1.2F).alwaysEat()
-            .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,40,4),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,100,3),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,40,5),1.0F)
             .build();
 
