@@ -1,9 +1,13 @@
 package com.renyigesai.immortalers_delight.event;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,5 +47,4 @@ public class ImmortalersDelightEvent {
         ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.KWAT_WHEAT_BLOCK.get(), 0.85f);
         ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.ALFALFA_BLOCK.get(), 0.85f);
     }
-
 }

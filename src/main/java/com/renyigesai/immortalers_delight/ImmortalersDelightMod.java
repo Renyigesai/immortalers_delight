@@ -7,7 +7,7 @@ import com.renyigesai.immortalers_delight.client.renderer.AncientStoveBlockEntit
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
-import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
+import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
@@ -26,8 +26,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +33,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -44,7 +43,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 
@@ -64,6 +62,7 @@ public class ImmortalersDelightMod {
     public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
     private static int packetsRegistered;
+    public static final boolean isLtc2 = ModList.get().isLoaded("ltc2");
 
     static {
         NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main_channel"));
@@ -80,6 +79,10 @@ public class ImmortalersDelightMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        if (isLtc2){
+            Ltc2Items.ITEMS.register(bus);
+        }
+
         ImmortalersDelightItems.REGISTER.register(bus);
         ImmortalersDelightBlocks.register(bus);
         ImmortalersDelightBlockEntityTypes.TILES.register(bus);
@@ -92,6 +95,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
+        bus.addListener(this::commonSetup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -115,25 +119,22 @@ public class ImmortalersDelightMod {
 
         @SubscribeEvent
         public void commonSetup(final FMLCommonSetupEvent event) {
-            // Some common setup code
             LOGGER.info("IMMORTALERS DELIGHT SETUP");
-//        LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
-//
-//        if (Config.logDirtBlock) LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
-//
-//        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-//
-//        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
-
+            // 条件注册物品
+//            event.enqueueWork(ImmortalersDelightLinkageItems::registerConditionalItems);
             NETWORK_WRAPPER.registerMessage(packetsRegistered++,
                     TerracottaGolemMessage.class,
                     TerracottaGolemMessage::write,
                     TerracottaGolemMessage::read,
                     TerracottaGolemMessage.Handler::handle
             );
-
         }
     }
+
+    private void commonSetup(final FMLCommonSetupEvent event){
+//        event.enqueueWork(ImmortalersDelightLinkageItems::registerConditionalItems);
+    }
+
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts

@@ -45,6 +45,7 @@ public class Config {
     public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_NORMAL_EFFECT;
     public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
     private static final ForgeConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
+    private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_HINT = BUILDER.comment("After being turned off, when the Power Battle Mode is enabled, the prompt field will no longer be displayed in the game").define("powerBattleModeHint", true);
 
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
@@ -107,6 +108,7 @@ public class Config {
     public static String magicNumberIntroduction;
     public static Set<Item> items;
     public static boolean rightClickHarvest;
+    public static boolean powerBattleModeHint;
     public static double mininProbability;
 
     public static boolean weakPoisonHealthOverlay;
@@ -134,6 +136,7 @@ public class Config {
         weakPoisonHealthOverlay = WEAK_POISON_HEALTH_OVERLAY.get();
         powerBattleMode = POWER_BATTLE_MODE.get();
         rightClickHarvest = RIGHT_CLICK_HARVEST.get();
+        powerBattleModeHint = POWER_BATTLE_MODE_HINT.get();
         mininProbability = MININ_PROBABILITY.get();
 
     }

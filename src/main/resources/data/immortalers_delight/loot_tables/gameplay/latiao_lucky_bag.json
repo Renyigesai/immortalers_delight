@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:block",
+  "functions": [],
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:hako_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:windy_narrator_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:moaswies_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:renyigesai_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:lyz_delight_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:xiaosuhuaji_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:tellurium_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:ka_qko_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:bei_dou_latiao"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:douger_latiao"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "immortalers_delight:gameplay/latiao_lucky_bag"
+}
