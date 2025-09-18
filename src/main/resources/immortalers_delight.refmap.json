@@ -1,0 +1,16 @@
+{
+  "mappings": {
+    "com/renyigesai/immortalers_delight/mixin/SnifferMixin": {
+      "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;getHeadBlock()Lnet/minecraft/core/BlockPos;": "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;m_284345_()Lnet/minecraft/core/BlockPos;",
+      "dropSeed": "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;m_271740_()V"
+    }
+  },
+  "data": {
+    "searge": {
+      "com/renyigesai/immortalers_delight/mixin/SnifferMixin": {
+        "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;getHeadBlock()Lnet/minecraft/core/BlockPos;": "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;m_284345_()Lnet/minecraft/core/BlockPos;",
+        "dropSeed": "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;m_271740_()V"
+      }
+    }
+  }
+}

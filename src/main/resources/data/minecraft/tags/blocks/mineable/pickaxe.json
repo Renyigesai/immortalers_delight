@@ -21,6 +21,10 @@
     "immortalers_delight:packed_mud_wall",
     "immortalers_delight:packed_mud_stairs",
     "immortalers_delight:packed_mud_slab",
-    "immortalers_delight:infested_iron_block"
+    "immortalers_delight:infested_iron_block",
+    "immortalers_delight:exposed_ancient_stove",
+    "immortalers_delight:weathered_ancient_stove",
+    "immortalers_delight:oxidized_ancient_stove",
+    "immortalers_delight:ancient_stove"
   ]
 }

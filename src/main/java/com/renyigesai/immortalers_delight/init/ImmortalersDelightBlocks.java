@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
+import com.renyigesai.immortalers_delight.block.ancient_stove.WeatheringAncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightCeilingHangingSignBlock;
@@ -388,9 +389,14 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
             () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    public static final RegistryObject<Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove",
-            () -> new OxidizedAncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)) {
-            });
+    public static final RegistryObject<Block> EXPOSED_ANCIENT_STOVE = BLOCKS.register("exposed_ancient_stove",()->
+            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.EXPOSED));
+
+    public static final RegistryObject<Block> WEATHERED_ANCIENT_STOVE = BLOCKS.register("weathered_ancient_stove",()->
+            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.WEATHERED));
+
+    public static final RegistryObject<Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove", () ->
+            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED));
 
     /*
     通天竹
@@ -512,7 +518,7 @@ public class ImmortalersDelightBlocks {
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
 
         ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
-                new AncientStoveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)));
+                new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER), WeatheringCopper.WeatherState.UNAFFECTED));
 
         ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",
                 ()-> BlockEntityType.Builder.of(AncientStoveBlockEntity::new, ANCIENT_STOVE.get()).build(null));
