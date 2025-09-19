@@ -829,7 +829,10 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties APOLLYON_CAKE_ROLL  = new FoodProperties.Builder().nutrition(5).saturationMod(0.4f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),6000),1f).effect(new  MobEffectInstance(MobEffects.DARKNESS,3600),1F).build();
 
-    public static final FoodProperties KWAT_WHEAT_LATIAO  = new FoodProperties.Builder().nutrition(5).saturationMod(0.5f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100),1f).fast().alwaysEat().build();
-
-    public static final FoodProperties MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO  = new FoodProperties.Builder().nutrition(5).saturationMod(0.5f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),100),1F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get(),4800),1F).fast().alwaysEat().build();
+    public static final FoodProperties DEVELOPER_LATIAO  = new FoodProperties.Builder().nutrition(20).saturationMod(0.5f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_UNDEAD.get(),6000),1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ARTHROPOD.get(),6000),1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ABYSSAL.get(),6000),1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get(),6000),1f)
+            .fast().alwaysEat().build();
 }
