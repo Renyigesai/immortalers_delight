@@ -17,7 +17,7 @@ public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> i
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation SCARVENGER_MODEL = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "scavenger"), "main");
     private final ModelPart waist;
-    private final ModelPart Body;
+    private final ModelPart body;
     private final ModelPart head;
     private final ModelPart arms;
     private final ModelPart nose;
@@ -30,7 +30,7 @@ public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> i
     public ScavengerModel(ModelPart root) {
         super(root);
         this.waist = root.getChild("waist");
-        this.Body = this.waist.getChild("Body");
+        this.body = this.waist.getChild("body");
         this.head = root.getChild("head");
         this.hat = this.head.getChild("hat");
         this.hat.visible = false;
@@ -49,7 +49,7 @@ public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> i
 
         PartDefinition waist = partdefinition.addOrReplaceChild("waist", CubeListBuilder.create(), PartPose.offset(0.0F, 12.0F, 0.0F));
 
-        PartDefinition Body = waist.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(16, 84).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 18.0F, 6.0F, new CubeDeformation(0.5F))
+        PartDefinition Body = waist.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 84).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 18.0F, 6.0F, new CubeDeformation(0.5F))
                 .texOffs(16, 20).addBox(-4.0F, -24.0F, -3.0F, 8.0F, 12.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 12.0F, 0.0F));
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F))
@@ -79,6 +79,7 @@ public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> i
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         waist.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
