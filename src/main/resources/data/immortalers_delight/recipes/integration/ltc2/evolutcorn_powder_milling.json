@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ltc2"
+    }
+  ],
+  "type": "ltc2:mill",
+  "millingtime": 200,
+  "experience": 0.35,
+  "category": "other",
+  "ingredient": {
+    "item": "immortalers_delight:evolutcorn"
+  },
+  "result": {
+    "count": 2,
+    "item": "immortalers_delight:evolutcorn_powder"
+  }
+}

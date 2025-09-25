@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ltc2"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ltc2:mortar"
+    },
+    [
+      {
+      "item": "immortalers_delight:evolutcorn"
+    },
+      {
+        "item": "immortalers_delight:evolutcorn_grains"
+      }
+    ]
+  ],
+  "result": {
+    "item": "immortalers_delight:evolutcorn_powder",
+    "count": 1
+  }
+}

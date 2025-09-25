@@ -7,13 +7,19 @@
   ],
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 2
+                }
+              ],
               "conditions": [
                 {
                   "block": "immortalers_delight:warped_laurel_crop",
@@ -32,10 +38,10 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "conditions": [
         {
           "block": "immortalers_delight:warped_laurel_crop",
@@ -62,7 +68,7 @@
           "name": "immortalers_delight:warped_laurel_seeds"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "immortalers_delight:blocks/warped_laurel_crop"

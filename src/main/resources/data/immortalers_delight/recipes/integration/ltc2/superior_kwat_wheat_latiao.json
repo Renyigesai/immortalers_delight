@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ltc2"
+    }
+  ],
+  "type": "ltc2:latiao_oven",
+  "category": "common",
+  "group": "cleanse_latiao",
+  "latiao": {
+    "item": "immortalers_delight:rare_kwat_wheat_latiao"
+  },
+  "mainsp": {
+    "item": "immortalers_delight:kwat_wheat",
+    "count": 1
+  },
+  "extrasp": {
+    "tag": "ltc2:pepper_powders",
+    "count": 1
+  },
+  "result": "immortalers_delight:superior_kwat_wheat_latiao",
+  "experience": 0.5,
+  "cookingtime": 200
+}
+

@@ -1,9 +1,13 @@
 package com.renyigesai.immortalers_delight.block.ancient_stove;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -42,21 +46,27 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.function.Supplier;
 
-public class AncientStoveBlock extends BaseEntityBlock {
+public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopper {
 
     public static final BooleanProperty LIT;
     public static final DirectionProperty FACING;
 
-    public AncientStoveBlock(BlockBehaviour.Properties properties) {
+    private final WeatheringCopper.WeatherState weatherState;
+
+    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get()).build());
+
+    public AncientStoveBlock(BlockBehaviour.Properties properties, WeatherState weatherState) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH)).setValue(LIT, false));
+        this.weatherState = weatherState;
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
         Item heldItem = heldStack.getItem();
-        if ((Boolean)state.getValue(LIT)) {
+        if (state.getValue(LIT)) {
             if (heldStack.canPerformAction(ToolActions.SHOVEL_DIG)) {
                 this.extinguish(state, level, pos);
                 heldStack.hurtAndBreak(1, player, (action) -> {
@@ -67,7 +77,7 @@ public class AncientStoveBlock extends BaseEntityBlock {
 
             if (heldItem == Items.WATER_BUCKET) {
                 if (!level.isClientSide()) {
-                    level.playSound((Player)null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
 
                 this.extinguish(state, level, pos);
@@ -80,7 +90,7 @@ public class AncientStoveBlock extends BaseEntityBlock {
         } else {
             if (heldItem instanceof FlintAndSteelItem) {
                 level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
-                level.setBlock(pos, (BlockState)state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
+                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
                 heldStack.hurtAndBreak(1, player, (action) -> {
                     action.broadcastBreakEvent(hand);
                 });
@@ -88,8 +98,8 @@ public class AncientStoveBlock extends BaseEntityBlock {
             }
 
             if (heldItem instanceof FireChargeItem) {
-                level.playSound((Player)null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (MathUtils.RAND.nextFloat() - MathUtils.RAND.nextFloat()) * 0.2F + 1.0F);
-                level.setBlock(pos, (BlockState)state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
+                level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (MathUtils.RAND.nextFloat() - MathUtils.RAND.nextFloat()) * 0.2F + 1.0F);
+                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
                 if (!player.isCreative()) {
                     heldStack.shrink(1);
                 }
@@ -114,8 +124,61 @@ public class AncientStoveBlock extends BaseEntityBlock {
                 return InteractionResult.CONSUME;
             }
         }
-
         return InteractionResult.PASS;
+    }
+
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof AncientStoveBlockEntity stoveBlock && stoveBlock.isEmpty()){
+            this.onRandomTick(pState, pLevel, pPos, pRandom);
+        }
+    }
+
+    public void onRandomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (pRandom.nextFloat() < 0.05688889F) {
+            this.applyChangeOverTime(pState, pLevel, pPos, pRandom);
+        }
+    }
+
+    public void applyChangeOverTime(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        int i = this.getAge().ordinal();
+        int j = 0;
+        int k = 0;
+
+        for(BlockPos blockpos : BlockPos.withinManhattan(pPos, 4, 4, 4)) {
+            int l = blockpos.distManhattan(pPos);
+            if (l > 4) {
+                break;
+            }
+
+            if (!blockpos.equals(pPos)) {
+                BlockState blockstate = pLevel.getBlockState(blockpos);
+                Block block = blockstate.getBlock();
+                if (block instanceof ChangeOverTimeBlock) {
+                    Enum<?> oenum = ((ChangeOverTimeBlock)block).getAge();
+                    if (this.getAge().getClass() == oenum.getClass()) {
+                        int i1 = oenum.ordinal();
+                        if (i1 < i) {
+                            return;
+                        }
+
+                        if (i1 > i) {
+                            ++k;
+                        } else {
+                            ++j;
+                        }
+                    }
+                }
+            }
+        }
+
+        float f = (float)(k + 1) / (float)(k + j + 1);
+        float f1 = f * f * this.getChanceModifier();
+        if (pRandom.nextFloat() < f1) {
+            this.getNext(pState).ifPresent((p_153039_) -> {
+                pLevel.setBlockAndUpdate(pPos, p_153039_);
+            });
+        }
     }
 
     public RenderShape getRenderShape(BlockState pState) {
@@ -188,20 +251,38 @@ public class AncientStoveBlock extends BaseEntityBlock {
 
     @javax.annotation.Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return (Boolean)state.getValue(LIT) ? createTickerHelper(blockEntityType, ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), level.isClientSide ? AncientStoveBlockEntity::animationTick : AncientStoveBlockEntity::cookingTick) : null;
+        return state.getValue(LIT) ? createTickerHelper(blockEntityType, ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), level.isClientSide ? AncientStoveBlockEntity::animationTick : AncientStoveBlockEntity::cookingTick) : null;
     }
 
     @javax.annotation.Nullable
     public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-        return (Boolean)state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
+        return state.getValue(LIT) ? BlockPathTypes.DAMAGE_FIRE : null;
     }
 
     public BlockState rotate(BlockState pState, Rotation pRot) {
-        return (BlockState)pState.setValue(FACING, pRot.rotate((Direction)pState.getValue(FACING)));
+        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
     }
 
     public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation((Direction)pState.getValue(FACING)));
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    }
+
+    public boolean isRandomlyTicking(BlockState pState) {
+        return getNext(pState.getBlock()).isPresent() && !pState.getValue(LIT);
+    }
+
+    @Override
+    public WeatherState getAge() {
+        return this.weatherState;
+    }
+
+    public Optional<Block> getNext(Block pBlock) {
+        return Optional.ofNullable(NEXT_BY_BLOCK.get().get(pBlock));
+    }
+
+    @Override
+    public Optional<BlockState> getNext(BlockState pState) {
+        return getNext(pState.getBlock()).map((p_154896_) -> p_154896_.withPropertiesOf(pState));
     }
 
     static {

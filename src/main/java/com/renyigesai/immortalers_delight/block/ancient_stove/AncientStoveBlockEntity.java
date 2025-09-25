@@ -95,6 +95,15 @@ public class AncientStoveBlockEntity extends SyncedBlockEntity {
 
     }
 
+    public boolean isEmpty(){
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void animationTick(Level level, BlockPos pos, BlockState state, AncientStoveBlockEntity stove) {
         for(int i = 0; i < stove.inventory.getSlots(); ++i) {
             if (!stove.inventory.getStackInSlot(i).isEmpty() && level.random.nextFloat() < 0.2F) {
@@ -111,7 +120,6 @@ public class AncientStoveBlockEntity extends SyncedBlockEntity {
                 }
             }
         }
-
     }
 
     private void cookAndOutputItems() {

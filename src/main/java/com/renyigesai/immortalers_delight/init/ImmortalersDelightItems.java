@@ -158,6 +158,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> TARTARE_CHICKEN;
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
     public static final RegistryObject<Item> ANCIENT_STOVE;
+    public static final RegistryObject<Item> EXPOSED_ANCIENT_STOVE;
+    public static final RegistryObject<Item> WEATHERED_ANCIENT_STOVE;
     public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
@@ -351,6 +353,10 @@ public class ImmortalersDelightItems {
         ENCHANTAL_COOLER = block(ImmortalersDelightBlocks.ENCHANTAL_COOLER);
 
         ANCIENT_STOVE = block(ImmortalersDelightBlocks.ANCIENT_STOVE);
+
+        EXPOSED_ANCIENT_STOVE = block(ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE);
+
+        WEATHERED_ANCIENT_STOVE = block(ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE);
 
         OXIDIZED_ANCIENT_STOVE = block(ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE);
 

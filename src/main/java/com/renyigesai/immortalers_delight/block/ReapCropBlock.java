@@ -29,7 +29,8 @@ public class ReapCropBlock extends CropBlock {
             if (age == getMaxAge()) {
                 boolean temp = false;
                 if (level instanceof ServerLevel level1) {
-                    List<ItemStack> stacks = getDrops(state, level1, pos, null);
+//                    dropResources(state,level1,pos,null,player,player.getMainHandItem());
+                    List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
                     if (!stacks.isEmpty()) {
                         for (ItemStack stack : stacks) {
                             popResource(level, pos, stack);
@@ -39,7 +40,7 @@ public class ReapCropBlock extends CropBlock {
                 }
                 if (temp) {
                     level.setBlock(pos, state.setValue(AGE, 0), 3);
-                    level.playSound((Player) null, pos, (SoundEvent) ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                    level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
             }
