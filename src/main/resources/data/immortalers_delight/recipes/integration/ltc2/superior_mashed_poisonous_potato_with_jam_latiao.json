@@ -7,7 +7,7 @@
   ],
   "type": "ltc2:latiao_oven",
   "category": "common",
-  "group": "cleanse_latiao",
+  "group": "mashed_poisonous_potato_with_jam_latiao",
   "latiao": {
     "item": "immortalers_delight:rare_mashed_poisonous_potato_with_jam_latiao"
   },
