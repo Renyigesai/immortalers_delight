@@ -7,7 +7,7 @@
   ],
   "type": "ltc2:latiao_oven",
   "category": "common",
-  "group": "cleanse_latiao",
+  "group": "kwat_wheat_latiao",
   "latiao": {
     "item": "immortalers_delight:superior_kwat_wheat_latiao"
   },
