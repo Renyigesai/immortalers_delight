@@ -77,16 +77,16 @@ public class Ltc2Items {
 
         /*开发者辣条*/
         IMMORTALERS_LATIAO_LUCKY_BAG = registerWithTab("immortalers_latiao_lucky_bag", LatiaoLuckyBagItem::new);
-        HAKO_LATIAO = registerWithTab("hako_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        WINDY_NARRATOR_LATIA = registerWithTab("windy_narrator_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        MOASWIES_LATIAO = registerWithTab("moaswies_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        RENYIGESAI_LATIAO = registerWithTab("renyigesai_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        LYZ_DELIGHT_LATIAO = registerWithTab("lyz_delight_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        XIAOSUHUAJI_LATIAO = registerWithTab("xiaosuhuaji_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        TELLURIUM_LATIAO = registerWithTab("tellurium_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        KA_QKO_LATIAO = registerWithTab("ka_qko_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        BEI_DOU_LATIAO = registerWithTab("bei_dou_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
-        DOUGER_LATIAO = registerWithTab("douger_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.RELICACY));
+        HAKO_LATIAO = registerWithTab("hako_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        WINDY_NARRATOR_LATIA = registerWithTab("windy_narrator_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        MOASWIES_LATIAO = registerWithTab("moaswies_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        RENYIGESAI_LATIAO = registerWithTab("renyigesai_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        LYZ_DELIGHT_LATIAO = registerWithTab("lyz_delight_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        XIAOSUHUAJI_LATIAO = registerWithTab("xiaosuhuaji_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        TELLURIUM_LATIAO = registerWithTab("tellurium_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        KA_QKO_LATIAO = registerWithTab("ka_qko_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        BEI_DOU_LATIAO = registerWithTab("bei_dou_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
+        DOUGER_LATIAO = registerWithTab("douger_latiao", () -> new DeveloperLatiaoItem(ImmortalersDelightFoodProperties.DEVELOPER_LATIAO, EnumLatiaoGrade.TREASURE));
     }
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
