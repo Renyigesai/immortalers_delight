@@ -5,12 +5,11 @@
       "modid": "ltc2"
     }
   ],
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "type": "ltc2:damageable_tool_shapeless",
+  "tool": {
+    "item": "ltc2:mortar"
+  },
   "ingredients": [
-    {
-      "item": "ltc2:mortar"
-    },
     [
       {
       "item": "immortalers_delight:evolutcorn"
