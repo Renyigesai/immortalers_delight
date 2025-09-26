@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.compat.init;
 
 import com.doggystudio.chirencqr.ltc.server.item.ItemLatiaoBase;
 import com.doggystudio.chirencqr.ltc.server.misc.EnumLatiaoGrade;
+import com.doggystudio.chirencqr.ltc.server.item.UpgradableLatiaoItem;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.compat.item.DeveloperLatiaoItem;
 import com.renyigesai.immortalers_delight.compat.item.KwatWheatLatiaoItem;
@@ -57,11 +58,11 @@ public class Ltc2Items {
         EVOLUTCORN_POWDER = registerWithTab("evolutcorn_powder",()-> new Item(new Item.Properties()));
 
         /*辣条*/
-        EVOLUTCORN_LATIAO = registerWithTab("evolutcorn_latiao",()-> new ItemLatiaoBase(5,0.5f, EnumLatiaoGrade.ORDINARY));
-        RARE_EVOLUTCORN_LATIAO = registerWithTab("rare_evolutcorn_latiao",()-> new ItemLatiaoBase(9,0.5f, EnumLatiaoGrade.RARE));
-        SUPERIOR_EVOLUTCORN_LATIA = registerWithTab("superior_evolutcorn_latiao",()-> new ItemLatiaoBase(13,0.5f, EnumLatiaoGrade.SUPERIOR));
-        DELICACY_EVOLUTCORN_LATIAO = registerWithTab("delicacy_evolutcorn_latiao",()-> new ItemLatiaoBase(17,0.5f, EnumLatiaoGrade.DELICACY));
-        TREASURE_EVOLUTCORN_LATIAO = registerWithTab("treasure_evolutcorn_latiao",()-> new ItemLatiaoBase(21,0.5f, EnumLatiaoGrade.TREASURE));
+        EVOLUTCORN_LATIAO = registerWithTab("evolutcorn_latiao",()-> new UpgradableLatiaoItem(5,0.5f, EnumLatiaoGrade.ORDINARY));
+        RARE_EVOLUTCORN_LATIAO = registerWithTab("rare_evolutcorn_latiao",()-> new UpgradableLatiaoItem(9,0.5f, EnumLatiaoGrade.RARE));
+        SUPERIOR_EVOLUTCORN_LATIA = registerWithTab("superior_evolutcorn_latiao",()-> new UpgradableLatiaoItem(13,0.5f, EnumLatiaoGrade.SUPERIOR));
+        DELICACY_EVOLUTCORN_LATIAO = registerWithTab("delicacy_evolutcorn_latiao",()-> new UpgradableLatiaoItem(17,0.5f, EnumLatiaoGrade.DELICACY));
+        TREASURE_EVOLUTCORN_LATIAO = registerWithTab("treasure_evolutcorn_latiao",()-> new UpgradableLatiaoItem(21,0.5f, EnumLatiaoGrade.TREASURE));
 
         KWAT_WHEAT_LATIAO = registerWithTab("kwat_wheat_latiao",()-> new KwatWheatLatiaoItem(5,0.5f,600,0,EnumLatiaoGrade.ORDINARY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()));
         RARE_KWAT_WHEAT_LATIAO = registerWithTab("rare_kwat_wheat_latiao",()-> new KwatWheatLatiaoItem(9,0.5f,700,0,EnumLatiaoGrade.RARE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()));
@@ -69,11 +70,11 @@ public class Ltc2Items {
         DELICACY_KWAT_WHEAT_LATIAO = registerWithTab("delicacy_kwat_wheat_latiao",()-> new KwatWheatLatiaoItem(17,0.5f,900,0,EnumLatiaoGrade.DELICACY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()));
         TREASURE_KWAT_WHEAT_LATIAO = registerWithTab("treasure_kwat_wheat_latiao",()-> new KwatWheatLatiaoItem(21,0.5f,1000,0,EnumLatiaoGrade.TREASURE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get()));
 
-        MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("mashed_poisonous_potato_with_jam_latiao",()-> new ItemLatiaoBase(5,0.5f,600,0,EnumLatiaoGrade.ORDINARY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
-        RARE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("rare_mashed_poisonous_potato_with_jam_latiao",()-> new ItemLatiaoBase(9,0.5f,700,0,EnumLatiaoGrade.RARE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
-        SUPERIOR_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("superior_mashed_poisonous_potato_with_jam_latiao",()-> new ItemLatiaoBase(13,0.5f,800,0,EnumLatiaoGrade.SUPERIOR).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
-        DELICACY_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("delicacy_mashed_poisonous_potato_with_jam_latiao",()-> new ItemLatiaoBase(17,0.5f,900,0,EnumLatiaoGrade.DELICACY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
-        TREASURE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("treasure_mashed_poisonous_potato_with_jam_latiao",()-> new ItemLatiaoBase(21,0.5f,1000,0,EnumLatiaoGrade.TREASURE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
+        MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("mashed_poisonous_potato_with_jam_latiao",()-> new UpgradableLatiaoItem(5,0.5f,600,0,EnumLatiaoGrade.ORDINARY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
+        RARE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("rare_mashed_poisonous_potato_with_jam_latiao",()-> new UpgradableLatiaoItem(9,0.5f,700,0,EnumLatiaoGrade.RARE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
+        SUPERIOR_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("superior_mashed_poisonous_potato_with_jam_latiao",()-> new UpgradableLatiaoItem(13,0.5f,800,0,EnumLatiaoGrade.SUPERIOR).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
+        DELICACY_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("delicacy_mashed_poisonous_potato_with_jam_latiao",()-> new UpgradableLatiaoItem(17,0.5f,900,0,EnumLatiaoGrade.DELICACY).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
+        TREASURE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO = registerWithTab("treasure_mashed_poisonous_potato_with_jam_latiao",()-> new UpgradableLatiaoItem(21,0.5f,1000,0,EnumLatiaoGrade.TREASURE).addLTEffect(ImmortalersDelightMobEffect.SATIATED.get()).addLTEffect(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get()).addLTEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get()));
 
         /*开发者辣条*/
         IMMORTALERS_LATIAO_LUCKY_BAG = registerWithTab("immortalers_latiao_lucky_bag", LatiaoLuckyBagItem::new);
