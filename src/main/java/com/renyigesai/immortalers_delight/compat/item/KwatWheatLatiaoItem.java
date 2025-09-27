@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.compat.item;
 
-import com.doggystudio.chirencqr.ltc.server.item.ItemLatiaoBase;
+import com.doggystudio.chirencqr.ltc.server.item.UpgradableLatiaoItem;
 import com.doggystudio.chirencqr.ltc.server.misc.EnumLatiaoGrade;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class KwatWheatLatiaoItem extends ItemLatiaoBase {
+public class KwatWheatLatiaoItem extends UpgradableLatiaoItem {
 
     public KwatWheatLatiaoItem(int nutrition, float saturation, int effctTime, int effectLevel, EnumLatiaoGrade grade) {
         super(nutrition, saturation, effctTime, effectLevel, grade);
