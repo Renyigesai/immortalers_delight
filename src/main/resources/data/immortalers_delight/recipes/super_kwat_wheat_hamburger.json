@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "minecraft:cooked_porkchop"},
+    {"item": "farmersdelight:cooked_bacon"},
+    {"tag": "forge:cooked_eggs"},
+    {"tag": "forge:crops/cabbage"},
+    {"item": "farmersdelight:onion"},
+    {"item": "immortalers_delight:kwat_wheat_toast"}
+  ],
+  "result": {
+    "item": "immortalers_delight:super_kwat_wheat_hamburger",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:sniffer_fur"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:sniffer_fur_block",
+    "count": 1
+  }
+}

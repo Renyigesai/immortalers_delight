@@ -23,8 +23,6 @@ import java.util.function.Supplier;
 
 
 public class ImmortalersDelightItems {
-
-
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, ImmortalersDelightMod.MODID);
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
     public static final RegistryObject<Item> HIMEKAIDO_LOG;
@@ -94,6 +92,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> TRAVA_PLANKS;
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
+
+    /*嗅探兽毛*/
+    public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
 
     /*
     玉米系列物品
@@ -229,6 +230,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> NETHER_BREAD_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_SOUP;
     public static final RegistryObject<Item> NETHER_CREAM_BREAD;
+    public static final RegistryObject<Item> SUPER_KWAT_WHEAT_HAMBURGER;
     /*
     火把花相关物品
     */
@@ -551,6 +553,9 @@ public class ImmortalersDelightItems {
 
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
+
+        /*嗅探兽毛*/
+        SNIFFER_FUR_BLOCK = block(ImmortalersDelightBlocks.SNIFFER_FUR_BLOCK);
 
         /*
         泥砖
@@ -926,6 +931,8 @@ public class ImmortalersDelightItems {
 
         RED_STUFFED_BUN = registerWithTab("red_stuffed_bun",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.RED_STUFFED_BUN),ImmortalersDelightFoodProperties.RED_STUFFED_BUN_POWERED,true,false));
+
+        SUPER_KWAT_WHEAT_HAMBURGER = registerWithTab("super_kwat_wheat_hamburger",()-> new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER),true));
 
 
         /*

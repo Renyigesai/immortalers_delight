@@ -35,6 +35,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
+import vectorwing.farmersdelight.common.block.TatamiBlock;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -505,6 +506,10 @@ public class ImmortalersDelightBlocks {
     /*诡怨藤*/
     public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
             new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
+
+    /*嗅探兽毛块*/
+    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
 
     //oxidized
 

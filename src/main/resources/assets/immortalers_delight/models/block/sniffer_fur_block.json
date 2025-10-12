@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "immortalers_delight:block/sniffer_fur_block_down",
+    "east": "immortalers_delight:block/sniffer_fur_block_side",
+    "north": "immortalers_delight:block/sniffer_fur_block_side",
+    "particle": "immortalers_delight:block/sniffer_fur_block_side",
+    "south": "immortalers_delight:block/sniffer_fur_block_side",
+    "up": "immortalers_delight:block/sniffer_fur_block_top",
+    "west": "immortalers_delight:block/sniffer_fur_block_side"
+  }
+}

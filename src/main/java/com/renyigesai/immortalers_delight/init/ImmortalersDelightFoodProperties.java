@@ -834,5 +834,8 @@ public class ImmortalersDelightFoodProperties {
             .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ARTHROPOD.get(),6000),1f)
             .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ABYSSAL.get(),6000),1f)
             .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_ILLAGER.get(),6000),1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get(),1),1f)
             .fast().alwaysEat().build();
+
+    public static final FoodProperties SUPER_KWAT_WHEAT_HAMBURGER = new FoodProperties.Builder().nutrition(20).saturationMod(0.6f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),300),1f).build();
 }

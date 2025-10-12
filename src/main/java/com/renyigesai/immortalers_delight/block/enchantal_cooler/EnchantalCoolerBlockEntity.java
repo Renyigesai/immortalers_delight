@@ -225,7 +225,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             inventory.setStackInSlot(OUTPUT_SLOT,oldInventory.getStackInSlot(4));
             inventory.setStackInSlot(CONTAINER_SLOT,oldContainerslot.getStackInSlot(0));
             inventory.setStackInSlot(FUEL_SLOT,oldFuel.getStackInSlot(0));
-            newVersion = true;
+            newVersion = true; 
         }else {
             if (tag.contains("Inventory")) {
                 inventory.deserializeNBT(tag.getCompound("Inventory"));
