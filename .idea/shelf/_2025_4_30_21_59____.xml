@@ -1,0 +1,19 @@
+<changelist name="在进行更新之前于_2025_4_30_21_59_取消提交了更改_[更改]" date="1746021583679" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_30_21_59_取消提交了更改_[更改]/shelved.patch" />
+  <option name="DESCRIPTION" value="在进行更新之前于 2025/4/30 21:59 取消提交了更改 [更改]" />
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/immortalers_delight/textures/item/scarlet_devils_cake.png" />
+    <option name="AFTER_PATH" value="src/main/resources/assets/immortalers_delight/textures/item/scarlet_devils_cake.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_30_21_59_取消提交了更改_[更改]/scarlet_devils_cake.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/immortalers_delight/textures/item/scarlet_devils_cake_slice.png" />
+    <option name="AFTER_PATH" value="src/main/resources/assets/immortalers_delight/textures/item/scarlet_devils_cake_slice.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_30_21_59_取消提交了更改_[更改]/scarlet_devils_cake_slice.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/assets/immortalers_delight/textures/block/scarlet_devils_cake_0.png" />
+    <option name="AFTER_PATH" value="src/main/resources/assets/immortalers_delight/textures/block/scarlet_devils_cake_0.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2025_4_30_21_59_取消提交了更改_[更改]/scarlet_devils_cake_0.png" />
+  </binary>
+</changelist>

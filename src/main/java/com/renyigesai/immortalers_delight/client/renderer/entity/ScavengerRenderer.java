@@ -63,6 +63,7 @@ public class ScavengerRenderer extends IllagerRenderer<Scavenger> {
                 }
             }
         });
+        this.model.getHat().visible = true;
     }
 
     @Override

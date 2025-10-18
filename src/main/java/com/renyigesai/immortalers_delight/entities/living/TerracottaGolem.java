@@ -230,6 +230,15 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
 
     /**======================背包管理相关方法，读取特定位置的陶片纹样并处理其他背包交互==========================**/
 
+    public byte getLeftDecorateID() {
+        return this.entityData.get(DATA_ID_DECORATE_LEFT);
+    }
+    public byte getBackDecorateID() {
+        return this.entityData.get(DATA_ID_DECORATE_BACK);
+    }
+    public byte getRightDecorateID() {
+        return this.entityData.get(DATA_ID_DECORATE_RIGHT);
+    }
 //    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
 //        if (!this.isVehicle() && !this.isBaby()) {
 //            if (this.isTame() && pPlayer.isSecondaryUseActive()) {
@@ -302,8 +311,58 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
      */
     protected void updateContainerEquipment() {
         if (!this.level().isClientSide) { // 仅在服务器端执行
+            this.entityData.set(DATA_ID_DECORATE_LEFT, whatDecorateIs(this.inventory.getItem(INV_SLOT_LEFT)));
+            this.entityData.set(DATA_ID_DECORATE_BACK, whatDecorateIs(this.inventory.getItem(INV_SLOT_BACK)));
+            this.entityData.set(DATA_ID_DECORATE_RIGHT, whatDecorateIs(this.inventory.getItem(INV_SLOT_RIGHT)));
             this.setFlag(FLAG_SADDLE, !this.inventory.getItem(INV_SLOT_BACK).isEmpty()); // 若鞍具槽有物品，设置鞍具标志
         }
+    }
+
+    protected byte whatDecorateIs(ItemStack itemStack) {
+        if (itemStack.is(Items.ANGLER_POTTERY_SHERD)) {
+            return 1;
+        } else if (itemStack.is(Items.ARCHER_POTTERY_SHERD)) {
+            return 2;
+        } else if (itemStack.is(Items.ARMS_UP_POTTERY_SHERD)) {
+            return 3;
+        } else if (itemStack.is(Items.BLADE_POTTERY_SHERD)) {
+            return 4;
+        } else if (itemStack.is(Items.BREWER_POTTERY_SHERD)) {
+            return 5;
+        } else if (itemStack.is(Items.BURN_POTTERY_SHERD)) {
+            return 6;
+        } else if (itemStack.is(Items.DANGER_POTTERY_SHERD)) {
+            return 7;
+        } else if (itemStack.is(Items.EXPLORER_POTTERY_SHERD)) {
+            return 8;
+        } else if (itemStack.is(Items.FRIEND_POTTERY_SHERD)) {
+            return 9;
+        } else if (itemStack.is(Items.HEART_POTTERY_SHERD)) {
+            return 10;
+        } else if (itemStack.is(Items.HEARTBREAK_POTTERY_SHERD)) {
+            return 11;
+        } else if (itemStack.is(Items.HOWL_POTTERY_SHERD)) {
+            return 12;
+        } else if (itemStack.is(Items.MINER_POTTERY_SHERD)) {
+            return 13;
+        } else if (itemStack.is(Items.MOURNER_POTTERY_SHERD)) {
+            return 14;
+        } else if (itemStack.is(Items.PLENTY_POTTERY_SHERD)) {
+            return 15;
+        } else if (itemStack.is(Items.PRIZE_POTTERY_SHERD)) {
+            return 16;
+        } else if (itemStack.is(Items.SHEAF_POTTERY_SHERD)) {
+            return 17;
+        } else if (itemStack.is(Items.SHELTER_POTTERY_SHERD)) {
+            return 18;
+        } else if (itemStack.is(Items.SKULL_POTTERY_SHERD)) {
+            return 19;
+        } else if (itemStack.is(Items.SNORT_POTTERY_SHERD)) {
+            return 20;
+        }
+        //HERO_POTTERY_SHERD
+        //PLENTIFUL_POTTERY_SHERD
+        return 0;
     }
 
     /**
@@ -328,15 +387,16 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
     @Override
     public void openCustomInventoryScreen(Player pPlayer) {
         System.out.println("openCustomInventoryScreen开始");
-//        if (!this.level().isClientSide && (!this.isVehicle() || this.hasPassenger(pPlayer)) && this.isTame()) {
-//            pPlayer.openHorseInventory(this, this.inventory); // 打开马匹 inventory 界面
-//        }
         if(pPlayer instanceof ServerPlayer serverplayer) {
             if (isAlive()) {
 
                 // 删除冗余代码并转用简洁的打开方式
                 NetworkHooks.openScreen(serverplayer,
-                        new SimpleMenuProvider((containerId, inv, ServerPlayer) -> new TerracottaGolemMenu(containerId,inv,this), Component.translatable(ImmortalersDelightMod.MODID + ".container.terracotta_golem")),
+                        new SimpleMenuProvider(
+                                (containerId, inv, ServerPlayer) ->
+                                new TerracottaGolemMenu(containerId,inv,this),
+                                Component.translatable(ImmortalersDelightMod.MODID + ".container.terracotta_golem")
+                        ),
                         friendlyByteBuf -> friendlyByteBuf.writeVarInt(this.getId())); // 写入实体id，随后传入客户端
             }
         }
@@ -390,6 +450,11 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
     public boolean canBreatheUnderwater() {
         return true;
     }
+
+//    @Override
+//    public boolean isBaby() {
+//        return true;
+//    }
 
     /**==================实体基本方法，处理Goal注册、属性注册、音效等实体通用方法==================**/
     public TerracottaGolem(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -492,7 +557,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
         for(int i = 0; i < listtag.size(); ++i) {
             CompoundTag compoundtag = listtag.getCompound(i);
             int j = compoundtag.getByte("Slot") & 255;
-            if (j >= 2 && j < this.inventory.getContainerSize()) {
+            if (j < this.inventory.getContainerSize()) {
                 this.inventory.setItem(j, ItemStack.of(compoundtag));
             }
         }

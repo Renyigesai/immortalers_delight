@@ -4,6 +4,7 @@ package com.renyigesai.immortalers_delight.screen;
 import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -26,25 +27,13 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
         super(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), pContainerId);
         this.horseContainer = pHorse.getInventory();
         this.horse = pHorse;
-        int i = 3;
+
         horseContainer.startOpen(pPlayerInventory.player);
         int j = -18;
-//        this.addSlot(new Slot(pContainer, 0, 8, 18) {
-//            /**
-//             * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-//             */
-//            public boolean mayPlace(ItemStack p_39677_) {
-//                return p_39677_.is(Items.SADDLE) && !this.hasItem() && pHorse.isSaddleable();
-//            }
-//
-//            /**
-//             * Actually only call when we want to render the white square effect over the slots. Return always True, except
-//             * for the armor slot of the Donkey/Mule (we can't interact with the Undead and Skeleton horses)
-//             */
-//            public boolean isActive() {
-//                return pHorse.isSaddleable();
-//            }
-//        });
+        for (int i = 0; i < 3; ++i) {
+            this.addSlot(new PreviewSlot(horseContainer, i, 8, 18* (i + 1)));
+        }
+
 //        this.addSlot(new Slot(pContainer, 1, 8, 36) {
 //            /**
 //             * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
@@ -164,6 +153,25 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
     public void removed(Player pPlayer) {
         super.removed(pPlayer);
         this.horseContainer.stopOpen(pPlayer);
+    }
+    class PreviewSlot extends Slot {
+        public PreviewSlot(Container p_40223_, int p_40224_, int p_40225_, int p_40226_) {
+            super(p_40223_, p_40224_, p_40225_, p_40226_);
+        }
+        /**
+         * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+         */
+        public boolean mayPlace(ItemStack p_39677_) {
+            return p_39677_.is(ItemTags.DECORATED_POT_SHERDS) && !this.hasItem();
+        }
+
+        /**
+         * Actually only call when we want to render the white square effect over the slots. Return always True, except
+         * for the armor slot of the Donkey/Mule (we can't interact with the Undead and Skeleton horses)
+         */
+//        public boolean isActive() {
+//            return pHorse.isSaddleable();
+//        }
     }
 
 }

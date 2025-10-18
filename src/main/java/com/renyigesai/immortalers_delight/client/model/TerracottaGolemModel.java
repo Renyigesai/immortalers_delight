@@ -11,6 +11,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 // Made with Blockbench 4.12.6
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
@@ -122,7 +123,7 @@ public class TerracottaGolemModel<T extends Entity> extends HierarchicalModel<T>
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return Body;
 	}
 }

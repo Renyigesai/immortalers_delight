@@ -2,7 +2,9 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -15,8 +17,14 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createItemTag("boat_needs/ancient_boat_need_2");
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_1 = createItemTag("boat_needs/ancient_chest_boat_need_1");
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createItemTag("boat_needs/ancient_chest_boat_need_2");
-    public static final TagKey<Item> IMMORTAL_KNIFES = createItemTag("tools/immortal_knifes");
+    public static final TagKey<Item> IMMORTAL_KNIVES = createItemTag("tools/immortal_knives");
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
+
+    public static final TagKey<EntityType<?>> IMMORTAL_NORMAL_MOBS = createEntityTag("normal_mobs");
+
+    public static final TagKey<EntityType<?>> IMMORTAL_ELITE_MOBS = createEntityTag("elite_mobs");
+
+    public static final TagKey<EntityType<?>> IMMORTAL_MINI_BOSS = createEntityTag("mini_boss");
 
     private static TagKey<Biome> createBiomeTag(String pName) {
         return TagKey.create(Registries.BIOME, ImmortalersDelightMod.prefix(pName));
@@ -26,8 +34,11 @@ public class ImmortalersDelightTags {
         return TagKey.create(Registries.ITEM, ImmortalersDelightMod.prefix(pName));
     }
 
-
     private static TagKey<Block> createBlockTag(String pName) {
         return TagKey.create(Registries.BLOCK, ImmortalersDelightMod.prefix(pName));
+    }
+
+    private static TagKey<EntityType<?>> createEntityTag(String pName) {
+        return TagKey.create(Registries.ENTITY_TYPE, ImmortalersDelightMod.prefix(pName));
     }
 }

@@ -11,6 +11,7 @@ import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
+import com.renyigesai.immortalers_delight.item.RepeatingCrossbowItem;
 import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
 import com.renyigesai.immortalers_delight.network.CommonProxy;
 import com.renyigesai.immortalers_delight.network.ClientProxy;
@@ -19,13 +20,19 @@ import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -151,9 +158,11 @@ public class ImmortalersDelightMod {
             modelLayers.put(SkelverfishThrasherModel.SKELVERFISH_THRASHER, SkelverfishThrasherModel::createBodyLayer);
             modelLayers.put(StrangeArmourStandModel.STRANGE_ARMOUR_STAND, StrangeArmourStandModel::createBodyLayer);
             modelLayers.put(TerracottaGolemModel.TERRACOTTA_GOLEM, TerracottaGolemModel::createBodyLayer);
+            modelLayers.put(TerracottaGolemSideModel.TERRACOTTA_GOLEM_SIDE_LAYER, TerracottaGolemSideModel::createBodyLayer);
             modelLayers.put(AncientWoodBoatModel.ANCIENT_BOAT, AncientWoodBoatModel::createBodyLayer);
             modelLayers.put(AncientWoodChestBoatModel.ANCIENT_CHEST_BOAT, AncientWoodChestBoatModel::createBodyLayer);
-            modelLayers.put(ScavengerModel.SCARVENGER_MODEL, ScavengerModel::createBodyLayer);
+            //modelLayers.put(ScavengerModel.SCARVENGER_MODEL, ScavengerModel::createBodyLayer);
+            modelLayers.put(ScavengerModel.SCARVENGER_MODEL, IllagerModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -186,6 +195,8 @@ public class ImmortalersDelightMod {
             MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
             // 注册UI界面
             MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
+
+            registerItemProperties();
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
@@ -194,6 +205,26 @@ public class ImmortalersDelightMod {
             AftertasteHungerOverlay.init();
             KeepFastHungerOverlay.init();
             BurnTheBoatsHealthOverlay.init();
+        }
+
+        public static void registerItemProperties() {
+            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "pull"), (stack, world, entity, seed) -> {
+                if (entity == null || entity.getUseItem() != stack) {
+                    return 0.0F;
+                } else {
+                    return RepeatingCrossbowItem.isModCharged(stack) ? 0.0F : (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / RepeatingCrossbowItem.getChargeDuration(stack);
+                }
+            });
+            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "pulling"), (stack, world, entity, seed) -> {
+                return entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
+            });
+            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "charged"), (stack, world, entity, seed) -> {
+                return RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
+            });
+            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "firework"), (stack, world, entity, seed) -> {
+                return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
+            });
+
         }
     }
 

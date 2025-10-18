@@ -7,6 +7,16 @@
     "immortalers_delight:add_loot_ancient_city_ice_box_latiao",
     "immortalers_delight:add_piglin_bartering",
     "immortalers_delight:add_loot_sniffer",
-    "immortalers_delight:add_loot_ocean_ruin_warm"
+    "immortalers_delight:add_loot_ocean_ruin_warm",
+    "immortalers_delight:scavenging_pumpkin",
+    "immortalers_delight:scavenging_ham_from_pig",
+    "immortalers_delight:scavenging_ham_from_hoglin",
+    "immortalers_delight:scavenging_smoked_ham_from_pig",
+    "immortalers_delight:scavenging_smoked_ham_from_hoglin",
+    "immortalers_delight:scavenging_feather",
+    "immortalers_delight:scavenging_leather",
+    "immortalers_delight:scavenging_rabbit_hide",
+    "immortalers_delight:scavenging_shulker_shell",
+    "immortalers_delight:scavenging_string"
   ]
 }
