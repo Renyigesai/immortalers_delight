@@ -95,6 +95,7 @@ public class ImmortalersDelightItems {
 
     /*嗅探兽毛*/
     public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
+    public static final RegistryObject<Item> SNIFFER_FUR_TATAMI;
 
     /*
     玉米系列物品
@@ -557,6 +558,7 @@ public class ImmortalersDelightItems {
 
         /*嗅探兽毛*/
         SNIFFER_FUR_BLOCK = block(ImmortalersDelightBlocks.SNIFFER_FUR_BLOCK);
+        SNIFFER_FUR_TATAMI = block(ImmortalersDelightBlocks.SNIFFER_FUR_TATAMI);
 
         /*
         泥砖
