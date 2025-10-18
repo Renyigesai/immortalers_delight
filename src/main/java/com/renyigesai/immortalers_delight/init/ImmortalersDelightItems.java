@@ -336,6 +336,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> DRILL_ROD_WAND;
     public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
     public static final RegistryObject<Item> ANCIENT_BLADE;
+    public static final RegistryObject<Item> PILLAGER_KNIFE;
     public static final RegistryObject<Item> REPEATING_CROSSBOW;
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
@@ -980,10 +981,13 @@ public class ImmortalersDelightItems {
                 new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));
 
         RUSTY_ANCIENT_BLADE = registerWithTab("rusty_ancient_blade", () ->
-                new ImmortalersKnifeItem(1,ImmortalersTiers.RUSTY_IRON,2,-2.0f,new Item.Properties()));
+                new ImmortalersKnifeItem(ImmortalersKnifeItem.ANCIENT_KNIFE_TYPE,ImmortalersTiers.RUSTY_IRON,2,-2.0f,new Item.Properties()));
 
         ANCIENT_BLADE = registerWithTab("ancient_blade", () ->
-                new ImmortalersKnifeItem(2,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,fantasticItem(Rarity.UNCOMMON)));
+                new ImmortalersKnifeItem(ImmortalersKnifeItem.NEW_ANCIENT_KNIFE_TYPE,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,fantasticItem(Rarity.UNCOMMON)));
+
+        PILLAGER_KNIFE = registerWithTab("pillager_knife", () ->
+                new PillagersKnifeItem(ImmortalersKnifeItem.PILLAGER_KNIFE_TYPE,ImmortalersTiers.PILLAGER_KNIFE,3,-2.0f,fantasticItem(Rarity.UNCOMMON)));
 
         //隐藏
         REPEATING_CROSSBOW = register("repeating_crossbow",()->

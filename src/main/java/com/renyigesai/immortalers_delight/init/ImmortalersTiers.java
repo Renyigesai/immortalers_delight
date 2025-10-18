@@ -34,6 +34,9 @@ public enum ImmortalersTiers implements Tier {
     ANCIENT_KNIFE(2, 750, 6.0F, 2.0F, 14, () -> {
         return Ingredient.of(ImmortalersDelightItems.RUSTY_ANCIENT_BLADE.get());
     }),
+    PILLAGER_KNIFE(1, 250, 4.0F, 1.0F, 11, () -> {
+        return Ingredient.of(Items.IRON_INGOT);
+    }),
     MAGIC_POWERED(4, 32, 25.0F, 4.0F, 22, () -> {
         return Ingredient.of(Items.LAPIS_BLOCK);
     });
