@@ -1,0 +1,26 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "block/block",
+  "textures": {
+    "particle": "immortalers_delight:block/sniffer_fur_tatami_mat_even",
+    "even": "immortalers_delight:block/sniffer_fur_tatami_mat_even",
+    "odd": "immortalers_delight:block/sniffer_fur_tatami_mat_odd",
+    "half": "immortalers_delight:block/sniffer_fur_tatami_mat_half",
+    "inner": "immortalers_delight:block/sniffer_fur_tatami_mat_half"
+  },
+  "elements": [
+    {
+      "name": "full tatami",
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#odd"},
+        "east": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#even"},
+        "south": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#odd"},
+        "west": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#even"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#half"},
+        "down": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#inner"}
+      }
+    }
+  ]
+}
