@@ -89,7 +89,7 @@ public class PillagerKnifeAddPotionRecipe extends CustomRecipe {
     public @NotNull RecipeType<?> getType() {return Type.INSTANCE;}
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializer.TIPPED_ARROW;
+        return Serializer.INSTANCE;
     }
 
     public static class Type implements RecipeType<PillagerKnifeAddPotionRecipe> {
