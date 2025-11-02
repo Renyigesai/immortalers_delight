@@ -63,6 +63,7 @@ public class CommonSetup
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.CONTAINS_TEA_LEISAMBOO.get(), 0.65f);
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.HIMEKAIDO_FRUITED_LEAVES.get(), 0.65f);
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.WARPED_LAUREL.get(), 0.65f);
+		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.TRAVARICE.get(), 0.65f);
 		/*85%*/
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.EVOLUTCORN_BLOCK.get(), 0.85f);
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.KWAT_WHEAT_BLOCK.get(), 0.85f);
@@ -70,9 +71,12 @@ public class CommonSetup
 	}
 
 	public static void registerItemSetAdditions() {
-		Ingredient newPigFood = Ingredient.of(ImmortalersDelightItems.ALFALFA.get());
-		Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newPigFood))
+		Ingredient newFood = Ingredient.of(ImmortalersDelightItems.ALFALFA.get());
+		Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newFood))
 		{
 		};
+//		Chicken.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Chicken.FOOD_ITEMS, newFood))
+//		{
+//		};
 	}
 }

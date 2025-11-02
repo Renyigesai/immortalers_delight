@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openjdk.nashorn.internal.objects.annotations.Getter;
@@ -38,46 +39,61 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-//        if (pLevel.isClientSide) {
-//            return false;
+    public boolean matches(SimpleContainer inv, Level pLevel) {
+        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+        int i = 0;
+
+        for (int j = 0; j < 6; ++j) {
+            ItemStack itemstack = inv.getItem(j);
+            if (!itemstack.isEmpty()) {
+                ++i;
+                inputs.add(itemstack);
+            }
+        }
+        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+    }
+
+//    @Override
+//    public boolean matches(SimpleContainer pContainer, Level pLevel) {
+////        if (pLevel.isClientSide) {
+////            return false;
+////        }
+////
+////        // 检查输入容器中的物品是否与配方匹配
+////        for (int i = 0; i < inputItems.size(); i++) {
+////            if (!inputItems.get(i).test(pContainer.getItem(i))) {
+////                return false;
+////            }
+////        }
+////        return true;
+//        if (pLevel.isClientSide) return false;
+//
+//        // 转换为列表以便修改
+//        List<ItemStack> inputs = new ArrayList<>();
+//        for (int i = 0; i < pContainer.getContainerSize(); i++) {
+//            ItemStack item = pContainer.getItem(i);
+//            if (!item.isEmpty()) inputs.add(item);
 //        }
 //
-//        // 检查输入容器中的物品是否与配方匹配
-//        for (int i = 0; i < inputItems.size(); i++) {
-//            if (!inputItems.get(i).test(pContainer.getItem(i))) {
-//                return false;
+//        // 检查原料数量是否匹配
+//        if (inputs.size() != this.inputItems.size()) return false;
+//
+//        // 复制配方原料用于匹配消耗
+//        List<Ingredient> ingredientsToCheck = new ArrayList<>(this.inputItems);
+//
+//        // 无序匹配逻辑
+//        outer:
+//        for (ItemStack input : inputs) {
+//            for (Ingredient ingredient : ingredientsToCheck) {
+//                if (ingredient.test(input)) {
+//                    ingredientsToCheck.remove(ingredient);
+//                    continue outer;
+//                }
 //            }
+//            return false;
 //        }
 //        return true;
-        if (pLevel.isClientSide) return false;
-
-        // 转换为列表以便修改
-        List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < pContainer.getContainerSize(); i++) {
-            ItemStack item = pContainer.getItem(i);
-            if (!item.isEmpty()) inputs.add(item);
-        }
-
-        // 检查原料数量是否匹配
-        if (inputs.size() != this.inputItems.size()) return false;
-
-        // 复制配方原料用于匹配消耗
-        List<Ingredient> ingredientsToCheck = new ArrayList<>(this.inputItems);
-
-        // 无序匹配逻辑
-        outer:
-        for (ItemStack input : inputs) {
-            for (Ingredient ingredient : ingredientsToCheck) {
-                if (ingredient.test(input)) {
-                    ingredientsToCheck.remove(ingredient);
-                    continue outer;
-                }
-            }
-            return false;
-        }
-        return true;
-    }
+//    }
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {

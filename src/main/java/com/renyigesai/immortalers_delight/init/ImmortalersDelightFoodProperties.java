@@ -825,7 +825,7 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties BRAISED_PORK  = new FoodProperties.Builder().nutrition(10).saturationMod(0.5f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1200),1f).effect(()->new MobEffectInstance(ModEffects.COMFORT.get(),1200),1F).build();
 
-    public static final FoodProperties WARPED_LAUREL_CHICKEN_SOUP  = new FoodProperties.Builder().nutrition(8).saturationMod(0.4f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),100),1f).effect(()->new MobEffectInstance(ModEffects.NOURISHMENT.get(),2400),1F).build();
+    public static final FoodProperties BOWL_OF_UNIVERSAL_CHICKEN_SOUP  = new FoodProperties.Builder().nutrition(8).saturationMod(0.4f).effect(() -> new MobEffectInstance(MobEffects.SATURATION,1),1f).build();
 
     public static final FoodProperties APOLLYON_CAKE_ROLL  = new FoodProperties.Builder().nutrition(5).saturationMod(0.4f).effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),6000),1f).effect(new  MobEffectInstance(MobEffects.DARKNESS,3600),1F).build();
 

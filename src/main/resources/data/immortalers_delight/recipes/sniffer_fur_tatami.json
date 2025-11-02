@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ab",
+    "ba"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:sniffer_fur"
+    },
+    "b": {
+      "item": "immortalers_delight:ancient_fiber"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:sniffer_fur_tatami",
+    "count": 2
+  }
+}

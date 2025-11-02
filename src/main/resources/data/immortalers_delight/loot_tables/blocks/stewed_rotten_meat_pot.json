@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "pool1",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:stewed_rotten_meat_pot"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "immortalers_delight:stewed_rotten_meat_pot",
+          "properties": {
+            "servings": "3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "pool2",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:decorated_pot"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:block_state_property",
+            "block": "immortalers_delight:stewed_rotten_meat_pot",
+            "properties": {
+              "servings": "3"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

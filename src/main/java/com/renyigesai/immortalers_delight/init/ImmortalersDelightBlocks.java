@@ -33,9 +33,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.common.block.CabinetBlock;
-import vectorwing.farmersdelight.common.block.PieBlock;
-import vectorwing.farmersdelight.common.block.TatamiBlock;
+import vectorwing.farmersdelight.common.block.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -508,8 +506,14 @@ public class ImmortalersDelightBlocks {
             new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
 
     /*嗅探兽毛块*/
-    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_FULL_TATAMI_MAT = BLOCKS.register("sniffer_fur_full_tatami_mat", () -> new TatamiMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_HALF_TATAMI_MAT = BLOCKS.register("sniffer_fur_half_tatami_mat", () -> new TatamiHalfMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY)));
+
+    /*石锅*/
+    public static final RegistryObject<Block> STONE_POT = BLOCKS.register("stone_pot",()-> new StonePotBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> UNIVERSAL_CHICKEN_SOUP = BLOCKS.register("universal_chicken_soup",()-> new UniversalChickenSoupBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true));
 
     //oxidized
 
