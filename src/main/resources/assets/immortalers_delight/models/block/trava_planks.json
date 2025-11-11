@@ -1,4 +1,5 @@
 {
+  "render_type": "translucent",
   "parent": "minecraft:block/cube_all",
   "textures": {
     "all": "immortalers_delight:block/trava_planks"

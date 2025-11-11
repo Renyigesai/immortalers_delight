@@ -4,20 +4,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "immortalers_delight:evolutcorn"
-    },
-    {
-      "item": "immortalers_delight:evolutcorn"
-    },
-    {
-      "item": "minecraft:wheat"
-    },
-    {
-      "item": "minecraft:water_bucket"
+      "item": "immortalers_delight:evolutcorn_paste_bucket"
     }
   ],
   "result": {
     "item": "immortalers_delight:evolutcorn_paste",
-    "count": 1
+    "count": 3
   }
 }

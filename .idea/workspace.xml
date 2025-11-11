@@ -4,58 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="添加嗅探兽毛长短榻榻米,修改魔凝机配方匹配逻辑和版本迁移逻辑(测试中)2025/11/02">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/CheeseMelonJuiceBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/PitcherPlantClaypotRiceBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GaixiaMobEffect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/cheese_melon_juice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/pitcher_plant_claypot_rice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/cheese_melon_juice0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/cheese_melon_juice1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/cheese_melon_juice2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/cheese_melon_juice3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pitcher_plant_claypot_rice0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pitcher_plant_claypot_rice1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pitcher_plant_claypot_rice2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pitcher_plant_claypot_rice3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/pitcher_plant_bottle0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/pitcher_plant_bottle1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/pitcher_plant_bottle2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/pitcher_plant_bottle3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bottle_melon_juice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bowl_pitcher_plant_claypot_rice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cheese_melon_juice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_claypot_rice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_jiao_zi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_shao_mai.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/block/cheese_melon_juice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/block/pitcher_plant_claypot_rice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/bottle_melon_juice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/bowl_pitcher_plant_claypot_rice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/cheese_melon_juice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/pitcher_plant_claypot_rice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/pitcher_plant_jiao_zi.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/pitcher_plant_shao_mai.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/pitcher_plant_claypot_rice.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/pitcher_plant_jiao_zi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/pitcher_plant_shao_mai.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/enchantal_cooler/cheese_melon_juice.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/SpoonBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/SpoonBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/enchantal_cooler/EnchantalCoolerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/enchantal_cooler/EnchantalCoolerBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightMobEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/recipe/EnchantalCoolerRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/recipe/EnchantalCoolerRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/golden_kwat_toast.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/golden_kwat_toast.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/golden_kwat_toast_slice.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/golden_kwat_toast_slice.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/kwat_wheat_toast.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/kwat_wheat_toast.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/kwat_wheat_toast_stewed_vegetables.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/kwat_wheat_toast_stewed_vegetables.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/nether_cream_bread.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/nether_cream_bread.png" afterDir="false" />
-    </list>
+    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="添加新的瓶子草相关食物，添加玉米面包2025/11/11" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -178,30 +127,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.Imm Delight [runClient].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.immortalers_delight [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.immortalers_delight [createMcpToSrg].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.下载源代码.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/textures/item&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Gradle.Imm Delight [runClient].executor": "Run",
+    "Gradle.immortalers_delight [build].executor": "Run",
+    "Gradle.immortalers_delight [createMcpToSrg].executor": "Run",
+    "Gradle.下载源代码.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/immortalers_delight/immortalers_delight/src/main/resources/data/immortalers_delight/recipes",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\recipes" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\item" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\recipes\cooking" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\models\block" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\block" />
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\recipes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\models\custom" />
@@ -652,7 +601,7 @@
       <option name="project" value="LOCAL" />
       <updated>1754839547151</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -668,7 +617,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="完成了持续状态效果，添加了弱毒、弱凋零、回味的显血。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例" />
     <MESSAGE value="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品" />
     <MESSAGE value="修复了一点bug" />
     <MESSAGE value="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果" />
@@ -693,7 +641,8 @@
     <MESSAGE value="补充推送2025/10/18" />
     <MESSAGE value="现在可以给猪喂食古苜蓿2025/10/25" />
     <MESSAGE value="添加嗅探兽毛长短榻榻米,修改魔凝机配方匹配逻辑和版本迁移逻辑(测试中)2025/11/02" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加嗅探兽毛长短榻榻米,修改魔凝机配方匹配逻辑和版本迁移逻辑(测试中)2025/11/02" />
+    <MESSAGE value="添加新的瓶子草相关食物，添加玉米面包2025/11/11" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加新的瓶子草相关食物，添加玉米面包2025/11/11" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

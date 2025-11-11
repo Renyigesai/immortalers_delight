@@ -522,6 +522,8 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> STONE_POT = BLOCKS.register("stone_pot",()-> new StonePotBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<Block> UNIVERSAL_CHICKEN_SOUP = BLOCKS.register("universal_chicken_soup",()-> new UniversalChickenSoupBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true));
 
+    public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
+
     //oxidized
 
     static {

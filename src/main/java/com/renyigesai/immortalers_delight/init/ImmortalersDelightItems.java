@@ -116,8 +116,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STICKY_BEER;
     public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
     public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
+    public static final RegistryObject<Item> EVOLUTCORN_PASTE_BUCKET;
     public static final RegistryObject<Item> EVOLUTCORN_PASTE;
-    public static final RegistryObject<Item> BOWL_EVOLUTCORN_PASTE;
     public static final RegistryObject<Item> EVOLUTCORN_BREAD;
     /*
     香蕉系列物品
@@ -725,8 +725,8 @@ public class ImmortalersDelightItems {
                         true,true)
         );
 
-        EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-        BOWL_EVOLUTCORN_PASTE = registerWithTab("bowl_evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16)));
+        EVOLUTCORN_PASTE_BUCKET = registerWithTab("evolutcorn_paste_bucket",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+        EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16)));
         EVOLUTCORN_BREAD = foodItem("evolutcorn_bread",ImmortalersDelightFoodProperties.EVOLUTCORN_BREAD);
 
         /*
