@@ -116,6 +116,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STICKY_BEER;
     public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
     public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
+    public static final RegistryObject<Item> EVOLUTCORN_PASTE;
+    public static final RegistryObject<Item> BOWL_EVOLUTCORN_PASTE;
+    public static final RegistryObject<Item> EVOLUTCORN_BREAD;
     /*
     香蕉系列物品
     */
@@ -349,6 +352,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> NETHER_SOUP;
     public static final RegistryObject<Item> BRAISED_PORK;
     public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
+
+    /*瓶子草*/
+    public static final RegistryObject<Item> PITCHER_PLANT_SHAO_MAI;
+    public static final RegistryObject<Item> PITCHER_PLANT_JIAO_ZI;
+    public static final RegistryObject<Item> CHEESE_MELON_JUICE;
+    public static final RegistryObject<Item> BOTTLE_MELON_JUICE;
+    public static final RegistryObject<Item> PITCHER_PLANT_CLAYPOT_RICE;
+    public static final RegistryObject<Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
 
     /*温泉桶*/
     public static final RegistryObject<Item> HOT_SPRING_BUCKET;
@@ -714,6 +725,10 @@ public class ImmortalersDelightItems {
                         true,true)
         );
 
+        EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+        BOWL_EVOLUTCORN_PASTE = registerWithTab("bowl_evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16)));
+        EVOLUTCORN_BREAD = foodItem("evolutcorn_bread",ImmortalersDelightFoodProperties.EVOLUTCORN_BREAD);
+
         /*
         香蕉系列物品
         */
@@ -1043,6 +1058,14 @@ public class ImmortalersDelightItems {
 
         ALFALFA_PORRIDGE = registerWithTab("alfalfa_porridge",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE),ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE_POWERED,true,false));
+
+        PITCHER_PLANT_JIAO_ZI = foodItem("pitcher_plant_jiao_zi",ImmortalersDelightFoodProperties.PITCHER_PLANT_JIAO_ZI,true);
+        PITCHER_PLANT_SHAO_MAI = foodItem("pitcher_plant_shao_mai",ImmortalersDelightFoodProperties.PITCHER_PLANT_SHAO_MAI,true);
+        CHEESE_MELON_JUICE = blockFood(ImmortalersDelightBlocks.CHEESE_MELON_JUICE);
+        BOTTLE_MELON_JUICE = registerWithTab("bottle_melon_juice",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.BOTTLE_MELON_JUICE),true));
+        PITCHER_PLANT_CLAYPOT_RICE = blockFood(ImmortalersDelightBlocks.PITCHER_PLANT_CLAYPOT_RICE);
+        BOWL_PITCHER_PLANT_CLAYPOT_RICE = registerWithTab("bowl_pitcher_plant_claypot_rice",()->
+                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_PITCHER_PLANT_CLAYPOT_RICE),true));
 
         /*诡怨桂相关物品*/
         LU_CHICKEN_LEGS = foodItem("lu_chicken_legs",ImmortalersDelightFoodProperties.LU_CHICKEN_LEGS,true);

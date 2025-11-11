@@ -53,48 +53,6 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
         return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
-//    @Override
-//    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-////        if (pLevel.isClientSide) {
-////            return false;
-////        }
-////
-////        // 检查输入容器中的物品是否与配方匹配
-////        for (int i = 0; i < inputItems.size(); i++) {
-////            if (!inputItems.get(i).test(pContainer.getItem(i))) {
-////                return false;
-////            }
-////        }
-////        return true;
-//        if (pLevel.isClientSide) return false;
-//
-//        // 转换为列表以便修改
-//        List<ItemStack> inputs = new ArrayList<>();
-//        for (int i = 0; i < pContainer.getContainerSize(); i++) {
-//            ItemStack item = pContainer.getItem(i);
-//            if (!item.isEmpty()) inputs.add(item);
-//        }
-//
-//        // 检查原料数量是否匹配
-//        if (inputs.size() != this.inputItems.size()) return false;
-//
-//        // 复制配方原料用于匹配消耗
-//        List<Ingredient> ingredientsToCheck = new ArrayList<>(this.inputItems);
-//
-//        // 无序匹配逻辑
-//        outer:
-//        for (ItemStack input : inputs) {
-//            for (Ingredient ingredient : ingredientsToCheck) {
-//                if (ingredient.test(input)) {
-//                    ingredientsToCheck.remove(ingredient);
-//                    continue outer;
-//                }
-//            }
-//            return false;
-//        }
-//        return true;
-//    }
-
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         return output.copy();

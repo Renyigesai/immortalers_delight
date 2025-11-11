@@ -43,4 +43,6 @@ public class ImmortalersDelightMobEffect {
 
     public static final RegistryObject<MobEffect> LINGERING_INFUSION = REGISTRY.register("lingering_infusion",()-> new LingeringInfusionMobEffect().addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModifier.Operation.ADDITION));
 
+    public static final RegistryObject<MobEffect> GAIXIA = REGISTRY.register("gaixia", GaixiaMobEffect::new);
+
 }

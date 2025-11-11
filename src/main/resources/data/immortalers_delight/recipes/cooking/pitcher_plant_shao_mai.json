@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:pitcher_plant"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "tag": "minecraft:fishes"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:pitcher_plant_shao_mai",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

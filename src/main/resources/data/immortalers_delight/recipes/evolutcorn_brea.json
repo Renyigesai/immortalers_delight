@@ -4,7 +4,7 @@
   "experience": 1,
   "cookingtime": 200,
   "ingredient": {
-    "item": "immortalers_delight:bowl_evolutcorn_paste"
+    "item": "immortalers_delight:evolutcorn"
   },
-  "result": "immortalers_delight:evolutcorn_bread"
+  "result": "immortalers_delight:roast_evolutcorn"
 }

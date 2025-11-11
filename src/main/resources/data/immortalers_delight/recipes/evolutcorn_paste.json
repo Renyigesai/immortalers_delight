@@ -1,0 +1,23 @@
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:evolutcorn_paste",
+    "count": 1
+  }
+}

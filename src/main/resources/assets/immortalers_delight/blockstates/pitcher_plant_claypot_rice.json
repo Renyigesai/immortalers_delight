@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "facing=east,servings=0": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 90
+    },
+    "facing=east,servings=1": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 90
+    },
+    "facing=east,servings=2": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice2",
+      "y": 90
+    },
+    "facing=east,servings=3": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice1",
+      "y": 90
+    },
+    "facing=east,servings=4": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice0",
+      "y": 90
+    },
+    "facing=north,servings=0": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3"
+    },
+    "facing=north,servings=1": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3"
+    },
+    "facing=north,servings=2": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice2"
+    },
+    "facing=north,servings=3": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice1"
+    },
+    "facing=north,servings=4": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice0"
+    },
+    "facing=south,servings=0": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 180
+    },
+    "facing=south,servings=1": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 180
+    },
+    "facing=south,servings=2": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice2",
+      "y": 180
+    },
+    "facing=south,servings=3": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice1",
+      "y": 180
+    },
+    "facing=south,servings=4": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice0",
+      "y": 180
+    },
+    "facing=west,servings=0": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 270
+    },
+    "facing=west,servings=1": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice3",
+      "y": 270
+    },
+    "facing=west,servings=2": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice2",
+      "y": 270
+    },
+    "facing=west,servings=3": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice1",
+      "y": 270
+    },
+    "facing=west,servings=4": {
+      "model": "immortalers_delight:block/pitcher_plant_claypot_rice0",
+      "y": 270
+    }
+  }
+}

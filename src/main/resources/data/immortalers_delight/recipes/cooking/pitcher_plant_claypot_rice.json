@@ -1,0 +1,32 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn_grains"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn_grains"
+    }
+  ],
+  "container": {
+    "item": "minecraft:pitcher_plant"
+  },
+  "result": {
+    "item": "immortalers_delight:pitcher_plant_claypot_rice",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

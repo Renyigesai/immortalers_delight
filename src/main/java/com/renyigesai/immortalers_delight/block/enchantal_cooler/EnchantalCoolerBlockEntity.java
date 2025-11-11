@@ -231,9 +231,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
                 inventory.deserializeNBT(tag.getCompound("Inventory"));
             }
         }
-//        if (tag.contains("Inventory")) {
-//            inventory.deserializeNBT(tag.getCompound("Inventory"));
-//        }
         cookingTotalTime = tag.getInt("CookingTotalTime");
         residualDye = tag.getInt("ResidualDye");
         loadVersion = tag.getInt("LoadVersion");
@@ -251,6 +248,9 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private boolean isMigration(CompoundTag tag){
         if (!tag.contains("LoadVersion")){
             return true;
+        }
+        if (tag.getInt("LoadVersion") == loadVersion){
+            return false;
         }
         return tag.getInt("LoadVersion") < loadVersion;
     }

@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -504,6 +505,12 @@ public class ImmortalersDelightBlocks {
     /*诡怨藤*/
     public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
             new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
+
+    /*瓶子草*/
+    public static final RegistryObject<Block> CHEESE_MELON_JUICE = BLOCKS.register("cheese_melon_juice",()->
+            new CheeseMelonJuiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOTTLE_MELON_JUICE));
+    public static final RegistryObject<Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
+            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE,false));
 
     /*嗅探兽毛块*/
     public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
