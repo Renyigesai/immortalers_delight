@@ -839,9 +839,9 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties SUPER_KWAT_WHEAT_HAMBURGER = new FoodProperties.Builder().nutrition(20).saturationMod(0.6f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),300),1f).build();
 
-    public static final FoodProperties PITCHER_PLANT_JIAO_ZI = new FoodProperties.Builder().nutrition(8).saturationMod(0.8f).build();
+    public static final FoodProperties PITCHER_PLANT_JIAO_ZI = new FoodProperties.Builder().nutrition(8).saturationMod(0.8f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.GAIXIA.get(),6000),1f).build();
 
-    public static final FoodProperties PITCHER_PLANT_SHAO_MAI = new FoodProperties.Builder().nutrition(10).saturationMod(0.8f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),2400),1f).build();
+    public static final FoodProperties PITCHER_PLANT_SHAO_MAI = new FoodProperties.Builder().nutrition(10).saturationMod(0.8f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),2400),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.GAIXIA.get(),2400),1f).build();
 
     public static final FoodProperties BOTTLE_MELON_JUICE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),6000),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),6000),1f).build();
 
