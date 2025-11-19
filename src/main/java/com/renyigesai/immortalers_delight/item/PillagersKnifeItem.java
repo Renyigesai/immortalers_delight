@@ -28,6 +28,10 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem{
         super(type, tier, attackDamage, attackSpeed, properties);
     }
 
+    public PillagersKnifeItem(int type, Tier tier, float attackDamage, float attackSpeed, float extra_attackDamage, float extra_attackSpeed, Properties properties) {
+        super(type, tier, attackDamage, attackSpeed, extra_attackDamage, extra_attackSpeed, properties);
+    }
+
     public @NotNull ItemStack getDefaultInstance() {
         return PotionUtils.setPotion(super.getDefaultInstance(), Potions.POISON);
     }
@@ -58,7 +62,7 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem{
 //    }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
         boolean b = super.hurtEnemy(stack, target, attacker);
         if (b && !target.level().isClientSide()) {
             Potion potion = Potions.EMPTY;

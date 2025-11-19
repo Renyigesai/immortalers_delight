@@ -139,6 +139,8 @@
   "item.immortalers_delight.golden_kwat_toast": "金瓦斯麦吐司",
   "item.immortalers_delight.rusty_ancient_blade": "锈蚀古刀",
   "item.immortalers_delight.ancient_blade": "新硎古刀",
+  "item.immortalers_delight.bone_knife": "骨质匕首",
+  "item.immortalers_delight.pillager_knife": "灾厄匕首",
   "item.immortalers_delight.piglin_odori_sake": "猪灵踊",
   "item.immortalers_delight.sealed_ancient_rations": "古代口粮包",
   "item.immortalers_delight.repeating_crossbow": "古代连弩",
@@ -442,6 +444,11 @@
   "farmersdelight.tooltip.ancient_blade.2": " 10.5 攻击伤害",
   "farmersdelight.tooltip.ancient_blade.power": " 160% 攻击伤害",
   "farmersdelight.tooltip.drink_block_item": "可放置",
+  "farmersdelight.tooltip.pillager_knife": "施加于目标: ",
+  "farmersdelight.tooltip.pillager_knife.default_enchantment.1": "抢夺 II",
+  "farmersdelight.tooltip.pillager_knife.default_enchantment.power.1": "抢夺 IV",
+  "farmersdelight.tooltip.bone_knife": "蓄力以造成更多伤害",
+  "farmersdelight.tooltip.bone_knife.1": "抢夺 -I",
   "tooltip.immortalers_delight.book_progress": "修书进度: %d ‰",
   "tooltip.immortalers_delight.charged_projectiles": "剩余 %d 发",
   "tooltip.immortalers_delight.is_immortalers_knives": "古制刀",
@@ -481,5 +488,9 @@
   "death.attack.gas": "%1$s 被瓦斯毒气熏成了腊肉",
   "death.attack.gas.item": "%1$ 被 %2$s 杀死 %3$s",
   "death.attack.gas.player": "%1$ 在试图逃跑时死亡 %2$s",
-  "immortalers_delight.container.terracotta_golem": "测试标题"
+  "immortalers_delight.container.terracotta_golem": "测试标题",
+  "item.immortalers_delight.sniffer_hide": "Sniffer Hide",
+  "block.immortalers_delight.travastruggler_leaves_travarice": "Travastruggler Leaves Travarice",
+  "entity.immortalers_delight.skelverfish_thrasher": "Skelverfish Thrasher",
+  "farmersdelight.tooltip.leisamboo_tea_cake": "Clear all the effects and then apply the night vision effect"
 }

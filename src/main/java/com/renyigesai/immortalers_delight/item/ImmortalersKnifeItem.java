@@ -58,12 +58,25 @@ public class ImmortalersKnifeItem extends KnifeItem {
     protected int type_id;
     protected final float attackDamage;
     protected final float attackSpeed;
+    protected final float extra_attackDamage;
+    protected final float extra_attackSpeed;
     public int getTypeId() {return this.type_id;}
     public ImmortalersKnifeItem(int type, Tier tier, float attackDamage, float attackSpeed, Properties properties) {
         super(tier, attackDamage, attackSpeed, properties);
         this.type_id = type;
         this.attackDamage = attackDamage + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeed;
+        this.extra_attackDamage = 0;
+        this.extra_attackSpeed = 0;
+    }
+
+    public ImmortalersKnifeItem(int type, Tier tier, float attackDamage, float attackSpeed, float extra_attackDamage, float extra_attackSpeed, Properties properties) {
+        super(tier, attackDamage, attackSpeed, properties);
+        this.type_id = type;
+        this.attackDamage = attackDamage + tier.getAttackDamageBonus();
+        this.attackSpeed = attackSpeed;
+        this.extra_attackDamage = extra_attackDamage;
+        this.extra_attackSpeed = extra_attackSpeed;
     }
 
     @Override
@@ -74,6 +87,9 @@ public class ImmortalersKnifeItem extends KnifeItem {
         if (type == PILLAGER_KNIFE_TYPE) {
             if (enchantment == Enchantments.MOB_LOOTING) level += isPowerful ? 4 : 2;
         }
+        if (type == BONE_KNIFE_TYPE) {
+            if (enchantment == Enchantments.MOB_LOOTING && level > 0) level -= 1;
+        }
         return level;
     }
 
@@ -83,8 +99,8 @@ public class ImmortalersKnifeItem extends KnifeItem {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
-            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
-            multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed, AttributeModifier.Operation.ADDITION));
+            multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed + (isPowerful ? extra_attackSpeed : 0), AttributeModifier.Operation.ADDITION));
+            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage + (isPowerful ? extra_attackDamage : 0), AttributeModifier.Operation.ADDITION));
             return multimap;
         }
 //        else if (equipmentSlot == EquipmentSlot.OFFHAND) {
@@ -114,37 +130,14 @@ public class ImmortalersKnifeItem extends KnifeItem {
                 }
             }
         }
+        if (this.type_id == BONE_KNIFE_TYPE) {
+            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            tooltip.add(textEmpty.withStyle(ChatFormatting.YELLOW));
+            MutableComponent textEmpty1 = TextUtils.getTranslation("tooltip." + this + ".1", new Object[0]);
+            tooltip.add(textEmpty1.withStyle(ChatFormatting.RED));
+        }
 
     }
-
-//    @Override
-//    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
-//        super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
-//        System.out.println("这里是inventoryTick方法，当前物品为：" + ForgeRegistries.ITEMS.getKey(pStack.getItem()));
-//        if (pStack.getItem() instanceof ImmortalersKnifeItem immKnife && immKnife.getTypeId() == 2) {
-//            if (pEntity instanceof LivingEntity livingEntity) {
-//                if (pIsSelected && !livingEntity.level().isClientSide()) {
-//                    CompoundTag tag = pStack.getOrCreateTag();
-//                    if (livingEntity.getItemInHand(InteractionHand.MAIN_HAND) == pStack) {
-//                        tag.putBoolean(ANCIENT_KNIFE_COMBO_SKILL,true);
-//                        if (livingEntity.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ImmortalersKnifeItem immKnife1
-//                                && immKnife1.getTypeId() == 2) {
-//                            livingEntity.getItemInHand(InteractionHand.OFF_HAND).getOrCreateTag().putBoolean(ANCIENT_KNIFE_COMBO_SKILL,true);
-//                        }
-//                    }
-//
-//                    if (!tag.contains(ANCIENT_KNIFE_COMBO_SKILL, Tag.TAG_BYTE)) {
-//                        tag.putBoolean(ANCIENT_KNIFE_COMBO_SKILL,false);
-//                    } else if (tag.getBoolean(ANCIENT_KNIFE_COMBO_SKILL)) {
-//                        if (!(livingEntity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ImmortalersKnifeItem immKnife2
-//                                && immKnife2.getTypeId() == 2)) {
-//                            tag.putBoolean(ANCIENT_KNIFE_COMBO_SKILL,false);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,

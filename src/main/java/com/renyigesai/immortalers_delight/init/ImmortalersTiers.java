@@ -34,7 +34,10 @@ public enum ImmortalersTiers implements Tier {
     ANCIENT_KNIFE(2, 750, 6.0F, 2.0F, 14, () -> {
         return Ingredient.of(ImmortalersDelightItems.RUSTY_ANCIENT_BLADE.get());
     }),
-    PILLAGER_KNIFE(1, 250, 4.0F, 1.0F, 11, () -> {
+    BONE_KNIFE(1, 125, 3.0F, 1.5F, 11, () -> {
+        return Ingredient.of(Items.BONE);
+    }),
+    PILLAGER_KNIFE(2, 250, 4.0F, 1.0F, 11, () -> {
         return Ingredient.of(Items.IRON_INGOT);
     }),
     GRINDSTONE_HAMMER(0, 144, 4.0F, 1.0F, 8, () -> {

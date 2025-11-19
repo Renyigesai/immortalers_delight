@@ -337,6 +337,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
     public static final RegistryObject<Item> ANCIENT_BLADE;
     public static final RegistryObject<Item> PILLAGER_KNIFE;
+    public static final RegistryObject<Item> BONE_KNIFE;
+    public static final RegistryObject<Item> GRINDSTONE_HAMMER;
     public static final RegistryObject<Item> REPEATING_CROSSBOW;
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
@@ -981,16 +983,21 @@ public class ImmortalersDelightItems {
                 new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));
 
         RUSTY_ANCIENT_BLADE = registerWithTab("rusty_ancient_blade", () ->
-                new ImmortalersKnifeItem(ImmortalersKnifeItem.ANCIENT_KNIFE_TYPE,ImmortalersTiers.RUSTY_IRON,2,-2.0f,new Item.Properties()));
+                new ImmortalersKnifeItem(ImmortalersKnifeItem.ANCIENT_KNIFE_TYPE,ImmortalersTiers.RUSTY_IRON,2,-2.0f,2,0,new Item.Properties()));
 
         ANCIENT_BLADE = registerWithTab("ancient_blade", () ->
-                new ImmortalersKnifeItem(ImmortalersKnifeItem.NEW_ANCIENT_KNIFE_TYPE,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,fantasticItem(Rarity.UNCOMMON)));
+                new ImmortalersKnifeItem(ImmortalersKnifeItem.NEW_ANCIENT_KNIFE_TYPE,ImmortalersTiers.ANCIENT_KNIFE,3.5f,-2.0f,4,0,fantasticItem(Rarity.UNCOMMON)));
 
         PILLAGER_KNIFE = registerWithTab("pillager_knife", () ->
-                new PillagersKnifeItem(ImmortalersKnifeItem.PILLAGER_KNIFE_TYPE,ImmortalersTiers.PILLAGER_KNIFE,3,-2.0f,fantasticItem(Rarity.UNCOMMON)));
+                new PillagersKnifeItem(ImmortalersKnifeItem.PILLAGER_KNIFE_TYPE,ImmortalersTiers.PILLAGER_KNIFE,3,-2.0f,2,0,fantasticItem(Rarity.UNCOMMON)));
 
-        //隐藏
-        REPEATING_CROSSBOW = register("repeating_crossbow",()->
+        BONE_KNIFE = registerWithTab("bone_knife", () ->
+                new BoneKnifeItem(ImmortalersKnifeItem.BONE_KNIFE_TYPE,ImmortalersTiers.BONE_KNIFE,0.5f,-2.0f,0.5f,0,new Item.Properties()));
+
+        GRINDSTONE_HAMMER = registerWithTab("grindstone_hammer", () ->
+                new GrindstoneHammerItem(ImmortalersTiers.GRINDSTONE_HAMMER,3.5f,-3.55f,new Item.Properties()));
+
+        REPEATING_CROSSBOW = registerWithTab("repeating_crossbow",()->
                 new RepeatingCrossbowItem((new Item.Properties()).stacksTo(1).durability(465)));
 
         SEALED_ANCIENT_RATIONS = registerWithTab("sealed_ancient_rations",()->
