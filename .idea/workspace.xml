@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="更改玉米面糊相关,添加黏液方块2025/11/11">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/mob_effect/gaixia.png" afterDir="false" />
+    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="给食物添加垓下buff,添加垓下buff图标2025/11/12">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/advancements/sniffer_move.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/recipe/EnchantalCoolerRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/recipe/EnchantalCoolerRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/LeisambooCropBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/LeisambooCropBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/LeisambooStalkBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/LeisambooStalkBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/enchantal_cooler/EnchantalCoolerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/enchantal_cooler/EnchantalCoolerBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/SachetsItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/SachetsItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GasPoisonMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GasPoisonMobEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,16 +152,16 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/textures/mob_effect&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/textures/block&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\block" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\mob_effect" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\item" />
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\block" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\recipes" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\recipes\cooking" />
     </key>
@@ -176,7 +185,7 @@
       <recent name="com.renyigesai.immortalers_delight.client.particle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.immortalers_delight [build]">
+  <component name="RunManager" selected="Gradle.Imm Delight [runClient]">
     <configuration name="Imm Delight [prepareRunClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -245,8 +254,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.immortalers_delight [build]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
+        <item itemvalue="Gradle.immortalers_delight [build]" />
         <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
         <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
@@ -605,7 +614,7 @@
       <option name="project" value="LOCAL" />
       <updated>1754839547151</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -621,7 +630,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="修复了一点bug" />
     <MESSAGE value="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果" />
     <MESSAGE value="补充了醇厚buff的汉化，调整了瓦斯毒和渊毒抵抗派生buff的持续时间。这也是测试提交，因为之前的多次提交显示被拒但在本地依然更新为已提交的白色状态。" />
     <MESSAGE value="Merge remote-tracking branch 'origin/temp' into temp&#10;这是最新一次测试提交&#10;我认为本地应该没有缺什么内容了，但是仍无法提交&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" />
@@ -646,7 +654,8 @@
     <MESSAGE value="添加嗅探兽毛长短榻榻米,修改魔凝机配方匹配逻辑和版本迁移逻辑(测试中)2025/11/02" />
     <MESSAGE value="添加新的瓶子草相关食物，添加玉米面包2025/11/11" />
     <MESSAGE value="更改玉米面糊相关,添加黏液方块2025/11/11" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改玉米面糊相关,添加黏液方块2025/11/11" />
+    <MESSAGE value="给食物添加垓下buff,添加垓下buff图标2025/11/12" />
+    <option name="LAST_COMMIT_MESSAGE" value="给食物添加垓下buff,添加垓下buff图标2025/11/12" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

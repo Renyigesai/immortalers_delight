@@ -28,6 +28,7 @@ public class GaixiaMobEffect extends MobEffect {
             if (entity == null){
                 return;
             }
+
             Level level = entity.level();
             if (entity instanceof LivingEntity living && living.hasEffect(ImmortalersDelightMobEffect.GAIXIA.get())){
                 if (level.getBlockState(BlockPos.containing(target.getX(),target.getY(),target.getZ())).isAir()) {

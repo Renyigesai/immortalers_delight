@@ -468,10 +468,10 @@ public class ImmortalersDelightItems {
         LEISAMBOO_PLANKS = registerWithTab("leisamboo_planks", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), basicItem()));
 
-        LEISAMBOO_STAIRS = registerWithTab("leisamboo_stairs", () ->
-                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_STAIRS.get(), basicItem()));
-
         LEISAMBOO_CABINET = block(ImmortalersDelightBlocks.LEISAMBOO_CABINET);
+
+        LEISAMBOO_STAIRS = registerWithTab("leisamboo_stairs", () ->
+                new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_STAIRS.get(), basicItem()));;
 
         LEISAMBOO_SLAB = registerWithTab("leisamboo_slab", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_SLAB.get(), basicItem()));

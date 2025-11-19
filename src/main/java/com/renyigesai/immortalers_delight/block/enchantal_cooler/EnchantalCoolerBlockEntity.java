@@ -341,27 +341,10 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             cookingTotalTime = 0;
             return;
         }
-
-        List<Ingredient> ingredientsToConsume = new ArrayList<>(recipe.getIngredients());
-        List<Integer> slotsToConsume = new ArrayList<>();
-
-        outer:
-        for (Ingredient ingredient : ingredientsToConsume) {
-            for (int i = 0; i < 4; i++) {
-                ItemStack stack = inventory.getStackInSlot(i);
-                if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
-                    slotsToConsume.add(i);
-                    continue outer;
-                }
-            }
-            cookingTotalTime = 0;
-            return;
-        }
-
         if (cookingTotalTime < 100) {
             cookingTotalTime++;
         } else {
-            for (int slot : slotsToConsume) {
+            for (int slot = 0; slot < 4; slot ++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (!stack.is(Items.WATER_BUCKET)) {
                     if (stack.hasCraftingRemainingItem()) {

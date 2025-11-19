@@ -38,7 +38,7 @@ public class GasPoisonMobEffect extends MobEffect {
                 int i = pEntity.getRandom().nextInt(5);
                 switch (i) {
                     case 0 -> pEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, amplifier));
-                    case 1 -> pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400, amplifier));
+                    case 1 -> pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, amplifier));
                     case 2 -> pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, amplifier));
                     case 3 -> pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, amplifier));
                     case 4 -> pEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, amplifier));

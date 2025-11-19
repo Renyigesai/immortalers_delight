@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
@@ -39,7 +40,9 @@ public class LeisambooStalkBlock extends Block implements IPlantable,SimpleWater
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return BOX[pState.getValue(IS_TEA) ? 1 : 0];
+        VoxelShape box = BOX[pState.getValue(IS_TEA) ? 1 : 0];
+        Vec3 vec3 = pState.getOffset(pLevel, pPos);
+        return box.move(vec3.x,vec3.y,vec3.z);
     }
 
     public void tick(BlockState p_222543_, ServerLevel p_222544_, BlockPos p_222545_, RandomSource p_222546_) {
