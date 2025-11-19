@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.util.task;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.DifficultyModeSaveLoadHelper;
+import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.TickEvent;
@@ -18,6 +20,10 @@ public class TimekeepingTask {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onWorldLoad(LevelEvent.Load event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
+            if (ExitTimeSaveLoadHelper.loadExitTime(serverLevel) != null) {
+                ImmortalTickTime = ExitTimeSaveLoadHelper.loadExitTime(serverLevel);
+                //System.out.println("[ImmortalersDelight] 读取存档中信息成功！");
+            }
             if (ImmortalTickTime == 0) ImmortalTickTime = System.currentTimeMillis();
 
         }

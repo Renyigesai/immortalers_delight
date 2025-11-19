@@ -37,9 +37,16 @@ public enum ImmortalersTiers implements Tier {
     PILLAGER_KNIFE(1, 250, 4.0F, 1.0F, 11, () -> {
         return Ingredient.of(Items.IRON_INGOT);
     }),
+    GRINDSTONE_HAMMER(0, 144, 4.0F, 1.0F, 8, () -> {
+        return Ingredient.of(Items.GRINDSTONE);
+    }),
+    TUNNELING_TOOL(4, 1420, 11.0F, 4.0F, 13, () -> {
+        return Ingredient.of(Items.REDSTONE_BLOCK);
+    }),
     MAGIC_POWERED(4, 32, 25.0F, 4.0F, 22, () -> {
         return Ingredient.of(Items.LAPIS_BLOCK);
     });
+
 
     private final int level;
     private final int uses;

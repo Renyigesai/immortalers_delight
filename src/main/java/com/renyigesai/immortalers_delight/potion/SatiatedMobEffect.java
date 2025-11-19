@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -8,8 +8,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.MAGICAL_REVERSE;
 
 public class SatiatedMobEffect extends MobEffect {
     public static boolean isPowerful = true;
@@ -20,7 +18,7 @@ public class SatiatedMobEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
-        isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (!pEntity.level().isClientSide()) {
             pEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, amplifier));
             if (isPowerful) {

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": {"model": "minecraft:block/structure_void"},
+    "lit=true": {"model": "immortalers_delight:block/support_outlayer"}
+  }
+}

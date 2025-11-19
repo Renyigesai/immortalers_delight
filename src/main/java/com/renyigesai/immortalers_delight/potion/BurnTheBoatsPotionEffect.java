@@ -1,16 +1,12 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +20,7 @@ public class BurnTheBoatsPotionEffect {
         if (evt.isCanceled() ) {
             return;
         }
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         if (hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())) {
             int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;
@@ -72,7 +68,7 @@ public class BurnTheBoatsPotionEffect {
         if (evt.isCanceled() ) {
             return;
         }
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         if (isPowerful && hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())) {
             int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;

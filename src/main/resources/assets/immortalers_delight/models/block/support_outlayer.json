@@ -1,0 +1,59 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "immortalers_delight:block/support_glow",
+		"particle": "immortalers_delight:block/support_glow"
+	},
+	"elements": [
+		{
+			"from": [-4.5, 0.5, -4.5],
+			"to": [20.5, 0.5, 20.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-4.5, 0.5, -4.5]},
+			"faces": {
+				"north": {"uv": [12.5, 0, 15.625, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"east": {"uv": [12.5, 0, 15.625, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"south": {"uv": [12.5, 0, 15.625, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"west": {"uv": [12.5, 0, 15.625, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"up": {"uv": [9.375, 0, 12.5, 3.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"down": {"uv": [12.5, 0, 15.625, 3.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"}
+			}
+		},
+		{
+			"from": [20.5, 32, 20.5],
+			"to": [-4.5, 0, -4.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [20.5, 32, 20.5]},
+			"faces": {
+				"north": {"uv": [3.125, 3.125, 6.25, 7.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"east": {"uv": [0, 3.125, 3.125, 7.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"south": {"uv": [9.375, 3.125, 12.5, 7.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"west": {"uv": [9.375, 3.125, 6.25, 7.125], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"up": {"uv": [3.125, 3.125, 6.25, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"down": {"uv": [6.25, 3.125, 9.375, 0], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 1, 0],
+			"to": [16, 25, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
+			"faces": {
+				"north": {"uv": [2, 10, 4, 13], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"east": {"uv": [0, 10, 2, 13], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"south": {"uv": [6, 10, 8, 13], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"west": {"uv": [4, 10, 6, 13], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"up": {"uv": [4, 10, 2, 8], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"},
+				"down": {"uv": [6, 8, 4, 10], "forge_data": { "color": "FFFFFFFF", "block_light": 15, "sky_light": 15 }, "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "all",
+			"origin": [-4.5, 0, -4.5],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

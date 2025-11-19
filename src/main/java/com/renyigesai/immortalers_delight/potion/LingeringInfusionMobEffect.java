@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,7 +15,7 @@ public class LingeringInfusionMobEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         float healByFoodLevel = isPowerful ? 0.5F : 0.375F;
         float healBySaturation = isPowerful ? 1.5F : 0.5F;
 

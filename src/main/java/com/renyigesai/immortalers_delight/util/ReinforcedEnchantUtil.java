@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.util;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,7 @@ import java.util.*;
 public class ReinforcedEnchantUtil {
     public static Random random = new Random();
     public static int getMaxReinforcedEnchantLevel(int enchantMaxLevel) {
-        if (DifficultyModeHelper.isPowerBattleMode()) {
+        if (DifficultyModeUtil.isPowerBattleMode()) {
             return enchantMaxLevel * 2;
         } else {return enchantMaxLevel;}
     }
@@ -55,7 +54,7 @@ public class ReinforcedEnchantUtil {
                                           int repairCost,
                                           float luck,
                                           float rarityBuffer) {
-        boolean flag = DifficultyModeHelper.isPowerBattleMode();
+        boolean flag = DifficultyModeUtil.isPowerBattleMode();
         if (!flag) {enchLevel = 2*enchLevel;}
         float condition_1 = flag ? typesNumber - capacity : (float) (typesNumber-1) / capacity;
         float probability_1 = condition_1 < 1 ? highProbability(enchLevel)

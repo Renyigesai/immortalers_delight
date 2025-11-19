@@ -1,12 +1,10 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.mojang.datafixers.util.Pair;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +40,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem{
     }
 
     public @Nullable FoodProperties getAheadFoodProperties() {
-        return DifficultyModeHelper.isPowerBattleMode() ? this.poweredAheadFoodProperties : this.aheadFoodProperties;
+        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredAheadFoodProperties : this.aheadFoodProperties;
     }
 
     @Override

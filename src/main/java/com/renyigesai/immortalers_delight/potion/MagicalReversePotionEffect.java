@@ -1,12 +1,11 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.renyigesai.immortalers_delight.Config;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
@@ -30,7 +29,7 @@ public class MagicalReversePotionEffect {
                         event.setResult(Event.Result.DENY);
                     }
                     if (reverseInstantEffect.get(event.getEffectInstance().getEffect()) != null) {
-                        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+                        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                         int lv = event.getEffectInstance().getAmplifier();
                         int time = event.getEffectInstance().getDuration();
                         int amplifier = livingEntity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get()).getAmplifier();

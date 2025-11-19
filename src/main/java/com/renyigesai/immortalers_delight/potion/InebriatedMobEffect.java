@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffec
 
 public class InebriatedMobEffect extends MobEffect {
     public InebriatedMobEffect() {
-        super(MobEffectCategory.HARMFUL, -39424);
+        super(MobEffectCategory.HARMFUL, 4959736);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class InebriatedMobEffect extends MobEffect {
         if (this == INEBRIATED.get() && !pEntity.level().isClientSide()) {
             int time = pEntity.hasEffect(INEBRIATED.get()) ? Objects.requireNonNull(pEntity.getEffect(INEBRIATED.get()).getDuration()):0;
             if (time > 3600) {
-                boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+                boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                 float health = pEntity.getHealth();
                 float damage = (20 > pEntity.getMaxHealth() ? 20 : pEntity.getMaxHealth()) * 0.08F;
                 if (!isPowerful && damage > 8 + 4 * amplifier) {

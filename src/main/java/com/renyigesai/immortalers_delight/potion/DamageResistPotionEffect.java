@@ -1,7 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,7 +20,7 @@ public class DamageResistPotionEffect {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
             return;
         }
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){

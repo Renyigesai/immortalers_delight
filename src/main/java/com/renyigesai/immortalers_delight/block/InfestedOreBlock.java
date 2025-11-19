@@ -3,7 +3,7 @@ package com.renyigesai.immortalers_delight.block;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishAmbusher;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishThrasher;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,9 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.InfestedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.UUID;
-import java.util.List;
 
 public class InfestedOreBlock extends InfestedBlock {
     public static final UUID COAL_ATTACK = UUID.fromString("2530111d-6536-7a8e-7618-4c088d7bb51f");
@@ -73,7 +71,7 @@ public class InfestedOreBlock extends InfestedBlock {
         if (bomber != null) {
             bomber.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
             //超凡模式额外加强：攻击力+10
-            if (DifficultyModeHelper.isPowerBattleMode()) {
+            if (DifficultyModeUtil.isPowerBattleMode()) {
                 bomber.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(
                         new AttributeModifier(COAL_ATTACK,
                                 "infested_coal_extra_attack",
@@ -90,7 +88,7 @@ public class InfestedOreBlock extends InfestedBlock {
         if (thrasher != null) {
             thrasher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
             //超凡模式额外加强：攻击力+20%，每秒回复0.3生命
-            if (DifficultyModeHelper.isPowerBattleMode()) {
+            if (DifficultyModeUtil.isPowerBattleMode()) {
                 thrasher.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(
                         new AttributeModifier(COPPER_ATTACK,
                                 "infested_copper_extra_attack",
@@ -107,11 +105,11 @@ public class InfestedOreBlock extends InfestedBlock {
     private void spawnIronBlockInfestation(ServerLevel pLevel, BlockPos pPos) {
         SkelverfishAmbusher ambusher = null;
         SkelverfishThrasher thrasher = null;
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             ambusher = ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get().create(pLevel);
             if (ambusher != null) {
                 ambusher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     ambusher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",
@@ -130,11 +128,11 @@ public class InfestedOreBlock extends InfestedBlock {
                 ambusher.spawnAnim();
             }
         }
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             thrasher = ImmortalersDelightEntities.SKELVERFISH_THRASHER.get().create(pLevel);
             if (thrasher != null) {
                 thrasher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     thrasher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",
@@ -158,11 +156,11 @@ public class InfestedOreBlock extends InfestedBlock {
     private void spawnGoldBlockInfestation(ServerLevel pLevel, BlockPos pPos) {
         SkelverfishAmbusher ambusher = null;
         SkelverfishThrasher thrasher = null;
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 5 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 5 : 2); i++) {
             ambusher = ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get().create(pLevel);
             if (ambusher != null) {
                 ambusher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     ambusher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(GOLD_SPEED,
                                     "infested_gold_extra_speed",
@@ -189,11 +187,11 @@ public class InfestedOreBlock extends InfestedBlock {
                 ambusher.spawnAnim();
             }
         }
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 5 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 5 : 2); i++) {
             thrasher = ImmortalersDelightEntities.SKELVERFISH_THRASHER.get().create(pLevel);
             if (thrasher != null) {
                 thrasher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     thrasher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(GOLD_SPEED,
                                     "infested_gold_extra_speed",
@@ -225,11 +223,11 @@ public class InfestedOreBlock extends InfestedBlock {
     private void spawnEmeraldBlockInfestation(ServerLevel pLevel, BlockPos pPos) {
         SkelverfishAmbusher ambusher = null;
         SkelverfishThrasher thrasher = null;
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             ambusher = ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get().create(pLevel);
             if (ambusher != null) {
                 ambusher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     ambusher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",
@@ -248,11 +246,11 @@ public class InfestedOreBlock extends InfestedBlock {
                 ambusher.spawnAnim();
             }
         }
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             thrasher = ImmortalersDelightEntities.SKELVERFISH_THRASHER.get().create(pLevel);
             if (thrasher != null) {
                 thrasher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     thrasher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",
@@ -275,11 +273,11 @@ public class InfestedOreBlock extends InfestedBlock {
     private void spawnDiamondBlockInfestation(ServerLevel pLevel, BlockPos pPos) {
         SkelverfishAmbusher ambusher = null;
         SkelverfishThrasher thrasher = null;
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             ambusher = ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get().create(pLevel);
             if (ambusher != null) {
                 ambusher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     ambusher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",
@@ -298,11 +296,11 @@ public class InfestedOreBlock extends InfestedBlock {
                 ambusher.spawnAnim();
             }
         }
-        for (int i = 0; i < (DifficultyModeHelper.isPowerBattleMode() ? 4 : 2); i++) {
+        for (int i = 0; i < (DifficultyModeUtil.isPowerBattleMode() ? 4 : 2); i++) {
             thrasher = ImmortalersDelightEntities.SKELVERFISH_THRASHER.get().create(pLevel);
             if (thrasher != null) {
                 thrasher.moveTo((double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
-                if (DifficultyModeHelper.isPowerBattleMode() && i >= 2) {
+                if (DifficultyModeUtil.isPowerBattleMode() && i >= 2) {
                     thrasher.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(
                             new AttributeModifier(IRON_SPEED,
                                     "infested_iron_extra_speed",

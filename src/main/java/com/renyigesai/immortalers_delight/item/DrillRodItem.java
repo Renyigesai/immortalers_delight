@@ -4,20 +4,17 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,7 +34,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nullable;
@@ -68,7 +64,7 @@ public class DrillRodItem extends DiggerItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage + (isPowerful ? 4.0F : 0), AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed, AttributeModifier.Operation.ADDITION));
@@ -125,7 +121,7 @@ public class DrillRodItem extends DiggerItem {
     @Override
     public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
         int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (enchantment == Enchantments.BLOCK_FORTUNE) level += isPowerful ? 15 : 5;
         if (enchantment == Enchantments.MOB_LOOTING) level += isPowerful ? 10 : 4;
         return level;
@@ -154,7 +150,7 @@ public class DrillRodItem extends DiggerItem {
             LivingEntity hurtOne = event.getEntity();
             LivingEntity attacker = event.getEntity().getKillCredit();
             ItemStack toolStack = attacker != null ? attacker.getItemInHand(InteractionHand.MAIN_HAND) : ItemStack.EMPTY;
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             if (!toolStack.isEmpty() && toolStack.getItem() instanceof DrillRodItem) {
                 boolean noArmor = !hurtOne.getItemBySlot(EquipmentSlot.HEAD).isEmpty()
                         || !hurtOne.getItemBySlot(EquipmentSlot.CHEST).isEmpty()

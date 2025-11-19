@@ -1,18 +1,11 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.google.common.collect.ImmutableMap;
-import com.renyigesai.immortalers_delight.Config;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.util.EffectUtils;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.registry.ModEffects;
 
 import java.util.*;
 
@@ -52,7 +45,7 @@ public class MagicalReverseMobEffect extends MobEffect {
         下面是金魔法果反转效果的实现
          */
         if (this == MAGICAL_REVERSE.get() && !pEntity.level().isClientSide()) {
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             /*获取实体的EffectMap进行遍历*/
             Map<MobEffect, MobEffectInstance> effectsMap = new HashMap<>(pEntity.getActiveEffectsMap());
             Map<MobEffect, MobEffectInstance> inputEffectsMap = new HashMap<>();

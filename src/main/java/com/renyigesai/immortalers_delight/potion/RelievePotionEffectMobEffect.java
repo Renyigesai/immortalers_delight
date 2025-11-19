@@ -1,18 +1,13 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.google.common.collect.ImmutableMap;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import vectorwing.farmersdelight.common.registry.ModEffects;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
@@ -25,7 +20,7 @@ public class RelievePotionEffectMobEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (this == RELIEVE_POISON.get()) {
             if (pEntity.hasEffect(MobEffects.POISON)){
                 if (!isPowerful) {

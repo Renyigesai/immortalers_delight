@@ -13,9 +13,9 @@
     }
   },
   "pattern": [
-    "X",
-    "#",
-    "I"
+    "XXX",
+    " # ",
+    " I "
   ],
   "result": {
     "item": "immortalers_delight:sniffer_fur_brush"

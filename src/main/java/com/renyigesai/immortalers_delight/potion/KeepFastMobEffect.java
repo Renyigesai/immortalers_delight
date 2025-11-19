@@ -1,16 +1,12 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraft.world.level.GameRules;
-
-import java.util.Objects;
 
 public class KeepFastMobEffect extends MobEffect {
 
@@ -27,7 +23,7 @@ public class KeepFastMobEffect extends MobEffect {
             if (differenceValue > 0 && player.getRandom().nextInt(amplifier + 2) != 0) {
                 player.getFoodData().eat(differenceValue, 0.1F);
             }
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()).getDuration() : 0;
             if (time > 0) {
                 if (time == 1) {

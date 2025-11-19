@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "m": {
+      "item": "minecraft:bone"
+    },
+    "s": {
+      "tag": "forge:leather"
+    }
+  },
+  "pattern": [
+    "m",
+    "s"
+  ],
+  "result": {
+    "item": "immortalers_delight:bone_knife"
+  },
+  "show_notification": true
+}

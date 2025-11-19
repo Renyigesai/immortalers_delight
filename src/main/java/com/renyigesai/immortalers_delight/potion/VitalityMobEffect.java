@@ -1,13 +1,9 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
 
 public class VitalityMobEffect extends MobEffect {
     public VitalityMobEffect() {
@@ -19,7 +15,7 @@ public class VitalityMobEffect extends MobEffect {
         if (!pEntity.level().isClientSide){
             if (!(pEntity.getHealth() > 0.0F && pEntity.getHealth() < pEntity.getMaxHealth())) return;
             float healthProgress = pEntity.getHealth() / pEntity.getMaxHealth();
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             if (isPowerful) {
                 float buffer = pEntity.getMaxHealth() * 0.005F;
                 pEntity.heal(healthProgress * healthProgress * (1 << amplifier) * buffer);

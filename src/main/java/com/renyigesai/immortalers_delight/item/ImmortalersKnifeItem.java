@@ -3,25 +3,20 @@ package com.renyigesai.immortalers_delight.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.event.ImmortalersDelightEvent;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,12 +37,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -76,7 +69,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
     @Override
     public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
         int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         int type = this.type_id;
         if (type == PILLAGER_KNIFE_TYPE) {
             if (enchantment == Enchantments.MOB_LOOTING) level += isPowerful ? 4 : 2;
@@ -88,7 +81,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed, AttributeModifier.Operation.ADDITION));
@@ -111,7 +104,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
         }
         if (this.type_id == NEW_ANCIENT_KNIFE_TYPE) {
             for (int i = 0; i < 3; i++) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + "." + ((i == 2 && DifficultyModeHelper.isPowerBattleMode()) ? "power" : i), new Object[0]);
+                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + "." + ((i == 2 && DifficultyModeUtil.isPowerBattleMode()) ? "power" : i), new Object[0]);
                 if(i == 1) {
                     tooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
                 } else if (i == 2) {
@@ -162,7 +155,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
         public static void ImmortalersKnifeAttack(LivingHurtEvent event) {
             if (event.isCanceled()) return;
 
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             LivingEntity hurtOne = event.getEntity();
             if (hurtOne.level().isClientSide) return;
 

@@ -1,12 +1,11 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.mojang.datafixers.util.Pair;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
@@ -41,7 +40,7 @@ public class IncandescencePotionEffect {
         }
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
             attacker = livingEntity;
         }

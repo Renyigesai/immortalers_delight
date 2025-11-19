@@ -1,9 +1,8 @@
 package com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.datastorage.DifficultyDataStorage;
 import com.renyigesai.immortalers_delight.util.datautil.worlddata.DifficultyModeWorldData;
-import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.level.LevelEvent;
@@ -43,7 +42,7 @@ public class DifficultyModeSaveLoadHelper {
     @SubscribeEvent
     public static void onWorldSave(LevelEvent.Save event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
-            saveDifficultyMode(serverLevel, DifficultyModeHelper.isPowerBattleMode());
+            saveDifficultyMode(serverLevel, DifficultyModeUtil.isPowerBattleMode());
         }
     }
 }

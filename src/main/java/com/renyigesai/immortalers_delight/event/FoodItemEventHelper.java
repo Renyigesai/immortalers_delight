@@ -5,7 +5,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,8 +20,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +36,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Mod.EventBusSubscriber
 public class FoodItemEventHelper {
@@ -51,7 +48,7 @@ public class FoodItemEventHelper {
                 if (stack.getItem().isEdible()) {
                     //大红包子的隐藏幸运效果
                     if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.RED_STUFFED_BUN) {
-                        if (DifficultyModeHelper.isPowerBattleMode()) {
+                        if (DifficultyModeUtil.isPowerBattleMode()) {
                             if (livingEntity.getRandom().nextInt(3) == 0) {
                                 livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000,3));
                                 livingEntity.addEffect(new MobEffectInstance(MobEffects.LUCK, 2700));
@@ -78,7 +75,7 @@ public class FoodItemEventHelper {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
             return;
         }
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
@@ -170,7 +167,7 @@ public class FoodItemEventHelper {
                 if (TimekeepingTask.getImmortalTickTime() % 500 <= 50) {
                     spawnParticle(piglin.level(), piglin.blockPosition(),0);
                 }
-                if (TimekeepingTask.getImmortalTickTime() == 4000 + piglin.getPersistentData().getLong(DELETE_PIGLIN)) {
+                if (TimekeepingTask.getImmortalTickTime() >= 4000 + piglin.getPersistentData().getLong(DELETE_PIGLIN)) {
                     for (int i = 0; i < 2; i++) {
                         spawnParticle(piglin.level(), piglin.blockPosition(),1);
                     }

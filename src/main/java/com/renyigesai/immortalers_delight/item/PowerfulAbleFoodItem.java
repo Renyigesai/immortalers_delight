@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.world.food.FoodProperties;
 
 import javax.annotation.Nullable;
@@ -21,7 +21,7 @@ public class PowerfulAbleFoodItem extends EnchantAbleFoodItem{
 
     @Override
     public FoodProperties getFoodProperties() {
-        return DifficultyModeHelper.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
     }
 
 

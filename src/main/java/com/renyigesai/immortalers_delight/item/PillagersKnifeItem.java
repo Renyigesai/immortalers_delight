@@ -1,15 +1,13 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.google.common.collect.Sets;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
@@ -44,7 +42,7 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem{
             PotionUtils.addPotionTooltip(pStack, pTooltip, 0.125F);
         }
         if (this.type_id == PILLAGER_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + ".default_enchantment." + (DifficultyModeHelper.isPowerBattleMode() ? "power." + 1 : 1), new Object[0]);
+            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + ".default_enchantment." + (DifficultyModeUtil.isPowerBattleMode() ? "power." + 1 : 1), new Object[0]);
             pTooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
         }
 

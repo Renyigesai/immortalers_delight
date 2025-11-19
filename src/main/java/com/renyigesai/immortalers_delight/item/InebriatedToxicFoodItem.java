@@ -1,11 +1,16 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.mojang.datafixers.util.Pair;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -21,24 +27,33 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.utility.TextUtils;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public class InebriatedToxicFoodItem extends DrinkableItem {
 
     private final boolean foil;
+    private final boolean can_feed;
     public InebriatedToxicFoodItem(Properties properties, boolean hasFoodEffectTooltip) {
         super(properties,hasFoodEffectTooltip,false);
         foil = false;
+        can_feed = false;
     }
     public InebriatedToxicFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip) {
         super(properties,hasFoodEffectTooltip,hasCustomTooltip);
         foil = false;
+        can_feed = false;
     }
     //弃用
     public InebriatedToxicFoodItem(Properties properties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip, boolean isFoil, boolean canFeed) {
         super(properties,hasFoodEffectTooltip,hasCustomTooltip);
         foil = isFoil;
-        if (canFeed) MinecraftForge.EVENT_BUS.register(this);
+        can_feed = canFeed;
+    }
+    public boolean isFoil(ItemStack p_41172_) {
+        return foil;
     }
     @Override
     public @NotNull ItemStack finishUsingItem (@NotNull ItemStack stack, @NotNull Level level, LivingEntity livingEntity) {
@@ -79,5 +94,17 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
                 }
             }
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+
+        if (this.can_feed) {
+            MutableComponent textValue = Component.translatable(
+                    "tooltip." + ImmortalersDelightMod.MODID+ ".is_can_feed"
+            );
+            tooltip.add(textValue.withStyle(ChatFormatting.YELLOW));
+        }
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
 }

@@ -1,18 +1,14 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -50,7 +46,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> DATA_TELEPORTING = SynchedEntityData.defineId(Scavenger.class, EntityDataSerializers.BOOLEAN);
@@ -151,7 +146,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
         } else {
             if (pEntity instanceof LivingEntity livingEntity && this.getPotionCount() > 0) {
                 pEntity.invulnerableTime = 0;
-                float f = DifficultyModeHelper.isPowerBattleMode() ? livingEntity.getMaxHealth() * 0.1f : 2;
+                float f = DifficultyModeUtil.isPowerBattleMode() ? livingEntity.getMaxHealth() * 0.1f : 2;
                 pEntity.hurt(this.damageSources().indirectMagic(this, this),
                         f * (1.2f + this.random.nextFloat() * 0.6f));
                 pEntity.invulnerableTime = 0;
@@ -254,7 +249,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
         } else {
             abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (this.level().getDifficulty() == Difficulty.HARD ? 1.5D : 2.0D));
         }
-        if (DifficultyModeHelper.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + this.level().getDifficulty().getId());
+        if (DifficultyModeUtil.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + this.level().getDifficulty().getId());
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - abstractarrow.getY();
         double d2 = pTarget.getZ() - this.getZ();

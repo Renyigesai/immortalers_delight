@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:copper_ingot"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:grindstone"
+    }
+  },
+  "pattern": [
+    "X# ",
+    "#I ",
+    "  I"
+  ],
+  "result": {
+    "item": "immortalers_delight:grindstone_hammer"
+  },
+  "show_notification": true
+}

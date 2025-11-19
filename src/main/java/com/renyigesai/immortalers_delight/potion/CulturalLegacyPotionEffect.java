@@ -4,10 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
 import com.renyigesai.immortalers_delight.block.SpikeTrapBlock;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.init.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -54,16 +51,20 @@ public class CulturalLegacyPotionEffect {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+
         CompoundTag tag = stack.getTag();
         if (tag != null) {
             if (tag.contains(CulturalLegacyMobEffect.BOOK_EDITING)) {
                 int progress = tag.getInt(CulturalLegacyMobEffect.BOOK_EDITING);
 
-                MutableComponent textValue = Component.translatable(
-                        "tooltip." +ImmortalersDelightMod.MODID+ ".book_progress", // 翻译键
-                        progress // 替换%d占位符
-                );
-                event.getToolTip().add(textValue.withStyle(ChatFormatting.GRAY));
+                if (progress > 0) {
+                    MutableComponent textValue = Component.translatable(
+                            "tooltip." +ImmortalersDelightMod.MODID+ ".book_progress", // 翻译键
+                            progress // 替换%d占位符
+                    );
+                    event.getToolTip().add(textValue.withStyle(ChatFormatting.GRAY));
+                }
+
             }
         }
     }

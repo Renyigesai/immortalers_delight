@@ -1,41 +1,22 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.block.CulturalLegacyEffectToolBlock;
-import com.renyigesai.immortalers_delight.block.HimekaidoLeavesGrowing;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.ReinforcedEnchantUtil;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.*;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.CULTURAL_LEGACY;
-import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.WEAK_POISON;
 
 public class CulturalLegacyMobEffect extends MobEffect {
     private static final int[] LEVEL_UP = new int[] {5, 10, 15, 18, 20, 22, 23, 24};
     public static final String BOOK_EDITING = "BookEditingProgress";
 
     public CulturalLegacyMobEffect() {
-        super(MobEffectCategory.BENEFICIAL, -39424);
+        super(MobEffectCategory.BENEFICIAL, 15181790);
     }
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {

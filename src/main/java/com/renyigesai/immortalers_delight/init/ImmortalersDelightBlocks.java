@@ -11,6 +11,8 @@ import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightC
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
+import com.renyigesai.immortalers_delight.block.support.SupportBlock;
+import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
@@ -56,6 +58,8 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
     public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
+    public static final RegistryObject<Block> SUPPORT_BLOCK;
+    public static final RegistryObject<BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
 
     public static final RegistryObject<Block> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -530,6 +534,10 @@ public class ImmortalersDelightBlocks {
 
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));
+        SUPPORT_BLOCK= BLOCKS.register("support_block",()->
+                new SupportBlock(BlockBehaviour.Properties.of().strength(55.0F, 1200.0F).noCollission().noLootTable().lightLevel(litBlockEmission(9)).noParticlesOnBreak().pushReaction(PushReaction.BLOCK)));
+        SUPPORT_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("support_block_entity",
+                ()-> BlockEntityType.Builder.of(SupportBlockEntity::new, SUPPORT_BLOCK.get()).build(null));
 
         HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block", HotSpringFluidsBlock::new);
     }
@@ -537,6 +545,11 @@ public class ImmortalersDelightBlocks {
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {
         return (p_50763_) -> {
             return p_50763_.getValue(BlockStateProperties.AGE_7) + exLightValue;
+        };
+    }
+    private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
+        return (p_50763_) -> {
+            return p_50763_.getValue(BlockStateProperties.LIT) ? pLightValue : 5;
         };
     }
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {

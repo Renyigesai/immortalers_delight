@@ -1,19 +1,14 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -21,22 +16,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.monster.piglin.*;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -52,7 +42,7 @@ public class EsteemedGuestPotionEffect {
 
         if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof AbstractPiglin piglin) {
             if (piglin.getTarget() != null) {
-                boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+                boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                 boolean flag = isPowerful || piglin.getLastHurtByMob() != piglin.getTarget();
                 boolean flag2 = piglin.getTarget().hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get());
                 if (piglin.getPersistentData().contains(FRIEND_TO,Tag.TAG_INT_ARRAY)) {
@@ -76,7 +66,7 @@ public class EsteemedGuestPotionEffect {
         if (evt.isCanceled() || evt.getEntity().level().isClientSide) {
             return;
         }
-        boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         LivingEntity hurtOne = evt.getEntity();
         if (hurtOne.hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get()) && evt.getSource().getEntity() instanceof LivingEntity attacker) {
             int lv = hurtOne.hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get())? Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get())).getAmplifier() :0;
@@ -98,7 +88,7 @@ public class EsteemedGuestPotionEffect {
         if (!level.isClientSide()) {
             PiglinBrute piglin = EntityType.PIGLIN_BRUTE.create(level);
             if (piglin != null) {
-                boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+                boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                 piglin.moveTo(target.getX(), target.getY(), target.getZ(), 0.0F, 0.0F);
                 piglin.setPersistenceRequired();
                 AttributeInstance att = piglin.getAttribute(Attributes.FOLLOW_RANGE);

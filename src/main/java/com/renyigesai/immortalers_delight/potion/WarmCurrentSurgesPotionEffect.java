@@ -1,16 +1,11 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -46,7 +41,7 @@ public class WarmCurrentSurgesPotionEffect {
         }
         LivingEntity hurtOne = evt.getEntity();
         LivingEntity attacker = null;
-        Boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+        Boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
             attacker = livingEntity;
         }

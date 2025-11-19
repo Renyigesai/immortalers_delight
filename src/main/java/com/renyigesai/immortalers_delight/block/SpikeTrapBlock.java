@@ -349,6 +349,7 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
 
         // 获取到下一个倾斜状态的延迟时间
         int i = DELAY_UNTIL_NEXT_TILT_STATE.getInt(pTilt);
+        if (isLongType) i *= 1.5;
         // 如果延迟时间不为-1，安排方块刻
         if (i != -1) {
             pLevel.scheduleTick(pPos, this, i);

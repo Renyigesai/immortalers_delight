@@ -6,7 +6,7 @@
     }
   ],
   "tool": {
-    "item": "minecraft:grindstone"
+    "tag": "immortalers_delight:tools/immortal_hammers"
   },
   "result": [
     {

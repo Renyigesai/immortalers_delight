@@ -1,13 +1,11 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class BurnTheBoatsMobEffect extends MobEffect {
     public BurnTheBoatsMobEffect() {
-        super(MobEffectCategory.BENEFICIAL, -39424);
+        super(MobEffectCategory.BENEFICIAL, 11829585);
     }
 
     @Override

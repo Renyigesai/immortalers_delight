@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -16,12 +16,12 @@ import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffec
 
 public class GasPoisonMobEffect extends MobEffect {
     public GasPoisonMobEffect() {
-        super(MobEffectCategory.HARMFUL, -39424);
+        super(MobEffectCategory.HARMFUL, 9574964);
     }
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
         if (this == GAS_POISON.get() && !pEntity.level().isClientSide()) {
-            boolean isPowerful = DifficultyModeHelper.isPowerBattleMode();
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             float health = pEntity.getHealth();
             float damage = (20 > pEntity.getMaxHealth() ? 20 : pEntity.getMaxHealth()) * 0.06F;
             if (!isPowerful && damage > 6 + 3 * amplifier) {

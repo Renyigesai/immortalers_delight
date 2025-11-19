@@ -1,15 +1,12 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.mojang.datafixers.util.Pair;
-import com.renyigesai.immortalers_delight.event.DifficultyModeHelper;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -41,7 +38,7 @@ public class CoolPotionEffect {
         }
         LivingEntity hurtOne = evt.getEntity();
 
-        if (!hurtOne.level().isClientSide && DifficultyModeHelper.isPowerBattleMode()) {
+        if (!hurtOne.level().isClientSide && DifficultyModeUtil.isPowerBattleMode()) {
             if (!evt.getSource().is(DamageTypeTags.BYPASSES_ARMOR) || !evt.getSource().is(DamageTypeTags.BYPASSES_SHIELD)){
                 if (hurtOne.hasEffect(ImmortalersDelightMobEffect.COOL.get())) {
                     int lv = hurtOne.getEffect(ImmortalersDelightMobEffect.COOL.get()).getAmplifier();
