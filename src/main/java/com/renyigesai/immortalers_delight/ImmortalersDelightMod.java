@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.client.model.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
@@ -30,12 +32,19 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,10 +61,9 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
+import vectorwing.farmersdelight.common.registry.ModItems;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -86,6 +94,8 @@ public class ImmortalersDelightMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        bus.addListener(CommonSetup::init);
+
         if (isLtc2){
             Ltc2Items.ITEMS.register(bus);
         }
@@ -102,7 +112,6 @@ public class ImmortalersDelightMod {
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
-        bus.addListener(this::commonSetup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -127,8 +136,7 @@ public class ImmortalersDelightMod {
         @SubscribeEvent
         public void commonSetup(final FMLCommonSetupEvent event) {
             LOGGER.info("IMMORTALERS DELIGHT SETUP");
-            // 条件注册物品
-//            event.enqueueWork(ImmortalersDelightLinkageItems::registerConditionalItems);
+            event.enqueueWork(ImmortalersDelightMod::registerItemSetAdditions);
             NETWORK_WRAPPER.registerMessage(packetsRegistered++,
                     TerracottaGolemMessage.class,
                     TerracottaGolemMessage::write,
@@ -138,8 +146,11 @@ public class ImmortalersDelightMod {
         }
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event){
-//        event.enqueueWork(ImmortalersDelightLinkageItems::registerConditionalItems);
+    public static void registerItemSetAdditions() {
+        Ingredient newPigFood = Ingredient.of(ModItems.CABBAGE.get(), ModItems.TOMATO.get());
+        Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newPigFood))
+        {
+        };
     }
 
     @SubscribeEvent

@@ -44,9 +44,10 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private final ItemStackHandler inventory = new ItemStackHandler(7);// 7个槽位
     public int cookingTotalTime;
     public int residualDye;
-    public int CONTAINER_SLOT = 4;
-    public int OUTPUT_SLOT = 5;
-    public int FUEL_SLOT = 6;
+    public int loadVersion = 11;
+    public static final int CONTAINER_SLOT = 4;
+    public static final int OUTPUT_SLOT = 5;
+    public static final int FUEL_SLOT = 6;
     private static final int[] INPUT_SLOTS = new int[]{0,1,2,3};
     private static final int[] OUTPUT_SLOTS = new int[]{5};
     private static final int[] FUEL_SLOTS = new int[]{6};
@@ -203,7 +204,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        if (!newVersion){
+        if (isMigration(tag)){
             ItemStackHandler newInventory = new ItemStackHandler(7);
             ItemStackHandler oldInventory = new ItemStackHandler(5);
             ItemStackHandler oldFuel = new ItemStackHandler(1);
@@ -225,7 +226,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             inventory.setStackInSlot(OUTPUT_SLOT,oldInventory.getStackInSlot(4));
             inventory.setStackInSlot(CONTAINER_SLOT,oldContainerslot.getStackInSlot(0));
             inventory.setStackInSlot(FUEL_SLOT,oldFuel.getStackInSlot(0));
-            newVersion = true; 
         }else {
             if (tag.contains("Inventory")) {
                 inventory.deserializeNBT(tag.getCompound("Inventory"));
@@ -233,6 +233,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         }
         cookingTotalTime = tag.getInt("CookingTotalTime");
         residualDye = tag.getInt("ResidualDye");
+        loadVersion = tag.getInt("LoadVersion");
     }
 
     @Override
@@ -241,6 +242,17 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         tag.put("Inventory", inventory.serializeNBT());
         tag.putInt("CookingTotalTime", cookingTotalTime);
         tag.putInt("ResidualDye", residualDye);
+        tag.putInt("LoadVersion", 11);
+    }
+
+    private boolean isMigration(CompoundTag tag){
+        if (!tag.contains("LoadVersion")){
+            return true;
+        }
+        if (tag.getInt("LoadVersion") == loadVersion){
+            return false;
+        }
+        return tag.getInt("LoadVersion") < loadVersion;
     }
 
     @Override
@@ -329,27 +341,10 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             cookingTotalTime = 0;
             return;
         }
-
-        List<Ingredient> ingredientsToConsume = new ArrayList<>(recipe.getIngredients());
-        List<Integer> slotsToConsume = new ArrayList<>();
-
-        outer:
-        for (Ingredient ingredient : ingredientsToConsume) {
-            for (int i = 0; i < 4; i++) {
-                ItemStack stack = inventory.getStackInSlot(i);
-                if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
-                    slotsToConsume.add(i);
-                    continue outer;
-                }
-            }
-            cookingTotalTime = 0;
-            return;
-        }
-
         if (cookingTotalTime < 100) {
             cookingTotalTime++;
         } else {
-            for (int slot : slotsToConsume) {
+            for (int slot = 0; slot < 4; slot ++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (!stack.is(Items.WATER_BUCKET)) {
                     if (stack.hasCraftingRemainingItem()) {

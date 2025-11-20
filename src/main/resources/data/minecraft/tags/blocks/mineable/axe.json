@@ -53,8 +53,10 @@
     "immortalers_delight:ancient_wood_fence_gate",
     "immortalers_delight:ancient_wood_pressure_plate",
     "immortalers_delight:ancient_wood_button",
-
     "immortalers_delight:travastruggler_log",
-    "immortalers_delight:trava_planks"
+    "immortalers_delight:trava_planks",
+    "immortalers_delight:millenian_bamboo",
+    "immortalers_delight:leisamboo_stalk",
+    "immortalers_delight:stripped_travastruggler_log"
   ]
 }

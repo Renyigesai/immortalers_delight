@@ -1,9 +1,12 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -11,6 +14,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
@@ -43,8 +47,9 @@ public class SachetsItem extends EnchantAbleFoodItem{
                     int itemDamage = 0;
                     List<LivingEntity> entities = serverLevel.getEntitiesOfClass(
                             LivingEntity.class,
-                            player.getBoundingBox().inflate(pTimeLeft > 16 ? 16 : pTimeLeft)
+                            player.getBoundingBox().inflate(Math.min(pTimeLeft, 16))
                     );
+                    boolean adv = false;
                     for (LivingEntity entity : entities) {
                         if (entity instanceof Sniffer sniffer) {
                             CompoundTag tag = sniffer.getPersistentData();
@@ -52,9 +57,12 @@ public class SachetsItem extends EnchantAbleFoodItem{
                             sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 900,flag ? 1 : 3));
                             sniffer.getNavigation().moveTo(player, 3.0);
                             itemDamage += 1;
+                            adv = true;
                         }
                     }
-
+                    if (adv){
+                       addAdvancement(pEntityLiving);
+                    }
                     if (!player.getAbilities().instabuild) {
                         EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
                         pStack.hurtAndBreak(itemDamage, player, (action) -> {
@@ -65,6 +73,21 @@ public class SachetsItem extends EnchantAbleFoodItem{
             }
 
             player.awardStat(Stats.ITEM_USED.get(this));
+        }
+    }
+
+    private void addAdvancement(Entity player){
+        if (player instanceof ServerPlayer serverPlayer){
+            Advancement adv = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("immortalers_delight:sniffer_move"));
+            if (adv == null){
+                return;
+            }
+            AdvancementProgress ap = serverPlayer.getAdvancements().getOrStartProgress(adv);
+            if (!ap.isDone()) {
+                for (String criteria : ap.getRemainingCriteria())
+                    serverPlayer.getAdvancements().award(adv, criteria);
+            }
+
         }
     }
 

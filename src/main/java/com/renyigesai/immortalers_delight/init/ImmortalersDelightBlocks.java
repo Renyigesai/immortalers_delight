@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -35,9 +36,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.common.block.CabinetBlock;
-import vectorwing.farmersdelight.common.block.PieBlock;
-import vectorwing.farmersdelight.common.block.TatamiBlock;
+import vectorwing.farmersdelight.common.block.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -65,9 +64,9 @@ public class ImmortalersDelightBlocks {
             log(MapColor.WOOD, MapColor.PODZOL));
 
     public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
-            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY)));
+            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
     public static final RegistryObject<Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
-            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY)));
+            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
@@ -238,10 +237,13 @@ public class ImmortalersDelightBlocks {
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     /**
-     * 溪柱制品
+     * 溪竹制品
      */
     public static final RegistryObject<Block> LEISAMBOO_PLANKS = BLOCKS.register("leisamboo_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
+            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
 
     public static final RegistryObject<Block> LEISAMBOO_STAIRS = BLOCKS.register("leisamboo_stairs",
             () -> new StairBlock(LEISAMBOO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(LEISAMBOO_PLANKS.get())));
@@ -265,9 +267,6 @@ public class ImmortalersDelightBlocks {
 
     public static final RegistryObject<Block> LEISAMBOO_BUTTON = BLOCKS.register("leisamboo_button",
             () ->woodenButton(ImmortalersDelightWoodSetType.LEISAMBOO));
-
-    public static final RegistryObject<Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
-            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
 
     public static final RegistryObject<Block> LEISAMBOO_SIGN = BLOCKS.register("leisamboo_sign",
             () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
@@ -511,9 +510,23 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
             new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
 
+    /*瓶子草*/
+    public static final RegistryObject<Block> CHEESE_MELON_JUICE = BLOCKS.register("cheese_melon_juice",()->
+            new CheeseMelonJuiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOTTLE_MELON_JUICE));
+    public static final RegistryObject<Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
+            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE,false));
+
     /*嗅探兽毛块*/
-    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_FULL_TATAMI_MAT = BLOCKS.register("sniffer_fur_full_tatami_mat", () -> new TatamiMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final RegistryObject<Block> SNIFFER_FUR_HALF_TATAMI_MAT = BLOCKS.register("sniffer_fur_half_tatami_mat", () -> new TatamiHalfMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY)));
+
+    /*石锅*/
+    public static final RegistryObject<Block> STONE_POT = BLOCKS.register("stone_pot",()-> new StonePotBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> UNIVERSAL_CHICKEN_SOUP = BLOCKS.register("universal_chicken_soup",()-> new UniversalChickenSoupBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true));
+
+    public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
     //oxidized
 

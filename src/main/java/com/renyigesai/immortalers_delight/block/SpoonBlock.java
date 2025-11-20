@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -55,10 +56,6 @@ public class SpoonBlock extends Block {
         return level.isClientSide && this.takeServing(state, level, pos, player, hand).consumesAction() ? InteractionResult.SUCCESS : this.takeServing(state, level, pos, player, hand);
     }
 
-//    public ItemStack getSpoonItem(){
-//        return spoonItem;
-//    }
-
     public ItemStack getSpoonItem() {
         return new ItemStack(this.spoonItem.get());
     }
@@ -67,23 +64,19 @@ public class SpoonBlock extends Block {
         return new ItemStack(Items.BOWL);
     }
 
-//    public ItemStack getRemainItem(){
-//        return remainItem;
-//    }
-
     public InteractionResult takeServing(BlockState state, Level level, BlockPos pos, Player player,InteractionHand hand) {
         int servings = state.getValue(SERVINGS);
         if (servings > 0) {
             ItemStack hand_stack = player.getItemInHand(hand);
-            if (hand_stack.is(Items.BOWL)) {
+            if (hand_stack.is(getScoopItem().getItem())) {
                 if (!player.getAbilities().instabuild) {
                     hand_stack.shrink(1);
                 }
                 level.setBlock(pos, state.setValue(SERVINGS, servings - 1), 3);
                 ItemUtils.givePlayerItem(player,this.getSpoonItem());
-                level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
+                level.playSound(null,pos, getScoopSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
             }else {
-                player.displayClientMessage(Component.translatable("block.immortalers_delight.spoon_block.tips.1"), true);
+                player.displayClientMessage(Component.translatable("block.immortalers_delight.spoon_block.tips.1",getScoopItem().getItem().getDescription().getString()), true);
                 return InteractionResult.FAIL;
             }
             return InteractionResult.SUCCESS;
@@ -91,10 +84,18 @@ public class SpoonBlock extends Block {
         if (servings == 0){
             level.destroyBlock(pos, false);
             dropRemainItem(level,pos);
-            level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
+            level.playSound(null,pos, getScoopSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+    }
+
+    public ItemStack getScoopItem(){
+        return new ItemStack(Items.BOWL);
+    }
+
+    public SoundEvent getScoopSound(){
+        return SoundEvents.WOOL_BREAK;
     }
 
     public void dropRemainItem(Level level, BlockPos pos){

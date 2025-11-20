@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "immortalers_delight:sniffer_fur_half_tatami_mat"},
+    {"item": "immortalers_delight:sniffer_fur_half_tatami_mat"}
+  ],
+  "result": {
+    "item": "immortalers_delight:sniffer_fur_full_tatami_mat",
+    "count": 2
+  }
+}

@@ -38,7 +38,7 @@ public class GasPoisonMobEffect extends MobEffect {
                 int i = pEntity.getRandom().nextInt(5);
                 switch (i) {
                     case 0 -> pEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, amplifier));
-                    case 1 -> pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400, amplifier));
+                    case 1 -> pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, amplifier));
                     case 2 -> pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, amplifier));
                     case 3 -> pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, amplifier));
                     case 4 -> pEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, amplifier));
@@ -48,11 +48,21 @@ public class GasPoisonMobEffect extends MobEffect {
     }
 
     @Override
+    /**
+     * 判断效果是否应该刻更新
+     * @param pDuration 效果剩余持续时间
+     * @param pAmplifier 效果的放大等级
+     * @return 如果效果应该刻更新则返回true，否则返回false
+     */
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
+        // 计算更新间隔，基础值为32，随着放大等级增加而增大
         int j = 32 >> pAmplifier;
+        // 如果计算出的间隔大于0
         if (j > 0) {
+            // 当剩余时间对间隔取余为0时，表示应该更新效果
             return pDuration % j == 0;
         } else {
+            // 如果间隔小于等于0，则始终更新效果
             return true;
         }
     }

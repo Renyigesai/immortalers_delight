@@ -1,0 +1,8 @@
+{
+  "parent": "immortalers_delight:custom/pitcher_plant_bottle3",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "immortalers_delight:block/cheese_melon_juice",
+    "particle": "immortalers_delight:block/cheese_melon_juice"
+  }
+}

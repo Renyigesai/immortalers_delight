@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "minecraft:apple"
+    }
+  ],
+  "container": {
+    "item": "minecraft:pitcher_plant"
+  },
+  "output": {
+    "item": "immortalers_delight:cheese_melon_juice",
+    "count": 1
+  }
+}

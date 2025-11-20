@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "immortalers_delight:block/sniffer_fur_tatami_mat_half",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "immortalers_delight:block/sniffer_fur_tatami_mat_half"
+    },
+    "facing=south": {
+      "model": "immortalers_delight:block/sniffer_fur_tatami_mat_half",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "immortalers_delight:block/sniffer_fur_tatami_mat_half",
+      "y": 270
+    }
+  }
+}
