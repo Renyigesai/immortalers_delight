@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.event;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.api.mobbase.ImmortalersMob;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
@@ -33,7 +34,7 @@ public class DifficultyModeEventHelper {
         LivingEntity hurtOne = event.getEntity();
         if (!hurtOne.level().isClientSide) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-                if (DifficultyModeUtil.isPowerBattleMode()) {
+                if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
                     if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
                             || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
                             || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
@@ -66,7 +67,7 @@ public class DifficultyModeEventHelper {
      */
     @SubscribeEvent
     public static void ImmortalrsMobAttackMinDamage(LivingAttackEvent event) {
-        if (DifficultyModeUtil.isPowerBattleMode()) {
+        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker && !attacker.level().isClientSide) {
                 LivingEntity hurtOne = event.getEntity();
                 if (hurtOne.getHealth() < 1.0F) return;
@@ -126,7 +127,7 @@ public class DifficultyModeEventHelper {
      */
     @SubscribeEvent
     public static void ImmortalrsMobHurtDamageDecay(LivingDamageEvent event) {
-        if (DifficultyModeUtil.isPowerBattleMode()) {
+        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
             LivingEntity hurtOne = event.getEntity();
             if (!hurtOne.level().isClientSide) {
                 float oldDamage = event.getAmount();

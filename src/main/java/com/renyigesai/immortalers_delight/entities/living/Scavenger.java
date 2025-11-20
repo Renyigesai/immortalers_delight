@@ -196,7 +196,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ImmortalersDelightItems.REPEATING_CROSSBOW.get()));
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()));
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

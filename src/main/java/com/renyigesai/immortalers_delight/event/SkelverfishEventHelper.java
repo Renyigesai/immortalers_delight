@@ -2,18 +2,25 @@ package com.renyigesai.immortalers_delight.event;
 
 
 import com.renyigesai.immortalers_delight.api.mobbase.ImmortalersMob;
+import com.renyigesai.immortalers_delight.entities.living.Scavenger;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
+import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -66,9 +73,17 @@ public class SkelverfishEventHelper {
         if (event.getEntity() instanceof Sniffer sniffer) {
             sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.0D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
         }
-//        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
-//            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));
-//        }
+        if (event.getEntity() instanceof Pillager pillager) {
+            if (pillager.hasActiveRaid() && pillager.getRandom().nextInt(3) == 0 && pillager.level() instanceof ServerLevel serverLevel) {
+                Scavenger scavenger = new Scavenger(ImmortalersDelightEntities.SCAVENGER.get(), pillager.level());
+                if (scavenger != null) {
+                    scavenger.setCurrentRaid(pillager.getCurrentRaid());
+                    scavenger.finalizeSpawn(serverLevel, pillager.level().getCurrentDifficultyAt(pillager.blockPosition()), MobSpawnType.SPAWNER, (SpawnGroupData)null, (CompoundTag)null);
+                    scavenger.moveTo(pillager.getX(), pillager.getY(), pillager.getZ(), pillager.getYRot(), pillager.getXRot());
+                    pillager.level().addFreshEntity(scavenger);
+                }
+            }
+        }
     }
 
     @SubscribeEvent

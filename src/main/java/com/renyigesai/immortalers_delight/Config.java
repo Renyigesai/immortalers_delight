@@ -51,7 +51,11 @@ public class Config {
     public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
     private static final ForgeConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
     private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_HINT = BUILDER.comment("After being turned off, when the Power Battle Mode is enabled, the prompt field will no longer be displayed in the game").define("powerBattleModeHint", true);
-
+    private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES = BUILDER
+            .comment("We apologize for making players excessively capable. ")
+            .comment("For the sake of balance, you can use this option to synchronously strengthen some of the original enemies.")
+            .comment("Configure which enemies can be strengthened in the entity tags file.")
+            .define("needStrengthenTheEnemies", true);
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
         BUILDER.push("ReverseNormalEffect")
@@ -114,6 +118,7 @@ public class Config {
     public static Set<Item> items;
     public static boolean rightClickHarvest;
     public static boolean powerBattleModeHint;
+    public static boolean powerBattleModeStrengthenTheEnemies;
     public static double mininProbability;
 
     public static boolean weakPoisonHealthOverlay;
@@ -142,6 +147,7 @@ public class Config {
         powerBattleMode = POWER_BATTLE_MODE.get();
         rightClickHarvest = RIGHT_CLICK_HARVEST.get();
         powerBattleModeHint = POWER_BATTLE_MODE_HINT.get();
+        powerBattleModeStrengthenTheEnemies = POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES.get();
         mininProbability = MININ_PROBABILITY.get();
 
     }
