@@ -1,8 +1,8 @@
 {
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "immortalers_delight:block/travastruggler_log",
-		"particle": "immortalers_delight:block/travastruggler_log"
+		"0": "immortalers_delight:block/stripped_travastruggler_log",
+		"particle": "immortalers_delight:block/stripped_travastruggler_log"
 	},
 	"elements": [
 		{
