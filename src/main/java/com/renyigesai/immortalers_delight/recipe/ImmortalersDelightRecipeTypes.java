@@ -30,10 +30,10 @@ public class ImmortalersDelightRecipeTypes {
 			RECIPE_TYPE.register(EnchantalCoolerRecipe.Type.ID,() ->EnchantalCoolerRecipe.Type.INSTANCE);
             SERIALIZERS.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Type.INSTANCE);
-            KNIFE_POTION_SERIALIZERS.register(bus);
-            KNIFE_POTION_RECIPE_TYPE.register(bus);
-            KNIFE_POTION_SERIALIZERS.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Serializer.INSTANCE);
-            KNIFE_POTION_RECIPE_TYPE.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Type.INSTANCE);
+//            KNIFE_POTION_SERIALIZERS.register(bus);
+//            KNIFE_POTION_RECIPE_TYPE.register(bus);
+            SERIALIZERS.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Type.INSTANCE);
         });
     }
 }

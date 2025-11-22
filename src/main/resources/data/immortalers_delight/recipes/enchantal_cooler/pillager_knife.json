@@ -1,0 +1,15 @@
+{
+  "type": "immortalers_delight:pillagers_knife_add_potion",
+  "ingredients": [
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:pillager_knife"
+  },
+  "output": {
+    "item": "immortalers_delight:pillager_knife",
+    "count": 1
+  }
+}

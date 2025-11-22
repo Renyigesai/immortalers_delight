@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openjdk.nashorn.internal.objects.annotations.Getter;
@@ -43,13 +44,16 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < 4; ++j) {
-            ItemStack itemstack = inv.getItem(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                inputs.add(itemstack);
+        if (this.container.isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {
+            for (int j = 0; j < 4; ++j) {
+                ItemStack itemstack = inv.getItem(j);
+                if (!itemstack.isEmpty()) {
+                    ++i;
+                    inputs.add(itemstack);
+                }
             }
-        }
+
+        } else System.out.println("container is error:" + ForgeRegistries.ITEMS.getKey(inv.getItem(4).getItem()) + " != " + ForgeRegistries.ITEMS.getKey(this.container.getItem()));
         return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 

@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 import com.renyigesai.immortalers_delight.block.WrappedHandler;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
+import com.renyigesai.immortalers_delight.recipe.PillagerKnifeAddPotionRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
@@ -297,20 +298,36 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         }
     }
 
-    private boolean isContainer(){
-        Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isPresent()){
-            EnchantalCoolerRecipe recipe = recipeOptional.get();
-            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
-                return true;
-            }
-            return recipe.getContainer().isEmpty();
-        }
-        return false;
-    }
+//    private boolean isContainer(){
+//        Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
+//        if (recipeOptional.isPresent()){
+//            EnchantalCoolerRecipe recipe = recipeOptional.get();
+//            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
+//                return true;
+//            }
+//            return recipe.getContainer().isEmpty();
+//        }
+//        return false;
+//    }
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(4);
+        SimpleContainer inventory = getInput(true);
+
+        return level.getRecipeManager()
+                .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
+    }
+
+    private Optional<PillagerKnifeAddPotionRecipe> findSpecialRecipe() {
+        SimpleContainer inventory = getInput(true);
+
+        return level.getRecipeManager()
+                .getRecipeFor(PillagerKnifeAddPotionRecipe.Type.INSTANCE, inventory, level);
+    }
+
+    private SimpleContainer getInput(boolean needContainer) {
+        SimpleContainer inventory = new SimpleContainer(needContainer ? 5 : 4);
         List<ItemStack> inputs = new ArrayList<>();
+
+        if(needContainer) inventory.setItem(CONTAINER_SLOT,this.inventory.getStackInSlot(CONTAINER_SLOT));
 
         for (int i = 0; i < 4; i++) {
             ItemStack stack = this.inventory.getStackInSlot(i);
@@ -323,21 +340,22 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             inventory.setItem(i, inputs.get(i));
         }
 
-        return level.getRecipeManager()
-                .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
+        return inventory;
     }
 
     private void craftItem() {
+        Optional<PillagerKnifeAddPotionRecipe> specialRecipe = findSpecialRecipe();
         Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isEmpty()) {
+        if (specialRecipe.isEmpty() && recipeOptional.isEmpty()) {
             cookingTotalTime = 0;
             return;
         }
-        EnchantalCoolerRecipe recipe = recipeOptional.get();
-        ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
+        EnchantalCoolerRecipe recipe =specialRecipe.isEmpty() ? recipeOptional.get() : specialRecipe.get();
+        SimpleContainer inputs = getInput(true);
+        ItemStack resultItem = recipe.assemble(inputs,level.registryAccess()).copy();
         ItemStack outputStack = inventory.getStackInSlot(5);
 
-        if (!canCraft(resultItem, outputStack) || !isContainer()) {
+        if (!canCraft(resultItem, outputStack)) {
             cookingTotalTime = 0;
             return;
         }
