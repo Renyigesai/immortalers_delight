@@ -56,13 +56,13 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
-        float partialTick = Minecraft.getInstance().getPartialTick();
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             float baseDamage = this.attackDamage + (isPowerful ? extra_attackDamage : 0);
-            float buffer = 1 + getPullingAmount(stack, partialTick);
+            int useTime = getUseTime(stack);
+            int maxLoadTime = getMaxLoadTime();
+            float buffer = 1.0F + Math.min((float)useTime / (float)maxLoadTime, 1.0F);
             double damage = buffer > 1.5f ? (baseDamage + (buffer > 1.8f ? 0.5f : -0.5f)) * buffer : baseDamage;
-            //System.out.println("buffer:" +  buffer);
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed + (isPowerful ? extra_attackSpeed : 0), AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
             return multimap;
@@ -77,7 +77,6 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
     }
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        //player.getMainHandItem().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
         boolean b = super.onLeftClickEntity(stack, player, entity);
         int useTime = getUseTime(stack);
         if (!b && useTime > 0.0F) {
@@ -92,29 +91,68 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
         entityLastUsed.put(attacker.getUUID(), TimekeepingTask.getImmortalTickTime());
         return b;
     }
+
+
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {
-        super.inventoryTick(stack, level, entity, i, held);
+        boolean var10000;
+        label30: {
+            super.inventoryTick(stack, level, entity, i, held);
+            if (entity instanceof LivingEntity living) {
+                if (living.getItemInHand(InteractionHand.MAIN_HAND) == stack) {
+                    var10000 = true;
+                    break label30;
+                }
+            }
 
-        boolean holding = entity instanceof LivingEntity living && living.getItemInHand(InteractionHand.MAIN_HAND) == stack;
+            var10000 = false;
+        }
+
+        boolean holding = var10000;
         int useTime = getUseTime(stack);
         if (level.isClientSide()) {
             CompoundTag tag = stack.getOrCreateTag();
-            if (tag.getInt(TAG_PREV_USE_TIME) != tag.getInt(TAG_USE_TIME)) {
-                tag.putInt(TAG_PREV_USE_TIME, getUseTime(stack));
+            if (tag.getInt("PrevUseTime") != tag.getInt("UseTime")) {
+                tag.putInt("PrevUseTime", getUseTime(stack));
             }
 
             int maxLoadTime = getMaxLoadTime();
             if (holding && useTime < maxLoadTime) {
-                int set = useTime +  1;
+                int set = useTime + 1;
                 setUseTime(stack, set);
-
             }
         }
-        if (!holding && useTime > 0.0F) {
+
+        if (!holding && (float)useTime > 0.0F) {
             setUseTime(stack, Math.max(0, useTime - 5));
         }
+
     }
+
+
+//    @Override
+//    public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {
+//        super.inventoryTick(stack, level, entity, i, held);
+//
+//        boolean holding = entity instanceof LivingEntity living && living.getItemInHand(InteractionHand.MAIN_HAND) == stack;
+//        int useTime = getUseTime(stack);
+//        if (level.isClientSide()) {
+//            CompoundTag tag = stack.getOrCreateTag();
+//            if (tag.getInt(TAG_PREV_USE_TIME) != tag.getInt(TAG_USE_TIME)) {
+//                tag.putInt(TAG_PREV_USE_TIME, getUseTime(stack));
+//            }
+//
+//            int maxLoadTime = getMaxLoadTime();
+//            if (holding && useTime < maxLoadTime) {
+//                int set = useTime +  1;
+//                setUseTime(stack, set);
+//
+//            }
+//        }
+//        if (!holding && useTime > 0.0F) {
+//            setUseTime(stack, Math.max(0, useTime - 5));
+//        }
+//    }
 
     //绑定特殊渲染器。要注意，启用渲染器需要烘焙模型的支持，因此不要漏。
     @Override
