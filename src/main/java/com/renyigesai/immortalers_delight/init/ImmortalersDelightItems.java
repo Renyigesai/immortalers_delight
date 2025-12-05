@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.api.annotation.ItemData;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
@@ -25,351 +26,613 @@ import java.util.function.Supplier;
 public class ImmortalersDelightItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, ImmortalersDelightMod.MODID);
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
+    @ItemData(zhCn = "姬海棠原木")
     public static final RegistryObject<Item> HIMEKAIDO_LOG;
+    @ItemData(zhCn = "姬海棠木")
     public static final RegistryObject<Item> HIMEKAIDO_WOOD;
+    @ItemData(zhCn = "去皮姬海棠木")
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_WOOD;
+    @ItemData(zhCn = "去皮姬海棠原木")
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_LOG;
+    @ItemData(zhCn = "结果的姬海棠树叶叶")
     public static final RegistryObject<Item> HIMEKAIDO_FRUITED_LEAVES;
+    @ItemData(zhCn = "盛开的姬海棠叶")
     public static final RegistryObject<Item> HIMEKAIDO_FLOWERING_LEAVES;
+    @ItemData(zhCn = "姬海棠树叶")
     public static final RegistryObject<Item> HIMEKAIDO_LEAVES;
+    @ItemData(zhCn = "姬海棠木板")
     public static final RegistryObject<Item> HIMEKAIDO_PLANKS;
+    @ItemData(zhCn = "姬海棠木楼梯")
     public static final RegistryObject<Item> HIMEKAIDO_STAIRS;
+    @ItemData(zhCn = "姬海棠木台阶")
     public static final RegistryObject<Item> HIMEKAIDO_SLAB;
+    @ItemData(zhCn = "姬海棠木门")
     public static final RegistryObject<Item> HIMEKAIDO_DOOR;
+    @ItemData(zhCn = "姬海棠木活板门")
     public static final RegistryObject<Item> HIMEKAIDO_TRAPDOOR;
+    @ItemData(zhCn = "姬海棠木栅栏")
     public static final RegistryObject<Item> HIMEKAIDO_FENCE;
+    @ItemData(zhCn = "姬海棠木栅栏门")
     public static final RegistryObject<Item> HIMEKAIDO_FENCE_GATE;
+    @ItemData(zhCn = "姬海棠木压力板")
     public static final RegistryObject<Item> HIMEKAIDO_PRESSURE_PLATE;
+    @ItemData(zhCn = "姬海棠木按钮")
     public static final RegistryObject<Item> HIMEKAIDO_BUTTON;
+    @ItemData(zhCn = "姬海棠木橱柜")
     public static final RegistryObject<Item> HIMEKAIDO_CABINET;
+    @ItemData(zhCn = "姬海棠木船")
     public static final RegistryObject<Item> HIMEKAIDO_BOAT;
-    public static final RegistryObject<Item> ANCIENT_WOOD_BOAT;
-    public static final RegistryObject<Item> PEARLIP_SHELL_BOAT;
+    @ItemData(zhCn = "姬海棠木运输船")
     public static final RegistryObject<Item> HIMEKAIDO_CHEST_BOAT;
-    public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
-    public static final RegistryObject<Item> ANCIENT_WOOD_CHEST_BOAT;
-    public static final RegistryObject<Item> MILLENIAN_BAMBOO;
-    public static final RegistryObject<Item> STEWED_ROTTEN_MEAT_POT;
-    public static final RegistryObject<Item> BRAISED_SPIDER_EYES_BLOCK;
-    public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
-    public static final RegistryObject<Item> HIMEKAIDO_CRATE;
-    public static final RegistryObject<Item> PEARLIP_CRATE;
-    public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
-    public static final RegistryObject<Item> KWAT_WHEAT_BLOCK;
-    public static final RegistryObject<Item> ALFALFA_BLOCK;
-    public static final RegistryObject<Item> LEISAMBOO_BLOCK;
+    @ItemData(zhCn = "姬海棠木告示牌")
     public static final RegistryObject<Item> HIMEKAIDO_SIGN;
+    @ItemData(zhCn = "姬海棠木悬挂告示牌")
     public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
+
+
+    @ItemData(zhCn = "千年竹")
+    public static final RegistryObject<Item> MILLENIAN_BAMBOO;
+    @ItemData(zhCn = "瓦罐烂肉炖")
+    public static final RegistryObject<Item> STEWED_ROTTEN_MEAT_POT;
+    @ItemData(zhCn = "四眼丸子")
+    public static final RegistryObject<Item> BRAISED_SPIDER_EYES_BLOCK;
+    @ItemData(zhCn = "白垩玉黍粒袋")
+    public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
+    @ItemData(zhCn = "箱装姬海棠")
+    public static final RegistryObject<Item> HIMEKAIDO_CRATE;
+    @ItemData(zhCn = "箱装棱蕉")
+    public static final RegistryObject<Item> PEARLIP_CRATE;
+    @ItemData(zhCn = "白垩玉黍捆")
+    public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
+    @ItemData(zhCn = "瓦斯麦捆")
+    public static final RegistryObject<Item> KWAT_WHEAT_BLOCK;
+    @ItemData(zhCn = "古苜蓿捆")
+    public static final RegistryObject<Item> ALFALFA_BLOCK;
+
+    @ItemData(zhCn = "溪竹块")
+    public static final RegistryObject<Item> LEISAMBOO_BLOCK;
+    @ItemData(zhCn = "溪竹板")
     public static final RegistryObject<Item> LEISAMBOO_PLANKS;
+    @ItemData(zhCn = "溪竹楼梯")
     public static final RegistryObject<Item> LEISAMBOO_STAIRS;
+    @ItemData(zhCn = "溪竹台阶")
     public static final RegistryObject<Item> LEISAMBOO_SLAB;
+    @ItemData(zhCn = "溪竹橱柜")
     public static final RegistryObject<Item> LEISAMBOO_CABINET;
+    @ItemData(zhCn = "溪竹门")
     public static final RegistryObject<Item> LEISAMBOO_DOOR;
+    @ItemData(zhCn = "溪竹活板门")
     public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;
+    @ItemData(zhCn = "溪竹栅栏")
     public static final RegistryObject<Item> LEISAMBOO_FENCE;
+    @ItemData(zhCn = "溪竹栅栏门")
     public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
+    @ItemData(zhCn = "溪竹压力板")
     public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
+    @ItemData(zhCn = "溪竹按钮")
     public static final RegistryObject<Item> LEISAMBOO_BUTTON;
+    @ItemData(zhCn = "溪竹告示牌")
     public static final RegistryObject<Item> LEISAMBOO_SIGN;
+    @ItemData(zhCn = "溪竹悬挂告示牌")
     public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;
+
+
+    @ItemData(zhCn = "棱蕉木板")
     public static final RegistryObject<Item> PEARLIP_SHELL_PLANKS;
+    @ItemData(zhCn = "棱蕉木楼梯")
     public static final RegistryObject<Item> PEARLIP_SHELL_STAIRS;
+    @ItemData(zhCn = "棱蕉木台阶")
     public static final RegistryObject<Item> PEARLIP_SHELL_SLAB;
+    @ItemData(zhCn = "棱蕉木橱柜")
     public static final RegistryObject<Item> PEARLIP_SHELL_CABINET;
+    @ItemData(zhCn = "棱蕉木门")
     public static final RegistryObject<Item> PEARLIP_SHELL_DOOR;
+    @ItemData(zhCn = "棱蕉木活板门")
     public static final RegistryObject<Item> PEARLIP_SHELL_TRAPDOOR;
+    @ItemData(zhCn = "棱蕉木栅栏")
     public static final RegistryObject<Item> PEARLIP_SHELL_FENCE;
+    @ItemData(zhCn = "棱蕉木栅栏门")
     public static final RegistryObject<Item> PEARLIP_SHELL_FENCE_GATE;
+    @ItemData(zhCn = "棱蕉木压力板")
     public static final RegistryObject<Item> PEARLIP_SHELL_PRESSURE_PLATE;
+    @ItemData(zhCn = "棱蕉木按钮")
     public static final RegistryObject<Item> PEARLIP_SHELL_BUTTON;
+    @ItemData(zhCn = "棱蕉木告示牌")
     public static final RegistryObject<Item> PEARLIP_SHELL_SIGN;
+    @ItemData(zhCn = "棱蕉木悬挂告示牌")
     public static final RegistryObject<Item> PEARLIP_SHELL_HANGING_SIGN;
-    public static final RegistryObject<Item> ANCIENT_FIBER;
+    @ItemData(zhCn = "棱蕉木船")
+    public static final RegistryObject<Item> PEARLIP_SHELL_BOAT;
+    @ItemData(zhCn = "棱蕉木运输船")
+    public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
+
+
     public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
-    public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
-    public static final RegistryObject<Item> TRAVA_PLANKS;
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
 
     /*嗅探兽毛*/
+    @ItemData(zhCn = "嗅探兽毛块")
     public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
+    @ItemData(zhCn = "嗅探兽毛榻榻米方块")
     public static final RegistryObject<Item> SNIFFER_FUR_TATAMI;
+    @ItemData(zhCn = "嗅探兽长毛榻榻米")
     public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
+    @ItemData(zhCn = "嗅探兽毛短榻榻米")
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
+
 
     /*
     玉米系列物品
     */
+    @ItemData(zhCn = "白垩玉黎")
     public static final RegistryObject<Item> EVOLUTCORN;
+    @ItemData(zhCn = "烤白垩玉黎")
     public static final RegistryObject<Item> ROAST_EVOLUTCORN;
+    @ItemData(zhCn = "白垩玉黎粒")
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
+    @ItemData(zhCn = "烤进化玉米块")
     public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
+    @ItemData(zhCn = "爆黎花")
     public static final RegistryObject<Item> POPOLUTCORN;
+    @ItemData(zhCn = "玉黎饭团")
     public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
+    @ItemData(zhCn = "彩色烤串")
     public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
+    @ItemData(zhCn = "玉黎烙",itemType = ItemData.ItemType.BLOCK)
     public static final RegistryObject<Item> ZEA_PANCAKE;
+    @ItemData(zhCn = "玉黎烙切片")
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
+    @ItemData(zhCn = "玉黎酥皮")
     public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
+    @ItemData(zhCn = "玉黎啤酒")
     public static final RegistryObject<Item> EVOLUTCORN_BEER;
+    @ItemData(zhCn = "黏糊啤酒")
     public static final RegistryObject<Item> STICKY_BEER;
+    @ItemData(zhCn = "蛋挞酥皮")
     public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
+    @ItemData(zhCn = "玉黎硬糖")
     public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
+    @ItemData(zhCn = "桶装白垩玉黎面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE_BUCKET;
+    @ItemData(zhCn = "白垩玉黎面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE;
+    @ItemData(zhCn = "玉黎面包")
     public static final RegistryObject<Item> EVOLUTCORN_BREAD;
+
     /*
     香蕉系列物品
     */
+    @ItemData(zhCn = "棱蕉")
     public static final RegistryObject<Item> PEARLIP;
+    @ItemData(zhCn = "棱蕉壳")
     public static final RegistryObject<Item> PEARLIP_SHELL;
+    @ItemData(zhCn = "棱珠")
     public static final RegistryObject<Item> PEARLIPEARL;
+    @ItemData(zhCn = "热带沙拉")
     public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
+    @ItemData(zhCn = "棱蕉奶昔")
     public static final RegistryObject<Item> PEARLIP_MILK_SHAKE;
+    @ItemData(zhCn = "棱蕉南瓜派")
     public static final RegistryObject<Item> PEARLIP_PUMPKIN_PIE;
+    @ItemData(zhCn = "棱蕉蛋挞")
     public static final RegistryObject<Item> PEARLIPEARL_TART;
+    @ItemData(zhCn = "蕉香蒸蛋")
     public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
+    @ItemData(zhCn = "棱蕉果冻")
     public static final RegistryObject<Item> PEARLIP_JELLY;
+    @ItemData(zhCn = "珍珠棱蕉派")
     public static final RegistryObject<Item> PEARLIP_PIE;
+    @ItemData(zhCn = "珍珠棱蕉派切片")
     public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
+    @ItemData(zhCn = "冻棱蕉")
     public static final RegistryObject<Item> ICE_PEARLIP;
+    @ItemData(zhCn = "巧克力棱蕉棒")
     public static final RegistryObject<Item> CHOCOLATE_PEARLIP_STICKS;
+    @ItemData(zhCn = "完美夏冰")
     public static final RegistryObject<Item> PERFECT_SUMMER_ICE;
+    @ItemData(zhCn = "暮色冰淇淋")
     public static final RegistryObject<Item> TWILIGHT_GELATO;
+    @ItemData(zhCn = "棱珠牛奶")
     public static final RegistryObject<Item> PEARLIP_BUBBLE_MILK;
+    @ItemData(zhCn = "巧乐风")
     public static final RegistryObject<Item> CHOCOREEZE;
+    @ItemData(zhCn = "热带水果旋风")
     public static final RegistryObject<Item> TROPICAL_FRUITY_CYCLONE;
+
     /*
     姬海棠系列物品
      */
+    @ItemData(zhCn = "马铃薯泥")
     public static final RegistryObject<Item> MASHED_POTATOES;
+    @ItemData(zhCn = "毒马铃薯泥")
     public static final RegistryObject<Item> MASHED_POISONOUS_POTATO;
+    @ItemData(zhCn = "果酱马铃薯泥")
     public static final RegistryObject<Item> MASHED_POTATO_WITH_JAM;
+    @ItemData(zhCn = "果酱毒马铃薯泥")
     public static final RegistryObject<Item> MASHED_POISONOUS_POTATO_WITH_JAM;
+    @ItemData(zhCn = "腐肉碎")
     public static final RegistryObject<Item> ROTTEN_FLESH_CUTS;
+    @ItemData(zhCn = "姬海棠果酱")
     public static final RegistryObject<Item> HIMEKAIDO_JELLY;
+    @ItemData(zhCn = "酸奶")
     public static final RegistryObject<Item> YOGURT;
+    @ItemData(zhCn = "姬海棠果")
     public static final RegistryObject<Item> HIMEKAIDO;
+    @ItemData(zhCn = "烤毒土豆")
     public static final RegistryObject<Item> BAKED_POISONOUS_POTATO;
+    @ItemData(zhCn = "肉汁炖蜘蛛眼")
     public static final RegistryObject<Item> BRAISED_SPIDER_EYES_IN_GRAVY;
+    @ItemData(zhCn = "酱蘸腐肉")
     public static final RegistryObject<Item> DIPPED_ROTTEN_FLESH;
+    @ItemData(zhCn = "腐肉酸奶脆")
     public static final RegistryObject<Item> CRISPY_YOGURT_ROTTEN_FLESH;
+    @ItemData(zhCn = "烂茄肉汤")
     public static final RegistryObject<Item> MEATY_ROTTEN_TOMATO_BROTH;
+    @ItemData(zhCn = " 填馅毒马铃薯")
     public static final RegistryObject<Item> STUFFED_POISONOUS_POTATO;
+    @ItemData(zhCn = "河豚卷")
     public static final RegistryObject<Item> PUFFERFISH_ROLL;
+    @ItemData(zhCn = "金姬海棠果")
     public static final RegistryObject<Item> GOLDEN_HIMEKAIDO;
+    @ItemData(zhCn = "金魔法棠果")
     public static final RegistryObject<Item> ENCHANTED_GOLDEN_HIMEKAIDO;
+    @ItemData(zhCn = "姬海棠种子")
     public static final RegistryObject<Item> HIMEKAIDO_SEED;
+    @ItemData(zhCn = "碗装瓦罐烂肉炖")
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
+    @ItemData(zhCn = "鞑靼鸡肉")
     public static final RegistryObject<Item> TARTARE_CHICKEN;
+    @ItemData(zhCn = "魔凝机")
     public static final RegistryObject<Item> ENCHANTAL_COOLER;
+    @ItemData(zhCn = "远古炉灶")
     public static final RegistryObject<Item> ANCIENT_STOVE;
+    @ItemData(zhCn = "风化远古炉灶")
     public static final RegistryObject<Item> EXPOSED_ANCIENT_STOVE;
+    @ItemData(zhCn = "锈蚀远古炉灶")
     public static final RegistryObject<Item> WEATHERED_ANCIENT_STOVE;
+    @ItemData(zhCn = "氧化远古炉灶")
     public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
+    @ItemData(zhCn = "姬海棠酸奶派")
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
+    @ItemData(zhCn = "姬海棠酸奶派片")
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
+    @ItemData(zhCn = "梦魇酒")
     public static final RegistryObject<Item> DREUMK_WINE;
+    @ItemData(zhCn = "绯红冰淇淋")
     public static final RegistryObject<Item> SCARLET_GELATO;
+    @ItemData(zhCn = "绯红圣代")
     public static final RegistryObject<Item> SCARLET_SUNDAE;
+    @ItemData(zhCn = "姬海棠茶泡饭")
     public static final RegistryObject<Item> HIMEKAIDO_CHAZUKE;
+
     /*
     古木相关
     */
+    @ItemData(zhCn = "古木原木")
     public static final RegistryObject<Item> ANCIENT_WOOD_LOG;
+    @ItemData(zhCn = "去皮古木原木")
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD_LOG;
+    @ItemData(zhCn = "古木")
     public static final RegistryObject<Item> ANCIENT_WOOD;
+    @ItemData(zhCn = "去皮古木")
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
+    @ItemData(zhCn = "古木木板")
     public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
+    @ItemData(zhCn = "古木储物柜")
     public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
+    @ItemData(zhCn = "古木楼梯")
     public static final RegistryObject<Item> ANCIENT_WOOD_STAIRS;
+    @ItemData(zhCn = "古木台阶")
     public static final RegistryObject<Item> ANCIENT_WOOD_SLAB;
+    @ItemData(zhCn = "古木门")
     public static final RegistryObject<Item> ANCIENT_WOOD_DOOR;
+    @ItemData(zhCn = "古木活板门")
     public static final RegistryObject<Item> ANCIENT_WOOD_TRAPDOOR;
+    @ItemData(zhCn = "古木栅栏")
     public static final RegistryObject<Item> ANCIENT_WOOD_FENCE;
+    @ItemData(zhCn = "古木栅栏门")
     public static final RegistryObject<Item> ANCIENT_WOOD_FENCE_GATE;
+    @ItemData(zhCn = "古木压力板")
     public static final RegistryObject<Item> ANCIENT_WOOD_PRESSURE_PLATE;
+    @ItemData(zhCn = "古木按钮")
     public static final RegistryObject<Item> ANCIENT_WOOD_BUTTON;
+    @ItemData(zhCn = "古木船")
+    public static final RegistryObject<Item> ANCIENT_WOOD_BOAT;
+    @ItemData(zhCn = "古木木箱船")
+    public static final RegistryObject<Item> ANCIENT_WOOD_CHEST_BOAT;
+    @ItemData(zhCn = "古纤维")
+    public static final RegistryObject<Item> ANCIENT_FIBER;
+
 
     /*
      溪竹相关物品
      */
+    @ItemData(zhCn = "树叶茶")
     public static final RegistryObject<Item> LEAF_TEA;
+    @ItemData(zhCn = "含茶溪竹")
     public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
+    @ItemData(zhCn = "空竹杯")
     public static final RegistryObject<Item> EMPTY_BAMBOO_CUP;
+    @ItemData(zhCn = "溪竹茶")
     public static final RegistryObject<Item> LEISAMBOO_TEA;
+    @ItemData(zhCn = "冰红茶")
     public static final RegistryObject<Item> ICED_BLACK_TEA;
+    @ItemData(zhCn = "棱蕉珍珠奶茶")
     public static final RegistryObject<Item> PEARLIPEARL_MILK_TEA;
+    @ItemData(zhCn = "棱蕉珍珠绿茶")
     public static final RegistryObject<Item> PEARLIPEARL_MILK_GREEN;
+    @ItemData(zhCn = "炉红茶")
     public static final RegistryObject<Item> STOVE_BLACK_TEA;
+    @ItemData(zhCn = "叶绿茶")
     public static final RegistryObject<Item> LEAF_GREEN_TEA;
+    @ItemData(zhCn = "英黄茶")
     public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
+    @ItemData(zhCn = "樱桃棱蕉珍珠茶")
     public static final RegistryObject<Item> CHERRY_PEARLIPEARL_TEA;
+    @ItemData(zhCn = "伶人泪")
     public static final RegistryObject<Item> GLEEMAN_TEAR;
+    @ItemData(zhCn = "水果茶")
     public static final RegistryObject<Item> FRUIT_TEA;
+    @ItemData(zhCn = "溪竹茶饼")
     public static final RegistryObject<Item> LEISAMBOO_TEA_CAKE;
+
 
     /*
     通天竹相关
     */
+    @ItemData(zhCn = "通天竹原木")
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
+    @ItemData(zhCn = "去皮通天竹原木")
+    public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
+    @ItemData(zhCn = "通天竹叶")
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
+    @ItemData(zhCn = "结果通天竹叶")
+    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
+    @ItemData(zhCn = "通天竹板")
+    public static final RegistryObject<Item> TRAVA_PLANKS;
+    @ItemData(zhCn = "通天竹米")
     public static final RegistryObject<Item> TRAVAPLANK;
+    @ItemData(zhCn = "通天竹稻")
     public static final RegistryObject<Item> TRAVARICE;
+    @ItemData(zhCn = "熟通天竹稻")
     public static final RegistryObject<Item> COOKED_TRAVARICE;
+    @ItemData(zhCn = "通天竹酒")
     public static final RegistryObject<Item> TRAVEER;
+
 
     /*
     瓦斯麦相关物品
     */
+    @ItemData(zhCn = "瓦斯麦种子")
     public static final RegistryObject<Item> KWAT_WHEAT_SEEDS;
+    @ItemData(zhCn = "瓦斯麦")
     public static final RegistryObject<Item> KWAT_WHEAT;
+    @ItemData(zhCn = "瓦斯麦面团")
     public static final RegistryObject<Item> KWAT_WHEAT_DOUGH;
+    @ItemData(zhCn = "瓦斯麦浆")
     public static final RegistryObject<Item> KWAT_WHEAT_PASTE;
+    @ItemData(zhCn = "瓦斯麦豆腐")
     public static final RegistryObject<Item> KWAT_WHEAT_DOUFU;
+    @ItemData(zhCn = "炸瓦斯麦豆腐")
     public static final RegistryObject<Item> FRY_KWAT_WHEAT_DOUFU;
+    @ItemData(zhCn = "酿瓦斯麦豆腐")
     public static final RegistryObject<Item> SUTFFED_KWAT_WHEAT_DOUFU;
+    @ItemData(zhCn = "翡翠红玉汤")
     public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
+    @ItemData(zhCn = "瓦斯麦吐司")
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST;
+    @ItemData(zhCn = "瓦斯麦吐司片")
     public static final RegistryObject<Item> KWAT_WHEAT_TOAST_SLICE;
+    @ItemData(zhCn = "金瓦斯麦吐司")
     public static final RegistryObject<Item> GOLDEN_KWAT_TOAST;
+    @ItemData(zhCn = "金瓦斯麦吐司片")
     public static final RegistryObject<Item> GOLDEN_KWAT_TOAST_SLICE;
+    @ItemData(zhCn = "下界奶油浓汤",itemType = ItemData.ItemType.BLOCK)
     public static final RegistryObject<Item> NETHER_BREAD_CREAM_SOUP;
+    @ItemData(zhCn = "下界奶油浓汤")
     public static final RegistryObject<Item> NETHER_CREAM_SOUP;
+    @ItemData(zhCn = "下界奶油面包")
     public static final RegistryObject<Item> NETHER_CREAM_BREAD;
+    @ItemData(zhCn = "超级瓦斯麦汉堡")
     public static final RegistryObject<Item> SUPER_KWAT_WHEAT_HAMBURGER;
+
     /*
     火把花相关物品
     */
+    @ItemData(zhCn = "火把花芥末")
     public static final RegistryObject<Item> TORCHFLOWER_MUSTARD;
+    @ItemData(zhCn = "热嗨汤")
     public static final RegistryObject<Item> HOT_HI_SOUP;
+    @ItemData(zhCn = "火热寿司")
     public static final RegistryObject<Item> INCANDESCENCE_SUSHI;
+    @ItemData(zhCn = "火把花饼")
     public static final RegistryObject<Item> TORCHFLOWER_CAKE;
+    @ItemData(zhCn = "火把花咖喱饭")
     public static final RegistryObject<Item> TORCHFLOWER_CURRY_RICE;
+    @ItemData(zhCn = "特辣意面")
     public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
+    @ItemData(zhCn = "火把花曲奇")
     public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
 
 
-    public static final RegistryObject<Item> PITCHER_PLANT_BARBECUE;
-    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
-    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
-    public static final RegistryObject<Item> AROMATIC_POD_AFFOGATO;
-
+    @ItemData(zhCn = "金丝织缕")
     public static final RegistryObject<Item> GOLDEN_FABRIC;
+    @ItemData(zhCn = "绯炵金纱")
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
+    @ItemData(zhCn = "生嗅探兽肉片")
     public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
+    @ItemData(zhCn = "熟嗅探兽肉片")
     public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
+    @ItemData(zhCn = "生嗅探兽肉排")
     public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
+    @ItemData(zhCn = "熟嗅探兽肉排")
     public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
+    @ItemData(zhCn = "嗅探兽毛")
     public static final RegistryObject<Item> SNIFFER_FUR;
+    @ItemData(zhCn = "刷子")
     public static final RegistryObject<Item> BRUSH;
+    @ItemData(zhCn = "嗅探兽毛刷")
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
+    @ItemData(zhCn = "清水伏特加")
     public static final RegistryObject<Item> CLEAR_WATER_VODKA;
+    @ItemData(zhCn = "Sniffer Rotating Roast Meat")
     public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
+    @ItemData(zhCn = "火神鸡尾酒")
     public static final RegistryObject<Item> VULCAN_COKTAIL;
+    @ItemData(zhCn = "地狱格瓦斯")
     public static final RegistryObject<Item> NETHER_KVASS;
+    @ItemData(zhCn = "炼狱麦酒")
     public static final RegistryObject<Item> PURGATORY_ALE;
+    @ItemData(zhCn = "猪灵踊")
     public static final RegistryObject<Item> PIGLIN_ODORI_SAKE;
+    @ItemData(zhCn = "姬海糖")
     public static final RegistryObject<Item> HIMEKANDY;
-    //public static final RegistryObject<Item> PALE_DEW_WINE;
-    //public static final RegistryObject<Item> TEST_DAMAGE_ITEM;
+    @ItemData(zhCn = "红魔鬼蛋糕")
     public static final RegistryObject<Item> SCARLET_DEVILS_CAKE;
+    @ItemData(zhCn = "红魔鬼蛋糕切片")
     public static final RegistryObject<Item> SCARLET_DEVILS_CAKE_SLICE;
+    @ItemData(zhCn = "大红包子")
     public static final RegistryObject<Item> RED_STUFFED_BUN;
-    //public static final RegistryObject<Item> SPICY_PUDDING;
-
-
-//    public static final RegistryObject<Item> POISONOUS_LONG_SPIKE_TRAP;
-//    public static final RegistryObject<Item> LONG_SPIKE_TRAP;
-//    public static final RegistryObject<Item> POISONOUS_SPIKE_TRAP;
-//    public static final RegistryObject<Item> SPIKE_TRAP;
-//    public static final RegistryObject<Item> POISONOUS_METAL_CALTROP;
-//    public static final RegistryObject<Item> METAL_CALTROP;
+    @ItemData(zhCn = "尖刺栅栏")
     public static final RegistryObject<Item> SPIKE_BAR_BASE;
-//    public static final RegistryObject<Item> SPIKE_BAR;
+    @ItemData(zhCn = "泥瓦")
     public static final RegistryObject<Item> MUD_TILES;
+    @ItemData(zhCn = "泥瓦楼梯")
     public static final RegistryObject<Item> MUD_TILES_STAIRS;
+    @ItemData(zhCn = "台阶")
     public static final RegistryObject<Item> MUD_TILES_SLAB;
+    @ItemData(zhCn = "泥瓦墙")
     public static final RegistryObject<Item> MUD_TILES_WALL;
+    @ItemData(zhCn = "裂泥瓦")
     public static final RegistryObject<Item> CRACKED_MUD_TILES;
+    @ItemData(zhCn = "裂泥瓦楼梯")
     public static final RegistryObject<Item> CRACKED_MUD_TILES_STAIRS;
+    @ItemData(zhCn = "裂泥瓦台阶")
     public static final RegistryObject<Item> CRACKED_MUD_TILES_SLAB;
+    @ItemData(zhCn = "裂泥瓦墙")
     public static final RegistryObject<Item> CRACKED_MUD_TILES_WALL;
+    @ItemData(zhCn = "苔石砖")
     public static final RegistryObject<Item> MOSSY_MUD_BRICK;
+    @ItemData(zhCn = "苔石砖楼梯")
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_STAIRS;
+    @ItemData(zhCn = "苔石砖台阶")
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_SLAB;
+    @ItemData(zhCn = "苔石砖墙")
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_WALL;
+    @ItemData(zhCn = "裂泥砖")
     public static final RegistryObject<Item>CRACKED_MUD_BRICK;
+    @ItemData(zhCn = "裂泥砖楼梯")
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_STAIRS;
+    @ItemData(zhCn = "裂泥砖台阶")
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_SLAB;
+    @ItemData(zhCn = "裂泥砖墙")
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_WALL;
+    @ItemData(zhCn = "雕纹泥砖")
     public static final RegistryObject<Item>CHISELED_MUD_BRICK;
+    @ItemData(zhCn = "泥坯楼梯")
     public static final RegistryObject<Item>PACKED_MUD_STAIRS;
+    @ItemData(zhCn = "泥坯台阶")
     public static final RegistryObject<Item>PACKED_MUD_SLAB;
+    @ItemData(zhCn = "泥坯墙")
     public static final RegistryObject<Item>PACKED_MUD_WALL;
 
+    @ItemData(zhCn = "可疑的砂砾")
     public static final RegistryObject<Item> INFESTED_GRAVEL;
+    @ItemData(zhCn = "可疑的沙子")
     public static final RegistryObject<Item> INFESTED_SAND;
 
-//    public static final RegistryObject<Item> INFESTED_COAL_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_COPPER_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_IRON_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_REDSTONE_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_LAPIS_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_GOLD_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_EMERALD_BLOCK;
-//    public static final RegistryObject<Item> INFESTED_DIAMOND_BLOCK;
-
     /*ALFALFA*/
+    @ItemData(zhCn = "古苜蓿种子")
     public static final RegistryObject<Item> ALFALFA_SEEDS;
+    @ItemData(zhCn = "古苜蓿")
     public static final RegistryObject<Item> ALFALFA;
     public static final RegistryObject<Item> ALFALFA_PORRIDGE;
 
+    @ItemData(zhCn = "蕉盒鲑")
     public static final RegistryObject<Item> BANANA_BOX_SALMON;
+    @ItemData(zhCn = "蕉盒鳕")
     public static final RegistryObject<Item> BANANA_BOX_COD;
+    @ItemData(zhCn = "棱蕉寿司船",itemType = ItemData.ItemType.BLOCK)
     public static final RegistryObject<Item> PEARLIP_RICE_ROLL_BOAT;
 
-
-    //public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    @ItemData(zhCn = "刷怪蛋")
     public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
+    @ItemData(zhCn = "刷怪蛋")
     public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
+    @ItemData(zhCn = "刷怪蛋")
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
+    @ItemData(zhCn = "刷怪蛋")
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    @ItemData(zhCn = "刷怪蛋")
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
 
 
+    @ItemData(zhCn = "谷物香囊")
     public static final RegistryObject<Item> SACHETS;
+    @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> DRILL_ROD_WAND;
+    @ItemData(zhCn = "锈蚀古刀",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
+    @ItemData(zhCn = "新硎古刀",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> ANCIENT_BLADE;
+    @ItemData(zhCn = "灾厄匕首",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> PILLAGER_KNIFE;
+    @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> BONE_KNIFE;
+    @ItemData(zhCn = "手持式砂轮",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> GRINDSTONE_HAMMER;
+    @ItemData(zhCn = "古代连弩",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> REPEATING_CROSSBOW;
+    @ItemData(zhCn = "古代口粮包")
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
     /*诡怨藤*/
+    @ItemData(zhCn = "诡怨藤种子")
     public static final RegistryObject<Item> WARPED_LAUREL_SEEDS;
+    @ItemData(zhCn = "诡怨藤")
     public static final RegistryObject<Item> WARPED_LAUREL;
+    @ItemData(zhCn = "卤鸡腿")
     public static final RegistryObject<Item> LU_CHICKEN_LEGS;
+    @ItemData(zhCn = "下界汤")
     public static final RegistryObject<Item> NETHER_SOUP;
+    @ItemData(zhCn = "红烧肉")
     public static final RegistryObject<Item> BRAISED_PORK;
+    @ItemData(zhCn = "阿波连蛋糕卷")
     public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
 
+
     /*瓶子草*/
+    @ItemData(zhCn = "瓶子草烧烤")
+    public static final RegistryObject<Item> PITCHER_PLANT_BARBECUE;
+    @ItemData(zhCn = "荚壳汉堡肉")
+    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
+    @ItemData(zhCn = "荚壳汉堡肉块")
+    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
+    @ItemData(zhCn = "芳香荚阿芙佳朵")
+    public static final RegistryObject<Item> AROMATIC_POD_AFFOGATO;
+    @ItemData(zhCn = "瓶子草烧卖")
     public static final RegistryObject<Item> PITCHER_PLANT_SHAO_MAI;
+    @ItemData(zhCn = "瓶子草饺子")
     public static final RegistryObject<Item> PITCHER_PLANT_JIAO_ZI;
+    @ItemData(zhCn = "芝香瓜果汁")
     public static final RegistryObject<Item> CHEESE_MELON_JUICE;
+    @ItemData(zhCn = "瓶装芝香瓜果汁")
     public static final RegistryObject<Item> BOTTLE_MELON_JUICE;
+    @ItemData(zhCn = "瓶子草煲仔饭饭")
     public static final RegistryObject<Item> PITCHER_PLANT_CLAYPOT_RICE;
+    @ItemData(zhCn = "碗装瓶子草煲仔饭饭")
     public static final RegistryObject<Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
 
-    /*温泉桶*/
-    public static final RegistryObject<Item> HOT_SPRING_BUCKET;
 
-    /*石锅*/
+    @ItemData(zhCn = "温泉桶")
+    public static final RegistryObject<Item> HOT_SPRING_BUCKET;
+    @ItemData(zhCn = "石锅")
     public static final RegistryObject<Item> STONE_POT;
+    @ItemData(zhCn = "天地有用")
     public static final RegistryObject<Item> UNIVERSAL_CHICKEN_SOUP;
+    @ItemData(zhCn = "碗装天地有用")
     public static final RegistryObject<Item> BOWL_OF_UNIVERSAL_CHICKEN_SOUP;
+
 
     static {
 

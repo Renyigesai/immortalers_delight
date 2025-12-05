@@ -38,7 +38,7 @@ public @interface ItemData {
      * @return 物品所属的分组名称
      * 在主创造物品栏中可以省略不写
      */
-    String group() default "bakeries_main";
+    String group() default "imm_main";
 
 /**
  * 物品类型枚举类

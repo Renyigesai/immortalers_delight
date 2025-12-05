@@ -4,10 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="完善了灾厄匕首（包括效果、tooltip、获得方式），修改了袭击——现在袭击中有概率刷新携带灾厄匕首的掠夺者">
+    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="移除猫皮肤2025/11/25">
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/.cache/2a65ee2815744be1ef1ffdae1c9a37f2a9cbe2ac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/.cache/c622617f6fabf890a00b9275cd5f643584a8a2c8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/en_us.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/DataGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/Languages.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/RegistryDataGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/com.renyigesai.immortalers_delight.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/com.renyigesai.immortalers_delight.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/immortalers_delight.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/immortalers_delight.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/bone_knife.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/bone_knife.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-client.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-client.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-colors.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-colors.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-debug.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-debug.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-mod-id-format.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-mod-id-format.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/latest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/103d9f3f36b01595f1aa5172191e60eff02e6924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/api/annotation/ItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/api/annotation/ItemData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/datagen/DataGenerators.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/datagen/ModWorldGen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/integration/ltc2/delicacy_mashed_poisonous_potato_with_jam_latiao.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/integration/ltc2/delicacy_mashed_poisonous_potato_with_jam_latiao.json" afterDir="false" />
     </list>
     <list id="8d90579c-bef5-4080-82d3-cd6bba24b11e" name="找回一些我们需要的" comment="找回一些我们需要的" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +59,46 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle prepare runs" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
             <select />
@@ -100,6 +167,9 @@
     <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/entity/monster/warden/Warden.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.1.0/fa3a353b05f516c12555b25a97f8dcc40067cece/fmlcore-1.20.1-47.1.0-sources.jar!/net/minecraftforge/fml/ModList.java" root0="SKIP_INSPECTION" />
   </component>
+  <component name="PerforceDirect.Settings">
+    <option name="CHARSET" value="无" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -116,25 +186,29 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Gradle.Imm Delight [prepareRunClient].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Imm Delight [runClient].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.immortalers_delight [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.immortalers_delight [createMcpToSrg].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.immortalers_delight [runData].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/textures/item&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/lang&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\lang" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\java\com\renyigesai\immortalers_delight\data" />
       <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\item" />
       <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\block" />
-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\entity" />
-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\entity\renderer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
@@ -147,14 +221,14 @@
       <recent name="com.renyigesai.immortalers_delight.entities.living" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.renyigesai.immortalers_delight.data" />
       <recent name="com.renyigesai.immortalers_delight.client.renderer.entity" />
       <recent name="com.renyigesai.immortalers_delight.potion.immortaleffects" />
       <recent name="com.renyigesai.immortalers_delight.potion" />
       <recent name="com.renyigesai.immortalers_delight.client.particle" />
-      <recent name="com.renyigesai.immortalers_delight.util.datautil.worlddata" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Imm Delight [runClient]">
+  <component name="RunManager" selected="Gradle.immortalers_delight [runData]">
     <configuration name="Imm Delight [prepareRunClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -221,13 +295,35 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="immortalers_delight [runData]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runData" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.immortalers_delight [runData]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
+        <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
         <item itemvalue="Gradle.immortalers_delight [build]" />
-        <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
-        <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
       </list>
     </recent_temporary>
   </component>
@@ -583,7 +679,7 @@
       <option name="project" value="LOCAL" />
       <updated>1763793775314</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -598,8 +694,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="微调成就" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'微调成就" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="完成了持续状态效果，添加了弱毒、弱凋零、回味的显血。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例" />
     <MESSAGE value="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品" />
     <MESSAGE value="修复了一点bug" />
@@ -623,7 +718,9 @@
     <MESSAGE value="这是一个未完成的提交，但我们确保可以进入游戏。我们请到了外援。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="添加去皮通天竹，添加石锅配方2025/11/21" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加去皮通天竹，添加石锅配方2025/11/21" />
+    <MESSAGE value="修复骨刀造成的服务器错误,修复版本号错误2025/11/25" />
+    <MESSAGE value="移除猫皮肤2025/11/25" />
+    <option name="LAST_COMMIT_MESSAGE" value="移除猫皮肤2025/11/25" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
