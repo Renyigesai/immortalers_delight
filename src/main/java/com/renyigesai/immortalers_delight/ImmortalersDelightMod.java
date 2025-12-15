@@ -8,6 +8,8 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRendere
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
+import com.renyigesai.immortalers_delight.data.BlockLootTables;
+import com.renyigesai.immortalers_delight.data.ItemModels;
 import com.renyigesai.immortalers_delight.data.Languages;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
@@ -30,15 +32,18 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CompoundIngredient;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -238,10 +243,11 @@ public class ImmortalersDelightMod {
     private void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        if (event.includeClient()) {
-            generator.addProvider(true, new Languages(output, "en_us"));
-            generator.addProvider(true, new Languages(output, "zh_cn"));
-        }
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        generator.addProvider(event.includeClient(),new ItemModels(output,existingFileHelper));
+        generator.addProvider(event.includeClient(), new LootTableProvider(output, Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(BlockLootTables::new, LootContextParamSets.BLOCK))));
+        generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
+        generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
     }
 
     public static ResourceLocation prefix(String name) {

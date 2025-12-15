@@ -1,6 +1,0 @@
-{
-  "parent": "item/brush",
-  "textures": {
-    "layer0": "immortalers_delight:item/sniffer_fur_brush"
-  }
-}

@@ -49,20 +49,20 @@ public class GasPoisonMobEffect extends MobEffect {
 
     @Override
     /**
-     * �ж�Ч���Ƿ�Ӧ�ÿ̸���
-     * @param pDuration Ч��ʣ�����ʱ��
-     * @param pAmplifier Ч���ķŴ�ȼ�
-     * @return ���Ч��Ӧ�ÿ̸����򷵻�true�����򷵻�false
+     * 判断效果是否应该刻更新
+     * @param pDuration 效果剩余持续时间
+     * @param pAmplifier 效果的放大等级
+     * @return 如果效果应该刻更新则返回true，否则返回false
      */
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
-        // ������¼��������ֵΪ32�����ŷŴ�ȼ����Ӷ�����
+        // 计算更新间隔，基础值为32，随着放大等级增加而增大
         int j = 32 >> pAmplifier;
-        // ���������ļ������0
+        // 如果计算出的间隔大于0
         if (j > 0) {
-            // ��ʣ��ʱ��Լ��ȡ��Ϊ0ʱ����ʾӦ�ø���Ч��
+            // 当剩余时间对间隔取余为0时，表示应该更新效果
             return pDuration % j == 0;
         } else {
-            // ������С�ڵ���0����ʼ�ո���Ч��
+            // 如果间隔小于等于0，则始终更新效果
             return true;
         }
     }

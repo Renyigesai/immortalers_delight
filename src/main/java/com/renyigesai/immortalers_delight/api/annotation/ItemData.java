@@ -45,13 +45,9 @@ public @interface ItemData {
  * 用于定义不同类型的物品分类
  */
     enum ItemType {
-    // 普通物品类型
         ITEM,
-    // 方块类型
         BLOCK,
-    // 自定义物品类型
         CUSTOM_ITEM,
-    // 自定义方块物品类型
         CUSTOM_BLOCK,
     }
 
@@ -59,14 +55,12 @@ public @interface ItemData {
  * 枚举类型ModelType，用于表示不同的模型类型
  */
     enum ModelType {
-    // 通用模型类型
         GENERAL,
-    // 块模型类型
         BLOCK,
-    // 工具模型类型
         TOOL,
-        BREAD,
-    // 自定义模型类型
-        CUSTOM
+        CUSTOM,
+        TRAPDOOR,
+        FENCE,
+        WALL
     }
 }

@@ -1,0 +1,9 @@
+{
+	"parent": "immortalers_delight:custom/beer1",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "immortalers_delight:block/cup",
+		"1": "immortalers_delight:block/sticky_beer",
+		"particle": "minecraft:block/glass"
+	}
+}

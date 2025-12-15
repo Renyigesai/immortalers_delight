@@ -4,37 +4,530 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="移除猫皮肤2025/11/25">
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/.cache/2a65ee2815744be1ef1ffdae1c9a37f2a9cbe2ac" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/.cache/c622617f6fabf890a00b9275cd5f643584a8a2c8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/en_us.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/DataGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/Languages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/RegistryDataGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/package-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/com.renyigesai.immortalers_delight.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/com.renyigesai.immortalers_delight.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/immortalers_delight.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/immortalers_delight.main.iml" afterDir="false" />
+    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="添加语言datagen2025/12/05">
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_stove.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_button.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_cabinet.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_planks.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/baked_poisonous_potato.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/bowl_of_stewed_rotten_meat_in_clay_pot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/braised_spider_eyes_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/braised_spider_eyes_in_gravy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/chiseled_mud_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cooked_sniffer_slice.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cooked_sniffer_steak.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_tiles.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/crispy_yogurt_rotten_flesh.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/dipped_rotten_flesh.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/golden_fabric.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/golden_fabric_veil.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/golden_himekaido.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_button.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_flowering_leaves.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_fruited_leaves.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_jelly.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_leaves.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_seed.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/infested_gravel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/infested_sand.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_button.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/meaty_rotten_tomato_broth.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mossy_mud_brick.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mud_tiles.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/nether_bread_cream_soup.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/oxidized_ancient_stove.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_button.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pufferfish_roll.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/raw_sniffer_slice.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/raw_sniffer_steak.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/red_stuffed_bun.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/rotten_flesh_cuts.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/scarlet_devils_cake.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/scarlet_devils_cake_slice.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sniffer_fur.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sniffer_fur_block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stuffed_poisonous_potato.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sutffed_kwat_wheat_doufu.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/tartare_chicken.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/travastruggler_leaves.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/travastruggler_leaves_travarice.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/travastruggler_log.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/yogurt.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cooked_beef_crate.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cultural_legacy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/fruit_tea.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_hanging_sign.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_shrub.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_sign.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_crop.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_slab.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_stalk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/long_spike_trap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/metal_caltrop.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/millenian_bamboo.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_bubble_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_slab.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_bundle.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/poisonous_long_spike_trap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/poisonous_metal_caltrop.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/poisonous_spike_trap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/purgatory_ale.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/spider_eye_crate.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/spike_bar.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/spike_trap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/sticky_beer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/api/annotation/BlockData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/BlockLootTables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/ItemModels.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/pearlip_bubble_milk.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/purgatory_ale.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/sticky_beer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pearlip_bubble_milk1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pearlip_bubble_milk2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pearlip_bubble_milk3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/pearlip_bubble_milk4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/purgatory_ale1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/purgatory_ale2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/purgatory_ale3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/purgatory_ale4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/sticky_beer1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/sticky_beer2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/sticky_beer3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/sticky_beer4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/beer1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/beer2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/beer3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/custom/beer4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/block/pearlip_bubble_milk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/block/purgatory_ale.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-client.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-client.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-colors.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-colors.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-debug.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-debug.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/config/jei/jei-mod-id-format.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/config/jei/jei-mod-id-format.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/103d9f3f36b01595f1aa5172191e60eff02e6924" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/2a65ee2815744be1ef1ffdae1c9a37f2a9cbe2ac" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/c622617f6fabf890a00b9275cd5f643584a8a2c8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/api/annotation/ItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/api/annotation/ItemData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/datagen/DataGenerators.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/datagen/ModWorldGen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/DataGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/en_us.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/lang/zh_cn.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/integration/ltc2/delicacy_mashed_poisonous_potato_with_jam_latiao.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/integration/ltc2/delicacy_mashed_poisonous_potato_with_jam_latiao.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/GrindstoneHammerItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/GrindstoneHammerItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GaixiaMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GaixiaMobEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GasPoisonMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/GasPoisonMobEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_flowering_leaves.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_flowering_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_fruited_leaves.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_fruited_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_leaves.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/blockstates/himekaido_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer1.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer3.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer4.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/evolutcorn_beer4.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_leaves_stage0.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_leaves_stage1.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_flowering_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_leaves_stage2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/block/himekaido_fruited_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/alfalfa.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/alfalfa.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/alfalfa_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/alfalfa_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/alfalfa_porridge.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/alfalfa_porridge.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/alfalfa_seeds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/alfalfa_seeds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_blade.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_blade.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_fiber.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_fiber.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_stove.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_button.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_cabinet.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_chest_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_chest_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_planks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ancient_wood_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ancient_wood_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/apollyon_cake_roll.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/apollyon_cake_roll.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/aromatic_pod_affogato.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/aromatic_pod_affogato.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bake_corn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/baked_poisonous_potato.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/banana_box_cod.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/banana_box_cod.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/banana_box_salmon.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/banana_box_salmon.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/beef_crate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bone_knife.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/bone_knife.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bottle_melon_juice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/bottle_melon_juice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bowl_of_millenian_bamboo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bowl_of_stewed_rotten_meat_in_clay_pot.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bowl_of_universal_chicken_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/bowl_of_universal_chicken_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/bowl_pitcher_plant_claypot_rice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/bowl_pitcher_plant_claypot_rice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/braised_pork.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/braised_pork.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/braised_spider_eyes_block.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/braised_spider_eyes_in_gravy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/british_yellow_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/british_yellow_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/brush.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cheese_melon_juice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cheese_melon_juice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cherry_pearlipearl_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cherry_pearlipearl_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/chicken_crate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/chiseled_mud_brick.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/chocolate_pearlip_sticks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/chocolate_pearlip_sticks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/chocoreeze.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/chocoreeze.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/clear_water_vodka.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/clear_water_vodka.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/colorful_grilled_skewers.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/colorful_grilled_skewers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/contains_tea_leisamboo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/contains_tea_leisamboo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cooked_beef_crate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cooked_sniffer_slice.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cooked_sniffer_steak.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cooked_travarice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cooked_travarice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_brick.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_brick_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_brick_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_brick_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_brick_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_brick_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_brick_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_tiles.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cracked_mud_tiles_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/cretaceous_zea_ball.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/cretaceous_zea_ball.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/crispy_yogurt_rotten_flesh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/custard_tart_pastry.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/custard_tart_pastry.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/dipped_rotten_flesh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/dreumk_wine.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/dreumk_wine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/drill_rod_wand.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/drill_rod_wand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/elixir_of_immortality.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/empty_bamboo_cup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/empty_bamboo_cup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/enchantal_cooler.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/enchantal_cooler.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_beer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_beer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_bread.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_bread.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_grain_bag.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_grain_bag.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_grains.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_grains.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_hard_candy.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_hard_candy.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_paste.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_paste.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_paste_bucket.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_paste_bucket.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/evolutcorn_pie_crust.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/evolutcorn_pie_crust.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/exposed_ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/exposed_ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/extra_spicy_pasta.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/extra_spicy_pasta.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/fruit_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/fruit_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/fry_kwat_wheat_doufu.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/fry_kwat_wheat_doufu.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/gleeman_tear.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/gleeman_tear.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/golden_fabric.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/golden_fabric_veil.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/golden_himekaido.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/golden_kwat_toast.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/golden_kwat_toast.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/golden_kwat_toast_slice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/golden_kwat_toast_slice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/grindstone_hammer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/grindstone_hammer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_button.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_chazuke.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_chazuke.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_chest_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_chest_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_crate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_cuts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_flowering_leaves.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_fruited_leaves.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_hanging_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_hanging_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_jelly.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_leaves.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_seed.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_shrub.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_yogurt_pie.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_yogurt_pie.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekaido_yogurt_pie_slice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekaido_yogurt_pie_slice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/himekandy.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/himekandy.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/hot_hi_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/hot_hi_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/hot_spring_bucket.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/hot_spring_bucket.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/ice_pearlip.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/ice_pearlip.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/iced_black_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/iced_black_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/incandescence_sushi.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/incandescence_sushi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/infested_gravel.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/infested_iron_block.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/infested_sand.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/jade_and_ruby_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/jade_and_ruby_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_doufu.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_doufu.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_dough.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_dough.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_paste.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_paste.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_seeds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_seeds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_toast.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_toast.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/kwat_wheat_toast_slice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/kwat_wheat_toast_slice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leaf_green_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leaf_green_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leaf_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leaf_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_button.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_hanging_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_hanging_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_tea_cake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_tea_cake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/leisamboo_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/leisamboo_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/long_spike_trap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/lu_chicken_legs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/lu_chicken_legs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mashed_poisonous_potato.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mashed_poisonous_potato.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mashed_poisonous_potato_with_jam.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mashed_poisonous_potato_with_jam.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mashed_potato_with_jam.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mashed_potato_with_jam.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mashed_potatoes.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mashed_potatoes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/meaty_rotten_tomato_broth.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/metal_caltrop.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/millenian_bamboo.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/millenian_bamboo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mossy_mud_brick.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mossy_mud_brick_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mossy_mud_brick_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mossy_mud_brick_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mossy_mud_brick_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mossy_mud_brick_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mossy_mud_brick_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mud_tiles.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mud_tiles_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mud_tiles_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mud_tiles_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mud_tiles_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/mud_tiles_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/mud_tiles_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/nether_bread_cream_soup.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/nether_cream_bread.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/nether_cream_bread.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/nether_cream_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/nether_cream_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/nether_kvass.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/nether_kvass.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/nether_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/nether_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/oxidized_ancient_stove.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/packed_mud_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/packed_mud_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/packed_mud_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/packed_mud_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/packed_mud_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/packed_mud_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pale_dew_wine.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_bubble_milk.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_bubble_milk.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_crate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_jelly.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_jelly.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_milk_shake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_milk_shake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_pie.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_pie.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_pie_slice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_pie_slice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_pumpkin_pie.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_pumpkin_pie.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_rice_roll_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_rice_roll_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_button.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_chest_boat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_chest_boat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_hanging_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_hanging_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_sign.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_sign.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlip_shell_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlip_shell_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlipearl.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlipearl.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlipearl_eggsteam.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlipearl_eggsteam.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlipearl_milk_green.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlipearl_milk_green.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlipearl_milk_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlipearl_milk_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pearlipearl_tart.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pearlipearl_tart.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/peatic_musa_salad.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/peatic_musa_salad.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/perfect_summer_ice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/perfect_summer_ice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/piglin_odori_sake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/piglin_odori_sake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pillager_knife.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pillager_knife.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_barbecue.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pitcher_plant_barbecue.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_claypot_rice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pitcher_plant_claypot_rice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_jiao_zi.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pitcher_plant_jiao_zi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_plant_shao_mai.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pitcher_plant_shao_mai.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pitcher_pod_petal.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pod_shell_burger_meat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pod_shell_burger_meat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pod_shell_burger_meat_cube.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/pod_shell_burger_meat_cube.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/poisonous_long_spike_trap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/poisonous_metal_caltrop.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/poisonous_spike_trap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/popolutcorn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/popolutcorn.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/pufferfish_roll.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/purgatory_ale.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/purgatory_ale.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/raw_sniffer_slice.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/raw_sniffer_steak.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/red_stuffed_bun.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/roast_evolutcorn.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/roast_evolutcorn.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/roast_evolutcorn_chops.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/roast_evolutcorn_chops.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/rotten_flesh_cuts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/rusty_ancient_blade.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/rusty_ancient_blade.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sachets.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sachets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/scarlet_devils_cake.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/scarlet_devils_cake_slice.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/scarlet_gelato.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/scarlet_gelato.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/scarlet_sundae.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/scarlet_sundae.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sealed_ancient_rations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sealed_ancient_rations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/skelverfish_ambusher_spawn_egg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/skelverfish_bomber_spawn_egg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/skelverfish_thrasher_spawn_egg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sniffer_fur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sniffer_fur_block.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sniffer_fur_brush.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sniffer_fur_brush.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sniffer_fur_full_tatami_mat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sniffer_fur_full_tatami_mat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sniffer_fur_half_tatami_mat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sniffer_fur_half_tatami_mat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/spicy_pudding.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/spider_eye_crate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/spike_bar.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/spike_trap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stewed_rotten_meat_pot.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stewed_rotten_meat_pot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sticky_beer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/sticky_beer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stone_pot.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stone_pot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stove_black_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stove_black_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stripped_ancient_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stripped_ancient_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stripped_ancient_wood_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stripped_ancient_wood_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stripped_himekaido_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stripped_himekaido_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stripped_himekaido_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stripped_himekaido_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stripped_travastruggler_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/stripped_travastruggler_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/stuffed_poisonous_potato.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/super_kwat_wheat_hamburger.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/super_kwat_wheat_hamburger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/sutffed_kwat_wheat_doufu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/tartare_chicken.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/torchflower_cake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/torchflower_cake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/torchflower_cookie.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/torchflower_cookie.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/torchflower_curry_rice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/torchflower_curry_rice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/torchflower_mustard.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/torchflower_mustard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/trava_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/trava_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travaplank.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/travaplank.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travarice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/travarice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travastruggler_leaves.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travastruggler_leaves_travarice.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travastruggler_log.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/travastruggler_sapling.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/traveer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/traveer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/tropical_fruity_cyclone.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/tropical_fruity_cyclone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/twilight_gelato.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/twilight_gelato.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/universal_chicken_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/universal_chicken_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/vulcan_coktail.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/vulcan_coktail.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/warped_laurel.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/warped_laurel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/warped_laurel_seeds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/warped_laurel_seeds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/weathered_ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/weathered_ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/yogurt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/zea_pancake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/zea_pancake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/models/item/zea_pancake_slice.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/immortalers_delight/models/item/zea_pancake_slice.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/kwat_wheat_toast_stewed_vegetables.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/nether_bread_cream_soup.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/sutffed_doufu.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/immortalers_delight/textures/item/sutffed_kwat_wheat_doufu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/alfalfa_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/alfalfa_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_button.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_button.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/ancient_wood_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/british_yellow_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/british_yellow_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/chiseled_mud_brick.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/chiseled_mud_brick.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_brick_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/cracked_mud_tiles_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/dreumk_wine.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/dreumk_wine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/enchantal_cooler.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/enchantal_cooler.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_beer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_beer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_grain_bag.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/evolutcorn_grain_bag.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/exposed_ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/exposed_ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_button.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_button.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_crate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_fence_gate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_fence_gate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_pressure_plate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_pressure_plate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_shrub.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_slab.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_trapdoor.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/himekaido_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/himekaido_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/iced_black_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/iced_black_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/kwat_wheat_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/kwat_wheat_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leaf_green_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leaf_green_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leaf_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leaf_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_button.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_door.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_door.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_fence_gate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_pressure_plate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_slab.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_stalk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/leisamboo_trapdoor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/beef_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/millenian_bamboo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mossy_mud_brick_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/mud_tiles_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/oxidized_ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/oxidized_ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_wall.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/packed_mud_wall.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_crate.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_rice_roll_boat.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_button.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/chicken_crate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_cabinet.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_cabinet.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_door.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_fence.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_fence.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_fence_gate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_pressure_plate.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_slab.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_stairs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlip_shell_trapdoor.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_bundle.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_milk_green.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_milk_green.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_milk_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/pearlipearl_milk_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/piglin_odori_sake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/piglin_odori_sake.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/pitcher_add.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_full_tatami_mat.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_half_tatami_mat.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_half_tatami_mat.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_tatami.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/sniffer_fur_tatami.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/spike_bar_base.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/spike_bar_base.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stone_pot.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stone_pot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stove_black_tea.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stove_black_tea.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stripped_ancient_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stripped_ancient_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stripped_ancient_wood_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stripped_ancient_wood_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stripped_himekaido_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stripped_himekaido_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stripped_himekaido_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stripped_himekaido_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/stripped_travastruggler_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/stripped_travastruggler_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/torchflower_add.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/torchflower_crop_add.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/trava_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/trava_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/travastruggler_log.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/travastruggler_log.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/travastruggler_sapling.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/travastruggler_sapling.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/universal_chicken_soup.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/vulcan_coktail.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/vulcan_coktail.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/weathered_ancient_stove.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/weathered_ancient_stove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/loot_tables/blocks/yogurt.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/immortalers_delight/loot_tables/blocks/yogurt.json" afterDir="false" />
     </list>
     <list id="8d90579c-bef5-4080-82d3-cd6bba24b11e" name="找回一些我们需要的" comment="找回一些我们需要的" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +605,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -167,9 +661,6 @@
     <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/entity/monster/warden/Warden.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.1.0/fa3a353b05f516c12555b25a97f8dcc40067cece/fmlcore-1.20.1-47.1.0-sources.jar!/net/minecraftforge/fml/ModList.java" root0="SKIP_INSPECTION" />
   </component>
-  <component name="PerforceDirect.Settings">
-    <option name="CHARSET" value="无" />
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -184,31 +675,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.Imm Delight [prepareRunClient].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Imm Delight [runClient].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.immortalers_delight [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.immortalers_delight [createMcpToSrg].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.immortalers_delight [runData].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/immortalers_delight/immortalers_delight/src/main/resources/assets/immortalers_delight/lang&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Gradle.Imm Delight [prepareRunClient].executor": "Run",
+    "Gradle.Imm Delight [runClient].executor": "Run",
+    "Gradle.immortalers_delight [build].executor": "Run",
+    "Gradle.immortalers_delight [createMcpToSrg].executor": "Run",
+    "Gradle.immortalers_delight [runData].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/immortalers_delight/immortalers_delight/src/main/resources/data/immortalers_delight/loot_tables/blocks",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "File.Encoding"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\lang" />
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources" />
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\java\com\renyigesai\immortalers_delight\data" />
-      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\item" />
-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\loot_tables\blocks" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\data\immortalers_delight\loot_tables" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\models\item" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\textures\block" />
+      <recent name="D:\immortalers_delight\immortalers_delight\src\main\resources\assets\immortalers_delight\models\block" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
@@ -228,7 +719,7 @@
       <recent name="com.renyigesai.immortalers_delight.client.particle" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.immortalers_delight [runData]">
+  <component name="RunManager" selected="Gradle.Imm Delight [runClient]">
     <configuration name="Imm Delight [prepareRunClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -319,8 +810,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.immortalers_delight [runData]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
+        <item itemvalue="Gradle.immortalers_delight [runData]" />
         <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
         <item itemvalue="Gradle.immortalers_delight [build]" />
         <item itemvalue="Gradle.Imm Delight [runClient]" />
@@ -679,7 +1170,7 @@
       <option name="project" value="LOCAL" />
       <updated>1763793775314</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -695,7 +1186,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="完成了持续状态效果，添加了弱毒、弱凋零、回味的显血。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例" />
     <MESSAGE value="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品" />
     <MESSAGE value="修复了一点bug" />
     <MESSAGE value="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果" />
@@ -720,7 +1210,8 @@
     <MESSAGE value="添加去皮通天竹，添加石锅配方2025/11/21" />
     <MESSAGE value="修复骨刀造成的服务器错误,修复版本号错误2025/11/25" />
     <MESSAGE value="移除猫皮肤2025/11/25" />
-    <option name="LAST_COMMIT_MESSAGE" value="移除猫皮肤2025/11/25" />
+    <MESSAGE value="添加语言datagen2025/12/05" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加语言datagen2025/12/05" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

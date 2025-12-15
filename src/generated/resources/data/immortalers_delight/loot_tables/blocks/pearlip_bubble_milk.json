@@ -1,0 +1,74 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "immortalers_delight:pearlip_bubble_milk",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "1"
+                  }
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "immortalers_delight:pearlip_bubble_milk",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "immortalers_delight:pearlip_bubble_milk",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "immortalers_delight:pearlip_bubble_milk",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "immortalers_delight:pearlip_bubble_milk"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "immortalers_delight:blocks/pearlip_bubble_milk"
+}

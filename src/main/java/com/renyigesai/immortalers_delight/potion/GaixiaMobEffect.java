@@ -20,7 +20,7 @@ public class GaixiaMobEffect extends MobEffect {
 
     @Mod.EventBusSubscriber
     public static class GaixiaPotion{
-        /*Éú³Éğ¤Òº·½¿é*/
+        /*ç”Ÿæˆé»æ¶²æ–¹å—*/
         @SubscribeEvent
         public static void onAttackEntity(LivingHurtEvent event){
             LivingEntity target = event.getEntity();
@@ -36,7 +36,7 @@ public class GaixiaMobEffect extends MobEffect {
                 }
             }
         }
-        /*È¡Ïû¹¥»÷»÷ÍË*/
+        /*å–æ¶ˆæ”»å‡»å‡»é€€*/
         @SubscribeEvent
         public static void onKnockBack(LivingKnockBackEvent event){
             LivingEntity lastAttacker = event.getEntity().getLastAttacker();
