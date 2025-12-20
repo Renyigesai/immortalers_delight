@@ -1,0 +1,748 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+deleted file mode 100644
+--- a/.idea/workspace.xml	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
++++ /dev/null	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
+@@ -1,662 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AutoImportSettings">
+-    <option name="autoReloadType" value="SELECTIVE" />
+-  </component>
+-  <component name="ChangeListManager">
+-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="更新了灾厄匕首的贴图">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/animation/SurveyorFangAnimation.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/AlfalfaDababaModel.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/EffectCloudModel.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/HugeSmokeParticleModel.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/SurveyorFangModel.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model_layers/EffectCloudOutLayer.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/particle/HugeSmokeParticle.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/projectile/EffectCloudBaseRenderer.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/projectile/SurveyorFangRenderer.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/special_item/ItemTESRenderer.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/PercussionProber.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/Dynamite.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/EffectCloudBaseEntity.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/SurveyorFang.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/ImmortalersShieldItem.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/Config.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/ScavengerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/ScavengerRenderer.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/EntityNbtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/EntityNbtHelper.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/Pathfinder.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/Scavenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/Scavenger.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/SkelverfishEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/SkelverfishEventHelper.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntities.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntityAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntityAttributes.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticleTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticleTypes.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticles.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/BoneKnifeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/BoneKnifeItem.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/VulnerableMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/VulnerableMobEffect.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/leisamboo_tea_cake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/leisamboo_tea_cake.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/nether_bread_cream_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/nether_bread_cream_soup.json" afterDir="false" />
+-    </list>
+-    <list id="8d90579c-bef5-4080-82d3-cd6bba24b11e" name="找回一些我们需要的" comment="找回一些我们需要的" />
+-    <option name="SHOW_DIALOG" value="false" />
+-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-    <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="ExternalProjectsData">
+-    <projectState path="$PROJECT_DIR$">
+-      <ProjectState />
+-    </projectState>
+-  </component>
+-  <component name="ExternalProjectsManager">
+-    <system id="GRADLE">
+-      <state>
+-        <task path="$PROJECT_DIR$">
+-          <activation />
+-        </task>
+-        <projects_view>
+-          <tree_state>
+-            <expand>
+-              <path>
+-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+-                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+-              </path>
+-              <path>
+-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+-                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+-                <item name="运行配置" type="7b0102dc:RunConfigurationsNode" />
+-              </path>
+-            </expand>
+-            <select />
+-          </tree_state>
+-        </projects_view>
+-      </state>
+-    </system>
+-  </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Interface" />
+-        <option value="Class" />
+-      </list>
+-    </option>
+-  </component>
+-  <component name="Git.Settings">
+-    <favorite-branches>
+-      <branch-storage>
+-        <map>
+-          <entry type="REMOTE">
+-            <value>
+-              <list>
+-                <branch-info repo="$PROJECT_DIR$" source="origin/temp" />
+-              </list>
+-            </value>
+-          </entry>
+-        </map>
+-      </branch-storage>
+-    </favorite-branches>
+-    <option name="PREVIOUS_COMMIT_AUTHORS">
+-      <list>
+-        <option value="Renyigesai &lt;2907654918@qq.com&gt;" />
+-      </list>
+-    </option>
+-    <option name="PUSH_TAGS">
+-      <GitPushTagMode>
+-        <option name="argument" value="--follow-tags" />
+-        <option name="title" value="Current Branch" />
+-      </GitPushTagMode>
+-    </option>
+-    <option name="RECENT_BRANCH_BY_REPOSITORY">
+-      <map>
+-        <entry key="$PROJECT_DIR$" value="temp" />
+-      </map>
+-    </option>
+-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-    <option name="RESET_MODE" value="HARD" />
+-  </component>
+-  <component name="HighlightingSettingsPerFile">
+-    <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/client/animation/AnimationDefinition.java" root0="SKIP_INSPECTION" />
+-    <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/client/animation/definitions/WardenAnimation.java" root0="SKIP_INSPECTION" />
+-    <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/client/model/WardenModel.java" root0="SKIP_INSPECTION" />
+-    <setting file="jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/entity/monster/warden/Warden.java" root0="SKIP_INSPECTION" />
+-    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.1.0/fa3a353b05f516c12555b25a97f8dcc40067cece/fmlcore-1.20.1-47.1.0-sources.jar!/net/minecraftforge/fml/ModList.java" root0="SKIP_INSPECTION" />
+-  </component>
+-  <component name="ProblemsViewState">
+-    <option name="selectedTabId" value="CurrentFile" />
+-  </component>
+-  <component name="ProjectId" id="2sbynfIcTsQtMkyAvIFMT8tU3xu" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+-  <component name="ProjectViewState">
+-    <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showLibraryContents" value="true" />
+-  </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;F:/IDF/Portable-Craft-1.18.2-forge&quot;,
+-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
+-  }
+-}</component>
+-  <component name="RecentsManager">
+-    <key name="CopyFile.RECENT_KEYS">
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\block" />
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\entity" />
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\entity\renderer" />
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\init" />
+-    </key>
+-    <key name="MoveFile.RECENT_KEYS">
+-      <recent name="F:\IDF\Imm Delight\src\main\java\com\renyigesai\immortalers_delight\client\model" />
+-    </key>
+-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+-      <recent name="com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team" />
+-      <recent name="com.renyigesai.immortalers_delight.client.renderer" />
+-      <recent name="com.renyigesai.immortalers_delight.util" />
+-      <recent name="com.renyigesai.immortalers_delight.potion" />
+-      <recent name="com.renyigesai.immortalers_delight.entities.boat" />
+-    </key>
+-    <key name="CopyClassDialog.RECENTS_KEY">
+-      <recent name="com.renyigesai.immortalers_delight.client.renderer.entity" />
+-      <recent name="com.renyigesai.immortalers_delight.potion.immortaleffects" />
+-      <recent name="com.renyigesai.immortalers_delight.potion" />
+-      <recent name="com.renyigesai.immortalers_delight.client.particle" />
+-      <recent name="com.renyigesai.immortalers_delight.util.datautil.worlddata" />
+-    </key>
+-  </component>
+-  <component name="RunManager" selected="Gradle.Imm Delight [runClient]">
+-    <configuration name="Imm Delight [prepareRunClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+-      <ExternalSystemSettings>
+-        <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="externalSystemIdString" value="GRADLE" />
+-        <option name="scriptParameters" />
+-        <option name="taskDescriptions">
+-          <list />
+-        </option>
+-        <option name="taskNames">
+-          <list>
+-            <option value="prepareRunClient" />
+-          </list>
+-        </option>
+-        <option name="vmOptions" />
+-      </ExternalSystemSettings>
+-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+-      <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>false</ForceTestExec>
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="Imm Delight [runClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+-      <ExternalSystemSettings>
+-        <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="externalSystemIdString" value="GRADLE" />
+-        <option name="scriptParameters" />
+-        <option name="taskDescriptions">
+-          <list />
+-        </option>
+-        <option name="taskNames">
+-          <list>
+-            <option value="runClient" />
+-          </list>
+-        </option>
+-        <option name="vmOptions" />
+-      </ExternalSystemSettings>
+-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+-      <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>false</ForceTestExec>
+-      <method v="2" />
+-    </configuration>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="Gradle.Imm Delight [runClient]" />
+-        <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
+-        <item itemvalue="Gradle.Imm Delight [runClient]" />
+-        <item itemvalue="Gradle.Imm Delight [prepareRunClient]" />
+-        <item itemvalue="Gradle.Imm Delight [runClient]" />
+-      </list>
+-    </recent_temporary>
+-  </component>
+-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+-  <component name="TaskManager">
+-    <task active="true" id="Default" summary="默认任务">
+-      <changelist id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="" />
+-      <created>1738738736186</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1738738736186</updated>
+-    </task>
+-    <task id="LOCAL-00015" summary="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品">
+-      <created>1740917787409</created>
+-      <option name="number" value="00015" />
+-      <option name="presentableId" value="LOCAL-00015" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1740917787409</updated>
+-    </task>
+-    <task id="LOCAL-00016" summary="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品">
+-      <created>1740917816498</created>
+-      <option name="number" value="00016" />
+-      <option name="presentableId" value="LOCAL-00016" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1740917816498</updated>
+-    </task>
+-    <task id="LOCAL-00017" summary="修复了一点bug">
+-      <created>1740927432876</created>
+-      <option name="number" value="00017" />
+-      <option name="presentableId" value="LOCAL-00017" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1740927432876</updated>
+-    </task>
+-    <task id="LOCAL-00018" summary="修复了一点bug">
+-      <created>1740927443229</created>
+-      <option name="number" value="00018" />
+-      <option name="presentableId" value="LOCAL-00018" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1740927443229</updated>
+-    </task>
+-    <task id="LOCAL-00019" summary="修复了一点bug">
+-      <created>1741169829606</created>
+-      <option name="number" value="00019" />
+-      <option name="presentableId" value="LOCAL-00019" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1741169829607</updated>
+-    </task>
+-    <task id="LOCAL-00020" summary="修复了一点bug">
+-      <created>1743348754089</created>
+-      <option name="number" value="00020" />
+-      <option name="presentableId" value="LOCAL-00020" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743348754089</updated>
+-    </task>
+-    <task id="LOCAL-00021" summary="修复了一点bug">
+-      <created>1743349899434</created>
+-      <option name="number" value="00021" />
+-      <option name="presentableId" value="LOCAL-00021" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743349899434</updated>
+-    </task>
+-    <task id="LOCAL-00022" summary="修复了一点bug">
+-      <created>1743349977659</created>
+-      <option name="number" value="00022" />
+-      <option name="presentableId" value="LOCAL-00022" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743349977659</updated>
+-    </task>
+-    <task id="LOCAL-00023" summary="修复了一点bug">
+-      <created>1743350371174</created>
+-      <option name="number" value="00023" />
+-      <option name="presentableId" value="LOCAL-00023" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743350371174</updated>
+-    </task>
+-    <task id="LOCAL-00024" summary="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果">
+-      <created>1743350649941</created>
+-      <option name="number" value="00024" />
+-      <option name="presentableId" value="LOCAL-00024" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743350649941</updated>
+-    </task>
+-    <task id="LOCAL-00025" summary="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果">
+-      <created>1743350748030</created>
+-      <option name="number" value="00025" />
+-      <option name="presentableId" value="LOCAL-00025" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743350748030</updated>
+-    </task>
+-    <task id="LOCAL-00026" summary="补充了醇厚buff的汉化，调整了瓦斯毒和渊毒抵抗派生buff的持续时间。这也是测试提交，因为之前的多次提交显示被拒但在本地依然更新为已提交的白色状态。">
+-      <created>1743359438892</created>
+-      <option name="number" value="00026" />
+-      <option name="presentableId" value="LOCAL-00026" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743359438892</updated>
+-    </task>
+-    <task id="LOCAL-00027" summary="补充了醇厚buff的汉化，调整了瓦斯毒和渊毒抵抗派生buff的持续时间。这也是测试提交，因为之前的多次提交显示被拒但在本地依然更新为已提交的白色状态。">
+-      <created>1743359813068</created>
+-      <option name="number" value="00027" />
+-      <option name="presentableId" value="LOCAL-00027" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743359813068</updated>
+-    </task>
+-    <task id="LOCAL-00028" summary="Merge remote-tracking branch 'origin/temp' into temp&#10;这是最新一次测试提交&#10;我认为本地应该没有缺什么内容了，但是仍无法提交&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java">
+-      <created>1743389153008</created>
+-      <option name="number" value="00028" />
+-      <option name="presentableId" value="LOCAL-00028" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743389153008</updated>
+-    </task>
+-    <task id="LOCAL-00029" summary="Merge remote-tracking branch 'origin/temp' into temp&#10;这是最新一次测试提交&#10;我认为本地应该没有缺什么内容了，但是仍无法提交&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java">
+-      <created>1743390528295</created>
+-      <option name="number" value="00029" />
+-      <option name="presentableId" value="LOCAL-00029" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743390528295</updated>
+-    </task>
+-    <task id="LOCAL-00030" summary="Merge remote-tracking branch 'origin/temp' into temp&#10;这是最新一次测试提交&#10;我认为本地应该没有缺什么内容了，但是仍无法提交&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java">
+-      <created>1743390575451</created>
+-      <option name="number" value="00030" />
+-      <option name="presentableId" value="LOCAL-00030" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1743390575451</updated>
+-    </task>
+-    <task id="LOCAL-00031" summary="修复了酒持续时长bug、文化底蕴卡附魔台等级bug">
+-      <created>1744993460380</created>
+-      <option name="number" value="00031" />
+-      <option name="presentableId" value="LOCAL-00031" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1744993460380</updated>
+-    </task>
+-    <task id="LOCAL-00032" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1746021689781</created>
+-      <option name="number" value="00032" />
+-      <option name="presentableId" value="LOCAL-00032" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746021689781</updated>
+-    </task>
+-    <task id="LOCAL-00033" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1746021736066</created>
+-      <option name="number" value="00033" />
+-      <option name="presentableId" value="LOCAL-00033" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746021736066</updated>
+-    </task>
+-    <task id="LOCAL-00034" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1746021812355</created>
+-      <option name="number" value="00034" />
+-      <option name="presentableId" value="LOCAL-00034" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746021812355</updated>
+-    </task>
+-    <task id="LOCAL-00035" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;1.0.5&#10;修复了饮品无法在满饱食度时引用的bug&#10;修复了酒品效果时间异常的bug，修正了醉梦姬、炉红茶、冰红茶、棱珠奶茶效果错误的bug&#10;添加了新食物大红包子、红恶魔蛋糕切片与方块食物红恶魔蛋糕&#10;添加了古代木材质的装饰方块、泥砖材质的装饰方块&#10;添加了地牢工具箱的第一部分：尖刺方块、尖刺栅栏、尖刺陷阱&#10;添加了虫蚀的沙子、砂砾">
+-      <created>1746086236361</created>
+-      <option name="number" value="00035" />
+-      <option name="presentableId" value="LOCAL-00035" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746086236361</updated>
+-    </task>
+-    <task id="LOCAL-00036" summary="修复了文化底蕴卡附魔台等级的bug补充了文化底蕴、破釜、俭省、生机的buff图标">
+-      <created>1746211350562</created>
+-      <option name="number" value="00036" />
+-      <option name="presentableId" value="LOCAL-00036" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746211350562</updated>
+-    </task>
+-    <task id="LOCAL-00037" summary="修复了棱蕉嫁接bug、调整了棱蕉相关物品">
+-      <created>1746268870076</created>
+-      <option name="number" value="00037" />
+-      <option name="presentableId" value="LOCAL-00037" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1746268870076</updated>
+-    </task>
+-    <task id="LOCAL-00038" summary="修复了棱蕉嫁接bug、调整了棱蕉相关物品、调整了姬海棠相关物品、调整了玉黍相关物品、修复了后台大量信息bug、修复了莫名其妙无法解除buff的bug、修复了酩酊和瓦斯毒无限叠加伤害的bug、修复了客户端幽灵buff的bug、修复了酸奶等合成表带有空tag的bug、修复了棱蕉茎叶、棱蕉捆不合理放置方式的bug、添加了新药水效果：丰茂、茶韵、补益、凉爽、渊默、洪荒之力。为暂无对应buff的数个食物补充了buff。重置了所有正面效果与酩酊、瓦斯毒的具体效果。添加了游戏设定：超凡模式（启用适配RPG游戏的数值设计）添加了游戏设定：修书">
+-      <created>1748684355890</created>
+-      <option name="number" value="00038" />
+-      <option name="presentableId" value="LOCAL-00038" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1748684355890</updated>
+-    </task>
+-    <task id="LOCAL-00039" summary="修复了棱蕉嫁接bug、调整了棱蕉相关物品、调整了姬海棠相关物品、调整了玉黍相关物品、修复了后台大量信息bug、修复了莫名其妙无法解除buff的bug、修复了酩酊和瓦斯毒无限叠加伤害的bug、修复了客户端幽灵buff的bug、修复了酸奶等合成表带有空tag的bug、修复了棱蕉茎叶、棱蕉捆不合理放置方式的bug、添加了新药水效果：丰茂、茶韵、补益、凉爽、渊默、洪荒之力。为暂无对应buff的数个食物补充了buff。重置了所有正面效果与酩酊、瓦斯毒的具体效果。添加了游戏设定：超凡模式（启用适配RPG游戏的数值设计）添加了游戏设定：修书（以一定概率提升附魔书的附魔等级）">
+-      <created>1748684500152</created>
+-      <option name="number" value="00039" />
+-      <option name="presentableId" value="LOCAL-00039" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1748684500152</updated>
+-    </task>
+-    <task id="LOCAL-00040" summary="新增食物：辛莱佳朵、樱花棱蕉茶、伶人露、水果茶、棱珠牛奶、玉米硬糖、巧乐风、热带旋风、姬海糖。调整了大部分食物的属性。修复了黄昏冰淇淋吞碗的错误配方、更新了泥砖类方块贴图、红魔鬼蛋糕贴图">
+-      <created>1748754915367</created>
+-      <option name="number" value="00040" />
+-      <option name="presentableId" value="LOCAL-00040" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1748754915368</updated>
+-    </task>
+-    <task id="LOCAL-00041" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1748755001801</created>
+-      <option name="number" value="00041" />
+-      <option name="presentableId" value="LOCAL-00041" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1748755001801</updated>
+-    </task>
+-    <task id="LOCAL-00042" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1749650576083</created>
+-      <option name="number" value="00042" />
+-      <option name="presentableId" value="LOCAL-00042" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1749650576084</updated>
+-    </task>
+-    <task id="LOCAL-00043" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1749905884367</created>
+-      <option name="number" value="00043" />
+-      <option name="presentableId" value="LOCAL-00043" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1749905884367</updated>
+-    </task>
+-    <task id="LOCAL-00044" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1751679446896</created>
+-      <option name="number" value="00044" />
+-      <option name="presentableId" value="LOCAL-00044" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1751679446896</updated>
+-    </task>
+-    <task id="LOCAL-00045" summary="为棱蕉木与古代木补充了船只；添加了古代大船与达运输船；添加了吸引嗅探兽的香囊；添加了新结构：生生不息的樱花树用于稳定获取嗅探兽蛋&#10;修复了超凡模式串存档生效的bug；修复了溪竹植株没有对应破坏工具的bug；修复了1.0.7以来新增物品英文缺失的bug&#10;调整了溪竹的碰撞箱以免过大不便收割；调整结构：平原废墟的方块组成与战利品表，其定位修改为获取古代木与碰运气开蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1751680062678</created>
+-      <option name="number" value="00045" />
+-      <option name="presentableId" value="LOCAL-00045" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1751680062678</updated>
+-    </task>
+-    <task id="LOCAL-00046" summary="修复了姬海棠运输船贴图错误的bug，修复了船名称错误的bug，修复了姬海棠木和古木无法在砧板剥皮的bug，调整了香囊、红楼冰淇淋、巧乐风的合成，添加了蠹虫类生物的怪物蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1751720951326</created>
+-      <option name="number" value="00046" />
+-      <option name="presentableId" value="LOCAL-00046" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1751720951326</updated>
+-    </task>
+-    <task id="LOCAL-00047" summary="修复了姬海棠运输船贴图错误的bug，修复了船名称错误的bug，修复了姬海棠木和古木无法在砧板剥皮的bug，调整了香囊、红楼冰淇淋、巧乐风的合成，添加了蠹虫类生物的怪物蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1751720957837</created>
+-      <option name="number" value="00047" />
+-      <option name="presentableId" value="LOCAL-00047" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1751720957837</updated>
+-    </task>
+-    <task id="LOCAL-00048" summary="修复了姬海棠运输船贴图错误的bug，修复了船名称错误的bug，修复了姬海棠木和古木无法在砧板剥皮的bug，调整了香囊、红楼冰淇淋、巧乐风的合成，添加了蠹虫类生物的怪物蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752370894350</created>
+-      <option name="number" value="00048" />
+-      <option name="presentableId" value="LOCAL-00048" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752370894350</updated>
+-    </task>
+-    <task id="LOCAL-00049" summary="修复了姬海棠运输船贴图错误的bug，修复了船名称错误的bug，修复了姬海棠木和古木无法在砧板剥皮的bug，调整了香囊、红楼冰淇淋、巧乐风的合成，添加了蠹虫类生物的怪物蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752413768942</created>
+-      <option name="number" value="00049" />
+-      <option name="presentableId" value="LOCAL-00049" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752413768942</updated>
+-    </task>
+-    <task id="LOCAL-00050" summary="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752827093031</created>
+-      <option name="number" value="00050" />
+-      <option name="presentableId" value="LOCAL-00050" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752827093031</updated>
+-    </task>
+-    <task id="LOCAL-00051" summary="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；下调了樱花树遗迹战利品表的收益&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752827244941</created>
+-      <option name="number" value="00051" />
+-      <option name="presentableId" value="LOCAL-00051" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752827244941</updated>
+-    </task>
+-    <task id="LOCAL-00052" summary="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；下调了樱花树遗迹战利品表的收益&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752827274272</created>
+-      <option name="number" value="00052" />
+-      <option name="presentableId" value="LOCAL-00052" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752827274272</updated>
+-    </task>
+-    <task id="LOCAL-00053" summary="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；下调了樱花树遗迹战利品表的收益&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752827360204</created>
+-      <option name="number" value="00053" />
+-      <option name="presentableId" value="LOCAL-00053" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752827360204</updated>
+-    </task>
+-    <task id="LOCAL-00054" summary="调整香囊为耐久物，再次上调樱花树遗迹的战利品，修复了嗅探兽刷毛粒子不显示的bug&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752914550979</created>
+-      <option name="number" value="00054" />
+-      <option name="presentableId" value="LOCAL-00054" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752914550979</updated>
+-    </task>
+-    <task id="LOCAL-00055" summary="调整香囊为耐久物，再次上调樱花树遗迹的战利品，修复了嗅探兽刷毛粒子不显示的bug&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752914578121</created>
+-      <option name="number" value="00055" />
+-      <option name="presentableId" value="LOCAL-00055" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752914578121</updated>
+-    </task>
+-    <task id="LOCAL-00056" summary="调整香囊为耐久物，再次上调樱花树遗迹的战利品，修复了嗅探兽刷毛粒子不显示的bug&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752917529118</created>
+-      <option name="number" value="00056" />
+-      <option name="presentableId" value="LOCAL-00056" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752917529118</updated>
+-    </task>
+-    <task id="LOCAL-00057" summary="修复了金吐司切片的特殊效果不生效的bug。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752917559161</created>
+-      <option name="number" value="00057" />
+-      <option name="presentableId" value="LOCAL-00057" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752917559161</updated>
+-    </task>
+-    <task id="LOCAL-00058" summary="修复了金吐司切片的特殊效果不生效的bug。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1752917570604</created>
+-      <option name="number" value="00058" />
+-      <option name="presentableId" value="LOCAL-00058" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1752917570604</updated>
+-    </task>
+-    <task id="LOCAL-00059" summary="这是一个未完成的提交，但我们确保可以进入游戏。我们请到了外援。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1754839409920</created>
+-      <option name="number" value="00059" />
+-      <option name="presentableId" value="LOCAL-00059" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1754839409920</updated>
+-    </task>
+-    <task id="LOCAL-00060" summary="这是一个未完成的提交，但我们确保可以进入游戏。我们请到了外援。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1754839429295</created>
+-      <option name="number" value="00060" />
+-      <option name="presentableId" value="LOCAL-00060" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1754839429295</updated>
+-    </task>
+-    <task id="LOCAL-00061" summary="这是一个未完成的提交，但我们确保可以进入游戏。我们请到了外援。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png">
+-      <created>1754839547151</created>
+-      <option name="number" value="00061" />
+-      <option name="presentableId" value="LOCAL-00061" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1754839547151</updated>
+-    </task>
+-    <task id="LOCAL-00062" summary="Merge remote-tracking branch 'origin/master'">
+-      <created>1763793775313</created>
+-      <option name="number" value="00062" />
+-      <option name="presentableId" value="LOCAL-00062" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1763793775314</updated>
+-    </task>
+-    <task id="LOCAL-00063" summary="更新了灾厄匕首的贴图">
+-      <created>1763798273801</created>
+-      <option name="number" value="00063" />
+-      <option name="presentableId" value="LOCAL-00063" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1763798273802</updated>
+-    </task>
+-    <option name="localTasksCounter" value="64" />
+-    <servers />
+-  </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="微调成就" />
+-    <MESSAGE value="Merge remote-tracking branch 'origin/master'微调成就" />
+-    <MESSAGE value="完成了持续状态效果，添加了弱毒、弱凋零、回味的显血。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例" />
+-    <MESSAGE value="添加了效果破釜、节食、酒精、燃起来了、文化底蕴。修复了修复减伤buff崩溃问题之后减伤无效的bug。添加了瓦斯麦物品作为“添加持续状态”的范例，添加了清水伏特加作为“为其他生物添加持续状态”的范例，添加了口罩装备作为移除持续状态的范例，添加了嗅探兽肉与相关制品" />
+-    <MESSAGE value="修复了一点bug" />
+-    <MESSAGE value="修复了奇迹转换bug，修正了错误声明的（普通）金姬海棠果、一众酒品的物品类，修复了船崩溃bug，添加了箱船，添加了效果“醇厚”，修复了茶品返还竹杯的bug并补充了效果" />
+-    <MESSAGE value="补充了醇厚buff的汉化，调整了瓦斯毒和渊毒抵抗派生buff的持续时间。这也是测试提交，因为之前的多次提交显示被拒但在本地依然更新为已提交的白色状态。" />
+-    <MESSAGE value="Merge remote-tracking branch 'origin/temp' into temp&#10;这是最新一次测试提交&#10;我认为本地应该没有缺什么内容了，但是仍无法提交&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightItems.java" />
+-    <MESSAGE value="修复了酒持续时长bug、文化底蕴卡附魔台等级bug" />
+-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;1.0.5&#10;修复了饮品无法在满饱食度时引用的bug&#10;修复了酒品效果时间异常的bug，修正了醉梦姬、炉红茶、冰红茶、棱珠奶茶效果错误的bug&#10;添加了新食物大红包子、红恶魔蛋糕切片与方块食物红恶魔蛋糕&#10;添加了古代木材质的装饰方块、泥砖材质的装饰方块&#10;添加了地牢工具箱的第一部分：尖刺方块、尖刺栅栏、尖刺陷阱&#10;添加了虫蚀的沙子、砂砾" />
+-    <MESSAGE value="修复了文化底蕴卡附魔台等级的bug补充了文化底蕴、破釜、俭省、生机的buff图标" />
+-    <MESSAGE value="棱蕉捆现在不再对骨粉催熟做出响应&#10;现在使用骨粉右键最下方的棱蕉茎可以对上方的棱蕉捆进行催熟（支持沃土）&#10;棱蕉茎现在每次生长仅产生一个而不是四个棱蕉捆&#10;棱蕉捆在创造模式下才可以放置，以便于造景&#10;修复了棱蕉的生长判定始终为true的问题，棱蕉现在需要和其他主世界作物一样判断光照且需要在上方一格有带叶棱蕉茎方块&#10;修复了溪竹茶饼无效果无配方的问题，添加了其食物属性与配方&#10;调整了棱蕉、棱珠、椒香蒸蛋、蕉冻、巧克力蕉棒、棱蕉果冻、棱蕉派切片、热带沙拉、棱蕉南瓜饼的属性；&#10;修复了俭省、破釜、文化底蕴、食偿buff贴图缺失的问题，将食偿效果更名为丰裕效果并添加获取方式。" />
+-    <MESSAGE value="修复了棱蕉嫁接bug、调整了棱蕉相关物品" />
+-    <MESSAGE value="修复了棱蕉嫁接bug、调整了棱蕉相关物品、调整了姬海棠相关物品、调整了玉黍相关物品、修复了后台大量信息bug、修复了莫名其妙无法解除buff的bug、修复了酩酊和瓦斯毒无限叠加伤害的bug、修复了客户端幽灵buff的bug、修复了酸奶等合成表带有空tag的bug、修复了棱蕉茎叶、棱蕉捆不合理放置方式的bug、添加了新药水效果：丰茂、茶韵、补益、凉爽、渊默、洪荒之力。为暂无对应buff的数个食物补充了buff。重置了所有正面效果与酩酊、瓦斯毒的具体效果。添加了游戏设定：超凡模式（启用适配RPG游戏的数值设计）添加了游戏设定：修书" />
+-    <MESSAGE value="修复了棱蕉嫁接bug、调整了棱蕉相关物品、调整了姬海棠相关物品、调整了玉黍相关物品、修复了后台大量信息bug、修复了莫名其妙无法解除buff的bug、修复了酩酊和瓦斯毒无限叠加伤害的bug、修复了客户端幽灵buff的bug、修复了酸奶等合成表带有空tag的bug、修复了棱蕉茎叶、棱蕉捆不合理放置方式的bug、添加了新药水效果：丰茂、茶韵、补益、凉爽、渊默、洪荒之力。为暂无对应buff的数个食物补充了buff。重置了所有正面效果与酩酊、瓦斯毒的具体效果。添加了游戏设定：超凡模式（启用适配RPG游戏的数值设计）添加了游戏设定：修书（以一定概率提升附魔书的附魔等级）" />
+-    <MESSAGE value="新增食物：辛莱佳朵、樱花棱蕉茶、伶人露、水果茶、棱珠牛奶、玉米硬糖、巧乐风、热带旋风、姬海糖。调整了大部分食物的属性。修复了黄昏冰淇淋吞碗的错误配方、更新了泥砖类方块贴图、红魔鬼蛋糕贴图" />
+-    <MESSAGE value="为棱蕉木与古代木补充了船只；添加了古代大船与达运输船；添加了吸引嗅探兽的香囊；添加了新结构：生生不息的樱花树用于稳定获取嗅探兽蛋&#10;修复了超凡模式串存档生效的bug；修复了溪竹植株没有对应破坏工具的bug；修复了1.0.7以来新增物品英文缺失的bug&#10;调整了溪竹的碰撞箱以免过大不便收割；调整结构：平原废墟的方块组成与战利品表，其定位修改为获取古代木与碰运气开蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="修复了姬海棠运输船贴图错误的bug，修复了船名称错误的bug，修复了姬海棠木和古木无法在砧板剥皮的bug，调整了香囊、红楼冰淇淋、巧乐风的合成，添加了蠹虫类生物的怪物蛋&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="添加了古代刀、猪灵踊、金瓦斯麦面包与切片、古代口粮；添加了上宾buff；修复了古船吞物品的bug；调整百分比伤害为非超凡模式下仍设上限；修复了香囊合成表无法获取全部材料的bug；添加了新工具tag千古刀，并给所有使用刀的砧板配方添加了使用千古刀的版本；下调了樱花树遗迹战利品表的收益&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="调整香囊为耐久物，再次上调樱花树遗迹的战利品，修复了嗅探兽刷毛粒子不显示的bug&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="修复了金吐司切片的特殊效果不生效的bug。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="这是一个未完成的提交，但我们确保可以进入游戏。我们请到了外援。flicts:&#10;#&#9;src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightFoodProperties.java&#10;#&#9;src/main/resources/assets/immortalers_delight/lang/zh_cn.json&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/baked_poisonous_potato.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/dipped_rotten_flesh.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/himekaido_jelly.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/sniffer_hide.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stewed_rotten_meat_pot.png&#10;#&#9;src/main/resources/assets/immortalers_delight/textures/item/stuffed_poisonous_potato.png" />
+-    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
+-    <MESSAGE value="更新了灾厄匕首的贴图" />
+-    <option name="LAST_COMMIT_MESSAGE" value="更新了灾厄匕首的贴图" />
+-  </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" type="java-field">
+-          <url>jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/level/block/CocoaBlock.java</url>
+-          <line>23</line>
+-          <properties field="MAX_AGE" class="net.minecraft.world.level.block.CocoaBlock" />
+-          <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-field">
+-          <url>jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/entity/ai/behavior/CrossbowAttack.java</url>
+-          <line>15</line>
+-          <properties field="TIMEOUT" class="net.minecraft.world.entity.ai.behavior.CrossbowAttack" />
+-          <option name="timeStamp" value="2" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/level/block/BedBlock.java</url>
+-          <line>60</line>
+-          <option name="timeStamp" value="3" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>jar://$USER_HOME$/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.0_mapped_parchment_2023.09.03-1.20.1-sources.jar!/net/minecraft/world/entity/Mob.java</url>
+-          <line>191</line>
+-          <option name="timeStamp" value="4" />
+-        </line-breakpoint>
+-        <breakpoint enabled="true" type="java-exception">
+-          <properties class="java.lang.IllegalAccessException" package="java.lang" />
+-          <option name="timeStamp" value="5" />
+-        </breakpoint>
+-        <breakpoint enabled="true" type="java-exception">
+-          <properties class="java.lang.StackOverflowError" package="java.lang" />
+-          <option name="timeStamp" value="6" />
+-        </breakpoint>
+-        <breakpoint enabled="true" type="java-exception">
+-          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
+-          <option name="timeStamp" value="7" />
+-        </breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/modules/com.renyigesai.immortalers_delight.test.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module version=\"4\">\r\n  <component name=\"FacetManager\">\r\n    <facet type=\"minecraft\" name=\"Minecraft\">\r\n      <configuration>\r\n        <autoDetectTypes>\r\n          <platformType>FORGE</platformType>\r\n          <platformType>MIXIN</platformType>\r\n          <platformType>MCP</platformType>\r\n        </autoDetectTypes>\r\n        <projectReimportVersion>1</projectReimportVersion>\r\n      </configuration>\r\n    </facet>\r\n  </component>\r\n  <component name=\"McpModuleSettings\">\r\n    <option name=\"mappingFile\" value=\"D:\\immortalers_delight\\immortalers_delight\\build\\createMcpToSrg\\output.tsrg\" />\r\n    <option name=\"mcpVersion\" value=\"parchment_2023.09.03-1.20.1\" />\r\n    <option name=\"minecraftVersion\" value=\"1.20.1\" />\r\n    <option name=\"platformVersion\" value=\"47.1.0\" />\r\n    <option name=\"srgType\" value=\"TSRG\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules/com.renyigesai.immortalers_delight.test.iml b/.idea/modules/com.renyigesai.immortalers_delight.test.iml
+--- a/.idea/modules/com.renyigesai.immortalers_delight.test.iml	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
++++ b/.idea/modules/com.renyigesai.immortalers_delight.test.iml	(date 1766234264221)
+@@ -13,7 +13,7 @@
+     </facet>
+   </component>
+   <component name="McpModuleSettings">
+-    <option name="mappingFile" value="D:\immortalers_delight\immortalers_delight\build\createMcpToSrg\output.tsrg" />
++    <option name="mappingFile" value="F:\IDF\Imm Delight\build\createMcpToSrg\output.tsrg" />
+     <option name="mcpVersion" value="parchment_2023.09.03-1.20.1" />
+     <option name="minecraftVersion" value="1.20.1" />
+     <option name="platformVersion" value="47.1.0" />
+Index: src/generated/resources/assets/immortalers_delight/lang/zh_cn.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"advancements.immortalers_delight.all_resistance_effects.descr\": \"获得所有抵抗效果。\",\r\n  \"advancements.immortalers_delight.all_resistance_effects.title\": \"永不破防\",\r\n  \"advancements.immortalers_delight.crimson_clouds.descr\": \"在绯红森林获得不同寻常的小麦种子。\",\r\n  \"advancements.immortalers_delight.crimson_clouds.title\": \"绯红烟云\",\r\n  \"advancements.immortalers_delight.eat_alfalfa_porridge.descr\": \"食用一碗苜蓿七草粥。\",\r\n  \"advancements.immortalers_delight.eat_alfalfa_porridge.title\": \"长期素食导致的\",\r\n  \"advancements.immortalers_delight.eat_evolutcorn_hard_candy.descr\": \"吃下玉黍硬糖。可以发现在吃糖的过程中更不易受到伤害。\",\r\n  \"advancements.immortalers_delight.eat_evolutcorn_hard_candy.title\": \"搞笑角色\",\r\n  \"advancements.immortalers_delight.eat_iced_black_tea.descr\": \"喝下冰火茶。\",\r\n  \"advancements.immortalers_delight.eat_iced_black_tea.title\": \"考试必备\",\r\n  \"advancements.immortalers_delight.esteemed_guest.descr\": \"右键送出金瓦斯麦吐司。记住，在斗争中取胜的关键是——把朋友搞得多多的，把敌人搞得少少的。\",\r\n  \"advancements.immortalers_delight.esteemed_guest.title\": \"蛮族精兵，为我所用！\",\r\n  \"advancements.immortalers_delight.fog_lifting_movement.descr\": \"触碰瓦斯麦。\",\r\n  \"advancements.immortalers_delight.fog_lifting_movement.title\": \"扬雾运动\",\r\n  \"advancements.immortalers_delight.get_alfalfa_seeds.descr\": \"获得古苜蓿种子。\",\r\n  \"advancements.immortalers_delight.get_alfalfa_seeds.title\": \"草介之凡\",\r\n  \"advancements.immortalers_delight.get_double_ancient_blade.descr\": \"获得两把新硎古刀，然后切碎你的敌人。\",\r\n  \"advancements.immortalers_delight.get_double_ancient_blade.title\": \"死亡小桃？！\",\r\n  \"advancements.immortalers_delight.get_himekaido_trees.descr\": \"肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。\",\r\n  \"advancements.immortalers_delight.get_himekaido_trees.title\": \"拔苗助长\",\r\n  \"advancements.immortalers_delight.get_leisamboo_tea.descr\": \"获得溪竹茶。\",\r\n  \"advancements.immortalers_delight.get_leisamboo_tea.title\": \"小罐茶，大竹做\",\r\n  \"advancements.immortalers_delight.get_pearlip_rice_roll_boat.descr\": \"制作一个棱蕉寿司船。\",\r\n  \"advancements.immortalers_delight.get_pearlip_rice_roll_boat.title\": \"黄蕉时代将会再临！！\",\r\n  \"advancements.immortalers_delight.get_perfect_summer_ice.descr\": \"制作一个完美夏冰。\",\r\n  \"advancements.immortalers_delight.get_perfect_summer_ice.title\": \"咱是最强的！\",\r\n  \"advancements.immortalers_delight.get_pitcher_pod.descr\": \"获得瓶子草荚果。\",\r\n  \"advancements.immortalers_delight.get_pitcher_pod.title\": \"漠河琉璃\",\r\n  \"advancements.immortalers_delight.get_pitcher_pod_petal.descr\": \"获取瓶子草荚果瓣。\",\r\n  \"advancements.immortalers_delight.get_pitcher_pod_petal.title\": \"芝士芝士？\",\r\n  \"advancements.immortalers_delight.get_sniffer_fur.descr\": \"持续使用刷子为你的嗅探兽梳毛，然后清理你的宠物散落的毛发。\",\r\n  \"advancements.immortalers_delight.get_sniffer_fur.title\": \"毛茸茸的烦恼\",\r\n  \"advancements.immortalers_delight.get_stewed_rotten_meat_pot.descr\": \"纹饰虽美，但作为餐具，还是洁净更重要。\",\r\n  \"advancements.immortalers_delight.get_stewed_rotten_meat_pot.title\": \"注意卫生\",\r\n  \"advancements.immortalers_delight.get_torchflower_mustard.descr\": \"获得火火花芥末。\",\r\n  \"advancements.immortalers_delight.get_torchflower_mustard.title\": \"派对游戏常客\",\r\n  \"advancements.immortalers_delight.get_torchflower_seeds.descr\": \"获得火把花种子。\",\r\n  \"advancements.immortalers_delight.get_torchflower_seeds.title\": \"天火地起\",\r\n  \"advancements.immortalers_delight.get_warped_laurel.descr\": \"在诡异森林挖出带有奇香的果实种子。\",\r\n  \"advancements.immortalers_delight.get_warped_laurel.title\": \"醇香诡果\",\r\n  \"advancements.immortalers_delight.ice_extract.descr\": \"获得魔凝机。\",\r\n  \"advancements.immortalers_delight.ice_extract.title\": \"冷萃\",\r\n  \"advancements.immortalers_delight.immortalers_delight.descr\": \"远古之味，静待出土。\",\r\n  \"advancements.immortalers_delight.immortalers_delight.title\": \"千古乐事\",\r\n  \"advancements.immortalers_delight.incandescence_and_power.descr\": \"在拥有灼热效果的时候获得力量效果。\",\r\n  \"advancements.immortalers_delight.incandescence_and_power.title\": \"红温了\",\r\n  \"advancements.immortalers_delight.it_is_more_unusual_than_unusual_food_s_delight.descr\": \"原来千古乐事是千古以来最奇怪的乐事的意思吗？\",\r\n  \"advancements.immortalers_delight.it_is_more_unusual_than_unusual_food_s_delight.title\": \"这比奇食乐事更懂奇食\",\r\n  \"advancements.immortalers_delight.old_teahouse.descr\": \"放置树叶茶。\",\r\n  \"advancements.immortalers_delight.old_teahouse.title\": \"老茶馆\",\r\n  \"advancements.immortalers_delight.sniffer_move.descr\": \"利用谷物香囊加速嗅探兽移动。\",\r\n  \"advancements.immortalers_delight.sniffer_move.title\": \"嗅探兽,移动！\",\r\n  \"advancements.immortalers_delight.the_ability_to_trigger_miracles.descr\": \"获得金魔法果。\",\r\n  \"advancements.immortalers_delight.the_ability_to_trigger_miracles.title\": \"引发奇迹的能力！\",\r\n  \"advancements.immortalers_delight.the_eternal_flow.descr\": \"在河流获得含茶竹节。\",\r\n  \"advancements.immortalers_delight.the_eternal_flow.title\": \"千古一流\",\r\n  \"advancements.immortalers_delight.treow_meregrot.descr\": \"获得来自丛林的黑色宝珠。\",\r\n  \"advancements.immortalers_delight.treow_meregrot.title\": \"木上蚌珠\",\r\n  \"advancements.immortalers_delight.what_s_this_have_a_eat.descr\": \"吃下烤毒马铃薯。\",\r\n  \"advancements.immortalers_delight.what_s_this_have_a_eat.title\": \"这是什么？吃一下\",\r\n  \"advancements.immortalers_delight.wundor_forbodaeppel.descr\": \"获得来自森林的奇迹之籽。\",\r\n  \"advancements.immortalers_delight.wundor_forbodaeppel.title\": \"乐园禁果\",\r\n  \"block.immortalers_delight.alfalfa_block\": \"古苜蓿捆\",\r\n  \"block.immortalers_delight.ancient_stove\": \"远古炉灶\",\r\n  \"block.immortalers_delight.ancient_wood\": \"古木\",\r\n  \"block.immortalers_delight.ancient_wood_button\": \"古木按钮\",\r\n  \"block.immortalers_delight.ancient_wood_cabinet\": \"古木储物柜\",\r\n  \"block.immortalers_delight.ancient_wood_door\": \"古木门\",\r\n  \"block.immortalers_delight.ancient_wood_fence\": \"古木栅栏\",\r\n  \"block.immortalers_delight.ancient_wood_fence_gate\": \"古木栅栏门\",\r\n  \"block.immortalers_delight.ancient_wood_log\": \"古木原木\",\r\n  \"block.immortalers_delight.ancient_wood_planks\": \"古木木板\",\r\n  \"block.immortalers_delight.ancient_wood_pressure_plate\": \"古木压力板\",\r\n  \"block.immortalers_delight.ancient_wood_slab\": \"古木台阶\",\r\n  \"block.immortalers_delight.ancient_wood_stairs\": \"古木楼梯\",\r\n  \"block.immortalers_delight.ancient_wood_trapdoor\": \"古木活板门\",\r\n  \"block.immortalers_delight.braised_spider_eyes_block\": \"四眼丸子\",\r\n  \"block.immortalers_delight.cheese_melon_juice\": \"芝香瓜果汁\",\r\n  \"block.immortalers_delight.chiseled_mud_brick\": \"雕纹泥砖\",\r\n  \"block.immortalers_delight.cracked_mud_brick\": \"裂泥砖\",\r\n  \"block.immortalers_delight.cracked_mud_brick_slab\": \"裂泥砖台阶\",\r\n  \"block.immortalers_delight.cracked_mud_brick_stairs\": \"裂泥砖楼梯\",\r\n  \"block.immortalers_delight.cracked_mud_brick_wall\": \"裂泥砖墙\",\r\n  \"block.immortalers_delight.cracked_mud_tiles\": \"裂泥瓦\",\r\n  \"block.immortalers_delight.cracked_mud_tiles_slab\": \"裂泥瓦台阶\",\r\n  \"block.immortalers_delight.cracked_mud_tiles_stairs\": \"裂泥瓦楼梯\",\r\n  \"block.immortalers_delight.cracked_mud_tiles_wall\": \"裂泥瓦墙\",\r\n  \"block.immortalers_delight.enchantal_cooler\": \"魔凝机\",\r\n  \"block.immortalers_delight.evolutcorn_block\": \"白垩玉黍捆\",\r\n  \"block.immortalers_delight.evolutcorn_grain_bag\": \"白垩玉黍粒袋\",\r\n  \"block.immortalers_delight.exposed_ancient_stove\": \"风化远古炉灶\",\r\n  \"block.immortalers_delight.himekaido_button\": \"姬海棠木按钮\",\r\n  \"block.immortalers_delight.himekaido_cabinet\": \"姬海棠木橱柜\",\r\n  \"block.immortalers_delight.himekaido_crate\": \"箱装姬海棠\",\r\n  \"block.immortalers_delight.himekaido_door\": \"姬海棠木门\",\r\n  \"block.immortalers_delight.himekaido_fence\": \"姬海棠木栅栏\",\r\n  \"block.immortalers_delight.himekaido_fence_gate\": \"姬海棠木栅栏门\",\r\n  \"block.immortalers_delight.himekaido_flowering_leaves\": \"盛开的姬海棠叶\",\r\n  \"block.immortalers_delight.himekaido_fruited_leaves\": \"结果的姬海棠树叶叶\",\r\n  \"block.immortalers_delight.himekaido_hanging_sign\": \"姬海棠木悬挂告示牌\",\r\n  \"block.immortalers_delight.himekaido_leaves\": \"姬海棠树叶\",\r\n  \"block.immortalers_delight.himekaido_log\": \"姬海棠原木\",\r\n  \"block.immortalers_delight.himekaido_planks\": \"姬海棠木板\",\r\n  \"block.immortalers_delight.himekaido_pressure_plate\": \"姬海棠木压力板\",\r\n  \"block.immortalers_delight.himekaido_sign\": \"姬海棠木告示牌\",\r\n  \"block.immortalers_delight.himekaido_slab\": \"姬海棠木台阶\",\r\n  \"block.immortalers_delight.himekaido_stairs\": \"姬海棠木楼梯\",\r\n  \"block.immortalers_delight.himekaido_trapdoor\": \"姬海棠木活板门\",\r\n  \"block.immortalers_delight.himekaido_wood\": \"姬海棠木\",\r\n  \"block.immortalers_delight.himekaido_yogurt_pie\": \"姬海棠酸奶派\",\r\n  \"block.immortalers_delight.infested_gravel\": \"可疑的砂砾\",\r\n  \"block.immortalers_delight.infested_sand\": \"可疑的沙子\",\r\n  \"block.immortalers_delight.kwat_wheat_block\": \"瓦斯麦捆\",\r\n  \"block.immortalers_delight.leisamboo_block\": \"溪竹块\",\r\n  \"block.immortalers_delight.leisamboo_button\": \"溪竹按钮\",\r\n  \"block.immortalers_delight.leisamboo_cabinet\": \"溪竹橱柜\",\r\n  \"block.immortalers_delight.leisamboo_door\": \"溪竹门\",\r\n  \"block.immortalers_delight.leisamboo_fence\": \"溪竹栅栏\",\r\n  \"block.immortalers_delight.leisamboo_fence_gate\": \"溪竹栅栏门\",\r\n  \"block.immortalers_delight.leisamboo_hanging_sign\": \"溪竹悬挂告示牌\",\r\n  \"block.immortalers_delight.leisamboo_planks\": \"溪竹板\",\r\n  \"block.immortalers_delight.leisamboo_pressure_plate\": \"溪竹压力板\",\r\n  \"block.immortalers_delight.leisamboo_sign\": \"溪竹告示牌\",\r\n  \"block.immortalers_delight.leisamboo_slab\": \"溪竹台阶\",\r\n  \"block.immortalers_delight.leisamboo_stairs\": \"溪竹楼梯\",\r\n  \"block.immortalers_delight.leisamboo_trapdoor\": \"溪竹活板门\",\r\n  \"block.immortalers_delight.millenian_bamboo\": \"千年竹\",\r\n  \"block.immortalers_delight.mossy_mud_brick\": \"苔石砖\",\r\n  \"block.immortalers_delight.mossy_mud_brick_slab\": \"苔石砖台阶\",\r\n  \"block.immortalers_delight.mossy_mud_brick_stairs\": \"苔石砖楼梯\",\r\n  \"block.immortalers_delight.mossy_mud_brick_wall\": \"苔石砖墙\",\r\n  \"block.immortalers_delight.mud_tiles\": \"泥瓦\",\r\n  \"block.immortalers_delight.mud_tiles_slab\": \"台阶\",\r\n  \"block.immortalers_delight.mud_tiles_stairs\": \"泥瓦楼梯\",\r\n  \"block.immortalers_delight.mud_tiles_wall\": \"泥瓦墙\",\r\n  \"block.immortalers_delight.nether_bread_cream_soup\": \"下界奶油浓汤\",\r\n  \"block.immortalers_delight.oxidized_ancient_stove\": \"氧化远古炉灶\",\r\n  \"block.immortalers_delight.packed_mud_slab\": \"泥坯台阶\",\r\n  \"block.immortalers_delight.packed_mud_stairs\": \"泥坯楼梯\",\r\n  \"block.immortalers_delight.packed_mud_wall\": \"泥坯墙\",\r\n  \"block.immortalers_delight.pearlip_crate\": \"箱装棱蕉\",\r\n  \"block.immortalers_delight.pearlip_pie\": \"珍珠棱蕉派\",\r\n  \"block.immortalers_delight.pearlip_rice_roll_boat\": \"棱蕉寿司船\",\r\n  \"block.immortalers_delight.pearlip_shell_button\": \"棱蕉木按钮\",\r\n  \"block.immortalers_delight.pearlip_shell_cabinet\": \"棱蕉木橱柜\",\r\n  \"block.immortalers_delight.pearlip_shell_door\": \"棱蕉木门\",\r\n  \"block.immortalers_delight.pearlip_shell_fence\": \"棱蕉木栅栏\",\r\n  \"block.immortalers_delight.pearlip_shell_fence_gate\": \"棱蕉木栅栏门\",\r\n  \"block.immortalers_delight.pearlip_shell_hanging_sign\": \"棱蕉木悬挂告示牌\",\r\n  \"block.immortalers_delight.pearlip_shell_planks\": \"棱蕉木板\",\r\n  \"block.immortalers_delight.pearlip_shell_pressure_plate\": \"棱蕉木压力板\",\r\n  \"block.immortalers_delight.pearlip_shell_sign\": \"棱蕉木告示牌\",\r\n  \"block.immortalers_delight.pearlip_shell_slab\": \"棱蕉木台阶\",\r\n  \"block.immortalers_delight.pearlip_shell_stairs\": \"棱蕉木楼梯\",\r\n  \"block.immortalers_delight.pearlip_shell_trapdoor\": \"棱蕉木活板门\",\r\n  \"block.immortalers_delight.pitcher_plant_claypot_rice\": \"瓶子草煲仔饭饭\",\r\n  \"block.immortalers_delight.pod_shell_burger_meat\": \"荚壳汉堡肉\",\r\n  \"block.immortalers_delight.scarlet_devils_cake\": \"红魔鬼蛋糕\",\r\n  \"block.immortalers_delight.sniffer_fur_block\": \"嗅探兽毛块\",\r\n  \"block.immortalers_delight.sniffer_fur_full_tatami_mat\": \"嗅探兽长毛榻榻米\",\r\n  \"block.immortalers_delight.sniffer_fur_half_tatami_mat\": \"嗅探兽毛短榻榻米\",\r\n  \"block.immortalers_delight.sniffer_fur_tatami\": \"嗅探兽毛榻榻米方块\",\r\n  \"block.immortalers_delight.spike_bar_base\": \"尖刺栅栏\",\r\n  \"block.immortalers_delight.stewed_rotten_meat_pot\": \"瓦罐烂肉炖\",\r\n  \"block.immortalers_delight.stone_pot\": \"石锅\",\r\n  \"block.immortalers_delight.stripped_ancient_wood\": \"去皮古木\",\r\n  \"block.immortalers_delight.stripped_ancient_wood_log\": \"去皮古木原木\",\r\n  \"block.immortalers_delight.stripped_himekaido_log\": \"去皮姬海棠原木\",\r\n  \"block.immortalers_delight.stripped_himekaido_wood\": \"去皮姬海棠木\",\r\n  \"block.immortalers_delight.stripped_travastruggler_log\": \"去皮通天竹原木\",\r\n  \"block.immortalers_delight.trava_planks\": \"通天竹板\",\r\n  \"block.immortalers_delight.travastruggler_leaves\": \"通天竹叶\",\r\n  \"block.immortalers_delight.travastruggler_leaves_travarice\": \"结果通天竹叶\",\r\n  \"block.immortalers_delight.travastruggler_log\": \"通天竹原木\",\r\n  \"block.immortalers_delight.universal_chicken_soup\": \"天地有用\",\r\n  \"block.immortalers_delight.weathered_ancient_stove\": \"锈蚀远古炉灶\",\r\n  \"block.immortalers_delight.zea_pancake\": \"玉黎烙\",\r\n  \"container.immortalers_delight.enchantal_cooler\": \"魔凝机\",\r\n  \"creativetab_immortalers_delight_tab\": \"千古乐事\",\r\n  \"death.attack.drunk\": \"%1$s 醉倒在柏油路上\",\r\n  \"death.attack.drunk.item\": \"%1$ 被 %2$s 杀死 %3$s\",\r\n  \"death.attack.drunk.player\": \"%1$ 在试图逃跑时死亡 %2$s\",\r\n  \"death.attack.gas\": \"%1$s 被瓦斯毒气熏成了腊肉\",\r\n  \"death.attack.gas.item\": \"%1$ 被 %2$s 杀死 %3$s\",\r\n  \"death.attack.gas.player\": \"%1$ 在试图逃跑时死亡 %2$s\",\r\n  \"effect.immortalers_delight.burn_the_boats\": \"破釜\",\r\n  \"effect.immortalers_delight.burn_the_boats.description\": \"在生命值低于一定比例时，给予生物15秒力量III、迅捷III、急迫III、跳跃提升III、抗性提升III。使得生命条部分被盾牌与燃火的剑覆盖，覆盖的部分标记了触发该效果的生命值。超凡模式下，给予的效果等级进一步提升；遭受致命攻击时，可以消耗破釜效果免疫此次伤害。\",\r\n  \"effect.immortalers_delight.cool\": \"凉爽\",\r\n  \"effect.immortalers_delight.cool.description\": \"进食时可以获得或延长抗性提升效果。超凡模式下，获得额外减伤，若处于着火状态，减伤效果大幅度提升。\",\r\n  \"effect.immortalers_delight.cultural_legacy\": \"文化底蕴\",\r\n  \"effect.immortalers_delight.cultural_legacy.description\": \"手持附魔书时，消耗经验值累积进度。消耗1000点进度有几率提升附魔等级，可循环提升至原版最高等级。超凡模式下，附魔的等级上限提升至原版2倍。\",\r\n  \"effect.immortalers_delight.deepness\": \"渊默\",\r\n  \"effect.immortalers_delight.deepness.description\": \"受到伤害时给予攻击者虚弱效果。超凡模式下，获得额外减伤和生命恢复。\",\r\n  \"effect.immortalers_delight.effect.immortalers_delight.incandescence.description\": \"进食时可以获得或延长力量效果。超凡模式下，攻击能使敌人着火。\",\r\n  \"effect.immortalers_delight.esteemed_guest\": \"上宾\",\r\n  \"effect.immortalers_delight.esteemed_guest.description\": \"猪灵和猪灵蛮兵不会主动攻击。低生命值时受到攻击会消耗上宾效果召唤猪灵蛮兵帮助战斗。召唤的猪灵蛮兵免疫僵尸化。超凡模式下，召唤的猪灵蛮兵会自带下界合金斧、下界合金套。\",\r\n  \"effect.immortalers_delight.gaixia\": \"垓下\",\r\n  \"effect.immortalers_delight.gaixia.description\": \"攻击时在目标生物下生成黏液方块。\",\r\n  \"effect.immortalers_delight.gas_poison\": \"绯烬烈灼\",\r\n  \"effect.immortalers_delight.gas_poison.description\": \"不可被牛奶解除。每32tick强制减扣6%最大生命值并随机派生下列的一项效果：失明、反胃、虚弱、缓慢、饥饿。派生的效果也不可被牛奶解除。\",\r\n  \"effect.immortalers_delight.incandescence\": \"灼热\",\r\n  \"effect.immortalers_delight.inebriated\": \"酩酊\",\r\n  \"effect.immortalers_delight.inebriated.description\": \"不可被牛奶解除。在持续时长为3分钟以下时不生效。每64tick造成8%最大生命值的真实伤害并派生下列的所有效果：失明、反胃、虚弱、缓慢、弱中毒。派生的效果也不可被牛奶解除。\\n你知道吗：饮酒获得该效果会使得该效果的时间叠加而不是取最长，请节制饮酒。\",\r\n  \"effect.immortalers_delight.keep_a_fast\": \"俭省\",\r\n  \"effect.immortalers_delight.keep_a_fast.description\": \"获得该效果时将使得玩家的饥饿值与饱和度被压缩到原有值的一半，且持续期间饥饿值的消耗将降为［效果等级+1］分之一（与耐久附魔相似，不影响回复生命等行为）。在效果结束时使玩家的饥饿值与饱和度复原（翻倍），溢出的饥饿值与饱和度将回收以立即为玩家恢复生命。超凡模式下，会消耗饥饿值与饱和度恢复生命值。\",\r\n  \"effect.immortalers_delight.lingering_infusion\": \"茶韵\",\r\n  \"effect.immortalers_delight.lingering_infusion.description\": \"降低攻击伤害。高饥饿值时恢复生命值。超凡模式下，恢复量进一步提升。\",\r\n  \"effect.immortalers_delight.magical_reverse\": \"奇迹般的转变\",\r\n  \"effect.immortalers_delight.magical_reverse.description\": \"移除并尝试反转等级更低的负面效果（可通过配置文件自定义）。持续时间不会被延长。\",\r\n  \"effect.immortalers_delight.prehistoric_powers\": \"洪荒之力\",\r\n  \"effect.immortalers_delight.prehistoric_powers.description\": \"拥有力量效果时生效，造成的伤害获得额外提升。超凡模式下，伤害更高。\",\r\n  \"effect.immortalers_delight.relieve_poison\": \"解毒\",\r\n  \"effect.immortalers_delight.relieve_poison.description\": \"解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。\",\r\n  \"effect.immortalers_delight.resistance_to_abyssal\": \"渊毒抵抗\",\r\n  \"effect.immortalers_delight.resistance_to_abyssal.description\": \"来自水生生物的伤害减至 [效果等级+1] 分之一。在受到水生生物伤害时会派生舒适、水下呼吸和海豚的恩惠效果。超凡模式下，受到水生生物伤害时派生的效果变为瞬间治疗、潮涌能量和海豚的恩惠。\",\r\n  \"effect.immortalers_delight.resistance_to_arthropod\": \"虫毒抵抗\",\r\n  \"effect.immortalers_delight.resistance_to_arthropod.description\": \"来自节肢生物的伤害减至 [效果等级+1] 分之一。在受到节肢生物伤害时会派生迅捷IV效果。超凡模式下，受到节肢生物伤害时还会派生解毒IV效果。\",\r\n  \"effect.immortalers_delight.resistance_to_illager\": \"厄毒抵抗\",\r\n  \"effect.immortalers_delight.resistance_to_illager.description\": \"来自灾厄村民的伤害减至 [效果等级+1] 分之一。超凡模式下，受到灾厄村民伤害时会派生抗性提升效果。\\n你知道吗：恼鬼不属于灾厄村民，尽管它不会被灾厄村民误伤。\",\r\n  \"effect.immortalers_delight.resistance_to_surroundings\": \"醇厚\",\r\n  \"effect.immortalers_delight.resistance_to_surroundings.description\": \"减少所受环境伤害（如细雪的冰冻伤害、着火的火焰伤害、仙人掌伤害、溺水伤害、摔落伤害等），最低减为0。\",\r\n  \"effect.immortalers_delight.resistance_to_undead\": \"尸毒抵抗\",\r\n  \"effect.immortalers_delight.resistance_to_undead.description\": \"来自亡灵生物的伤害减至 [效果等级+1] 分之一。超凡模式下，受到亡灵生物伤害时会派生丰茂效果。\",\r\n  \"effect.immortalers_delight.satiated\": \"补益\",\r\n  \"effect.immortalers_delight.satiated.description\": \"每40tick派生1tick饱和效果。超凡模式下，每20tick派生1tick饱和效果，饥饿值或饱和度大于等于20时，恢复生命值。\",\r\n  \"effect.immortalers_delight.vitality\": \"丰茂\",\r\n  \"effect.immortalers_delight.vitality.description\": \"生命值不满时恢复生命值。\",\r\n  \"effect.immortalers_delight.warm_current_surges\": \"燃起来了\",\r\n  \"effect.immortalers_delight.warm_current_surges.description\": \"解除等级更低的缓慢效果。清除脚下的的雪和细雪。攻击时额外造成一次 火焰伤害，若目标处于着火状态，造成的伤害翻倍。超凡模式下，火焰伤害进一步提升。\",\r\n  \"effect.immortalers_delight.weak_poison\": \"弱中毒\",\r\n  \"effect.immortalers_delight.weak_wither\": \"弱凋零\",\r\n  \"effect.immortalers_delight.weak_wither.description\": \"更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。\",\r\n  \"entity.immortalers_delight.skelverfish_thrasher\": \"Skelverfish Thrasher\",\r\n  \"farmersdelight.tooltip.ancient_blade\": \"双持以发挥更强威力\",\r\n  \"farmersdelight.tooltip.ancient_blade.0\": \" \",\r\n  \"farmersdelight.tooltip.ancient_blade.1\": \"在双持时：\",\r\n  \"farmersdelight.tooltip.ancient_blade.2\": \" 10.5 攻击伤害\",\r\n  \"farmersdelight.tooltip.ancient_blade.power\": \" 160% 攻击伤害\",\r\n  \"farmersdelight.tooltip.ancient_wood_boat.ancient_wood\": \"一艘破船……用 5个原木 与 2个木棍 修缮。\",\r\n  \"farmersdelight.tooltip.ancient_wood_chest_boat.ancient_wood\": \"一艘破船……用 5个原木 与 1个箱子 修缮。\",\r\n  \"farmersdelight.tooltip.bone_knife\": \"蓄力以造成更多伤害\",\r\n  \"farmersdelight.tooltip.bone_knife.1\": \"抢夺 -I\",\r\n  \"farmersdelight.tooltip.drill_rod_wand.0\": \"可用于破拆[陷阱]方块\",\r\n  \"farmersdelight.tooltip.drill_rod_wand.1\": \"克制坚硬的目标\",\r\n  \"farmersdelight.tooltip.drill_rod_wand.2\": \"消耗手上的魔力原料抵消耐久减扣\",\r\n  \"farmersdelight.tooltip.drill_rod_wand.3\": \"运行不稳定，使用可能发生危险，请慎用\",\r\n  \"farmersdelight.tooltip.drink_block_item\": \"可放置\",\r\n  \"farmersdelight.tooltip.elixir_of_immortality\": \"[独一]在每场游戏中仅能发挥一次效果，此后再次使用时效果将劣化。\",\r\n  \"farmersdelight.tooltip.enchanted_golden_himekaido\": \"食用后 1 秒内，免疫并反转 V 级以下的有害效果(包括瞬时效果)\",\r\n  \"farmersdelight.tooltip.evolutcorn_hard_candy\": \"当你专注于吃糖，你将忽略一定的伤害\",\r\n  \"farmersdelight.tooltip.golden_fabric\": \"制成面纱以抵御绯烬尘霾\",\r\n  \"farmersdelight.tooltip.golden_himekaido\": \"食用后，免疫并反转 II 级以下的有害效果\",\r\n  \"farmersdelight.tooltip.golden_kwat_toast\": \"赠与猪灵蛮兵以换取堡垒的拥护\",\r\n  \"farmersdelight.tooltip.golden_kwat_toast_slice\": \"在猪灵面前食用以令其敬畏\",\r\n  \"farmersdelight.tooltip.leisamboo_tea_cake\": \"清除所有效果，然后给予夜视效果\",\r\n  \"farmersdelight.tooltip.pearlip_bubble_milk\": \"清除所有效果，然后给予丰茂效果\",\r\n  \"farmersdelight.tooltip.pillager_knife\": \"施加于目标: \",\r\n  \"farmersdelight.tooltip.pillager_knife.default_enchantment.1\": \"抢夺 II\",\r\n  \"farmersdelight.tooltip.pillager_knife.default_enchantment.power.1\": \"抢夺 IV\",\r\n  \"farmersdelight.tooltip.rusty_ancient_blade\": \"让你的敌人死于败血\",\r\n  \"farmersdelight.tooltip.sachets\": \"吸引嗅探兽\",\r\n  \"item.immortalers_delight.alfalfa\": \"古苜蓿\",\r\n  \"item.immortalers_delight.alfalfa_porridge\": \"古苜蓿七草粥\",\r\n  \"item.immortalers_delight.alfalfa_seeds\": \"古苜蓿种子\",\r\n  \"item.immortalers_delight.ancient_blade\": \"新硎古刀\",\r\n  \"item.immortalers_delight.ancient_fiber\": \"远古纤维\",\r\n  \"item.immortalers_delight.ancient_wood_boat\": \"古木船\",\r\n  \"item.immortalers_delight.ancient_wood_chest_boat\": \"古木木箱船\",\r\n  \"item.immortalers_delight.apollyon_cake_roll\": \"亚波伦蛋糕卷\",\r\n  \"item.immortalers_delight.aromatic_pod_affogato\": \"芳香荚阿芙佳朵\",\r\n  \"item.immortalers_delight.baked_poisonous_potato\": \"烤毒土豆\",\r\n  \"item.immortalers_delight.banana_box_cod\": \"蕉盒鳕\",\r\n  \"item.immortalers_delight.banana_box_salmon\": \"蕉盒鲑\",\r\n  \"item.immortalers_delight.bone_knife\": \"骨质匕首\",\r\n  \"item.immortalers_delight.bottle_melon_juice\": \"瓶装芝香瓜果汁\",\r\n  \"item.immortalers_delight.bowl_of_millenian_bamboo\": \"碗装千年竹\",\r\n  \"item.immortalers_delight.bowl_of_stewed_rotten_meat_in_clay_pot\": \"碗装瓦罐烂肉炖\",\r\n  \"item.immortalers_delight.bowl_of_universal_chicken_soup\": \"碗装天地有用\",\r\n  \"item.immortalers_delight.bowl_pitcher_plant_claypot_rice\": \"碗装瓶子草煲仔饭饭\",\r\n  \"item.immortalers_delight.braised_pork\": \"红烧肉\",\r\n  \"item.immortalers_delight.braised_spider_eyes_in_gravy\": \"肉汁炖蜘蛛眼\",\r\n  \"item.immortalers_delight.british_yellow_tea\": \"英黄茶\",\r\n  \"item.immortalers_delight.brush\": \"刷子\",\r\n  \"item.immortalers_delight.cherry_pearlipearl_tea\": \"樱桃棱蕉珍珠茶\",\r\n  \"item.immortalers_delight.chocolate_pearlip_sticks\": \"巧克力棱蕉棒\",\r\n  \"item.immortalers_delight.chocoreeze\": \"巧乐风\",\r\n  \"item.immortalers_delight.clear_water_vodka\": \"清水伏特加\",\r\n  \"item.immortalers_delight.colorful_grilled_skewers\": \"彩色烤串\",\r\n  \"item.immortalers_delight.contains_tea_leisamboo\": \"含茶溪竹\",\r\n  \"item.immortalers_delight.cooked_sniffer_slice\": \"熟嗅探兽肉片\",\r\n  \"item.immortalers_delight.cooked_sniffer_steak\": \"熟嗅探兽肉排\",\r\n  \"item.immortalers_delight.cooked_travarice\": \"熟通天竹稻\",\r\n  \"item.immortalers_delight.cretaceous_zea_ball\": \"玉黎饭团\",\r\n  \"item.immortalers_delight.crispy_yogurt_rotten_flesh\": \"腐肉酸奶脆\",\r\n  \"item.immortalers_delight.custard_tart_pastry\": \"蛋挞酥皮\",\r\n  \"item.immortalers_delight.dipped_rotten_flesh\": \"酱蘸腐肉\",\r\n  \"item.immortalers_delight.dreumk_wine\": \"梦魇酒\",\r\n  \"item.immortalers_delight.drill_rod_wand\": \"龙骨钎【WIP】\",\r\n  \"item.immortalers_delight.empty_bamboo_cup\": \"空竹杯\",\r\n  \"item.immortalers_delight.enchanted_golden_himekaido\": \"金魔法果\",\r\n  \"item.immortalers_delight.evolutcorn\": \"白垩玉黎\",\r\n  \"item.immortalers_delight.evolutcorn_beer\": \"玉黎啤酒\",\r\n  \"item.immortalers_delight.evolutcorn_bread\": \"玉黎面包\",\r\n  \"item.immortalers_delight.evolutcorn_grains\": \"白垩玉黎粒\",\r\n  \"item.immortalers_delight.evolutcorn_hard_candy\": \"玉黎硬糖\",\r\n  \"item.immortalers_delight.evolutcorn_paste\": \"白垩玉黎面糊\",\r\n  \"item.immortalers_delight.evolutcorn_paste_bucket\": \"桶装白垩玉黎面糊\",\r\n  \"item.immortalers_delight.evolutcorn_pie_crust\": \"玉黎酥皮\",\r\n  \"item.immortalers_delight.extra_spicy_pasta\": \"特辣意面\",\r\n  \"item.immortalers_delight.fruit_tea\": \"水果茶\",\r\n  \"item.immortalers_delight.fry_kwat_wheat_doufu\": \"炸瓦斯麦豆腐\",\r\n  \"item.immortalers_delight.gleeman_tear\": \"伶人泪\",\r\n  \"item.immortalers_delight.golden_fabric\": \"金丝织缕\",\r\n  \"item.immortalers_delight.golden_fabric_veil\": \"绯炵金纱\",\r\n  \"item.immortalers_delight.golden_himekaido\": \"金姬海棠果\",\r\n  \"item.immortalers_delight.golden_kwat_toast\": \"金瓦斯麦吐司\",\r\n  \"item.immortalers_delight.golden_kwat_toast_slice\": \"金瓦斯麦吐司片\",\r\n  \"item.immortalers_delight.grindstone_hammer\": \"手持式砂轮\",\r\n  \"item.immortalers_delight.himekaido\": \"姬海棠果\",\r\n  \"item.immortalers_delight.himekaido_boat\": \"姬海棠木船\",\r\n  \"item.immortalers_delight.himekaido_chazuke\": \"姬海棠茶泡饭\",\r\n  \"item.immortalers_delight.himekaido_chest_boat\": \"姬海棠木运输船\",\r\n  \"item.immortalers_delight.himekaido_jelly\": \"姬海棠果酱\",\r\n  \"item.immortalers_delight.himekaido_seed\": \"姬海棠种子\",\r\n  \"item.immortalers_delight.himekaido_yogurt_pie_slice\": \"姬海棠酸奶派片\",\r\n  \"item.immortalers_delight.himekandy\": \"姬海糖\",\r\n  \"item.immortalers_delight.hot_hi_soup\": \"热嗨汤\",\r\n  \"item.immortalers_delight.hot_spring_bucket\": \"温泉桶\",\r\n  \"item.immortalers_delight.ice_pearlip\": \"冻棱蕉\",\r\n  \"item.immortalers_delight.iced_black_tea\": \"冰红茶\",\r\n  \"item.immortalers_delight.incandescence_sushi\": \"火热寿司\",\r\n  \"item.immortalers_delight.jade_and_ruby_soup\": \"翡翠红玉汤\",\r\n  \"item.immortalers_delight.kwat_wheat\": \"瓦斯麦\",\r\n  \"item.immortalers_delight.kwat_wheat_doufu\": \"瓦斯麦豆腐\",\r\n  \"item.immortalers_delight.kwat_wheat_dough\": \"瓦斯麦面团\",\r\n  \"item.immortalers_delight.kwat_wheat_paste\": \"瓦斯麦浆\",\r\n  \"item.immortalers_delight.kwat_wheat_seeds\": \"瓦斯麦种子\",\r\n  \"item.immortalers_delight.kwat_wheat_toast\": \"瓦斯麦吐司\",\r\n  \"item.immortalers_delight.kwat_wheat_toast_slice\": \"瓦斯麦吐司片\",\r\n  \"item.immortalers_delight.leaf_green_tea\": \"叶绿茶\",\r\n  \"item.immortalers_delight.leaf_tea\": \"树叶茶\",\r\n  \"item.immortalers_delight.leisamboo_tea\": \"溪竹茶\",\r\n  \"item.immortalers_delight.leisamboo_tea_cake\": \"溪竹茶饼\",\r\n  \"item.immortalers_delight.lu_chicken_legs\": \"卤鸡腿\",\r\n  \"item.immortalers_delight.mashed_poisonous_potato\": \"毒马铃薯泥\",\r\n  \"item.immortalers_delight.mashed_poisonous_potato_with_jam\": \"果酱毒马铃薯泥\",\r\n  \"item.immortalers_delight.mashed_potato_with_jam\": \"果酱马铃薯泥\",\r\n  \"item.immortalers_delight.mashed_potatoes\": \"马铃薯泥\",\r\n  \"item.immortalers_delight.meaty_rotten_tomato_broth\": \"烂茄肉汤\",\r\n  \"item.immortalers_delight.nether_cream_bread\": \"下界奶油面包\",\r\n  \"item.immortalers_delight.nether_cream_soup\": \"下界奶油浓汤\",\r\n  \"item.immortalers_delight.nether_kvass\": \"地狱格瓦斯\",\r\n  \"item.immortalers_delight.nether_soup\": \"下界汤\",\r\n  \"item.immortalers_delight.pearlip\": \"棱蕉\",\r\n  \"item.immortalers_delight.pearlip_bubble_milk\": \"棱珠牛奶\",\r\n  \"item.immortalers_delight.pearlip_jelly\": \"棱蕉果冻\",\r\n  \"item.immortalers_delight.pearlip_milk_shake\": \"棱蕉奶昔\",\r\n  \"item.immortalers_delight.pearlip_pie_slice\": \"珍珠棱蕉派切片\",\r\n  \"item.immortalers_delight.pearlip_pumpkin_pie\": \"棱蕉南瓜派\",\r\n  \"item.immortalers_delight.pearlip_shell\": \"棱蕉壳\",\r\n  \"item.immortalers_delight.pearlip_shell_boat\": \"棱蕉木船\",\r\n  \"item.immortalers_delight.pearlip_shell_chest_boat\": \"棱蕉木运输船\",\r\n  \"item.immortalers_delight.pearlipearl\": \"棱珠\",\r\n  \"item.immortalers_delight.pearlipearl_eggsteam\": \"蕉香蒸蛋\",\r\n  \"item.immortalers_delight.pearlipearl_milk_green\": \"棱蕉珍珠绿茶\",\r\n  \"item.immortalers_delight.pearlipearl_milk_tea\": \"棱蕉珍珠奶茶\",\r\n  \"item.immortalers_delight.pearlipearl_tart\": \"棱蕉蛋挞\",\r\n  \"item.immortalers_delight.peatic_musa_salad\": \"热带沙拉\",\r\n  \"item.immortalers_delight.perfect_summer_ice\": \"完美夏冰\",\r\n  \"item.immortalers_delight.piglin_odori_sake\": \"猪灵踊\",\r\n  \"item.immortalers_delight.pillager_knife\": \"灾厄匕首\",\r\n  \"item.immortalers_delight.pitcher_plant_barbecue\": \"瓶子草烧烤\",\r\n  \"item.immortalers_delight.pitcher_plant_jiao_zi\": \"瓶子草饺子\",\r\n  \"item.immortalers_delight.pitcher_plant_shao_mai\": \"瓶子草烧卖\",\r\n  \"item.immortalers_delight.pitcher_pod_petal\": \"瓶子草荚壳碎\",\r\n  \"item.immortalers_delight.pod_shell_burger_meat_cube\": \"荚壳汉堡肉块\",\r\n  \"item.immortalers_delight.popolutcorn\": \"爆黎花\",\r\n  \"item.immortalers_delight.pufferfish_roll\": \"河豚卷\",\r\n  \"item.immortalers_delight.purgatory_ale\": \"炼狱麦酒\",\r\n  \"item.immortalers_delight.raw_sniffer_slice\": \"生嗅探兽肉片\",\r\n  \"item.immortalers_delight.raw_sniffer_steak\": \"生嗅探兽肉排\",\r\n  \"item.immortalers_delight.red_stuffed_bun\": \"大红包子\",\r\n  \"item.immortalers_delight.repeating_crossbow\": \"古代连弩\",\r\n  \"item.immortalers_delight.roast_evolutcorn\": \"烤白垩玉黎\",\r\n  \"item.immortalers_delight.roast_evolutcorn_chops\": \"烤白垩玉黎粒\",\r\n  \"item.immortalers_delight.rotten_flesh_cuts\": \"腐肉碎\",\r\n  \"item.immortalers_delight.rusty_ancient_blade\": \"锈蚀古刀\",\r\n  \"item.immortalers_delight.sachets\": \"谷物香囊\",\r\n  \"item.immortalers_delight.scarlet_devils_cake_slice\": \"红魔鬼蛋糕切片\",\r\n  \"item.immortalers_delight.scarlet_gelato\": \"绯红冰淇淋\",\r\n  \"item.immortalers_delight.scarlet_sundae\": \"绯红圣代\",\r\n  \"item.immortalers_delight.scavenger_spawn_egg\": \"刷怪蛋\",\r\n  \"item.immortalers_delight.sealed_ancient_rations\": \"古代口粮包\",\r\n  \"item.immortalers_delight.skelverfish_ambusher_spawn_egg\": \"刷怪蛋\",\r\n  \"item.immortalers_delight.skelverfish_bomber_spawn_egg\": \"刷怪蛋\",\r\n  \"item.immortalers_delight.skelverfish_thrasher_spawn_egg\": \"刷怪蛋\",\r\n  \"item.immortalers_delight.sniffer_fur\": \"嗅探兽毛\",\r\n  \"item.immortalers_delight.sniffer_fur_brush\": \"嗅探兽毛刷\",\r\n  \"item.immortalers_delight.sniffer_rotating_roast_meat\": \"Sniffer Rotating Roast Meat\",\r\n  \"item.immortalers_delight.sticky_beer\": \"黏糊啤酒\",\r\n  \"item.immortalers_delight.stove_black_tea\": \"炉红茶\",\r\n  \"item.immortalers_delight.strange_armour_stand_spawn_egg\": \"刷怪蛋\",\r\n  \"item.immortalers_delight.stuffed_poisonous_potato\": \" 填馅毒马铃薯\",\r\n  \"item.immortalers_delight.super_kwat_wheat_hamburger\": \"超级瓦斯麦汉堡\",\r\n  \"item.immortalers_delight.sutffed_kwat_wheat_doufu\": \"酿瓦斯麦豆腐\",\r\n  \"item.immortalers_delight.tartare_chicken\": \"鞑靼鸡肉\",\r\n  \"item.immortalers_delight.torchflower_cake\": \"火把花饼\",\r\n  \"item.immortalers_delight.torchflower_cookie\": \"火把花曲奇\",\r\n  \"item.immortalers_delight.torchflower_curry_rice\": \"火把花咖喱饭\",\r\n  \"item.immortalers_delight.torchflower_mustard\": \"火把花芥末\",\r\n  \"item.immortalers_delight.travaplank\": \"通天竹米\",\r\n  \"item.immortalers_delight.travarice\": \"通天竹稻\",\r\n  \"item.immortalers_delight.traveer\": \"通天竹酒\",\r\n  \"item.immortalers_delight.tropical_fruity_cyclone\": \"热带水果旋风\",\r\n  \"item.immortalers_delight.twilight_gelato\": \"暮色冰淇淋\",\r\n  \"item.immortalers_delight.vulcan_coktail\": \"火神鸡尾酒\",\r\n  \"item.immortalers_delight.warped_laurel\": \"诡怨藤\",\r\n  \"item.immortalers_delight.warped_laurel_seeds\": \"诡怨藤种子\",\r\n  \"item.immortalers_delight.yogurt\": \"酸奶\",\r\n  \"item.immortalers_delight.zea_pancake_slice\": \"玉黎烙切片\",\r\n  \"potion.potency.4\": \"V\",\r\n  \"potion.potency.5\": \"VI\",\r\n  \"potion.potency.6\": \"VII\",\r\n  \"potion.potency.7\": \"VIII\",\r\n  \"potion.potency.8\": \"IX\",\r\n  \"potion.potency.9\": \"X\",\r\n  \"tooltip.immortalers_delight.book_progress\": \"修书进度: %d ‰\",\r\n  \"tooltip.immortalers_delight.charged_projectiles\": \"剩余 %d 发\",\r\n  \"tooltip.immortalers_delight.hammers_skill_1\": \"全力攻击可短暂眩晕目标\",\r\n  \"tooltip.immortalers_delight.hammers_skill_2\": \"连续攻击以造成更多伤害\",\r\n  \"tooltip.immortalers_delight.hammers_skill_title_1\": \"势大力沉\",\r\n  \"tooltip.immortalers_delight.hammers_skill_title_2\": \"松筋嫩肉\",\r\n  \"tooltip.immortalers_delight.is_can_feed\": \"可以喂食以整蛊其他生物\",\r\n  \"tooltip.immortalers_delight.is_immortalers_hammers\": \"松肉锤\",\r\n  \"tooltip.immortalers_delight.is_immortalers_knives\": \"古制刀\",\r\n  \"tooltip.immortalers_delight.potion_coating_count\": \"药水附层：%d / %d\",\r\n  \"tooltip.immortalers_delight.power_battle_mode_hint\": \"千古乐事：您已开启§9超凡模式§f，如需更改请在§9immortalers_delight-common.toml§f中修改§9powerBattleMode§f。修改§9powerBattleModeHint§f以禁用该提示。\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json b/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json
+--- a/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
++++ b/src/generated/resources/assets/immortalers_delight/lang/zh_cn.json	(date 1766233459496)
+@@ -232,6 +232,7 @@
+   "effect.immortalers_delight.weak_wither": "弱凋零",
+   "effect.immortalers_delight.weak_wither.description": "更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。",
+   "entity.immortalers_delight.skelverfish_thrasher": "Skelverfish Thrasher",
++  "entity.immortalers_delight.scavenger": "古械拼凑者",
+   "farmersdelight.tooltip.ancient_blade": "双持以发挥更强威力",
+   "farmersdelight.tooltip.ancient_blade.0": " ",
+   "farmersdelight.tooltip.ancient_blade.1": "在双持时：",
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Gradle Imported\" enabled=\"true\">\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <processorPath useClasspath=\"false\">\r\n          <entry name=\"$PROJECT_DIR$/../../new/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/6d1c8bf4c28e697f472a83bd6add76ec4951734/mixin-0.8.5-processor.jar\" />\r\n        </processorPath>\r\n        <module name=\"immortalers_delight.main\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n    <bytecodeTargetLevel target=\"17\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
++++ b/.idea/compiler.xml	(date 1766234264256)
+@@ -5,7 +5,7 @@
+       <profile name="Gradle Imported" enabled="true">
+         <outputRelativeToContentRoot value="true" />
+         <processorPath useClasspath="false">
+-          <entry name="$PROJECT_DIR$/../../new/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/6d1c8bf4c28e697f472a83bd6add76ec4951734/mixin-0.8.5-processor.jar" />
++          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/6d1c8bf4c28e697f472a83bd6add76ec4951734/mixin-0.8.5-processor.jar" />
+         </processorPath>
+         <module name="immortalers_delight.main" />
+       </profile>
+Index: .idea/modules/immortalers_delight.main.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module version=\"4\">\r\n  <component name=\"AdditionalModuleElements\">\r\n    <content url=\"file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/../../build/generated/sources/annotationProcessor/java/main\" isTestSource=\"false\" generated=\"true\" />\r\n    </content>\r\n  </component>\r\n  <component name=\"FacetManager\">\r\n    <facet type=\"minecraft\" name=\"Minecraft\">\r\n      <configuration>\r\n        <autoDetectTypes>\r\n          <platformType>FORGE</platformType>\r\n          <platformType>MIXIN</platformType>\r\n          <platformType>MCP</platformType>\r\n        </autoDetectTypes>\r\n        <projectReimportVersion>1</projectReimportVersion>\r\n      </configuration>\r\n    </facet>\r\n  </component>\r\n  <component name=\"McpModuleSettings\">\r\n    <option name=\"mappingFile\" value=\"D:\\immortalers_delight\\immortalers_delight\\build\\createMcpToSrg\\output.tsrg\" />\r\n    <option name=\"mcpVersion\" value=\"parchment_2023.09.03-1.20.1\" />\r\n    <option name=\"minecraftVersion\" value=\"1.20.1\" />\r\n    <option name=\"platformVersion\" value=\"47.1.0\" />\r\n    <option name=\"srgType\" value=\"TSRG\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules/immortalers_delight.main.iml b/.idea/modules/immortalers_delight.main.iml
+--- a/.idea/modules/immortalers_delight.main.iml	(revision ba365efd346aef744cbe0bb86cf35d56ba344b71)
++++ b/.idea/modules/immortalers_delight.main.iml	(date 1766234264228)
+@@ -18,7 +18,7 @@
+     </facet>
+   </component>
+   <component name="McpModuleSettings">
+-    <option name="mappingFile" value="D:\immortalers_delight\immortalers_delight\build\createMcpToSrg\output.tsrg" />
++    <option name="mappingFile" value="F:\IDF\Imm Delight\build\createMcpToSrg\output.tsrg" />
+     <option name="mcpVersion" value="parchment_2023.09.03-1.20.1" />
+     <option name="minecraftVersion" value="1.20.1" />
+     <option name="platformVersion" value="47.1.0" />

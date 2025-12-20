@@ -4,41 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="更新了灾厄匕首的贴图">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/animation/SurveyorFangAnimation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/AlfalfaDababaModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/EffectCloudModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/HugeSmokeParticleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model/projectile/SurveyorFangModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/model_layers/EffectCloudOutLayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/particle/HugeSmokeParticle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/projectile/EffectCloudBaseRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/projectile/SurveyorFangRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/special_item/ItemTESRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/PercussionProber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/Dynamite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/EffectCloudBaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/projectile/SurveyorFang.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/ImmortalersShieldItem.java" afterDir="false" />
+    <list default="true" id="c13c8fe7-6357-4cf9-be27-b7d2af378914" name="更改" comment="正在制作汤圆的逻辑">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/ImmortalersDelightMod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/block/KwatWheatCrop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/ScavengerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/client/renderer/entity/ScavengerRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/EntityNbtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/EntityNbtHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/Pathfinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/Scavenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/entities/living/illager_archaeological_team/Scavenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/DifficultyModeEventHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/SkelverfishEventHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/event/SkelverfishEventHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightBlocks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntityAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightEntityAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticleTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticleTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/init/ImmortalersDelightParticles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/BoneKnifeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/item/BoneKnifeItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/VulnerableMobEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/potion/VulnerableMobEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/leisamboo_tea_cake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/leisamboo_tea_cake.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/nether_bread_cream_soup.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/immortalers_delight/recipes/cooking/nether_bread_cream_soup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/DataGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/renyigesai/immortalers_delight/data/RegistryDataGenerator.java" beforeDir="false" />
     </list>
     <list id="8d90579c-bef5-4080-82d3-cd6bba24b11e" name="找回一些我们需要的" comment="找回一些我们需要的" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +36,18 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="immortalers_delight" type="f1a62948:ProjectNode" />
-                <item name="运行配置" type="7b0102dc:RunConfigurationsNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="immortalers_delight" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
             <select />

@@ -115,7 +115,10 @@ public class DifficultyModeEventHelper {
                     needMinDamage = true;
                 }
 
-                if (needMinDamage) hurtOne.setHealth(Math.max(hurtOne.getHealth() - minDamage, 0.01F));
+                if (needMinDamage) {
+                    /*暂时注释以测试BUG*/
+//                    hurtOne.setHealth(Math.max(hurtOne.getHealth() - minDamage, 0.01F));
+                }
             }
         }
 

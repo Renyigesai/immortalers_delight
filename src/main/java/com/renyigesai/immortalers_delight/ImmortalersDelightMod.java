@@ -1,7 +1,5 @@
 package com.renyigesai.immortalers_delight;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.client.model.*;
 import com.renyigesai.immortalers_delight.client.model.projectile.EffectCloudModel;
@@ -15,6 +13,9 @@ import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSign
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.SurveyorFangRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.EffectCloudBaseRenderer;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
+import com.renyigesai.immortalers_delight.data.BlockLootTables;
+import com.renyigesai.immortalers_delight.data.ItemModels;
+import com.renyigesai.immortalers_delight.data.Languages;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
@@ -34,22 +35,21 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.item.CrossbowItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CompoundIngredient;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -100,10 +100,12 @@ public class ImmortalersDelightMod {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         bus.addListener(CommonSetup::init);
+        bus.addListener(this::gatherData);
 
         if (isLtc2){
             Ltc2Items.ITEMS.register(bus);
         }
+
 
         ImmortalersDelightItems.REGISTER.register(bus);
         ImmortalersDelightBlocks.register(bus);
@@ -244,8 +246,17 @@ public class ImmortalersDelightMod {
             ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "firework"), (stack, world, entity, seed) -> {
                 return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
             });
-
         }
+    }
+
+    private void gatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        generator.addProvider(event.includeClient(),new ItemModels(output,existingFileHelper));
+        generator.addProvider(event.includeClient(), new LootTableProvider(output, Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(BlockLootTables::new, LootContextParamSets.BLOCK))));
+        generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
+        generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
     }
 
     public static ResourceLocation prefix(String name) {
