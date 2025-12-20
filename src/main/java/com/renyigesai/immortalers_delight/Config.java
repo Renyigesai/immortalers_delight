@@ -55,7 +55,7 @@ public class Config {
             .comment("We apologize for making players excessively capable. ")
             .comment("For the sake of balance, you can use this option to synchronously strengthen some of the original enemies.")
             .comment("Configure which enemies can be strengthened in the entity tags file.")
-            .define("needStrengthenTheEnemies", true);
+            .define("needStrengthenTheEnemies", false);
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
         BUILDER.push("ReverseNormalEffect")

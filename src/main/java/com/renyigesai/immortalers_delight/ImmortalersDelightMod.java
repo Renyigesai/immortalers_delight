@@ -4,11 +4,16 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.client.model.*;
+import com.renyigesai.immortalers_delight.client.model.projectile.EffectCloudModel;
+import com.renyigesai.immortalers_delight.client.model.projectile.HugeSmokeParticleModel;
+import com.renyigesai.immortalers_delight.client.model.projectile.SurveyorFangModel;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
 import com.renyigesai.immortalers_delight.client.renderer.AncientStoveBlockEntityRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersBoatRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightHangingSignRenderer;
 import com.renyigesai.immortalers_delight.client.renderer.ImmortalersDelightSignRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.SurveyorFangRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.EffectCloudBaseRenderer;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
@@ -174,6 +179,9 @@ public class ImmortalersDelightMod {
             modelLayers.put(AncientWoodChestBoatModel.ANCIENT_CHEST_BOAT, AncientWoodChestBoatModel::createBodyLayer);
             //modelLayers.put(ScavengerModel.SCARVENGER_MODEL, ScavengerModel::createBodyLayer);
             modelLayers.put(ScavengerModel.SCARVENGER_MODEL, IllagerModel::createBodyLayer);
+            modelLayers.put(SurveyorFangModel.SURVEYOR_FANG, SurveyorFangModel::createBodyLayer);
+            modelLayers.put(EffectCloudModel.EFFECT_CLOUD_BASE, EffectCloudModel::createBodyLayer);
+            modelLayers.put(HugeSmokeParticleModel.HUGE_SMOKE_PARTICLE, HugeSmokeParticleModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -192,7 +200,8 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(), StrangeArmourStandRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SCAVENGER.get(), ScavengerRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.TERRACOTTA_GOLEM.get(), TerracottaGolemRenderer::new);
-
+            event.registerEntityRenderer(ImmortalersDelightEntities.SURVEYOR_FANG.get(),SurveyorFangRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),EffectCloudBaseRenderer::new);
 
         }
 

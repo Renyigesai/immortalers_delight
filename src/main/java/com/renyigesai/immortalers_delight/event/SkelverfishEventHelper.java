@@ -2,19 +2,13 @@ package com.renyigesai.immortalers_delight.event;
 
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.api.mobbase.ImmortalersMob;
-import com.renyigesai.immortalers_delight.entities.living.Scavenger;
+import com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team.Scavenger;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.init.*;
-import com.renyigesai.immortalers_delight.item.PillagersKnifeItem;
-import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.FloatTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -29,22 +23,18 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -52,12 +42,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber
 public class SkelverfishEventHelper {
@@ -119,8 +104,10 @@ public class SkelverfishEventHelper {
                     if (i == 2) PotionUtils.setPotion(knife, Potions.HARMING);
                     if (i == 3) PotionUtils.setPotion(knife, Potions.SLOWNESS);
                     ItemStack mainHand = pillager.getItemInHand(InteractionHand.MAIN_HAND);
-                    pillager.setItemSlot(EquipmentSlot.MAINHAND, knife);
-                    pillager.setItemSlot(EquipmentSlot.OFFHAND, mainHand);
+                    if (mainHand.is(Items.CROSSBOW)){
+                        pillager.setItemSlot(EquipmentSlot.MAINHAND, knife);
+                        pillager.setItemSlot(EquipmentSlot.OFFHAND, mainHand);
+                    } else pillager.setItemSlot(EquipmentSlot.OFFHAND, knife);
                     //掠夺者额外掉落
                     CompoundTag entityTag = pillager.getPersistentData();
                     entityTag.putInt(PILLAGER_HAS_KNIFE,1);

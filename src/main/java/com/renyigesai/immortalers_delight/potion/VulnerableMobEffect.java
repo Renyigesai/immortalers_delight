@@ -123,7 +123,8 @@ public class VulnerableMobEffect extends MobEffect {
             if (!hurtOne.level().isClientSide && attacker != null) {
                 if (hurtOne.hasEffect(ImmortalersDelightMobEffect.VULNERABLE.get())){
                     int amplifier = Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get())).getAmplifier();
-                    int lv = (isPowerful || amplifier >= 255) ? 255 : amplifier + 1;
+                    int number = (isPowerful || amplifier >= 255) ? 255 : amplifier + 1;
+                    int lv = amplifier + 1;
                     if (isVulnerableHasLimit(hurtOne)) {
                         if (getEntitiesWithFrequencyLimit().get(hurtOne.getUUID()) > 0) {
                             evt.setAmount(evt.getAmount() * (lv * 0.5F + 1));
@@ -133,7 +134,7 @@ public class VulnerableMobEffect extends MobEffect {
                             hurtOne.removeEffect(ImmortalersDelightMobEffect.VULNERABLE.get());
                             removeVulnerableEntityWithFrequencyLimit(hurtOne);
                         }
-                    } else addVulnerableEntityWithFrequencyLimit(hurtOne, (byte) lv);
+                    } else addVulnerableEntityWithFrequencyLimit(hurtOne, (byte) number);
 
                 }
             }

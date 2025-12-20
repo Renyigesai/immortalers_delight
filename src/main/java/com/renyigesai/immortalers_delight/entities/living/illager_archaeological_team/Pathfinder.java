@@ -1,4 +1,4 @@
-package com.renyigesai.immortalers_delight.entities.living;
+package com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

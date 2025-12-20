@@ -2,24 +2,27 @@
   "type": "farmersdelight:cooking",
   "ingredients": [
     {
-      "item": "immortalers_delight:kwat_wheat_toast"
+      "item": "minecraft:magma_cream"
     },
     {
       "item": "farmersdelight:onion"
     },
     {
-      "item": "minecraft:brown_mushroom"
+      "item": "minecraft:crimson_fungus"
     },
     {
-      "item": "minecraft:brown_mushroom"
+      "item": "minecraft:shroomlight"
     },
     {
-      "tag": "forge:milk"
+      "tag": "forge:rods/blaze"
     },
     {
       "tag": "forge:milk"
     }
   ],
+  "container": {
+    "item": "immortalers_delight:kwat_wheat_toast"
+  },
   "result": {
     "item": "immortalers_delight:nether_bread_cream_soup"
   },

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -65,4 +66,11 @@ public class EntityNbtHelper {
             }
         }
     }
+
+//    @SubscribeEvent
+//    public static void onPlayerDig(PlayerEvent.BreakSpeed event) {
+//        //这里是把挖掘速度设置为目标方块的硬度，也就是众生平等
+//        //这个代码仅用于展示事件中可用的方法
+//        event.setNewSpeed(event.getState().getDestroySpeed(event.getEntity().level(),event.getPosition().get()));
+//    }
 }

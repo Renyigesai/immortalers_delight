@@ -56,11 +56,12 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
     {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
-        float partialTick = Minecraft.getInstance().getPartialTick();
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             float baseDamage = this.attackDamage + (isPowerful ? extra_attackDamage : 0);
-            float buffer = 1 + getPullingAmount(stack, partialTick);
+            int useTime = getUseTime(stack);
+            int maxLoadTime = getMaxLoadTime();
+            float buffer = 1 + Math.min((float) useTime / maxLoadTime, 1.0F); // 0.0~1.0 的蓄力比例;
             double damage = buffer > 1.5f ? (baseDamage + (buffer > 1.8f ? 0.5f : -0.5f)) * buffer : baseDamage;
             //System.out.println("buffer:" +  buffer);
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed + (isPowerful ? extra_attackSpeed : 0), AttributeModifier.Operation.ADDITION));

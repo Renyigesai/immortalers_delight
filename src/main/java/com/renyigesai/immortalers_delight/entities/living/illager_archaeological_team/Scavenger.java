@@ -1,10 +1,13 @@
-package com.renyigesai.immortalers_delight.entities.living;
+package com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team;
 
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -368,11 +371,6 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
                     }
 
                     if (direction != null) {
-                        if (this.level() instanceof ServerLevel serverLevel) {
-                            for (int j = 0; j < 32; ++j) {
-                                serverLevel.sendParticles(ParticleTypes.PORTAL, this.xo, this.getRandomY() + this.random.nextDouble() * 2.0D, this.zo,1, 0, 0, 0, 0.05);
-                            }
-                        }
                         this.unRide();
                         this.playSound(SoundEvents.SHULKER_TELEPORT, 1.0F, 1.0F);
                         this.setPos((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5D);
@@ -708,7 +706,8 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
                     if (flag) {
                         if (Scavenger.this.level() instanceof ServerLevel serverLevel) {
                             for (int i = 0; i < 32; ++i) {
-                                serverLevel.sendParticles(ParticleTypes.PORTAL, Scavenger.this.xo, Scavenger.this.getRandomY() + Scavenger.this.random.nextDouble() * 2.0D, Scavenger.this.zo,1, 0, 0, 0, 0.05);
+                                ParticleOptions type = (i % 4 == 0) ? ParticleTypes.WITCH : ParticleTypes.PORTAL;
+                                serverLevel.sendParticles(type, Scavenger.this.xo, Scavenger.this.getRandomY() + Scavenger.this.random.nextDouble() * 2.0D, Scavenger.this.zo,1, 0, 0, 0, 0.05);
                             }
                         }
                         this.hasTeleported = true;
@@ -726,15 +725,17 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
             spawnPreTeleportParticle(Scavenger.this.level(), Scavenger.this.blockPosition());
         }
 
+        //以方框的形状生成粒子
         private void spawnPreTeleportParticle(Level level, BlockPos pPos) {
             if (level instanceof ServerLevel serverLevel) {
                 for (int i = 0;i<10;i++){
+                    ParticleOptions type = (i == 3 || i == 5 || i == 8) ? ParticleTypes.WITCH : ParticleTypes.PORTAL;
                     Vec3 pos = new Vec3(pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5);
                     double flunc = Math.random() * 2 - 1;
-                    serverLevel.sendParticles(ParticleTypes.PORTAL,pos.x + 1,    pos.y + 0.1,pos.z + flunc,1,0,0,0,0.03);
-                    serverLevel.sendParticles(ParticleTypes.PORTAL,pos.x - 1,    pos.y + 0.1,pos.z + flunc,1,0,0,0,0.03);
-                    serverLevel.sendParticles(ParticleTypes.PORTAL,pos.x + flunc,pos.y + 0.1, pos.z + 1,    1,0,0,0,0.03);
-                    serverLevel.sendParticles(ParticleTypes.PORTAL,pos.x + flunc,pos.y + 0.1, pos.z - 1,    1,0,0,0,0.03);
+                    serverLevel.sendParticles(type,pos.x + 1,    pos.y + 0.1,pos.z + flunc,1,0,0,0,0.03);
+                    serverLevel.sendParticles(type,pos.x - 1,    pos.y + 0.1,pos.z + flunc,1,0,0,0,0.03);
+                    serverLevel.sendParticles(type,pos.x + flunc,pos.y + 0.1, pos.z + 1,    1,0,0,0,0.03);
+                    serverLevel.sendParticles(type,pos.x + flunc,pos.y + 0.1, pos.z - 1,    1,0,0,0,0.03);
                 }
             }
         }

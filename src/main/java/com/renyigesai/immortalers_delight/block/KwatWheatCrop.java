@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
@@ -8,15 +9,20 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -78,16 +84,17 @@ public class KwatWheatCrop extends ReapCropBlock {
         if (pEntity instanceof LivingEntity) {
             int age = state.getValue(AGE);
             if (state.getValue(POISON) && age == 7) {
-                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(5.0D, 5.0D, 5.0D));
-                if (!list.isEmpty()) {
-                    for (LivingEntity livingentity : list) {
-                        if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
-                            livingentity.hurt(level.damageSources().cactus(), 1.0F);
-                            livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),45));
-                        }
-                    }
-                }
-                spawnParticle(level, pPos);
+                makeAreaOfEffectCloud(level,pPos);
+//                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(5.0D, 5.0D, 5.0D));
+//                if (!list.isEmpty()) {
+//                    for (LivingEntity livingentity : list) {
+//                        if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
+//                            livingentity.hurt(level.damageSources().cactus(), 1.0F);
+//                            livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),45));
+//                        }
+//                    }
+//                }
+//                spawnParticle(level, pPos);
                 level.setBlock(pPos, state.setValue(POISON, false), 3);
             }
         }
@@ -124,5 +131,20 @@ public class KwatWheatCrop extends ReapCropBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE,POISON);
+    }
+
+    private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
+        if (level.isClientSide()) return;
+        EffectCloudBaseEntity effectCloud = new EffectCloudBaseEntity(level, pPos.getX(), pPos.getY(), pPos.getZ());
+
+        effectCloud.setRadius(3.0F);
+        effectCloud.setRadiusOnUse(-0.1F);
+        effectCloud.setWaitTime(10);
+        effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 2.0f);
+        effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
+
+        effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),300));
+
+        level.addFreshEntity(effectCloud);
     }
 }

@@ -6,6 +6,9 @@ import com.renyigesai.immortalers_delight.entities.boat.AncientWoodChestBoat;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.entities.living.*;
+import com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team.Scavenger;
+import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFang;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
@@ -48,6 +51,22 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("scavenger", () -> EntityType.Builder.of(Scavenger::new, MobCategory.MONSTER)
                     .sized(0.6f, 2.0f).build("scavenger"));
 
+    public static final RegistryObject<EntityType<SurveyorFang>> SURVEYOR_FANG =
+            ENTITY_TYPES.register("sword_tipped_long_pole", () -> EntityType.Builder.<SurveyorFang>of(SurveyorFang::new, MobCategory.MISC)
+            .sized(0.6F, 2.5F)
+            .clientTrackingRange(6)
+            .updateInterval(2)
+            .fireImmune()
+            .build("sword_tipped_long_pole"));
+
+    public static final RegistryObject<EntityType<EffectCloudBaseEntity>> BASE_EFFECT_CLOUD =
+            ENTITY_TYPES.register("base_effect_cloud", () -> EntityType.Builder.<EffectCloudBaseEntity>of(EffectCloudBaseEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE)
+                    .build("base_effect_cloud")
+            );
 
     public static final RegistryObject<EntityType<TerracottaGolem>> TERRACOTTA_GOLEM =
             ENTITY_TYPES.register("terracotta_golem", () -> EntityType.Builder.of(TerracottaGolem::new, MobCategory.MISC)

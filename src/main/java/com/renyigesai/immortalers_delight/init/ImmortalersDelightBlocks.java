@@ -534,7 +534,9 @@ public class ImmortalersDelightBlocks {
         //方块实体 Block Entity
 
         ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
-                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                        .requiresCorrectToolForDrops()
+                ));
 
         ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
