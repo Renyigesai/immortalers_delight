@@ -199,6 +199,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_PASTE;
     @ItemData(zhCn = "玉黎面包")
     public static final RegistryObject<Item> EVOLUTCORN_BREAD;
+    @ItemData(zhCn = "玉黎饺子")
+    public static final RegistryObject<Item> EVOLUTCORN_JIAOZI;
 
     /*
     香蕉系列物品
@@ -297,7 +299,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     @ItemData(zhCn = "姬海棠酸奶派片")
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
-    @ItemData(zhCn = "梦魇酒")
+    @ItemData(zhCn = "醉梦姬")
     public static final RegistryObject<Item> DREUMK_WINE;
     @ItemData(zhCn = "绯红冰淇淋")
     public static final RegistryObject<Item> SCARLET_GELATO;
@@ -319,7 +321,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
     @ItemData(zhCn = "古木木板",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
-    @ItemData(zhCn = "古木储物柜",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木橱柜",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
     @ItemData(zhCn = "古木楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> ANCIENT_WOOD_STAIRS;
@@ -339,7 +341,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_WOOD_BUTTON;
     @ItemData(zhCn = "古木船")
     public static final RegistryObject<Item> ANCIENT_WOOD_BOAT;
-    @ItemData(zhCn = "古木木箱船")
+    @ItemData(zhCn = "古木运输船")
     public static final RegistryObject<Item> ANCIENT_WOOD_CHEST_BOAT;
     @ItemData(zhCn = "远古纤维")
     public static final RegistryObject<Item> ANCIENT_FIBER;
@@ -610,7 +612,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
     @ItemData(zhCn = "荚壳汉堡肉块")
     public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
-    @ItemData(zhCn = "芳香荚阿芙佳朵")
+    @ItemData(zhCn = "辛荚佳朵")
     public static final RegistryObject<Item> AROMATIC_POD_AFFOGATO;
     @ItemData(zhCn = "瓶子草烧卖")
     public static final RegistryObject<Item> PITCHER_PLANT_SHAO_MAI;
@@ -620,9 +622,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> CHEESE_MELON_JUICE;
     @ItemData(zhCn = "瓶装芝香瓜果汁")
     public static final RegistryObject<Item> BOTTLE_MELON_JUICE;
-    @ItemData(zhCn = "瓶子草煲仔饭饭")
+    @ItemData(zhCn = "瓶子草煲仔饭")
     public static final RegistryObject<Item> PITCHER_PLANT_CLAYPOT_RICE;
-    @ItemData(zhCn = "碗装瓶子草煲仔饭饭")
+    @ItemData(zhCn = "碗装瓶子草煲仔饭")
     public static final RegistryObject<Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
 
 
@@ -995,6 +997,7 @@ public class ImmortalersDelightItems {
         EVOLUTCORN_PASTE_BUCKET = registerWithTab("evolutcorn_paste_bucket",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16)));
         EVOLUTCORN_BREAD = foodItem("evolutcorn_bread",ImmortalersDelightFoodProperties.EVOLUTCORN_BREAD);
+        EVOLUTCORN_JIAOZI = foodItem("evolutcorn_jiaozi",ImmortalersDelightFoodProperties.EVOLUTCORN_JIAOZI,true);
 
         /*
         香蕉系列物品
@@ -1326,7 +1329,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.POD_SHELL_BURGER_MEAT_CUBE), ImmortalersDelightFoodProperties.POD_SHELL_BURGER_MEAT_CUBE_POWERED,true,false));
 
         AROMATIC_POD_AFFOGATO = registerWithTab("aromatic_pod_affogato",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.AROMATIC_POD_AFFOGATO),true, false));
+                new DrinkItem(ImmortalersDelightBlocks.AROMATIC_POD_AFFOGATO.get(),drinkItem(ImmortalersDelightFoodProperties.AROMATIC_POD_AFFOGATO),true));
 
         ALFALFA_PORRIDGE = registerWithTab("alfalfa_porridge",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE),ImmortalersDelightFoodProperties.ALFALFA_PORRIDGE_POWERED,true,false));

@@ -76,7 +76,7 @@ public class SpoonBlock extends Block {
                 ItemUtils.givePlayerItem(player,this.getSpoonItem());
                 level.playSound(null,pos, getScoopSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
             }else {
-                player.displayClientMessage(Component.translatable("block.immortalers_delight.spoon_block.tips.1",getScoopItem().getItem().getDescription().getString()), true);
+                player.displayClientMessage(Component.translatable("farmersdelight.tooltip.spoon",getScoopItem().getItem().getDescription().getString()), true);
                 return InteractionResult.FAIL;
             }
             return InteractionResult.SUCCESS;

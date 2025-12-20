@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.data;
 import com.google.gson.JsonObject;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
+import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -68,6 +69,7 @@ public class Languages extends LanguageProvider {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        addLatiao();
         addTooltips();
         addContainers();
         addEffects();
@@ -103,6 +105,39 @@ public class Languages extends LanguageProvider {
                 }
             }
         }
+    }
+
+    private void addLatiao(){
+        addItem(Ltc2Items.EVOLUTCORN_POWDER,"白垩玉黎粉");
+        addItem(Ltc2Items.EVOLUTCORN_LATIAO,"白垩玉黎辣条");
+        addItem(Ltc2Items.RARE_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
+        addItem(Ltc2Items.SUPERIOR_EVOLUTCORN_LATIA,"白垩玉黎辣条");
+        addItem(Ltc2Items.DELICACY_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
+        addItem(Ltc2Items.TREASURE_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
+
+        addItem(Ltc2Items.KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
+        addItem(Ltc2Items.RARE_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
+        addItem(Ltc2Items.SUPERIOR_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
+        addItem(Ltc2Items.DELICACY_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
+        addItem(Ltc2Items.TREASURE_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
+
+        addItem(Ltc2Items.MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
+        addItem(Ltc2Items.RARE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
+        addItem(Ltc2Items.SUPERIOR_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
+        addItem(Ltc2Items.DELICACY_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
+        addItem(Ltc2Items.TREASURE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
+
+        addItem(Ltc2Items.IMMORTALERS_LATIAO_LUCKY_BAG,"千古辣条福袋");
+        addItem(Ltc2Items.HAKO_LATIAO,"「小盒子」的辣条");
+        addItem(Ltc2Items.WINDY_NARRATOR_LATIA,"「Windy Narrator」的辣条");
+        addItem(Ltc2Items.MOASWIES_LATIAO,"「Moaswies Latiao」的辣条");
+        addItem(Ltc2Items.RENYIGESAI_LATIAO,"「人一个噻」的辣条");
+        addItem(Ltc2Items.LYZ_DELIGHT_LATIAO,"「LYZ」的辣条");
+        addItem(Ltc2Items.XIAOSUHUAJI_LATIAO,"「小苏滑稽」的辣条");
+        addItem(Ltc2Items.TELLURIUM_LATIAO,"「Tellurium」的辣条");
+        addItem(Ltc2Items.KA_QKO_LATIAO,"「KaQko」的辣条");
+        addItem(Ltc2Items.BEI_DOU_LATIAO,"「北斗·神」的辣条");
+        addItem(Ltc2Items.DOUGER_LATIAO,"「多格」的辣条");
     }
 
     private void addTooltips(){
@@ -146,6 +181,7 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("pillager_knife.default_enchantment.power.1","Looting IV","抢夺 IV");
         createFarmersdelightTooltip("bone_knife","Charge up to deal more damage.","蓄力以造成更多伤害");
         createFarmersdelightTooltip("bone_knife.1","Looting -I","抢夺 -I");
+        createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
 
     }
 
