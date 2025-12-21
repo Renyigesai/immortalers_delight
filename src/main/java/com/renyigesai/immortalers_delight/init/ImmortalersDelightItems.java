@@ -165,41 +165,41 @@ public class ImmortalersDelightItems {
     /*
     玉米系列物品
     */
-    @ItemData(zhCn = "白垩玉黎")
+    @ItemData(zhCn = "白垩玉黍")
     public static final RegistryObject<Item> EVOLUTCORN;
-    @ItemData(zhCn = "烤白垩玉黎")
+    @ItemData(zhCn = "烤白垩玉黍")
     public static final RegistryObject<Item> ROAST_EVOLUTCORN;
-    @ItemData(zhCn = "白垩玉黎粒")
+    @ItemData(zhCn = "白垩玉黍粒")
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
-    @ItemData(zhCn = "烤白垩玉黎粒")
+    @ItemData(zhCn = "烤白垩玉黍粒")
     public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
     @ItemData(zhCn = "爆黎花")
     public static final RegistryObject<Item> POPOLUTCORN;
-    @ItemData(zhCn = "玉黎饭团")
+    @ItemData(zhCn = "玉黍饭团")
     public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
     @ItemData(zhCn = "彩色烤串")
     public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
-    @ItemData(zhCn = "玉黎烙")
+    @ItemData(zhCn = "玉黍烙")
     public static final RegistryObject<Item> ZEA_PANCAKE;
-    @ItemData(zhCn = "玉黎烙切片")
+    @ItemData(zhCn = "玉黍烙切片")
     public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
-    @ItemData(zhCn = "玉黎酥皮")
+    @ItemData(zhCn = "玉黍酥皮")
     public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
-    @ItemData(zhCn = "玉黎啤酒")
+    @ItemData(zhCn = "玉黍啤酒")
     public static final RegistryObject<Item> EVOLUTCORN_BEER;
     @ItemData(zhCn = "黏糊啤酒")
     public static final RegistryObject<Item> STICKY_BEER;
     @ItemData(zhCn = "蛋挞酥皮")
     public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
-    @ItemData(zhCn = "玉黎硬糖")
+    @ItemData(zhCn = "玉黍硬糖")
     public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
-    @ItemData(zhCn = "桶装白垩玉黎面糊")
+    @ItemData(zhCn = "桶装白垩玉黍面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE_BUCKET;
-    @ItemData(zhCn = "白垩玉黎面糊")
+    @ItemData(zhCn = "白垩玉黍面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE;
-    @ItemData(zhCn = "玉黎面包")
+    @ItemData(zhCn = "玉黍面包")
     public static final RegistryObject<Item> EVOLUTCORN_BREAD;
-    @ItemData(zhCn = "玉黎饺子")
+    @ItemData(zhCn = "玉黍饺子")
     public static final RegistryObject<Item> EVOLUTCORN_JIAOZI;
 
     /*
