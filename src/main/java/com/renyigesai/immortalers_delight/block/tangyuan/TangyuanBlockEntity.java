@@ -85,7 +85,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @param state 方块状态
      */
     public TangyuanBlockEntity(BlockPos pos, BlockState state) {
-        super(ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(), pos, state);
+        super(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(), pos, state);
     }
 
     /**
