@@ -11,9 +11,6 @@
       "tag": "forge:crops/rice"
     }
   ],
-  "container": {
-    "item": "minecraft:bowl"
-  },
   "result": {
     "item": "immortalers_delight:leisamboo_tea_cake",
     "count": 3

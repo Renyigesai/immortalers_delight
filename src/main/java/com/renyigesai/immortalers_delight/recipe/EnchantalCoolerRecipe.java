@@ -53,7 +53,7 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
                 }
             }
 
-        } else System.out.println("container is error:" + ForgeRegistries.ITEMS.getKey(inv.getItem(4).getItem()) + " != " + ForgeRegistries.ITEMS.getKey(this.container.getItem()));
+        }
         return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
@@ -124,8 +124,8 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
             for (int i = 0; i < ingredientCount; i++) {
                 inputs.set(i, Ingredient.fromNetwork(pBuffer));
             }
-            ItemStack container = pBuffer.readItem();
             ItemStack output = pBuffer.readItem();
+            ItemStack container = pBuffer.readItem();
             return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
         }
 

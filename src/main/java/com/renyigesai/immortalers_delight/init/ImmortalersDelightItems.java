@@ -285,16 +285,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     @ItemData(zhCn = "鞑靼鸡肉")
     public static final RegistryObject<Item> TARTARE_CHICKEN;
-    @ItemData(zhCn = "魔凝机",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> ENCHANTAL_COOLER;
-    @ItemData(zhCn = "远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> ANCIENT_STOVE;
-    @ItemData(zhCn = "风化远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> EXPOSED_ANCIENT_STOVE;
-    @ItemData(zhCn = "锈蚀远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> WEATHERED_ANCIENT_STOVE;
-    @ItemData(zhCn = "氧化远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
     @ItemData(zhCn = "姬海棠酸奶派")
     public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
     @ItemData(zhCn = "姬海棠酸奶派片")
@@ -559,6 +549,7 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "棱蕉寿司船")
     public static final RegistryObject<Item> PEARLIP_RICE_ROLL_BOAT;
 
+    /*冒险相关*/
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
@@ -569,8 +560,16 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
-
-
+    @ItemData(zhCn = "魔凝机",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> ENCHANTAL_COOLER;
+    @ItemData(zhCn = "远古炉灶",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> ANCIENT_STOVE;
+    @ItemData(zhCn = "风化远古炉灶",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> EXPOSED_ANCIENT_STOVE;
+    @ItemData(zhCn = "锈蚀远古炉灶",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> WEATHERED_ANCIENT_STOVE;
+    @ItemData(zhCn = "氧化远古炉灶",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
     @ItemData(zhCn = "谷物香囊")
     public static final RegistryObject<Item> SACHETS;
     @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL)
@@ -587,6 +586,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GRINDSTONE_HAMMER;
     @ItemData(zhCn = "古代连弩",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> REPEATING_CROSSBOW;
+    @ItemData(zhCn = "汤勺",model = ItemData.ModelType.TOOL)
+    public static final RegistryObject<Item> SPOON;
     @ItemData(zhCn = "古代口粮包")
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
 
@@ -1291,6 +1292,8 @@ public class ImmortalersDelightItems {
 
         REPEATING_CROSSBOW = registerWithTab("repeating_crossbow",()->
                 new RepeatingCrossbowItem((new Item.Properties()).stacksTo(1).durability(465)));
+        SPOON = registerWithTab("spoon",()->
+                new SpoonItem(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN.get(), (new Item.Properties()).durability(64)));
         //隐藏
         SEALED_ANCIENT_RATIONS = register("sealed_ancient_rations",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));

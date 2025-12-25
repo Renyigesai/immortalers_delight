@@ -61,7 +61,7 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
             float baseDamage = this.attackDamage + (isPowerful ? extra_attackDamage : 0);
             int useTime = getUseTime(stack);
             int maxLoadTime = getMaxLoadTime();
-            float buffer = 1.0F + Math.min((float)useTime / (float)maxLoadTime, 1.0F);
+            float buffer = 1 + Math.min((float) useTime / maxLoadTime, 1.0F); // 0.0~1.0 的蓄力比例;
             double damage = buffer > 1.5f ? (baseDamage + (buffer > 1.8f ? 0.5f : -0.5f)) * buffer : baseDamage;
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed + (isPowerful ? extra_attackSpeed : 0), AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
@@ -112,8 +112,8 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
         int useTime = getUseTime(stack);
         if (level.isClientSide()) {
             CompoundTag tag = stack.getOrCreateTag();
-            if (tag.getInt("PrevUseTime") != tag.getInt("UseTime")) {
-                tag.putInt("PrevUseTime", getUseTime(stack));
+            if (tag.getInt(TAG_PREV_USE_TIME) != tag.getInt(TAG_USE_TIME)) {
+                tag.putInt(TAG_PREV_USE_TIME, getUseTime(stack));
             }
 
             int maxLoadTime = getMaxLoadTime();
@@ -128,31 +128,6 @@ public class BoneKnifeItem extends ImmortalersKnifeItem{
         }
 
     }
-
-
-//    @Override
-//    public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {
-//        super.inventoryTick(stack, level, entity, i, held);
-//
-//        boolean holding = entity instanceof LivingEntity living && living.getItemInHand(InteractionHand.MAIN_HAND) == stack;
-//        int useTime = getUseTime(stack);
-//        if (level.isClientSide()) {
-//            CompoundTag tag = stack.getOrCreateTag();
-//            if (tag.getInt(TAG_PREV_USE_TIME) != tag.getInt(TAG_USE_TIME)) {
-//                tag.putInt(TAG_PREV_USE_TIME, getUseTime(stack));
-//            }
-//
-//            int maxLoadTime = getMaxLoadTime();
-//            if (holding && useTime < maxLoadTime) {
-//                int set = useTime +  1;
-//                setUseTime(stack, set);
-//
-//            }
-//        }
-//        if (!holding && useTime > 0.0F) {
-//            setUseTime(stack, Math.max(0, useTime - 5));
-//        }
-//    }
 
     //绑定特殊渲染器。要注意，启用渲染器需要烘焙模型的支持，因此不要漏。
     @Override

@@ -28,34 +28,35 @@ public class DifficultyModeEventHelper {
      *  超凡模式下，怪物的伤害随目标血量提升，作用类似百分比伤害。
      *  但其实此处最大仅能造成3倍的伤害，限伤的存在实际使得过高的增伤意义不大。
      *  保底伤害的触发在这个方法的时机之前，所以这个增伤不影响保底伤害。
+     *  困难难度下，怪物额外具有25%增伤与20%减伤
      */
     @SubscribeEvent
     public static void ImmortalrsMobAttackProgressDamage(LivingHurtEvent event) {
         LivingEntity hurtOne = event.getEntity();
         if (!hurtOne.level().isClientSide) {
-            if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-                if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
+            if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
+                if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+
                     if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
                             || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
                             || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
                     ) {
                         float oldDamage = event.getAmount();
                         float buffer = Math.min(3,1 + hurtOne.getMaxHealth() * 0.02F);
+                        if (attacker.level().getDifficulty().getId() >= 3) buffer *= 1.25f;
                         event.setAmount(Math.max(oldDamage * buffer, 0.0F));
                     }
                 }
 
-                if (attacker.level().getDifficulty().getId() >= 3) event.setAmount(event.getAmount() * 1.25F);
-            }
+                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
+                        || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
+                        || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
+                ) {
+                    if (hurtOne.level().getDifficulty().getId() >= 3) event.setAmount(event.getAmount() * 0.8F);
+                }
 
-            if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
-                    || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
-                    || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
-            ) {
-                if (hurtOne.level().getDifficulty().getId() >= 3) event.setAmount(event.getAmount() * 0.8F);
             }
         }
-
     }
 
     /**

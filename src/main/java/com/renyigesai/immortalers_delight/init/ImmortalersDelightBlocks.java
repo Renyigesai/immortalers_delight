@@ -14,6 +14,8 @@ import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingS
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
+import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
+import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
@@ -58,6 +60,9 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> ANCIENT_STOVE;
     public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
+    @BlockData
+    public static final RegistryObject<Block> UNFINISHED_TANGYUAN;
+    public static final RegistryObject<BlockEntityType<TangyuanBlockEntity>> UNFINISHED_TANGYUAN_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
     public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
     public static final RegistryObject<Block> SUPPORT_BLOCK;
@@ -759,7 +764,9 @@ public class ImmortalersDelightBlocks {
         //方块实体 Block Entity
 
         ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
-                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                        .requiresCorrectToolForDrops()
+                ));
 
         ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
@@ -769,6 +776,11 @@ public class ImmortalersDelightBlocks {
 
         ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",
                 ()-> BlockEntityType.Builder.of(AncientStoveBlockEntity::new, ANCIENT_STOVE.get()).build(null));
+        UNFINISHED_TANGYUAN = BLOCKS.register("unfinished_tangyuan",()->
+                new UnfinishedTangyuanBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
+                ));
+        UNFINISHED_TANGYUAN_ENTITY = BLOCK_ENTITY_REGISTRY.register("unfinished_tangyuan",
+                ()-> BlockEntityType.Builder.of(TangyuanBlockEntity::new, UNFINISHED_TANGYUAN.get()).build(null));
 
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));
