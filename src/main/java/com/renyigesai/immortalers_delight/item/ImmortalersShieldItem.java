@@ -1,7 +1,10 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;

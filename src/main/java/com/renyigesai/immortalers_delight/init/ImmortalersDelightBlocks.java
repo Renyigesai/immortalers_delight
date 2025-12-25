@@ -14,6 +14,8 @@ import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingS
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
+import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
+import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
@@ -58,6 +60,9 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> ANCIENT_STOVE;
     public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
+    @BlockData
+    public static final RegistryObject<Block> UNFINISHED_TANGYUAN;
+    public static final RegistryObject<BlockEntityType<TangyuanBlockEntity>> UNFINISHED_TANGYUAN_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
     public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
     public static final RegistryObject<Block> SUPPORT_BLOCK;
@@ -620,6 +625,9 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> FRUIT_TEA = drinksBlock("fruit_tea");
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> AROMATIC_POD_AFFOGATO = drinksBlock("aromatic_pod_affogato");
+
 
 
 
@@ -725,7 +733,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
-            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE,false));
+            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE));
 
     /*嗅探兽毛块*/
     @BlockData
@@ -768,6 +776,11 @@ public class ImmortalersDelightBlocks {
 
         ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",
                 ()-> BlockEntityType.Builder.of(AncientStoveBlockEntity::new, ANCIENT_STOVE.get()).build(null));
+        UNFINISHED_TANGYUAN = BLOCKS.register("unfinished_tangyuan",()->
+                new UnfinishedTangyuanBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
+                ));
+        UNFINISHED_TANGYUAN_ENTITY = BLOCK_ENTITY_REGISTRY.register("unfinished_tangyuan",
+                ()-> BlockEntityType.Builder.of(TangyuanBlockEntity::new, UNFINISHED_TANGYUAN.get()).build(null));
 
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));

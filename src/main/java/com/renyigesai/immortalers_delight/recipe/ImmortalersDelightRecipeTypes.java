@@ -16,9 +16,6 @@ public class ImmortalersDelightRecipeTypes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ImmortalersDelightMod.MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, ImmortalersDelightMod.MODID);
 
-    public static final DeferredRegister<RecipeSerializer<?>> KNIFE_POTION_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ImmortalersDelightMod.MODID);
-    public static final DeferredRegister<RecipeType<?>> KNIFE_POTION_RECIPE_TYPE = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, ImmortalersDelightMod.MODID);
-
     @SuppressWarnings("removal")
     @SubscribeEvent
     public static void register(FMLConstructModEvent event) {
@@ -30,10 +27,10 @@ public class ImmortalersDelightRecipeTypes {
 			RECIPE_TYPE.register(EnchantalCoolerRecipe.Type.ID,() ->EnchantalCoolerRecipe.Type.INSTANCE);
             SERIALIZERS.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Type.INSTANCE);
-//            KNIFE_POTION_SERIALIZERS.register(bus);
-//            KNIFE_POTION_RECIPE_TYPE.register(bus);
             SERIALIZERS.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Type.INSTANCE);
+            SERIALIZERS.register(TangyuanRecipe.Type.ID,() ->TangyuanRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(TangyuanRecipe.Type.ID,() ->TangyuanRecipe.Type.INSTANCE);
         });
     }
 }

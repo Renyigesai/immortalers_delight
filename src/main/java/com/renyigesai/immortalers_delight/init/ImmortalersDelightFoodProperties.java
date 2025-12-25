@@ -848,4 +848,5 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties BOWL_PITCHER_PLANT_CLAYPOT_RICE = new FoodProperties.Builder().saturationMod(0.75f).nutrition(14).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),3600),1f).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),3600),1f).build();
 
     public static final FoodProperties EVOLUTCORN_BREAD = new FoodProperties.Builder().saturationMod(0.425f).nutrition(8).build();
+    public static final FoodProperties EVOLUTCORN_JIAOZI = new FoodProperties.Builder().saturationMod(0.425f).nutrition(8).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.CULTURAL_LEGACY.get(),1200),1f).effect(()-> new MobEffectInstance(ModEffects.NOURISHMENT.get(),1200),1f).build();
 }

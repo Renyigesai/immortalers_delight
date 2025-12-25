@@ -68,7 +68,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("container.enchantal_cooler"); // GUI 标题
+        return Component.translatable("container.immortalers_delight.enchantal_cooler");
     }
 
     @Override

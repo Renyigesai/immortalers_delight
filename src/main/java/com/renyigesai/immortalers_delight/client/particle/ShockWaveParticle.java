@@ -66,7 +66,7 @@ public class ShockWaveParticle extends TextureSheetParticle {
         // 延迟结束后才执行渲染逻辑
         //if (this.extra_size <= 0) {
             // 计算透明度：随生命周期从1.0F线性降为0.0F（实现渐隐消失）
-            this.alpha = 1.0F - Mth.clamp(((float)this.age + pPartialTicks) / (float)this.lifetime, 0.0F, 1.0F);
+            this.alpha = 1.0F - Mth.clamp(((float)this.age + pPartialTicks) / (float)this.lifetime, 0.5F, 1.0F);
 
             // 渲染第一层粒子：绕X轴旋转-60°（形成十字形的一个臂）
             this.renderRotatedParticle(pBuffer, pRenderInfo, pPartialTicks, (p_253347_) -> {
