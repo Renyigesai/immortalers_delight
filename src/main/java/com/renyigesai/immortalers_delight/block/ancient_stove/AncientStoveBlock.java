@@ -45,6 +45,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -55,7 +56,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
 
     private final WeatheringCopper.WeatherState weatherState;
 
-    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get()).build());
+    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE.get()).build());
 
     public AncientStoveBlock(BlockBehaviour.Properties properties, WeatherState weatherState) {
         super(properties);
@@ -66,6 +67,28 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
         Item heldItem = heldStack.getItem();
+
+        if (heldItem instanceof AxeItem){
+            Block scrape = getScrape(state.getBlock());
+            if (scrape != null){
+                BlockState newState = scrape.defaultBlockState().setValue(LIT,state.getValue(LIT)).setValue(FACING,state.getValue(FACING));
+                level.setBlockAndUpdate(pos,newState);
+                if (!player.getAbilities().instabuild) {
+                    heldStack.hurtAndBreak(1, player, (p_150686_) -> {
+                        p_150686_.broadcastBreakEvent(hand);
+                    });
+                }
+                level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.levelEvent(3005,pos,0);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+        }
+
+        if (weatherState == WeatheringCopper.WeatherState.OXIDIZED){
+            return InteractionResult.PASS;
+        }
+
         if (state.getValue(LIT)) {
             if (heldStack.canPerformAction(ToolActions.SHOVEL_DIG)) {
                 this.extinguish(state, level, pos);
@@ -194,7 +217,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(LIT, true);
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(LIT, weatherState != WeatheringCopper.WeatherState.OXIDIZED);
     }
 
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
@@ -246,7 +269,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
 
     @javax.annotation.Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AncientStoveBlockEntity(pos,state);
+        return ((BlockEntityType)ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get()).create(pos,state);
     }
 
     @javax.annotation.Nullable
@@ -283,6 +306,15 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     @Override
     public Optional<BlockState> getNext(BlockState pState) {
         return getNext(pState.getBlock()).map((p_154896_) -> p_154896_.withPropertiesOf(pState));
+    }
+
+    public Block getScrape(Block value) {
+        for (Map.Entry<Block, Block> entry : NEXT_BY_BLOCK.get().entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     static {
