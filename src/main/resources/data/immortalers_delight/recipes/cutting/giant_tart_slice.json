@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:giant_tart"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:giant_tart_slice",
+      "count": 4
+    }
+  ]
+}

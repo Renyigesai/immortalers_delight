@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:sniffer_egg"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:giant_tart"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

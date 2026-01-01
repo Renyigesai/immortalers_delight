@@ -61,6 +61,7 @@ public @interface ItemData {
         CUSTOM,
         TRAPDOOR,
         FENCE,
-        WALL
+        WALL,
+        BUTTON
     }
 }
