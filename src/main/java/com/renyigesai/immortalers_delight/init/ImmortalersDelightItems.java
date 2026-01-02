@@ -493,15 +493,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> RED_STUFFED_BUN;
     @ItemData(zhCn = "尖刺栅栏",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SPIKE_BAR_BASE;
-    @ItemData(zhCn = "泥瓦",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥瓦",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> MUD_TILES;
     @ItemData(zhCn = "泥瓦楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> MUD_TILES_STAIRS;
-    @ItemData(zhCn = "台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥瓦台阶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> MUD_TILES_SLAB;
     @ItemData(zhCn = "泥瓦墙",model = ItemData.ModelType.WALL)
     public static final RegistryObject<Item> MUD_TILES_WALL;
-    @ItemData(zhCn = "裂泥瓦",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥瓦",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> CRACKED_MUD_TILES;
     @ItemData(zhCn = "裂泥瓦楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> CRACKED_MUD_TILES_STAIRS;
@@ -509,7 +509,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> CRACKED_MUD_TILES_SLAB;
     @ItemData(zhCn = "裂泥瓦墙",model = ItemData.ModelType.WALL)
     public static final RegistryObject<Item> CRACKED_MUD_TILES_WALL;
-    @ItemData(zhCn = "苔石砖",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "苔石砖",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK;
     @ItemData(zhCn = "苔石砖楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_STAIRS;
@@ -517,7 +517,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_SLAB;
     @ItemData(zhCn = "苔石砖墙",model = ItemData.ModelType.WALL)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_WALL;
-    @ItemData(zhCn = "裂泥砖",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥砖",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK;
     @ItemData(zhCn = "裂泥砖楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_STAIRS;
@@ -525,7 +525,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_SLAB;
     @ItemData(zhCn = "裂泥砖墙",model = ItemData.ModelType.WALL)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_WALL;
-    @ItemData(zhCn = "雕纹泥砖",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "雕纹泥砖",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item>CHISELED_MUD_BRICK;
     @ItemData(zhCn = "泥坯楼梯",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item>PACKED_MUD_STAIRS;
@@ -545,7 +545,7 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "古苜蓿")
     public static final RegistryObject<Item> ALFALFA;
     @ItemData(zhCn = "古苜蓿七草粥")
-    public static final RegistryObject<Item> ALFALFA_PORRIDGE;//alfalfa_porridge
+    public static final RegistryObject<Item> ALFALFA_PORRIDGE;
 
     @ItemData(zhCn = "蕉盒鲑")
     public static final RegistryObject<Item> BANANA_BOX_SALMON;

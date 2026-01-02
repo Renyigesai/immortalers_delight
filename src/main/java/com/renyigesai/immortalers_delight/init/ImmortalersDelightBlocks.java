@@ -529,7 +529,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
             () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    /*炉子*/
+    /*远古炉灶系列*/
     @BlockData
     public static final RegistryObject<Block> ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
             new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,false));
