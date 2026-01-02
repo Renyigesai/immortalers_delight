@@ -187,6 +187,7 @@ public class Languages extends LanguageProvider {
 
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
+        createContainer("hot_spring","Hot Spring","温泉");
     }
 
 

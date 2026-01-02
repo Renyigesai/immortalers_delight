@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
+import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 
 import java.util.*;
 
@@ -58,11 +59,12 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         super.animateTick(pState, pLevel, pPos, pRandom);
         if (isHeatSources(pLevel,pPos)){
-            double x = pPos.getX();
+            double x = pPos.getX() + 0.5;
             double y = pPos.above().getY();
-            double z = pPos.getZ();
+            double z = pPos.getZ() + 0.5;
             Random random = new Random();
             pLevel.addParticle(ParticleTypes.POOF,x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
+            pLevel.addParticle(ModParticleTypes.STEAM.get(),x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
         }
     }
 
