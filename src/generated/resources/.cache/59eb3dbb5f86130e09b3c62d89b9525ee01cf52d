@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-23T10:48:36.9688816	Loot Tables
+// 1.20.1	2025-12-31T12:02:15.2450611	Loot Tables
 7bae7c576f60ee925ab752e01b53a9833854e6ea data/immortalers_delight/loot_tables/blocks/alfalfa_block.json
 c81b05f98f416f04c9990bbf4135bf54abe44382 data/immortalers_delight/loot_tables/blocks/ancient_stove.json
 8b96e56cacb23306680e23c750ce243e0dc24bca data/immortalers_delight/loot_tables/blocks/ancient_wood.json
@@ -114,5 +114,9 @@ b0d2a44614308161c3ec59fd2e3c02fdaf95ac2a data/immortalers_delight/loot_tables/bl
 4cf60754732312d3a589abfff54e7a8103ca9072 data/immortalers_delight/loot_tables/blocks/trava_planks.json
 062fcd3d85c2dbf9e39227126d0cec6108a8f883 data/immortalers_delight/loot_tables/blocks/unfinished_tangyuan.json
 488547a4bcd33d27c24bd21506972458e98a7485 data/immortalers_delight/loot_tables/blocks/vulcan_coktail.json
+7ce41bf1ebf5ee77e369ff366408783488db8e6c data/immortalers_delight/loot_tables/blocks/waxed_ancient_stove.json
+860db3bcd3528b43e4a94c169160db87f0b903ca data/immortalers_delight/loot_tables/blocks/waxed_exposed_ancient_stove.json
+8bf6b22cea14cf3d8705f82940507550d8897062 data/immortalers_delight/loot_tables/blocks/waxed_oxidized_ancient_stove.json
+d4aa84228246c16c6aa7303d93641c563968d36b data/immortalers_delight/loot_tables/blocks/waxed_weathered_ancient_stove.json
 88eebedd7a8d5476b51b03fe13f083bf80c0486b data/immortalers_delight/loot_tables/blocks/weathered_ancient_stove.json
 6b0466758a8994d2173114cd48076c81a2f6847e data/immortalers_delight/loot_tables/blocks/yogurt.json
