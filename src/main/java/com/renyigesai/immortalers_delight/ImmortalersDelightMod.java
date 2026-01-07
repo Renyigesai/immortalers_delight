@@ -16,6 +16,7 @@ import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.data.BlockLootTables;
 import com.renyigesai.immortalers_delight.data.ItemModels;
 import com.renyigesai.immortalers_delight.data.Languages;
+import com.renyigesai.immortalers_delight.data.Recipes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
@@ -257,6 +258,7 @@ public class ImmortalersDelightMod {
         generator.addProvider(event.includeClient(), new LootTableProvider(output, Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(BlockLootTables::new, LootContextParamSets.BLOCK))));
         generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
         generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
+        generator.addProvider(event.includeClient(), new Recipes(output));
     }
 
     public static ResourceLocation prefix(String name) {
