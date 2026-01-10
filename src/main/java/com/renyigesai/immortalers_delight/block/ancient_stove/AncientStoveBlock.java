@@ -4,10 +4,12 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ToolActions;
@@ -45,7 +48,10 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopper {
@@ -54,18 +60,51 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     public static final DirectionProperty FACING;
 
     private final WeatheringCopper.WeatherState weatherState;
+    private final boolean waxed;
 
-    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get()).build());
+    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE.get()).build());
+    Supplier<BiMap<Block, Block>> WAXED_BY_BLOCK = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().put(ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_EXPOSED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_WEATHERED_ANCIENT_STOVE.get()).put(ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_OXIDIZED_ANCIENT_STOVE.get()).build());
 
-    public AncientStoveBlock(BlockBehaviour.Properties properties, WeatherState weatherState) {
+    public AncientStoveBlock(BlockBehaviour.Properties properties, WeatherState weatherState, boolean waxed) {
         super(properties);
         this.weatherState = weatherState;
+        this.waxed = waxed;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
         Item heldItem = heldStack.getItem();
+        boolean instabuild = player.getAbilities().instabuild;
+
+        if (!this.waxed && heldStack.is(Items.HONEYCOMB) && waxed(level,player,heldStack,state,pos,instabuild)){
+            return InteractionResult.SUCCESS;
+        }
+
+        if (heldItem instanceof AxeItem){
+            if (this.waxed && waxedOff(level,player,heldStack,hand,state,pos,instabuild)){
+                return InteractionResult.SUCCESS;
+            }
+            Block scrape = getScrape(state.getBlock());
+            if (scrape != null){
+                BlockState newState = scrape.defaultBlockState().setValue(LIT,state.getValue(LIT)).setValue(FACING,state.getValue(FACING));
+                level.setBlockAndUpdate(pos,newState);
+                if (!instabuild) {
+                    heldStack.hurtAndBreak(1, player, (p_150686_) -> {
+                        p_150686_.broadcastBreakEvent(hand);
+                    });
+                }
+                level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.levelEvent(3005,pos,0);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+        }
+
+        if (weatherState == WeatheringCopper.WeatherState.OXIDIZED){
+            return InteractionResult.PASS;
+        }
+
         if (state.getValue(LIT)) {
             if (heldStack.canPerformAction(ToolActions.SHOVEL_DIG)) {
                 this.extinguish(state, level, pos);
@@ -127,9 +166,44 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
         return InteractionResult.PASS;
     }
 
+    private boolean waxed(Level level,Player player,ItemStack heldStack, BlockState state,BlockPos pos,boolean instabuild){
+        Block block = this.WAXED_BY_BLOCK.get().get(this);
+        if (block != null){
+            if (player instanceof ServerPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, heldStack);
+            }
+            if (!instabuild){
+                heldStack.shrink(1);
+            }
+            BlockState newState = block.defaultBlockState().setValue(LIT, state.getValue(LIT)).setValue(FACING, state.getValue(FACING));
+            level.setBlockAndUpdate(pos, newState);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, block.defaultBlockState()));
+            level.levelEvent(player, 3003, pos, 0);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean waxedOff(Level level,Player player,ItemStack heldStack, InteractionHand hand, BlockState state,BlockPos pos,boolean instabuild){
+        Block block = this.WAXED_BY_BLOCK.get().inverse().get(this);
+        if (block != null){
+            BlockState newState = block.defaultBlockState().setValue(LIT,state.getValue(LIT)).setValue(FACING,state.getValue(FACING));
+            level.setBlockAndUpdate(pos,newState);
+            if (!instabuild) {
+                heldStack.hurtAndBreak(1, player, (p_150686_) -> {
+                    p_150686_.broadcastBreakEvent(hand);
+                });
+            }
+            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.levelEvent(player, 3004, pos, 0);
+            return true;
+        }
+        return false;
+    }
+
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof AncientStoveBlockEntity stoveBlock && stoveBlock.isEmpty()){
+        if (!this.waxed && blockEntity instanceof AncientStoveBlockEntity stoveBlock && stoveBlock.isEmpty()){
             this.onRandomTick(pState, pLevel, pPos, pRandom);
         }
     }
@@ -175,8 +249,9 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
         float f = (float)(k + 1) / (float)(k + j + 1);
         float f1 = f * f * this.getChanceModifier();
         if (pRandom.nextFloat() < f1) {
-            this.getNext(pState).ifPresent((p_153039_) -> {
-                pLevel.setBlockAndUpdate(pPos, p_153039_);
+            this.getNext(pState).ifPresent((state) -> {
+                boolean lit = !(state.getBlock() == ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE.get());
+                pLevel.setBlockAndUpdate(pPos, state.setValue(LIT,lit));
             });
         }
     }
@@ -194,7 +269,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(LIT, true);
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(LIT, weatherState != WeatheringCopper.WeatherState.OXIDIZED);
     }
 
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
@@ -224,7 +299,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     }
 
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
-        if ((Boolean)stateIn.getValue(CampfireBlock.LIT)) {
+        if (stateIn.getValue(LIT)) {
             double x = (double)pos.getX() + 0.5;
             double y = (double)pos.getY();
             double z = (double)pos.getZ() + 0.5;
@@ -246,7 +321,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
 
     @javax.annotation.Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AncientStoveBlockEntity(pos,state);
+        return ((BlockEntityType)ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get()).create(pos,state);
     }
 
     @javax.annotation.Nullable
@@ -268,7 +343,7 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     }
 
     public boolean isRandomlyTicking(BlockState pState) {
-        return getNext(pState.getBlock()).isPresent() && !pState.getValue(LIT);
+        return getNext(pState.getBlock()).isPresent()/* && !pState.getValue(LIT)*/;
     }
 
     @Override
@@ -283,6 +358,15 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
     @Override
     public Optional<BlockState> getNext(BlockState pState) {
         return getNext(pState.getBlock()).map((p_154896_) -> p_154896_.withPropertiesOf(pState));
+    }
+
+    public Block getScrape(Block value) {
+        for (Map.Entry<Block, Block> entry : NEXT_BY_BLOCK.get().entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     static {

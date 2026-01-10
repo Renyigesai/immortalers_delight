@@ -1,7 +1,9 @@
-package com.renyigesai.immortalers_delight.recipe;
+package com.renyigesai.immortalers_delight.recipe.category;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
+import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -20,6 +22,7 @@ import java.util.Objects;
 @JeiPlugin
 public class JEIImmortalersDelightPlugin implements IModPlugin {
     public static final mezz.jei.api.recipe.RecipeType<EnchantalCoolerRecipe> ENCHANTAL_COOLER_TYPE = new mezz.jei.api.recipe.RecipeType<>(EnchantalCoolerCategory.UID, EnchantalCoolerRecipe.class);
+    public static final mezz.jei.api.recipe.RecipeType<HotSpringRecipe> HOT_SPRING_TYPE = new mezz.jei.api.recipe.RecipeType<>(HotSpringCategory.UID, HotSpringRecipe.class);
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(ImmortalersDelightMod.MODID,"jei_plugin");
@@ -28,6 +31,7 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new EnchantalCoolerCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new HotSpringCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -35,6 +39,9 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
         List<EnchantalCoolerRecipe> enchantalCoolerRecipes = recipeManager.getAllRecipesFor(EnchantalCoolerRecipe.Type.INSTANCE);
         registration.addRecipes(ENCHANTAL_COOLER_TYPE,enchantalCoolerRecipes);
+
+        List<HotSpringRecipe> hotSpringRecipes = recipeManager.getAllRecipesFor(HotSpringRecipe.Type.INSTANCE);
+        registration.addRecipes(HOT_SPRING_TYPE,hotSpringRecipes);
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
-import com.renyigesai.immortalers_delight.block.ancient_stove.WeatheringAncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.crops.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
@@ -50,8 +49,8 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> ENCHANTAL_COOLER;
     public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
-    @BlockData
-    public static final RegistryObject<Block> ANCIENT_STOVE;
+//    @BlockData
+//    public static final RegistryObject<Block> ANCIENT_STOVE;
     public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
     @BlockData
     public static final RegistryObject<Block> UNFINISHED_TANGYUAN;
@@ -518,6 +517,9 @@ public class ImmortalersDelightBlocks {
             new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> GIANT_TART = BLOCKS.register("giant_tart",()-> new GiantTartBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.GIANT_TART_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
             () -> new KwatWheatCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
@@ -529,21 +531,42 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
             () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    /*远古炉灶系列*/
+    @BlockData
+    public static final RegistryObject<Block> ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,false));
+
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> SUPER_KWAT_WHEAT_HAMBURGER = BLOCKS.register("super_kwat_wheat_hamburger",
             () -> new SuperKwatBurgerBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     @BlockData
     public static final RegistryObject<Block> EXPOSED_ANCIENT_STOVE = BLOCKS.register("exposed_ancient_stove",()->
-            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.EXPOSED));
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,false));
 
     @BlockData
     public static final RegistryObject<Block> WEATHERED_ANCIENT_STOVE = BLOCKS.register("weathered_ancient_stove",()->
-            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.WEATHERED));
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,false));
 
     @BlockData
     public static final RegistryObject<Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove", () ->
-            new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED));
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,false));
+
+    @BlockData
+    public static final RegistryObject<Block> WAXED_ANCIENT_STOVE = BLOCKS.register("waxed_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,true));
+
+    @BlockData
+    public static final RegistryObject<Block> WAXED_EXPOSED_ANCIENT_STOVE = BLOCKS.register("waxed_exposed_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,true));
+
+    @BlockData
+    public static final RegistryObject<Block> WAXED_WEATHERED_ANCIENT_STOVE = BLOCKS.register("waxed_weathered_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,true));
+
+    @BlockData
+    public static final RegistryObject<Block> WAXED_OXIDIZED_ANCIENT_STOVE = BLOCKS.register("waxed_oxidized_ancient_stove", () ->
+            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,true));
 
     /*
     通天竹
@@ -784,8 +807,6 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
-    //oxidized
-
     static {
         //方块实体 Block Entity
 
@@ -797,11 +818,10 @@ public class ImmortalersDelightBlocks {
         ENCHANTAL_COOLER_ENTITY = BLOCK_ENTITY_REGISTRY.register("enchantal_cooler",
                 ()-> BlockEntityType.Builder.of(EnchantalCoolerBlockEntity::new, ENCHANTAL_COOLER.get()).build(null));
 
-        ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
-                new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER), WeatheringCopper.WeatherState.UNAFFECTED));
+        ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",()->{
+            return BlockEntityType.Builder.of(AncientStoveBlockEntity::new, new Block[]{ImmortalersDelightBlocks.ANCIENT_STOVE.get(),ImmortalersDelightBlocks.EXPOSED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WEATHERED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.OXIDIZED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_EXPOSED_ANCIENT_STOVE.get(),ImmortalersDelightBlocks.WAXED_WEATHERED_ANCIENT_STOVE.get(), ImmortalersDelightBlocks.WAXED_OXIDIZED_ANCIENT_STOVE.get()}).build(null);
+        });
 
-        ANCIENT_STOVE_ENTITY = BLOCK_ENTITY_REGISTRY.register("ancient_stove",
-                ()-> BlockEntityType.Builder.of(AncientStoveBlockEntity::new, ANCIENT_STOVE.get()).build(null));
         UNFINISHED_TANGYUAN = BLOCKS.register("unfinished_tangyuan",()->
                 new UnfinishedTangyuanBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
                 ));
@@ -826,6 +846,11 @@ public class ImmortalersDelightBlocks {
     private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
         return (p_50763_) -> {
             return p_50763_.getValue(BlockStateProperties.LIT) ? pLightValue : 5;
+        };
+    }
+    private static ToIntFunction<BlockState> litBlockLight(int pLightValue) {
+        return (p_50763_) -> {
+            return p_50763_.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
         };
     }
     private static BasicsLogsBlock log(MapColor p_285370_, MapColor p_285126_) {

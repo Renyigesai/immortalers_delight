@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.fluid;
 
-import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
@@ -10,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -20,12 +18,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.sound.SoundEvent;
-import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 
 import java.util.*;
 
@@ -62,11 +59,12 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         super.animateTick(pState, pLevel, pPos, pRandom);
         if (isHeatSources(pLevel,pPos)){
-            double x = pPos.getX();
+            double x = pPos.getX() + 0.5;
             double y = pPos.above().getY();
-            double z = pPos.getZ();
+            double z = pPos.getZ() + 0.5;
             Random random = new Random();
             pLevel.addParticle(ParticleTypes.POOF,x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
+            pLevel.addParticle(ModParticleTypes.STEAM.get(),x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
         }
     }
 
@@ -76,7 +74,8 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     }
 
     public boolean isHeatSources(Level level, BlockPos pos){
-        return level.getBlockState(pos.below()).is(BlockTags.create(new ResourceLocation("farmersdelight:heat_sources")));
+        BlockState state = level.getBlockState(pos.below());
+        return state.is(BlockTags.create(new ResourceLocation("farmersdelight:heat_sources"))) && state.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(booleanProperty);
     }
 
     private void craftTick(Level level, BlockPos pos){
@@ -98,8 +97,7 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         }
         HotSpringRecipe recipe = recipeOptional.get();
         ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-        for (int i = 0; i < itemEntityList.size(); i++) {
-            ItemEntity itemEntity = itemEntityList.get(i);
+        for (ItemEntity itemEntity : itemEntityList) {
             itemEntity.remove(Entity.RemovalReason.DISCARDED);
         }
         ItemUtils.spawnItemEntity(level,resultItem,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,0,0,0);

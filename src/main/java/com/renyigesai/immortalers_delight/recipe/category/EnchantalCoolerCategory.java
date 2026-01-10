@@ -1,7 +1,8 @@
-package com.renyigesai.immortalers_delight.recipe;
+package com.renyigesai.immortalers_delight.recipe.category;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

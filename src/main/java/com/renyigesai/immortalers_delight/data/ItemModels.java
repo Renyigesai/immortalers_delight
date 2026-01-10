@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.data;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -22,7 +23,7 @@ import java.util.function.Supplier;
 
 public class ItemModels extends ItemModelProvider {
 
-    private static final Map<ItemData.ModelType,String> MODEL = Map.of(ItemData.ModelType.TRAPDOOR,"_bottom", ItemData.ModelType.FENCE,"_inventory",ItemData.ModelType.WALL,"_inventory");
+    private static final Map<ItemData.ModelType,String> MODEL = Map.of(ItemData.ModelType.TRAPDOOR,"_bottom", ItemData.ModelType.FENCE,"_inventory",ItemData.ModelType.WALL,"_inventory",ItemData.ModelType.BUTTON,"_inventory");
     public ItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ImmortalersDelightMod.MODID, existingFileHelper);
     }
@@ -65,22 +66,32 @@ public class ItemModels extends ItemModelProvider {
                 }
             }
         }
+        blockItem(ImmortalersDelightBlocks.WAXED_ANCIENT_STOVE,"ancient_stove");
+        blockItem(ImmortalersDelightBlocks.WAXED_EXPOSED_ANCIENT_STOVE,"exposed_ancient_stove");
+        blockItem(ImmortalersDelightBlocks.WAXED_WEATHERED_ANCIENT_STOVE,"weathered_ancient_stove");
+        blockItem(ImmortalersDelightBlocks.WAXED_OXIDIZED_ANCIENT_STOVE,"oxidized_ancient_stove");
     }
 
     private boolean isBlockModType(ItemData.ModelType model){
         return model == ItemData.ModelType.BLOCK ||
                model == ItemData.ModelType.TRAPDOOR ||
                model == ItemData.ModelType.WALL ||
-               model == ItemData.ModelType.FENCE;
+               model == ItemData.ModelType.FENCE ||
+               model == ItemData.ModelType.BUTTON;
     }
 
     private boolean isBlockItem(Item item){
         return item instanceof BlockItem;
     }
 
-    private ItemModelBuilder blockItem(Supplier<Block> block, String index) {
+    private ItemModelBuilder blockItem(Supplier<Block> block, int index) {
         return this.getBuilder(this.name(block.get()))
-                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)));
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get()) + ("_" + index))));
+    }
+
+    private ItemModelBuilder blockItem(Supplier<Block> block, String name) {
+        return this.getBuilder(this.name(block.get()))
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + name)));
     }
 
     private void blockItem(Supplier<Block> block,ItemData.ModelType model) {

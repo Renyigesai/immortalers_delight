@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -108,12 +109,16 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(i)));
-            }
-            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
+            if (ingredients.size() > 4){
+                throw new JsonParseException("Too many ingredients for enchantal cooler recipe! The max is 4");
+            }else {
+                for (int i = 0; i < ingredients.size(); i++) {
+                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
+                }
+                ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
 
-            return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
+                return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
+            }
         }
 
         @Override

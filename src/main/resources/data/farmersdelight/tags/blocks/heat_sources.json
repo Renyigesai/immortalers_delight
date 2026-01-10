@@ -1,6 +1,13 @@
 {
   "replace": false,
   "values": [
-    "immortalers_delight:ancient_stove"
+    "immortalers_delight:ancient_stove",
+    "immortalers_delight:exposed_ancient_stove",
+    "immortalers_delight:weathered_ancient_stove",
+    "immortalers_delight:oxidized_ancient_stove",
+    "immortalers_delight:waxed_ancient_stove",
+    "immortalers_delight:waxed_exposed_ancient_stove",
+    "immortalers_delight:waxed_weathered_ancient_stove",
+    "immortalers_delight:waxed_oxidized_ancient_stove"
   ]
 }

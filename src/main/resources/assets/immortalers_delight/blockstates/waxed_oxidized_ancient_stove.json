@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=north": {"model": "immortalers_delight:block/oxidized_ancient_stove"},
+
+    "facing=east": {"model": "immortalers_delight:block/oxidized_ancient_stove", "y": 90},
+
+    "facing=south": {"model": "immortalers_delight:block/oxidized_ancient_stove", "y": 180},
+
+    "facing=west": {"model": "immortalers_delight:block/oxidized_ancient_stove", "y": 270}
+  }
+}

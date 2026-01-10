@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -32,25 +33,16 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if (pLevel.isClientSide) return false;
-        List<ItemStack> inputs = new ArrayList<>();
-        for (int i = 0; i < pContainer.getContainerSize(); i++) {
-            ItemStack item = pContainer.getItem(i);
-            if (!item.isEmpty()) inputs.add(item);
-        }
-        if (inputs.size() != this.inputItems.size()) return false;
-        List<Ingredient> ingredientsToCheck = new ArrayList<>(this.inputItems);
-        outer:
-        for (ItemStack input : inputs) {
-            for (Ingredient ingredient : ingredientsToCheck) {
-                if (ingredient.test(input)) {
-                    ingredientsToCheck.remove(ingredient);
-                    continue outer;
-                }
+        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
+        int i = 0;
+        for (int j = 0; j < 9; ++j) {
+            ItemStack itemstack = pContainer.getItem(j);
+            if (!itemstack.isEmpty()) {
+                ++i;
+                inputs.add(itemstack);
             }
-            return false;
         }
-        return true;
+        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
     @Override
@@ -99,12 +91,15 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
             // 动态获取原料数量
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
+            if (ingredients.size() > 9){
+                throw new JsonParseException("Too many ingredients for hot spring recipe! The max is 9");
+            }else {
+                for (int i = 0; i < ingredients.size(); i++) {
+                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
+                }
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(i)));
+                return new HotSpringRecipe(inputs, output,pRecipeId);
             }
-
-            return new HotSpringRecipe(inputs, output,pRecipeId);
         }
 
         @Override
