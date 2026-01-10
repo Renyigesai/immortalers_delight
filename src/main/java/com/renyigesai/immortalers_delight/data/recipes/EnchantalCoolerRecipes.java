@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.data.recipes;
 
 import com.renyigesai.immortalers_delight.data.builder.EnchantalCoolerBuilder;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -15,7 +16,7 @@ public class EnchantalCoolerRecipes{
     }
     private static void onEnchantalCooler(Consumer<FinishedRecipe> consumer){
 //        EnchantalCoolerBuilder.enchantalCoolerRecipe(ImmortalersDelightItems.AROMATIC_POD_AFFOGATO.get(),1, ModItems.HOT_COCOA.get())
-//                .addIngredient(ModItems.MILK_BOTTLE.get())
+//                .addIngredient(ImmortalersDelightTags.MILK)
 //                .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
 //                .addIngredient(ImmortalersDelightItems.TORCHFLOWER_MUSTARD.get())
 //                .addIngredient(Items.EGG).build(consumer);

@@ -56,4 +56,6 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> UNYIELDING = REGISTRY.register("unyielding", UnyieldingMobEffect::new);
     public static final RegistryObject<MobEffect> UP_SIDE_DOWN = REGISTRY.register("up_side_down", UpSideDownMobEffect::new);
 
+    public static final RegistryObject<MobEffect> SMOKE_ABSTINENCE = REGISTRY.register("smoke_abstinence", SmokeAbstinenceEffect::new);
+
 }

@@ -705,7 +705,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_ICECREAM;
     @ItemData(zhCn = "玉黍汁")
     public static final RegistryObject<Item> EVOLUTCORN_JUICE;
-//    @ItemData(zhCn = "熔灰烤馕",enUs = "Kümesh Non")
+    //    @ItemData(zhCn = "熔灰烤馕",enUs = "Kümesh Non")
 //    public static final RegistryObject<Item> KU_MESH_NON;
 //    @ItemData(zhCn = "战争面包",enUs = "Jeng Nanu")
 //    public static final RegistryObject<Item> JENG_NANU;
@@ -756,6 +756,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> THIS_SIDE_DOWN;
     @ItemData(zhCn = "碗装天地有用")
     public static final RegistryObject<Item> BOWL_OF_THIS_SIDE_DOWN;
+
+    /*烬烟杆*/
+    @ItemData(zhCn = "烬烟咖啡",enUs = "A'B'C'offee")
+    public static final RegistryObject<Item> ABC_OFFEE;
+    @ItemData(zhCn = "蓝嫣枝咖啡",enUs = "A'B' Blue Beauty C'offee")
+    public static final RegistryObject<Item> ABBLUE_BEAUTY_C_OFFEE;
+    @ItemData(zhCn = "Jvav",enUs = "Jvav")
+    public static final RegistryObject<Item> JVAV_OFFEE;
 
 
 
@@ -846,7 +854,7 @@ public class ImmortalersDelightItems {
                 new SignItem((new Item.Properties()).stacksTo(16),
                         ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
-                        ));
+                ));
         HIMEKAIDO_HANGING_SIGN = registerWithTab("himekaido_hanging_sign",() ->
                 new HangingSignItem(
                         ImmortalersDelightBlocks.HIMEKAIDO_HANGING_SIGN.get(),
@@ -1251,6 +1259,7 @@ public class ImmortalersDelightItems {
 
         GIANT_TART = block(ImmortalersDelightBlocks.GIANT_TART);
         GIANT_TART_SLICE = foodItem("giant_tart_slice",ImmortalersDelightFoodProperties.GIANT_TART_SLICE,true);
+        /*ImmortalersDelightFoodProperties.GIANT_TART_SLICE*/
 
         SCARLET_GELATO = registerWithTab("scarlet_gelato",()->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SCARLET_GELATO),true));
@@ -1599,6 +1608,10 @@ public class ImmortalersDelightItems {
                         true,false));
         CAUSTIC_ESSENTIAL_OIL = registerWithTab("caustic_essential_oil",()->
                 new ThrowableDrinkBlockItem(ImmortalersDelightBlocks.CAUSTIC_ESSENTIAL_OIL.get(), (new Item.Properties()).stacksTo(16),false,true));
+
+        ABC_OFFEE = registerWithTab("abc_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
+        ABBLUE_BEAUTY_C_OFFEE = registerWithTab("abblue_beauty_c_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABBLUE_BEAUTY_C_OFFEE),true));
+        JVAV_OFFEE = register("jvav_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->

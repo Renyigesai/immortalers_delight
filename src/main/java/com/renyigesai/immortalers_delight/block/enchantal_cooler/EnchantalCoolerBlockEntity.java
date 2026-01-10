@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 
 import com.renyigesai.immortalers_delight.block.WrappedHandler;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.recipe.PillagerKnifeAddPotionRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
@@ -15,6 +16,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
@@ -382,14 +384,25 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
                 inventory.extractItem(CONTAINER_SLOT,1,false);
             }
 
-            if (outputStack.isEmpty()) {
-                inventory.setStackInSlot(5, resultItem);
-            } else {
-                outputStack.grow(resultItem.getCount());
+            if (!ejectIngredientJvav(level)){
+                if (outputStack.isEmpty()) {
+                    inventory.setStackInSlot(5, resultItem);
+                } else {
+                    outputStack.grow(resultItem.getCount());
+                }
             }
             residualDye --;
             cookingTotalTime = 0;
         }
+    }
+    private boolean ejectIngredientJvav(Level level){
+        if (level.getBiome(worldPosition).is(BiomeTags.IS_JUNGLE)){
+            if (Math.random() < 0.00947) {
+                ItemUtils.spawnItemEntity(this.level, new ItemStack(ImmortalersDelightItems.JVAV_OFFEE.get()), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5625, worldPosition.getZ() + 0.5, 0.0f, 0.25f, 0.0f);
+                return true;
+            }
+        }
+        return false;
     }
 
     protected void ejectIngredientRemainder(ItemStack remainderStack) {
