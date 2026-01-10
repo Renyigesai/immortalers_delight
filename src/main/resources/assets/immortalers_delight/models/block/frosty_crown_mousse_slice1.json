@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/frosty_crown_mousse",
+  "textures": {
+    "0": "immortalers_delight:block/frosty_crown_mousse_slice1",
+		"particle": "immortalers_delight:block/frosty_crown_mousse_slice1"
+  }
+}

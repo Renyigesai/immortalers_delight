@@ -9,8 +9,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.Nullable;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
@@ -30,7 +32,7 @@ public class GasPoisonMobEffect extends MobEffect {
             boolean isOP = pEntity instanceof Player player && player.isCreative();
             if (!isOP || isPowerful) {
                 pEntity.invulnerableTime = 0;
-                pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))), damage);
+                pEntity.hurt(getDamageSource(pEntity, null), damage);
                 pEntity.invulnerableTime = 0;
                 if (isPowerful && (health - damage) > 0 && pEntity.getHealth() > (health - damage)) {
                     pEntity.setHealth(health - damage);
@@ -45,6 +47,13 @@ public class GasPoisonMobEffect extends MobEffect {
                 }
             }
         }
+    }
+
+    public static DamageSource getDamageSource(Entity hurtOne, @Nullable Entity attacker) {
+        if (attacker != null) {
+            return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas"))), attacker);
+        }
+        return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas"))));
     }
 
     @Override

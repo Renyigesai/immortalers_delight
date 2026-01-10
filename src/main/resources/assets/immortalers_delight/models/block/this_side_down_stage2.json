@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/this_side_down",
+  "textures": {
+    "0": "immortalers_delight:block/this_side_down_stage2",
+		"particle": "immortalers_delight:block/this_side_down_stage2"
+  }
+}

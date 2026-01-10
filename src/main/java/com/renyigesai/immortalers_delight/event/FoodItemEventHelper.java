@@ -2,12 +2,20 @@ package com.renyigesai.immortalers_delight.event;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
+import com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team.Scavenger;
+import com.renyigesai.immortalers_delight.entities.projectile.KiBlastEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
+import com.renyigesai.immortalers_delight.potion.GasPoisonPotionEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -15,11 +23,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +40,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -34,7 +48,14 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.common.item.DogFoodItem;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModParticleTypes;
+import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.MathUtils;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber
@@ -65,9 +86,90 @@ public class FoodItemEventHelper {
                             livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
                         }
                     }
+                    //红美玲的气功波
+                    if (stack.getItem() == ImmortalersDelightItems.HONE_MEI_LING.get()) {
+                        shootKiBlast(livingEntity);
+                    }
+                    //瓦斯麦汤的buff
+                    if (stack.getItem() == ImmortalersDelightItems.KWAT_SOUP.get()) {
+                        boolean isPowerBattleMode = DifficultyModeUtil.isPowerBattleMode();
+                        float damage = isPowerBattleMode ? Math.min(18.0f,livingEntity.getMaxHealth()*0.9f) : Math.max(18.0f,livingEntity.getMaxHealth()*0.9f);
+                        DamageSource source = isPowerBattleMode ? (livingEntity instanceof Player player ? player.damageSources().playerAttack(player) : livingEntity.damageSources().mobAttack(livingEntity)) : GasPoisonMobEffect.getDamageSource(livingEntity,null);
+                        livingEntity.hurt(source, damage);
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 400));
+                    }
+                    //冰瓦斯麦汤的buff
+                    if (stack.getItem() == ImmortalersDelightItems.ICED_KWAT_SOUP.get()) {
+                        MobEffectInstance incandence = livingEntity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
+                        if (incandence != null) {
+                            int lv = incandence.getAmplifier();
+                            int duration = incandence.getDuration();
+                            if (lv > 0) {
+                                lv--;
+                                duration *= 2.5f;
+                            }
+                            livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(), duration, lv));
+                            FreezeEffect.applyImmortalEffect(livingEntity, 200, 0);
+                        }
+                    }
+                    //玉黍硬糖吃完后2s无敌帧
+                    if (stack.getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
+                        DeathlessEffect.applyImmortalEffect(livingEntity, 40, 0);
+                    }
                 }
             }
         }
+    }
+
+    public static void shootKiBlast(LivingEntity attacker) {
+        LivingEntity livingEntity = attacker;
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
+            List<LivingEntity> list = livingEntity.level().getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.getOnPos()).inflate(3.0D, 3.0D, 3.0D));
+            if (!list.isEmpty()) {
+                for (LivingEntity hurtOne : list) {
+                    if (hurtOne != livingEntity && !livingEntity.isAlliedTo(hurtOne) && !hurtOne.isAlliedTo(livingEntity)){
+                        float damage = (float) hurtOne.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                        damage = Math.min(damage, 5.0f) * (DifficultyModeUtil.isPowerBattleMode() ? 3.85f : 2.3f);
+                        hurtOne.hurt(hurtOne.level().damageSources().mobAttack(livingEntity), damage);
+                        double knockBackResistance = hurtOne.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                        if (knockBackResistance < 1.0D) {
+                            Vec3 directionVector = hurtOne.getPosition(1.0f).subtract(livingEntity.getPosition(1.0f));
+                            double distance = livingEntity.distanceToSqr(hurtOne);
+                            hurtOne.setDeltaMovement(hurtOne.getDeltaMovement().add(
+                                    directionVector.x / (1 + 0.2 * distance) * (1 - knockBackResistance), 0.5D, directionVector.z / (1 + 0.2 * distance) * (1 - knockBackResistance)));
+                            hurtOne.setYRot(hurtOne.yHeadRot);
+                            hurtOne.setOnGround(false);
+                            hurtOne.hasImpulse = true;
+                        }
+                    }
+                }
+            }
+            spawnShriekParticle(serverLevel, livingEntity.getX(), livingEntity.getY() + livingEntity.getEyeHeight() * 0.5f, livingEntity.getZ(),1);
+        }
+        // 1. 获取玩家的视线方向向量
+        Vec3 lookDirection = livingEntity.getViewVector(1.0F);
+        // 2. 后续逻辑：如沿该方向生成投射物（示例）
+        double spawnX = livingEntity.getX() + lookDirection.x;
+        double spawnY = livingEntity.getEyeY() + lookDirection.y;
+        double spawnZ = livingEntity.getZ() + lookDirection.z;
+        KiBlastEntity fireball = new KiBlastEntity(livingEntity.level(), livingEntity,
+                lookDirection.x * 0.5D, lookDirection.y * 0.5D,lookDirection.z * 0.5D);
+        if (DifficultyModeUtil.isPowerBattleMode()) fireball.setDangerous(true);
+        fireball.setPos(spawnX, spawnY, spawnZ);
+        livingEntity.level().addFreshEntity(fireball);
+    }
+    public static void spawnShriekParticle(ServerLevel serverLevel, double x, double y, double z, int delay) {
+        // 1. 创建粒子参数（封装delay）
+        ShockWaveParticleOption particleOption = new ShockWaveParticleOption(delay);
+
+        // 2. 调用带ParticleOptions的sendParticles重载方法
+        serverLevel.sendParticles(
+                particleOption,  // 粒子参数（含SHRIEK类型+delay）
+                x, y, z,         // 生成位置
+                1,               // 生成数量
+                0.0D, 0.0D, 0.0D,// 位置无偏移
+                0.0D             // 速度（无作用）
+        );
     }
 
     @SubscribeEvent
@@ -91,6 +193,7 @@ public class FoodItemEventHelper {
                             evt.setAmount(evt.getAmount() * buffer);
                         } else {
                             hurtOne.heal(evt.getAmount() * buffer * (-1));
+                            evt.setAmount(0);
                             evt.setCanceled(true);
                         }
                     } else evt.setAmount(evt.getAmount() * 0.4f);
@@ -109,11 +212,9 @@ public class FoodItemEventHelper {
             //喂食伏特加
             if (itemStack.getItem() == ImmortalersDelightItems.CLEAR_WATER_VODKA.get()) {
                 addInebriatedEffect(itemStack,serverLevel,target);
-                if (!player.getAbilities().instabuild) {
+                if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
+                    player.addItem(itemStack.getCraftingRemainingItem());
                     itemStack.shrink(1);
-                    BlockPos pos = player.getOnPos().above();
-                    vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(Items.GLASS_BOTTLE),
-                            pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
                 }
             }
             //金瓦斯麦面包
@@ -128,6 +229,37 @@ public class FoodItemEventHelper {
                     }
                 }
             }
+            //诡异香肠喂狗
+//            if (itemStack.getItem() == ImmortalersDelightItems.BIZARRE_SAUSAGE.get()) {
+//                if (target.getType().is(ModTags.DOG_FOOD_USERS)) {
+//                    boolean isTameable = target instanceof TamableAnimal;
+//                    if (target.isAlive() && (!isTameable || ((TamableAnimal)target).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {
+//                        target.setHealth(target.getMaxHealth());
+//
+//                        for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(itemStack.getFoodProperties(player)).getEffects()) {
+//                            if (pair.getFirst().getEffect().isBeneficial()) target.addEffect(new MobEffectInstance(pair.getFirst()));
+//                            else target.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(), 12000, 3));
+//                        }
+//
+//                        target.level().playSound((Player)null, target.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+//
+//                        for(int i = 0; i < 5; ++i) {
+//                            double xSpeed = MathUtils.RAND.nextGaussian() * 0.02;
+//                            double ySpeed = MathUtils.RAND.nextGaussian() * 0.02;
+//                            double zSpeed = MathUtils.RAND.nextGaussian() * 0.02;
+//                            target.level().addParticle(ModParticleTypes.STAR.get(),target.getRandomX(1.0), target.getRandomY() + 0.5, target.getRandomZ(1.0), xSpeed, ySpeed, zSpeed);
+//                        }
+//
+//                        if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
+//                            player.addItem(itemStack.getCraftingRemainingItem());
+//                            itemStack.shrink(1);
+//                        }
+//
+//                        event.setCancellationResult(InteractionResult.SUCCESS);
+//                        event.setCanceled(true);
+//                    }
+//                }
+//            }
         }
     }
 

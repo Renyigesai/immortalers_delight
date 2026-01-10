@@ -24,27 +24,30 @@ public class ReapCropBlock extends CropBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (Config.rightClickHarvest) {//通过配置文件决定是否使用右键收获
-            int age = state.getValue(AGE);
-            if (age == getMaxAge()) {
-                boolean temp = false;
-                if (level instanceof ServerLevel level1) {
+        if (canReap(state, level, pos, player, hand, hitResult)) {
+            boolean temp = false;
+            if (level instanceof ServerLevel level1) {
 //                    dropResources(state,level1,pos,null,player,player.getMainHandItem());
-                    List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
-                    if (!stacks.isEmpty()) {
-                        for (ItemStack stack : stacks) {
-                            popResource(level, pos, stack);
-                        }
-                        temp = true;
+                List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
+                if (!stacks.isEmpty()) {
+                    for (ItemStack stack : stacks) {
+                        popResource(level, pos, stack);
                     }
+                    temp = true;
                 }
-                if (temp) {
-                    level.setBlock(pos, state.setValue(AGE, 0), 3);
-                    level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-                    return InteractionResult.SUCCESS;
-                }
+            }
+            if (temp) {
+                level.setBlock(pos, state.setValue(AGE, 0), 3);
+                level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.use(state, level, pos, player, hand, hitResult);
+    }
+
+    //收获条件。通过配置文件决定是否使用右键收获并判断其他收获条件，方便子类重写
+    public boolean canReap(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        boolean flag = Config.rightClickHarvest;
+        return flag && state.getValue(AGE) == getMaxAge();
     }
 }

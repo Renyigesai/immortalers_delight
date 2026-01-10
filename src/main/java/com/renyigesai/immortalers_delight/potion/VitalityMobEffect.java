@@ -14,17 +14,21 @@ public class VitalityMobEffect extends MobEffect {
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
         if (!pEntity.level().isClientSide){
             if (!(pEntity.getHealth() > 0.0F && pEntity.getHealth() < pEntity.getMaxHealth())) return;
+            //计算生命值百分比
             float healthProgress = pEntity.getHealth() / pEntity.getMaxHealth();
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            if (isPowerful) {
-                float buffer = pEntity.getMaxHealth() * 0.005F;
-                pEntity.heal(healthProgress * healthProgress * (1 << amplifier) * buffer);
-            } else pEntity.heal(healthProgress * healthProgress * (amplifier + 1));
+            float healAmount = healthProgress * healthProgress;
+            pEntity.heal(healAmount * (isPowerful ? 0.9f + pEntity.getMaxHealth() * 0.005f : 1));
         }
     }
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return duration % 20 == 0;
+        int i = 20 >> amplifier;
+        if (i > 0) {
+            return duration % i == 0;
+        } else {
+            return true;
+        }
     }
 }

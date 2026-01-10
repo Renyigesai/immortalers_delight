@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/super_kwat_wheat_hamburger",
+  "textures": {
+    "0": "immortalers_delight:block/super_kwat_wheat_hamburger_3",
+		"particle": "immortalers_delight:block/super_kwat_wheat_hamburger_3"
+  }
+}

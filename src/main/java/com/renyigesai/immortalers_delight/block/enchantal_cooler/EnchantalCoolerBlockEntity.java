@@ -312,15 +312,21 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
         SimpleContainer inventory = getInput(true);
 
-        return level.getRecipeManager()
-                .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
+        if (level != null) {
+            return level.getRecipeManager()
+                    .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
+        }
+        return Optional.empty();
     }
 
     private Optional<PillagerKnifeAddPotionRecipe> findSpecialRecipe() {
         SimpleContainer inventory = getInput(true);
 
-        return level.getRecipeManager()
-                .getRecipeFor(PillagerKnifeAddPotionRecipe.Type.INSTANCE, inventory, level);
+        if (level != null) {
+            return level.getRecipeManager()
+                    .getRecipeFor(PillagerKnifeAddPotionRecipe.Type.INSTANCE, inventory, level);
+        }
+        return Optional.empty();
     }
 
     private SimpleContainer getInput(boolean needContainer) {

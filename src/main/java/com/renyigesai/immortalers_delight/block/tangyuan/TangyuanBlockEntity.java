@@ -13,19 +13,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,12 +30,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
-import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
-import vectorwing.farmersdelight.common.registry.ModAdvancements;
 
 import java.util.*;
 
@@ -51,8 +43,6 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
 
     // 物品存储处理器，包含7个槽位
     private final ItemStackHandler inventory = new ItemStackHandler(7);
-    // 烹饪总时间（合成进度）
-    public boolean canProceed = false;
     // 剩余燃料量（青金石或其他燃料）
     public int residualProgress = 3;
     // 数据加载版本（用于版本迁移）
@@ -85,7 +75,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @param state 方块状态
      */
     public TangyuanBlockEntity(BlockPos pos, BlockState state) {
-        super(ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(), pos, state);
+        super(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(), pos, state);
     }
 
     /**
@@ -188,6 +178,15 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         this.inventory.setStackInSlot(id, ItemStack.EMPTY);
         return stack;
     }
+
+    public ItemStack tryOutput() {
+        if (!this.inventory.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
+            ItemStack stack = this.inventory.getStackInSlot(OUTPUT_SLOT).copy();
+            this.inventory.setStackInSlot(OUTPUT_SLOT, ItemStack.EMPTY);
+            return stack;
+        }
+        return ItemStack.EMPTY;
+    }
 //
 //    /**
 //     * 检查燃料是否需要补充（剩余燃料小于3）
@@ -205,10 +204,16 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
 //        return this.residualProgress == 0;
 //    }
 
-    public boolean tryAddProgress(int progress){
-        if (this.canProceed) {
+    public boolean tryCraftItem(int progress,BlockPos pos, BlockState state){
+        if (this.craftItem()) {
             this.residualProgress -= progress;
             System.out.println("汤圆进度增加成功");
+            if (level != null) {
+                setChanged(level, pos, state);
+                if (!level.isClientSide) {
+                    level.sendBlockUpdated(pos, state, state, 3);
+                }
+            }
             return true;
         }
         System.out.println("汤圆进度增加失败");
@@ -478,7 +483,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @param blockEntity 方块实体实例
      */
     public static void craftTick(Level level, BlockPos pos, BlockState state, TangyuanBlockEntity blockEntity) {
-        System.out.println("tangyuan_tick");
+        //System.out.println("tangyuan_tick");
         boolean flag = false;
         // 若有燃料且有输入物品，则进行合成
         if (blockEntity.hasInput()){
@@ -504,7 +509,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         if (level != null) {
             return level.getRecipeManager()
                     .getRecipeFor(TangyuanRecipe.Type.INSTANCE, inventory, level);
-        }
+        } else System.out.println("level is null");
         return Optional.empty();
     }
 
@@ -553,7 +558,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      */
     private SimpleContainer getInput() {
 
-        SimpleContainer inventory = new SimpleContainer(6);
+        SimpleContainer inventory = new SimpleContainer(7);
         List<ItemStack> inputs = new ArrayList<>();
 
         inventory.setItem(CONTAINER_SLOT,this.inventory.getStackInSlot(CONTAINER_SLOT));
@@ -574,30 +579,29 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         return inventory;
     }
 
-    /**
-     * 执行合成物品逻辑
-     */
-    private void craftItem() {
+    @Nullable
+    public TangyuanRecipe fineRecipe() {
         // 优先检查特殊配方
         //Optional<PillagerKnifeAddPotionRecipe> specialRecipe = findSpecialRecipe();
         // 检查普通配方
         Optional<TangyuanRecipe> recipeOptional = getCurrentRecipe();
+        if (recipeOptional.isEmpty()) System.out.println("no recipe");
+        // 若无匹配配方，返回null，否则返回配方实例
+        return recipeOptional.orElse(null);
+    }
 
-        // 若无匹配配方，重置合成进度
-        if (//specialRecipe.isEmpty() && 
-                recipeOptional.isEmpty()) {
-            //cookingTotalTime = 0;
+    /**
+     * 执行合成物品逻辑
+     */
+    private boolean craftItem() {
+        //获取配方
+        TangyuanRecipe recipe = fineRecipe();
+        //若无匹配配方，重置合成进度
+        if (recipe == null) {
             residualProgress = 3;
-            canProceed = false;
-            System.out.println("No matching recipe found.");
-            return;
+            return false;
         }
-
-        // 确定使用的配方
-        TangyuanRecipe recipe =//specialRecipe.isEmpty() ? 
-                recipeOptional.get() 
-                //: specialRecipe.get()
-        ;
+        //获取输入物品
         SimpleContainer inputs = getInput();
         // 获取合成结果
         ItemStack resultItem = ItemStack.EMPTY;
@@ -606,16 +610,11 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         }
         ItemStack outputStack = inventory.getStackInSlot(recipe.isFinished() ? OUTPUT_SLOT : RESULT_CACHE_SLOT);
 
-        if (!resultItem.isEmpty()) {
-            canProceed = true;
-        }
-
         // 检查是否可以合成（输出槽是否能容纳结果）
         if (!canCraft(resultItem, outputStack)) {
             //cookingTotalTime = 0;
             residualProgress = 3;
-            canProceed = false;
-            return;
+            return false;
         }
 
         // 判断剩余进度，达到0完成合成
@@ -644,6 +643,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
             // 放入合成结果
             // 如果没有结束，将结果放入缓存槽，否则放入输出槽
             int slot_id = recipe.isFinished() ? OUTPUT_SLOT : RESULT_CACHE_SLOT;
+            System.out.println("is finished? "+recipe.isFinished());
             if (outputStack.isEmpty()) {
                 inventory.setStackInSlot(slot_id, resultItem);
             } else {
@@ -652,9 +652,9 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
 
             // 重置合成进度
             residualProgress = 3;
-            canProceed = false;
             //cookingTotalTime = 0;
         }
+        return true;
     }
 
     /**

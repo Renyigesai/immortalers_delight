@@ -1,11 +1,11 @@
 package com.renyigesai.immortalers_delight.block.tangyuan;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.recipe.TangyuanRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -13,13 +13,9 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -35,19 +31,12 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
-import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
-import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
-import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.tag.ModTags;
-import vectorwing.farmersdelight.common.utility.ItemUtils;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * 附魔冷却器方块类，继承自带实体的方块基类BaseEntityBlock
@@ -95,14 +84,14 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
      * @return 方块实体的更新处理器
      * @param <T> 方块实体泛型类型
      */
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        // 客户端返回null（不执行tick），服务器端绑定TangyuanBlockEntity的craftTick方法
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType,
-                ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(),
-                TangyuanBlockEntity::craftTick);
-    }
+//    @Nullable
+//    @Override
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+//        // 客户端返回null（不执行tick），服务器端绑定TangyuanBlockEntity的craftTick方法
+//        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType,
+//                ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(),
+//                TangyuanBlockEntity::craftTick);
+//    }
 
     /**
      * 获取方块的渲染方式
@@ -144,26 +133,26 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
      * @param hit 碰撞结果
      * @return 交互结果（成功/失败等）
      */
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
         // 确保方块实体是切菜板实体
         if (tileEntity instanceof TangyuanBlockEntity tangyuanBlockEntity) {
             ItemStack heldStack = player.getItemInHand(hand); // 手持物品
             ItemStack offhandStack = player.getOffhandItem(); // 副手物品
-
-            //寻到了可执行的配方的逻辑
-            if (tangyuanBlockEntity.canProceed) {
+            TangyuanRecipe tangyuanRecipe = tangyuanBlockEntity.fineRecipe();
+            // 若有匹配的配方且物品使用工具
+            if (tangyuanRecipe != null && tangyuanRecipe.getTool().test(heldStack)) {
                 // 使用工具处理切菜板上的物品
                 //ItemStack boardStack = tangyuanBlockEntity.getStoredItem().copy();
-                if (tangyuanBlockEntity.tryAddProgress(1)
-                //        tangyuanBlockEntity.processStoredItemUsingTool(heldStack, player)
+                if (tangyuanBlockEntity.tryCraftItem(1,pos,state)
+                    //        tangyuanBlockEntity.processStoredItemUsingTool(heldStack, player)
                 ) {
                     return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.CONSUME;
             }
             // 如果还可以放入输入槽
-            if (tangyuanBlockEntity.tryInput(heldStack, true) || tangyuanBlockEntity.tryInput(offhandStack, true)) {
+            else if (tangyuanBlockEntity.tryInput(heldStack, true) || tangyuanBlockEntity.tryInput(offhandStack, true)) {
                 // 处理副手物品的特殊情况（如装备类物品不能放置）
                 if (!offhandStack.isEmpty()) {
                     if (hand.equals(InteractionHand.MAIN_HAND)
@@ -190,7 +179,13 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
             } else {
                 // 空手点击取回物品
                 if (hand.equals(InteractionHand.MAIN_HAND) && heldStack.isEmpty()) {
-                    if (!player.isCreative()) {
+                    // 优先尝试取出输出物品
+                    ItemStack output = tangyuanBlockEntity.tryOutput();
+                    if (!output.isEmpty()) {
+                        if (!player.getInventory().add(output)) {
+                            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), output);
+                        }
+                    } else if (!player.isCreative()) {
                         // 生存模式：放入背包，失败则掉落
                         if (!player.getInventory().add(tangyuanBlockEntity.tryRemoveInput())) {
                             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), tangyuanBlockEntity.tryRemoveInput());
@@ -300,5 +295,44 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TangyuanBlockEntity(pos, state);
+    }
+
+
+    /**
+     * 工具雕刻事件监听器，处理潜行时使用工具在切菜板上雕刻的逻辑
+     */
+    @Mod.EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID,
+            bus = Mod.EventBusSubscriber.Bus.FORGE
+    )
+    public static class ToolCarvingEvent {
+        public ToolCarvingEvent() {
+        }
+
+        /**
+         * 监听玩家右键方块事件，处理潜行时使用工具雕刻的逻辑
+         * @param event 玩家交互事件
+         */
+        @SubscribeEvent
+        public static void onSneakPlaceTool(PlayerInteractEvent.RightClickBlock event) {
+            Level level = event.getLevel();
+            BlockPos pos = event.getPos();
+            Player player = event.getEntity();
+            ItemStack heldStack = player.getMainHandItem();
+            BlockEntity tileEntity = level.getBlockEntity(event.getPos());
+
+            // 条件：玩家潜行、手持工具（有等级的工具/三叉戟/剪刀）、目标是切菜板实体
+            if (player.isSecondaryUseActive() && !heldStack.isEmpty() && tileEntity instanceof TangyuanBlockEntity tangyuanBlockEntity) {
+                // 执行雕刻逻辑
+                tangyuanBlockEntity.setItem(TangyuanBlockEntity.CONTAINER_SLOT, heldStack);
+                boolean success = !tangyuanBlockEntity.getItem(TangyuanBlockEntity.CONTAINER_SLOT).isEmpty();
+                if (success) {
+                    // 播放音效并取消原事件（避免触发其他交互）
+                    level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 0.8F);
+                    event.setCanceled(true);
+                    event.setCancellationResult(InteractionResult.SUCCESS);
+                }
+            }
+        }
     }
 }

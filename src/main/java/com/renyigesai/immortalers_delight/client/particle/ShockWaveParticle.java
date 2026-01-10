@@ -27,6 +27,7 @@ public class ShockWaveParticle extends TextureSheetParticle {
     private static final float MAGICAL_X_ROT = 1.0472F;
     // 粒子延迟触发时间（刻数，延迟期间粒子不渲染、不执行运动逻辑）
     private int extra_size;
+    private final SpriteSet spriteSet;
 
     /**
      * 构造方法：初始化尖啸粒子基础属性
@@ -35,15 +36,17 @@ public class ShockWaveParticle extends TextureSheetParticle {
      * @param pY 粒子初始Y坐标
      * @param pZ 粒子初始Z坐标
      */
-    ShockWaveParticle(ClientLevel pLevel, double pX, double pY, double pZ, int pSize) {
+    ShockWaveParticle(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet, int pSize) {
         super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
-        this.quadSize = 1.0F;        // 粒子初始四边形尺寸
+        this.spriteSet = spriteSet;
+        this.quadSize = 2.0F;        // 粒子初始四边形尺寸
         this.extra_size = pSize;      // 设置额外缩放尺寸
-        this.lifetime = 30;           // 粒子总生命周期（30刻=1.5秒）
+        this.lifetime = 35;           // 粒子总生命周期（30刻=1.5秒）
         this.gravity = 0.0F;          // 无重力（粒子悬浮，不下落）
         this.xd = 0.0D;               // X轴速度为0（无水平移动）
-        this.yd = 0.1D;               // Y轴轻微向上速度（模拟升腾效果）
+        this.yd = 0.01D;               // Y轴轻微向上速度（模拟升腾效果）
         this.zd = 0.0D;               // Z轴速度为0（无水平移动）
+        this.setSpriteFromAge(this.spriteSet);
     }
 
     /**
@@ -52,8 +55,20 @@ public class ShockWaveParticle extends TextureSheetParticle {
      * @return 缩放后的粒子尺寸
      */
     public float getQuadSize(float pScaleFactor) {
-        // 尺寸随生命周期进度线性增长到 0.75 倍初始尺寸后保持（范围0~0.85*0.75=0.6375F）
-        return this.quadSize * Mth.clamp(((float)this.age + pScaleFactor) / (float)this.lifetime * 0.75F, 0.0F, 1.0F);
+        // 动画进度，取值从0增长到1,
+        float animation  = Mth.clamp((this.age + pScaleFactor) / (float)this.lifetime * 0.75F, 0.0F, 1.0F);
+        // 初始粒子尺寸
+        float quadSize0 = 0.5F;
+        // 根据额外缩放尺寸，动态计算粒子的最终扩散尺寸
+        float quadSize1 = 1.0F + (float) extra_size / 4;
+        // 计算粒子尺寸变化
+        float quadSize2 = quadSize1 - quadSize0;
+        // 计算粒子的缩放，其将从quadSize0到quadSize1变化
+        return this.quadSize * (easeOutExpo(animation) * quadSize2 + quadSize0);
+    }
+
+    public static float easeOutExpo(float t) {
+        return t >= 1.0f ? 1.0f : 1 - (float) Math.pow(2, -10 * t);
     }
 
     /**
@@ -63,21 +78,21 @@ public class ShockWaveParticle extends TextureSheetParticle {
      * @param pPartialTicks 部分刻时间（0~1，用于帧间插值）
      */
     public void render(VertexConsumer pBuffer, Camera pRenderInfo, float pPartialTicks) {
-        // 延迟结束后才执行渲染逻辑
-        //if (this.extra_size <= 0) {
-            // 计算透明度：随生命周期从1.0F线性降为0.0F（实现渐隐消失）
-            this.alpha = 1.0F - Mth.clamp(((float)this.age + pPartialTicks) / (float)this.lifetime, 0.5F, 1.0F);
+       if (this.age > this.lifetime / 2) {
+           // 计算透明度：随生命周期从1.0F线性降为0.5F（实现渐隐消失）
+           this.alpha = 1.0F - Mth.clamp(2 * ((float)this.age - (this.lifetime / 2) + pPartialTicks) / (float)this.lifetime, 0.0F, 0.75F);
+       }
+        // 渲染粒子四边形，因为粒子与方块一样仅渲染面向相机的面，所以需要两个反向的面使得不始终面向相机的粒子能在各个方向都能观察到
+        // 渲染第一层粒子：绕X轴旋转-60°（形成十字形的一个臂）
+        this.renderRotatedParticle(pBuffer, pRenderInfo, pPartialTicks, (p_253347_) -> {
+            p_253347_.mul((new Quaternionf()).rotationX(-(float)Math.PI/2));
+        });
 
-            // 渲染第一层粒子：绕X轴旋转-60°（形成十字形的一个臂）
-            this.renderRotatedParticle(pBuffer, pRenderInfo, pPartialTicks, (p_253347_) -> {
-                p_253347_.mul((new Quaternionf()).rotationX(-1.0472F));
-            });
+        // 渲染第二层粒子：绕Y轴旋转180° + 绕X轴旋转60°（形成十字形的另一个臂）
+        this.renderRotatedParticle(pBuffer, pRenderInfo, pPartialTicks, (p_253346_) -> {
+            p_253346_.mul((new Quaternionf()).rotationYXZ(-(float)Math.PI, (float)Math.PI/2, 0.0F));
+        });
 
-            // 渲染第二层粒子：绕Y轴旋转180° + 绕X轴旋转60°（形成十字形的另一个臂）
-            this.renderRotatedParticle(pBuffer, pRenderInfo, pPartialTicks, (p_253346_) -> {
-                p_253346_.mul((new Quaternionf()).rotationYXZ(-(float)Math.PI, 1.0472F, 0.0F));
-            });
-        //}
     }
 
     /**
@@ -159,15 +174,13 @@ public class ShockWaveParticle extends TextureSheetParticle {
     }
 
     /**
-     * 粒子每帧更新逻辑（处理延迟触发）
+     * 粒子每帧更新逻辑
      */
     public void tick() {
         super.tick();
-//        if (this.extra_size > 0) {
-//            --this.extra_size; // 延迟未结束：仅减少延迟值，不执行父类逻辑
-//        } else {
-//            super.tick(); // 延迟结束：执行父类逻辑（年龄增长、位置更新、生命周期判断等）
-//        }
+        if (!this.removed) {
+            this.setSprite(this.spriteSet.get((this.age / 3) % 12 + 1, 12));
+        }
     }
 
     public static ShockWaveParticleProvider shockWaveParticleProvider(SpriteSet sprite) {
@@ -202,8 +215,7 @@ public class ShockWaveParticle extends TextureSheetParticle {
          * @return 初始化后的尖啸粒子实例
          */
         public Particle createParticle(ShockWaveParticleOption pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            ShockWaveParticle shockwaveparticle = new ShockWaveParticle(pLevel, pX, pY, pZ, pType.getCountdown());
-            shockwaveparticle.pickSprite(this.sprite); // 从精灵集中随机选择一个纹理绑定
+            ShockWaveParticle shockwaveparticle = new ShockWaveParticle(pLevel, pX, pY, pZ, sprite, pType.getCountdown());
             shockwaveparticle.setAlpha(1.0F);          // 初始化透明度为1.0F（完全不透明）
             return shockwaveparticle;
         }

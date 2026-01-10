@@ -7,10 +7,10 @@ import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.entities.living.*;
 import com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team.Scavenger;
-import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
-import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFang;
+import com.renyigesai.immortalers_delight.entities.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -67,6 +67,38 @@ public class ImmortalersDelightEntities {
                     .updateInterval(Integer.MAX_VALUE)
                     .build("base_effect_cloud")
             );
+
+    public static final RegistryObject<EntityType<GasCloudEntity>> GAS_EFFECT_CLOUD =
+            ENTITY_TYPES.register("gas_effect_cloud", () -> EntityType.Builder.<GasCloudEntity>of(GasCloudEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE)
+                    .build("gas_effect_cloud")
+            );
+
+    public static final RegistryObject<EntityType<WarpedLaurelHitBoxEntity>> WARPED_LAUREL_HITBOX =
+            ENTITY_TYPES.register("warped_laurel_hitbox", () -> EntityType.Builder.<WarpedLaurelHitBoxEntity>of(WarpedLaurelHitBoxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(Integer.MAX_VALUE)
+                    .build("warped_laurel_hitbox")
+            );
+
+    public static final RegistryObject<EntityType<KiBlastEntity>> KI_BLAST =
+            ENTITY_TYPES.register("ki_blast", () -> EntityType.Builder.<KiBlastEntity>of(KiBlastEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build("ki_blast"));
+
+    public static final RegistryObject<EntityType<ToxicGasGrenadeEntity>> CAUSTIC_ESSENTIAL_OIL =
+            ENTITY_TYPES.register("caustic_essential_oil", () -> EntityType.Builder.<ToxicGasGrenadeEntity>of(ToxicGasGrenadeEntity::new, MobCategory.MISC)
+                    .sized(0.375F, 0.375F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build("caustic_essential_oil"));
 
     public static final RegistryObject<EntityType<TerracottaGolem>> TERRACOTTA_GOLEM =
             ENTITY_TYPES.register("terracotta_golem", () -> EntityType.Builder.of(TerracottaGolem::new, MobCategory.MISC)

@@ -52,8 +52,8 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
                     inputs.add(itemstack);
                 }
             }
-
-        }
+            System.out.println("输入物品数量：" + i + ",输入物品：" + inputs);
+        }else System.out.println("容器不对");
         return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 

@@ -50,12 +50,15 @@ public class WarmCurrentSurgesPotionEffect {
             if (attacker != null){
                 if (attacker.hasEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get())) {
                     int lv = attacker.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get()).getAmplifier();
-                    float damage = (hurtOne.getRemainingFireTicks() > 1 ? 4 << lv : 2 << lv)
-                            + (isPowerful ? (float)(hurtOne.getRemainingFireTicks() > (lv+1) * 160 ? (hurtOne.getRemainingFireTicks()/20) : (lv+1) * 8) : 0);
+                    float damage = hurtOne.getRemainingFireTicks() > 1 ? 4 << lv : 2 << lv;
+                    //立即结算目标的着火伤害，结算上限为每级8点伤害
+                    if (isPowerful) {
+                        damage += Math.min(hurtOne.getRemainingFireTicks() / 20, (lv + 1) * 8);
+                        hurtOne.setRemainingFireTicks(0);
+                    }
                     hurtOne.invulnerableTime = 0;
                     hurtOne.hurt(hurtOne.damageSources().onFire(), damage);
                     hurtOne.invulnerableTime = 0;
-                    if (isPowerful) hurtOne.setRemainingFireTicks(0);
                 }
             }
         }

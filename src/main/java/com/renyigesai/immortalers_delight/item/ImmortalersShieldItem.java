@@ -1,7 +1,11 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.renyigesai.immortalers_delight.client.renderer.special_item.BoneKnifeItemRenderer;
+import com.renyigesai.immortalers_delight.client.renderer.special_item.ItemTESRenderer;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -31,6 +35,11 @@ public class ImmortalersShieldItem extends ShieldItem {
     //绑定特殊渲染器。要注意，启用渲染器需要烘焙模型的支持，因此不要漏。
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        //consumer.accept((IClientItemExtensions) Cataclysm.PROXY.getISTERProperties());
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return new ItemTESRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+            }
+        });
     }
 }

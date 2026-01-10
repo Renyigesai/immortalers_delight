@@ -34,6 +34,13 @@ public class TimekeepingTask {
             run();
         }
     }
+//    @SubscribeEvent
+//    public static void clientTick(TickEvent.ClientTickEvent event) {
+//        if (event.phase == TickEvent.Phase.START) {
+//            run();
+//        }
+//
+//    }
     private static void run() {
         ImmortalTickTime = ImmortalTickTime + 50L;
         //ImmortalersDelightMod.LOGGER.info("现在的TICK时间是：" + ImmortalTickTime);

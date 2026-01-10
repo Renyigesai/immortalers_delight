@@ -14,6 +14,7 @@ import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOptio
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import net.minecraft.commands.arguments.ParticleArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.ShriekParticleOption;
@@ -25,9 +26,13 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
@@ -42,17 +47,18 @@ import org.slf4j.Logger;
 public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
     private static final Logger LOGGER = LogUtils.getLogger(); // 日志记录器
     // 实体同步数据定义：半径、颜色、等待状态、粒子效果
+    private static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.PARTICLE);
     private Potion potion = Potions.EMPTY; // 关联的药水（默认空药水）
     private final List<MobEffectInstance> effects = Lists.newArrayList(); // 额外的药水效果列表
-    private final Map<Entity, Integer> victims = Maps.newHashMap(); // 记录受影响实体及下次可再次受影响的刻数
+    protected final Map<Entity, Integer> victims = Maps.newHashMap(); // 记录受影响实体及下次可再次受影响的刻数
     private boolean isStarting = false; // 是否在结束等待状态（注意：这个字段在客户端与服务端有不同的行为）
     private int duration = 600; // 持续时间（游戏刻）
-    private int lifeTicks = 0; //已存活时间，这个字段仅用于客户端
+    protected int lifeTicks = 0; //已存活时间，这个字段仅用于客户端
     private int waitTime = 20; // 等待时间（生效前的准备时间，游戏刻）
-    private int reapplicationDelay = 20; // 效果重应用延迟（防止频繁生效，游戏刻）
+    protected int reapplicationDelay = 20; // 效果重应用延迟（防止频繁生效，游戏刻）
     private int durationOnUse; // 每次应用效果时的持续时间变化量
     private float radiusOnUse; // 每次应用效果时的半径变化量
     private float radiusPerTick; // 每刻的半径变化量
@@ -88,9 +94,20 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
      * （如半径、颜色等视觉和关键逻辑属性）
      */
     protected void defineSynchedData() {
+        this.entityData.define(DATA_DANGEROUS, false);
         this.getEntityData().define(DATA_RADIUS, 3.0F); // 初始半径3.0F
         this.getEntityData().define(DATA_WAITING, false); // 初始不处于等待状态
         this.getEntityData().define(DATA_PARTICLE, ParticleTypes.ENTITY_EFFECT); // 初始粒子效果为实体效果粒子
+    }
+
+    public boolean isDangerous() {
+        // 从同步实体数据中获取危险级标记
+        return this.entityData.get(DATA_DANGEROUS);
+    }
+
+    public void setDangerous(boolean pInvulnerable) {
+        // 向同步实体数据中写入危险级标记，自动同步到客户端
+        this.entityData.set(DATA_DANGEROUS, pInvulnerable);
     }
 
     /**
@@ -295,54 +312,7 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
      * @param range
      */
     public void doOnStart(float range) {
-        float f = range;
-        // 客户端逻辑：渲染粒子效果并处理动画进度
-        if (this.level() instanceof ServerLevel serverLevel) {
 
-            ParticleOptions particleoptions = ImmortalersDelightParticleTypes.GAS_SMOKE.get();
-            int i; // 粒子数量
-            float f1; // 粒子生成范围半径
-
-            // 非等待状态下，粒子数量与圆面积成正比（πr²）
-            i = Mth.ceil((float)Math.PI * f * f);
-            f1 = f - 0.2f; // 生成范围等于效果云半径
-
-            // 生成粒子
-            for(int j = 0; j < i; ++j) {
-                // 随机计算粒子在圆上的位置（极坐标转直角坐标）
-                float f2 = this.random.nextFloat() * ((float)Math.PI * 2F); // 随机角度
-                float f3 = Mth.sqrt(this.random.nextFloat()) * f1; // 随机距离（确保在圆内均匀分布）
-                double d0 = this.getX() + (double)(Mth.cos(f2) * f3); // X坐标
-                double d2 = this.getY() + 0.25; // Y坐标
-                double d4 = this.getZ() + (double)(Mth.sin(f2) * f3); // Z坐标
-
-                // 粒子运动速度（根据粒子类型和状态调整）
-                double d5, d6, d7;
-                // 非等待状态下其他粒子：随机轻微速度
-                d5 = (0.5D - this.random.nextDouble()) * 0.15D;
-                d6 = (double)0.01F;
-                d7 = (0.5D - this.random.nextDouble()) * 0.15D;
-//                serverLevel.sendParticles(
-//                        particleoptions, d0, d2, d4, 1, d5, d6, d7, 0.025
-//                );
-                if (j + 1 == i) spawnShriekParticle(serverLevel,d0, d2, d4, j * 5);
-            }
-        }
-    }
-
-    // 在指定位置生成尖啸粒子的方法（服务端调用）
-    public static void spawnShriekParticle(ServerLevel serverLevel, double x, double y, double z, int delay) {
-        // 1. 创建粒子参数（封装delay）
-        ShockWaveParticleOption particleOption = new ShockWaveParticleOption(delay);
-
-        // 2. 调用带ParticleOptions的sendParticles重载方法
-        serverLevel.sendParticles(
-                particleOption,  // 粒子参数（含SHRIEK类型+delay）
-                x, y, z,         // 生成位置
-                1,               // 生成数量
-                0.0D, 0.0D, 0.0D,// 位置无偏移
-                0.0D             // 速度（无作用）
-        );
     }
 
     /**
@@ -390,18 +360,9 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
      * @return
      */
     protected boolean addAreaEffect(float range) {
-        // 收集所有生效的药水效果（关联药水的效果 + 额外添加的效果）
-        List<MobEffectInstance> list = Lists.newArrayList();
-        for(MobEffectInstance mobeffectinstance : this.potion.getEffects()) {
-            // 药水自带效果的持续时间缩短为1/4（因为效果云会周期性施加）
-            list.add(new MobEffectInstance(mobeffectinstance.getEffect(), mobeffectinstance.mapDuration((p_267926_) -> {
-                return p_267926_ / 4;
-            }), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()));
-        }
-        list.addAll(this.effects); // 添加额外效果
-
+        List<MobEffectInstance> list =this.getAllEffects();
         if (list.isEmpty()) return false;
-        // 获取碰撞箱内的所有生物实体
+        // 获取碰撞箱半径内的所有生物实体
         List<LivingEntity> list1 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
         if (!list1.isEmpty()) {
             boolean flag = false;
@@ -421,17 +382,7 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
                             // 记录该生物下次可受影响的刻数
                             this.victims.put(livingentity, this.tickCount + this.reapplicationDelay);
 
-                            // 对生物施加所有效果
-                            for(MobEffectInstance mobeffectinstance1 : list) {
-                                if (mobeffectinstance1.getEffect().isInstantenous()) {
-                                    // 瞬时效果（如瞬间治疗）直接应用
-                                    mobeffectinstance1.getEffect().applyInstantenousEffect(this, caster, livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
-                                } else {
-                                    // 持续效果添加到生物身上
-                                    livingentity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
-                                }
-                            }
-
+                            doOnAddEffect(livingentity, list);
                             flag = true;//判断是否执行成功
                         }
                     }
@@ -441,6 +392,32 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
             return flag;
         }
         return false;
+    }
+
+    public List<MobEffectInstance> getAllEffects() {
+        // 收集所有生效的药水效果（关联药水的效果 + 额外添加的效果）
+        List<MobEffectInstance> list = Lists.newArrayList();
+        for(MobEffectInstance mobeffectinstance : this.potion.getEffects()) {
+            // 药水自带效果的持续时间缩短为1/4（因为效果云会周期性施加）
+            list.add(new MobEffectInstance(mobeffectinstance.getEffect(), mobeffectinstance.mapDuration((p_267926_) -> {
+                return p_267926_ / 4;
+            }), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()));
+        }
+        list.addAll(this.effects); // 添加额外效果
+        return list;
+    }
+
+    protected void doOnAddEffect(LivingEntity livingentity, List<MobEffectInstance> list) {
+        // 对生物施加所有效果
+        for(MobEffectInstance mobeffectinstance1 : list) {
+            if (mobeffectinstance1.getEffect().isInstantenous()) {
+                // 瞬时效果（如瞬间治疗）直接应用
+                mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
+            } else {
+                // 持续效果添加到生物身上
+                livingentity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
+            }
+        }
     }
 
     /**

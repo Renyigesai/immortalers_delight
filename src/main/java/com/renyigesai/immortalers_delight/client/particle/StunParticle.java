@@ -39,7 +39,7 @@ public class StunParticle extends TextureSheetParticle {
         this.spriteSet = spriteSet;
         this.setSize(0.2f, 0.2f);
         this.quadSize *= 3f;
-        this.lifetime = 28;
+        this.lifetime = 54;
         this.gravity = -0.45f;
         this.hasPhysics = true;
         this.xd = vx * 1;
@@ -47,6 +47,7 @@ public class StunParticle extends TextureSheetParticle {
         this.zd = vz * 1;
         this.radius = 1.0;
         this.angularSpeed = 0.3;
+        this.initialAngle = Math.random() * Math.PI * 2;
         this.setSpriteFromAge(spriteSet);
     }
     @Override

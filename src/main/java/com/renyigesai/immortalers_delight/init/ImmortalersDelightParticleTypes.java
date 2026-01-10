@@ -3,6 +3,8 @@ package com.renyigesai.immortalers_delight.init;
 import com.mojang.serialization.Codec;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
+import com.renyigesai.immortalers_delight.client.particle.SnowFogParticleOption;
+import com.renyigesai.immortalers_delight.client.particle.SpiralSoulParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,6 +28,24 @@ public class ImmortalersDelightParticleTypes {
                         @Override
                         public Codec<ShockWaveParticleOption> codec() {
                             return ShockWaveParticleOption.CODEC;
+                        }
+                    }
+            );
+    public static final RegistryObject<ParticleType<SpiralSoulParticleOption>> SPIRAL_SOUL =
+            REGISTRY.register("spiral_soul",
+                    () -> new ParticleType<>(false, SpiralSoulParticleOption.DESERIALIZER) {
+                        @Override
+                        public Codec<SpiralSoulParticleOption> codec() {
+                            return SpiralSoulParticleOption.CODEC;
+                        }
+                    }
+            );
+    public static final RegistryObject<ParticleType<SnowFogParticleOption>> SNOW_FOG =
+            REGISTRY.register("snow_fog",
+                    () -> new ParticleType<>(false, SnowFogParticleOption.DESERIALIZER) {
+                        @Override
+                        public Codec<SnowFogParticleOption> codec() {
+                            return SnowFogParticleOption.CODEC;
                         }
                     }
             );

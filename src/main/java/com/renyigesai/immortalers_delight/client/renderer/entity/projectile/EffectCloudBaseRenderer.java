@@ -41,6 +41,7 @@ public class EffectCloudBaseRenderer extends EntityRenderer<EffectCloudBaseEntit
         float f = pEntity.getAnimationProgress(pPartialTicks);
         //System.out.println("实体动画进度" + f);
         if (f > 0.0F) {
+            //随着实体的半径缩放模型
             float f1 = (float)pEntity.getRadius();
             if (f <= 0.9F) {
                 if (pEntity.getWaitTime() >= 16) f1 *= f * f * f;

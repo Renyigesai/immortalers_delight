@@ -3,8 +3,7 @@ package com.renyigesai.immortalers_delight.client.renderer.special_item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.renyigesai.immortalers_delight.item.BoneKnifeItem;
-import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
+import com.renyigesai.immortalers_delight.item.weapon.BoneKnifeItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,8 +11,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BoneKnifeItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static int degree = 0;

@@ -6,8 +6,10 @@ import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
 import com.renyigesai.immortalers_delight.block.ancient_stove.WeatheringAncientStoveBlock;
+import com.renyigesai.immortalers_delight.block.crops.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
+import com.renyigesai.immortalers_delight.block.food.*;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightCeilingHangingSignBlock;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
@@ -19,12 +21,7 @@ import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -32,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -41,9 +37,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
@@ -536,6 +529,10 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
             () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> SUPER_KWAT_WHEAT_HAMBURGER = BLOCKS.register("super_kwat_wheat_hamburger",
+            () -> new SuperKwatBurgerBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+
     @BlockData
     public static final RegistryObject<Block> EXPOSED_ANCIENT_STOVE = BLOCKS.register("exposed_ancient_stove",()->
             new WeatheringAncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.EXPOSED));
@@ -725,6 +722,35 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
             new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
+
+    /*冰龙果*/
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> GELPITAYA_CROP = BLOCKS.register("gelpitaya_crop",()->
+            new GelpitayaCropBlock(BlockBehaviour.Properties.copy(Blocks.CACTUS).mapColor(MapColor.ICE).strength(2.8F).requiresCorrectToolForDrops().sound(SoundType.GLASS)));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> STONE_POT_KWAT_TOFU_STEW = BLOCKS.register("stone_pot_kwat_tofu_stew",()->
+            new StonePotKwatTofuStewBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_KWAT_TOFU_STEW,true));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> FROSTY_CROWN_MOUSSE = BLOCKS.register("frosty_crown_mousse",()->
+            new FrostyCrownMousseBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.FROSTY_CROWN_MOUSSE_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> TENCHIMUYO = BLOCKS.register("tenchimuyo",()->
+            new TenchimuyoBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_TENCHIMUYO,true));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> THIS_SIDE_DOWN = BLOCKS.register("this_side_down",()->
+            new ThisSideDownSoupBlock(BlockBehaviour.Properties.copy(Blocks.SHULKER_BOX),ImmortalersDelightItems.BOWL_OF_THIS_SIDE_DOWN,true));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> CAUSTIC_ESSENTIAL_OIL = BLOCKS.register("caustic_essential_oil",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+    });
 
     /*瓶子草*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)

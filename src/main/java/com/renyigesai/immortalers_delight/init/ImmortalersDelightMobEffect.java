@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.potion.*;
+import com.renyigesai.immortalers_delight.util.datautil.worlddata.DifficultyModeWorldData;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -36,15 +37,23 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> VITALITY = REGISTRY.register("vitality", VitalityMobEffect::new);
     public static final RegistryObject<MobEffect> SATIATED = REGISTRY.register("satiated", SatiatedMobEffect::new);
     public static final RegistryObject<MobEffect> WARM_CURRENT_SURGES = REGISTRY.register("warm_current_surges", WarmCurrentSurgesMobEffect::new);
-    public static final RegistryObject<MobEffect> PREHISTORIC_POWERS = REGISTRY.register("prehistoric_powers", PrehistoricPowersMobEffect::new);
+    public static final RegistryObject<MobEffect> PREHISTORIC_POWERS = REGISTRY.register("prehistoric_powers",()->
+            new PrehistoricPowersMobEffect()
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE,"dea196b4-3b49-e888-6b9b-a3d17013c587",0.15, AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> COOL = REGISTRY.register("cool", CoolMobEffect::new);
     public static final RegistryObject<MobEffect> DEEPNESS = REGISTRY.register("deepness", DeepnessMobEffect::new);
     public static final RegistryObject<MobEffect> ESTEEMED_GUEST = REGISTRY.register("esteemed_guest", EsteemedGuestMobEffect::new);
 
     public static final RegistryObject<MobEffect> VULNERABLE = REGISTRY.register("vulnerable", VulnerableMobEffect::new);
 
-    public static final RegistryObject<MobEffect> LINGERING_INFUSION = REGISTRY.register("lingering_infusion",()-> new LingeringInfusionMobEffect().addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModifier.Operation.ADDITION));
+    public static final RegistryObject<MobEffect> LINGERING_INFUSION = REGISTRY.register("lingering_infusion",()->
+            new LingeringInfusionMobEffect()
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModifier.Operation.ADDITION));
 
     public static final RegistryObject<MobEffect> GAIXIA = REGISTRY.register("gaixia", GaixiaMobEffect::new);
+    public static final RegistryObject<MobEffect> LET_IT_FREEZE = REGISTRY.register("let_it_freeze", LetItFreezeMobEffect::new);
+
+    public static final RegistryObject<MobEffect> UNYIELDING = REGISTRY.register("unyielding", UnyieldingMobEffect::new);
+    public static final RegistryObject<MobEffect> UP_SIDE_DOWN = REGISTRY.register("up_side_down", UpSideDownMobEffect::new);
 
 }

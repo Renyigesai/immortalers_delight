@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -39,7 +40,7 @@ public class ShockWaveParticleOption implements ParticleOptions {
         }
     };
 
-    // 自定义int参数：倒计时刻数
+    // 自定义int参数
     private final int extra_size;
 
     // 构造方法：初始化extra_size参数
@@ -65,7 +66,7 @@ public class ShockWaveParticleOption implements ParticleOptions {
 
     // 关联对应的ParticleType（后续定义）
     @Override
-    public ParticleType<ShockWaveParticleOption> getType() {
+    public @NotNull ParticleType<ShockWaveParticleOption> getType() {
         return ImmortalersDelightParticleTypes.SHOCK_WAVE.get(); // 替换为你的粒子类型注册引用
     }
 

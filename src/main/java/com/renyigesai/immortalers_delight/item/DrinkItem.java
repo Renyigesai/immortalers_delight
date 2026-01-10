@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -20,18 +22,25 @@ import java.util.List;
 public class DrinkItem extends ItemNameBlockItem {
 
     public final boolean hasPotionEffectTooltip;
-
+    public final boolean hasCustomToolTip;
+    public DrinkItem(Block pBlock, Properties pProperties, boolean hasPotionEffectTooltip, boolean hasCustomToolTip) {
+        super(pBlock, pProperties);
+        this.hasPotionEffectTooltip = hasPotionEffectTooltip;
+        this.hasCustomToolTip = hasCustomToolTip;
+    }
     public DrinkItem(Block pBlock, Properties pProperties, boolean hasPotionEffectTooltip) {
         super(pBlock, pProperties);
         this.hasPotionEffectTooltip = hasPotionEffectTooltip;
+        this.hasCustomToolTip = false;
     }
 
     public DrinkItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
         this.hasPotionEffectTooltip = false;
+        this.hasCustomToolTip = false;
     }
 
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity consumer) {
+    public @NotNull ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity consumer) {
         ItemStack containerStack = stack.getCraftingRemainingItem();
         Player player;
         if (stack.isEdible()) {
@@ -89,6 +98,10 @@ public class DrinkItem extends ItemNameBlockItem {
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+            if (this.hasCustomToolTip) {
+                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+                tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
+            }
             if (this.hasPotionEffectTooltip) {
                 TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
             }

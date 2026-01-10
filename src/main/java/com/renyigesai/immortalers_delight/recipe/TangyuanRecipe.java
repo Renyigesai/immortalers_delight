@@ -22,10 +22,11 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
     private final ItemStack output;
     private final ResourceLocation id;
     private final ItemStack container;
+    private final Ingredient tool;
     private final ItemStack result_cache;
     private final boolean finished;
 
-    public TangyuanRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ItemStack container, ItemStack last_result, boolean finish, ResourceLocation id) {
+    public TangyuanRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ItemStack container, ItemStack last_result, boolean finish, Ingredient tool_item, ResourceLocation id) {
         this.inputItems = ingredient;
         this.output = output;
         this.id = id;
@@ -40,6 +41,7 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
             this.result_cache = last_result;
         }
         this.finished = finish;
+        this.tool = tool_item;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
         int i = 0;
 
         if (this.container.isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {
-            ItemStack stack = inv.getItem(5);
+            ItemStack stack = inv.getItem(6);
             boolean correct_order = this.getCacheItem().is(stack.getItem()) && this.getCacheItem().getOrCreateTag().equals(stack.getOrCreateTag());
             if (this.result_cache.isEmpty() || correct_order) {
                 for (int j = 0; j < 4; ++j) {
@@ -58,9 +60,9 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
                         inputs.add(itemstack);
                     }
                 }
-
-            }
-        }
+                System.out.println("输入物品数量：" + i + ",输入物品：" + inputs);
+            } else System.out.println("缓存不对");
+        } else System.out.println("容器不对");
         return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
@@ -86,10 +88,10 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
     public ItemStack getCacheItem() {
         return result_cache.copy();
     }
-
-    public boolean isFinished() {
-        return finished;
+    public Ingredient getTool() {
+        return this.tool;
     }
+    public boolean isFinished() {return finished;}
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return output.copy();
@@ -133,8 +135,10 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
             //读取容器和上一步缓存物品
             ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
             ItemStack last_result = GsonHelper.isValidNode(pSerializedRecipe, "previous_result") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "previous_result"), true) : ItemStack.EMPTY;
+            JsonObject toolObject = GsonHelper.getAsJsonObject(pSerializedRecipe, "tool");
+            Ingredient toolIn = Ingredient.fromJson(toolObject);
             boolean finished = !GsonHelper.isValidNode(pSerializedRecipe, "finished") || GsonHelper.getAsBoolean(pSerializedRecipe, "finished");
-            return new TangyuanRecipe(inputs, output,container,last_result,finished,pRecipeId);
+            return new TangyuanRecipe(inputs, output,container,last_result,finished,toolIn,pRecipeId);
         }
 
         @Override
@@ -148,8 +152,9 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
             ItemStack output = pBuffer.readItem();
             ItemStack container = pBuffer.readItem();
             ItemStack last_result = pBuffer.readItem();
+            Ingredient toolIn = Ingredient.fromNetwork(pBuffer);
             boolean finished = pBuffer.readBoolean();
-            return new TangyuanRecipe(inputs, output,container,last_result,finished,pRecipeId);
+            return new TangyuanRecipe(inputs, output,container,last_result,finished,toolIn,pRecipeId);
         }
 
         @Override
@@ -162,6 +167,7 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
             pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
             pBuffer.writeItem(pRecipe.getContainer());
             pBuffer.writeItemStack(pRecipe.getCacheItem(),false);
+            pRecipe.getTool().toNetwork(pBuffer);
             pBuffer.writeBoolean(pRecipe.isFinished());
         }
     }
