@@ -1,0 +1,23 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "item": "immortalers_delight:abc_offee"
+    },
+    {
+      "item": "minecraft:cornflower"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "immortalers_delight:warped_laurel"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:abblue_beauty_c_offee"
+  }
+}

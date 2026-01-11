@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:a_bush"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_hammers"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:ab_ash",
+      "count": 2
+    }
+  ]
+}

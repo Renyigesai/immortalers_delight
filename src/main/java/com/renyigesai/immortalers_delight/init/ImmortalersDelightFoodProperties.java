@@ -1136,6 +1136,7 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties ABC_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),9600),1f).alwaysEat().build();
     public static final FoodProperties ABBLUE_BEAUTY_C_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),8400),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),2400),1f).alwaysEat().build();
+    public static final FoodProperties ABC_OOKIE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),3600),1f).nutrition(4).saturationMod(0.1f).alwaysEat().build();
 //    public static final FoodProperties TEXT = new FoodProperties.Builder()
 //            .build();
 

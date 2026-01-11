@@ -758,6 +758,12 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BOWL_OF_THIS_SIDE_DOWN;
 
     /*烬烟杆*/
+    @ItemData(zhCn = "烬烟杆",enUs = "A'bush")
+    public static final RegistryObject<Item> A_BUSH;
+    @ItemData(zhCn = "烬烟粉",enUs = "A'b'ash")
+    public static final RegistryObject<Item> AB_ASH;
+    @ItemData(zhCn = "苦烟曲奇",enUs = "A'B'C'ookie")
+    public static final RegistryObject<Item> ABC_OOKIE;
     @ItemData(zhCn = "烬烟咖啡",enUs = "A'B'C'offee")
     public static final RegistryObject<Item> ABC_OFFEE;
     @ItemData(zhCn = "蓝嫣枝咖啡",enUs = "A'B' Blue Beauty C'offee")
@@ -1094,6 +1100,9 @@ public class ImmortalersDelightItems {
 
         TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
 
+        A_BUSH = registerWithTab("a_bush",()-> new ItemNameBlockItem(ImmortalersDelightBlocks.A_BUSH.get(),basicItem()));
+
+        AB_ASH = registerWithTab("ab_ash",()-> new Item(basicItem()));
         /*
         玉米系列物品
         */
@@ -1608,6 +1617,8 @@ public class ImmortalersDelightItems {
                         true,false));
         CAUSTIC_ESSENTIAL_OIL = registerWithTab("caustic_essential_oil",()->
                 new ThrowableDrinkBlockItem(ImmortalersDelightBlocks.CAUSTIC_ESSENTIAL_OIL.get(), (new Item.Properties()).stacksTo(16),false,true));
+
+        ABC_OOKIE = foodItem("abc_ookie",ImmortalersDelightFoodProperties.ABC_OOKIE);
 
         ABC_OFFEE = registerWithTab("abc_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
         ABBLUE_BEAUTY_C_OFFEE = registerWithTab("abblue_beauty_c_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABBLUE_BEAUTY_C_OFFEE),true));

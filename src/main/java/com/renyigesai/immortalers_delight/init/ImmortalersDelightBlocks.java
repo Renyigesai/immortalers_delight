@@ -807,6 +807,10 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
+    /*烟杆*/
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
+
     static {
         //方块实体 Block Entity
 
