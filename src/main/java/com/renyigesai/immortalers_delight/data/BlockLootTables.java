@@ -35,9 +35,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        System.out.println("Yes Generate");
         dropAll();
-        System.out.println("End Generate");
     }
 
     private void dropAll(){
@@ -78,6 +76,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         add(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get()));
         add(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get()));
         add(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get()));
+        add(ImmortalersDelightBlocks.A_BUSH_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.A_BUSH_DOOR.get()));
         addAllDrink(ImmortalersDelightBlocks.LEISAMBOO_TEA.get(),
                 ImmortalersDelightBlocks.ICED_BLACK_TEA.get(),
                 ImmortalersDelightBlocks.PEARLIPEARL_MILK_TEA.get(),

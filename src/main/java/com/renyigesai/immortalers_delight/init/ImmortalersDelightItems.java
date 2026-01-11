@@ -164,10 +164,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> A_BUSH_STAIRS;
     @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> A_BUSH_SLAB;
-//    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door")
-//    public static final RegistryObject<Item> A_BUSH_DOOR;
-//    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR)
-//    public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
+    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door")
+    public static final RegistryObject<Item> A_BUSH_DOOR;
+    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR)
+    public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
     @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE)
     public static final RegistryObject<Item> A_BUSH_FENCE;
     @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK)
@@ -1017,8 +1017,8 @@ public class ImmortalersDelightItems {
         A_BUSH_PLANKS = block(ImmortalersDelightBlocks.A_BUSH_PLANKS);
         A_BUSH_STAIRS = block(ImmortalersDelightBlocks.A_BUSH_STAIRS);
         A_BUSH_SLAB = block(ImmortalersDelightBlocks.A_BUSH_SLAB);
-//        A_BUSH_DOOR = block(ImmortalersDelightBlocks.A_BUSH_DOOR);
-//        A_BUSH_TRAPDOOR = block(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR);
+        A_BUSH_DOOR = block(ImmortalersDelightBlocks.A_BUSH_DOOR);
+        A_BUSH_TRAPDOOR = block(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR);
         A_BUSH_FENCE = block(ImmortalersDelightBlocks.A_BUSH_FENCE);
         A_BUSH_FENCE_GATE = block(ImmortalersDelightBlocks.A_BUSH_FENCE_GATE);
         A_BUSH_PRESSURE_PLATE = block(ImmortalersDelightBlocks.A_BUSH_PRESSURE_PLATE);

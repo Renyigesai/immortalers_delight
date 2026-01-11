@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "immortalers_delight:block/stripped_a_bush_log_top",
+    "end": "immortalers_delight:block/stripped_a_bush_log",
     "side": "immortalers_delight:block/stripped_a_bush_log"
   }
 }

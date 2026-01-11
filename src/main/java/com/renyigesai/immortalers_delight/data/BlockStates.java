@@ -26,8 +26,8 @@ public class BlockStates extends BlockStateProvider {
 //        cubeAll(ImmortalersDelightBlocks.A_BUSH_PLANKS.get());
 //        stairsBlock(ImmortalersDelightBlocks.A_BUSH_STAIRS.get(), A_BUSH_PLANKS);
 //        slabBlock(ImmortalersDelightBlocks.A_BUSH_SLAB.get(), A_BUSH_PLANKS, A_BUSH_PLANKS);
-//        doorBlock(ImmortalersDelightBlocks.A_BUSH_DOOR.get(),,);
-//        trapdoorBlock(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR.get(),,);
+//        doorBlock(ImmortalersDelightBlocks.A_BUSH_DOOR.get(),new ResourceLocation(ImmortalersDelightMod.MODID,"block/a_bush_door_bottom"),new ResourceLocation(ImmortalersDelightMod.MODID,"block/a_bush_door_top"));
+//        trapdoorBlock(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR.get(),new ResourceLocation(ImmortalersDelightMod.MODID,"block/a_bush_trapdoor"),true);
 //        fenceBlock(ImmortalersDelightBlocks.A_BUSH_FENCE.get(), A_BUSH_PLANKS);
 //        fenceGateBlock(ImmortalersDelightBlocks.A_BUSH_FENCE_GATE.get(), A_BUSH_PLANKS);
 //        pressurePlateBlock(ImmortalersDelightBlocks.A_BUSH_PRESSURE_PLATE.get(), A_BUSH_PLANKS);
