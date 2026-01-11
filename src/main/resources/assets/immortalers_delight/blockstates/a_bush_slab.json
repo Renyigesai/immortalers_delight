@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immortalers_delight:block/a_bush_slab"
+    },
+    "type=double": {
+      "model": "immortalers_delight:block/a_bush_planks"
+    },
+    "type=top": {
+      "model": "immortalers_delight:block/a_bush_slab_top"
+    }
+  }
+}

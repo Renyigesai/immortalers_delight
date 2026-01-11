@@ -11,4 +11,5 @@ public class ImmortalersDelightWoodSetType {
     public static final BlockSetType PEARLIP_SHELL = BlockSetType.register(new BlockSetType("pearlip_shell"));
     public static final BlockSetType ANCIENT_WOOD = BlockSetType.register(new BlockSetType("ancient_wood"));
     public static final BlockSetType TRAVASTRUGGLER = BlockSetType.register(new BlockSetType("travastruggler"));
+    public static final BlockSetType A_BUSH = BlockSetType.register(new BlockSetType("a_bush"));
 }

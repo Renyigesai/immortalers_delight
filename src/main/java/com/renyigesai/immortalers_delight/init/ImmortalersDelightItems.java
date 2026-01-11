@@ -150,6 +150,33 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "棱蕉木运输船")
     public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
 
+    @ItemData(zhCn = "烬烟木",enUs = "A'bush Log",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_LOG;
+    @ItemData(zhCn = "去皮烬烟木",enUs = "Stripped A'bush Log",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> STRIPPED_A_BUSH_LOG;
+    @ItemData(zhCn = "烬烟木头",enUs = "A'bush Wood",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_WOOD;
+    @ItemData(zhCn = "去皮烬烟木头",enUs = "Stripped A'bush Wood",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> STRIPPED_A_BUSH_WOOD;
+    @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_PLANKS;
+    @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_STAIRS;
+    @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_SLAB;
+//    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door")
+//    public static final RegistryObject<Item> A_BUSH_DOOR;
+//    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR)
+//    public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
+    @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE)
+    public static final RegistryObject<Item> A_BUSH_FENCE;
+    @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_FENCE_GATE;
+    @ItemData(zhCn = "烬烟木压力板",enUs = "A'bush Pressure Plate",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_PRESSURE_PLATE;
+    @ItemData(zhCn = "烬烟木按钮",enUs = "A'bush Button",model = ItemData.ModelType.BUTTON)
+    public static final RegistryObject<Item> A_BUSH_BUTTON;
+
 
     /*系列装饰方块--嗅探兽毛*/
     @ItemData(zhCn = "嗅探兽毛块",model = ItemData.ModelType.BLOCK)
@@ -983,6 +1010,21 @@ public class ImmortalersDelightItems {
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
 
+        A_BUSH_LOG = block(ImmortalersDelightBlocks.A_BUSH_LOG);
+        STRIPPED_A_BUSH_LOG = block(ImmortalersDelightBlocks.STRIPPED_A_BUSH_LOG);
+        A_BUSH_WOOD = block(ImmortalersDelightBlocks.A_BUSH_WOOD);
+        STRIPPED_A_BUSH_WOOD = block(ImmortalersDelightBlocks.STRIPPED_A_BUSH_WOOD);
+        A_BUSH_PLANKS = block(ImmortalersDelightBlocks.A_BUSH_PLANKS);
+        A_BUSH_STAIRS = block(ImmortalersDelightBlocks.A_BUSH_STAIRS);
+        A_BUSH_SLAB = block(ImmortalersDelightBlocks.A_BUSH_SLAB);
+//        A_BUSH_DOOR = block(ImmortalersDelightBlocks.A_BUSH_DOOR);
+//        A_BUSH_TRAPDOOR = block(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR);
+        A_BUSH_FENCE = block(ImmortalersDelightBlocks.A_BUSH_FENCE);
+        A_BUSH_FENCE_GATE = block(ImmortalersDelightBlocks.A_BUSH_FENCE_GATE);
+        A_BUSH_PRESSURE_PLATE = block(ImmortalersDelightBlocks.A_BUSH_PRESSURE_PLATE);
+        A_BUSH_BUTTON = block(ImmortalersDelightBlocks.A_BUSH_BUTTON);
+
+
         /*嗅探兽毛*/
         SNIFFER_FUR_BLOCK = block(ImmortalersDelightBlocks.SNIFFER_FUR_BLOCK);
         SNIFFER_FUR_TATAMI = block(ImmortalersDelightBlocks.SNIFFER_FUR_TATAMI);
@@ -1733,7 +1775,7 @@ public class ImmortalersDelightItems {
         return (new Item.Properties().rarity(soCool).food(foodProperties));
     }
 
-    private static RegistryObject<Item> block(RegistryObject<Block> block) {
+    private static RegistryObject<Item> block(RegistryObject<? extends Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 

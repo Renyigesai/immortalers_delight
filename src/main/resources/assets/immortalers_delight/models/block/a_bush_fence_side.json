@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "immortalers_delight:block/a_bush_planks"
+  }
+}

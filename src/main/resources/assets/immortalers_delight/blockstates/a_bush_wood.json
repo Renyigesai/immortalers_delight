@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "immortalers_delight:block/a_bush_wood_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "immortalers_delight:block/a_bush_wood"
+    },
+    "axis=z": {
+      "model": "immortalers_delight:block/a_bush_wood_horizontal",
+      "x": 90
+    }
+  }
+}
