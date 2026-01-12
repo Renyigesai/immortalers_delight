@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.renyigesai.immortalers_delight.block.BasicsLogsBlock;
 import com.renyigesai.immortalers_delight.block.SimpleLavaloggedBlock;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -44,7 +46,7 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(STAGE) < 3;
+        return pState.getValue(STAGE) < 3 || pState.getValue(LAVALOGGED);
     }
 
     @Override
@@ -56,8 +58,13 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
         if (!pState.getValue(LAVALOGGED)){
             return;
         }
-        if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(6) == 0)){
-            pLevel.setBlock(pPos,pState.setValue(STAGE,pState.getValue(STAGE) + 1),3);
+        if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(6) == 0)) {
+            if (pState.getValue(STAGE) < 3) {
+                pLevel.setBlock(pPos, pState.setValue(STAGE, pState.getValue(STAGE) + 1), 3);
+            } else {
+                BlockState newBlockState = ImmortalersDelightBlocks.A_BUSH_LOG.get().defaultBlockState().setValue(BasicsLogsBlock.AXIS, Direction.Axis.Y);
+                pLevel.sendBlockUpdated(pPos, pState,newBlockState, 3);
+            }
         }
     }
 

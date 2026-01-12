@@ -830,6 +830,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> A_BUSH_PLANKS = BLOCKS.register("a_bush_planks",()-> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
     @BlockData
+    public static final RegistryObject<CabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL)));
+
+    @BlockData
     public static final RegistryObject<StairBlock> A_BUSH_STAIRS = BLOCKS.register("a_bush_stairs",()-> new StairBlock(A_BUSH_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
     @BlockData
