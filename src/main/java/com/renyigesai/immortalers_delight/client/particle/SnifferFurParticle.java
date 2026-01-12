@@ -31,7 +31,7 @@ public class SnifferFurParticle extends TextureSheetParticle {
     protected SnifferFurParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
         super(world, x, y, z);
         this.spriteSet = spriteSet;
-        this.setSize(0.3f, 0.3f);
+        this.setSize(0.2f, 0.2f);
         this.quadSize *= 5f;
         this.lifetime = 60;
         this.gravity = 0.1f;

@@ -1,0 +1,29 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "container": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "immortalers_delight:gelpitaya_icepop",
+    "count": 1
+  }
+}

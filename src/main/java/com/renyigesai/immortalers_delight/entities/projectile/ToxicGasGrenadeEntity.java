@@ -5,7 +5,9 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,9 +21,15 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+
+import java.util.List;
 
 public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
     public ToxicGasGrenadeEntity(EntityType<? extends ToxicGasGrenadeEntity> pEntityType, Level pLevel) {
@@ -55,36 +63,34 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
 
     }
 
-    protected void onHitEntity(EntityHitResult pResult) {
-        super.onHitEntity(pResult);
-        Entity entity = pResult.getEntity();
-        int i = entity instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()) ? 0 : 3;
-        entity.hurt(GasPoisonMobEffect.getDamageSource(entity, this.getOwner()), (float)i);
-        makeAreaOfEffectCloud(this.level(), entity.blockPosition());
-    }
-
+    /**
+     * Called when this EntityFireball hits a block or entity.
+     */
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
         if (!this.level().isClientSide) {
-            this.level().broadcastEntityEvent(this, (byte)3);
-            makeAreaOfEffectCloud(this.level(), this.blockPosition());
+            this.makeAreaOfEffectCloud(this.level(),
+                    pResult.getType() == HitResult.Type.ENTITY ?
+                            ((EntityHitResult)pResult).getEntity().blockPosition()
+                            : this.blockPosition());
+            this.level().levelEvent(2002, this.blockPosition(), PotionUtils.getColor(this.getItem()));
             this.discard();
         }
-
     }
 
     private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
         if (level.isClientSide()) return;
-        EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX(), pPos.getY(), pPos.getZ());
+        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+        EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.2D, pPos.getZ() + 0.5D);
 
         effectCloud.setDangerous(true);
         effectCloud.setRadius(3.5F);
         effectCloud.setRadiusOnUse(-0.1F);
-        effectCloud.setWaitTime(10);
+        effectCloud.setWaitTime(15);
         effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 2.0f);
         effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
 
-        effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),600,0));
+        effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),isPowerful ? 640 : 560,0));
 
         level.addFreshEntity(effectCloud);
     }

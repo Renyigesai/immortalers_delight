@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "minecraft:glistering_melon_slice"},
+    {"item": "minecraft:glistering_melon_slice"},
+    {"item": "immortalers_delight:evolutcorn_hard_candy"},
+    {"item": "minecraft:glistering_melon_slice"},
+    {"item": "minecraft:glistering_melon_slice"},
+    {"item": "minecraft:glass_bottle"}
+  ],
+  "result": {
+    "item": "immortalers_delight:glistering_watermelon_juice",
+    "count": 1
+  }
+}

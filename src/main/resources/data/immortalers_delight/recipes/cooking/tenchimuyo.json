@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "farmersdelight:onion"
+    },
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:stone_pot"
+  },
+  "result": {
+    "item": "immortalers_delight:tenchimuyo"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

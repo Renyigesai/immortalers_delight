@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import net.minecraft.Util;
 import net.minecraft.commands.arguments.ParticleArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -38,6 +39,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 
 /**
@@ -206,6 +208,56 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         this.duration = pDuration;
     }
 
+    //客户端逻辑，这个方法每tick执行
+    protected void updateParticles(float f) {
+        boolean flag = this.isWaiting();
+        if (flag && this.random.nextBoolean()) {
+            return; // 等待状态下有50%概率不生成粒子（减少粒子数量）
+        }
+
+        ParticleOptions particleoptions = this.getParticle();
+        int i; // 粒子数量
+        float f1; // 粒子生成范围半径
+
+        // 根据等待状态调整粒子参数
+        if (flag) {
+            i = 2; // 等待状态下固定生成2个粒子
+            f1 = 0.2F; // 生成范围缩小
+        } else {
+            // 非等待状态下，粒子数量与圆面积成正比（πr²）
+            i = Mth.ceil((float)Math.PI * f * f);
+            f1 = f; // 生成范围等于效果云半径
+        }
+
+        // 生成粒子
+        for(int j = 0; j < i; ++j) {
+            // 随机计算粒子在圆上的位置（极坐标转直角坐标）
+            float f2 = this.random.nextFloat() * ((float)Math.PI * 2F); // 随机角度
+            float f3 = Mth.sqrt(this.random.nextFloat()) * f1; // 随机距离（确保在圆内均匀分布）
+            double d0 = this.getX() + (double)(Mth.cos(f2) * f3); // X坐标
+            double d2 = this.getY() + (double)((this.random.nextBoolean() ? 0.5 : -0.5) * f3) ; // Y坐标
+            double d4 = this.getZ() + (double)(Mth.sin(f2) * f3); // Z坐标
+
+            // 粒子运动速度（根据粒子类型和状态调整）
+            double d5, d6, d7;
+            if (flag) {
+                // 等待状态下其他粒子：无速度
+                d5 = 0.0D;
+                d6 = 0.0D;
+                d7 = 0.0D;
+            } else {
+                // 非等待状态下其他粒子：随机轻微速度
+                d5 = (0.5D - this.random.nextDouble()) * 0.15D;
+                d6 = (double)0.01F;
+                d7 = (0.5D - this.random.nextDouble()) * 0.15D;
+            }
+
+            // 向世界添加粒子（始终可见）
+            this.level().addAlwaysVisibleParticle(particleoptions, d0, d2, d4, d5, d6, d7);
+        }
+    }
+
+
     /**
      * 每游戏刻更新实体逻辑（核心方法）
      * 客户端：处理粒子效果渲染
@@ -219,50 +271,7 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         // 客户端逻辑：渲染粒子效果并处理动画进度
         if (this.level().isClientSide) {
             ++this.lifeTicks;
-            if (flag && this.random.nextBoolean()) {
-                return; // 等待状态下有50%概率不生成粒子（减少粒子数量）
-            }
-
-            ParticleOptions particleoptions = this.getParticle();
-            int i; // 粒子数量
-            float f1; // 粒子生成范围半径
-
-            // 根据等待状态调整粒子参数
-            if (flag) {
-                i = 2; // 等待状态下固定生成2个粒子
-                f1 = 0.2F; // 生成范围缩小
-            } else {
-                // 非等待状态下，粒子数量与圆面积成正比（πr²）
-                i = Mth.ceil((float)Math.PI * f * f);
-                f1 = f; // 生成范围等于效果云半径
-            }
-
-            // 生成粒子
-            for(int j = 0; j < i; ++j) {
-                // 随机计算粒子在圆上的位置（极坐标转直角坐标）
-                float f2 = this.random.nextFloat() * ((float)Math.PI * 2F); // 随机角度
-                float f3 = Mth.sqrt(this.random.nextFloat()) * f1; // 随机距离（确保在圆内均匀分布）
-                double d0 = this.getX() + (double)(Mth.cos(f2) * f3); // X坐标
-                double d2 = this.getY() + (double)((this.random.nextBoolean() ? 0.5 : -0.5) * f3) ; // Y坐标
-                double d4 = this.getZ() + (double)(Mth.sin(f2) * f3); // Z坐标
-
-                // 粒子运动速度（根据粒子类型和状态调整）
-                double d5, d6, d7;
-                if (flag) {
-                    // 等待状态下其他粒子：无速度
-                    d5 = 0.0D;
-                    d6 = 0.0D;
-                    d7 = 0.0D;
-                } else {
-                    // 非等待状态下其他粒子：随机轻微速度
-                    d5 = (0.5D - this.random.nextDouble()) * 0.15D;
-                    d6 = (double)0.01F;
-                    d7 = (0.5D - this.random.nextDouble()) * 0.15D;
-                }
-
-                // 向世界添加粒子（始终可见）
-                this.level().addAlwaysVisibleParticle(particleoptions, d0, d2, d4, d5, d6, d7);
-            }
+            updateParticles(f);
         }
         // 服务器端逻辑：处理效果和生命周期
         else {

@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:custard_tart_pastry"
+    },
+    {
+      "item": "immortalers_delight:custard_tart_pastry"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:evolutcorn_millefeuille",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

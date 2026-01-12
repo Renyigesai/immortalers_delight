@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "immortalers_delight:warped_laurel"},
+    {"item": "immortalers_delight:warped_laurel"},
+    {"item": "immortalers_delight:kwat_wheat_paste"},
+    {"item": "immortalers_delight:kwat_wheat_doufu"},
+    {"item": "immortalers_delight:kwat_wheat_doufu"},
+    {"item": "farmersdelight:onion"},
+    {"item": "farmersdelight:onion"},
+    {"item": "minecraft:bowl"}
+  ],
+  "result": {
+    "item": "immortalers_delight:cold_kwat_tofu_salad",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    }
+  ],
+  "container": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "immortalers_delight:pod_petal_cheese_stick",
+    "count": 1
+  }
+}

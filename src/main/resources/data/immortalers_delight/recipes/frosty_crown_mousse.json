@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    "efe"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:gelpitaya"
+    },
+    "b": {
+      "item": "immortalers_delight:yogurt"
+    },
+    "c": {
+      "tag": "forge:milk"
+    },
+    "d": {
+      "item": "minecraft:sniffer_egg"
+    },
+    "e": {
+      "item": "immortalers_delight:evolutcorn_hard_candy"
+    },
+    "f": {
+      "item": "immortalers_delight:evolutcorn_pie_crust"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:frosty_crown_mousse",
+    "count": 1
+  }
+}

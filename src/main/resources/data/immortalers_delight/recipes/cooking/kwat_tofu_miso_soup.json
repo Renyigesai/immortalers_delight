@@ -1,0 +1,22 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "tag": "minecraft:fishes"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:kwat_tofu_miso_soup"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

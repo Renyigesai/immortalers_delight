@@ -18,6 +18,11 @@ public class ThisSideDownSoupBlock extends FeastBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return box(1,4,1,15,16,15);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return box(1,7,1,15,16,15);
     }
 

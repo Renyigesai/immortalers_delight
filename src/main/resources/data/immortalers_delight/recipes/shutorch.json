@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "immortalers_delight:torchflower_mustard"},
+    {"item": "immortalers_delight:vulcan_coktail"},
+    {"tag": "minecraft:fishes"}
+  ],
+  "result": {
+    "item": "immortalers_delight:shutorch",
+    "count": 1
+  }
+}

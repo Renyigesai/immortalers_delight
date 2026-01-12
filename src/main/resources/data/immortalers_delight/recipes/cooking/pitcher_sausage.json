@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:torchflower_mustard"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "farmersdelight:onion"
+    },
+    {
+    "item": "minecraft:pitcher_plant"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "immortalers_delight:pitcher_sausage"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

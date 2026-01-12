@@ -495,6 +495,9 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> KWAT_WHEAT_BLOCK = BLOCKS.register("kwat_wheat_block",()->
             new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    @BlockData
+    public static final RegistryObject<Block> KWAT_WHEAT_SEEDS_BAG = BLOCKS.register("kwat_wheat_seeds_bag",()->
+            new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
 
     @BlockData
     public static final RegistryObject<Block> ALFALFA_BLOCK = BLOCKS.register("alfalfa_block",()->

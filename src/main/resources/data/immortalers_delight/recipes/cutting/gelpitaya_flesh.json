@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_hammers"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:gelpitaya_seeds",
+      "count": 1
+    }
+  ]
+}

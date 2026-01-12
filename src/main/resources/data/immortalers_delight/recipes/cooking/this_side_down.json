@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "minecraft:chorus_flower"
+    },
+    {
+      "item": "farmersdelight:bone_broth"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ],
+  "container": {
+    "item": "minecraft:shulker_shell"
+  },
+  "result": {
+    "item": "immortalers_delight:this_side_down"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

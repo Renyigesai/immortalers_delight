@@ -100,7 +100,7 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
         if (bites == 3){
             level.destroyBlock(pos, false);
             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
-                    new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+                    new ItemStack(Items.STICK),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
             level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         } else level.setBlock(pos, state.setValue(BITES, variate + 1), 3);
     }

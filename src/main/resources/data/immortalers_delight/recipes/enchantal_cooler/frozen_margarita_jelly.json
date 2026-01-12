@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:clear_water_vodka"
+    },
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:frozen_margarita_jelly",
+    "count": 1
+  }
+}

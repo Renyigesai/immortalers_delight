@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:egg_cone"
+  },
+  "output": {
+    "item": "immortalers_delight:leisamboo_icecream",
+    "count": 1
+  }
+}

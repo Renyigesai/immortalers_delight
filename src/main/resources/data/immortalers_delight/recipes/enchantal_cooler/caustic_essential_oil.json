@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_seeds_bag"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "tag": "forge:rods/blaze"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:clear_water_vodka"
+  },
+  "output": {
+    "item": "immortalers_delight:caustic_essential_oil",
+    "count": 1
+  }
+}

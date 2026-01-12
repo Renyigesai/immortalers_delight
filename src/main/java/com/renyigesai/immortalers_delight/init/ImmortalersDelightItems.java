@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.init;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
@@ -12,8 +11,6 @@ import com.renyigesai.immortalers_delight.item.*;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.weapon.*;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +22,6 @@ import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -93,6 +89,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ALFALFA_BLOCK;
     @ItemData(zhCn = "溪竹块",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> LEISAMBOO_BLOCK;
+    @ItemData(zhCn = "瓦斯麦种袋",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> KWAT_WHEAT_SEEDS_BAG;
 
     /*系列装饰方块--溪竹*/
     @ItemData(zhCn = "溪竹板",model = ItemData.ModelType.BLOCK)
@@ -672,7 +670,7 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "汉堡肉寿司")
     public static final RegistryObject<Item> HAMBURGER_MEAT_SUSHI;
     @ItemData(zhCn = "红美玲")
-    public static final RegistryObject<Item> HONE_MEI_LING;
+    public static final RegistryObject<Item> HONG_MEI_LING;
     @ItemData(zhCn = "胡萝卜特饮")
     public static final RegistryObject<Item> CARROT_TEA;
     @ItemData(zhCn = "荚壳奶酪棒")
@@ -779,13 +777,10 @@ public class ImmortalersDelightItems {
 
         EVOLUTCORN_GRAIN_BAG = registerWithTab("evolutcorn_grain_bag", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_GRAIN_BAG.get(), basicItem()));
-
         HIMEKAIDO_CRATE = registerWithTab("himekaido_crate", () ->
                 new BlockItem(ImmortalersDelightBlocks.HIMEKAIDO_CRATE.get(), basicItem()));
-
         PEARLIP_CRATE = registerWithTab("pearlip_crate", () ->
                 new BlockItem(ImmortalersDelightBlocks.PEARLIP_CRATE.get(), basicItem()));
-
         EVOLUTCORN_BLOCK = registerWithTab("evolutcorn_block", () ->
                 new BlockItem(ImmortalersDelightBlocks.EVOLUTCORN_BLOCK.get(), basicItem()));
         KWAT_WHEAT_BLOCK = registerWithTab("kwat_wheat_block", () ->
@@ -794,6 +789,8 @@ public class ImmortalersDelightItems {
                 new BlockItem(ImmortalersDelightBlocks.ALFALFA_BLOCK.get(), basicItem()));
         LEISAMBOO_BLOCK = registerWithTab("leisamboo_block", () ->
                 new BlockItem(ImmortalersDelightBlocks.LEISAMBOO_BLOCK.get(), basicItem()));
+        KWAT_WHEAT_SEEDS_BAG = registerWithTab("kwat_wheat_seeds_bag", () ->
+                new BlockItem(ImmortalersDelightBlocks.KWAT_WHEAT_SEEDS_BAG.get(), basicItem()));
 
         HIMEKAIDO_LOG = registerWithTab("himekaido_log", () ->
                 new BlockItem(ImmortalersDelightBlocks.HIMEKAIDO_LOG.get(), basicItem()));
@@ -1122,7 +1119,7 @@ public class ImmortalersDelightItems {
         );
 
         EVOLUTCORN_PASTE_BUCKET = registerWithTab("evolutcorn_paste_bucket",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-        EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16)));
+        EVOLUTCORN_PASTE = registerWithTab("evolutcorn_paste",()-> new Item(new Item.Properties().stacksTo(16)));
         EVOLUTCORN_BREAD = foodItem("evolutcorn_bread",ImmortalersDelightFoodProperties.EVOLUTCORN_BREAD);
         EVOLUTCORN_JIAOZI = foodItem("evolutcorn_jiaozi",ImmortalersDelightFoodProperties.EVOLUTCORN_JIAOZI,true);
 
@@ -1508,7 +1505,7 @@ public class ImmortalersDelightItems {
 
         HAMBURGER_MEAT_SUSHI = foodItem("hamburger_meat_sushi",ImmortalersDelightFoodProperties.HAMBURGER_MEAT_SUSHI,true);;
 
-        HONE_MEI_LING = registerWithTab("hone_mei_ling",()->
+        HONG_MEI_LING = registerWithTab("hong_mei_ling",()->
                 new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.HONE_MEI_LING),true,true));
 
         CARROT_TEA = registerWithTab("carrot_tea",()->
@@ -1634,10 +1631,10 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_UNIVERSAL_CHICKEN_SOUP),PoweredFoodProperties.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true,false));
         TENCHIMUYO = blockFood(ImmortalersDelightBlocks.TENCHIMUYO);
         BOWL_OF_TENCHIMUYO = registerWithTab("bowl_of_tenchimuyo",()->
-                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.BOWL_OF_TENCHIMUYO),PoweredFoodProperties.BOWL_OF_TENCHIMUYO,true,false));
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_TENCHIMUYO),PoweredFoodProperties.BOWL_OF_TENCHIMUYO,true,false));
         THIS_SIDE_DOWN = blockFood(ImmortalersDelightBlocks.THIS_SIDE_DOWN);
         BOWL_OF_THIS_SIDE_DOWN = registerWithTab("bowl_of_this_side_down",()->
-                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.BOWL_OF_THIS_SIDE_DOWN),PoweredFoodProperties.BOWL_OF_THIS_SIDE_DOWN,true,false));
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_THIS_SIDE_DOWN),PoweredFoodProperties.BOWL_OF_THIS_SIDE_DOWN,true,false));
 
         //隐藏
         SKELVERFISH_AMBUSHER_SPAWN_EGG = register("skelverfish_ambusher_spawn_egg",()->
@@ -1651,7 +1648,7 @@ public class ImmortalersDelightItems {
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,1645516,6845733,new Item.Properties()));
 
-        HOT_SPRING_BUCKET = register("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 
 

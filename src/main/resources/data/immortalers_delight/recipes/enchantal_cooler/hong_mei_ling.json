@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:stove_black_tea"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "immortalers_delight:leaf_green_tea"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:hong_mei_ling",
+    "count": 1,
+  },
+}

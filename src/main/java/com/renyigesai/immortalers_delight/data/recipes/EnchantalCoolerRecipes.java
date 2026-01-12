@@ -14,10 +14,15 @@ public class EnchantalCoolerRecipes{
         onEnchantalCooler(consumer);
     }
     private static void onEnchantalCooler(Consumer<FinishedRecipe> consumer){
-//        EnchantalCoolerBuilder.enchantalCoolerRecipe(ImmortalersDelightItems.AROMATIC_POD_AFFOGATO.get(),1, ModItems.HOT_COCOA.get())
-//                .addIngredient(ModItems.MILK_BOTTLE.get())
-//                .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
-//                .addIngredient(ImmortalersDelightItems.TORCHFLOWER_MUSTARD.get())
-//                .addIngredient(Items.EGG).build(consumer);
+        EnchantalCoolerBuilder.enchantalCoolerRecipe(ImmortalersDelightItems.AROMATIC_POD_AFFOGATO.get(),1, ModItems.HOT_COCOA.get())
+                .addIngredient(ModItems.MILK_BOTTLE.get())
+                .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
+                .addIngredient(ImmortalersDelightItems.TORCHFLOWER_MUSTARD.get())
+                .addIngredient(Items.EGG).build(consumer);
+        EnchantalCoolerBuilder.enchantalCoolerRecipe(ImmortalersDelightItems.GELPITAYA_SEEDS.get(),1, ModItems.HOT_COCOA.get())
+                .addIngredient(ModItems.MILK_BOTTLE.get())
+                .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
+                .addIngredient(ImmortalersDelightItems.TORCHFLOWER_MUSTARD.get())
+                .addIngredient(Items.EGG).build(consumer);
     }
 }

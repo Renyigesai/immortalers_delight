@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:custard_tart_pastry"
+    },
+    {
+      "item": "immortalers_delight:custard_tart_pastry"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:gelpitaya_tart",
+    "count": 2
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

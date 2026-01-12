@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"tag": "forge:cooked_chicken"},
+    {"item": "immortalers_delight:pitcher_pod_petal"},
+    {"item": "farmersdelight:tomato_sauce"},
+    {"item": "farmersdelight:onion"},
+    {"item": "minecraft:torchflower"},
+    {"item": "immortalers_delight:evolutcorn_bread"}
+  ],
+  "result": {
+    "item": "immortalers_delight:evolutcorn_chicken_burger",
+    "count": 1
+  }
+}
