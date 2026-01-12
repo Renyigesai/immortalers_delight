@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "pool1",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:pitcher_plant_claypot_rice"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "immortalers_delight:pitcher_plant_claypot_rice",
+          "properties": {
+            "servings": "3"
+          }
+        }
+      ]
+    }
+  ]
+}

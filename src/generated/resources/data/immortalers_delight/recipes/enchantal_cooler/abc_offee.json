@@ -1,0 +1,17 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "item": "immortalers_delight:ab_ash"
+    },
+    {
+      "item": "immortalers_delight:ab_ash"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:abc_offee"
+  }
+}

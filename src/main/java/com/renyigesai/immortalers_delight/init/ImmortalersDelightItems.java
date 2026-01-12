@@ -148,6 +148,33 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "棱蕉木运输船")
     public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
 
+    @ItemData(zhCn = "烬烟木",enUs = "A'bush Log",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_LOG;
+    @ItemData(zhCn = "去皮烬烟木",enUs = "Stripped A'bush Log",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> STRIPPED_A_BUSH_LOG;
+    @ItemData(zhCn = "烬烟木头",enUs = "A'bush Wood",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_WOOD;
+    @ItemData(zhCn = "去皮烬烟木头",enUs = "Stripped A'bush Wood",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> STRIPPED_A_BUSH_WOOD;
+    @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_PLANKS;
+    @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_STAIRS;
+    @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_SLAB;
+    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door")
+    public static final RegistryObject<Item> A_BUSH_DOOR;
+    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR)
+    public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
+    @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE)
+    public static final RegistryObject<Item> A_BUSH_FENCE;
+    @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_FENCE_GATE;
+    @ItemData(zhCn = "烬烟木压力板",enUs = "A'bush Pressure Plate",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_PRESSURE_PLATE;
+    @ItemData(zhCn = "烬烟木按钮",enUs = "A'bush Button",model = ItemData.ModelType.BUTTON)
+    public static final RegistryObject<Item> A_BUSH_BUTTON;
+
 
     /*系列装饰方块--嗅探兽毛*/
     @ItemData(zhCn = "嗅探兽毛块",model = ItemData.ModelType.BLOCK)
@@ -703,7 +730,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_ICECREAM;
     @ItemData(zhCn = "玉黍汁")
     public static final RegistryObject<Item> EVOLUTCORN_JUICE;
-//    @ItemData(zhCn = "熔灰烤馕",enUs = "Kümesh Non")
+    //    @ItemData(zhCn = "熔灰烤馕",enUs = "Kümesh Non")
 //    public static final RegistryObject<Item> KU_MESH_NON;
 //    @ItemData(zhCn = "战争面包",enUs = "Jeng Nanu")
 //    public static final RegistryObject<Item> JENG_NANU;
@@ -754,6 +781,20 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> THIS_SIDE_DOWN;
     @ItemData(zhCn = "碗装天地有用")
     public static final RegistryObject<Item> BOWL_OF_THIS_SIDE_DOWN;
+
+    /*烬烟杆*/
+    @ItemData(zhCn = "烬烟杆",enUs = "A'bush")
+    public static final RegistryObject<Item> A_BUSH;
+    @ItemData(zhCn = "烬烟粉",enUs = "A'b'ash")
+    public static final RegistryObject<Item> AB_ASH;
+    @ItemData(zhCn = "苦烟曲奇",enUs = "A'B'C'ookie")
+    public static final RegistryObject<Item> ABC_OOKIE;
+    @ItemData(zhCn = "烬烟咖啡",enUs = "A'B'C'offee")
+    public static final RegistryObject<Item> ABC_OFFEE;
+    @ItemData(zhCn = "蓝嫣枝咖啡",enUs = "A'B' Blue Beauty C'offee")
+    public static final RegistryObject<Item> ABBLUE_BEAUTY_C_OFFEE;
+    @ItemData(zhCn = "Jvav",enUs = "Jvav")
+    public static final RegistryObject<Item> JVAV_OFFEE;
 
 
 
@@ -843,7 +884,7 @@ public class ImmortalersDelightItems {
                 new SignItem((new Item.Properties()).stacksTo(16),
                         ImmortalersDelightBlocks.HIMEKAIDO_SIGN.get(),
                         ImmortalersDelightBlocks.HIMEKAIDO_WALL_SIGN.get()
-                        ));
+                ));
         HIMEKAIDO_HANGING_SIGN = registerWithTab("himekaido_hanging_sign",() ->
                 new HangingSignItem(
                         ImmortalersDelightBlocks.HIMEKAIDO_HANGING_SIGN.get(),
@@ -966,6 +1007,21 @@ public class ImmortalersDelightItems {
         ANCIENT_FIBER = registerWithTab("ancient_fiber", () ->
                 new Item(basicItem()));
 
+        A_BUSH_LOG = block(ImmortalersDelightBlocks.A_BUSH_LOG);
+        STRIPPED_A_BUSH_LOG = block(ImmortalersDelightBlocks.STRIPPED_A_BUSH_LOG);
+        A_BUSH_WOOD = block(ImmortalersDelightBlocks.A_BUSH_WOOD);
+        STRIPPED_A_BUSH_WOOD = block(ImmortalersDelightBlocks.STRIPPED_A_BUSH_WOOD);
+        A_BUSH_PLANKS = block(ImmortalersDelightBlocks.A_BUSH_PLANKS);
+        A_BUSH_STAIRS = block(ImmortalersDelightBlocks.A_BUSH_STAIRS);
+        A_BUSH_SLAB = block(ImmortalersDelightBlocks.A_BUSH_SLAB);
+        A_BUSH_DOOR = block(ImmortalersDelightBlocks.A_BUSH_DOOR);
+        A_BUSH_TRAPDOOR = block(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR);
+        A_BUSH_FENCE = block(ImmortalersDelightBlocks.A_BUSH_FENCE);
+        A_BUSH_FENCE_GATE = block(ImmortalersDelightBlocks.A_BUSH_FENCE_GATE);
+        A_BUSH_PRESSURE_PLATE = block(ImmortalersDelightBlocks.A_BUSH_PRESSURE_PLATE);
+        A_BUSH_BUTTON = block(ImmortalersDelightBlocks.A_BUSH_BUTTON);
+
+
         /*嗅探兽毛*/
         SNIFFER_FUR_BLOCK = block(ImmortalersDelightBlocks.SNIFFER_FUR_BLOCK);
         SNIFFER_FUR_TATAMI = block(ImmortalersDelightBlocks.SNIFFER_FUR_TATAMI);
@@ -1083,6 +1139,9 @@ public class ImmortalersDelightItems {
 
         TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
 
+        A_BUSH = registerWithTab("a_bush",()-> new ItemNameBlockItem(ImmortalersDelightBlocks.A_BUSH.get(),basicItem()));
+
+        AB_ASH = registerWithTab("ab_ash",()-> new Item(basicItem()));
         /*
         玉米系列物品
         */
@@ -1248,6 +1307,7 @@ public class ImmortalersDelightItems {
 
         GIANT_TART = block(ImmortalersDelightBlocks.GIANT_TART);
         GIANT_TART_SLICE = foodItem("giant_tart_slice",ImmortalersDelightFoodProperties.GIANT_TART_SLICE,true);
+        /*ImmortalersDelightFoodProperties.GIANT_TART_SLICE*/
 
         SCARLET_GELATO = registerWithTab("scarlet_gelato",()->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SCARLET_GELATO),true));
@@ -1597,6 +1657,12 @@ public class ImmortalersDelightItems {
         CAUSTIC_ESSENTIAL_OIL = registerWithTab("caustic_essential_oil",()->
                 new ThrowableDrinkBlockItem(ImmortalersDelightBlocks.CAUSTIC_ESSENTIAL_OIL.get(), (new Item.Properties()).stacksTo(16),false,true));
 
+        ABC_OOKIE = foodItem("abc_ookie",ImmortalersDelightFoodProperties.ABC_OOKIE);
+
+        ABC_OFFEE = registerWithTab("abc_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
+        ABBLUE_BEAUTY_C_OFFEE = registerWithTab("abblue_beauty_c_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABBLUE_BEAUTY_C_OFFEE),true));
+        JVAV_OFFEE = register("jvav_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
+
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.DREUMK_WINE.get(), drinkItem(ImmortalersDelightFoodProperties.DREUMK_WINE),true));
@@ -1706,7 +1772,7 @@ public class ImmortalersDelightItems {
         return (new Item.Properties().rarity(soCool).food(foodProperties));
     }
 
-    private static RegistryObject<Item> block(RegistryObject<Block> block) {
+    private static RegistryObject<Item> block(RegistryObject<? extends Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 

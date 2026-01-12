@@ -42,6 +42,8 @@ public class BasicsLogsBlock extends RotatedPillarBlock {
                 .put(ImmortalersDelightBlocks.ANCIENT_WOOD_LOG.get(),ImmortalersDelightBlocks.STRIPPED_ANCIENT_WOOD_LOG.get())
                 .put(ImmortalersDelightBlocks.ANCIENT_WOOD.get(),ImmortalersDelightBlocks.STRIPPED_ANCIENT_WOOD.get())
                 .put(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG.get(),ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG.get())
+                .put(ImmortalersDelightBlocks.A_BUSH_LOG.get(),ImmortalersDelightBlocks.STRIPPED_A_BUSH_LOG.get())
+                .put(ImmortalersDelightBlocks.A_BUSH_WOOD.get(),ImmortalersDelightBlocks.STRIPPED_A_BUSH_WOOD.get())
                 .build());
     }
 }

@@ -10,22 +10,14 @@ import com.renyigesai.immortalers_delight.client.renderer.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.*;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
-import com.renyigesai.immortalers_delight.data.BlockLootTables;
-import com.renyigesai.immortalers_delight.data.ItemModels;
-import com.renyigesai.immortalers_delight.data.Languages;
-import com.renyigesai.immortalers_delight.data.Recipes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.weapon.RepeatingCrossbowItem;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
-import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
-import com.renyigesai.immortalers_delight.network.CommonProxy;
-import com.renyigesai.immortalers_delight.network.ClientProxy;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
-import com.renyigesai.immortalers_delight.util.datautil.worlddata.DifficultyModeWorldData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.IllagerModel;
@@ -35,25 +27,17 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -61,10 +45,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.slf4j.Logger;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -92,7 +74,6 @@ public class ImmortalersDelightMod {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         bus.addListener(CommonSetup::init);
-        bus.addListener(this::gatherData);
 
         if (isLtc2){
             Ltc2Items.ITEMS.register(bus);
@@ -242,17 +223,6 @@ public class ImmortalersDelightMod {
 //                return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
 //            });
         }
-    }
-
-    private void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        generator.addProvider(event.includeClient(),new ItemModels(output,existingFileHelper));
-        generator.addProvider(event.includeClient(), new LootTableProvider(output, Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(BlockLootTables::new, LootContextParamSets.BLOCK))));
-        generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
-        generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
-        generator.addProvider(event.includeClient(), new Recipes(output));
     }
 
     public static ResourceLocation prefix(String name) {

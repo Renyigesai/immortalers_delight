@@ -58,6 +58,21 @@
     "immortalers_delight:trava_planks",
     "immortalers_delight:millenian_bamboo",
     "immortalers_delight:leisamboo_stalk",
-    "immortalers_delight:stripped_travastruggler_log"
+    "immortalers_delight:stripped_travastruggler_log",
+
+    "immortalers_delight:a_bush",
+    "immortalers_delight:a_bush_log",
+    "immortalers_delight:stripped_a_bush_log",
+    "immortalers_delight:a_bush_wood",
+    "immortalers_delight:stripped_a_bush_wood",
+    "immortalers_delight:a_bush_planks",
+    "immortalers_delight:a_bush_stairs",
+    "immortalers_delight:a_bush_slab",
+    "immortalers_delight:a_bush_door",
+    "immortalers_delight:a_bush_trapdoor",
+    "immortalers_delight:a_bush_fence",
+    "immortalers_delight:a_bush_fence_gate",
+    "immortalers_delight:a_bush_pressure_plate",
+    "immortalers_delight:a_bush_button"
   ]
 }

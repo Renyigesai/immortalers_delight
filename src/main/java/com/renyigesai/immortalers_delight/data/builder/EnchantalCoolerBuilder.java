@@ -15,7 +15,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
-import com.renyigesai.immortalers_delight.recipe.ImmortalersDelightRecipeTypes;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -32,8 +31,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
-import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

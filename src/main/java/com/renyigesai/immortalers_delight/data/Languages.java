@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,6 +12,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -152,6 +154,17 @@ public class Languages extends LanguageProvider {
         createTooltip("is_can_feed","可以喂食以整蛊其他生物","Can be fed to fool other mobs.");
         createTooltip("potion_coating_count","药水附层：%d / %d","Potion Coating：%d / %d");
         createTooltip("power_battle_mode_hint","千古乐事：您已开启§9超凡模式§f，如需更改请在§9immortalers_delight-common.toml§f中修改§9powerBattleMode§f。修改§9powerBattleModeHint§f以禁用该提示。","Immortaler`s Delight:You have enabled §9Power Battle Mode§f，If you need to make any changes, please go to §9immortalers_delight-common.toml§f Modified in the middle §9powerBattleMode§f.Modify§9powerBattleModeHint§fDisable this prompt.");
+        createTooltip("super_kwat_burger","不同寻常的分量","Exceptional Mass");
+        createTooltip("frosty_crown_mousse","严重冻结食用者——心急吃不了冻豆腐。","Severely Freezes the Consumer — Haste Makes Waste with Frozen Tofu.");
+
+        createFarmersdelightTooltip("hone_mei_ling","You've gained new insight into using Qi...","你对“用气”有了新的理解……");
+        createFarmersdelightTooltip("caustic_essential_oil","Releases a persistent Crimson-Ember Haze upon shattering, whose edge-borne scent can clear a Sniffer's nasal passages.","破裂时产生持久的绯烬尘霾，其边缘处的气味可以为嗅探兽疏通鼻腔。");
+        createFarmersdelightTooltip("bizarre_sausage","Your dog wants this.","你的狗狗想要这个.");
+        createFarmersdelightTooltip("kwat_soup","Inflicts massive damage to the consumer, then rapidly restores saturation.","对食用者造成巨量伤害，随后快速回复饱食度。");
+        createFarmersdelightTooltip("iced_kwat_soup","Converts Scorching effect into a Cooling effect.","将灼热效果转化为凉爽效果。");
+        createFarmersdelightTooltip("vara_ji","Perhaps one needs to sip it through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltip("pearlip_beer","Perhaps one needs to sip it through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltip("iced_kwat_soup","Converts Scorching effect into a Cooling effect.","将灼热效果转化为凉爽效果。");
 
         createFarmersdelightTooltip("elixir_of_immortality","[Unique] It can only be used once in each game. The effect will deteriorate when used again thereafter.","[独一]在每场游戏中仅能发挥一次效果，此后再次使用时效果将劣化。");
         createFarmersdelightTooltip("golden_himekaido","After consumption, immunizes and reverses harmful effects below grade II","食用后，免疫并反转 II 级以下的有害效果");
@@ -216,6 +229,10 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.DEEPNESS.get(),"渊默");
         createEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get(),"上宾");
         createEffect(ImmortalersDelightMobEffect.LINGERING_INFUSION.get(),"茶韵");
+        createEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get(),"拉格朗日");
+        createEffect(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),"冻结吧！");
+        createEffect(ImmortalersDelightMobEffect.UNYIELDING.get(),"坚韧");
+        createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。");
         add("effect.immortalers_delight.relieve_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
@@ -236,9 +253,13 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.lingering_infusion.description","Reduce attack damage. Restore health points when the hunger value is high. In the Extraordinary mode, the recovery amount is further increased.","降低攻击伤害。高饥饿值时恢复生命值。超凡模式下，恢复量进一步提升。");
         add("effect.immortalers_delight.cool.description","The effect of enhancing resistance can be obtained or prolonged when eating. In Extraordinary Mode, gain additional damage reduction. If in a state of fire, the damage reduction effect will be significantly enhanced.","进食时可以获得或延长抗性提升效果。超凡模式下，获得额外减伤，若处于着火状态，减伤效果大幅度提升。");
         add("effect.immortalers_delight.esteemed_guest.description","The Pig spirit and the Pig spirit barbarians will not attack on their own initiative. When your health is low and you are attacked, it will consume the guest effect and summon pig spirits and barbarian soldiers to assist in the battle. The summoned pig spirit barbarian soldiers are immune and zombie-like. In the Extraordinary Mode, the summoned pig spirit barbarian will come with a Lower Realm Alloy Axe and a Lower Realm Alloy sleeve.","猪灵和猪灵蛮兵不会主动攻击。低生命值时受到攻击会消耗上宾效果召唤猪灵蛮兵帮助战斗。召唤的猪灵蛮兵免疫僵尸化。超凡模式下，召唤的猪灵蛮兵会自带下界合金斧、下界合金套。");
-        add("effect.immortalers_delight.prehistoric_powers.description","It takes effect when it has the power effect, and the damage it causes is increased additionally. In Extraordinary mode, the damage is higher.","拥有力量效果时生效，造成的伤害获得额外提升。超凡模式下，伤害更高。");
+        add("effect.immortalers_delight.prehistoric_powers.description","Causes half of the Strength effect to additionally apply based on its pre-combat-update potency, or all of it in Legendary mode.","令一半的力量效果额外按战斗更新前的效果生效，超凡模式下则为全部的力量效果。");
         add("effect.immortalers_delight.deepness.description","Grant the attacker a weakness effect when taking damage. In Extraordinary Mode, gain additional damage reduction and health recovery.","受到伤害时给予攻击者虚弱效果。超凡模式下，获得额外减伤和生命恢复。");
         add("effect.immortalers_delight.gaixia.description","When attacking, a sticky cube is generated under the target creature","攻击时在目标生物下生成黏液方块。");
+        add("effect.immortalers_delight.up_side_down.description","When attacking, a sticky cube is generated under the target creature","持续产生漂浮效果，在潜行时则将其变为缓降。");
+        add("effect.immortalers_delight.let_it_freeze.description","The attack causes the target to briefly enter a cold state, reducing its speed and continuously subjecting it to frostbite. In non-supernatural mode, the target cannot be completely frozen.","攻击使目标短暂进入寒冷状态，降低速度并持续受到冻伤，非超凡模式下不能完全冻结目标。");
+        add("effect.immortalers_delight.unyielding.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","受到有源伤害时获得短暂的无敌时间，超凡模式下也对环境伤害生效。");
+        add("effect.immortalers_delight.smoke_abstinence","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力II，抗性提II，急迫III，生命回复和抗火。");
 
     }
 
@@ -277,7 +298,12 @@ public class Languages extends LanguageProvider {
     }
 
     private void addEntitys(){
-        createEntity("skelverfish_thrasher","Skelverfish Thrasher","Skelverfish Thrasher");
+        createEntity(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(),"Skelverfish Thrasher");
+        createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
+        createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
+        createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "炽烈精油");
+        createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
+        createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
     }
 
     private void adds(){
@@ -293,6 +319,7 @@ public class Languages extends LanguageProvider {
         add("potion.potency.7","VIII","VIII");
         add("potion.potency.8","IX","IX");
         add("potion.potency.9","X","X");
+        add("potion.potency.99","C","C");
         add("creativetab_immortalers_delight_tab","Immortalers Delight","千古乐事");
     }
 
@@ -327,6 +354,11 @@ public class Languages extends LanguageProvider {
 
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
+    }
+
+    private void createEntity(EntityType<?> entityType ,String zh_cn){
+        String path = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).getPath();
+        add(entityType.getDescriptionId(),this.getEnglishName(path),zh_cn);
     }
 
     private void createEntity(String key,String en_us,String zh_cn){
