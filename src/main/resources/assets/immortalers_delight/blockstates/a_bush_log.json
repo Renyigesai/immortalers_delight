@@ -2,15 +2,13 @@
   "variants": {
     "axis=x": {
       "model": "immortalers_delight:block/a_bush_log_horizontal",
-      "x": 90,
       "y": 90
     },
     "axis=y": {
       "model": "immortalers_delight:block/a_bush_log"
     },
     "axis=z": {
-      "model": "immortalers_delight:block/a_bush_log_horizontal",
-      "x": 90
+      "model": "immortalers_delight:block/a_bush_log_horizontal"
     }
   }
 }

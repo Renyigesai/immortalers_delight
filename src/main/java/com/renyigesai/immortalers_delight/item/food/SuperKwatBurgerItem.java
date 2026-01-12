@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.item.food;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -70,4 +71,9 @@ public class SuperKwatBurgerItem extends DrinkItem {
         }
         super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
+    @Override
+    public FoodProperties getFoodProperties() {
+        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+    }
+
 }

@@ -104,6 +104,8 @@ public class FoodItemEventHelper {
                     if (stack.getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
                         DeathlessEffect.applyImmortalEffect(livingEntity, 40, 0);
                     }
+                    //寒冷慕斯食用后10s寒冷
+
                 }
             }
         }
@@ -160,6 +162,7 @@ public class FoodItemEventHelper {
         );
     }
 
+    //玉黍硬糖食用期间有60%减伤，在超凡模式下则为60~120%线性递增，在超过100%时会将负伤害转化为回血
     @SubscribeEvent
     public static void onEntityHurt(LivingHurtEvent evt) {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
