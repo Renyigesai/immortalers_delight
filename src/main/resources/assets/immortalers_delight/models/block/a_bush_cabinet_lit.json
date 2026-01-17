@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "immortalers_delight:block/a_bush_cabinet_front_lit",
+    "side": "immortalers_delight:block/a_bush_cabinet_side_lit",
+    "top": "immortalers_delight:block/a_bush_cabinet_top_lit"
+  }
+}

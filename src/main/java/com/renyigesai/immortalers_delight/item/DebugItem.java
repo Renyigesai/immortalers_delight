@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffectTask;
@@ -7,18 +9,41 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 //import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.Tags;
+import vectorwing.farmersdelight.data.EntityTags;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.UUID;
 
 public class DebugItem extends Item {
     public DebugItem(Properties p_41383_) {
         super(p_41383_);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        Class<BlockEntity> blockEntityClass = BlockEntity.class;
+        Field[] fields = blockEntityClass.getDeclaredFields();
+        for (Field field : fields) {
+            System.out.println(field.getName());
+        }
+        return super.use(pLevel, pPlayer, pUsedHand);
     }
 
     @Override
