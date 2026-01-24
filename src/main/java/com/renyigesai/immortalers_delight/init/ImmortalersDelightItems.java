@@ -161,6 +161,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> STRIPPED_A_BUSH_WOOD;
     @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> A_BUSH_PLANKS;
+    @ItemData(zhCn = "烬烟木橱柜",enUs = "A'bush Cabinet",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> A_BUSH_CABINET;
     @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> A_BUSH_STAIRS;
     @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK)
@@ -1026,6 +1028,7 @@ public class ImmortalersDelightItems {
         A_BUSH_WOOD = block(ImmortalersDelightBlocks.A_BUSH_WOOD);
         STRIPPED_A_BUSH_WOOD = block(ImmortalersDelightBlocks.STRIPPED_A_BUSH_WOOD);
         A_BUSH_PLANKS = block(ImmortalersDelightBlocks.A_BUSH_PLANKS);
+        A_BUSH_CABINET = block(ImmortalersDelightBlocks.A_BUSH_CABINET);
         A_BUSH_STAIRS = block(ImmortalersDelightBlocks.A_BUSH_STAIRS);
         A_BUSH_SLAB = block(ImmortalersDelightBlocks.A_BUSH_SLAB);
         A_BUSH_DOOR = block(ImmortalersDelightBlocks.A_BUSH_DOOR);

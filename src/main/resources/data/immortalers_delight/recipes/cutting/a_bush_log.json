@@ -1,0 +1,21 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:a_bush_log"
+    }
+  ],
+  "result": [
+    {
+      "item": "immortalers_delight:stripped_a_bush_log"
+    },
+    {
+      "item": "farmersdelight:tree_bark"
+    }
+  ],
+  "sound": "minecraft:item.axe.strip",
+  "tool": {
+    "type": "farmersdelight:tool_action",
+    "action": "axe_strip"
+  }
+}

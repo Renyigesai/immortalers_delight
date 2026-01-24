@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "b b",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:a_bush_planks"
+    },
+    "b": {
+      "item": "immortalers_delight:a_bush_trapdoor"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:a_bush_cabinet",
+    "count": 1
+  }
+}

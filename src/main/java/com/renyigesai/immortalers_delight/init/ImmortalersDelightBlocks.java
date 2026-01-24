@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.block.*;
+import com.renyigesai.immortalers_delight.block.a_bush_wood.ABushCabinetBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
 import com.renyigesai.immortalers_delight.block.brushable.InfestedFallingBlock;
@@ -869,6 +870,9 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final RegistryObject<Block> A_BUSH_PLANKS = BLOCKS.register("a_bush_planks",()-> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    @BlockData
+    public static final RegistryObject<CabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new ABushCabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL)));
 
     @BlockData
     public static final RegistryObject<StairBlock> A_BUSH_STAIRS = BLOCKS.register("a_bush_stairs",()-> new StairBlock(A_BUSH_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
