@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-24T03:07:19.386681	Item Models: immortalers_delight
+// 1.20.1	2026-01-24T13:34:55.2251264	Item Models: immortalers_delight
 01cb7deaece4f3119fc8241e8af6d1d270ca0f1e assets/immortalers_delight/models/item/abblue_beauty_c_offee.json
 88cb991dd2caac61d2ddfade1764ea2c9f710d46 assets/immortalers_delight/models/item/abc_offee.json
 515d26560e58df02dc065f6324a60c7698118f35 assets/immortalers_delight/models/item/abc_ookie.json
@@ -29,6 +29,7 @@ c1bb267703692d9a4e4a024e5bbdc87f7fa72b46 assets/immortalers_delight/models/item/
 92198b14b51b9bec8cf10668bd1110587e42f028 assets/immortalers_delight/models/item/aromatic_pod_affogato.json
 c339f1560736bb7efde616468cc1aeef1e4dcee9 assets/immortalers_delight/models/item/a_bush.json
 c7f6b62294deb8435880445fa2043e739b5e0f10 assets/immortalers_delight/models/item/a_bush_button.json
+2ee8264579693e1a2b45e0ddf9fe5656cc859d5a assets/immortalers_delight/models/item/a_bush_cabinet.json
 d7385e1d7cae59f88923f1db7f60cdd8b1afe58f assets/immortalers_delight/models/item/a_bush_door.json
 2a2a0bae7f4daf8038eb6e68d161766573bbd635 assets/immortalers_delight/models/item/a_bush_fence.json
 e12a81e722f886b109c7e60b6da9045d091a2c2d assets/immortalers_delight/models/item/a_bush_fence_gate.json
