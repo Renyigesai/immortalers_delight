@@ -1,8 +1,8 @@
 {
-  "type": "farmersdelight:cooking",
+  "type": "immortalers_delight:hot_spring",
   "ingredients": [
     {
-      "item": "minecraft:chicken"
+    "item": "minecraft:shulker_shell"
     },
     {
       "item": "minecraft:chicken"
@@ -14,18 +14,16 @@
       "item": "minecraft:chorus_flower"
     },
     {
+      "item": "minecraft:chorus_fruit"
+    },
+    {
       "item": "farmersdelight:bone_broth"
     },
     {
       "item": "minecraft:carrot"
     }
   ],
-  "container": {
-    "item": "minecraft:shulker_shell"
-  },
-  "result": {
+  "output": {
     "item": "immortalers_delight:this_side_down"
-  },
-  "experience": 0.35,
-  "cookingtime": 300
+  }
 }

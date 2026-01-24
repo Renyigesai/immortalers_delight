@@ -8,6 +8,7 @@ import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -41,10 +42,13 @@ public class UnyieldingMobEffect extends MobEffect {
         public static void addUnDamageTime(LivingDamageEvent event) {
             LivingEntity hurtOne = event.getEntity();
             if (hurtOne.level().isClientSide()) return;
-            if (hurtOne.hasEffect(ImmortalersDelightMobEffect.UNYIELDING.get())) {
-                int lv = hurtOne.getEffect(ImmortalersDelightMobEffect.UNYIELDING.get()).getAmplifier();
+            MobEffectInstance unyielding = hurtOne.getEffect(ImmortalersDelightMobEffect.UNYIELDING.get());
+            if (unyielding != null) {
+                int lv = unyielding.getAmplifier();
                 boolean isPowered = DifficultyModeUtil.isPowerBattleMode();
-                DeathlessEffect.applyImmortalEffect(hurtOne,(isPowered ? 24 : 12) + 6 * lv, lv);
+                if (isPowered || event.getSource().getEntity() != null) {
+                    DeathlessEffect.applyImmortalEffect(hurtOne,(isPowered ? 24 : 12) + 6 * lv, lv);
+                }
             }
         }
 

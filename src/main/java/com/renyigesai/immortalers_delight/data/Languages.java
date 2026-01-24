@@ -39,6 +39,8 @@ public class Languages extends LanguageProvider {
     private static final String ADVANCEMENT = "advancements.immortalers_delight.";
     private static final String CONTAINER = "container.immortalers_delight.";
     private static final String TOOLTIP = "tooltip.immortalers_delight.";
+    private static final String IS_COLORFUL = "colorful.";
+    private static final String MESSAGE = "message.immortalers_delight.";
     private static final String FARMERSDELIGHT_TOOLTIP = "farmersdelight.tooltip.";
     private static final String ENTITY = "entity.immortalers_delight.";
 
@@ -73,6 +75,7 @@ public class Languages extends LanguageProvider {
         }
         addLatiao();
         addTooltips();
+        addMessages();
         addContainers();
         addEffects();
         addEntitys();
@@ -156,12 +159,18 @@ public class Languages extends LanguageProvider {
         createTooltip("power_battle_mode_hint","千古乐事：您已开启§9超凡模式§f，如需更改请在§9immortalers_delight-common.toml§f中修改§9powerBattleMode§f。修改§9powerBattleModeHint§f以禁用该提示。","Immortaler`s Delight:You have enabled §9Power Battle Mode§f，If you need to make any changes, please go to §9immortalers_delight-common.toml§f Modified in the middle §9powerBattleMode§f.Modify§9powerBattleModeHint§fDisable this prompt.");
         createTooltip("super_kwat_burger","不同寻常的分量","Exceptional Mass");
         createTooltip("frosty_crown_mousse","严重冻结食用者——心急吃不了冻豆腐。","Severely Freezes the Consumer — Haste Makes Waste with Frozen Tofu.");
+        createTooltip( IS_COLORFUL+ "frosty_crown_mousse_slice","冻结食用者","Freezes the Consumer");
+        createTooltip(IS_COLORFUL+ "kwat_soup","对食用者造成巨量伤害，随后快速回复饱食度。","Inflicts massive damage to the consumer, then rapidly restores saturation.");
+        createTooltip(IS_COLORFUL+ "iced_kwat_soup","将灼热效果转化为凉爽效果。","Converts Scorching effect into a Cooling effect.");
+        createTooltip(IS_COLORFUL+ "bowl_of_this_side_down","完全失重状态下你难以施力。","Unable to exert force in full weightlessness.");
+        createTooltip("can_place_on_plate","可放置于空盘上","Placeable on empty plates.");
+        createTooltip("spoon","将碗放置为空盘子","Place an bowl item with empty plate block.");
 
-        createFarmersdelightTooltip("hone_mei_ling","You've gained new insight into using Qi...","你对“用气”有了新的理解……");
+        createFarmersdelightTooltip("large_column","2x Damage Block; Drops edible shards on block.","格挡两次伤害，格挡伤害时产生可食用的碎片");
+        createFarmersdelightTooltip("ku_mesh_non","Exceptional Mass","不同寻常的分量");
+        createFarmersdelightTooltip("hong_mei_ling","You've gained new insight into using Qi...","你对“用气”有了新的理解……");
         createFarmersdelightTooltip("caustic_essential_oil","Releases a persistent Crimson-Ember Haze upon shattering, whose edge-borne scent can clear a Sniffer's nasal passages.","破裂时产生持久的绯烬尘霾，其边缘处的气味可以为嗅探兽疏通鼻腔。");
         createFarmersdelightTooltip("bizarre_sausage","Your dog wants this.","你的狗狗想要这个.");
-        createFarmersdelightTooltip("kwat_soup","Inflicts massive damage to the consumer, then rapidly restores saturation.","对食用者造成巨量伤害，随后快速回复饱食度。");
-        createFarmersdelightTooltip("iced_kwat_soup","Converts Scorching effect into a Cooling effect.","将灼热效果转化为凉爽效果。");
         createFarmersdelightTooltip("vara_ji","Perhaps one needs to sip it through a straw.","也许需要一个吸管过滤着喝。");
         createFarmersdelightTooltip("pearlip_beer","Perhaps one needs to sip it through a straw.","也许需要一个吸管过滤着喝。");
         createFarmersdelightTooltip("iced_kwat_soup","Converts Scorching effect into a Cooling effect.","将灼热效果转化为凉爽效果。");
@@ -171,7 +180,7 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("enchanted_golden_himekaido","Within 1 second after consumption, be immune to harmful effects below level V (including instant effects).","食用后 1 秒内，免疫并反转 V 级以下的有害效果(包括瞬时效果)");
         createFarmersdelightTooltip("golden_fabric","Made a veil to protect against the burning dust and haze","制成面纱以抵御绯烬尘霾");
         createFarmersdelightTooltip("leisamboo_tea_cake","Clear all the effects and then apply the night vision effect","清除所有效果，然后给予夜视效果");
-        createFarmersdelightTooltip("pearlip_bubble_milk","Remove all effects, then grant the Vitality effect.","清除所有效果，然后给予丰茂效果");
+        createFarmersdelightTooltip("pearlip_bubble_milk","Remove all effects, then grant this effect:","清除所有效果，然后给予:");
         createFarmersdelightTooltip("sachets","Attract the Sniffer.","吸引嗅探兽");
         createFarmersdelightTooltip("evolutcorn_hard_candy","When you focus on eating this candy, you will ignore a certain amount of damage.","当你专注于吃糖，你将忽略一定的伤害");
         createFarmersdelightTooltip("drill_rod_wand.0","Can be used to break [trap blocks].","可用于破拆[陷阱]方块");
@@ -301,9 +310,13 @@ public class Languages extends LanguageProvider {
         createEntity(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(),"Skelverfish Thrasher");
         createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
         createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
-        createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "炽烈精油");
+        createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
+    }
+    private void addMessages(){
+        createMessage("effect.stun","You're reeling!","你头晕目眩！");
+        createMessage("effect.freeze","You're freezing up!","你要冻僵了！");
     }
 
     private void adds(){
@@ -319,6 +332,7 @@ public class Languages extends LanguageProvider {
         add("potion.potency.7","VIII","VIII");
         add("potion.potency.8","IX","IX");
         add("potion.potency.9","X","X");
+        add("potion.potency.29","XXX","XXX");
         add("potion.potency.99","C","C");
         add("creativetab_immortalers_delight_tab","Immortalers Delight","千古乐事");
     }
@@ -354,6 +368,9 @@ public class Languages extends LanguageProvider {
 
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
+    }
+    private void createMessage(String key,String en_us,String zh_cn){
+        add(MESSAGE + key,en_us,zh_cn);
     }
 
     private void createEntity(EntityType<?> entityType ,String zh_cn){

@@ -28,7 +28,7 @@ public class ImmortalersDelightTags {
 
     public static final TagKey<EntityType<?>> IMMORTAL_ELITE_MOBS = createEntityTag("elite_mobs");
 
-    public static final TagKey<EntityType<?>> IMMORTAL_MINI_BOSS = createEntityTag("mini_boss");
+    public static final TagKey<EntityType<?>> IMMORTAL_MID_BOSS = createEntityTag("mid_boss");
 
     private static TagKey<Biome> createBiomeTag(String pName) {
         return TagKey.create(Registries.BIOME, ImmortalersDelightMod.prefix(pName));

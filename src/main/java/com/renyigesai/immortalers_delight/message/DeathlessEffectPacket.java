@@ -61,7 +61,7 @@ public class DeathlessEffectPacket {
 
             } else {
                 // ========== 客户端处理逻辑 ==========
-                DeathlessEffect.getMapFromNetwork(packet.entitiesWithHealeh);
+                //DeathlessEffect.getMapFromNetwork(packet.entitiesWithHealeh);
                 // 示例：在客户端聊天窗口显示接收到的消息
 //                String displayMessage = String.format("[%s] %s", packet.playerName, packet.message);
 //                net.minecraft.client.Minecraft.getInstance().player.sendSystemMessage(

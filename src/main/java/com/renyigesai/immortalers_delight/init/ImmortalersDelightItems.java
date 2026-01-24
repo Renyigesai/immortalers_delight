@@ -11,8 +11,10 @@ import com.renyigesai.immortalers_delight.item.*;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.weapon.*;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,6 +29,7 @@ import java.util.function.Supplier;
 
 public class ImmortalersDelightItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, ImmortalersDelightMod.MODID);
+
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
     public static final RegistryObject<Item> DEBUG_ITEM;
@@ -704,6 +707,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> POD_PETAL_CHEESE_STICK;
     @ItemData(zhCn = "棱蕉啤酒")
     public static final RegistryObject<Item> PEARLIP_BEER;
+    @ItemData(zhCn = "古苜蓿大列巴",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> LARGE_COLUMN;
     @ItemData(zhCn = "列巴切片")
     public static final RegistryObject<Item> LARGE_COLUMN_SLICE;
     @ItemData(zhCn = "麦腐味增汤")
@@ -730,14 +735,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_ICECREAM;
     @ItemData(zhCn = "玉黍汁")
     public static final RegistryObject<Item> EVOLUTCORN_JUICE;
-    //    @ItemData(zhCn = "熔灰烤馕",enUs = "Kümesh Non")
-//    public static final RegistryObject<Item> KU_MESH_NON;
-//    @ItemData(zhCn = "战争面包",enUs = "Jeng Nanu")
-//    public static final RegistryObject<Item> JENG_NANU;
-//    @ItemData(zhCn = "熔灰烤馕切片",enUs = "Kümesh Non Slice")
-//    public static final RegistryObject<Item> KU_MESH_NON_SLICE;
-//    @ItemData(zhCn = "战争面包切片",enUs = "Jeng Nanu Slice")
-//    public static final RegistryObject<Item> JENG_NANU_SLICE;
+    @ItemData(zhCn = "熔烬烤馕",enUs = "Kümesh Non")
+    public static final RegistryObject<Item> KU_MESH_NON;
+    @ItemData(zhCn = "战争面包",enUs = "Jeng Nanu")
+    public static final RegistryObject<Item> JENG_NANU;
+    @ItemData(zhCn = "熔烬烤馕切片",enUs = "Kümesh Non Slice")
+    public static final RegistryObject<Item> KU_MESH_NON_SLICE;
+    @ItemData(zhCn = "战争面包切片",enUs = "Jeng Nanu Slice")
+    public static final RegistryObject<Item> JENG_NANU_SLICE;
     @ItemData(zhCn = "灼酒盗")
     public static final RegistryObject<Item> SHUTORCH;
     @ItemData(zhCn = "瓶子香肠")
@@ -762,7 +767,16 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> FROZEN_MARGARITA_JELLY;
     @ItemData(zhCn = "炽烈精油")
     public static final RegistryObject<Item> CAUSTIC_ESSENTIAL_OIL;
-
+    @ItemData(zhCn = "馕坯",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> NAN_DOUGH;
+    @ItemData(zhCn = "火馕坑",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> NAAN_BAKING_PIT;
+    @ItemData(zhCn = "可疑的灰堆",model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> SUSPICIOUS_ASH_PILE;
+    @ItemData(zhCn = "古老温泉蛋")
+    public static final RegistryObject<Item> ANCIENT_ONSEN_TAMAGO;
+    @ItemData(zhCn = "温泉蛋")
+    public static final RegistryObject<Item> ONSEN_TAMAGO;
 
     /*石锅与新烹饪*/
     @ItemData(zhCn = "温泉桶")
@@ -1174,7 +1188,7 @@ public class ImmortalersDelightItems {
         EVOLUTCORN_HARD_CANDY = registerWithTab("evolutcorn_hard_candy", () ->
                 new ShieldLikeFoodItem(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_HARD_CANDY),ImmortalersDelightFoodProperties.EVOLUTCORN_HARD_CANDY_POWERED,
                         ImmortalersDelightFoodProperties.EVOLUTCORN_HARD_CANDY_AHEAD,ImmortalersDelightFoodProperties.EVOLUTCORN_HARD_CANDY_AHEAD_POWERED,
-                        true,true)
+                        true,true,1)
         );
 
         EVOLUTCORN_PASTE_BUCKET = registerWithTab("evolutcorn_paste_bucket",()-> new Item(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
@@ -1420,7 +1434,7 @@ public class ImmortalersDelightItems {
                 new SuperKwatBurgerItem(ImmortalersDelightBlocks.SUPER_KWAT_WHEAT_HAMBURGER.get(),
                         new Item.Properties().food(ImmortalersDelightFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER),
                         PoweredFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_POWERED,
-                        true));
+                        false));
 
         /*
         冒险相关物品
@@ -1536,7 +1550,7 @@ public class ImmortalersDelightItems {
         /*诡怨桂相关物品*/
         LU_CHICKEN_LEGS = registerWithTab("lu_chicken_legs",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.LU_CHICKEN_LEGS),PoweredFoodProperties.LU_CHICKEN_LEGS,true,false));
-        NETHER_SOUP = registerWithTab("nether_soup",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_SOUP),true));
+        NETHER_SOUP = registerWithTab("nether_soup",()-> new InebriatedToxicFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_SOUP),true));
         BRAISED_PORK = registerWithTab("braised_pork",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BRAISED_PORK),PoweredFoodProperties.BRAISED_PORK,true,false));
         APOLLYON_CAKE_ROLL = registerWithTab("apollyon_cake_roll",()->
@@ -1556,9 +1570,11 @@ public class ImmortalersDelightItems {
 
         EGG_CONE = registerWithTab("egg_cone",()-> new Item(new Item.Properties()));
 
-        KWAT_SOUP = registerWithTab("kwat_soup",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.KWAT_SOUP),true,true));
+        KWAT_SOUP = registerWithTab("kwat_soup",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.KWAT_SOUP),PoweredFoodProperties.KWAT_SOUP,true,false,7));
 
-        ICED_KWAT_SOUP = registerWithTab("iced_kwat_soup",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.ICED_KWAT_SOUP),true,true));
+        ICED_KWAT_SOUP = registerWithTab("iced_kwat_soup",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.ICED_KWAT_SOUP),PoweredFoodProperties.ICED_KWAT_SOUP,true,false,7));
 
         SOUL_TEA = registerWithTab("soul_tea",()->
                 new ConsumableItem(leisambooDrinksItem(ImmortalersDelightFoodProperties.SOUL_TEA),true));
@@ -1580,6 +1596,9 @@ public class ImmortalersDelightItems {
                         PoweredFoodProperties.FILTERED_PEARLIP_BEER,
                         true, true));
 
+        LARGE_COLUMN = registerWithTab("large_column",()->
+                new PlaceableShieldItem((new Item.Properties()).stacksTo(16),1));
+
         LARGE_COLUMN_SLICE = foodItem("large_column_slice",ImmortalersDelightFoodProperties.LARGE_COLUMN_SLICE,true);
 
         KWAT_TOFU_MISO_SOUP = registerWithTab("kwat_tofu_miso_soup",()->
@@ -1590,7 +1609,7 @@ public class ImmortalersDelightItems {
         STONE_POT_KWAT_TOFU_STEW = blockFood(ImmortalersDelightBlocks.STONE_POT_KWAT_TOFU_STEW);;
 
         BOWL_OF_KWAT_TOFU_STEW = registerWithTab("bowl_of_kwat_tofu_stew",()->
-                new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_KWAT_TOFU_STEW),true));
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_KWAT_TOFU_STEW),PoweredFoodProperties.BOWL_OF_KWAT_TOFU_STEW,true,false));
 
         LEISAMBOO_ICECREAM = foodItem("leisamboo_icecream",ImmortalersDelightFoodProperties.LEISAMBOO_ICECREAM,true);
 
@@ -1608,15 +1627,20 @@ public class ImmortalersDelightItems {
 
         EVOLUTCORN_JUICE = registerWithTab("evolutcorn_juice",()->
                 new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.EVOLUTCORN_JUICE),true));
-//
-//        KU_MESH_NON = foodItem("ku_mesh_non",ImmortalersDelightFoodProperties.KU_MESH_NON,true);
-//
-//        JENG_NANU = registerWithTab("jeng_nanu",()->
-//                new ImmortalersShieldItem((new Item.Properties()).durability(336)));
-//
-//        KU_MESH_NON_SLICE = foodItem("ku_mesh_non_slice",ImmortalersDelightFoodProperties.KU_MESH_NON_SLICE,true);
-//
-//        JENG_NANU_SLICE = foodItem("jeng_nanu_slice",ImmortalersDelightFoodProperties.JENG_NANU_SLICE,true);
+
+        KU_MESH_NON = registerWithTab("ku_mesh_non",()->
+                new ShieldLikeFoodItem(foodItem(ImmortalersDelightFoodProperties.KU_MESH_NON),
+                        ImmortalersDelightFoodProperties.KU_MESH_NON_POWERED,
+                        null,null,true,false,2));
+
+        JENG_NANU = register("jeng_nanu",()->
+                new ImmortalersShieldItem((new Item.Properties()).durability(336)));
+
+        KU_MESH_NON_SLICE = registerWithTab("ku_mesh_non_slice",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.KU_MESH_NON_SLICE),ImmortalersDelightFoodProperties.KU_MESH_NON_SLICE_POWERED,true,false));
+
+        JENG_NANU_SLICE = register("jeng_nanu_slice",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.JENG_NANU_SLICE),ImmortalersDelightFoodProperties.JENG_NANU_SLICE,true, false));
 
         SHUTORCH = registerWithTab("shutorch",()-> new ConsumableItem(
                 bowlFoodItem(ImmortalersDelightFoodProperties.SHUTORCH),true,false));
@@ -1624,10 +1648,10 @@ public class ImmortalersDelightItems {
         PITCHER_SAUSAGE = foodItem("pitcher_sausage",ImmortalersDelightFoodProperties.PITCHER_SAUSAGE,true);
 
         BIZARRE_SAUSAGE = registerWithTab("bizarre_sausage",()->
-                new ImmortalersDogFoodItem(foodItem(ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE),ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE_FOE_DOG,true,true));
+                new ImmortalersDogFoodItem(foodItem(ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE),ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE_FOE_DOG,PoweredFoodProperties.BIZARRE_SAUSAGE_FOE_DOG,true,true));
 
         LONELY_SPIRIT_WINE = registerWithTab("lonely_spirit_wine",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.LONELY_SPIRIT_WINE),true));
+                new PowerfulAbleFoodItem(drinkItem(ImmortalersDelightFoodProperties.LONELY_SPIRIT_WINE),PoweredFoodProperties.LONELY_SPIRIT_WINE,true,false));
 
         EVOLUTCORN_CHICKEN_BURGER = registerWithTab("evolutcorn_chicken_burger",()->
                 new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_CHICKEN_BURGER),PoweredFoodProperties.EVOLUTCORN_CHICKEN_BURGER,true,false));
@@ -1645,9 +1669,16 @@ public class ImmortalersDelightItems {
         COLD_KWAT_TOFU_SALAD = registerWithTab("cold_kwat_tofu_salad",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.COLD_KWAT_TOFU_SALAD),PoweredFoodProperties.COLD_KWAT_TOFU_SALAD,true,false));
         FROSTY_CROWN_MOUSSE = registerWithTab("frosty_crown_mousse",()->
-                new FrostyCrownMousseItem(ImmortalersDelightBlocks.FROSTY_CROWN_MOUSSE.get(),foodItem(ImmortalersDelightFoodProperties.FROSTY_CROWN_MOUSSE),PoweredFoodProperties.FROSTY_CROWN_MOUSSE,true));
+                new FrostyCrownMousseItem(ImmortalersDelightBlocks.FROSTY_CROWN_MOUSSE.get(),foodItem(ImmortalersDelightFoodProperties.FROSTY_CROWN_MOUSSE),PoweredFoodProperties.FROSTY_CROWN_MOUSSE,false));
         FROSTY_CROWN_MOUSSE_SLICE = registerWithTab("frosty_crown_mousse_slice",()->
-                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.FROSTY_CROWN_MOUSSE_SLICE),PoweredFoodProperties.FROSTY_CROWN_MOUSSE_SLICE,true,false));
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.FROSTY_CROWN_MOUSSE_SLICE),PoweredFoodProperties.FROSTY_CROWN_MOUSSE_SLICE,true,false,12){
+            @Override
+            public void onUseTick(Level level, LivingEntity livingEntity, ItemStack pStack, int pRemainingUseDuration) {
+                livingEntity.setIsInPowderSnow(true);
+                if (!level.isClientSide() && !livingEntity.isDeadOrDying()) {livingEntity.setTicksFrozen(Math.min(livingEntity.getTicksRequiredToFreeze(), livingEntity.getTicksFrozen() + 4));}
+                super.onUseTick(level, livingEntity, pStack, pRemainingUseDuration);
+            }
+                });
         FROZEN_MARGARITA_JELLY = registerWithTab("frozen_margarita_jelly",()->
                 new NeedStrawDrinkItem(foodItem(ImmortalersDelightFoodProperties.FROZEN_MARGARITA_JELLY),
                         null,
@@ -1656,7 +1687,20 @@ public class ImmortalersDelightItems {
                         true,false));
         CAUSTIC_ESSENTIAL_OIL = registerWithTab("caustic_essential_oil",()->
                 new ThrowableDrinkBlockItem(ImmortalersDelightBlocks.CAUSTIC_ESSENTIAL_OIL.get(), (new Item.Properties()).stacksTo(16),false,true));
+        NAN_DOUGH = registerWithTab("nan_dough", () ->
+                new BlockItem(ImmortalersDelightBlocks.NAAN_BAKING_PIT.get(), new Item.Properties()){
+                    @Override
+                    public String getDescriptionId() {return this.getOrCreateDescriptionId();}
+                });
+        NAAN_BAKING_PIT = register("naan_baking_pit", () ->
+                new BlockItem(ImmortalersDelightBlocks.NAAN_BAKING_PIT.get(), new Item.Properties()));
+        SUSPICIOUS_ASH_PILE = block(ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE);
+        ANCIENT_ONSEN_TAMAGO = registerWithTab("ancient_onsen_tamago",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.ANCIENT_ONSEN_TAMAGO),PoweredFoodProperties.ANCIENT_ONSEN_TAMAGO,true,false));
+        ONSEN_TAMAGO = registerWithTab("onsen_tamago",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.ONSEN_TAMAGO),PoweredFoodProperties.ONSEN_TAMAGO,true,false));
 
+        //烬烟杆物品
         ABC_OOKIE = foodItem("abc_ookie",ImmortalersDelightFoodProperties.ABC_OOKIE);
 
         ABC_OFFEE = registerWithTab("abc_offee",()-> new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.ABC_OFFEE),true));
@@ -1700,7 +1744,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_TENCHIMUYO),PoweredFoodProperties.BOWL_OF_TENCHIMUYO,true,false));
         THIS_SIDE_DOWN = blockFood(ImmortalersDelightBlocks.THIS_SIDE_DOWN);
         BOWL_OF_THIS_SIDE_DOWN = registerWithTab("bowl_of_this_side_down",()->
-                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_THIS_SIDE_DOWN),PoweredFoodProperties.BOWL_OF_THIS_SIDE_DOWN,true,false));
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_THIS_SIDE_DOWN),PoweredFoodProperties.BOWL_OF_THIS_SIDE_DOWN,true,false,12));
 
         //隐藏
         SKELVERFISH_AMBUSHER_SPAWN_EGG = register("skelverfish_ambusher_spawn_egg",()->

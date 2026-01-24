@@ -1,0 +1,11 @@
+{
+  "type": "immortalers_delight:hot_spring",
+  "ingredients": [
+    {
+    "item": "minecraft:sniffer_egg"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:ancient_onsen_tamago"
+  }
+}

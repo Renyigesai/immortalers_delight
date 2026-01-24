@@ -3,6 +3,8 @@ package com.renyigesai.immortalers_delight.event;
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
+import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
+import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
@@ -12,23 +14,34 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CakeBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -156,6 +169,28 @@ public class SnifferEvent {
                 }
             }
 
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onModBrushAbleInteraction(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        BlockState state = event.getLevel().getBlockState(pos);
+        Block block = state.getBlock();
+        if (level instanceof ServerLevel serverLevel && block instanceof ModBrushableBlock) {
+            ItemStack oldStack = event.getItemStack();
+            if (oldStack.getItem() == Items.BRUSH) {
+                ItemStack newStack = new ItemStack(ImmortalersDelightItems.BRUSH.get(), oldStack.getCount(), getItemStackCapNBT(oldStack));
+                newStack.setPopTime(oldStack.getPopTime());
+                if (oldStack.getTag() != null) {
+                    newStack.setTag(oldStack.getTag());
+                }
+                event.getEntity().setItemInHand(event.getHand(), newStack);
+            }
+            //event.setCancellationResult(InteractionResult.SUCCESS);
+            //event.setCanceled(true);
         }
     }
 

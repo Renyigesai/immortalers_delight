@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/empty_plate",
+  "textures": {
+    "0": "immortalers_delight:block/write_plate",
+		"particle": "immortalers_delight:block/write_plate"
+  }
+}

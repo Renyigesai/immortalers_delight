@@ -154,11 +154,11 @@ public class ImmortalersHammerItem extends DiggerItem {
             if (!hurtOne.level().isClientSide() && event.getSource().getEntity() instanceof LivingEntity attacker) {
                 if (attacker.getMainHandItem().getItem() instanceof ImmortalersHammerItem hammer) {
                     //易伤
-                    VulnerableMobEffect.addEffectWithFrequencyLimit(
-                            hurtOne,
-                            new MobEffectInstance(ImmortalersDelightMobEffect.VULNERABLE.get(), GIDDINESS_TIME[hammer.getTier().getLevel()] + 50, 1),
-                            (byte) 1
-                    );
+//                    VulnerableMobEffect.addEffectWithFrequencyLimit(
+//                            hurtOne,
+                            hurtOne.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.VULNERABLE.get(), GIDDINESS_TIME[hammer.getTier().getLevel()] + 50, 1));
+//                            (byte) 1
+//                    );
 
                     //非玩家攻击眩晕
                     if (StunEffect.getEntityMap().get(hurtOne.getUUID()) != null || attacker instanceof Player) return;

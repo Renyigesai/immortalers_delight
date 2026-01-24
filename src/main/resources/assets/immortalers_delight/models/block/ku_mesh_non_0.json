@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/ku_mesh_non",
+  "textures": {
+    "0": "immortalers_delight:block/ku_mesh_non_0",
+		"particle": "immortalers_delight:block/ku_mesh_non_0"
+  }
+}

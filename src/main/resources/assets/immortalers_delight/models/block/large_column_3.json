@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/large_column",
+  "textures": {
+    "0": "immortalers_delight:block/large_column_3",
+		"particle": "immortalers_delight:block/large_column_3"
+  }
+}

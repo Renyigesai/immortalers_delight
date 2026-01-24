@@ -1,0 +1,43 @@
+{
+  "variants": {
+    "facing=east,bites=0": {"model": "immortalers_delight:block/evolutcorn_hard_candy_0", "y": 270},
+    "facing=east,bites=1": {"model": "immortalers_delight:block/evolutcorn_hard_candy_1", "y": 270},
+    "facing=east,bites=2": {"model": "immortalers_delight:block/evolutcorn_hard_candy_2", "y": 270},
+    "facing=east,bites=3": {"model": "immortalers_delight:block/evolutcorn_hard_candy_3", "y": 270},
+    "facing=east,bites=4": {"model": "immortalers_delight:block/evolutcorn_hard_candy_4", "y": 270},
+    "facing=east,bites=5": {"model": "immortalers_delight:block/evolutcorn_hard_candy_5", "y": 270},
+    "facing=east,bites=6": {"model": "immortalers_delight:block/evolutcorn_hard_candy_6", "y": 270},
+    "facing=east,bites=7": {"model": "immortalers_delight:block/evolutcorn_hard_candy_7", "y": 270},
+    "facing=east,bites=8": {"model": "immortalers_delight:block/evolutcorn_hard_candy_8", "y": 270},
+
+    "facing=north,bites=0": {"model": "immortalers_delight:block/evolutcorn_hard_candy_0", "y": 180},
+    "facing=north,bites=1": {"model": "immortalers_delight:block/evolutcorn_hard_candy_1", "y": 180},
+    "facing=north,bites=2": {"model": "immortalers_delight:block/evolutcorn_hard_candy_2", "y": 180},
+    "facing=north,bites=3": {"model": "immortalers_delight:block/evolutcorn_hard_candy_3", "y": 180},
+    "facing=north,bites=4": {"model": "immortalers_delight:block/evolutcorn_hard_candy_4", "y": 180},
+    "facing=north,bites=5": {"model": "immortalers_delight:block/evolutcorn_hard_candy_5", "y": 180},
+    "facing=north,bites=6": {"model": "immortalers_delight:block/evolutcorn_hard_candy_6", "y": 180},
+    "facing=north,bites=7": {"model": "immortalers_delight:block/evolutcorn_hard_candy_7", "y": 180},
+    "facing=north,bites=8": {"model": "immortalers_delight:block/evolutcorn_hard_candy_8", "y": 180},
+
+    "facing=south,bites=0": {"model": "immortalers_delight:block/evolutcorn_hard_candy_0"},
+    "facing=south,bites=1": {"model": "immortalers_delight:block/evolutcorn_hard_candy_1"},
+    "facing=south,bites=2": {"model": "immortalers_delight:block/evolutcorn_hard_candy_2"},
+    "facing=south,bites=3": {"model": "immortalers_delight:block/evolutcorn_hard_candy_3"},
+    "facing=south,bites=4": {"model": "immortalers_delight:block/evolutcorn_hard_candy_4"},
+    "facing=south,bites=5": {"model": "immortalers_delight:block/evolutcorn_hard_candy_5"},
+    "facing=south,bites=6": {"model": "immortalers_delight:block/evolutcorn_hard_candy_6"},
+    "facing=south,bites=7": {"model": "immortalers_delight:block/evolutcorn_hard_candy_7"},
+    "facing=south,bites=8": {"model": "immortalers_delight:block/evolutcorn_hard_candy_8"},
+
+    "facing=west,bites=0": {"model": "immortalers_delight:block/evolutcorn_hard_candy_0", "y": 90},
+    "facing=west,bites=1": {"model": "immortalers_delight:block/evolutcorn_hard_candy_1", "y": 90},
+    "facing=west,bites=2": {"model": "immortalers_delight:block/evolutcorn_hard_candy_2", "y": 90},
+    "facing=west,bites=3": {"model": "immortalers_delight:block/evolutcorn_hard_candy_3", "y": 90},
+    "facing=west,bites=4": {"model": "immortalers_delight:block/evolutcorn_hard_candy_4", "y": 90},
+    "facing=west,bites=5": {"model": "immortalers_delight:block/evolutcorn_hard_candy_5", "y": 90},
+    "facing=west,bites=6": {"model": "immortalers_delight:block/evolutcorn_hard_candy_6", "y": 90},
+    "facing=west,bites=7": {"model": "immortalers_delight:block/evolutcorn_hard_candy_7", "y": 90},
+    "facing=west,bites=8": {"model": "immortalers_delight:block/evolutcorn_hard_candy_8", "y": 90}
+  }
+}

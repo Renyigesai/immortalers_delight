@@ -21,6 +21,12 @@ public class DebugItem extends Item {
         super(p_41383_);
     }
 
+    public static final int DEBUG_ITEM_MODEL = 0;
+    public static final int KI_BLAST_MODEL = 1;
+    public static final int LARGE_COLUMN_MODEL = 2;
+    public static final int BONE_KNIFE_MODEL = 3;
+    public static final int JENG_NANU_MODEL = 4;
+
     @Override
     public ItemStack finishUsingItem (ItemStack pStack, Level level, LivingEntity pLivingEntity) {
 //        //CustomDataUsageExample.saveCustomInfo(level, "Hello, Minecraft!");
@@ -40,8 +46,8 @@ public class DebugItem extends Item {
 //            System.out.println("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
 //                    ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
 //        }
-        MobEffectInstance gas = new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0);
-        pLivingEntity.addEffect(gas);
+//        MobEffectInstance gas = new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),100,0);
+//        pLivingEntity.addEffect(gas);
         //GasPoisonEffect.applyImmortalEffect(pLivingEntity,5.0,0);
 //        MobEffectInstance gas1 = new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_FLAVOR.get(),1200,0);
 //        pLivingEntity.addEffect(gas1);

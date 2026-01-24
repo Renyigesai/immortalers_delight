@@ -7,11 +7,13 @@ import com.renyigesai.immortalers_delight.entities.projectile.KiBlastEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
+import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +22,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +43,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -84,7 +90,8 @@ public class FoodItemEventHelper {
                         float damage = isPowerBattleMode ? Math.min(18.0f,livingEntity.getMaxHealth()*0.9f) : Math.max(18.0f,livingEntity.getMaxHealth()*0.9f);
                         DamageSource source = isPowerBattleMode ? (livingEntity instanceof Player player ? player.damageSources().playerAttack(player) : livingEntity.damageSources().mobAttack(livingEntity)) : GasPoisonMobEffect.getDamageSource(livingEntity,null);
                         livingEntity.hurt(source, damage);
-                        livingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 400));
+                        if (isPowerBattleMode) livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(), 1500,2));
+                        else livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(), 1200,1));
                     }
                     //冰瓦斯麦汤的buff
                     if (stack.getItem() == ImmortalersDelightItems.ICED_KWAT_SOUP.get()) {
@@ -92,20 +99,27 @@ public class FoodItemEventHelper {
                         if (incandence != null) {
                             int lv = incandence.getAmplifier();
                             int duration = incandence.getDuration();
-                            if (lv > 0) {
-                                lv--;
-                                duration *= 2.5f;
-                            }
+                            if (lv > 0) {lv--; duration *= 2.5f;}
                             livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(), duration, lv));
                             FreezeEffect.applyImmortalEffect(livingEntity, 200, 0);
                         }
                     }
-                    //玉黍硬糖吃完后2s无敌帧
-                    if (stack.getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
-                        DeathlessEffect.applyImmortalEffect(livingEntity, 40, 0);
+                    //寒冷慕斯切片食用后10s寒冷，完整慕斯的寒冷在它物品类
+                    if (stack.getItem() == ImmortalersDelightItems.FROSTY_CROWN_MOUSSE_SLICE.get()) {
+                        FreezeEffect.applyImmortalEffect(livingEntity, 200, 2);
                     }
-                    //寒冷慕斯食用后10s寒冷
-
+                    //玛格丽特酒冻在超凡模式下无视禁疗回血
+                    if (stack.getItem() == ImmortalersDelightItems.FROZEN_MARGARITA_JELLY.get() && DifficultyModeUtil.isPowerBattleMode()) {
+                        livingEntity.setHealth(livingEntity.getHealth() + 4);
+                    }
+                    //天地有用食用后短时内不能解除虚弱和挖掘疲劳
+                    if (stack.getItem() == ImmortalersDelightItems.BOWL_OF_THIS_SIDE_DOWN.get()) {
+                        if (!livingEntity.isAlive()) return;
+                        if (livingEntity instanceof Player player) {
+                            CompoundTag tag = player.getPersistentData();
+                            tag.putBoolean(EAT_THIS_SIDE_DOWN,true);
+                        }
+                    }
                 }
             }
         }
@@ -162,7 +176,25 @@ public class FoodItemEventHelper {
         );
     }
 
-    //玉黍硬糖食用期间有60%减伤，在超凡模式下则为60~120%线性递增，在超过100%时会将负伤害转化为回血
+    @SubscribeEvent
+    public static void onLivingRemoveEffect(MobEffectEvent.Remove event) {
+        LivingEntity livingEntity = event.getEntity();
+        MobEffect removingOne = event.getEffect();
+        // 食用天地有用的玩家被标记，如果尝试移除虚弱或挖掘疲劳，在有拉格朗日效果时会无法移除
+        if (removingOne == MobEffects.WEAKNESS || removingOne == MobEffects.DIG_SLOWDOWN) {
+            CompoundTag tag = livingEntity.getPersistentData();
+            if (tag.contains(EAT_THIS_SIDE_DOWN)) {
+                if (livingEntity.hasEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get())) {
+                    event.setResult(Event.Result.DENY);
+                    event.setCanceled(true);
+                } else {
+                    tag.remove(EAT_THIS_SIDE_DOWN);
+                }
+            }
+        }
+
+    }
+
     @SubscribeEvent
     public static void onEntityHurt(LivingHurtEvent evt) {
         if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
@@ -176,23 +208,23 @@ public class FoodItemEventHelper {
         }
 
         if (!hurtOne.level().isClientSide) {
+            //玉黍硬糖食用期间有40~80%线性递增的减伤，在超凡模式下则为60~120%，在超过100%时会将负伤害转化为回血
             if (hurtOne.getUseItem().getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
                 if (hurtOne.getTicksUsingItem() > (isPowerful ? 16 : 32)) {
-                    if (isPowerful) {
-                        float buffer = 0.4f - (0.6F * hurtOne.getTicksUsingItem() / hurtOne.getUseItem().getUseDuration());
-                        if (buffer > 0) {
-                            evt.setAmount(evt.getAmount() * buffer);
-                        } else {
-                            hurtOne.heal(evt.getAmount() * buffer * (-1));
-                            evt.setAmount(0);
-                            evt.setCanceled(true);
-                        }
-                    } else evt.setAmount(evt.getAmount() * 0.4f);
+                    float buffer = (isPowerful ? 0.4f : 0.6f) - ((isPowerful ? 0.6f : 0.4f) * hurtOne.getTicksUsingItem() / hurtOne.getUseItem().getUseDuration());
+                    if (buffer > 0) {
+                        evt.setAmount(evt.getAmount() * buffer);
+                    } else {
+                        if (isPowerful) {hurtOne.heal(evt.getAmount() * buffer * (-1));}
+                        evt.setAmount(0);
+                        evt.setCanceled(true);
+                    }
                 }
             }
         }
     }
     public static final String DELETE_PIGLIN = ImmortalersDelightMod.MODID + "_delete_piglin";
+    public static final String EAT_THIS_SIDE_DOWN = ImmortalersDelightMod.MODID+ "_this_side_down_eater";
     @SubscribeEvent
     public static void onPlayerFeed(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getEntity() != null && event.getTarget() instanceof LivingEntity target){
@@ -202,7 +234,7 @@ public class FoodItemEventHelper {
             if (!(level instanceof ServerLevel serverLevel) || itemStack == ItemStack.EMPTY) return;
             //喂食伏特加
             if (itemStack.getItem() == ImmortalersDelightItems.CLEAR_WATER_VODKA.get()) {
-                addInebriatedEffect(itemStack,serverLevel,target);
+                InebriatedToxicFoodItem.addInebriatedEffect(itemStack,serverLevel,target);
                 if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
                     player.addItem(itemStack.getCraftingRemainingItem());
                     itemStack.shrink(1);
@@ -254,33 +286,33 @@ public class FoodItemEventHelper {
         }
     }
 
-    private static void addInebriatedEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
-        // 从物品栈中获取具体的物品
-        Item item = stack.getItem();
-        // 检查该物品是否为可食用物品
-        if (item.isEdible()) {
-            // 遍历物品的食物属性中定义的所有药水效果及其概率
-            for (Pair<MobEffectInstance, Float> pair : stack.getFoodProperties(livingEntity).getEffects()) {
-                // 条件判断：
-                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
-                // 2. 药水效果实例不为空，确保有有效的药水效果。
-                // 3. 药水效果为我们指定的酒精效果
-                if (!level.isClientSide && pair.getFirst() != null) {
-                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()) {
-                        // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
-                        // 然后将该药水效果添加到食用物品的实体上。
-                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getAmplifier() : 0;
-                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0;
-                        int time = pair.getFirst().getDuration() + oldTime;
-                        int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
-                        livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
-                        //InebriatedEffect.applyImmortalEffect(livingEntity,(double) time / 20 + 0.1,lv);
-                    }
-                    else  livingEntity.addEffect(pair.getFirst());
-                }
-            }
-        }
-    }
+//    private static void addInebriatedEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
+//        // 从物品栈中获取具体的物品
+//        Item item = stack.getItem();
+//        // 检查该物品是否为可食用物品
+//        if (item.isEdible()) {
+//            // 遍历物品的食物属性中定义的所有药水效果及其概率
+//            for (Pair<MobEffectInstance, Float> pair : stack.getFoodProperties(livingEntity).getEffects()) {
+//                // 条件判断：
+//                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
+//                // 2. 药水效果实例不为空，确保有有效的药水效果。
+//                // 3. 药水效果为我们指定的酒精效果
+//                if (!level.isClientSide && pair.getFirst() != null) {
+//                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()) {
+//                        // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
+//                        // 然后将该药水效果添加到食用物品的实体上。
+//                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getAmplifier() : 0;
+//                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0;
+//                        int time = pair.getFirst().getDuration() + oldTime;
+//                        int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
+//                        livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
+//                        //InebriatedEffect.applyImmortalEffect(livingEntity,(double) time / 20 + 0.1,lv);
+//                    }
+//                    else  livingEntity.addEffect(pair.getFirst());
+//                }
+//            }
+//        }
+//    }
 
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingTickEvent event) {

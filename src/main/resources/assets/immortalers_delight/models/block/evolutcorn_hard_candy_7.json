@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/evolutcorn_hard_candy",
+  "textures": {
+    "0": "immortalers_delight:block/evolutcorn_hard_candy_7",
+		"particle": "immortalers_delight:block/evolutcorn_hard_candy_7"
+  }
+}

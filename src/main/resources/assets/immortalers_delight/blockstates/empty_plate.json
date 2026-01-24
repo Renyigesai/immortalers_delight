@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east,types=0": {"model": "immortalers_delight:block/delight_plate", "y": 270},
+    "facing=east,types=1": {"model": "immortalers_delight:block/empty_plate", "y": 270},
+    "facing=east,types=2": {"model": "immortalers_delight:block/empty_plate_1", "y": 270},
+    "facing=east,types=3": {"model": "immortalers_delight:block/empty_plate_2", "y": 270},
+
+    "facing=north,types=0": {"model": "immortalers_delight:block/delight_plate", "y": 180},
+    "facing=north,types=1": {"model": "immortalers_delight:block/empty_plate", "y": 180},
+    "facing=north,types=2": {"model": "immortalers_delight:block/empty_plate_1", "y": 180},
+    "facing=north,types=3": {"model": "immortalers_delight:block/empty_plate_2", "y": 180},
+
+    "facing=south,types=0": {"model": "immortalers_delight:block/delight_plate"},
+    "facing=south,types=1": {"model": "immortalers_delight:block/empty_plate"},
+    "facing=south,types=2": {"model": "immortalers_delight:block/empty_plate_1"},
+    "facing=south,types=3": {"model": "immortalers_delight:block/empty_plate_2"},
+
+    "facing=west,types=0": {"model": "immortalers_delight:block/delight_plate", "y": 90},
+    "facing=west,types=1": {"model": "immortalers_delight:block/empty_plate", "y": 90},
+    "facing=west,types=2": {"model": "immortalers_delight:block/empty_plate_1", "y": 90},
+    "facing=west,types=3": {"model": "immortalers_delight:block/empty_plate_2", "y": 90}
+  }
+}

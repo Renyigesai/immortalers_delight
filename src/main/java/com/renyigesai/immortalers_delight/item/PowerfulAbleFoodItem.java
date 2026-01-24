@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 public class PowerfulAbleFoodItem extends EnchantAbleFoodItem{
     @Nullable
-    private final FoodProperties poweredFoodProperties;
+    protected final FoodProperties poweredFoodProperties;
 
     public PowerfulAbleFoodItem(Properties properties, @org.jetbrains.annotations.Nullable FoodProperties powerFoodProperties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip) {
         super(properties, hasFoodEffectTooltip, hasCustomTooltip);
@@ -16,6 +16,15 @@ public class PowerfulAbleFoodItem extends EnchantAbleFoodItem{
 
     public PowerfulAbleFoodItem(Properties properties, @org.jetbrains.annotations.Nullable FoodProperties powerFoodProperties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip, boolean isFoil) {
         super(properties, hasFoodEffectTooltip, hasCustomTooltip, isFoil);
+        this.poweredFoodProperties = powerFoodProperties;
+    }
+    public PowerfulAbleFoodItem(Properties properties, @org.jetbrains.annotations.Nullable FoodProperties powerFoodProperties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip,int toolTipColor) {
+        super(properties, hasFoodEffectTooltip, hasCustomTooltip,toolTipColor);
+        this.poweredFoodProperties = powerFoodProperties;
+    }
+
+    public PowerfulAbleFoodItem(Properties properties, @org.jetbrains.annotations.Nullable FoodProperties powerFoodProperties, boolean hasFoodEffectTooltip, boolean hasCustomTooltip, boolean isFoil,int toolTipColor) {
+        super(properties, hasFoodEffectTooltip, hasCustomTooltip,toolTipColor, isFoil);
         this.poweredFoodProperties = powerFoodProperties;
     }
 

@@ -5,6 +5,10 @@ import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.block.*;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
+import com.renyigesai.immortalers_delight.block.brushable.InfestedFallingBlock;
+import com.renyigesai.immortalers_delight.block.brushable.InfestedOreBlock;
+import com.renyigesai.immortalers_delight.block.brushable.SuspiciousAshPileBlock;
+import com.renyigesai.immortalers_delight.block.brushable.SuspiciousAshPileBlockEntity;
 import com.renyigesai.immortalers_delight.block.crops.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
@@ -20,7 +24,10 @@ import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -35,6 +42,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.*;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.function.ToIntFunction;
 
@@ -57,8 +65,11 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<BlockEntityType<TangyuanBlockEntity>> UNFINISHED_TANGYUAN_ENTITY;
     public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
     public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
-    public static final RegistryObject<Block> SUPPORT_BLOCK;
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> SUSPICIOUS_ASH_PILE;
+    public static final RegistryObject<BlockEntityType<SuspiciousAshPileBlockEntity>> SUSPICIOUS_ASH_PILE_BLOCK_ENTITY;
+    public static final RegistryObject<Block> SUPPORT_BLOCK;
     public static final RegistryObject<BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
 
     @BlockData
@@ -787,6 +798,13 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
             new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE));
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> NAAN_BAKING_PIT = BLOCKS.register("naan_baking_pit",()->
+            new NaanBakingPitBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_ORE).strength(0.5F).mapColor(MapColor.NETHER)));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> EMPTY_PLATE = BLOCKS.register("empty_plate",()->
+            new EmptyPlateBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
     /*嗅探兽毛块*/
     @BlockData
     public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
@@ -810,6 +828,29 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> KU_MESH_NON = BLOCKS.register("ku_mesh_non",()->
+            new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.MAGMA_BLOCK),
+                    ImmortalersDelightItems.KU_MESH_NON_SLICE,
+                    ImmortalersDelightItems.KU_MESH_NON,
+                    4)
+    );
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> LARGE_COLUMN = BLOCKS.register("large_column",()->
+            new LargeColumnBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+                    ImmortalersDelightItems.LARGE_COLUMN_SLICE,
+                    ImmortalersDelightItems.LARGE_COLUMN,
+                    2)
+    );
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> EVOLUTCORN_HARD_CANDY = BLOCKS.register("evolutcorn_hard_candy",()->
+            new StackedFoodBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+                    ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
+                    ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
+                    1)
+                {@Override public int getMaxBites(){return 8;}
+                @Override public boolean isEdible(){return false;}
+    });
     /*烟杆*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
@@ -882,6 +923,14 @@ public class ImmortalersDelightBlocks {
                 ()-> BlockEntityType.Builder.of(SupportBlockEntity::new, SUPPORT_BLOCK.get()).build(null));
 
         HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block", HotSpringFluidsBlock::new);
+
+        SUSPICIOUS_ASH_PILE = BLOCKS.register("suspicious_ash_pile",()->
+                new SuspiciousAshPileBlock(Blocks.BLACKSTONE_SLAB,
+                        BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(1.25F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY),
+                        SoundEvents.BRUSH_GRAVEL,
+                        SoundEvents.BRUSH_GRAVEL_COMPLETED));
+        SUSPICIOUS_ASH_PILE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("suspicious_ash_pile",
+                ()-> BlockEntityType.Builder.of(SuspiciousAshPileBlockEntity::new, SUSPICIOUS_ASH_PILE.get()).build(null));
     }
 
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {

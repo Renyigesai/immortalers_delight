@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -30,18 +31,21 @@ public class InebriatedPotionEffect {
             LivingEntity entity = event.getEntity();
 
             if (entity instanceof Player player && player.isCreative()) return;
-            if (!entity.getCommandSenderWorld().isClientSide
-                    && entity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get())
-                    && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-                if (event.getEffectInstance() != null
-                        && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()
-                        || event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.WEAK_POISON.get()
-                        || event.getEffectInstance().getEffect() == MobEffects.POISON
-                        || event.getEffectInstance().getEffect() == MobEffects.BLINDNESS
-                        || event.getEffectInstance().getEffect() == MobEffects.CONFUSION
-                        || event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN
-                        || event.getEffectInstance().getEffect() == MobEffects.WEAKNESS)) {
-                    event.setCanceled(true);
+            if (!entity.getCommandSenderWorld().isClientSide) {
+                MobEffectInstance inebriated = entity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
+                MobEffectInstance magicalReverse = entity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get());
+                int maxTime = magicalReverse == null ? 0 : (magicalReverse.getDuration() * 100) << magicalReverse.getAmplifier();
+                if (inebriated != null && inebriated.getDuration() > maxTime) {
+                    if (event.getEffectInstance() != null
+                            && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()
+                            || event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.WEAK_POISON.get()
+                            || event.getEffectInstance().getEffect() == MobEffects.POISON
+                            || event.getEffectInstance().getEffect() == MobEffects.BLINDNESS
+                            || event.getEffectInstance().getEffect() == MobEffects.CONFUSION
+                            || event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN
+                            || event.getEffectInstance().getEffect() == MobEffects.WEAKNESS)) {
+                        event.setCanceled(true);
+                    }
                 }
             }
         }

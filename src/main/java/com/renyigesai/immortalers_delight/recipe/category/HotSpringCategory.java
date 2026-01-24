@@ -60,15 +60,20 @@ public class HotSpringCategory implements IRecipeCategory<HotSpringRecipe> {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         int borderSlotSize = 18;
         //x和y轴的初始坐标，取值为gui贴图的x,y初始位置减一
-        int x = 25;
-        int y = 39;
+        int x0 = 25;
+        int y0 = 39;
         //添加原料槽
+        if (!(recipeIngredients.size() > 0)) return;
+        else builder.addSlot(RecipeIngredientRole.INPUT, x0 + 19, y0 -8)
+                .addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
         for (int row = 0; row < 3; ++row) {
             for (int column = 0; column < 3; ++column) {
-                int inputIndex = row * 3 + column;
+                int inputIndex = row * 3 + column + 1;
                 if (inputIndex < recipeIngredients.size()) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, x + (column * borderSlotSize) + 1, y + (row * borderSlotSize) + 1)
+                    builder.addSlot(RecipeIngredientRole.INPUT, x0 + (column * borderSlotSize) + 1, y0 + (row * borderSlotSize) + (column == 1 ? 10 : 1))
                             .addItemStacks(Arrays.asList(recipeIngredients.get(inputIndex).getItems()));
+                } else {
+                    break;
                 }
             }
         }

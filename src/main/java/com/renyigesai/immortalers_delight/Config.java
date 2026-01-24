@@ -36,6 +36,7 @@ public class Config {
     private static final ForgeConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_2 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_2]", 1, 0, Short.MAX_VALUE);
 
     public static final ForgeConfigSpec.ConfigValue<String> POWER_BATTLE_MODE = BUILDER
+            .comment(" ")
             .comment("Greatly enhance effects and monsters. Use for that games using mods with additional cultivation content- such as Curios, any Skill mods or Guns mods.")
             .comment("true: Always enabled this mode.")
             .comment("default: Automatically determine whether to enable it based on the player's combat performance.")
@@ -43,6 +44,7 @@ public class Config {
             .define("powerBattleMode", "default");
 
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> TERRACOTTA_GOLEM_SIDE_DECORATES = BUILDER
+            .comment(" ")
             .comment("A list of items that can use on side of terracotta golem.")
             .comment("You can add other item to this list, it's texture must named be the same as item id.")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
@@ -52,10 +54,53 @@ public class Config {
     private static final ForgeConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
     private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_HINT = BUILDER.comment("After being turned off, when the Power Battle Mode is enabled, the prompt field will no longer be displayed in the game").define("powerBattleModeHint", true);
     private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES = BUILDER
+            .comment(" ")
             .comment("We apologize for making players excessively capable. ")
             .comment("For the sake of balance, you can use this option to synchronously strengthen some of the original enemies.")
-            .comment("Configure which enemies can be strengthened in the entity tags file.")
+            .comment("Configure which enemies can be strengthened in the entity tags file, to all the functions.")
             .define("needStrengthenTheEnemies", false);
+    private static final ForgeConfigSpec.BooleanValue USE_DYNAMIC_DAMAGE = BUILDER
+            .comment(" ")
+            .comment("Configure the attack damage multiplier of powered mobs be increased based on the target's health value")
+            .define("useDynamicDamage", false);
+    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
+            .comment(" ")
+            .comment("Set the maximum attack damage multiplier of powered mobs")
+            .comment("Example: [0.5, 2.0, 5.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+            .defineList("maximumDamageMultiplier", List.of(0.5f, 2.0f, 5.0f), o -> o instanceof Float);
+    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
+            .comment(" ")
+            .comment("Set the attack damage multiplier per target's health")
+            .comment("Example: [0.002, 0.006, 0.02],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+            .comment("Use gradient calculation. For example, for elite mobs, follow the default value:")
+            .comment(" the damage multiplier increases by 0.002 per health point until it reaches 1.5x (1+0.5), ")
+            .comment("then the damage multiplier increases by 0.006 per health point until it reaches 3.0x (1+2.0). ")
+            .defineList("damageMultiplierPerHealth", List.of(0.002f, 0.006f, 0.02f), o -> o instanceof Float);
+    private static final ForgeConfigSpec.BooleanValue USE_MIN_DAMAGE = BUILDER
+            .comment(" ")
+            .comment("Configure the min value when powered mobs attack")
+            .define("useMinDamage", false);
+    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MIN_DAMAGE = BUILDER
+            .comment(" ")
+            .comment("Set the min value when powered mobs attack")
+            .comment("Example: [1.0, 2.0, 2.5],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+            .defineList("minDamageValue", List.of(1.0f, 2.0f, 2.5f), o -> o instanceof Float);
+    private static final ForgeConfigSpec.BooleanValue USE_HIGH_DAMAGE_COUNTERACTION = BUILDER
+            .comment(" ")
+            .comment("Configure the damage multiplier taken by mobs will decrease as the base damage value increases.")
+            .define("useHigh-DamageCounteraction", true);
+    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_DAMAGE_COUNTERACTION = BUILDER
+            .comment(" ")
+            .comment("Set the maximum damage divisor taken by mobs")
+            .comment("For example,if set 9.0 to a mob, damage taken by mobs will min become 0.1x.")
+            .comment("Example: [7.0, 11.0, 15.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+            .defineList("maximumDamageDivisor", List.of(7.0f, 11.0f, 15.0f), o -> o instanceof Float);
+    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> DAMAGE_COUNTERACTION_PER_DAMAGE = BUILDER
+            .comment(" ")
+            .comment("Set the attack damage divisor per damage taken by mobs")
+            .comment("Example: [0.04, 0.05, 0.08],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+            .defineList("damageDivisorPerDamage", List.of(0.04f, 0.05f, 0.08f), o -> o instanceof Float);
+
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
         BUILDER.push("ReverseNormalEffect")
@@ -119,6 +164,14 @@ public class Config {
     public static boolean rightClickHarvest;
     public static boolean powerBattleModeHint;
     public static boolean powerBattleModeStrengthenTheEnemies;
+    public static boolean useDynamicDamage;
+    public static List<Float> maximumAttackDamageMultiplier;
+    public static List<Float> attackDamageMultiplierPerHealth;
+    public static boolean useMinDamage;
+    public static List<Float> minDamage;
+    public static boolean useHighDamageCounteraction;
+    public static List<Float> maximumDamageCounteraction;
+    public static List<Float> damageCounteractionPerDamage;
     public static double mininProbability;
 
     public static boolean weakPoisonHealthOverlay;
@@ -128,6 +181,26 @@ public class Config {
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof final String itemName && ForgeRegistries.ITEMS.containsKey(new ResourceLocation(itemName));
+    }
+
+    public static List<Float> convertToListFloat(List<?> sourceList) {
+        // 1. 创建空的List<Float>（推荐ArrayList，也可用LinkedList）
+        List<Float> targetList = new ArrayList<>();
+
+        // 2. 遍历原列表，拷贝所有元素，处理Double和Float类型
+        if (sourceList != null) { // 判空，避免空指针
+            for (Object obj : sourceList) {
+                if (obj instanceof Float) {
+                    targetList.add((Float) obj);
+                } else if (obj instanceof Double) {
+                    targetList.add(((Double) obj).floatValue());
+                } else if (obj instanceof Number) {
+                    targetList.add(((Number) obj).floatValue());
+                }
+            }
+        }
+
+        return targetList;
     }
 
     @SubscribeEvent
@@ -147,7 +220,17 @@ public class Config {
         powerBattleMode = POWER_BATTLE_MODE.get();
         rightClickHarvest = RIGHT_CLICK_HARVEST.get();
         powerBattleModeHint = POWER_BATTLE_MODE_HINT.get();
+
         powerBattleModeStrengthenTheEnemies = POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES.get();
+        useDynamicDamage = USE_DYNAMIC_DAMAGE.get();
+        maximumAttackDamageMultiplier = convertToListFloat(MAXIMUM_ATTACK_DAMAGE_MULTIPLIER.get());
+        attackDamageMultiplierPerHealth = convertToListFloat(ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH.get());
+        useMinDamage = USE_MIN_DAMAGE.get();
+        minDamage = convertToListFloat(MIN_DAMAGE.get());
+        useHighDamageCounteraction =  USE_HIGH_DAMAGE_COUNTERACTION.get();
+        maximumDamageCounteraction = convertToListFloat(MAXIMUM_DAMAGE_COUNTERACTION.get());
+        damageCounteractionPerDamage = convertToListFloat(DAMAGE_COUNTERACTION_PER_DAMAGE.get());
+
         mininProbability = MININ_PROBABILITY.get();
 
     }

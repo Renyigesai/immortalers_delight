@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -43,21 +44,27 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 public class ImmortalersDogFoodItem extends ConsumableItem {
     @Nullable
     private final FoodProperties dogFoodProperties;
+    @Nullable
+    private final FoodProperties poweredDogFoodProperties;
 
-    public ImmortalersDogFoodItem(Item.Properties properties, FoodProperties foodProperties) {
+    public ImmortalersDogFoodItem(Item.Properties properties, @org.jetbrains.annotations.Nullable FoodProperties foodProperties) {
         super(properties);
         this.dogFoodProperties = foodProperties;
+        this.poweredDogFoodProperties = null;
     }
-    public ImmortalersDogFoodItem(Item.Properties properties, FoodProperties foodProperties, boolean hasEffectToolTip) {
+    public ImmortalersDogFoodItem(Item.Properties properties, @org.jetbrains.annotations.Nullable FoodProperties foodProperties,@org.jetbrains.annotations.Nullable FoodProperties poweredFoodProperties, boolean hasEffectToolTip) {
         super(properties,hasEffectToolTip);
         this.dogFoodProperties = foodProperties;
+        this.poweredDogFoodProperties = poweredFoodProperties;
     }
-    public ImmortalersDogFoodItem(Item.Properties properties, FoodProperties foodProperties, boolean hasEffectToolTip, boolean hasCustomToolTip) {
+    public ImmortalersDogFoodItem(Item.Properties properties, @org.jetbrains.annotations.Nullable FoodProperties foodProperties, @org.jetbrains.annotations.Nullable FoodProperties poweredFoodProperties, boolean hasEffectToolTip, boolean hasCustomToolTip) {
         super(properties,hasEffectToolTip,hasCustomToolTip);
         this.dogFoodProperties = foodProperties;
+        this.poweredDogFoodProperties = poweredFoodProperties;
     }
 
-    public FoodProperties getDogFoodProperties() {
+    public @org.jetbrains.annotations.Nullable FoodProperties getDogFoodProperties() {
+        if (DifficultyModeUtil.isPowerBattleMode()) return poweredDogFoodProperties;
         return dogFoodProperties;
     }
 

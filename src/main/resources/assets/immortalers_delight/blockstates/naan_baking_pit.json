@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east,lit=false": {"model": "immortalers_delight:block/nan_dough", "y": 270},
+
+    "facing=north,lit=false": {"model": "immortalers_delight:block/nan_dough", "y": 180},
+
+    "facing=south,lit=false": {"model": "immortalers_delight:block/nan_dough"},
+
+    "facing=west,lit=false": {"model": "immortalers_delight:block/nan_dough", "y": 90},
+
+    "facing=east,lit=true": {"model": "immortalers_delight:block/naan_baking_pit", "y": 270},
+
+    "facing=north,lit=true": {"model": "immortalers_delight:block/naan_baking_pit", "y": 180},
+
+    "facing=south,lit=true": {"model": "immortalers_delight:block/naan_baking_pit"},
+
+    "facing=west,lit=true": {"model": "immortalers_delight:block/naan_baking_pit", "y": 90}
+  }
+}

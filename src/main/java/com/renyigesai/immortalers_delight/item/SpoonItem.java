@@ -1,10 +1,15 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,7 +26,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
+import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModItems;
+
+import java.util.List;
 
 public class SpoonItem extends BlockItem {
     public SpoonItem(Block pBlock, Properties pProperties) {
@@ -39,6 +47,14 @@ public class SpoonItem extends BlockItem {
             }
         }
         return InteractionResult.PASS;
+    }
+    @Override
+    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+            MutableComponent textValue = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".spoon");
+            tooltip.add(textValue.withStyle(ChatFormatting.GRAY));
+        }
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
 
     private BlockState updateBlockStateFromTag(BlockPos pPos, Level pLevel, ItemStack pStack, BlockState pState) {

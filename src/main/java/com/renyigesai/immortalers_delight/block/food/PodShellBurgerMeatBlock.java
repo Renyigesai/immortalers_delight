@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
-public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock {
+public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implements PlateBaseBlock {
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,4);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,2.0D,15.0D);
     public PodShellBurgerMeatBlock(Properties pProperties) {
@@ -81,5 +82,10 @@ public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(BITES,FACING);
+    }
+
+    @Override
+    public boolean isEmptyPlate(BlockState state) {
+        return state.getValue(BITES) == 4;
     }
 }

@@ -1,0 +1,14 @@
+{
+  "type": "immortalers_delight:hot_spring",
+  "ingredients": [
+    {
+    "item": "immortalers_delight:contains_tea_leisamboo"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:soul_tea"
+  }
+}

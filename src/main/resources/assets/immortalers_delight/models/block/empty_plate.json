@@ -1,0 +1,23 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "immortalers_delight:block/base_panzi",
+		"particle": "immortalers_delight:block/base_panzi"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 1, 15],
+			"faces": {
+				"north": {"uv": [0, 6.5, 7, 7], "texture": "#0"},
+				"east": {"uv": [7, 0, 14, 0.5], "texture": "#0"},
+				"south": {"uv": [0, 14, 7, 14.5], "texture": "#0"},
+				"west": {"uv": [7, 0.5, 14, 1], "texture": "#0"},
+				"up": {"uv": [7, 7, 0, 0], "texture": "#0"},
+				"down": {"uv": [7, 7.5, 0, 14.5], "texture": "#0"}
+			}
+		}
+	]
+}

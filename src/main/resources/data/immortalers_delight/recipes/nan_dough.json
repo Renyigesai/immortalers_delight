@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " ab",
+    "cdc",
+    "be "
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    "b": {
+      "item": "immortalers_delight:kwat_wheat_dough"
+    },
+    "c": {
+      "item": "minecraft:mutton"
+    },
+    "d": {
+      "item": "farmersdelight:onion"
+    },
+    "e": {
+      "item": "minecraft:torchflower"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:nan_dough",
+    "count": 1
+  }
+}

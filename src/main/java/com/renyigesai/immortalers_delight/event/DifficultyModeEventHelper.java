@@ -5,12 +5,9 @@ import com.renyigesai.immortalers_delight.api.mobbase.ImmortalersMob;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
-import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -22,13 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Mod.EventBusSubscriber
 public class DifficultyModeEventHelper {
 
-    private static final Map<UUID, Float> entityWithMinDamage = new ConcurrentHashMap<>();
+    private static final Map<UUID, Float> entityDeathless = new ConcurrentHashMap<>();
 
     /**
      *  超凡模式下，怪物的伤害随目标血量提升，作用类似百分比伤害。
-     *  但其实此处最大仅能造成3倍的伤害，限伤的存在实际使得过高的增伤意义不大。
-     *  保底伤害的触发在这个方法的时机之前，所以这个增伤不影响保底伤害。
-     *  困难难度下，怪物额外具有25%增伤与20%减伤
+     *  使用梯度计算方法：例：普通怪物默认的最大增伤为1.5倍(在250点生命值时达到上限)，精英怪物最大增伤为3倍，
+     *  则对精英怪，会先按照普通怪物的增伤系数增大到1.5倍，若目标的生命值大于250，溢出的再应用精英怪的增伤系数计算
+     *  这个增伤不影响保底伤害。
      */
     @SubscribeEvent
     public static void ImmortalrsMobAttackProgressDamage(LivingHurtEvent event) {
@@ -39,89 +36,62 @@ public class DifficultyModeEventHelper {
 
                     if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
                             || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
-                            || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
+                            || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)
                     ) {
                         float oldDamage = event.getAmount();
                         float buffer = Math.min(3,1 + hurtOne.getMaxHealth() * 0.02F);
-                        if (attacker.level().getDifficulty().getId() >= 3) buffer *= 1.25f;
                         event.setAmount(Math.max(oldDamage * buffer, 0.0F));
                     }
                 }
-
-                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
-                        || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
-                        || hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)
-                ) {
-                    if (hurtOne.level().getDifficulty().getId() >= 3) event.setAmount(event.getAmount() * 0.8F);
-                }
-
             }
         }
     }
 
     /**
-     *  保底伤害：在本模组生物发出攻击行为时触发，直接进行一个改血攻击以制裁逆天减伤。
-     *  保底伤害为伤害值*0.2，精英怪以及以上等级怪物额外造成目标生命上限5%的伤害。
-     *  脆弱buff会增加保底伤害中非百分比的部分
-     *  该事件触发时Forge的事件系统尚无法对伤害值进行修改，但生物自身hurt方法生效更快，可以修改伤害值
-     *  该攻击不会致死
+     *  保底伤害，用以制裁抗性V
+     *  修改了实现原理，现在的原理为最终加算伤害值
      */
-    @SubscribeEvent
-    public static void ImmortalrsMobAttackMinDamage(LivingAttackEvent event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void ImmortalrsMobAttackMinDamage(LivingDamageEvent event) {
+
         if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker && !attacker.level().isClientSide) {
                 LivingEntity hurtOne = event.getEntity();
-                if (hurtOne.getHealth() < 1.0F) return;
 
-                float minDamage = event.getAmount() * 0.2F;
+                float minDamage = 0;
+                boolean needMinDamage = false;
+
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) {
+                    if (attacker instanceof ImmortalersMob immMob) {
+                        minDamage += immMob.getMinDamage();
+                    } else minDamage += 1;
+                    needMinDamage = true;
+                }
+
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) {
+                    if (attacker instanceof ImmortalersMob immMob) {
+                        minDamage += immMob.getMinDamage();
+                    } else minDamage += 2;
+                    needMinDamage = true;
+                }
+
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) {
+                    if (attacker instanceof ImmortalersMob immMob) {
+                        minDamage += immMob.getMinDamage();
+                    } else minDamage += 2.5f;
+                    needMinDamage = true;
+                }
+
                 if (hurtOne.hasEffect(ImmortalersDelightMobEffect.VULNERABLE.get())) {
                     int amplifier = Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get())).getAmplifier();
                     minDamage *= (amplifier + 2);
                 }
 
-                boolean needMinDamage = false;
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) {
-                    float damageProgress = 0;
-                    if (attacker instanceof ImmortalersMob immMob) {
-                        damageProgress = immMob.getAttackProportion();
-                        minDamage += hurtOne.getMaxHealth() * damageProgress;
-                    }
-                    needMinDamage = true;
-                }
-
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) {
-                    float damageProgress = 0.05F;
-                    if (attacker instanceof ImmortalersMob immMob) {
-                        damageProgress = immMob.getAttackProportion();
-                    }
-                    if (attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) > 0) {
-                        float buffer = (float) (event.getAmount() / attacker.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                        if (buffer < 1.0F) damageProgress *= buffer;
-                    }
-                    minDamage += hurtOne.getMaxHealth() * damageProgress;
-                    needMinDamage = true;
-                }
-
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)) {
-                    float damageProgress = 0.05F;
-                    if (attacker instanceof ImmortalersMob immMob) {
-                        damageProgress = immMob.getAttackProportion();
-                    }
-                    if (attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) > 0) {
-                        float buffer = (float) (event.getAmount() / attacker.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                        damageProgress *= buffer;
-                    }
-                    minDamage += hurtOne.getMaxHealth() * damageProgress;
-                    needMinDamage = true;
-                }
-
-                if (needMinDamage) {
-                    /*暂时注释以测试BUG*/
-//                    hurtOne.setHealth(Math.max(hurtOne.getHealth() - minDamage, 0.01F));
+                if (needMinDamage && minDamage > 0) {
+                    event.setAmount(event.getAmount() + minDamage);
                 }
             }
         }
-
     }
 
     /**
@@ -163,7 +133,7 @@ public class DifficultyModeEventHelper {
                     }
                 }
 
-                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MINI_BOSS)) {
+                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) {
                     damageDivisor = 0.08f;
                     if (hurtOne instanceof ImmortalersMob immMob) {
                         damageDivisor = immMob.getDamageDivisor();
@@ -178,4 +148,165 @@ public class DifficultyModeEventHelper {
             }
         }
     }
+
+    //这里用来实现实体的最小击杀次数，这个Map用于记录特殊无敌帧的实体
+//    private static final Map<UUID, Float> entityWithHealth = new ConcurrentHashMap<>();
+//
+//    public static Map<UUID, Float> getEntityHealth() {return entityWithHealth;}
+//
+//    public static final String LAST_HEALTH = ImmortalersDelightMod.MODID + "_Kast_Meif";
+//
+//    public static void addToMap(LivingEntity entity) {
+//        /* 判断合理的实体目标 */
+//        if (entity == null || entity.isRemoved() || entity.level().isClientSide()) {return;}
+//        /* 获取实体UUID以唯一标记对应实体 */
+//        UUID uuid = entity.getUUID();
+//        entityWithHealth.put(uuid,entity.getHealth());
+//        HashMap<UUID, Float> mapClone = new HashMap<>(entityWithHealth);
+//        DeathlessEffectPacket packet = new DeathlessEffectPacket(mapClone);
+//        ImmortalersNetwork.sendMSGToAll(packet);
+//    }
+//
+//    private static void removeFromMap (LivingEntity entity) {
+//        if (entity == null || entity.isRemoved() || entity.level().isClientSide()) {return;}
+//        UUID uuid = entity.getUUID();
+//        if (entityWithHealth.get(uuid) != null) {entityWithHealth.remove(uuid);}
+//        HashMap<UUID, Float> mapClone = new HashMap<>(entityWithHealth);
+//        DeathlessEffectPacket packet = new DeathlessEffectPacket(mapClone);
+//        ImmortalersNetwork.sendMSGToAll(packet);
+//    }
+//
+//
+//    public static void CheckAndClearMap(Level level) {
+//        Map<UUID, EffectData> needClearMap = new HashMap<>();
+//        for (UUID uuid : needClearMap.keySet()) {
+//            if (level instanceof ServerLevel serverLevel && serverLevel.getEntity(uuid) instanceof LivingEntity living) {
+//                HashMap<UUID, Float> mapClone = new HashMap<>(entityWithHealth);
+//                DeathlessEffectPacket packet = new DeathlessEffectPacket(mapClone);
+//                ImmortalersNetwork.sendMSGToAll(packet);
+//            }
+//            if (level.isClientSide()) {
+//                entityWithHealth.remove(uuid);
+//            }
+//        }
+//    }
+//
+//    public static boolean reSpawnEntity(LivingEntity entity) {
+//        if (entity == null) return false;
+//        UUID uuid = entity.getUUID();
+//        CompoundTag tag = entity.getPersistentData();
+//        boolean flag = false;
+//        if (!tag.contains(LAST_HEALTH, Tag.TAG_FLOAT)) {
+//            tag.putFloat(LAST_HEALTH, entity.getHealth());
+//            HashMap<UUID, Float> map1 = new HashMap<>(entityWithHealth);
+//            if (map1.get(uuid) != null && entity.getHealth() < map1.get(uuid)) {
+//                entity.setHealth(map1.get(uuid));
+//                flag = true;
+//            } else if (entity.getHealth() < 1) {
+//                entity.setHealth(1);
+//                flag = true;
+//            }
+//        } else if (tag.getFloat(LAST_HEALTH) > entity.getHealth()) {
+//            entity.setHealth(tag.getFloat(LAST_HEALTH));
+//            flag = true;
+//        } else if (entity.getHealth() < 1) {
+//            entity.setHealth(1);
+//            flag = true;
+//        }
+//        if (flag) {
+//            spawnParticle(entity, 1);
+//            entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:debug")))), 0);
+//        }
+//        entity.deathTime = -2;
+//        return flag;
+//    }
+//
+//    /**
+//     * 在生物的tick事件处理防改血逻辑
+//     * @param event
+//     */
+//    @SubscribeEvent
+//    public static void onTick(LivingEvent.LivingTickEvent event) {
+//        /* 判断当前实体是否合法 */
+//        LivingEntity entity = event.getEntity();
+//        if (entity == null || entity.isRemoved() || !entity.isAlive()) {return;}
+//
+//        /*防改血代码*/
+//        if (entity.level().isClientSide()) {
+//            UUID uuid = entity.getUUID();
+//            HashMap<UUID, Float> map1 = new HashMap<>(bufferMap);
+//            if (map1.get(uuid) == null) return;
+//            entity.deathTime = -2;
+//            if (reSpawnEntity(entity)) {
+//                entity.invulnerableTime = 20;
+//                entity.hurtDuration = 10;
+//                entity.hurtTime = 10;
+//            }
+//        } else {
+//            /* 获取当前实体的效果结束时刻 */
+//            UUID uuid = entity.getUUID();
+//            HashMap<UUID, EffectData> map = new HashMap<>(entityHasEffect);
+//            if (map.get(uuid) == null) {return;}
+//            Long expireTime = map.get(uuid).getTime();
+//            /* 具体效果的实现逻辑 */
+//            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
+//                reSpawnEntity(entity);
+//                if (entity.invulnerableTime < 20) entity.invulnerableTime = 20;
+//            } else removeImmortalEffect(entity);
+//        }
+//    }
+//
+//
+//    @SubscribeEvent
+//    public static void unDying(LivingDeathEvent event) {
+//        if (!DifficultyModeUtil.isPowerBattleMode()) return;
+//        LivingEntity deadEntity = event.getEntity();
+//        if (deadEntity == null) {return;}
+//        if (deadEntity.level().isClientSide()) {return;}
+//        UUID uuid = deadEntity.getUUID();
+//        if (entityHasEffect.get(uuid) != null) {
+//            Long expireTime = entityHasEffect.get(uuid).getTime();
+//            /* 具体效果的实现逻辑 */
+//            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
+//                reSpawnEntity(deadEntity);
+//                event.setCanceled(true);
+//            }
+//        }
+//    }
+//
+//    /**
+//     * 订阅生物掉落事件，再次实现复活逻辑
+//     * @param event 生物掉落事件（包含掉落列表、死亡生物、伤害来源等信息）
+//     */
+//    @SubscribeEvent(priority = EventPriority.HIGHEST)
+//    public static void onLivingDrops(LivingDropsEvent event) {
+//        if (!DifficultyModeUtil.isPowerBattleMode()) return;
+//        LivingEntity deadEntity = event.getEntity();
+//        if (deadEntity == null) {return;}
+//        if (deadEntity.level().isClientSide()) {return;}
+//        UUID uuid = deadEntity.getUUID();
+//        if (entityHasEffect.get(uuid) != null) {
+//            Long expireTime = entityHasEffect.get(uuid).getTime();
+//            /* 具体效果的实现逻辑 */
+//            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
+//                reSpawnEntity(deadEntity);
+//                event.getDrops().clear();
+//                event.setCanceled(true);
+//            }
+//        }
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

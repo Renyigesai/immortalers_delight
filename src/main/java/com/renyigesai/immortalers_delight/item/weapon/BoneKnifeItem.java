@@ -11,6 +11,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.item.ImmortalersKnifeItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -137,7 +138,7 @@ public class BoneKnifeItem extends ImmortalersKnifeItem {
         consumer.accept(new IClientItemExtensions() {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new BoneKnifeItemRenderer();
+                return new ItemTESRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
             }
         });
     }
@@ -203,38 +204,38 @@ public class BoneKnifeItem extends ImmortalersKnifeItem {
         }
 
     }
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
-    public static class ClientEventBus{
-        @SubscribeEvent
-        public static void onModelBaked(ModelEvent.ModifyBakingResult event){
-            // 在这里替换烘焙模型
-            // 注意，一旦替换BakedModel，ItemRenderer所做的变换将全部失效，所以你需要自己在自定义渲染器中从头处理整套流程
-            Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
-            if (true) {
-                ModelResourceLocation location = new ModelResourceLocation(BuiltInRegistries.ITEM.getKey(ImmortalersDelightItems.BONE_KNIFE.get()), "inventory");
-                BakedModel existingModel = modelRegistry.get(location);
-                if (existingModel == null) {
-                    throw new RuntimeException("Did not find Obsidian Hidden in registry");
-                } else if (existingModel instanceof BoneKnifeBakedModel) {
-                    throw new RuntimeException("Tried to replaceObsidian Hidden twice");
-                } else {
-                    BoneKnifeBakedModel obsidianWrenchBakedModel = new BoneKnifeBakedModel(existingModel);
-                    event.getModels().put(location, obsidianWrenchBakedModel);
-                }
-            }
+//
+//    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
+//    public static class ClientEventBus{
+//        @SubscribeEvent
+//        public static void onModelBaked(ModelEvent.ModifyBakingResult event){
+//            // 在这里替换烘焙模型
+//            // 注意，一旦替换BakedModel，ItemRenderer所做的变换将全部失效，所以你需要自己在自定义渲染器中从头处理整套流程
+//            Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
 //            if (true) {
-//                ModelResourceLocation location = new ModelResourceLocation(BuiltInRegistries.ITEM.getKey(ImmortalersDelightItems.JENG_NANU.get()), "inventory");
+//                ModelResourceLocation location = new ModelResourceLocation(BuiltInRegistries.ITEM.getKey(ImmortalersDelightItems.BONE_KNIFE.get()), "inventory");
 //                BakedModel existingModel = modelRegistry.get(location);
 //                if (existingModel == null) {
 //                    throw new RuntimeException("Did not find Obsidian Hidden in registry");
-//                } else if (existingModel instanceof ItemTESRBakedModel) {
+//                } else if (existingModel instanceof BoneKnifeBakedModel) {
 //                    throw new RuntimeException("Tried to replaceObsidian Hidden twice");
 //                } else {
-//                    ItemTESRBakedModel obsidianWrenchBakedModel = new ItemTESRBakedModel(existingModel);
+//                    BoneKnifeBakedModel obsidianWrenchBakedModel = new BoneKnifeBakedModel(existingModel);
 //                    event.getModels().put(location, obsidianWrenchBakedModel);
 //                }
 //            }
-        }
-    }
+////            if (true) {
+////                ModelResourceLocation location = new ModelResourceLocation(BuiltInRegistries.ITEM.getKey(ImmortalersDelightItems.JENG_NANU.get()), "inventory");
+////                BakedModel existingModel = modelRegistry.get(location);
+////                if (existingModel == null) {
+////                    throw new RuntimeException("Did not find Obsidian Hidden in registry");
+////                } else if (existingModel instanceof ItemTESRBakedModel) {
+////                    throw new RuntimeException("Tried to replaceObsidian Hidden twice");
+////                } else {
+////                    ItemTESRBakedModel obsidianWrenchBakedModel = new ItemTESRBakedModel(existingModel);
+////                    event.getModels().put(location, obsidianWrenchBakedModel);
+////                }
+////            }
+//        }
+//    }
 }

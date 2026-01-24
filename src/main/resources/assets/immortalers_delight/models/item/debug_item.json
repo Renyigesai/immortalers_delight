@@ -9,6 +9,24 @@
                 "immortalers_delight_model_type": 1
             },
             "model": "immortalers_delight:custom/ki_blast_entity"
+        },
+        {
+            "predicate": {
+                "immortalers_delight_model_type": 2
+            },
+            "model": "immortalers_delight:custom/large_column_in_gui"
+        },
+        {
+            "predicate": {
+                "immortalers_delight_model_type": 3
+            },
+            "model": "immortalers_delight:custom/bone_knife_all"
+        },
+        {
+            "predicate": {
+                "immortalers_delight_model_type": 4
+            },
+            "model": "immortalers_delight:custom/jeng_nanu_all"
         }
     ]
 }

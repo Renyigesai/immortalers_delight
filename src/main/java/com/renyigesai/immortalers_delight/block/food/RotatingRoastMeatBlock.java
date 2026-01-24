@@ -7,9 +7,11 @@ import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -116,29 +118,8 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     }
 
     private boolean isHeated(Level level, BlockPos pos) {
-        Map<Integer,BlockPos> posMap = (new ImmutableMap.Builder<Integer,BlockPos>())
-                .put(0,pos.north())
-                .put(1,pos.south())
-                .put(2,pos.west())
-                .put(3,pos.east())
-                .build();
-        for (int i = 0;i < 4 && posMap.get(i) != null; i++) {
-            BlockState stateBelow = level.getBlockState(Objects.requireNonNull(posMap.get(i)));
-            if (stateBelow.is(ModTags.HEAT_SOURCES)) {
-                return stateBelow.hasProperty(BlockStateProperties.LIT) ? (Boolean)stateBelow.getValue(BlockStateProperties.LIT) : true;
-            } else {
-                if (stateBelow.is(ModTags.HEAT_CONDUCTORS)) {
-                    BlockState stateFurtherBelow = level.getBlockState(pos.below(2));
-                    if (stateFurtherBelow.is(ModTags.HEAT_SOURCES)) {
-                        if (stateFurtherBelow.hasProperty(BlockStateProperties.LIT)) {
-                            return (Boolean)stateFurtherBelow.getValue(BlockStateProperties.LIT);
-                        }
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        BlockState state = level.getBlockState(pos.below());
+        return state.is(BlockTags.create(new ResourceLocation("farmersdelight:heat_sources"))) && state.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(booleanProperty);
     }
 
     @Override

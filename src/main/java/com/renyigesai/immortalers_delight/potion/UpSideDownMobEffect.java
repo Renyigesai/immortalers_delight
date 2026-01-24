@@ -31,11 +31,12 @@ public class UpSideDownMobEffect extends MobEffect {
         if (entity.level().isClientSide()) return;
         if (entity instanceof Player player) {
             if (player.isShiftKeyDown()) {
-                if (player.hasEffect(MobEffects.LEVITATION)) player.removeEffect(MobEffects.LEVITATION);
-                if (!player.hasEffect(MobEffects.SLOW_FALLING)) player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0));
+                MobEffectInstance levitation = player.getEffect(MobEffects.LEVITATION);
+                if (levitation != null && levitation.getAmplifier() <= amplifier) player.removeEffect(MobEffects.LEVITATION);
+                if (player.tickCount % 20 == 0 || !player.hasEffect(MobEffects.SLOW_FALLING)) player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 25, 0));
             } else {
                 if (player.hasEffect(MobEffects.SLOW_FALLING)) player.removeEffect(MobEffects.SLOW_FALLING);
-                if (!player.hasEffect(MobEffects.LEVITATION)) player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 20, 0));
+                if (player.tickCount % 20 == 0 || !player.hasEffect(MobEffects.LEVITATION)) player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 25, 0));
             }
         } else if (entity.tickCount % 5 == 0 && entity instanceof Mob mob) {
             LivingEntity target = mob.getTarget();
@@ -65,16 +66,18 @@ public class UpSideDownMobEffect extends MobEffect {
     )
     public static class UpSideDownEvents {
         @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void addUnDamageTime(LivingEvent.LivingJumpEvent event) {
+        public static void addJumpSpeed(LivingEvent.LivingJumpEvent event) {
             LivingEntity entity = event.getEntity();
             MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get());
-            if (thisEffect != null) {
-                int lv = thisEffect.getAmplifier() + 1;
-                float vx = 0.2F;
-                float vy = 0.1F * (float)lv;
-                if (entity.hasEffect(MobEffects.JUMP)) vx += 1.0f;
+            if (thisEffect != null && !entity.level().isClientSide()) {
+                int lv = 1;
+                MobEffectInstance jumpEffect = entity.getEffect(MobEffects.JUMP);
+                if (jumpEffect != null) lv += jumpEffect.getAmplifier();
+                float vx = (jumpEffect != null ? 1.0F : 0.1F) + 0.1f * (float)lv;
+                float vy = 0.2F;
                 float f = entity.getYRot() * ((float)Math.PI / 180F);
                 entity.setDeltaMovement(entity.getDeltaMovement().add((double)(-Mth.sin(f) * vx), (double)vy, (double)(Mth.cos(f) *vx)));
+                entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15, thisEffect.getAmplifier() + 1));
             }
         }
 

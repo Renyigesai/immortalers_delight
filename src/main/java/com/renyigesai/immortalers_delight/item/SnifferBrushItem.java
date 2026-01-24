@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
+import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
@@ -12,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +33,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BrushableBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -131,7 +138,43 @@ public class SnifferBrushItem extends BrushItem {
                         if (!flag) pLivingEntity.releaseUsingItem();
                     }
                 }
-            } else {
+            }
+            //这里实现刷mod内的方块实体的逻辑
+            else if (hitResult instanceof BlockHitResult blockhitresult && hitResult.getType() == HitResult.Type.BLOCK) {
+                int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
+                boolean flag = i % 10 == 5;
+                if (flag) {
+                    //这个标记表示我们是否处理了自己的逻辑并需要打断原版刷子的逻辑。
+                    boolean needReturn = false;
+                    BlockPos blockpos = blockhitresult.getBlockPos();
+                    BlockState blockstate = pLevel.getBlockState(blockpos);
+                    Block $$18 = blockstate.getBlock();
+                    if ($$18 instanceof ModBrushableBlock brushableblock) {
+                        SoundEvent soundevent;
+                        HumanoidArm humanoidarm = pLivingEntity.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
+                        this.spawnDustParticles(pLevel, blockhitresult, blockstate, pLivingEntity.getViewVector(0.0F), humanoidarm);
+                        soundevent = brushableblock.getBrushSound();
+                        pLevel.playSound(player, blockpos, soundevent, SoundSource.BLOCKS);
+                        needReturn = true;
+                    } else {
+                        System.out.println("不是mod内方块");
+                    }
+                    if (!pLevel.isClientSide()) {
+                        //判断mod内方块实体，刷扫并扣耐久
+                        BlockEntity blockentity = pLevel.getBlockEntity(blockpos);
+                        if (blockentity instanceof ModBrushableBlockEntity brushableblockentity) {
+                            boolean flag1 = brushableblockentity.brush(pLevel.getGameTime(), player, blockhitresult.getDirection());
+                            if (flag1) {
+                                EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
+                                pStack.hurtAndBreak(1, pLivingEntity, (p_279044_) -> {
+                                    p_279044_.broadcastBreakEvent(equipmentslot);
+                                });
+                            }
+                            needReturn = true;
+                        } else System.out.println("mod内方块实体不存在");
+                    }
+                    if (needReturn) return;
+                }
                 super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
             }
         } else {

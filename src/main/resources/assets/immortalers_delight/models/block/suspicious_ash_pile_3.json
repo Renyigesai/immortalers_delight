@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/suspicious_ash_pile",
+  "textures": {
+    "0": "immortalers_delight:block/suspicious_ash_pile_3",
+		"particle": "immortalers_delight:block/suspicious_ash_pile_3"
+  }
+}

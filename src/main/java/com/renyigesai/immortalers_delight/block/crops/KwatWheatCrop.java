@@ -99,21 +99,22 @@ public class KwatWheatCrop extends ReapCropBlock {
         super.entityInside(state, level, pPos, pEntity);
         if (pEntity instanceof LivingEntity) {
             int age = state.getValue(AGE);
-            if (state.getValue(POISON) && age == 7) {
-                if (pEntity instanceof Ravager && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, pEntity)) {
+            if (age == 7) {
+                if (state.getValue(POISON) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, pEntity)) {
                     makeAreaOfEffectCloud(level,pPos);
-                }
-                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(3.0D, 3.0D, 3.0D));
-                if (!list.isEmpty()) {
-                    for (LivingEntity livingentity : list) {
-                        if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
-                            livingentity.hurt(level.damageSources().cactus(), 2.0F);
-                            livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
+                } else {
+                    List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(3.0D, 3.0D, 3.0D));
+                    if (!list.isEmpty()) {
+                        for (LivingEntity livingentity : list) {
+                            if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
+                                livingentity.hurt(level.damageSources().cactus(), 2.0F);
+                                livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
+                            }
                         }
                     }
                 }
                 spawnParticle(level, pPos);
-                level.setBlock(pPos, state.setValue(AGE,5), 3);
+                level.setBlock(pPos, state.setValue(AGE,5).setValue(POISON,false), 3);
             }
         }
     }
@@ -170,12 +171,6 @@ public class KwatWheatCrop extends ReapCropBlock {
 
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return pState.is(Blocks.SOUL_SAND) || pState.is(Blocks.SOUL_SOIL);
-    }
-
-    // 获取放置方块时的状态的方法
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        boolean flag = pContext.getLevel().random.nextInt(4) != 0;
-        return this.defaultBlockState().setValue(POISON,flag);
     }
 
     @Override

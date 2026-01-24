@@ -163,6 +163,7 @@ public class ImmortalersDelightMod {
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), AncientStoveBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SUPPORT_BLOCK_ENTITY.get(), SupportBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(),TangyuanBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE_BLOCK_ENTITY.get(),NaanPitBlockRenderer::new);
 
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get(), SkelverfishRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_BOMBER.get(), SkelverfishBomberRenderer::new);
@@ -219,9 +220,9 @@ public class ImmortalersDelightMod {
             ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), new ResourceLocation(MODID + "_" + "firework"), (stack, world, entity, seed) -> {
                 return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
             });
-//            ItemProperties.register(ImmortalersDelightItems.JENG_NANU.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
-//                return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
-//            });
+            ItemProperties.register(ImmortalersDelightItems.LARGE_COLUMN.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
+                return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
+            });
         }
     }
 

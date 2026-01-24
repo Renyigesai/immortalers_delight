@@ -16,6 +16,9 @@ public interface ImmortalersMob {
     //获取生物的伤害百分比，用于超凡模式保底伤害
     float getAttackProportion();
 
+    //获取生物的最小伤害，用于超凡模式保底伤害
+    float getMinDamage();
+
     //获取生物的伤害除数，用于超凡模式的高伤害衰减
     int getDamageDivisor();
 

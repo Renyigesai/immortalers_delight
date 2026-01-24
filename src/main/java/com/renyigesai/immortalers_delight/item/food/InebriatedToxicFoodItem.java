@@ -12,8 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -29,7 +31,9 @@ import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class InebriatedToxicFoodItem extends DrinkableItem {
@@ -68,7 +72,7 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
      * @param level 实体所在的游戏世界，用于判断是否为客户端，以及获取随机数生成器。
      * @param livingEntity 食用物品的实体，即要添加药水效果的对象。
      */
-    private void addInebriatedEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
+    public static void addInebriatedEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
         // 从物品栈中获取具体的物品
         Item item = stack.getItem();
         // 检查该物品是否为可食用物品
@@ -87,12 +91,37 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
                         int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0;
                         int time = pair.getFirst().getDuration() + oldTime;
                         int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
-                        livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
-                        //InebriatedEffect.applyImmortalEffect(livingEntity,(double) time / 20 + 0.1,lv);
+//                        if (DifficultyModeUtil.isPowerBattleMode() || livingEntity instanceof Player) {
+//                            addEffectWithoutCanBeAffected(livingEntity, new MobEffectInstance(pair.getFirst().getEffect(), time, lv), null);
+//                        } else
+                            livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(), time, lv));
                     }
                     else  livingEntity.addEffect(pair.getFirst());
                 }
             }
+        }
+    }
+
+    public static boolean addEffectWithoutCanBeAffected(LivingEntity livingEntity, MobEffectInstance pEffectInstance, @Nullable Entity source) {
+        Map<MobEffect, MobEffectInstance> activeEffects = livingEntity.getActiveEffectsMap();
+        MobEffectInstance mobeffectinstance = activeEffects.get(pEffectInstance.getEffect());
+        if (mobeffectinstance == null) {
+            activeEffects.put(pEffectInstance.getEffect(), pEffectInstance);
+            if (!livingEntity.level().isClientSide()) {
+                pEffectInstance.getEffect().addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
+                livingEntity.sendEffectToPassengers(pEffectInstance);
+            }
+            return true;
+        } else if (mobeffectinstance.update(pEffectInstance)) {
+            if (!livingEntity.level().isClientSide()) {
+                MobEffect mobeffect = pEffectInstance.getEffect();
+                mobeffect.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
+                mobeffect.addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
+                livingEntity.sendEffectToPassengers(pEffectInstance);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 

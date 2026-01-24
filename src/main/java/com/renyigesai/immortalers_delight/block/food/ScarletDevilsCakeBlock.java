@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.food;
 
 import com.mojang.datafixers.util.Pair;
+import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
@@ -33,7 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock {
+public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock implements PlateBaseBlock {
 
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,8);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,12.0D,15.0D);
@@ -156,5 +157,10 @@ public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BITES,FACING);
+    }
+
+    @Override
+    public boolean isEmptyPlate(BlockState state) {
+        return state.getValue(BITES) == 8;
     }
 }

@@ -1,4 +1,4 @@
-package com.renyigesai.immortalers_delight.block;
+package com.renyigesai.immortalers_delight.block.brushable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

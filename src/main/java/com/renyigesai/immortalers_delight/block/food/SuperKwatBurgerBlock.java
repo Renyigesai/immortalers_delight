@@ -3,7 +3,9 @@ package com.renyigesai.immortalers_delight.block.food;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.init.PoweredFoodProperties;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -60,7 +62,8 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
         int bites = state.getValue(BITES);
         if (bites < 4){
             if (player.canEat(false)){
-                FoodProperties foodproperties = ImmortalersDelightFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_SLICE;
+                FoodProperties foodproperties = DifficultyModeUtil.isPowerBattleMode() ?
+                        PoweredFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_SLICE : ImmortalersDelightFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_SLICE;
                 player.getFoodData().eat(foodproperties.getNutrition(), foodproperties.getSaturationModifier());
                 addFoodPoisonEffect(foodproperties, level, player);
                 level.gameEvent(player, GameEvent.EAT, pos);
@@ -86,7 +89,7 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
                 // 条件判断：
                 // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
                 // 2. 药水效果实例不为空，确保有有效的药水效果。
-                if (!level.isClientSide && pair.getFirst() != null && pair.getFirst().getEffect() == ImmortalersDelightMobEffect.GAS_POISON.get()) {
+                if (!level.isClientSide && pair.getFirst() != null) {
                     // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
                     // 然后将该药水效果添加到食用物品的实体上。
                     entity.addEffect(new MobEffectInstance(pair.getFirst()));

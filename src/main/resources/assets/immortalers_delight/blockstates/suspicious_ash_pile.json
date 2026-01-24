@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east,dusted=0": {"model": "immortalers_delight:block/suspicious_ash_pile_1", "y": 270},
+    "facing=east,dusted=1": {"model": "immortalers_delight:block/suspicious_ash_pile_2", "y": 270},
+    "facing=east,dusted=2": {"model": "immortalers_delight:block/suspicious_ash_pile_3", "y": 270},
+    "facing=east,dusted=3": {"model": "immortalers_delight:block/suspicious_ash_pile_4", "y": 270},
+
+    "facing=north,dusted=0": {"model": "immortalers_delight:block/suspicious_ash_pile_1", "y": 180},
+    "facing=north,dusted=1": {"model": "immortalers_delight:block/suspicious_ash_pile_2", "y": 180},
+    "facing=north,dusted=2": {"model": "immortalers_delight:block/suspicious_ash_pile_3", "y": 180},
+    "facing=north,dusted=3": {"model": "immortalers_delight:block/suspicious_ash_pile_4", "y": 180},
+
+    "facing=south,dusted=0": {"model": "immortalers_delight:block/suspicious_ash_pile_1"},
+    "facing=south,dusted=1": {"model": "immortalers_delight:block/suspicious_ash_pile_2"},
+    "facing=south,dusted=2": {"model": "immortalers_delight:block/suspicious_ash_pile_3"},
+    "facing=south,dusted=3": {"model": "immortalers_delight:block/suspicious_ash_pile_4"},
+
+    "facing=west,dusted=0": {"model": "immortalers_delight:block/suspicious_ash_pile_1", "y": 90},
+    "facing=west,dusted=1": {"model": "immortalers_delight:block/suspicious_ash_pile_2", "y": 90},
+    "facing=west,dusted=2": {"model": "immortalers_delight:block/suspicious_ash_pile_3", "y": 90},
+    "facing=west,dusted=3": {"model": "immortalers_delight:block/suspicious_ash_pile_4", "y": 90}
+  }
+}

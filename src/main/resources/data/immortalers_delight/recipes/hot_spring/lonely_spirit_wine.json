@@ -1,0 +1,17 @@
+{
+  "type": "immortalers_delight:hot_spring",
+  "ingredients": [
+    {
+    "item": "immortalers_delight:dreumk_wine"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "tag": "forge:enchanting_fuels"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:lonely_spirit_wine"
+  }
+}

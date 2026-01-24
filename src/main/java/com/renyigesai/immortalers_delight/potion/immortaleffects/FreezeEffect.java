@@ -7,6 +7,7 @@ import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +26,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -63,6 +65,9 @@ public class FreezeEffect {
         /* 将实体与Buff相关数据保存到Map */
         EffectData effectData = new EffectData(entity.blockPosition(),expireTime,amplifier,entity.getRandom().nextInt());
         entityHasEffect.put(uuid,effectData);
+        if (entity instanceof Player player) player.displayClientMessage(
+                Component.translatable("message." +ImmortalersDelightMod.MODID+ ".effect.freeze", new Object[0]),
+                true);
     }
 
     /**
@@ -136,6 +141,7 @@ public class FreezeEffect {
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
             //令实体处于寒冷状态
             entity.setIsInPowderSnow(true);
+            entity.setTicksFrozen(entity.getTicksRequiredToFreeze() + 4);
             spawnParticle(entity, 1);
             //为实体添加缓慢并造成冻结伤害
             if (entity.tickCount % 40 == 20) {

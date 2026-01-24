@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "/": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " ##",
+    " ##",
+    "/  "
+  ],
+  "result": {
+    "item": "immortalers_delight:spoon"
+  },
+  "show_notification": true
+}

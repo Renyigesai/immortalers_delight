@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -67,6 +69,9 @@ public class StunEffect {
         /* 将实体与Buff相关数据保存到Map */
         EffectData effectData = new EffectData(entity.blockPosition(),expireTime,amplifier,entity.getRandom().nextInt());
         entityHasEffect.put(uuid,effectData);
+        if (entity instanceof Player player) player.displayClientMessage(
+                Component.translatable("message." +ImmortalersDelightMod.MODID+ ".effect.stun", new Object[0]),
+                true);
     }
 
     /**

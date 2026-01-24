@@ -1,4 +1,4 @@
-package com.renyigesai.immortalers_delight.block;
+package com.renyigesai.immortalers_delight.block.brushable;
 
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishAmbusher;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
