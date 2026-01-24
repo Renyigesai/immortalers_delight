@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -13,7 +14,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -63,12 +68,14 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         super.animateTick(pState, pLevel, pPos, pRandom);
+        //优化性能，如果顶上是完整方块，则不生成粒子
+        if (isFaceFull(pLevel.getBlockState(pPos.above()).getCollisionShape(pLevel, pPos.above()), Direction.DOWN)) return;
         double x = pPos.getX() + 0.5;
         double y = pPos.above().getY();
         double z = pPos.getZ() + 0.5;
         Random random = new Random();
         boolean isNether = pLevel.dimension() == Level.NETHER;
-        if (isHeatSources(pLevel,pPos) || (isNether && pLevel.getGameTime() % 5 == 0)){
+        if ((isNether && pLevel.getGameTime() % 10 == 0) || isHeatSources(pLevel,pPos)){
             pLevel.addParticle(ParticleTypes.POOF,x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
             pLevel.addParticle(ModParticleTypes.STEAM.get(),x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
         } else if (pLevel.getGameTime() % 20 == 0) pLevel.addParticle(ParticleTypes.POOF,x + random.nextDouble(-0.5,0.5),y,z + random.nextDouble(-0.5,0.5),0,0,0);
@@ -83,7 +90,7 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     public boolean isHeatSources(Level level, BlockPos pos){
         BlockState stateBelow = level.getBlockState(pos.below());
         if (stateBelow.is(ModTags.HEAT_SOURCES)) {
-            return stateBelow.hasProperty(BlockStateProperties.LIT) ? (Boolean)stateBelow.getValue(BlockStateProperties.LIT) : true;
+            return stateBelow.hasProperty(BlockStateProperties.LIT) ? stateBelow.getValue(BlockStateProperties.LIT) : !stateBelow.getFluidState().is(ImmortalersDelightFluids.HOT_SPRING.get());
         } else if (stateBelow.is(ModTags.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = level.getBlockState(pos.below(2));
             if (stateFurtherBelow.is(ModTags.HEAT_SOURCES)) {
@@ -149,9 +156,24 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         super.entityInside(pState, pLevel, pPos, pEntity);
-        if (!isHeatSources(pLevel,pPos))
+        //平静的温泉会对生物施加恢复效果(自然对亡灵生物无效)
+        if (!isHeatSources(pLevel,pPos)) {
+            if (pEntity instanceof LivingEntity living){
+                if (living.tickCount % 25 == 0) {
+                    living.addEffect(new MobEffectInstance(MobEffects.REGENERATION,50,0,false,false));
+                }
+            }
             return;
-        if (pEntity instanceof ItemEntity){
+        }
+        if (pEntity instanceof LivingEntity living) {
+            //沸腾状态下的温泉如灵魂火造成伤害，但对亡灵生物造成治疗效果
+            if (!living.getMobType().equals(MobType.UNDEAD) && !living.fireImmune()) {
+//                living.setRemainingFireTicks(pEntity.getRemainingFireTicks() + 1);
+//                if (living.getRemainingFireTicks() == 0) {pEntity.setSecondsOnFire(8);}
+                living.hurt(pLevel.damageSources().inFire(), 2.0f);
+            }
+            if (living.getMobType().equals(MobType.UNDEAD) && living.tickCount % 25 == 0) living.heal(1.0f);
+        } else if (pEntity instanceof ItemEntity){
             pLevel.scheduleTick(pPos,this,5);
         }
     }

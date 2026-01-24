@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.entities.projectile;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.StunEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -131,15 +132,9 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
 
             // 若伤害成功，且被命中实体是活体实体，附加眩晕效果
             if (isHurtSuccess && hitEntity instanceof LivingEntity livingHitEntity) {
-                int duration = 0;
-
+                int duration = DifficultyModeUtil.isPowerBattleMode() ? 40 : 10;
                 double knockbackResistance = livingHitEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-                if (knockbackResistance == 0) {
-                    duration = 40;
-                } else if (knockbackResistance < 0.4D) {
-                    duration = 10;
-                }
-
+                duration *= 1 - knockbackResistance;
                 if (duration > 0) {
                     StunEffect.applyImmortalEffect(livingHitEntity, duration, 0);
                 }

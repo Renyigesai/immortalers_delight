@@ -52,7 +52,7 @@ public class NaanBakingPitBlock extends HorizontalDirectionalBlock {
     }
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide && pState.getValue(LIT)) {
             pEntity.hurt(pEntity.damageSources().hotFloor(), 1.1F);
             pEntity.setSecondsOnFire(8);
         }
@@ -63,6 +63,7 @@ public class NaanBakingPitBlock extends HorizontalDirectionalBlock {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (itemstack.getItem() == Items.MAGMA_BLOCK) {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(LIT, Boolean.valueOf(true)));
+                if (!pPlayer.isCreative()) itemstack.shrink(1);
                 return InteractionResult.sidedSuccess(pLevel.isClientSide);
             }
         }

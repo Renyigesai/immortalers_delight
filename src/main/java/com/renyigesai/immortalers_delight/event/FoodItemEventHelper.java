@@ -128,6 +128,7 @@ public class FoodItemEventHelper {
     public static void shootKiBlast(LivingEntity attacker) {
         LivingEntity livingEntity = attacker;
         if (livingEntity.level() instanceof ServerLevel serverLevel) {
+            //产生冲击波击退周围生物
             List<LivingEntity> list = livingEntity.level().getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.getOnPos()).inflate(3.0D, 3.0D, 3.0D));
             if (!list.isEmpty()) {
                 for (LivingEntity hurtOne : list) {
@@ -135,21 +136,13 @@ public class FoodItemEventHelper {
                         float damage = (float) hurtOne.getAttributeValue(Attributes.ATTACK_DAMAGE);
                         damage = Math.min(damage, 5.0f) * (DifficultyModeUtil.isPowerBattleMode() ? 3.85f : 2.3f);
                         hurtOne.hurt(hurtOne.level().damageSources().mobAttack(livingEntity), damage);
-                        double knockBackResistance = hurtOne.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-                        if (knockBackResistance < 1.0D) {
-                            Vec3 directionVector = hurtOne.getPosition(1.0f).subtract(livingEntity.getPosition(1.0f));
-                            double distance = livingEntity.distanceToSqr(hurtOne);
-                            hurtOne.setDeltaMovement(hurtOne.getDeltaMovement().add(
-                                    directionVector.x / (1 + 0.2 * distance) * (1 - knockBackResistance), 0.5D, directionVector.z / (1 + 0.2 * distance) * (1 - knockBackResistance)));
-                            hurtOne.setYRot(hurtOne.yHeadRot);
-                            hurtOne.setOnGround(false);
-                            hurtOne.hasImpulse = true;
-                        }
+                        strongKnockback(hurtOne, livingEntity);
                     }
                 }
             }
             spawnShriekParticle(serverLevel, livingEntity.getX(), livingEntity.getY() + livingEntity.getEyeHeight() * 0.5f, livingEntity.getZ(),1);
         }
+        //发射气功波实体
         // 1. 获取玩家的视线方向向量
         Vec3 lookDirection = livingEntity.getViewVector(1.0F);
         // 2. 后续逻辑：如沿该方向生成投射物（示例）
@@ -174,6 +167,27 @@ public class FoodItemEventHelper {
                 0.0D, 0.0D, 0.0D,// 位置无偏移
                 0.0D             // 速度（无作用）
         );
+    }
+    //气功波具有掠夺兽击退，超凡模式下改为令其进行一次远古守卫者跳跃
+    private static void strongKnockback(LivingEntity hurtOne, LivingEntity attacker) {
+        double knockBackResistance = hurtOne.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        if (DifficultyModeUtil.isPowerBattleMode()) {
+            if (knockBackResistance < 1.0D) {
+                Vec3 directionVector = hurtOne.getPosition(1.0f).subtract(attacker.getPosition(1.0f));
+                double distance = attacker.distanceToSqr(hurtOne);
+                hurtOne.setDeltaMovement(hurtOne.getDeltaMovement().add(
+                        directionVector.x / (1 + 0.2 * distance) * (1 - knockBackResistance), 0.5D, directionVector.z / (1 + 0.2 * distance) * (1 - knockBackResistance)));
+                hurtOne.setYRot(hurtOne.yHeadRot);
+                hurtOne.setOnGround(false);
+                hurtOne.hasImpulse = true;
+            }
+        } else {
+            if (knockBackResistance > hurtOne.getRandom().nextFloat()) return;
+            double d0 = hurtOne.getX() - attacker.getX();
+            double d1 = hurtOne.getZ() - attacker.getZ();
+            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+            hurtOne.push(d0 / d2 * 4.0D, 0.2D, d1 / d2 * 4.0D);
+        }
     }
 
     @SubscribeEvent

@@ -1759,7 +1759,7 @@ public class ImmortalersDelightItems {
         STRANGE_ARMOUR_STAND_SPAWN_EGG = register("strange_armour_stand_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,1645516,6845733,new Item.Properties()));
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
 
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 

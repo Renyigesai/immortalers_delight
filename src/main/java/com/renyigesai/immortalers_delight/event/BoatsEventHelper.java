@@ -116,7 +116,7 @@ public class BoatsEventHelper {
                         level.setBlockAndUpdate(blockpos1, ImmortalersDelightBlocks.EMPTY_PLATE.get().defaultBlockState());
                         if (!player.getAbilities().instabuild) {
                             player.getItemInHand(otherHand).shrink(1);
-                            itemStack.hurtAndBreak(125, serverPlayer, (action) -> {
+                            itemStack.hurtAndBreak(2, serverPlayer, (action) -> {
                                 action.broadcastBreakEvent(event.getHand());
                             });
                         }
