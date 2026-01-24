@@ -186,6 +186,12 @@ public class ImmortalersHammerItem extends DiggerItem {
                 );
                 event.getToolTip().add(textValue.withStyle(ChatFormatting.BLUE));
             }
+            if (stack.is(ImmortalersDelightTags.STRAW)) {
+                MutableComponent textValue = Component.translatable(
+                        "tooltip." +ImmortalersDelightMod.MODID+ ".is_straw"
+                );
+                event.getToolTip().add(textValue.withStyle(ChatFormatting.BLUE));
+            }
         }
     }
 }

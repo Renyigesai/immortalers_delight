@@ -1,9 +1,12 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -27,6 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implements PlateBaseBlock {
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,4);
@@ -46,7 +50,7 @@ public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implemen
         ItemStack hand = pPlayer.getItemInHand(pHand);
         if (hand.is(ModTags.KNIVES)){
             return cut(pState, pLevel, pPos, pPlayer, pHand, pHit);
-        }
+        } else messageOnUse(pPlayer);
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
@@ -64,6 +68,10 @@ public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implemen
         return InteractionResult.SUCCESS;
     }
 
+    public void messageOnUse(Player player){
+        if (player.level().isClientSide()) return;
+        player.displayClientMessage(Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".cut_" + BuiltInRegistries.BLOCK.getKey(this).getPath().replace('/', '.')), true);
+    }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());

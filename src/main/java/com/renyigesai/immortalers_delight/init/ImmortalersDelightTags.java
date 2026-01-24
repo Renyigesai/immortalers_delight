@@ -22,7 +22,7 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
     public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
     public static final TagKey<Item> MILK = createItemTag("milk");
-    public static final TagKey<Item> STRAW = createItemTag("straw");
+    public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
     public static final TagKey<Block> MINEABLE_HAMMER = createBlockTag("mineable/meat_tenderizer");
 

@@ -849,8 +849,9 @@ public class ImmortalersDelightBlocks {
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
                     1)
-                {@Override public int getMaxBites(){return 8;}
-                @Override public boolean isEdible(){return false;}
+                {   @Override public int getMaxBites(){return 8;}
+                    @Override public boolean isEdible(){return false;}
+                    @Override public boolean isCuttable(ItemStack stack){return true;}
     });
     /*烟杆*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)

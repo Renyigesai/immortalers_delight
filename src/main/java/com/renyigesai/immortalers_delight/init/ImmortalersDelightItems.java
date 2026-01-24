@@ -10,6 +10,9 @@ import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.weapon.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
@@ -20,10 +23,12 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -1690,11 +1695,19 @@ public class ImmortalersDelightItems {
                         true,false));
         CAUSTIC_ESSENTIAL_OIL = registerWithTab("caustic_essential_oil",()->
                 new ThrowableDrinkBlockItem(ImmortalersDelightBlocks.CAUSTIC_ESSENTIAL_OIL.get(), (new Item.Properties()).stacksTo(16),false,true));
+
         NAN_DOUGH = registerWithTab("nan_dough", () ->
                 new BlockItem(ImmortalersDelightBlocks.NAAN_BAKING_PIT.get(), new Item.Properties()){
                     @Override
                     public String getDescriptionId() {return this.getOrCreateDescriptionId();}
+                    @Override
+                    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+                        MutableComponent textValue = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".nan_dough");
+                        tooltip.add(textValue.withStyle(ChatFormatting.GRAY));
+                        super.appendHoverText(stack, level, tooltip, isAdvanced);
+                    }
                 });
+
         NAAN_BAKING_PIT = register("naan_baking_pit", () ->
                 new BlockItem(ImmortalersDelightBlocks.NAAN_BAKING_PIT.get(), new Item.Properties()));
         SUSPICIOUS_ASH_PILE = block(ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE);
@@ -1760,7 +1773,6 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
-
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 

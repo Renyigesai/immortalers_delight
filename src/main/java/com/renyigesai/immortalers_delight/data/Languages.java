@@ -165,6 +165,11 @@ public class Languages extends LanguageProvider {
         createTooltip(IS_COLORFUL+ "bowl_of_this_side_down","完全失重状态下你难以施力。","Unable to exert force in full weightlessness.");
         createTooltip("can_place_on_plate","可放置于空盘上","Placeable on empty plates.");
         createTooltip("spoon","将碗放置为空盘子","Place an bowl item with empty plate block.");
+        createTooltip("nan_dough","使用岩浆块覆盖以进行烤制","Cover with magma blocks for baking.");
+        createTooltip("is_straw","可作为吸管","can be use as a Straw");
+        createTooltip("cut_ku_mesh_non","你需要用刀切开它","You need a knife to cut it.");
+        createTooltip("cut_large_column","你需要用斧子劈开它","You need an axe to split it.");
+        createTooltip("cut_pod_shell_burger_meat","你需要用刀切开它","You need a knife to cut it.");
 
         createFarmersdelightTooltip("large_column","2x Damage Block; Drops edible shards on block.","格挡两次伤害，格挡伤害时产生可食用的碎片");
         createFarmersdelightTooltip("ku_mesh_non","Exceptional Mass","不同寻常的分量");

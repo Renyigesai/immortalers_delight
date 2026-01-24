@@ -1,11 +1,15 @@
 package com.renyigesai.immortalers_delight.block;
 
 import com.mojang.datafixers.util.Pair;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -33,6 +37,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.function.Supplier;
 
@@ -60,14 +65,14 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
-        if (!player.isShiftKeyDown()){
-            if (hand_stack.is(this.pileItem.get())){
-                return pileUp(state, level, pos, player, hand);
-            }else if (isCuttable(hand_stack)) {
-                return cut(state, level, pos, player);
-            }
-        }else if (isEdible()){
-            return eat(state, level, pos, player);
+        if (hand_stack.is(this.pileItem.get())){
+            return pileUp(state, level, pos, player, hand);
+        } else if (isCuttable(hand_stack)) {
+            return cut(state, level, pos, player);
+        } else if (isEdible() && eat(state, level, pos, player)){
+            return InteractionResult.SUCCESS;
+        }else {
+            messageOnUse( player);
         }
         return super.use(state, level, pos, player, hand, hitResult);
     }
@@ -86,7 +91,11 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
     public ItemStack getPileItem(){
         return new ItemStack(this.pileItem.get());
     }
-    public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){
+    public void messageOnUse(Player player){
+        if (player.level().isClientSide()) return;
+        player.displayClientMessage(Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".cut_" + BuiltInRegistries.BLOCK.getKey(this).getPath().replace('/', '.')), true);
+    }
+    public boolean eat(BlockState state, Level level, BlockPos pos, Player player){
             int bites = state.getValue(BITES);
             if (bites < getMaxBites()){
                 if (player.canEat(false)){
@@ -96,7 +105,7 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
                     level.gameEvent(player, GameEvent.EAT, pos);
                     level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
                 }else {
-                    return InteractionResult.PASS;
+                    return false;
                 }
             }else {
                 level.destroyBlock(pos, false);
@@ -104,7 +113,7 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
                         new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
                 level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             }
-            return InteractionResult.SUCCESS;
+            return true;
     }
 
     public InteractionResult cut(BlockState state, Level level, BlockPos pos, Player player){
