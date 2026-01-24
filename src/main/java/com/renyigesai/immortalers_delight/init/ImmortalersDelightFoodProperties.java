@@ -1145,7 +1145,7 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(MobEffects.REGENERATION,200),1.0F)
             .build();
 
-    public static final FoodProperties GIANT_TART_SLICE = new FoodProperties.Builder().saturationMod(1.25f).nutrition(3).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1,200),1f).fast().build();
+    public static final FoodProperties GIANT_TART_SLICE = new FoodProperties.Builder().saturationMod(1.25f).nutrition(5).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),200,1),1f).fast().build();
 
     public static final FoodProperties ABC_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),9600),1f).alwaysEat().build();
     public static final FoodProperties ABBLUE_BEAUTY_C_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),8400),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),2400),1f).alwaysEat().build();
