@@ -577,6 +577,7 @@
   "tooltip.immortalers_delight.is_can_feed": "Can be fed to fool other mobs.",
   "tooltip.immortalers_delight.is_immortalers_hammers": "Meat Tenderizer",
   "tooltip.immortalers_delight.is_immortalers_knives": "Ancient-style Knife",
+  "tooltip.immortalers_delight.nan_dough": "Cover with magma blocks for baking.",
   "tooltip.immortalers_delight.potion_coating_count": "Potion Coating：%d / %d",
   "tooltip.immortalers_delight.power_battle_mode_hint": "Immortaler`s Delight:You have enabled §9Power Battle Mode§f，If you need to make any changes, please go to §9immortalers_delight-common.toml§f Modified in the middle §9powerBattleMode§f.Modify§9powerBattleModeHint§fDisable this prompt.",
   "tooltip.immortalers_delight.spoon": "Place an bowl item with empty plate block.",

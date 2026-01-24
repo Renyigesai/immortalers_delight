@@ -33,6 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.function.Supplier;
 
@@ -65,6 +66,8 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
                 return pileUp(state, level, pos, player, hand);
             }else if (isCuttable(hand_stack)) {
                 return cut(state, level, pos, player);
+            } else {
+                player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item", new Object[0]), true);
             }
         }else if (isEdible()){
             return eat(state, level, pos, player);
