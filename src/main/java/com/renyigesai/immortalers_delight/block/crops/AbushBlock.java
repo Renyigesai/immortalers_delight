@@ -46,7 +46,7 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
 
     @Override
     public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(STAGE) < 3 || pState.getValue(LAVALOGGED);
+        return (pState.getValue(STAGE) < 3) || (pState.getValue(LAVALOGGED));
     }
 
     @Override
@@ -55,16 +55,17 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
     }
 
     private void onRandomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom){
-        if (!pState.getValue(LAVALOGGED)){
-            return;
-        }
+        System.out.println("Yes-0");
         if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(6) == 0)) {
             if (pState.getValue(STAGE) < 3) {
+                System.out.println("Yes-1");
                 pLevel.setBlock(pPos, pState.setValue(STAGE, pState.getValue(STAGE) + 1), 3);
-            } else {
+            }else if (pState.getValue(LAVALOGGED)){
+                System.out.println("Yes-2");
                 BlockState newBlockState = ImmortalersDelightBlocks.A_BUSH_LOG.get().defaultBlockState().setValue(BasicsLogsBlock.AXIS, Direction.Axis.Y);
-                pLevel.sendBlockUpdated(pPos, pState,newBlockState, 3);
+                pLevel.setBlockAndUpdate(pPos,newBlockState);
             }
+            System.out.println("Yes-3");
         }
     }
 

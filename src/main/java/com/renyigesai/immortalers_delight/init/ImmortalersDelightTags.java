@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.Block;
 public class ImmortalersDelightTags {
     public static final TagKey<Biome> IS_CRIMSON_FOREST = createBiomeTag("is_crimson_forest");
     public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
+    public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
+    public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
 
     public static final TagKey<Item> ANCIENT_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_boat_need_1");
     public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_boat_need_2");

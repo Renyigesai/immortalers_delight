@@ -304,6 +304,8 @@ public class Languages extends LanguageProvider {
         createAdvancement("eat_alfalfa_porridge",translateText("Long Term Vegetarian Diet","长期素食导致的"),translateText("Eat Alfalfa Porridge.","食用一碗苜蓿七草粥。"));
         createAdvancement("crimson_clouds",translateText("Crimson Clouds","绯红烟云"),translateText("Unusual wheat seeds in Crimson Forest.","在绯红森林获得不同寻常的小麦种子。"));
         createAdvancement("all_resistance_effects",translateText("Never Say Die","永不破防"),translateText("Get All Resistance Effect.","获得所有抵抗效果。"));
+        createAdvancement("ealdaec_gemhus",translateText("Ealdæc Gemhūs","古炊凡家"),translateText("Get the ancient seeds from the plains.","千秋一粟，在平原获得酷似玉米粒的玉黎粒。"));
+        createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
     }
 
     private void addEntitys(){
