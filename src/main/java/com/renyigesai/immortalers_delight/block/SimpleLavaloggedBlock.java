@@ -16,6 +16,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 
 public interface SimpleLavaloggedBlock extends BucketPickup, LiquidBlockContainer {
     public static final BooleanProperty LAVALOGGED = BooleanProperty.create("lavalogged");
@@ -51,5 +52,9 @@ public interface SimpleLavaloggedBlock extends BucketPickup, LiquidBlockContaine
 
     default Optional<SoundEvent> getPickupSound() {
         return Fluids.LAVA.getPickupSound();
+    }
+
+    public static ToIntFunction<BlockState> litBlockLight() {
+        return (p_50763_) -> p_50763_.getValue(LAVALOGGED) ? 15 : 0;
     }
 }

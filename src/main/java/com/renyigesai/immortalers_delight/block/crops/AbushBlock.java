@@ -9,9 +9,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -23,7 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 
-public class AbushBlock extends Block implements SimpleLavaloggedBlock {
+public class AbushBlock extends Block implements SimpleLavaloggedBlock, BonemealableBlock {
 
     private static final VoxelShape BOX_0;
     private static final VoxelShape BOX_1;
@@ -55,17 +57,13 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
     }
 
     private void onRandomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom){
-        System.out.println("Yes-0");
         if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(6) == 0)) {
             if (pState.getValue(STAGE) < 3) {
-                System.out.println("Yes-1");
                 pLevel.setBlock(pPos, pState.setValue(STAGE, pState.getValue(STAGE) + 1), 3);
             }else if (pState.getValue(LAVALOGGED)){
-                System.out.println("Yes-2");
                 BlockState newBlockState = ImmortalersDelightBlocks.A_BUSH_LOG.get().defaultBlockState().setValue(BasicsLogsBlock.AXIS, Direction.Axis.Y);
                 pLevel.setBlockAndUpdate(pPos,newBlockState);
             }
-            System.out.println("Yes-3");
         }
     }
 
@@ -111,5 +109,21 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock {
         SHAPE_BY_AGE = new VoxelShape[]{
                BOX_0,BOX_1,BOX_2,BOX_3
         };
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean b) {
+        return blockState.getValue(STAGE) < 3;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+        int value = blockState.getValue(STAGE);
+        serverLevel.setBlock(blockPos,blockState.setValue(STAGE,value + 1),3);
     }
 }
