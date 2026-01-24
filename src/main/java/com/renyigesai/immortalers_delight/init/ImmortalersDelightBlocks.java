@@ -517,7 +517,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final RegistryObject<Block> LEISAMBOO_BLOCK = BLOCKS.register("leisamboo_block",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+            new Block(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS)));
 
     @BlockData
     public static final RegistryObject<Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",
@@ -854,7 +854,7 @@ public class ImmortalersDelightBlocks {
     });
     /*烟杆*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
+    public static final RegistryObject<Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).lightLevel(SimpleLavaloggedBlock.litBlockLight())));
 
     @BlockData
     public static final RegistryObject<BasicsLogsBlock> A_BUSH_LOG = BLOCKS.register("a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
