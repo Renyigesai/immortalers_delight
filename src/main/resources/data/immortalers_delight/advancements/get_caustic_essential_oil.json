@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:caustic_essential_oil"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_caustic_essential_oil.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_caustic_essential_oil.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:caustic_essential_oil"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:fog_lifting_movement"
+}

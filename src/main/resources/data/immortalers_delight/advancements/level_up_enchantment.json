@@ -1,0 +1,17 @@
+{
+  "display": {
+    "title": {"translate": "advancements.immortalers_delight.level_up_enchantment.title"},
+    "description": {"translate": "advancements.immortalers_delight.level_up_enchantment.descr"},
+    "icon": {"item": "minecraft:writable_book"},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "level_up_enchantment": {
+      "trigger": "immortalers_delight:level_up_enchantment"
+    }
+  },
+  "requirements": [["level_up_enchantment"]],
+  "parent": "immortalers_delight:ealdaec_gemhus"
+}
