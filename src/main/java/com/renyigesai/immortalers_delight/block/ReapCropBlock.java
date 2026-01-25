@@ -27,7 +27,6 @@ public class ReapCropBlock extends CropBlock {
         if (canReap(state, level, pos, player, hand, hitResult)) {
             boolean temp = false;
             if (level instanceof ServerLevel level1) {
-//                    dropResources(state,level1,pos,null,player,player.getMainHandItem());
                 List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
                 if (!stacks.isEmpty()) {
                     for (ItemStack stack : stacks) {

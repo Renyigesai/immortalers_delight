@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -73,6 +74,8 @@ public class Languages extends LanguageProvider {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        addBlocks();
+        addFluids();
         addLatiao();
         addTooltips();
         addMessages();
@@ -112,13 +115,23 @@ public class Languages extends LanguageProvider {
         }
     }
 
+    private void addBlocks(){
+        addBlock(ImmortalersDelightBlocks.LEISAMBOO_STALK,"含茶竹节");
+        addBlock(ImmortalersDelightBlocks.EMPTY_PLATE,"空盘");
+        addBlock(ImmortalersDelightBlocks.HOT_SPRING_BLOCK,"温泉");
+    }
+
+    private void addFluids(){
+        add("fluid_type.immortalers.delight.hot_spring","Hot Spring","温泉");
+    }
+
     private void addLatiao(){
-        addItem(Ltc2Items.EVOLUTCORN_POWDER,"白垩玉黎粉");
-        addItem(Ltc2Items.EVOLUTCORN_LATIAO,"白垩玉黎辣条");
-        addItem(Ltc2Items.RARE_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
-        addItem(Ltc2Items.SUPERIOR_EVOLUTCORN_LATIA,"白垩玉黎辣条");
-        addItem(Ltc2Items.DELICACY_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
-        addItem(Ltc2Items.TREASURE_EVOLUTCORN_LATIAO,"白垩玉黎辣条");
+        addItem(Ltc2Items.EVOLUTCORN_POWDER,"白垩玉黍粉");
+        addItem(Ltc2Items.EVOLUTCORN_LATIAO,"白垩玉黍辣条");
+        addItem(Ltc2Items.RARE_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
+        addItem(Ltc2Items.SUPERIOR_EVOLUTCORN_LATIA,"白垩玉黍辣条");
+        addItem(Ltc2Items.DELICACY_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
+        addItem(Ltc2Items.TREASURE_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
 
         addItem(Ltc2Items.KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
         addItem(Ltc2Items.RARE_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
@@ -135,7 +148,7 @@ public class Languages extends LanguageProvider {
         addItem(Ltc2Items.IMMORTALERS_LATIAO_LUCKY_BAG,"千古辣条福袋");
         addItem(Ltc2Items.HAKO_LATIAO,"「小盒子」的辣条");
         addItem(Ltc2Items.WINDY_NARRATOR_LATIA,"「Windy Narrator」的辣条");
-        addItem(Ltc2Items.MOASWIES_LATIAO,"「Moaswies Latiao」的辣条");
+        addItem(Ltc2Items.MOASWIES_LATIAO,"「Moaswies」的辣条");
         addItem(Ltc2Items.RENYIGESAI_LATIAO,"「人一个噻」的辣条");
         addItem(Ltc2Items.LYZ_DELIGHT_LATIAO,"「LYZ」的辣条");
         addItem(Ltc2Items.XIAOSUHUAJI_LATIAO,"「小苏滑稽」的辣条");
@@ -281,7 +294,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("immortalers_delight",translateText("Immortalers Delight","千古乐事"),translateText("An ancient taste, waiting to be unearthed.","远古之味，静待出土。"));
         createAdvancement("wundor_forbodaeppel",translateText("Wundor Forbodaeppel","乐园禁果"),translateText("Get the miracle seed from the forest.","获得来自森林的奇迹之籽。"));
         createAdvancement("what_s_this_have_a_eat",translateText("What s This Have a Eat","这是什么？吃一下"),translateText("Eat the roasted poisonous potatoes.","吃下烤毒马铃薯。"));
-        createAdvancement("treow_meregrot",translateText("Treow Meregrot","木上蚌珠"),translateText("Get a black jewel from the jungle.","获得来自丛林的黑色宝珠。"));
+        createAdvancement("treow_meregrot",translateText("Treow Meregrot","木上珍蚌"),translateText("Get a black jewel from the jungle.","获得来自丛林的黑色宝珠。"));
         createAdvancement("the_eternal_flow",translateText("The Eternal Flow","千古一流"),translateText("Get Contains Tea Leisamboo at the Biver.","在河流获得含茶竹节。"));
         createAdvancement("the_ability_to_trigger_miracles",translateText("The Ability to Trigger Miracles","引发奇迹的能力！"),translateText("Get Enchanted Golden Himekaido.","获得金魔法果。"));
         createAdvancement("sniffer_move",translateText("Sniffer Move","嗅探兽,移动！"),translateText("Use Sachets to accelerate the movement of Sniffer.","利用谷物香囊加速嗅探兽移动。"));
@@ -297,20 +310,24 @@ public class Languages extends LanguageProvider {
         createAdvancement("get_pitcher_pod_petal",translateText("Cheese Cheese？","芝士芝士？"),translateText("Get Pitcher Pod Petal.","获取瓶子草荚果瓣。"));
         createAdvancement("get_pitcher_pod",translateText("Mohe glassware","漠河琉璃"),translateText("Get Pitcher Pod.","获得瓶子草荚果。"));
         createAdvancement("get_perfect_summer_ice",translateText("We are the strongest!","咱是最强的！"),translateText("Crafting a Perfect Summer Ice.","制作一个完美夏冰。"));
-        createAdvancement("get_pearlip_rice_roll_boat",translateText("Get Pearlip Rice Roll Boat","黄蕉时代将会再临！！"),translateText("Crafting a Pearlip Rice Roll Boat.","制作一个棱蕉寿司船。"));
+        createAdvancement("get_pearlip_rice_roll_boat",translateText("Get Pearlip Rice Roll Boat","黄蕉时代将会再临！"),translateText("Crafting a Pearlip Rice Roll Boat.","制作一个棱蕉寿司船。"));
         createAdvancement("get_leisamboo_tea",translateText("Small can tea, made from large bamboo","小罐茶，大竹做"),translateText("Get Leisamboo Tea.","获得溪竹茶。"));
         createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
         createAdvancement("get_double_ancient_blade",translateText("Death Momoi?!","死亡小桃？！"),translateText("Obtain two [Ancient Blade Newly Whetted], and then cut your enemies to pieces.","获得两把新硎古刀，然后切碎你的敌人。"));
-        createAdvancement("get_alfalfa_seeds",translateText("Ordinary as grass","草介之凡"),translateText("Get Alfalfa Seeds.","获得古苜蓿种子。"));
+        createAdvancement("get_alfalfa_seeds",translateText("Ordinary as grass","草芥之凡"),translateText("Get Alfalfa Seeds.","获得古苜蓿种子。"));
         createAdvancement("fog_lifting_movement",translateText("Fog Lifting Movement","扬雾运动"),translateText("Touch Kwat Wheat.","触碰瓦斯麦。"));
         createAdvancement("esteemed_guest",translateText("Hearken, wild legions! Your strength is mine!","蛮族精兵，为我所用！"),translateText("Right-click to send golden toast. In any struggle, the key to victory lies in gaining more allies and isolating the adversary.","右键送出金瓦斯麦吐司。记住，在斗争中取胜的关键是——把朋友搞得多多的，把敌人搞得少少的。"));
-        createAdvancement("eat_iced_black_tea",translateText("Essential for the exam","考试必备"),translateText("Drink Iced Black Tea.","喝下冰火茶。"));
+        createAdvancement("eat_iced_black_tea",translateText("Essential for the exam","考试必备"),translateText("Drink Iced Black Tea.","喝下冰红茶。"));
         createAdvancement("eat_evolutcorn_hard_candy",translateText("Funny Character","搞笑角色"),translateText("Eat Evolutcorn Hard Candy and find that you are less vulnerable to damage while eating.","吃下玉黍硬糖。可以发现在吃糖的过程中更不易受到伤害。"));
         createAdvancement("eat_alfalfa_porridge",translateText("Long Term Vegetarian Diet","长期素食导致的"),translateText("Eat Alfalfa Porridge.","食用一碗苜蓿七草粥。"));
         createAdvancement("crimson_clouds",translateText("Crimson Clouds","绯红烟云"),translateText("Unusual wheat seeds in Crimson Forest.","在绯红森林获得不同寻常的小麦种子。"));
         createAdvancement("all_resistance_effects",translateText("Never Say Die","永不破防"),translateText("Get All Resistance Effect.","获得所有抵抗效果。"));
         createAdvancement("ealdaec_gemhus",translateText("Ealdæc Gemhūs","古炊凡家"),translateText("Get the ancient seeds from the plains.","千秋一粟，在平原获得酷似玉米粒的玉黎粒。"));
         createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
+        createAdvancement("get_gelpitaya",translateText("Snowbound Dragon","雪境妖龙"),translateText("Obtain gelpitaya in Ice Spikes.","在冰刺之地获得冰蛟果。"));
+        createAdvancement("get_a_bush",translateText("Hardship Ends, Joy Begins","苦尽余华"),translateText("Obtain Abush in the Nether Wastes.","在下界荒地获得烬烟杆。"));
+        createAdvancement("get_hot_spring_bucket",translateText("A clear current","一股清流"),translateText("Plant the warped laurel in the soul sand, and then place water around it. When the warped laurel plants naturally mature, the water will be transformed into a hot spring!","将诡怨桂种在灵魂沙后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！"));
+        createAdvancement("get_onsen_tamago",translateText("Can be cooked!＼(^◡^)／","泉都可以煮！＼(^◡^)／"),translateText("Place a heat source beneath the hot spring, and then throw an egg in!","在温泉底下放置热源，然后丢一个蛋进去！"));
         createAdvancement("level_up_enchantment",translateText("Apply what you have learned","学以致用"),translateText("Under the influence of cultural heritage, enhance the enchanted book in your hand.","在文化底蕴的濡染下，改进你手上的附魔书。"));
         createAdvancement("pass_sniffer_cooldown",translateText("Use the floating sniffing method","应当使用飘闻法"),translateText("At a safe distance, let your sniffer savor the orifice-clearing efficacy of the caustic essential oil.","在安全的距离上，让你的嗅探兽品味炽烈精油的通窍功效。"));
         createAdvancement("get_caustic_essential_oil",translateText("Chloro-Phos Brave","氯磷好汉"),translateText("Obtain the Crimson Gas Potion, prove to your opponents that you have reasons to never lose.","获得绯红瓦斯药水，向对手证明你有不能输的理由。"));
@@ -396,6 +413,12 @@ public class Languages extends LanguageProvider {
     public void addItem(Supplier<? extends Item> key, String zh_cn) {
         String path = BuiltInRegistries.ITEM.getKey(key.get()).getPath();
         this.add(key.get().getDescriptionId(), this.getEnglishName(path), zh_cn);
+    }
+
+    @Override
+    public void addBlock(Supplier<? extends Block> key, String zh_cn) {
+        String path = BuiltInRegistries.BLOCK.getKey(key.get()).getPath();
+        this.add(key.get().getDescriptionId(),this.getEnglishName(path),zh_cn);
     }
 
     protected void addItem(Supplier<? extends Item> key, String en_us, String zh_cn) {

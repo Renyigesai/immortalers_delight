@@ -79,11 +79,11 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
-            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
+            new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     @BlockData
     public static final RegistryObject<Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
-            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
+            new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     @BlockData
     public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->

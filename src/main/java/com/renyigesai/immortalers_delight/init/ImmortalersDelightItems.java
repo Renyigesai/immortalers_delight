@@ -41,15 +41,15 @@ public class ImmortalersDelightItems {
     /*系列装饰方块--姬海棠*/
     @ItemData(zhCn = "姬海棠原木",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_LOG;
-    @ItemData(zhCn = "姬海棠木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木头",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_WOOD;
-    @ItemData(zhCn = "去皮姬海棠木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮姬海棠木头",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_WOOD;
     @ItemData(zhCn = "去皮姬海棠原木",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_LOG;
-    @ItemData(zhCn = "结果的姬海棠树叶叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "结果的姬海棠树叶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_FRUITED_LEAVES;
-    @ItemData(zhCn = "盛开的姬海棠叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "盛开的姬海棠树叶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_FLOWERING_LEAVES;
     @ItemData(zhCn = "姬海棠树叶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_LEAVES;
@@ -87,7 +87,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
     @ItemData(zhCn = "箱装姬海棠",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> HIMEKAIDO_CRATE;
-    @ItemData(zhCn = "箱装棱蕉",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "箱装珍珠棱蕉",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> PEARLIP_CRATE;
     @ItemData(zhCn = "白垩玉黍捆",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
@@ -191,9 +191,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
     @ItemData(zhCn = "嗅探兽毛榻榻米方块",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SNIFFER_FUR_TATAMI;
-    @ItemData(zhCn = "嗅探兽长毛榻榻米")
+    @ItemData(zhCn = "嗅探兽毛长榻榻米垫")
     public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
-    @ItemData(zhCn = "嗅探兽毛短榻榻米")
+    @ItemData(zhCn = "嗅探兽毛短榻榻米垫")
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
 
 
@@ -210,7 +210,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> POPOLUTCORN;
     @ItemData(zhCn = "玉黍饭团")
     public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
-    @ItemData(zhCn = "缤纷烤串")
+    @ItemData(zhCn = "缤纷谷串")
     public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
     @ItemData(zhCn = "玉黍烙")
     public static final RegistryObject<Item> ZEA_PANCAKE;
@@ -224,11 +224,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
     @ItemData(zhCn = "玉黍硬糖")
     public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
-    @ItemData(zhCn = "桶装玉黍面糊")
+    @ItemData(zhCn = "桶装白垩玉黍面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE_BUCKET;
     @ItemData(zhCn = "白垩玉黍面糊")
     public static final RegistryObject<Item> EVOLUTCORN_PASTE;
-    @ItemData(zhCn = "玉黍面包")
+    @ItemData(zhCn = "白垩玉黍面包")
     public static final RegistryObject<Item> EVOLUTCORN_BREAD;
     @ItemData(zhCn = "玉黍饺子")
     public static final RegistryObject<Item> EVOLUTCORN_JIAOZI;
@@ -246,15 +246,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIPEARL;
     @ItemData(zhCn = "热带沙拉")
     public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
-    @ItemData(zhCn = "棱蕉奶昔")
+    @ItemData(zhCn = "珍珠棱蕉奶昔")
     public static final RegistryObject<Item> PEARLIP_MILK_SHAKE;
-    @ItemData(zhCn = "棱蕉南瓜派")
+    @ItemData(zhCn = "珍珠棱蕉南瓜派")
     public static final RegistryObject<Item> PEARLIP_PUMPKIN_PIE;
-    @ItemData(zhCn = "棱蕉蛋挞")
+    @ItemData(zhCn = "珍珠棱蕉蛋挞")
     public static final RegistryObject<Item> PEARLIPEARL_TART;
     @ItemData(zhCn = "蕉香蒸蛋")
     public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
-    @ItemData(zhCn = "棱蕉果冻")
+    @ItemData(zhCn = "珍珠棱蕉果冻")
     public static final RegistryObject<Item> PEARLIP_JELLY;
     @ItemData(zhCn = "珍珠棱蕉派")
     public static final RegistryObject<Item> PEARLIP_PIE;
@@ -262,7 +262,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
     @ItemData(zhCn = "冻棱蕉")
     public static final RegistryObject<Item> ICE_PEARLIP;
-    @ItemData(zhCn = "巧克力蕉棒")
+    @ItemData(zhCn = "巧克力棱蕉棒")
     public static final RegistryObject<Item> CHOCOLATE_PEARLIP_STICKS;
     @ItemData(zhCn = "完美夏冰")
     public static final RegistryObject<Item> PERFECT_SUMMER_ICE;
@@ -298,9 +298,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> YOGURT;
     @ItemData(zhCn = "姬海棠果")
     public static final RegistryObject<Item> HIMEKAIDO;
-    @ItemData(zhCn = "烤毒土豆")
+    @ItemData(zhCn = "烤毒马铃薯")
     public static final RegistryObject<Item> BAKED_POISONOUS_POTATO;
-    @ItemData(zhCn = "四眼丸子")
+    @ItemData(zhCn = "碗装四眼丸子")
     public static final RegistryObject<Item> BRAISED_SPIDER_EYES_IN_GRAVY;
     @ItemData(zhCn = "酱蘸腐肉")
     public static final RegistryObject<Item> DIPPED_ROTTEN_FLESH;
@@ -318,7 +318,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ENCHANTED_GOLDEN_HIMEKAIDO;
     @ItemData(zhCn = "姬海棠种子")
     public static final RegistryObject<Item> HIMEKAIDO_SEED;
-    @ItemData(zhCn = "碗装瓦罐烂肉炖")
+    @ItemData(zhCn = "碗装的瓦罐烂肉炖")
     public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     @ItemData(zhCn = "鞑靼鸡肉")
     public static final RegistryObject<Item> TARTARE_CHICKEN;
@@ -333,9 +333,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GIANT_TART_SLICE;
     @ItemData(zhCn = "醉梦姬")
     public static final RegistryObject<Item> DREUMK_WINE;
-    @ItemData(zhCn = "绯红冰淇淋")
+    @ItemData(zhCn = "红楼冰淇淋")
     public static final RegistryObject<Item> SCARLET_GELATO;
-    @ItemData(zhCn = "绯红大圣代")
+    @ItemData(zhCn = "红楼大圣代")
     public static final RegistryObject<Item> SCARLET_SUNDAE;
     @ItemData(zhCn = "姬海棠茶泡饭")
     public static final RegistryObject<Item> HIMEKAIDO_CHAZUKE;
@@ -356,7 +356,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_WOOD;
     @ItemData(zhCn = "去皮古木",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
-    @ItemData(zhCn = "古木木板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木板",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
     @ItemData(zhCn = "古木橱柜",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
@@ -418,25 +418,25 @@ public class ImmortalersDelightItems {
 
 
     /*
-    通天竹相关
+    通天菅相关
     */
-    @ItemData(zhCn = "通天竹节",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "通天菅节",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
-    @ItemData(zhCn = "去皮通天竹节",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮通天菅节",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
-    @ItemData(zhCn = "通天竹叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "通天菅叶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
-    @ItemData(zhCn = "结实的通天竹叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "结实的通天菅叶",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
-    @ItemData(zhCn = "通天竹板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "菅草板",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> TRAVA_PLANKS;
-    @ItemData(zhCn = "通天竹米")
+    @ItemData(zhCn = "菅板材")
     public static final RegistryObject<Item> TRAVAPLANK;
-    @ItemData(zhCn = "通天竹稻")
+    @ItemData(zhCn = "菅米")
     public static final RegistryObject<Item> TRAVARICE;
-    @ItemData(zhCn = "熟通天竹稻")
+    @ItemData(zhCn = "菅米饭")
     public static final RegistryObject<Item> COOKED_TRAVARICE;
-    @ItemData(zhCn = "通天竹酒")
+    @ItemData(zhCn = "通天菅酒")
     public static final RegistryObject<Item> TRAVEER;
 
 
@@ -493,11 +493,11 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> INCANDESCENCE_SUSHI;
     @ItemData(zhCn = "火把花饼")
     public static final RegistryObject<Item> TORCHFLOWER_CAKE;
-    @ItemData(zhCn = "火花咖喱饭")
+    @ItemData(zhCn = "火把花咖喱饭")
     public static final RegistryObject<Item> TORCHFLOWER_CURRY_RICE;
     @ItemData(zhCn = "特辣意面")
     public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
-    @ItemData(zhCn = "火花曲奇")
+    @ItemData(zhCn = "火花芥末曲奇")
     public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
 
 
@@ -569,7 +569,7 @@ public class ImmortalersDelightItems {
 
 
     /*考古与冒险相关*/
-    @ItemData(zhCn = "虫蚀的砂砾",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "虫蚀的沙砾",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> INFESTED_GRAVEL;
     @ItemData(zhCn = "虫蚀的沙子",model = ItemData.ModelType.BLOCK)
     public static final RegistryObject<Item> INFESTED_SAND;
@@ -646,9 +646,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SPIKE_BAR_BASE;
 
     /*诡怨藤*/
-    @ItemData(zhCn = "诡怨藤种子")
+    @ItemData(zhCn = "诡怨桂种子")
     public static final RegistryObject<Item> WARPED_LAUREL_SEEDS;
-    @ItemData(zhCn = "诡怨藤")
+    @ItemData(zhCn = "诡怨桂果")
     public static final RegistryObject<Item> WARPED_LAUREL;
     @ItemData(zhCn = "卤鸡腿")
     public static final RegistryObject<Item> LU_CHICKEN_LEGS;
@@ -661,9 +661,9 @@ public class ImmortalersDelightItems {
 
 
     /*瓶子草*/
-    @ItemData(zhCn = "瓶子草荚壳碎")
+    @ItemData(zhCn = "瓶子草荚果瓣")
     public static final RegistryObject<Item> PITCHER_POD_PETAL;
-    @ItemData(zhCn = "瓶子草烧烤")
+    @ItemData(zhCn = "瓶子草烤肉")
     public static final RegistryObject<Item> PITCHER_PLANT_BARBECUE;
     @ItemData(zhCn = "荚壳汉堡肉")
     public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
@@ -671,17 +671,17 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
     @ItemData(zhCn = "辛荚佳朵")
     public static final RegistryObject<Item> AROMATIC_POD_AFFOGATO;
-    @ItemData(zhCn = "瓶子草烧卖")
+    @ItemData(zhCn = "瓶子皇烧麦")
     public static final RegistryObject<Item> PITCHER_PLANT_SHAO_MAI;
-    @ItemData(zhCn = "瓶子草饺子")
+    @ItemData(zhCn = "瓶子福袋饺")
     public static final RegistryObject<Item> PITCHER_PLANT_JIAO_ZI;
     @ItemData(zhCn = "芝香瓜果汁")
     public static final RegistryObject<Item> CHEESE_MELON_JUICE;
     @ItemData(zhCn = "瓶装芝香瓜果汁")
     public static final RegistryObject<Item> BOTTLE_MELON_JUICE;
-    @ItemData(zhCn = "瓶子草煲仔饭")
+    @ItemData(zhCn = "瓶子煲仔饭")
     public static final RegistryObject<Item> PITCHER_PLANT_CLAYPOT_RICE;
-    @ItemData(zhCn = "碗装瓶子草煲仔饭")
+    @ItemData(zhCn = "碗装瓶子煲仔饭")
     public static final RegistryObject<Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
 
 
@@ -734,7 +734,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN_HONEYCOMB_CAKE;
     @ItemData(zhCn = "玉麦寿司")
     public static final RegistryObject<Item> KWAT_POCKET_SUSHI;
-    @ItemData(zhCn = "玉珠挞")
+    @ItemData(zhCn = "玉黍挞")
     public static final RegistryObject<Item> EVOLUTCORN_MILLEFEUILLE;
     @ItemData(zhCn = "玉黍锅贴")
     public static final RegistryObject<Item> EVOLUTCORN_POT_STICKERS;
@@ -1050,7 +1050,7 @@ public class ImmortalersDelightItems {
         SNIFFER_FUR_FULL_TATAMI_MAT = block(ImmortalersDelightBlocks.SNIFFER_FUR_FULL_TATAMI_MAT);
         SNIFFER_FUR_HALF_TATAMI_MAT = block(ImmortalersDelightBlocks.SNIFFER_FUR_HALF_TATAMI_MAT);
 
-        /*通天竹*/
+        /*通天菅*/
         TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LOG);
         STRIPPED_TRAVASTRUGGLER_LOG = block(ImmortalersDelightBlocks.STRIPPED_TRAVASTRUGGLER_LOG);
         TRAVASTRUGGLER_LEAVES = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES);
@@ -1301,7 +1301,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.LEISAMBOO_TEA_CAKE),true, false));
 
         /*
-        通天竹
+        通天菅
         */
         COOKED_TRAVARICE = registerWithTab("cooked_travarice",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.COOKED_TRAVARICE),true));
 

@@ -6,6 +6,7 @@ import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.ObjectUtils;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
@@ -47,11 +49,10 @@ public class HotSpringFluidsBlock extends LiquidBlock {
 
 
     private Optional<HotSpringRecipe> getCurrentRecipe(Level level, List<ItemStack> list) {
-        SimpleContainer inventory = new SimpleContainer(6);
+        SimpleContainer inventory = new SimpleContainer(list.size());
         List<ItemStack> inputs = new ArrayList<>();
 
-        for (int i = 0; i < list.size(); i++) {
-            ItemStack stack = list.get(i);
+        for (ItemStack stack : list) {
             if (!stack.isEmpty()) {
                 inputs.add(stack);
             }
@@ -121,10 +122,10 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         if (itemEntityList.isEmpty())
             return;
         List<ItemStack> stackList = new ArrayList<>();
-        for (int i = 0; i < itemEntityList.size(); i++) {
-            ItemStack item = itemEntityList.get(i).getItem();
+        for (ItemEntity entity : itemEntityList) {
+            ItemStack item = entity.getItem();
             if (!item.isEmpty() && item.getCount() == 1) {
-                stackList.add(i,item);
+                stackList.add(item);
             }
         }
         if (stackList.isEmpty())

@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.recipe.category;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
@@ -52,5 +53,6 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ImmortalersDelightBlocks.ENCHANTAL_COOLER.get()), ENCHANTAL_COOLER_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ImmortalersDelightItems.HOT_SPRING_BUCKET.get()), HOT_SPRING_TYPE);
     }
 }
