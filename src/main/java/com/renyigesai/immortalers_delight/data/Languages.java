@@ -311,6 +311,9 @@ public class Languages extends LanguageProvider {
         createAdvancement("all_resistance_effects",translateText("Never Say Die","永不破防"),translateText("Get All Resistance Effect.","获得所有抵抗效果。"));
         createAdvancement("ealdaec_gemhus",translateText("Ealdæc Gemhūs","古炊凡家"),translateText("Get the ancient seeds from the plains.","千秋一粟，在平原获得酷似玉米粒的玉黎粒。"));
         createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
+        createAdvancement("level_up_enchantment",translateText("Apply what you have learned","学以致用"),translateText("Under the influence of cultural heritage, enhance the enchanted book in your hand.","在文化底蕴的濡染下，改进你手上的附魔书。"));
+        createAdvancement("pass_sniffer_cooldown",translateText("Use the floating sniffing method","应当使用飘闻法"),translateText("At a safe distance, let your sniffer savor the orifice-clearing efficacy of the caustic essential oil.","在安全的距离上，让你的嗅探兽品味炽烈精油的通窍功效。"));
+        createAdvancement("get_caustic_essential_oil",translateText("Chloro-Phos Brave","氯磷好汉"),translateText("Obtain the Crimson Gas Potion, prove to your opponents that you have reasons to never lose.","获得绯红瓦斯药水，向对手证明你有不能输的理由。"));
     }
 
     private void addEntitys(){

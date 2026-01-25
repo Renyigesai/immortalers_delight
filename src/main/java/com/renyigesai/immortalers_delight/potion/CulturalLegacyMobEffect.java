@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.ReinforcedEnchantUtil;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,6 +48,9 @@ public class CulturalLegacyMobEffect extends MobEffect {
                             } else if (progress >= 1000) {
                                 ReinforcedEnchantUtil.ReinforcedEnchantment(itemstack, amplifier + 1, player.experienceLevel, player.getLuck(), false);
                                 itemstack.getTag().putInt(BOOK_EDITING, progress - 1000);
+                                if (pEntity instanceof ServerPlayer serverPlayer) {
+                                    ImmortalersDelightMod.LEVEL_UP_ENCHANTMENT_TRIGGER.trigger(serverPlayer);
+                                }
                             }
                         }
                     }

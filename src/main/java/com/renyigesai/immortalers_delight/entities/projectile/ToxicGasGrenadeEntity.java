@@ -81,6 +81,7 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
     private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
         if (level.isClientSide()) return;
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+
         EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.2D, pPos.getZ() + 0.5D);
 
         effectCloud.setDangerous(true);
@@ -91,6 +92,7 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
         effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
 
         effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),isPowerful ? 640 : 560,0));
+        if (this.getOwner() != null && this.getOwner() instanceof LivingEntity livingEntity) effectCloud.setOwner(livingEntity);
 
         level.addFreshEntity(effectCloud);
     }

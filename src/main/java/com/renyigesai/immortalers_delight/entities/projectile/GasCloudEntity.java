@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.entities.projectile;
 
 import com.google.common.collect.Lists;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
@@ -14,6 +15,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -192,6 +194,10 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
                             if (pos != null) {sniffer.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 3.0);}
                             if (this.level() instanceof ServerLevel serverLevel) spawnShriekParticle(serverLevel,sniffer.getX(), sniffer.getEyeY(), sniffer.getZ(), 0,1);
                             flag = true;//判断是否执行成功
+                            //发送成就检测
+                            if (caster instanceof ServerPlayer serverPlayer) {
+                                ImmortalersDelightMod.PASS_SNIFFER_COOLDOWN_TRIGGER.trigger(serverPlayer);
+                            }
                         }
                     }
                 }

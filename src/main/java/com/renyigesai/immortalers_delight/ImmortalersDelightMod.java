@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
+import com.renyigesai.immortalers_delight.advancement.LevelUpEnchantmentTrigger;
+import com.renyigesai.immortalers_delight.advancement.PassSnifferCoolDownTrigger;
 import com.renyigesai.immortalers_delight.client.model.*;
 import com.renyigesai.immortalers_delight.client.model.projectile.EffectCloudModel;
 import com.renyigesai.immortalers_delight.client.model.projectile.HugeSmokeParticleModel;
@@ -18,6 +20,7 @@ import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.IllagerModel;
@@ -68,6 +71,9 @@ public class ImmortalersDelightMod {
             PROTOCOL_VERSION::equals, // 客户端是否接受该协议版本
             PROTOCOL_VERSION::equals  // 服务端是否接受该协议版本
     );
+    public static final LevelUpEnchantmentTrigger LEVEL_UP_ENCHANTMENT_TRIGGER = new LevelUpEnchantmentTrigger();
+    public static final PassSnifferCoolDownTrigger PASS_SNIFFER_COOLDOWN_TRIGGER = new PassSnifferCoolDownTrigger();
+
 
     public ImmortalersDelightMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -93,6 +99,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
+        registerCriterionTrigger();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -102,6 +109,10 @@ public class ImmortalersDelightMod {
         Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newPigFood))
         {
         };
+    }
+    public static void registerCriterionTrigger() {
+        CriteriaTriggers.register(LEVEL_UP_ENCHANTMENT_TRIGGER);
+        CriteriaTriggers.register(PASS_SNIFFER_COOLDOWN_TRIGGER);
     }
 
     @Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

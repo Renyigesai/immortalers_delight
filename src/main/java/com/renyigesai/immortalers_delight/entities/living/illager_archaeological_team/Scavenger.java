@@ -247,12 +247,13 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
     public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
         ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof net.minecraft.world.item.BowItem)));
         AbstractArrow abstractarrow = ProjectileUtil.getMobArrow(this, itemstack, pVelocity);
+        ItemStack bow = new ItemStack(Items.BOW);
         if (this.getMainHandItem().getItem() instanceof net.minecraft.world.item.BowItem) {
-            abstractarrow = ((net.minecraft.world.item.BowItem) this.getMainHandItem().getItem()).customArrow(abstractarrow);
-        } else {
-            abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (this.level().getDifficulty() == Difficulty.HARD ? 1.5D : 2.0D));
+            bow = this.getMainHandItem();
         }
-        if (DifficultyModeUtil.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + this.level().getDifficulty().getId());
+        if (bow.getItem() instanceof BowItem bowItem) {
+            abstractarrow = bowItem.customArrow(abstractarrow);
+        }
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - abstractarrow.getY();
         double d2 = pTarget.getZ() - this.getZ();

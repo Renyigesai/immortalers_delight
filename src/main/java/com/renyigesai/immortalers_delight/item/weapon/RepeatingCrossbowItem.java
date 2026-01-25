@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.item.weapon;
 
 import com.google.common.collect.Lists;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -16,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +42,8 @@ public class RepeatingCrossbowItem extends CrossbowItem {
     private static final String MOD_TAG_CHARGED = ImmortalersDelightMod.MODID + "_charged";
     private static final String MOD_TAG_CHARGED_PROJECTILES = ImmortalersDelightMod.MODID + "_charged_projectiles";
     private static final String BULLET_COUNT = ImmortalersDelightMod.MODID + "remainder_bullet";
-    private int maxChargeDuration = 25;
+    private static int maxChargeDuration = 35;
+    private static int maxCoolDown = 70;
     public int defaultRange = 8;
     /** Set to {@code true} when the crossbow is 20% charged. */
     private boolean startSoundPlayed = false;
@@ -48,8 +51,8 @@ public class RepeatingCrossbowItem extends CrossbowItem {
     private boolean midLoadSoundPlayed = false;
     private float startSoundPercent = 0.2F;
     private float midSoundPercent = 0.5F;
-    private float arrowPower = 3.15F;
-    private float fireworkPower = 1.6F;
+    private static float arrowPower = 3.15F;
+    private static float fireworkPower = 1.6F;
     public RepeatingCrossbowItem(Properties pProperties) {
         super(pProperties);
     }
@@ -166,7 +169,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
     }
 
     private static float getShootingModPower(ItemStack pCrossbowStack) {
-        return containsChargedModProjectile(pCrossbowStack, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
+        return containsChargedModProjectile(pCrossbowStack, Items.FIREWORK_ROCKET) ? fireworkPower : arrowPower;
     }
 
     /**
@@ -217,14 +220,17 @@ public class RepeatingCrossbowItem extends CrossbowItem {
                 }
             }
 
-            if (pShooter instanceof CrossbowAttackMob) {
-                CrossbowAttackMob crossbowattackmob = (CrossbowAttackMob)pShooter;
+            if (pShooter instanceof CrossbowAttackMob crossbowattackmob && crossbowattackmob.getTarget() != null) {
                 crossbowattackmob.shootCrossbowProjectile(crossbowattackmob.getTarget(), pCrossbowStack, projectile, pProjectileAngle);
             } else {
                 Vec3 vec31 = pShooter.getUpVector(1.0F);
                 Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double)(pProjectileAngle * ((float)Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
                 Vec3 vec3 = pShooter.getViewVector(1.0F);
                 Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
+                if (projectile instanceof AbstractArrow abstractarrow) {
+                    if (DifficultyModeUtil.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + pLevel.getDifficulty().getId());
+                    else abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (pLevel.getDifficulty() == Difficulty.HARD ? 1.5D : 2.0D));
+                }
                 projectile.shoot((double)vector3f.x(), (double)vector3f.y(), (double)vector3f.z(), pVelocity, pInaccuracy);
             }
 
@@ -363,12 +369,12 @@ public class RepeatingCrossbowItem extends CrossbowItem {
                 this.midLoadSoundPlayed = false;
             }
 
-            if (f >= 0.2F && !this.startSoundPlayed) {
+            if (f >= this.startSoundPercent && !this.startSoundPlayed) {
                 this.startSoundPlayed = true;
                 pLevel.playSound((Player)null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), soundevent, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
 
-            if (f >= 0.5F && soundevent1 != null && !this.midLoadSoundPlayed) {
+            if (f >= this.midSoundPercent && soundevent1 != null && !this.midLoadSoundPlayed) {
                 this.midLoadSoundPlayed = true;
                 pLevel.playSound((Player)null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), soundevent1, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
@@ -389,12 +395,12 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      */
     public static int getModChargeDuration(ItemStack pCrossbowStack) {
         int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, pCrossbowStack);
-        return i == 0 ? 45 : 45 - 5 * i;
+        return i == 0 ? maxChargeDuration : maxChargeDuration - 5 * i;
     }
 
     public static int getModCoolDown(ItemStack pCrossbowStack) {
         int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, pCrossbowStack);
-        return i == 0 ? 200 : 200 - 20 * i;
+        return i == 0 ? maxCoolDown : maxCoolDown - 10 * i;
     }
 
     /**
@@ -465,6 +471,6 @@ public class RepeatingCrossbowItem extends CrossbowItem {
 
     @Override
     public int getDefaultProjectileRange() {
-        return 8;
+        return this.defaultRange;
     }
 }
