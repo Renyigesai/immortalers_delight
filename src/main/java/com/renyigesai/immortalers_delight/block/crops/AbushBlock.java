@@ -99,18 +99,6 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock, Bonemeal
         return false;
     }
 
-    static {
-        STAGE  = IntegerProperty.create("stage",0,3);
-        LAVALOGGED = SimpleLavaloggedBlock.LAVALOGGED;
-        BOX_0 = box(7, 0, 7, 9, 5, 9);
-        BOX_1 = box(6, 0, 6, 10, 7, 10);
-        BOX_2 = box(6, 0, 6, 10, 11, 10);
-        BOX_3 = box(6d,0d,6d,10d,15d,10d);
-        SHAPE_BY_AGE = new VoxelShape[]{
-               BOX_0,BOX_1,BOX_2,BOX_3
-        };
-    }
-
     @Override
     public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean b) {
         return blockState.getValue(STAGE) < 3;
@@ -125,5 +113,17 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock, Bonemeal
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
         int value = blockState.getValue(STAGE);
         serverLevel.setBlock(blockPos,blockState.setValue(STAGE,value + 1),3);
+    }
+
+    static {
+        STAGE  = IntegerProperty.create("stage",0,3);
+        LAVALOGGED = SimpleLavaloggedBlock.LAVALOGGED;
+        BOX_0 = box(7, 0, 7, 9, 5, 9);
+        BOX_1 = box(6, 0, 6, 10, 7, 10);
+        BOX_2 = box(6, 0, 6, 10, 11, 10);
+        BOX_3 = box(6d,0d,6d,10d,15d,10d);
+        SHAPE_BY_AGE = new VoxelShape[]{
+                BOX_0,BOX_1,BOX_2,BOX_3
+        };
     }
 }

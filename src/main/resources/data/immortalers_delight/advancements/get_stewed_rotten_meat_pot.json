@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.immortalers_delight.get_stewed_rotten_meat_pot.desc"
+      "translate": "advancements.immortalers_delight.get_stewed_rotten_meat_pot.descr"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.immortalers_delight.get_stewed_rotten_meat_pot"
+      "translate": "advancements.immortalers_delight.get_stewed_rotten_meat_pot.title"
     }
   },
   "requirements": [

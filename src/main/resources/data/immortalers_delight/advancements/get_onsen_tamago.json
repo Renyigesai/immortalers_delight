@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:onsen_tamago"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_onsen_tamago.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_onsen_tamago.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:onsen_tamago"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_hot_spring_bucket"
+}

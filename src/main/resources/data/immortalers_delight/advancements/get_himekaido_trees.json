@@ -65,7 +65,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.immortalers_delight.get_himekaido_trees.desc"
+      "translate": "advancements.immortalers_delight.get_himekaido_trees.descr"
     },
     "frame": "challenge",
     "hidden": false,
@@ -74,7 +74,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.immortalers_delight.get_himekaido_trees"
+      "translate": "advancements.immortalers_delight.get_himekaido_trees.title"
     }
   },
   "requirements": [

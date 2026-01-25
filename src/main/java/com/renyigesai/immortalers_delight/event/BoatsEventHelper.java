@@ -120,6 +120,7 @@ public class BoatsEventHelper {
                                 action.broadcastBreakEvent(event.getHand());
                             });
                         }
+                        level.playSound(null,blockPos,SoundEvents.WOOL_PLACE,SoundSource.BLOCKS);
                     }
                 }
             }
