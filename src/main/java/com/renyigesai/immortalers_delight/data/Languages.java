@@ -172,10 +172,10 @@ public class Languages extends LanguageProvider {
         createTooltip("power_battle_mode_hint","千古乐事：您已开启§9超凡模式§f，如需更改请在§9immortalers_delight-common.toml§f中修改§9powerBattleMode§f。修改§9powerBattleModeHint§f以禁用该提示。","Immortaler`s Delight:You have enabled §9Power Battle Mode§f，If you need to make any changes, please go to §9immortalers_delight-common.toml§f Modified in the middle §9powerBattleMode§f.Modify§9powerBattleModeHint§fDisable this prompt.");
         createTooltip("super_kwat_burger","不同寻常的分量","Exceptional Mass");
         createTooltip("frosty_crown_mousse","严重冻结食用者——心急吃不了冻豆腐。","Severely Freezes the Consumer — Haste Makes Waste with Frozen Tofu.");
-        createTooltip( IS_COLORFUL+ "frosty_crown_mousse_slice","冻结食用者","Freezes the Consumer");
-        createTooltip(IS_COLORFUL+ "kwat_soup","对食用者造成巨量伤害，随后快速回复饱食度。","Inflicts massive damage to the consumer, then rapidly restores saturation.");
-        createTooltip(IS_COLORFUL+ "iced_kwat_soup","将灼热效果转化为凉爽效果。","Converts Scorching effect into a Cooling effect.");
-        createTooltip(IS_COLORFUL+ "bowl_of_this_side_down","完全失重状态下你难以施力。","Unable to exert force in full weightlessness.");
+        createTooltip( IS_COLORFUL + "frosty_crown_mousse_slice","冻结食用者","Freezes the Consumer");
+        createTooltip(IS_COLORFUL + "kwat_soup","对食用者造成巨量伤害，随后快速回复饱食度。","Inflicts massive damage to the consumer, then rapidly restores saturation.");
+        createTooltip(IS_COLORFUL + "iced_kwat_soup","将灼热效果转化为凉爽效果。","Converts Scorching effect into a Cooling effect.");
+        createTooltip(IS_COLORFUL + "bowl_of_this_side_down","完全失重状态下你难以施力。","Unable to exert force in full weightlessness.");
         createTooltip("can_place_on_plate","可放置于空盘上","Placeable on empty plates.");
         createTooltip("spoon","将碗放置为空盘子","Place an bowl item with empty plate block.");
         createTooltip("nan_dough","使用岩浆块覆盖以进行烤制","Cover with magma blocks for baking.");
@@ -183,6 +183,10 @@ public class Languages extends LanguageProvider {
         createTooltip("cut_ku_mesh_non","你需要用刀切开它","You need a knife to cut it.");
         createTooltip("cut_large_column","你需要用斧子劈开它","You need an axe to split it.");
         createTooltip("cut_pod_shell_burger_meat","你需要用刀切开它","You need a knife to cut it.");
+        createTooltip("warped_laurel_seeds","可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为温泉§r。","It can be planted on the §fsoul sand§r. When it matures, it will convert the surrounding §fwater into a hot spring§r");
+        createTooltip("gelpitaya_seeds","可被种植在§f仙人掌§r上。","Can be planted on §fcacti§r.");
+        createTooltip("a_bush","可被种植在§f下界岩§r上，成长到最大阶段后放置§f岩浆§r可以被转换为§f烬烟木§r。","It can be planted on §fnetherrack§r and, when fully grown, placed on §flava§r, which can then be transformed into §fa bush log§r.");
+        createTooltip("tooltip_item_name_block_item","§o按住Shift查看更多","§oPress Shift to view");
 
         createFarmersdelightTooltip("large_column","2x Damage Block; Drops edible shards on block.","格挡两次伤害，格挡伤害时产生可食用的碎片");
         createFarmersdelightTooltip("ku_mesh_non","Exceptional Mass","不同寻常的分量");
@@ -326,7 +330,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
         createAdvancement("get_gelpitaya",translateText("Snowbound Dragon","雪境妖龙"),translateText("Obtain gelpitaya in Ice Spikes.","在冰刺之地获得冰蛟果。"));
         createAdvancement("get_a_bush",translateText("Hardship Ends, Joy Begins","苦尽余华"),translateText("Obtain Abush in the Nether Wastes.","在下界荒地获得烬烟杆。"));
-        createAdvancement("get_hot_spring_bucket",translateText("A clear current","一股清流"),translateText("Plant the warped laurel in the soul sand, and then place water around it. When the warped laurel plants naturally mature, the water will be transformed into a hot spring!","将诡怨桂种在灵魂沙后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！"));
+        createAdvancement("get_hot_spring_bucket",translateText("A clear current","一股清流"),translateText("Plant the warped laurel in the soul sand, and then place water around it. When the warped laurel plants naturally mature, the water will be transformed into a hot spring!","将诡怨桂种在灵魂沙上后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！"));
         createAdvancement("get_onsen_tamago",translateText("Can be cooked!＼(^◡^)／","泉都可以煮！＼(^◡^)／"),translateText("Place a heat source beneath the hot spring, and then throw an egg in!","在温泉底下放置热源，然后丢一个蛋进去！"));
         createAdvancement("level_up_enchantment",translateText("Apply what you have learned","学以致用"),translateText("Under the influence of cultural heritage, enhance the enchanted book in your hand.","在文化底蕴的濡染下，改进你手上的附魔书。"));
         createAdvancement("pass_sniffer_cooldown",translateText("Use the floating sniffing method","应当使用飘闻法"),translateText("At a safe distance, let your sniffer savor the orifice-clearing efficacy of the caustic essential oil.","在安全的距离上，让你的嗅探兽品味炽烈精油的通窍功效。"));

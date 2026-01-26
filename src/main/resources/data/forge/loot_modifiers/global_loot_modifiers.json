@@ -17,6 +17,11 @@
     "immortalers_delight:scavenging_leather",
     "immortalers_delight:scavenging_rabbit_hide",
     "immortalers_delight:scavenging_shulker_shell",
-    "immortalers_delight:scavenging_string"
+    "immortalers_delight:scavenging_string",
+    "immortalers_delight:add_loot_village_plains_house",
+    "immortalers_delight:add_loot_ruined_portal",
+    "immortalers_delight:add_village_snowy_house",
+    "immortalers_delight:add_loot_village_desert_house",
+    "immortalers_delight:add_loot_bastion_treasure"
   ]
 }

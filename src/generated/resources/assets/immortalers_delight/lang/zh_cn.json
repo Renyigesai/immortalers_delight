@@ -27,7 +27,7 @@
   "advancements.immortalers_delight.get_gelpitaya.title": "雪境妖龙",
   "advancements.immortalers_delight.get_himekaido_trees.descr": "肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。",
   "advancements.immortalers_delight.get_himekaido_trees.title": "拔苗助长",
-  "advancements.immortalers_delight.get_hot_spring_bucket.descr": "将诡怨桂种在灵魂沙后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！",
+  "advancements.immortalers_delight.get_hot_spring_bucket.descr": "将诡怨桂种在灵魂沙上后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！",
   "advancements.immortalers_delight.get_hot_spring_bucket.title": "一股清流",
   "advancements.immortalers_delight.get_leisamboo_tea.descr": "获得溪竹茶。",
   "advancements.immortalers_delight.get_leisamboo_tea.title": "小罐茶，大竹做",
@@ -580,6 +580,7 @@
   "potion.potency.8": "IX",
   "potion.potency.9": "X",
   "potion.potency.99": "C",
+  "tooltip.immortalers_delight.a_bush": "可被种植在§f下界岩§r上，成长到最大阶段后放置§f岩浆§r可以被转换为§f烬烟木§r。",
   "tooltip.immortalers_delight.book_progress": "修书进度: %d ‰",
   "tooltip.immortalers_delight.can_place_on_plate": "可放置于空盘上",
   "tooltip.immortalers_delight.charged_projectiles": "剩余 %d 发",
@@ -591,6 +592,7 @@
   "tooltip.immortalers_delight.cut_large_column": "你需要用斧子劈开它",
   "tooltip.immortalers_delight.cut_pod_shell_burger_meat": "你需要用刀切开它",
   "tooltip.immortalers_delight.frosty_crown_mousse": "严重冻结食用者——心急吃不了冻豆腐。",
+  "tooltip.immortalers_delight.gelpitaya_seeds": "可被种植在§f仙人掌§r上。",
   "tooltip.immortalers_delight.hammers_skill_1": "全力攻击可短暂眩晕目标",
   "tooltip.immortalers_delight.hammers_skill_2": "连续攻击以造成更多伤害",
   "tooltip.immortalers_delight.hammers_skill_title_1": "势大力沉",
@@ -603,5 +605,7 @@
   "tooltip.immortalers_delight.potion_coating_count": "药水附层：%d / %d",
   "tooltip.immortalers_delight.power_battle_mode_hint": "千古乐事：您已开启§9超凡模式§f，如需更改请在§9immortalers_delight-common.toml§f中修改§9powerBattleMode§f。修改§9powerBattleModeHint§f以禁用该提示。",
   "tooltip.immortalers_delight.spoon": "将碗放置为空盘子",
-  "tooltip.immortalers_delight.super_kwat_burger": "不同寻常的分量"
+  "tooltip.immortalers_delight.super_kwat_burger": "不同寻常的分量",
+  "tooltip.immortalers_delight.tooltip_item_name_block_item": "§o按住Shift查看更多",
+  "tooltip.immortalers_delight.warped_laurel_seeds": "可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为温泉§r。"
 }
