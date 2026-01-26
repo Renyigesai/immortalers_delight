@@ -283,10 +283,10 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.prehistoric_powers.description","Causes half of the Strength effect to additionally apply based on its pre-combat-update potency, or all of it in Legendary mode.","令一半的力量效果额外按战斗更新前的效果生效，超凡模式下则为全部的力量效果。");
         add("effect.immortalers_delight.deepness.description","Grant the attacker a weakness effect when taking damage. In Extraordinary Mode, gain additional damage reduction and health recovery.","受到伤害时给予攻击者虚弱效果。超凡模式下，获得额外减伤和生命恢复。");
         add("effect.immortalers_delight.gaixia.description","When attacking, a sticky cube is generated under the target creature","攻击时在目标生物下生成黏液方块。");
-        add("effect.immortalers_delight.up_side_down.description","When attacking, a sticky cube is generated under the target creature","持续产生漂浮效果，在潜行时则将其变为缓降。");
+        add("effect.immortalers_delight.up_side_down.description","When attacking, a sticky cube is generated under the target creature.Adjust extra jump force direction to horizontal when Jump Boost is active.","持续产生漂浮效果，在潜行时则将其变为缓降。在有跳跃提升时将提升跳跃的方向调整为水平方向。");
         add("effect.immortalers_delight.let_it_freeze.description","The attack causes the target to briefly enter a cold state, reducing its speed and continuously subjecting it to frostbite. In non-supernatural mode, the target cannot be completely frozen.","攻击使目标短暂进入寒冷状态，降低速度并持续受到冻伤，非超凡模式下不能完全冻结目标。");
         add("effect.immortalers_delight.unyielding.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","受到有源伤害时获得短暂的无敌时间，超凡模式下也对环境伤害生效。");
-        add("effect.immortalers_delight.smoke_abstinence","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力II，抗性提II，急迫III，生命回复和抗火。");
+        add("effect.immortalers_delight.smoke_abstinence","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力量II，急迫III，生命回复和抗火，如抗性提II般减免伤害。");
 
     }
 

@@ -26,6 +26,7 @@ public class UpSideDownMobEffect extends MobEffect {
     public UpSideDownMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 12875208);
     }
+    public static int jumpCount = 0;
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (entity.level().isClientSide()) return;
@@ -69,17 +70,17 @@ public class UpSideDownMobEffect extends MobEffect {
         public static void addJumpSpeed(LivingEvent.LivingJumpEvent event) {
             LivingEntity entity = event.getEntity();
             MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get());
-            if (thisEffect != null && !entity.level().isClientSide()) {
+            if (thisEffect != null && (entity instanceof Player || !entity.level().isClientSide())) {
                 int lv = 1;
                 MobEffectInstance jumpEffect = entity.getEffect(MobEffects.JUMP);
-                if (jumpEffect != null) lv += jumpEffect.getAmplifier();
-                float vx = (jumpEffect != null ? 1.0F : 0.1F) + 0.1f * (float)lv;
-                float vy = 0.2F;
-                float f = entity.getYRot() * ((float)Math.PI / 180F);
-                entity.setDeltaMovement(entity.getDeltaMovement().add((double)(-Mth.sin(f) * vx), (double)vy, (double)(Mth.cos(f) *vx)));
-                entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15, thisEffect.getAmplifier() + 1));
+                if (jumpEffect != null) {
+                    lv += jumpEffect.getAmplifier();
+                    float vx = 1.0F + 0.2f * (float)lv;
+                    float vy = (float)lv * -0.1f;
+                    float f = entity.getYRot() * ((float)Math.PI / 180F);
+                    entity.setDeltaMovement(entity.getDeltaMovement().add((double)(-Mth.sin(f) * vx), (double)vy, (double)(Mth.cos(f) *vx)));
+                } else entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15, thisEffect.getAmplifier() + 1));
             }
         }
-
     }
 }

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:slime"
+      "item": "minecraft:slime_block"
     },
     "title": {
       "translate": "advancements.immortalers_delight.pass_sniffer_cooldown.title"

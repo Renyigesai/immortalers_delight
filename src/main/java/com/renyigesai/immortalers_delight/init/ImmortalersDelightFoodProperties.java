@@ -471,7 +471,7 @@ public class ImmortalersDelightFoodProperties {
     //public static final FoodProperties LEISAMBOO_TEA_CAKE  = new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RESISTANCE_TO_SURROUNDINGS.get(),600),1F).build();
     public static final FoodProperties SCARLET_GELATO  = new FoodProperties.Builder()
             .nutrition(6).saturationMod(0.6f)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION,1050,1),1f)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,600,1),1.0F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),2200),1F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),800),1F)
             .effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,1000),1F)
@@ -554,7 +554,7 @@ public class ImmortalersDelightFoodProperties {
             .nutrition(4).saturationMod(1.25F)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,4000),1.0F)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.VITALITY.get(),2800),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,600,1),1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION,1050,1),1f)
             .alwaysEat().build();
 
     public static final FoodProperties GOLDEN_TOAST = new FoodProperties.Builder()
@@ -586,7 +586,7 @@ public class ImmortalersDelightFoodProperties {
             .nutrition(4).saturationMod(1.25F)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,4000,1),1.0F)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.VITALITY.get(),8400),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,1800,1),1.0F)
+            .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,3150,1),1.0F)
             .alwaysEat().build();
 
     public static final FoodProperties COOKED_TRAVARICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.4F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),600),1.0F).build();
