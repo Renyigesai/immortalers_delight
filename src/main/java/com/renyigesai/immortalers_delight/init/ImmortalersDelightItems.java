@@ -1153,7 +1153,7 @@ public class ImmortalersDelightItems {
         CUSTARD_TART_PASTRY = registerWithTab("custard_tart_pastry",()-> new Item(basicItem()));
 
         WARPED_LAUREL_SEEDS = registerWithTab("warped_laurel_seeds",()->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.WARPED_LAUREL_CROP.get(), new Item.Properties()));
+                new TooltipItemNameBlockItem(ImmortalersDelightBlocks.WARPED_LAUREL_CROP.get(), basicItem(),Component.translatable("tooltip.immortalers_delight.warped_laurel_seeds").withStyle(ChatFormatting.GRAY)));
 
         WARPED_LAUREL = registerWithTab("warped_laurel",()-> new Item(new Item.Properties()));
 
@@ -1161,7 +1161,7 @@ public class ImmortalersDelightItems {
 
         TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
 
-        A_BUSH = registerWithTab("a_bush",()-> new ItemNameBlockItem(ImmortalersDelightBlocks.A_BUSH.get(),basicItem()));
+        A_BUSH = registerWithTab("a_bush",()-> new TooltipItemNameBlockItem(ImmortalersDelightBlocks.A_BUSH.get(),basicItem(),Component.translatable("tooltip.immortalers_delight.a_bush").withStyle(ChatFormatting.GRAY)));
 
         AB_ASH = registerWithTab("ab_ash",()-> new Item(basicItem()));
         /*
@@ -1566,7 +1566,7 @@ public class ImmortalersDelightItems {
 
         /*冰龙果相关物品*/
         GELPITAYA_SEEDS = registerWithTab("gelpitaya_seeds",()->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.GELPITAYA_CROP.get(), new Item.Properties()));
+                new TooltipItemNameBlockItem(ImmortalersDelightBlocks.GELPITAYA_CROP.get(), new Item.Properties(),Component.translatable("tooltip.immortalers_delight.gelpitaya_seeds").withStyle(ChatFormatting.GRAY)));
 
         GELPITAYA = registerWithTab("gelpitaya",()-> new Item(new Item.Properties()));
 

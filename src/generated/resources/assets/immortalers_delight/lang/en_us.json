@@ -580,6 +580,7 @@
   "potion.potency.8": "IX",
   "potion.potency.9": "X",
   "potion.potency.99": "C",
+  "tooltip.immortalers_delight.a_bush": "It can be planted on §fnetherrack§r and, when fully grown, placed on §flava§r, which can then be transformed into §fa bush log§r.",
   "tooltip.immortalers_delight.book_progress": "Repair progress: %d ‰",
   "tooltip.immortalers_delight.can_place_on_plate": "Placeable on empty plates.",
   "tooltip.immortalers_delight.charged_projectiles": "Remaining ammunition: %d .",
@@ -591,6 +592,7 @@
   "tooltip.immortalers_delight.cut_large_column": "You need an axe to split it.",
   "tooltip.immortalers_delight.cut_pod_shell_burger_meat": "You need a knife to cut it.",
   "tooltip.immortalers_delight.frosty_crown_mousse": "Severely Freezes the Consumer — Haste Makes Waste with Frozen Tofu.",
+  "tooltip.immortalers_delight.gelpitaya_seeds": "Can be planted on §fcacti§r.",
   "tooltip.immortalers_delight.hammers_skill_1": "A full-powered attack can briefly stun the target.",
   "tooltip.immortalers_delight.hammers_skill_2": "Continuous attacks deal higher damage.",
   "tooltip.immortalers_delight.hammers_skill_title_1": "Powerful and Heavy",
@@ -603,5 +605,7 @@
   "tooltip.immortalers_delight.potion_coating_count": "Potion Coating：%d / %d",
   "tooltip.immortalers_delight.power_battle_mode_hint": "Immortaler`s Delight:You have enabled §9Power Battle Mode§f，If you need to make any changes, please go to §9immortalers_delight-common.toml§f Modified in the middle §9powerBattleMode§f.Modify§9powerBattleModeHint§fDisable this prompt.",
   "tooltip.immortalers_delight.spoon": "Place an bowl item with empty plate block.",
-  "tooltip.immortalers_delight.super_kwat_burger": "Exceptional Mass"
+  "tooltip.immortalers_delight.super_kwat_burger": "Exceptional Mass",
+  "tooltip.immortalers_delight.tooltip_item_name_block_item": "§oPress Shift to view",
+  "tooltip.immortalers_delight.warped_laurel_seeds": "It can be planted on the §fsoul sand§r. When it matures, it will convert the surrounding §fwater into a hot spring§r"
 }
