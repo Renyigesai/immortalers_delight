@@ -62,7 +62,9 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
             if (bites < 4){
                 if (player.canEat(false)){
                     setBlock(bites, state, level, pos);
-                    player.getFoodData().eat(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get(), new ItemStack(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get()));
+                    ItemStack stack = new ItemStack(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get());
+                    stack.finishUsingItem(level,player);
+                    //player.getFoodData().eat(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get(), new ItemStack(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get()));
                     level.gameEvent(player, GameEvent.EAT, pos);
                     level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
                 }else {

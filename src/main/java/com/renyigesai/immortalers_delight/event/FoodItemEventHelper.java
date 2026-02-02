@@ -133,8 +133,8 @@ public class FoodItemEventHelper {
             if (!list.isEmpty()) {
                 for (LivingEntity hurtOne : list) {
                     if (hurtOne != livingEntity && !livingEntity.isAlliedTo(hurtOne) && !hurtOne.isAlliedTo(livingEntity)){
-                        float damage = (float) hurtOne.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                        damage = Math.min(damage, 5.0f) * (DifficultyModeUtil.isPowerBattleMode() ? 3.85f : 2.3f);
+                        float damage = attacker.getAttribute(Attributes.ATTACK_DAMAGE) != null ? (float) attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) : 5.0f;
+                        damage = Math.max(damage, 5.0f) * (DifficultyModeUtil.isPowerBattleMode() ? 3.85f : 2.3f);
                         hurtOne.hurt(hurtOne.level().damageSources().mobAttack(livingEntity), damage);
                         strongKnockback(hurtOne, livingEntity);
                     }
@@ -170,7 +170,7 @@ public class FoodItemEventHelper {
     }
     //气功波具有掠夺兽击退，超凡模式下改为令其进行一次远古守卫者跳跃
     private static void strongKnockback(LivingEntity hurtOne, LivingEntity attacker) {
-        double knockBackResistance = hurtOne.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        double knockBackResistance = hurtOne.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null ? hurtOne.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) : 0;
         if (DifficultyModeUtil.isPowerBattleMode()) {
             if (knockBackResistance < 1.0D) {
                 Vec3 directionVector = hurtOne.getPosition(1.0f).subtract(attacker.getPosition(1.0f));

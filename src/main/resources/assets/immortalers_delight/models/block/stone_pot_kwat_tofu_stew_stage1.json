@@ -2,6 +2,6 @@
   "parent": "immortalers_delight:block/stone_pot_kwat_tofu_stew",
   "textures": {
     "0": "immortalers_delight:block/stone_pot_kwat_tofu_stew_stage1",
-		"particle": "immortalers_delight:stone_pot_kwat_tofu_stew_stage1"
+		"particle": "immortalers_delight:block/stone_pot_kwat_tofu_stew_stage1"
   }
 }

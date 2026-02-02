@@ -84,7 +84,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
     public static AttributeSupplier.Builder createScavengerAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.FOLLOW_RANGE, 25.0D)
                 .add(Attributes.MAX_HEALTH, 24.0D);
     }
@@ -181,15 +181,13 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
     /**
      * Returns whether this Entity is on the same team as the given Entity.
      */
-    public boolean isAlliedTo(Entity pEntity) {
-        if (pEntity == null) {
-            return false;
-        } else if (pEntity == this) {
+    public boolean isAlliedTo(@NotNull Entity pEntity) {
+        if (pEntity == this) {
             return true;
         } else if (super.isAlliedTo(pEntity)) {
             return true;
-        } else if (pEntity instanceof Vex) {
-            return this.isAlliedTo(((Vex)pEntity).getOwner());
+        } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
+            return this.isAlliedTo(vex.getOwner());
         } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
             return this.getTeam() == null && pEntity.getTeam() == null;
         } else {

@@ -45,9 +45,7 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack pStack) {
-        return 300;
-    }
+    public int getUseDuration(@NotNull ItemStack pStack) {return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;}
     protected void addAheadFoodEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
 
     }

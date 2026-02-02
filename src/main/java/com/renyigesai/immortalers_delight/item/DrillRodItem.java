@@ -156,11 +156,13 @@ public class DrillRodItem extends DiggerItem {
                         || !hurtOne.getItemBySlot(EquipmentSlot.CHEST).isEmpty()
                         || !hurtOne.getItemBySlot(EquipmentSlot.LEGS).isEmpty()
                         || !hurtOne.getItemBySlot(EquipmentSlot.FEET).isEmpty();
-                if (noArmor) {
-                    event.setAmount((float) (event.getAmount() + (isPowerful ? 10 + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.5F : 5)));
-                    hurtOne.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50 + hurtOne.getRandom().nextInt(11), 3));
-                } else if (hurtOne.getArmorValue() > 10) {
-                    event.setAmount((float) (event.getAmount() + (isPowerful ? 15 + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.75F : 7.5)));
+                if (attacker != null && attacker.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+                    if (noArmor) {
+                        event.setAmount((float) (event.getAmount() + (isPowerful ? 10 + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.5F : 5)));
+                        hurtOne.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50 + hurtOne.getRandom().nextInt(11), 3));
+                    } else if (hurtOne.getArmorValue() > 10) {
+                        event.setAmount((float) (event.getAmount() + (isPowerful ? 15 + attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.75F : 7.5)));
+                    }
                 }
             }
         }

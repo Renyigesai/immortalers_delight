@@ -130,8 +130,8 @@ public class PoweredFoodProperties {
     public static final FoodProperties FROZEN_MARGARITA_JELLY = new FoodProperties.Builder()
             .alwaysEat()
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1200),1.0F)
-            .effect(()->new MobEffectInstance(MobEffects.HEAL,1,1),1.0F)
-            .effect(()->new MobEffectInstance(MobEffects.ABSORPTION,2400,2),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.HEAL,1,3),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.ABSORPTION,2400,5),1.0F)
             .build();
     public static final FoodProperties BIZARRE_SAUSAGE_FOE_DOG = new FoodProperties.Builder()
             .effect(()->new MobEffectInstance(MobEffects.HEALTH_BOOST,12000,4),1.0F)

@@ -9,6 +9,12 @@
       },
       "bonus_rolls": 0,
       "entries": [
+         {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "forge:ores/zinc",
+          "weight": 10
+        },
         {
           "type": "minecraft:item",
           "name": "minecraft:potion",

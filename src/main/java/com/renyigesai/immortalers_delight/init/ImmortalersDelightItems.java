@@ -436,7 +436,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> TRAVARICE;
     @ItemData(zhCn = "菅米饭")
     public static final RegistryObject<Item> COOKED_TRAVARICE;
-    @ItemData(zhCn = "通天菅酒")
+    @ItemData(zhCn = "菅牧典")
     public static final RegistryObject<Item> TRAVEER;
 
 
@@ -1748,7 +1748,7 @@ public class ImmortalersDelightItems {
         PIGLIN_ODORI_SAKE = registerWithTab("piglin_odori_sake",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.PIGLIN_ODORI_SAKE.get(), (new Item.Properties()).craftRemainder(Items.WITHER_SKELETON_SKULL).stacksTo(16).food(ImmortalersDelightFoodProperties.PIGLIN_ODORI_SAKE),true));
 
-        TRAVEER = register("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
+        TRAVEER = registerWithTab("traveer",()-> new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.TRAVEER),true,false));
 
         /*石锅*/
         STONE_POT = block(ImmortalersDelightBlocks.STONE_POT);

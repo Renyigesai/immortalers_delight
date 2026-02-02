@@ -96,7 +96,8 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
     }
     @Override
     public int getUseDuration(@NotNull ItemStack pStack) {
-        return 300;
+        if (this.type == 1) return 300;
+        return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;
     }
 
     public @Nullable FoodProperties getAheadFoodProperties() {
@@ -124,6 +125,17 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
             this.addUsedEffectTooltip(stack, tooltip,1.0f);
         }
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
+        if (!level.isClientSide() && DifficultyModeUtil.isPowerBattleMode() && timeLeft + 1 <= this.getUseDuration(stack) / 2) {
+            this.addEatEffect(stack, level, consumer);
+            //玉黍硬糖吃完后2s无敌帧
+            if (this.type == 1) DeathlessEffect.applyImmortalEffect(consumer, 40, 0);
+            this.finishUsingItem(stack, level, consumer);
+        }
+        super.releaseUsing(stack, level, consumer, timeLeft);
     }
 
     //==============================以下部分是为了继承接口而需要实现的方法===============================//

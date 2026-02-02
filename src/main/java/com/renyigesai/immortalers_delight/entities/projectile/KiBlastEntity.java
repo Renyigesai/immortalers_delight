@@ -112,8 +112,8 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
             // 分支1：发射者是活体实体
             if (ownerEntity instanceof LivingEntity livingOwner) {
                 // 对被命中实体造成攻击力130%的伤害，伤害值至少为8.0F
-                float damage = (float) livingOwner.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                damage = Math.min(damage, 5.0f) * 1.3f;
+                float damage = livingOwner.getAttribute(Attributes.ATTACK_DAMAGE) != null ? (float) livingOwner.getAttributeValue(Attributes.ATTACK_DAMAGE) : 5.0f;
+                damage = Math.max(damage, 5.0f) * 1.3f;
                 if (isDangerous()) damage *= 1.7F;
                 isHurtSuccess = hitEntity.hurt(this.damageSources().explosion(this, livingOwner), damage);
 
@@ -133,7 +133,7 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
             // 若伤害成功，且被命中实体是活体实体，附加眩晕效果
             if (isHurtSuccess && hitEntity instanceof LivingEntity livingHitEntity) {
                 int duration = DifficultyModeUtil.isPowerBattleMode() ? 40 : 10;
-                double knockbackResistance = livingHitEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                double knockbackResistance = livingHitEntity.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null ? livingHitEntity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE) : 0;
                 duration *= 1 - knockbackResistance;
                 if (duration > 0) {
                     StunEffect.applyImmortalEffect(livingHitEntity, duration, 0);

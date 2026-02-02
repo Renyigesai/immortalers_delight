@@ -37,13 +37,13 @@ public class SuperKwatBurgerItem extends EdibleBlockFoodItem {
         }
     }
 
-    @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
-        if (!level.isClientSide() && timeLeft + 1 <= this.getUseDuration(stack) / 2) {
-            this.finishUsingItem(stack, level, consumer);
-        }
-        super.releaseUsing(stack, level, consumer, timeLeft);
-    }
+//    @Override
+//    public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
+//        if (!level.isClientSide() && timeLeft + 1 <= this.getUseDuration(stack) / 2) {
+//            this.finishUsingItem(stack, level, consumer);
+//        }
+//        super.releaseUsing(stack, level, consumer, timeLeft);
+//    }
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
@@ -57,7 +57,7 @@ public class SuperKwatBurgerItem extends EdibleBlockFoodItem {
         //判断在使用物品
         if (pRemainingUseDuration >= 0 && !pLivingEntity.level().isClientSide()) {
             if (pRemainingUseDuration + 1 <= this.getUseDuration(pStack) / 2) {
-                if (pRemainingUseDuration % 40 == 0) addAheadFoodEffect(pStack, pLivingEntity.level(), pLivingEntity);
+                if (pRemainingUseDuration % (DifficultyModeUtil.isPowerBattleMode() ? 20 : 40) == 0) addAheadFoodEffect(pStack, pLivingEntity.level(), pLivingEntity);
             }
         }
         //结束使用物品

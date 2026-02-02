@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.Util;
 import net.minecraft.commands.arguments.ParticleArgument;
 import net.minecraft.core.BlockPos;
@@ -407,9 +408,9 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         // 收集所有生效的药水效果（关联药水的效果 + 额外添加的效果）
         List<MobEffectInstance> list = Lists.newArrayList();
         for(MobEffectInstance mobeffectinstance : this.potion.getEffects()) {
-            // 药水自带效果的持续时间缩短为1/4（因为效果云会周期性施加）
+            // 药水自带效果的持续时间缩短为1/4（因为效果云会周期性施加）,若是超凡模式，效果时间先提升至5分之8
             list.add(new MobEffectInstance(mobeffectinstance.getEffect(), mobeffectinstance.mapDuration((p_267926_) -> {
-                return p_267926_ / 4;
+                return (DifficultyModeUtil.isPowerBattleMode() ? p_267926_ * 2 : p_267926_) / (DifficultyModeUtil.isPowerBattleMode() ? 5 : 4);
             }), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()));
         }
         list.addAll(this.effects); // 添加额外效果

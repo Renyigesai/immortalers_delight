@@ -114,6 +114,10 @@ public class ModConfigureFeature {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(ImmortalersDelightMod.MODID, name));
     }
 
+//    public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String pName) {
+//        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(pName));
+//    }
+
     /**
      * 四参注册机，
      * @param context

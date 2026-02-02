@@ -68,14 +68,6 @@ public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
             livingEntity.setSharedFlagOnFire(false);
         }
     }
-
-    @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
-        if (!level.isClientSide() && DifficultyModeUtil.isPowerBattleMode() && timeLeft + 1 <= this.getUseDuration(stack) / 2) {
-            this.finishUsingItem(stack, level, consumer);
-        }
-        super.releaseUsing(stack, level, consumer, timeLeft);
-    }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {

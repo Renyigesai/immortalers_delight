@@ -7,6 +7,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightPotions;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
@@ -188,7 +189,7 @@ public class KwatWheatCrop extends ReapCropBlock {
         effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 3.0f);
         effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
 
-        effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),320,1));
+        effectCloud.setPotion(ImmortalersDelightPotions.STRONG_GAS.get());
 
         level.addFreshEntity(effectCloud);
     }

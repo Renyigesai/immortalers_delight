@@ -96,6 +96,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightFluids.REGISTRY.register(bus);
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);
+        ImmortalersDelightPotions.REGISTRY.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);

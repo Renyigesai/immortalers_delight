@@ -1,9 +1,6 @@
 package com.renyigesai.immortalers_delight.entities.projectile;
 
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
@@ -80,7 +77,6 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
 
     private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
         if (level.isClientSide()) return;
-        boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
 
         EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.2D, pPos.getZ() + 0.5D);
 
@@ -91,7 +87,7 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
         effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 2.0f);
         effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
 
-        effectCloud.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),isPowerful ? 640 : 560,0));
+        effectCloud.setPotion(ImmortalersDelightPotions.GAS.get());
         if (this.getOwner() != null && this.getOwner() instanceof LivingEntity livingEntity) effectCloud.setOwner(livingEntity);
 
         level.addFreshEntity(effectCloud);

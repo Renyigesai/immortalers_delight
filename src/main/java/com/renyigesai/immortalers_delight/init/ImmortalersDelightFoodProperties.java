@@ -589,9 +589,9 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,3150,1),1.0F)
             .alwaysEat().build();
 
-    public static final FoodProperties COOKED_TRAVARICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.4F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),600),1.0F).build();
+    public static final FoodProperties COOKED_TRAVARICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.4F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),1200),1.0F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),600),1.0F).build();
 
-    public static final FoodProperties TRAVEER = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F).alwaysEat().build();
+    public static final FoodProperties TRAVEER = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),8000,1),1.0F).alwaysEat().build();
     public static final FoodProperties CRETACEOUS_ZEA_BALL_POWERED = new FoodProperties.Builder()
             .nutrition(6).saturationMod(0.45f)
             .effect(()-> new MobEffectInstance(ModEffects.NOURISHMENT.get(),2400,0),1.0F)
@@ -894,7 +894,7 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),100),1f)
             .build();
     public static final FoodProperties GELPITAYA_ICEPOP = new FoodProperties.Builder()
-            .nutrition(4).saturationMod(1.2f)
+            .nutrition(4).saturationMod(1.2f).alwaysEat()
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),1800),1f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),3600),1f)
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,3600),1f)
@@ -925,7 +925,7 @@ public class ImmortalersDelightFoodProperties {
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),180),1f)
             .build();
     public static final FoodProperties HONE_MEI_LING = new FoodProperties.Builder()
-            .alwaysEat()
+            .alwaysEat().fast()
             .effect(()-> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,300,2),1f)
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.LINGERING_INFUSION.get(),1200),1f)
             .build();

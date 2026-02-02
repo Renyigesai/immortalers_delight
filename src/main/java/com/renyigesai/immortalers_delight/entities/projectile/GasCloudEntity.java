@@ -43,10 +43,12 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
     });
     public GasCloudEntity(EntityType<? extends GasCloudEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.reapplicationDelay = 32;
     }
 
     public GasCloudEntity(Level pLevel, double pX, double pY, double pZ) {
         this(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), pLevel);
+        this.reapplicationDelay = 32;
         this.setPos(pX, pY, pZ); // 设置初始位置
     }
 
@@ -164,8 +166,7 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
             boolean flag = false;
             for(LivingEntity livingentity : list1) {
                 LivingEntity caster = this.getOwner(); // 获取效果所有者
-                // 只对未记录或已超过重应用延迟的生物施加效果
-                if (livingentity.isAlive() && !this.victims.containsKey(livingentity) && livingentity != caster) {
+                if (livingentity.isAlive() && livingentity != caster) {
                     if (livingentity instanceof Sniffer || caster == null || (!caster.isAlliedTo(livingentity) && !livingentity.isAlliedTo(caster))) {
 
                         // 计算生物与效果云中心的水平距离平方（优化：避免开方）
@@ -179,14 +180,13 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
                             if (!livingentity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get()) && !livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get())) {
                                 boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                                 if (isPowerful) livingentity.invulnerableTime = 0;
-                                livingentity.hurt(GasPoisonMobEffect.getDamageSource(livingentity, caster), 2);
+                                livingentity.hurt(GasPoisonMobEffect.getDamageSource(livingentity, caster), isPowerful ? 1.2f * (1 + (caster == null ? 1 : caster.getMaxHealth() / 20)): 1.2f);
                                 if (isPowerful) livingentity.invulnerableTime = 0;
                                 if (isPowerful && livingentity instanceof Mob mob) mob.getNavigation().moveTo(this, 0.3);
                             }
-                            flag = true;//判断是否执行成功
                         }
                         //这里用来刷新嗅探CD
-                        else if (livingentity instanceof Sniffer sniffer && d3 <= (double)( 2 * range * 2 * range)) {
+                        else if (livingentity instanceof Sniffer sniffer && !this.victims.containsKey(livingentity) && d3 <= (double)( 2 * range * 2 * range)) {
                             // 记录该生物下次可受影响的刻数
                             this.victims.put(livingentity, this.tickCount + this.reapplicationDelay);
                             sniffer.getBrain().setMemoryWithExpiry(MemoryModuleType.SNIFF_COOLDOWN, Unit.INSTANCE, 96L);
