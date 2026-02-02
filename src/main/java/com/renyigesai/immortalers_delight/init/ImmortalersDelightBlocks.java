@@ -24,11 +24,14 @@ import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -103,15 +106,15 @@ public class ImmortalersDelightBlocks {
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = BLOCKS.register("himekaido_fruited_leaves",() ->
-        new HimekaidoLeavesFruited(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+        new HimekaidoLeavesFruited(leavesProperties(SoundType.GRASS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> HIMEKAIDO_FLOWERING_LEAVES = BLOCKS.register("himekaido_flowering_leaves",() ->
-        new HimekaidoLeavesGrowing((HimekaidoLeavesFruited) HIMEKAIDO_FRUITED_LEAVES.get(), BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+        new HimekaidoLeavesGrowing((HimekaidoLeavesFruited) HIMEKAIDO_FRUITED_LEAVES.get(), leavesProperties(SoundType.GRASS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> HIMEKAIDO_LEAVES = BLOCKS.register("himekaido_leaves",() ->
-            new HimekaidoLeavesGrowing((HimekaidoLeavesGrowing) HIMEKAIDO_FLOWERING_LEAVES.get(), BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+            new HimekaidoLeavesGrowing((HimekaidoLeavesGrowing) HIMEKAIDO_FLOWERING_LEAVES.get(), leavesProperties(SoundType.GRASS)));
 
     @BlockData
     public static final RegistryObject<Block> HIMEKAIDO_PLANKS = BLOCKS.register("himekaido_planks",
@@ -976,6 +979,18 @@ public class ImmortalersDelightBlocks {
 
     private static RegistryObject<Block> drinksBlock(String name){
         return BLOCKS.register(name,()->new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    }
+
+    private static BlockBehaviour.Properties leavesProperties(SoundType pType) {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(pType).noOcclusion().isValidSpawn(ImmortalersDelightBlocks::ocelotOrParrot).isSuffocating(ImmortalersDelightBlocks::never).isViewBlocking(ImmortalersDelightBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(ImmortalersDelightBlocks::never);
+    }
+
+    private static Boolean ocelotOrParrot(BlockState p_50822_, BlockGetter p_50823_, BlockPos p_50824_, EntityType<?> p_50825_) {
+        return p_50825_ == EntityType.OCELOT || p_50825_ == EntityType.PARROT;
+    }
+
+    private static boolean never(BlockState p_50806_, BlockGetter p_50807_, BlockPos p_50808_) {
+        return false;
     }
 
 

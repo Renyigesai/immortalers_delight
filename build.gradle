@@ -193,6 +193,7 @@ dependencies {
     implementation fg.deobf("curse.maven:farmers-delight-398521:6597298")
     runtimeOnly fg.deobf("curse.maven:appskin-248787:4770828")
     runtimeOnly fg.deobf("curse.maven:jade-324717:5672013")
+//    runtimeOnly fg.deobf("curse.maven:lmft-656346:4662630")
     implementation fg.deobf("curse.maven:ltc2-1163872:7073167")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
