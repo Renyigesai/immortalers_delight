@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:sextlotus_root_cuts"
+    },
+    {
+      "item": "immortalers_delight:moon_oil"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:purgatory_ale"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:sparkling_water"
+  },
+  "output": {
+    "item": "immortalers_delight:sextlotus_fizz",
+    "count": 1
+  }
+}

@@ -6,9 +6,14 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -18,6 +23,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
+    protected int damageAmplification = 0;
+    public int getDamageAmp() { return this.damageAmplification;}
+    public void setDamageAmp(int damageAmp) { this.damageAmplification = damageAmp;}
     public WarpedLaurelHitBoxEntity(EntityType<? extends EffectCloudBaseEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -61,15 +69,29 @@ public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
 
                             // 距离小于等于半径平方（在范围内）
                             if (d3 <= (double)(range * range)) {
-                                livingentity.hurt(livingentity.damageSources().lava(), 4);
+                                //对范围内的生物造成伤害
+                                //如果是无主的，则与岩浆一样造成伤害
+                                //如果有主，则造成目标生命上限0.25%的伤害，伤害每级翻倍
                                 if (caster != null) {
-//                                    SmallFireball smallFireball = new SmallFireball(this.level(), caster, 0.0, 0.0, 0.0);
-//                                    smallFireball.setPos(this.getX(), this.getY(), this.getZ());
-//                                    this.level().addFreshEntity(smallFireball);
-//                                    livingentity.hurt(livingentity.damageSources().fireball(smallFireball, caster), 4);
-//                                    smallFireball.discard();
-                                    livingentity.setSecondsOnFire(Math.max(60, livingentity.getRemainingFireTicks() / 20 + 15));
-                                }else livingentity.setSecondsOnFire(15);
+                                    int damage = (int) (livingentity.getMaxHealth() * 0.0025f);
+
+                                    int amp = this.getDamageAmp();
+                                    damage *= 1 << amp;
+                                    //如果伤害将杀死目标，使用有源伤害；否则造成无来源岩浆伤害
+                                    DamageSource source = livingentity.getHealth() < damage ?
+                                            (caster instanceof Player ?
+                                                    caster.damageSources().playerAttack((Player) caster) : caster.damageSources().mobAttack(caster))
+                                            : caster.damageSources().lava();
+                                    //如果目标是防火的，则伤害极大幅度提升
+                                    if (livingentity.fireImmune()) damage *= 1 << amp;
+
+                                    livingentity.hurt(source, damage);
+                                    //造成伤害会令目标的燃烧时间叠加
+                                    if (!livingentity.fireImmune()) livingentity.setSecondsOnFire(Math.max(15 * (amp + 2), livingentity.getRemainingFireTicks() / 20 + 15));
+                                }else if (!livingentity.fireImmune()) {
+                                    livingentity.hurt(livingentity.damageSources().lava(), 4);
+                                    livingentity.setSecondsOnFire(15);
+                                }
                             }
                         }
                     }

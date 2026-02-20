@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "immortalers_delight:kwat_wheat_paste"},
+    {"item": "immortalers_delight:sextlotus_root_cuts"},
+    {"item": "immortalers_delight:sextlotus_root_cuts"},
+    {"item": "minecraft:bowl"}
+  ],
+  "result": {
+    "item": "immortalers_delight:smashed_sextlotus_root",
+    "count": 1
+  }
+}

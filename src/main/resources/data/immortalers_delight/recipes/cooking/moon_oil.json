@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:sextlotus_seeds"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_seeds"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_seeds"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_seeds"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "immortalers_delight:moon_oil"
+  },
+  "experience": 0.35,
+  "cookingtime": 500
+}

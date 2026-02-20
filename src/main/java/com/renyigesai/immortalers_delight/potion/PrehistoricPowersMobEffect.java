@@ -40,7 +40,16 @@ public class PrehistoricPowersMobEffect extends MobEffect {
         int lv = 0;
         MobEffectInstance instance = pLivingEntity.getEffect(MobEffects.DAMAGE_BOOST);
         if (instance != null) lv = Math.min(instance.getAmplifier(), pAmplifier);
-        super.addAttributeModifiers(pLivingEntity, pAttributeMap, lv);
+        if (DifficultyModeUtil.isPowerBattleMode()) {
+            for(Map.Entry<Attribute, AttributeModifier> entry : this.attributeModifierMap.entrySet()) {
+                AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
+                if (attributeinstance != null) {
+                    AttributeModifier attributemodifier = entry.getValue();
+                    attributeinstance.removeModifier(attributemodifier);
+                    attributeinstance.addPermanentModifier(new AttributeModifier(attributemodifier.getId(), this.getDescriptionId() + " " + lv, this.getAttributeModifierValue(lv, attributemodifier), attributemodifier.getOperation()));
+                }
+            }
+        } else super.addAttributeModifiers(pLivingEntity, pAttributeMap, lv);
     }
 
     //实现旧版力量的伤害公式

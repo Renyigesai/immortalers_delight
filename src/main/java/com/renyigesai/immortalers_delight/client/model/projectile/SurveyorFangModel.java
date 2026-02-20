@@ -1,26 +1,18 @@
 package com.renyigesai.immortalers_delight.client.model.projectile;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.renyigesai.immortalers_delight.client.animation.SkelverfishThrasherAnimation;
-import com.renyigesai.immortalers_delight.client.animation.SurveyorFangAnimation;
-import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFang;
+import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFangEntity;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.ListModel;
-import net.minecraft.client.model.WaterPatchModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.model.EntityModel;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
 
-public class SurveyorFangModel<T extends SurveyorFang> extends HierarchicalModel<T> {
+public class SurveyorFangModel<T extends SurveyorFangEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation SURVEYOR_FANG = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "sword_on_a_stick"), "main");
     private final ModelPart bone;

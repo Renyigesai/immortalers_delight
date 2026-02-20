@@ -18,6 +18,7 @@ public class ImmortalersDelightParticles {
         event.registerSpriteSet(ImmortalersDelightParticleTypes.SHOCK_WAVE.get(),ShockWaveParticle::shockWaveParticleProvider);
         event.registerSpriteSet(ImmortalersDelightParticleTypes.SPIRAL_SOUL.get(), SpiralSoulParticle::spiralSoulParticleProvider);
         event.registerSpriteSet(ImmortalersDelightParticleTypes.SNOW_FOG.get(), SnowFogParticle::snowFogParticleProvider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.MOONLIGHT_BEAM.get(), MoonlightBeamParticle::moonlightBeamParticleProvider);
     }
 
 }

@@ -12,7 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber
 public class InebriatedToxicDrinkBlockItem extends DrinkItem {
 
-
+    public InebriatedToxicDrinkBlockItem(Block pBlock, Properties pProperties, boolean hasPotionEffectTooltip, boolean hasCustomToolTip) {
+        super(pBlock, pProperties, hasPotionEffectTooltip, hasCustomToolTip);
+    }
     public InebriatedToxicDrinkBlockItem(Block pBlock, Properties pProperties, boolean hasPotionEffectTooltip) {
         super(pBlock, pProperties, hasPotionEffectTooltip);
     }

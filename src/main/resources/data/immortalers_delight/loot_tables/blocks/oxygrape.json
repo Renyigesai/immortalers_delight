@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:kelp",
+          "conditions": [
+            {
+            "condition": "minecraft:inverted",
+            "term": {
+              "condition": "minecraft:block_state_property",
+              "block": "immortalers_delight:oxygrape",
+              "properties": {
+                "age": "3"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:oxygrape"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "immortalers_delight:oxygrape",
+          "properties": {
+            "age": "3"
+          }
+        }
+      ]
+    }
+  ],
+  "random_sequence": "immortalers_delight:block/oxygrape"
+}

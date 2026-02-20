@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:sextlotus_root"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  },
+  "result": [
+    {
+      "item": "immortalers_delight:sextlotus_root_cuts",
+      "count": 2
+    }
+  ]
+}

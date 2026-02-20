@@ -14,22 +14,22 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.decoration.ItemFrame;
-import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class SurveyorFang extends Entity implements TraceableEntity {
+//待优化
+//唤魔者尖牙的逻辑写的依托，明明区域药水云的状态管理和双端交互(EntityDataAccessor)要好得多，搞不懂为什么ojng还要用gameEvent做同步
+//要写地刺类实体推荐转进隔壁MoonArrowHitboxEntity，比这有条理的多
+public class SurveyorFangEntity extends Entity implements TraceableEntity {
     public static final int ATTACK_DURATION = 20;
     public static final int LIFE_OFFSET = 2;
     public static final int ATTACK_TRIGGER_TICKS = 14;
-    private static final EntityDataAccessor<ItemStack> DATA_ITEM = SynchedEntityData.defineId(SurveyorFang.class, EntityDataSerializers.ITEM_STACK);
-    private static final EntityDataAccessor<Float> DAMAGE = SynchedEntityData.defineId(SurveyorFang.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<ItemStack> DATA_ITEM = SynchedEntityData.defineId(SurveyorFangEntity.class, EntityDataSerializers.ITEM_STACK);
+    private static final EntityDataAccessor<Float> DAMAGE = SynchedEntityData.defineId(SurveyorFangEntity.class, EntityDataSerializers.FLOAT);
 
     private int warmupDelayTicks;
     private boolean sentSpikeEvent;
@@ -42,11 +42,11 @@ public class SurveyorFang extends Entity implements TraceableEntity {
     private UUID ownerUUID;
     private float dropChance = 0F;
 
-    public SurveyorFang(EntityType<? extends SurveyorFang> pEntityType, Level pLevel) {
+    public SurveyorFangEntity(EntityType<? extends SurveyorFangEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public SurveyorFang(Level pLevel, double pX, double pY, double pZ, float pYRot, int pWarmupDelay,float damage, LivingEntity pOwner) {
+    public SurveyorFangEntity(Level pLevel, double pX, double pY, double pZ, float pYRot, int pWarmupDelay, float damage, LivingEntity pOwner) {
         this(ImmortalersDelightEntities.SURVEYOR_FANG.get(), pLevel);
         this.warmupDelayTicks = pWarmupDelay;
         this.setOwner(pOwner);
@@ -55,7 +55,7 @@ public class SurveyorFang extends Entity implements TraceableEntity {
         this.setPos(pX, pY, pZ);
     }
 
-    public SurveyorFang(Level pLevel, double pX, double pY, double pZ, float pYRot, int pWarmupDelay,float damage,ItemStack itemStack, LivingEntity pOwner) {
+    public SurveyorFangEntity(Level pLevel, double pX, double pY, double pZ, float pYRot, int pWarmupDelay, float damage, ItemStack itemStack, LivingEntity pOwner) {
         this(ImmortalersDelightEntities.SURVEYOR_FANG.get(), pLevel);
         this.warmupDelayTicks = pWarmupDelay;
         this.setOwner(pOwner);

@@ -6,10 +6,8 @@ import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.model.projectile.ModSkullModel;
 import com.renyigesai.immortalers_delight.entities.projectile.KiBlastEntity;
-import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFang;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -27,7 +25,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

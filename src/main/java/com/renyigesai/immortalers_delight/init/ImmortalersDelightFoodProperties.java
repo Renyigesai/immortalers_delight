@@ -232,10 +232,11 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties CLEAR_WATER_VODKA = new FoodProperties.Builder()
             .alwaysEat()
-            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),12000,0),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.REGENERATION,1500,0),1.0F)
             .effect(()-> new MobEffectInstance(MobEffects.ABSORPTION,900,9),1.0F)
-            .effect(()-> new MobEffectInstance(MobEffects.HEAL,1,1),1.0F).build();
+            .effect(()-> new MobEffectInstance(MobEffects.HEAL,1,1),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),12000,0),1.0F)
+            .build();
 
     public static final FoodProperties ZEA_PANCAKE_SLICE = new FoodProperties.Builder()
             .nutrition(7).saturationMod(0.55f)
@@ -591,7 +592,7 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties COOKED_TRAVARICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.4F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),1200),1.0F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),600),1.0F).build();
 
-    public static final FoodProperties TRAVEER = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),8000,1),1.0F).alwaysEat().build();
+    public static final FoodProperties TRAVEER = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1200),1.0F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),4800,1),1.0F).alwaysEat().build();
     public static final FoodProperties CRETACEOUS_ZEA_BALL_POWERED = new FoodProperties.Builder()
             .nutrition(6).saturationMod(0.45f)
             .effect(()-> new MobEffectInstance(ModEffects.NOURISHMENT.get(),2400,0),1.0F)
@@ -1063,6 +1064,8 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties JENG_NANU_SLICE = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.45f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1400,1),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),200,1),1f)
             .build();
     public static final FoodProperties SHUTORCH = new FoodProperties.Builder()
             .nutrition(7).saturationMod(1.0f)
@@ -1144,12 +1147,95 @@ public class ImmortalersDelightFoodProperties {
             .nutrition(4).saturationMod(0.9f)
             .effect(()->new MobEffectInstance(MobEffects.REGENERATION,200),1.0F)
             .build();
-    //public static final FoodProperties GIANT_TART = new FoodProperties.Builder().nutrition(10).saturationMod(0.7f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1400,1),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1400,1),1f).fast().build();
+
     public static final FoodProperties GIANT_TART_SLICE = new FoodProperties.Builder().nutrition(5).saturationMod(1.25f).effect(()-> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,3600,1),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),200,1),1f).fast().build();
     public static final FoodProperties ABC_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),9600),1f).alwaysEat().build();
     public static final FoodProperties ABBLUE_BEAUTY_C_OFFEE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),8400),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.DEEPNESS.get(),2400),1f).alwaysEat().build();
     public static final FoodProperties ABC_OOKIE = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),3600),1f).nutrition(4).saturationMod(0.1f).alwaysEat().build();
-
+    public static final FoodProperties JVAV_OFFEE = new FoodProperties.Builder()
+            .effect(()->new MobEffectInstance(MobEffects.DAMAGE_BOOST,2400,2),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,3000,1),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.REGENERATION,3000,0),1.0F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),9600),1f)
+            .alwaysEat().build();
+    public static final FoodProperties SEXTLOTUS_ROOT = new FoodProperties.Builder()
+            .nutrition(3).saturationMod(0.5f)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),400),1.0F)
+            .build();
+    public static final FoodProperties SEXTLOTUS_ROOT_CUTS = new FoodProperties.Builder()
+            .nutrition(2).saturationMod(0.3f)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),60,1),1.0F)
+            .build();
+    public static final FoodProperties MOON_OIL = new FoodProperties.Builder()
+            .alwaysEat().fast()
+            .nutrition(10).saturationMod(0.6f)
+            .effect(()->new MobEffectInstance(MobEffects.SATURATION,1,4),0.9375F)
+            .effect(()->new MobEffectInstance(MobEffects.NIGHT_VISION,1200),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.CONFUSION,1200),1.0F)
+            .build();
+    public static final FoodProperties OLD_BEIJING_CHICKEN_ROLL = new FoodProperties.Builder()
+            .nutrition(10).saturationMod(0.7f)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1200,1),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),1800,1),1.0F)
+            .build();
+    public static final FoodProperties SMASHED_SEXTLOTUS_ROOT = new FoodProperties.Builder()
+            .nutrition(8).saturationMod(0.8f)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),2400),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),600,1),1.0F)
+            .build();
+    public static final FoodProperties OXYGRAPE = new FoodProperties.Builder()
+            .nutrition(1).saturationMod(1.5f)
+            .alwaysEat().fast()
+            .effect(()->new MobEffectInstance(MobEffects.WATER_BREATHING,200),1.0F)
+            .build();
+    public static final FoodProperties SPARKLING_WATER = new FoodProperties.Builder()
+            .alwaysEat().fast()
+            .build();
+    public static final FoodProperties MORNING_FIZZ = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1200),1.0F)
+            .build();
+    public static final FoodProperties GLISTERING_FIZZ = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(MobEffects.REGENERATION,200,2),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.HEAL,1,2),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F)
+            .build();
+    public static final FoodProperties GREEN_TEA_FIZZ = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1800,3),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.WEAKNESS,1200,3),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1.0F)
+            .build();
+    public static final FoodProperties SEXTLOTUS_FIZZ = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),8000,1),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1800),1.0F)
+            .build();
+    public static final FoodProperties RAINBOW_FIZZ = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(MobEffects.REGENERATION,100,1),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.HEAL,1,1),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,3),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.NIGHT_VISION,12000),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),2400,1),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.DIG_SLOWDOWN,1800,2),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.WEAKNESS,1350),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),3000),1.0F)
+            .build();
+    public static final FoodProperties SPARROW_WINE = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(MobEffects.DIG_SPEED,800,4),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.MOVEMENT_SPEED,800,3),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),800,2),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.ABSORPTION,800,2),1.0F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),3800),1.0F)
+            .build();
+    public static final FoodProperties DRAGON_SLAYING_ART = new FoodProperties.Builder()
+            .alwaysEat()
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),9000,2),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F)
+            .build();
 //    public static final FoodProperties TEXT = new FoodProperties.Builder()
 //            .build();
 

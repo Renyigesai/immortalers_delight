@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east,pile=1": {
+      "model": "immortalers_delight:block/pickled_sextlotus_root",
+      "y": 270
+    },
+    "facing=north,pile=1": {
+      "model": "immortalers_delight:block/pickled_sextlotus_root",
+      "y": 180
+    },
+    "facing=south,pile=1": {
+      "model": "immortalers_delight:block/pickled_sextlotus_root"
+    },
+    "facing=west,pile=1": {
+      "model": "immortalers_delight:block/pickled_sextlotus_root",
+      "y": 90
+    }
+  }
+}

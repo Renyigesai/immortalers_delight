@@ -40,11 +40,15 @@ public class MagicalReversePotionEffect {
                         event.setResult(Event.Result.DENY);
                     }
                 } else if (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.MAGICAL_REVERSE.get()) {
-                    MagicalReverseMobEffect.reverseNormalEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_NORMAL_EFFECT.get());
-                    reverseInstantEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_INSTANT_EFFECT.get());
+                    updateReverseEffect();
                 }
 
             }
         }
+    }
+
+    public static void updateReverseEffect() {
+        MagicalReverseMobEffect.reverseNormalEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_NORMAL_EFFECT.get());
+        reverseInstantEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_INSTANT_EFFECT.get());
     }
 }

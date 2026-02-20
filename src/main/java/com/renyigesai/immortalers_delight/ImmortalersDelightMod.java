@@ -4,10 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.advancement.LevelUpEnchantmentTrigger;
 import com.renyigesai.immortalers_delight.advancement.PassSnifferCoolDownTrigger;
 import com.renyigesai.immortalers_delight.client.model.*;
-import com.renyigesai.immortalers_delight.client.model.projectile.EffectCloudModel;
-import com.renyigesai.immortalers_delight.client.model.projectile.HugeSmokeParticleModel;
-import com.renyigesai.immortalers_delight.client.model.projectile.SurveyorFangModel;
-import com.renyigesai.immortalers_delight.client.model.projectile.WarpedLaurelHitBoxModel;
+import com.renyigesai.immortalers_delight.client.model.projectile.*;
 import com.renyigesai.immortalers_delight.client.renderer.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.*;
@@ -162,6 +159,9 @@ public class ImmortalersDelightMod {
             modelLayers.put(KiBlastRenderer.MODEL_LOCATION, KiBlastRenderer::createSkullLayer);
             modelLayers.put(WarpedLaurelHitBoxModel.LAYER_LOCATION, WarpedLaurelHitBoxModel::createBodyLayer);
             modelLayers.put(ToxicGasGrenadeRenderer.MODEL_LOCATION, ToxicGasGrenadeRenderer::createSkullLayer);
+            modelLayers.put(MoonlightBeamModel.LAYER_LOCATION, MoonlightBeamModel::createBodyLayer);
+            modelLayers.put(MoonArrowHitboxModel.LAYER_LOCATION, MoonArrowHitboxModel::createBodyLayer);
+            modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -189,6 +189,7 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), WarpedLaurelHitBoxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.KI_BLAST.get(), KiBlastRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), ToxicGasGrenadeRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(),MoonArrowHitboxRenderer::new);
 
         }
 
@@ -233,6 +234,9 @@ public class ImmortalersDelightMod {
                 return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
             });
             ItemProperties.register(ImmortalersDelightItems.LARGE_COLUMN.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
+                return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
+            });
+            ItemProperties.register(ImmortalersDelightItems.JENG_NANU.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
                 return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
             });
         }

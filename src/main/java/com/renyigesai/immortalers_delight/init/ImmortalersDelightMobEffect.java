@@ -2,9 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.potion.*;
-import com.renyigesai.immortalers_delight.util.datautil.worlddata.DifficultyModeWorldData;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.DeferredRegister;
@@ -57,5 +55,6 @@ public class ImmortalersDelightMobEffect {
     public static final RegistryObject<MobEffect> UP_SIDE_DOWN = REGISTRY.register("up_side_down", UpSideDownMobEffect::new);
 
     public static final RegistryObject<MobEffect> SMOKE_ABSTINENCE = REGISTRY.register("smoke_abstinence", SmokeAbstinenceEffect::new);
+    public static final RegistryObject<MobEffect> MOONBRIGHT = REGISTRY.register("moon_bright", MoonBrightMobEffect::new);
 
 }

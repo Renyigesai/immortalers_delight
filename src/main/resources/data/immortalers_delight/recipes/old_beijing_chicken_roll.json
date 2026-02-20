@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "immortalers_delight:warped_laurel"},
+    {"tag": "forge:cooked_chicken"},
+    {"item": "immortalers_delight:kwat_wheat_paste"},
+    {"item": "immortalers_delight:sextlotus_root_cuts"},
+    {"item": "farmersdelight:onion"},
+    {"tag": "forge:bread"}
+  ],
+  "result": {
+    "item": "immortalers_delight:old_beijing_chicken_roll",
+    "count": 1
+  }
+}

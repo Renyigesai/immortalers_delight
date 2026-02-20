@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "immortalers_delight:block/oxygrape_stage0"
+    },
+    "age=1": {
+      "model": "immortalers_delight:block/oxygrape_stage1"
+    },
+    "age=2": {
+      "model": "immortalers_delight:block/oxygrape_stage2"
+    },
+    "age=3": {
+      "model": "immortalers_delight:block/oxygrape_stage3"
+    }
+  }
+}

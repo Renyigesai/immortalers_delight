@@ -84,7 +84,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
     public static AttributeSupplier.Builder createScavengerAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.24D)
-                .add(Attributes.ATTACK_DAMAGE, 7.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 25.0D)
                 .add(Attributes.MAX_HEALTH, 24.0D);
     }
@@ -257,6 +257,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         abstractarrow.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
+        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 5 + abstractarrow.getDeltaMovement().lengthSqr() * 0.6f));
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level().addFreshEntity(abstractarrow);
     }

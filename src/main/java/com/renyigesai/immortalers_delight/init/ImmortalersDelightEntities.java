@@ -10,7 +10,6 @@ import com.renyigesai.immortalers_delight.entities.living.illager_archaeological
 import com.renyigesai.immortalers_delight.entities.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,8 +50,8 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("scavenger", () -> EntityType.Builder.of(Scavenger::new, MobCategory.MONSTER)
                     .sized(0.6f, 2.0f).build("scavenger"));
 
-    public static final RegistryObject<EntityType<SurveyorFang>> SURVEYOR_FANG =
-            ENTITY_TYPES.register("sword_tipped_long_pole", () -> EntityType.Builder.<SurveyorFang>of(SurveyorFang::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<SurveyorFangEntity>> SURVEYOR_FANG =
+            ENTITY_TYPES.register("sword_tipped_long_pole", () -> EntityType.Builder.<SurveyorFangEntity>of(SurveyorFangEntity::new, MobCategory.MISC)
             .sized(0.6F, 2.5F)
             .clientTrackingRange(6)
             .updateInterval(2)
@@ -99,6 +98,15 @@ public class ImmortalersDelightEntities {
                     .clientTrackingRange(4)
                     .updateInterval(10)
                     .build("caustic_essential_oil"));
+
+
+    public static final RegistryObject<EntityType<MoonArrowHitboxEntity>> MOON_ARROW_HITBOX =
+            ENTITY_TYPES.register("moon_arrow_hitbox", () -> EntityType.Builder.<MoonArrowHitboxEntity>of(MoonArrowHitboxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("moon_arrow_hitbox"));
 
     public static final RegistryObject<EntityType<TerracottaGolem>> TERRACOTTA_GOLEM =
             ENTITY_TYPES.register("terracotta_golem", () -> EntityType.Builder.of(TerracottaGolem::new, MobCategory.MISC)

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "immortalers_delight:block/sextlotus_lantern"
+    },
+    "hanging=true": {
+      "model": "immortalers_delight:block/sextlotus_lantern_hanging"
+    }
+  }
+}

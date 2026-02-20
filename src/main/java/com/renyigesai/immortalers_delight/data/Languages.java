@@ -188,6 +188,9 @@ public class Languages extends LanguageProvider {
         createTooltip("a_bush","可被种植在§f下界岩§r上，成长到最大阶段后放置§f岩浆§r可以被转换为§f烬烟木§r。","It can be planted on §fnetherrack§r and, when fully grown, placed on §flava§r, which can then be transformed into §fa bush log§r.");
         createTooltip("tooltip_item_name_block_item","§o按住Shift查看更多","§oPress Shift to view");
 
+        createFarmersdelightTooltip("jeng_nanu","Blocks 4 instances of damage,\n" +
+                "and punishes the disrespectful with Nether Flame.","抵挡4次伤害，用下界之焰惩罚不敬者");
+        createFarmersdelightTooltip("morning_fizz","Produces the opposite effect to counteract DoT damage.","生成相反的效果对抗持续伤害");
         createFarmersdelightTooltip("large_column","2x Damage Block; Drops edible shards on block.","格挡两次伤害，格挡伤害时产生可食用的碎片");
         createFarmersdelightTooltip("ku_mesh_non","Exceptional Mass","不同寻常的分量");
         createFarmersdelightTooltip("hong_mei_ling","You've gained new insight into using Qi...","你对“用气”有了新的理解……");
@@ -264,6 +267,7 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),"冻结吧！");
         createEffect(ImmortalersDelightMobEffect.UNYIELDING.get(),"坚韧");
         createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
+        createEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get(),"月明");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。");
         add("effect.immortalers_delight.relieve_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
@@ -291,6 +295,10 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.let_it_freeze.description","The attack causes the target to briefly enter a cold state, reducing its speed and continuously subjecting it to frostbite. In non-supernatural mode, the target cannot be completely frozen.","攻击使目标短暂进入寒冷状态，降低速度并持续受到冻伤，非超凡模式下不能完全冻结目标。");
         add("effect.immortalers_delight.unyielding.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","受到有源伤害时获得短暂的无敌时间，超凡模式下也对环境伤害生效。");
         add("effect.immortalers_delight.smoke_abstinence","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力量II，急迫III，生命回复和抗火，如抗性提II般减免伤害。");
+        add("effect.immortalers_delight.moon_bright","Illuminates nearby entities in the dark.\n" +
+                "Firing arrows at lit targets will cause them to be torn apart by Kuuvahki.\n" +
+                "After a short duration or when the target dies, it deals area damage to surrounding mobs.\n" +
+                "This effect is significantly stronger during a Full Moon.","在黑暗中令周围的实体发光。对发光的目标射出箭矢以令其受到月矩撕扯，在一段时间或目标死亡后对周围生物造成范围伤害。在满月夜这个效果将强得多。");
 
     }
 
@@ -344,10 +352,12 @@ public class Languages extends LanguageProvider {
         createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
+        createEntity(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(), "邪月之触");
     }
     private void addMessages(){
         createMessage("effect.stun","You're reeling!","你头晕目眩！");
         createMessage("effect.freeze","You're freezing up!","你要冻僵了！");
+        createMessage("effect.kuuvahki","The moonlight stings you!","月光刺痛了你！");
     }
 
     private void adds(){
@@ -357,6 +367,9 @@ public class Languages extends LanguageProvider {
         add("death.attack.gas","%1$s It was gassed and turned into bacon","%1$s 被瓦斯毒气熏成了腊肉");
         add("death.attack.gas.item","%1$s was killed by %2$s using %3$s","%1$ 被 %2$s 杀死 %3$s");
         add("death.attack.gas.player","%1$s was killed by %2$s using %3$s","%1$ 在试图逃跑时死亡 %2$s");
+        add("death.attack.moon_arrow","%1$s It beyond the Roche limit.","%1$s 越过了希洛极限");
+        add("death.attack.moon_arrow.item","%1$s was killed by %2$s using %3$s","%1$ 被 %2$s 杀死 %3$s");
+        add("death.attack.moon_arrow.player","%1$s was killed by %2$s using %3$s","%1$ 在试图逃跑时死亡 %2$s");
         add("potion.potency.4","V","V");
         add("potion.potency.5","VI","VI");
         add("potion.potency.6","VII","VII");

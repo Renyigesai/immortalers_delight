@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/warped_lantern_floor",
+	"textures": {
+		"0": "immortalers_delight:block/warped_lantern_all",
+		"particle": "immortalers_delight:block/warped_lantern_all"
+	}
+}

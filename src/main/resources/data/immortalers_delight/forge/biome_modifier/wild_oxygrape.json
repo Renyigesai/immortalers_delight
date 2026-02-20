@@ -1,0 +1,7 @@
+{
+  "type": "farmersdelight:add_features_by_filter",
+  "allowed_biomes": "#forge:is_wet/overworld",
+  "denied_biomes": "#forge:is_underground",
+  "features": "immortalers_delight:oxygrape_simple",
+  "step": "vegetal_decoration"
+}

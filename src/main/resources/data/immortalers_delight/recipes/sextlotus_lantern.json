@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "ccc",
+    "ddd"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:sextlotus_leaf"
+    },
+    "b": {
+      "item": "farmersdelight:rope"
+    },
+    "c": {
+      "item": "immortalers_delight:sextlotus_seeds"
+    },
+    "d": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:sextlotus_lantern",
+    "count": 1
+  }
+}

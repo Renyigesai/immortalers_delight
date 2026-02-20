@@ -23,6 +23,8 @@ import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
 import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
+import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlock;
+import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlockEntity;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,10 +43,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
@@ -75,6 +80,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<BlockEntityType<SuspiciousAshPileBlockEntity>> SUSPICIOUS_ASH_PILE_BLOCK_ENTITY;
     public static final RegistryObject<Block> SUPPORT_BLOCK;
     public static final RegistryObject<BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
+    @BlockData
+    public static final RegistryObject<Block> WARPED_LANTERN;
+    public static final RegistryObject<BlockEntityType<WarpedLanternBlockEntity>> WARPED_LANTERN_ENTITY;
 
     @BlockData
     public static final RegistryObject<BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
@@ -902,6 +910,101 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<ButtonBlock> A_BUSH_BUTTON = BLOCKS.register("a_bush_button",()-> woodenButton(ImmortalersDelightWoodSetType.A_BUSH));
 
+    /*
+    既望莲
+     */
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> SEXTLOTUS = BLOCKS.register("sextlotus",
+            () -> new SextlotusCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
+                    .lightLevel(blockState -> blockState.getValue(SextlotusCropBlock.AGE) == 7 ? 15
+                    : blockState.getValue(SextlotusCropBlock.AGE) == 6 ? 12
+                    :blockState.getValue(SextlotusCropBlock.AGE) == 5 ? 7
+                    :blockState.getValue(SextlotusCropBlock.AGE) == 4 ? 4 : 0 )
+                    .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    @BlockData(dropType = BlockData.DropType.GENERAL)
+    public static final RegistryObject<Block> SEXTLOTUS_LANTERN = BLOCKS.register("sextlotus_lantern",
+            ()-> new LanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F).lightLevel(state -> 15).sound(SoundType.WOOD)));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> OXYGRAPE = BLOCKS.register("oxygrape",
+            ()-> new  OxygrapeCropBlock(BlockBehaviour.Properties.copy(Blocks.SEAGRASS).randomTicks()));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> HIMEKAIDO_JELLY = BLOCKS.register("himekaido_jelly",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            if (state.getValue(DrinksBlock.PILE) == 3) return Block.box(-1.0D, 0.05D, -1.0D, 17.0D, 10.0D, 17.0D);
+            else if (state.getValue(DrinksBlock.PILE) == 2) return Block.box(0.0D, 0.05D, 0.0D, 16.0D, 10.0D, 16.0D);
+            return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 10.0D, 15.0D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> PICKLED_SEXTLOTUS_ROOT = BLOCKS.register("pickled_sextlotus_root",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(0.3F)){
+        @Override
+        public int getMaxPile(){return 1;}
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(3.0D, 0.0D, 3.0D, 13.0D, 13.0D, 13.0D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> MORNING_FIZZ = BLOCKS.register("morning_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(0.1D, 0.0D, 0.1D, 15.9D, 10.0D, 15.9D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> GLISTERING_FIZZ = BLOCKS.register("glistering_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> GREEN_TEA_FIZZ = BLOCKS.register("green_tea_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> SEXTLOTUS_FIZZ = BLOCKS.register("sextlotus_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+        }
+    });
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> RAINBOW_FIZZ = BLOCKS.register("rainbow_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.3F)){
+        @Override
+        public int getMaxPile(){
+            return 3;
+        }
+        @Override
+        public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+            return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+        }
+    });
+
     static {
         //方块实体 Block Entity
 
@@ -939,6 +1042,13 @@ public class ImmortalersDelightBlocks {
                         SoundEvents.BRUSH_GRAVEL_COMPLETED));
         SUSPICIOUS_ASH_PILE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("suspicious_ash_pile",
                 ()-> BlockEntityType.Builder.of(SuspiciousAshPileBlockEntity::new, SUSPICIOUS_ASH_PILE.get()).build(null));
+
+        WARPED_LANTERN = BLOCKS.register("warped_lantern",()->
+                new WarpedLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
+                ));
+        WARPED_LANTERN_ENTITY = BLOCK_ENTITY_REGISTRY.register("warped_lantern",
+                ()-> BlockEntityType.Builder.of(WarpedLanternBlockEntity::new, WARPED_LANTERN.get()).build(null));
+
     }
 
     private static ToIntFunction<BlockState> ageBlockEmission(int exLightValue) {

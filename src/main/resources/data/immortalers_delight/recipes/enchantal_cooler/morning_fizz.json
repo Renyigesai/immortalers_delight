@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn_hard_candy"
+    },
+    {
+      "item": "immortalers_delight:yogurt"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:purgatory_ale"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:sparkling_water"
+  },
+  "output": {
+    "item": "immortalers_delight:morning_fizz",
+    "count": 1
+  }
+}

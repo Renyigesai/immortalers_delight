@@ -52,10 +52,13 @@ public class LeisambooCropBlock extends BushBlock implements LiquidBlockContaine
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int age = pState.getValue(AGE);
-        if (age != 2){
-            pLevel.setBlock(pPos,pState.setValue(AGE,age+1),3);
-        }else {
-            pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.LEISAMBOO_STALK.get().defaultBlockState().setValue(LeisambooStalkBlock.WATERLOGGED,true));
+        if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(2) == 0)) {
+            if (age != 2){
+                pLevel.setBlock(pPos,pState.setValue(AGE,age+1),3);
+            }else {
+                pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.LEISAMBOO_STALK.get().defaultBlockState().setValue(LeisambooStalkBlock.WATERLOGGED,true));
+            }
+            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
         }
     }
 

@@ -5,10 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.model.projectile.SurveyorFangModel;
-import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFang;
+import com.renyigesai.immortalers_delight.entities.projectile.SurveyorFangEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EvokerFangsModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,8 +14,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,16 +22,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class SurveyorFangRenderer extends EntityRenderer<SurveyorFang> {
+public class SurveyorFangRenderer extends EntityRenderer<SurveyorFangEntity> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/sword_tipped_long_pole.png");
-    private final SurveyorFangModel<SurveyorFang> model;
+    private final SurveyorFangModel<SurveyorFangEntity> model;
 
     public SurveyorFangRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
         this.model = new SurveyorFangModel<>(pContext.bakeLayer(SurveyorFangModel.SURVEYOR_FANG));
     }
 
-    public void render(SurveyorFang pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(SurveyorFangEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
         float f = pEntity.getAnimationProgress(pPartialTicks);
         //System.out.println("实体动画进度" + f);
         if (f != 0.0F) {
@@ -97,7 +93,7 @@ public class SurveyorFangRenderer extends EntityRenderer<SurveyorFang> {
     /**
      * Returns the location of an entity's texture.
      */
-    public @NotNull ResourceLocation getTextureLocation(@NotNull SurveyorFang pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SurveyorFangEntity pEntity) {
         return TEXTURE_LOCATION;
     }
 }

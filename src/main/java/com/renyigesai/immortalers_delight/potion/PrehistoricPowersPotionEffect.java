@@ -32,7 +32,7 @@ public class PrehistoricPowersPotionEffect {
             MobEffectInstance powers = attacker.getEffect(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get());
             MobEffectInstance strength = attacker.getEffect(MobEffects.DAMAGE_BOOST);
             if (powers != null && strength != null){
-                int lv = Math.min(powers.getAmplifier(), strength.getAmplifier());
+                int lv = Math.min(powers.getAmplifier() + 1, strength.getAmplifier() + 1);
                 if (isPowerful) lv *= 2;
                 double damage = (Math.pow(1.3,lv) - 1)/0.3;
                 evt.setAmount(evt.getAmount() + (float)damage);

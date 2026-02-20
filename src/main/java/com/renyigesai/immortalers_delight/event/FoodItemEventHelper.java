@@ -9,6 +9,8 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
+import com.renyigesai.immortalers_delight.potion.MagicalReverseMobEffect;
+import com.renyigesai.immortalers_delight.potion.MagicalReversePotionEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
@@ -49,7 +51,9 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber
@@ -120,9 +124,36 @@ public class FoodItemEventHelper {
                             tag.putBoolean(EAT_THIS_SIDE_DOWN,true);
                         }
                     }
+                    //会馆菲士生成相反效果对抗dot伤害
+                    if (stack.getItem() == ImmortalersDelightItems.MORNING_FIZZ.get()) {
+                        int time = livingEntity.getRemainingFireTicks();
+                        if (time >= 0) livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,time));
+
+                        MobEffectInstance posion = livingEntity.getEffect(MobEffects.POISON);
+                        MobEffectInstance wither = livingEntity.getEffect(MobEffects.WITHER);
+                        MobEffectInstance weakPoison = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_POISON.get());
+                        MobEffectInstance weakWither = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_WITHER.get());
+                        MobEffectInstance gasPosion = livingEntity.getEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
+                        if (posion != null) antiDot(livingEntity, posion);
+                        if (wither != null) antiDot(livingEntity, wither);
+                        if (weakPoison != null) antiDot(livingEntity, weakPoison);
+                        if (weakWither != null) antiDot(livingEntity, weakWither);
+                        if (gasPosion != null && !antiDot(livingEntity, gasPosion)) livingEntity.addEffect(new MobEffectInstance(MobEffects.HEAL,1,gasPosion.getAmplifier()));
+                    }
                 }
             }
         }
+    }
+
+    public static boolean antiDot(LivingEntity livingEntity, MobEffectInstance effect) {
+        if (MagicalReverseMobEffect.reverseNormalEffect.isEmpty()) MagicalReversePotionEffect.updateReverseEffect();
+
+        Map<MobEffect,MobEffect> map = new HashMap<>(MagicalReverseMobEffect.reverseNormalEffect);
+        if (map.get(effect.getEffect()) != null) {
+            livingEntity.addEffect(new MobEffectInstance(map.get(effect.getEffect()), effect.getDuration(), effect.getAmplifier()));
+            return true;
+        }
+        return false;
     }
 
     public static void shootKiBlast(LivingEntity attacker) {

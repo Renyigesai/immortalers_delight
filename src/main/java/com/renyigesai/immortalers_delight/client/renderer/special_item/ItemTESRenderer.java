@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.model.AlfalfaDababaModel;
+import com.renyigesai.immortalers_delight.client.model.BreadOfWarModel;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.item.DebugItem;
 import com.renyigesai.immortalers_delight.item.weapon.BoneKnifeItem;
@@ -41,16 +42,20 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
     private final ItemModelShaper itemModelShaper;
     private static final ResourceLocation ALFALFA_DABABA_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/custom/alfalfa_dababa.png");
     private AlfalfaDababaModel alfalfaDababaModel;
+    private static final ResourceLocation BREAD_OF_WAR_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/custom/jeng_nanu.png");
+    private BreadOfWarModel breadOfWarModel;
 
     public ItemTESRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
         super(pBlockEntityRenderDispatcher,  pEntityModelSet);
         this.entityModelSet = pEntityModelSet;
         this.itemModelShaper = new net.minecraftforge.client.model.ForgeItemModelShaper(Minecraft.getInstance().getModelManager());
         this.alfalfaDababaModel = new AlfalfaDababaModel(this.entityModelSet.bakeLayer(AlfalfaDababaModel.ALFALFA_DABABA));
+        this.breadOfWarModel = new BreadOfWarModel(this.entityModelSet.bakeLayer(BreadOfWarModel.BREAD_OF_WAR));
     }
     @Override
     public void onResourceManagerReload(ResourceManager pResourceManager) {
         this.alfalfaDababaModel = new AlfalfaDababaModel(this.entityModelSet.bakeLayer(AlfalfaDababaModel.ALFALFA_DABABA));
+        this.breadOfWarModel = new BreadOfWarModel(this.entityModelSet.bakeLayer(BreadOfWarModel.BREAD_OF_WAR));
     }
 
     @Override
@@ -77,8 +82,8 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
             } else {
                 pPoseStack.pushPose();
                 pPoseStack.scale(1.0F, -1.0F, -1.0F);
-                VertexConsumer vertexconsumer1 = ItemRenderer.getFoilBufferDirect(pBuffer, this.alfalfaDababaModel.renderType(ALFALFA_DABABA_TEXTURE), false, pStack.hasFoil());
-                this.alfalfaDababaModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                VertexConsumer vertexconsumer1 = ItemRenderer.getFoilBufferDirect(pBuffer, this.breadOfWarModel.renderType(BREAD_OF_WAR_TEXTURE), false, pStack.hasFoil());
+                this.breadOfWarModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
                 pPoseStack.popPose();
             }
 

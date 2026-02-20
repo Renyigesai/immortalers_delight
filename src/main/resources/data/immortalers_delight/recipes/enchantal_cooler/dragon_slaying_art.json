@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    }
+  ],
+  "container": {
+    "item": "minecraft:dragon_breath"
+  },
+  "output": {
+    "item": "immortalers_delight:dragon_slaying_art",
+    "count": 1
+  }
+}

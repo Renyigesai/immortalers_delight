@@ -146,5 +146,10 @@ public class PoweredFoodProperties {
             .nutrition(4).saturationMod(0.9f)
             .effect(()->new MobEffectInstance(MobEffects.REGENERATION,600),1.0F)
             .build();
+    public static final FoodProperties JENG_NANU_SLICE = new FoodProperties.Builder()
+            .nutrition(3).saturationMod(0.45f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1800,1),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE.get(),1600,1),1f)
+            .build();
 
 }

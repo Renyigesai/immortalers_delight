@@ -49,4 +49,5 @@ public class ImmortalersDelightParticleTypes {
                         }
                     }
             );
+    public static final RegistryObject<SimpleParticleType> MOONLIGHT_BEAM = REGISTRY.register("moonlight_beam", () -> new SimpleParticleType(false));
 }

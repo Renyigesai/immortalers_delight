@@ -268,6 +268,12 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         super.tick();
         boolean flag = this.isWaiting(); // 当前是否处于等待状态
         float f = this.getRadius(); // 当前半径
+        System.out.println(" ");
+        System.out.println("client tick?" + this.level().isClientSide);
+        System.out.println("waitTime:" + this.waitTime);
+        System.out.println("lifeTicks:" + this.lifeTicks);
+        System.out.println("isStarting:" + this.isStarting);
+        System.out.println("isWaiting?" + flag);
 
         // 客户端逻辑：渲染粒子效果并处理动画进度
         if (this.level().isClientSide) {

@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=east,hanging=false,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling", "y": 270},
+    "facing=east,hanging=false,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor", "y": 270},
+    "facing=east,hanging=false,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall", "y": 270},
+    "facing=east,hanging=true,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling_hanging", "y": 270},
+    "facing=east,hanging=true,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor_hanging", "y": 270},
+    "facing=east,hanging=true,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall_hanging", "y": 270},
+
+    "facing=north,hanging=false,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling", "y": 180},
+    "facing=north,hanging=false,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor", "y": 180},
+    "facing=north,hanging=false,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall", "y": 180},
+    "facing=north,hanging=true,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling_hanging", "y": 180},
+    "facing=north,hanging=true,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor_hanging", "y": 180},
+    "facing=north,hanging=true,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall_hanging", "y": 180},
+    
+    "facing=south,hanging=false,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling"},
+    "facing=south,hanging=false,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor"},
+    "facing=south,hanging=false,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall"},
+    "facing=south,hanging=true,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling_hanging"},
+    "facing=south,hanging=true,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor_hanging"},
+    "facing=south,hanging=true,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall_hanging"},
+    
+    "facing=west,hanging=false,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling", "y": 90},
+    "facing=west,hanging=false,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor", "y": 90},
+    "facing=west,hanging=false,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall", "y": 90},
+    "facing=west,hanging=true,face=ceiling": {"model": "immortalers_delight:block/warped_lantern_ceiling_hanging", "y": 90},
+    "facing=west,hanging=true,face=floor": {"model": "immortalers_delight:block/warped_lantern_floor_hanging", "y": 90},
+    "facing=west,hanging=true,face=wall": {"model": "immortalers_delight:block/warped_lantern_wall_hanging", "y": 90}
+  }
+}

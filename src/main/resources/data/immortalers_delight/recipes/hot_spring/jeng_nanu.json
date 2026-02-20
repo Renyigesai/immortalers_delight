@@ -1,0 +1,20 @@
+{
+  "type": "immortalers_delight:hot_spring",
+  "ingredients": [
+    {
+    "item": "immortalers_delight:ku_mesh_non"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "tag": "forge:enchanting_fuels"
+    },
+    {
+      "item": "minecraft:warped_fungus"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:jeng_nanu"
+  }
+}

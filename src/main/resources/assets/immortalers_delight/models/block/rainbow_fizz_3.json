@@ -1,0 +1,7 @@
+{
+  "parent": "immortalers_delight:block/green_tea_fizz_3",
+  "textures": {
+    "0": "immortalers_delight:block/rainbow_fizz",
+		"particle": "immortalers_delight:block/rainbow_fizz"
+  }
+}

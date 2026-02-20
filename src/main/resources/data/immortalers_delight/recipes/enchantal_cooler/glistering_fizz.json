@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:glistering_watermelon_juice"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:purgatory_ale"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:sparkling_water"
+  },
+  "output": {
+    "item": "immortalers_delight:glistering_fizz",
+    "count": 1
+  }
+}

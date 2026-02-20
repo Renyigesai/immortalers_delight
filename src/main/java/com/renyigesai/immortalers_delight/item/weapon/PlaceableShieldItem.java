@@ -3,14 +3,20 @@ package com.renyigesai.immortalers_delight.item.weapon;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.block.StackedFoodBlock;
+import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.GasCloudEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.WarpedLaurelHitBoxEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightPotions;
 import com.renyigesai.immortalers_delight.item.ImmortalersShieldItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +25,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -37,14 +45,19 @@ import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlaceableShieldItem extends ImmortalersShieldItem {
     public final int type;
+    public final int maxDamage;
     public PlaceableShieldItem(Properties pProperties, int type) {
         super(pProperties);
         this.type = type;
+        int[] maxDamages = {0, 1, 3};
+        this.maxDamage = this.type >= maxDamages.length ? maxDamages[0] : maxDamages[type];
     }
+
     public BlockState getPlaceState(Level level, BlockPos blockpos) {
         Block block1 = ImmortalersDelightBlocks.LARGE_COLUMN.get();
         if (type == 1 && block1 instanceof StackedFoodBlock stackedFoodBlock) return stackedFoodBlock.defaultBlockState().setValue(StackedFoodBlock.BITES, stackedFoodBlock.getMaxBites() - stackedFoodBlock.getPileBitesPerItem());
@@ -79,9 +92,44 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
 
             MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
-
+            if (this.type == 2) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
         }
     }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
+        if (this.type == 2 && timeLeft <= this.getUseDuration(stack) - 32) {
+            CompoundTag nbt = consumer.getPersistentData();
+            if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
+                int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG);
+                makeAreaOfEffectCloud(level, consumer.blockPosition(), lv, consumer);
+                nbt.remove(PlaceableShieldEvents.DAMAGE_TAG);
+            }
+        }
+        super.releaseUsing(stack, level, consumer, timeLeft);
+    }
+
+
+    private static void makeAreaOfEffectCloud(Level level, BlockPos pPos, int lv, @Nullable LivingEntity caster) {
+        if (level.isClientSide()) return;
+        WarpedLaurelHitBoxEntity effectCloud = new WarpedLaurelHitBoxEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.05D, pPos.getZ() + 0.5D);
+
+        effectCloud.setDuration(64);
+        effectCloud.setRadius(2.0F + lv * 0.5f);
+        effectCloud.setRadiusOnUse(0.0F);
+        effectCloud.setWaitTime(10);
+        effectCloud.setRadiusPerTick(0.0f);
+        effectCloud.setParticle(ParticleTypes.SOUL_FIRE_FLAME);
+        effectCloud.setOwner(caster);
+
+        effectCloud.setDangerous(true);
+        effectCloud.addEffect(new MobEffectInstance(MobEffects.DARKNESS,100));
+
+        effectCloud.setDamageAmp(lv);
+
+        level.addFreshEntity(effectCloud);
+    }
+
     //实现列巴格挡掉列巴片以及格挡回饥饿
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,
@@ -105,33 +153,47 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
                     if (source instanceof LivingEntity attacker) isBroken = willBeDisableShield(attacker,hurtOne, shield);
                     //检查是否有mod特殊机制设置了当前伤害忽视盾牌
                     if (event.shieldTakesDamage()) {
-                        //列巴没耐久，每个列巴固定能抗2下(记录在使用者)
+                        //列巴没耐久，每个列巴固定能抗2下(记录在使用者)，战争面包则是抗4下
                         CompoundTag tag = hurtOne.getPersistentData();
-                        if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < 1) {
-                            if (isBroken) {
-                                onBreakShield(hurtOne, shield, placeableShieldItem.type, damage);
-                            } else {
-                                tag.putInt(DAMAGE_TAG, tag.getInt(DAMAGE_TAG) + 1);
-                                dropSlice(hurtOne, placeableShieldItem.type, damage);
-                                healUser(hurtOne,1);
-                            }
+                        if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < placeableShieldItem.maxDamage) {
+                            doOnUsing(damage, tag, shield, hurtOne, isBroken);
                         } else if (!tag.contains(DAMAGE_TAG, Tag.TAG_INT)) {
-                            if (isBroken) {
-                                onBreakShield(hurtOne, shield, placeableShieldItem.type, damage);
-                            } else {
-                                tag.putInt(DAMAGE_TAG, 1);
-                                dropSlice(hurtOne, placeableShieldItem.type, damage);
-                                healUser(hurtOne,1);
-                            }
+                            doOnUsing(damage, tag, shield, hurtOne, isBroken);
                         } else {
+                            doOnExhaust(damage, shield, hurtOne);
                             tag.remove(DAMAGE_TAG);
-                            dropSlice(hurtOne, placeableShieldItem.type, damage);
-                            healUser(hurtOne,5);
-                            if (hurtOne instanceof ServerPlayer serverPlayer && !serverPlayer.isCreative()) {
-                                shield.shrink(1);
-                            }
                         }
                     }
+                }
+            }
+        }
+        public static void doOnUsing(float damage,CompoundTag tag,ItemStack shield, LivingEntity hurtOne, boolean isBroken) {
+            if (shield.getItem() instanceof PlaceableShieldItem placeableShieldItem) {
+                if (isBroken) {
+                    onBreakShield(hurtOne, shield, placeableShieldItem.type, damage);
+                } else {
+                    tag.putInt(DAMAGE_TAG, tag.contains(DAMAGE_TAG, Tag.TAG_INT) ? tag.getInt(DAMAGE_TAG) + 1 : 1);
+                    dropSlice(hurtOne, placeableShieldItem.type, damage);
+                    if (placeableShieldItem.type == 1) healUser(hurtOne,1);
+                }
+            }
+        }
+        public static void doOnExhaust(float damage,ItemStack shield, LivingEntity consumer) {
+            if (shield.getItem() instanceof PlaceableShieldItem placeableShieldItem) {
+                dropSlice(consumer, placeableShieldItem.type, damage);
+                if (placeableShieldItem.type == 1) healUser(consumer,5);
+
+                if (placeableShieldItem.type == 2) {
+                    CompoundTag nbt = consumer.getPersistentData();
+                    if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
+                        //这里的条件与取消使用的不同是因为耐久损耗的值不会达到最大耐久，导致打了4下耐久损耗为3，所以加一
+                        int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG) + 1;
+                        makeAreaOfEffectCloud(consumer.level(), consumer.blockPosition(), lv, consumer);
+                    }
+                }
+
+                if (consumer instanceof ServerPlayer serverPlayer && !serverPlayer.isCreative()) {
+                    shield.shrink(1);
                 }
             }
         }
@@ -153,13 +215,13 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
         }
         public static void onBreakShield(LivingEntity hurtOne,ItemStack stack,int type, float damage) {
             Level level = hurtOne.level();
-            if (!level.isClientSide()) {
+            if (!level.isClientSide() && stack.getItem() instanceof PlaceableShieldItem placeableShieldItem) {
                 int i = 2;
                 CompoundTag tag = hurtOne.getPersistentData();
                 if (tag.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(PlaceableShieldEvents.DAMAGE_TAG) > 0) i -= tag.getInt(PlaceableShieldEvents.DAMAGE_TAG);
                 for (int j = 0; j < i; ++j) {dropSlice(hurtOne, type, damage);}
-                healUser(hurtOne,5);
-                stack.shrink(1);
+
+                doOnExhaust(damage, stack, hurtOne);
                 tag.remove(PlaceableShieldEvents.DAMAGE_TAG);
             }
         }
