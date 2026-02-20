@@ -1,11 +1,17 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -19,12 +25,15 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IForgeShearable;
+import vectorwing.farmersdelight.common.registry.ModSounds;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer, IForgeShearable,BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -58,7 +67,32 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
     protected boolean mayPlaceOn(BlockState p_154539_, BlockGetter p_154540_, BlockPos p_154541_) {
         return p_154539_.isFaceSturdy(p_154540_, p_154541_, Direction.UP) && !p_154539_.is(Blocks.MAGMA_BLOCK);
     }
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (canReap(state, level, pos, player, hand, hitResult)) {
+            boolean temp = false;
+            if (level instanceof ServerLevel level1) {
+                List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
+                if (!stacks.isEmpty()) {
+                    for (ItemStack stack : stacks) {
+                        popResource(level, pos, stack);
+                    }
+                    temp = true;
+                }
+            }
+            if (temp) {
+                level.setBlock(pos, state.setValue(AGE, 0), 3);
+                level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.use(state, level, pos, player, hand, hitResult);
+    }
 
+    public boolean canReap(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        boolean flag = Config.rightClickHarvest;
+        return flag && state.getValue(AGE) == 3;
+    }
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int age = pState.getValue(AGE);

@@ -32,12 +32,23 @@
                   "block": "immortalers_delight:sextlotus",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "age": "7"
+                    "age": "6"
                   }
                 }
               ],
               "name": "immortalers_delight:sextlotus_root"
-            },
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
             {
               "type": "minecraft:item",
               "conditions": [
@@ -45,7 +56,7 @@
                   "block": "immortalers_delight:sextlotus",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "age": "6"
+                    "age": "7"
                   }
                 }
               ],

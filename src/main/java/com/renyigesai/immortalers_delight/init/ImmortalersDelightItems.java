@@ -1781,7 +1781,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SMASHED_SEXTLOTUS_ROOT),true));
         PICKLED_SEXTLOTUS_ROOT = registerWithTab("pickled_sextlotus_root",()->
                 new DrinkItem(ImmortalersDelightBlocks.PICKLED_SEXTLOTUS_ROOT.get(), basicItem()));
-        OXYGRAPE = registerWithTab("oxygrape",()->
+        OXYGRAPE = register("oxygrape",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.OXYGRAPE.get(),foodItem(ImmortalersDelightFoodProperties.OXYGRAPE)));
         SPARKLING_WATER = registerWithTab("sparkling_water",()->
                 new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.SPARKLING_WATER),true));
@@ -1821,7 +1821,7 @@ public class ImmortalersDelightItems {
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.GREEN_TEA_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.GREEN_TEA_FIZZ),  true));
         SEXTLOTUS_FIZZ = registerWithTab("sextlotus_fizz",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.SEXTLOTUS_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.SEXTLOTUS_FIZZ),  true));
-        RAINBOW_FIZZ = registerWithTab("rainbow_fizz",()->
+        RAINBOW_FIZZ = register("rainbow_fizz",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.RAINBOW_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.RAINBOW_FIZZ),  true));
         SPARROW_WINE = registerWithTab("sparrow_wine",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.SPARROW_WINE),true));

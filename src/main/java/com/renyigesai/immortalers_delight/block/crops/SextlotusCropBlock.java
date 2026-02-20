@@ -78,7 +78,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
     }
     @Override
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.SOUL_SAND) || pState.is(Blocks.SOUL_SOIL);
+        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
     }
     public byte hasNearCrop(ServerLevel level, BlockPos pos) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
