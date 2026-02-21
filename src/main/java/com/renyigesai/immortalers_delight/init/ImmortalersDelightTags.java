@@ -25,6 +25,11 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
     public static final TagKey<Block> MINEABLE_HAMMER = createBlockTag("mineable/meat_tenderizer");
+    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_AIR = createBlockTag("sextlotus_transform_air");
+    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SAND = createBlockTag("sextlotus_transform_sand");
+    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_DIRT = createBlockTag("sextlotus_transform_dirt");
+    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_COAL = createBlockTag("sextlotus_transform_coal");
+    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SPECIAL = createBlockTag("sextlotus_transform_special");
 
     public static final TagKey<EntityType<?>> IMMORTAL_NORMAL_MOBS = createEntityTag("normal_mobs");
 

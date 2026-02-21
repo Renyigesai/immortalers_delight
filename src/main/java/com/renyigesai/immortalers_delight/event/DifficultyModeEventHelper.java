@@ -11,16 +11,38 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 public class DifficultyModeEventHelper {
 
     private static final Map<UUID, Float> entityDeathless = new ConcurrentHashMap<>();
+    // 配置文件的列表可以输入更多元素，但我们仅取其中最大的三个
+    public static List<Float> getTopThreeByStream(List<Float> floatList) {
+        if (floatList == null || floatList.isEmpty()) {
+            List<Float> emptyList = new ArrayList<>();
+            emptyList.add(0.0F);
+            return emptyList;
+        }
 
+        return floatList.stream()
+                .sorted(Collections.reverseOrder()) // 降序排序
+                .limit(3) // 限制前3个
+                .collect(Collectors.toList());
+    }
+
+    public static float getFromList(List<Float> pList, int index, float defaultValue) {
+        List<Float> list = getTopThreeByStream(pList);
+        if (list == null || list.isEmpty()) {
+            return defaultValue;
+        }
+        if (index >= list.size()) {
+            return list.get(list.size() - 1) > 0.0F ? list.get(list.size() - 1) : defaultValue;
+        }
+        return list.get(index) > 0.0F ? list.get(index) : defaultValue;
+    }
     /**
      *  超凡模式下，怪物的伤害随目标血量提升，作用类似百分比伤害。
      *  使用梯度计算方法：例：普通怪物默认的最大增伤为1.5倍(在250点生命值时达到上限)，精英怪物最大增伤为3倍，
@@ -31,15 +53,17 @@ public class DifficultyModeEventHelper {
     public static void ImmortalrsMobAttackProgressDamage(LivingHurtEvent event) {
         LivingEntity hurtOne = event.getEntity();
         if (!hurtOne.level().isClientSide) {
-            if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
+            if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies && Config.useDynamicDamage) {
                 if (event.getSource().getEntity() instanceof LivingEntity attacker) {
 
-                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)
-                            || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)
-                            || attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)
-                    ) {
+                    int id = -1;
+                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) id = 2;
+                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) id = 1;
+                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) id = 0;
+
+                    if (id >= 0) {
                         float oldDamage = event.getAmount();
-                        float buffer = Math.min(3,1 + hurtOne.getMaxHealth() * 0.02F);
+                        float buffer = Math.min(getFromList(Config.maximumAttackDamageMultiplier, id, 1), 1 + hurtOne.getMaxHealth() * getFromList(Config.attackDamageMultiplierPerHealth, id, 0));
                         event.setAmount(Math.max(oldDamage * buffer, 0.0F));
                     }
                 }
@@ -54,31 +78,34 @@ public class DifficultyModeEventHelper {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void ImmortalrsMobAttackMinDamage(LivingDamageEvent event) {
 
-        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
+        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies && Config.useMinDamage) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker && !attacker.level().isClientSide) {
                 LivingEntity hurtOne = event.getEntity();
 
                 float minDamage = 0;
                 boolean needMinDamage = false;
-
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) {
+                int id = -1;
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) id = 2;
+                if (id == 2) {
                     if (attacker instanceof ImmortalersMob immMob) {
                         minDamage += immMob.getMinDamage();
-                    } else minDamage += 1;
+                    } else minDamage += getFromList(Config.minDamage, id, 0);
                     needMinDamage = true;
                 }
 
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) {
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) id = 1;
+                if (id == 1) {
                     if (attacker instanceof ImmortalersMob immMob) {
                         minDamage += immMob.getMinDamage();
-                    } else minDamage += 2;
+                    } else minDamage += getFromList(Config.minDamage, id, 0);
                     needMinDamage = true;
                 }
 
-                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) {
+                if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) id = 0;
+                if (id == 0) {
                     if (attacker instanceof ImmortalersMob immMob) {
                         minDamage += immMob.getMinDamage();
-                    } else minDamage += 2.5f;
+                    } else minDamage += getFromList(Config.minDamage, id, 0);
                     needMinDamage = true;
                 }
 
@@ -101,45 +128,49 @@ public class DifficultyModeEventHelper {
      */
     @SubscribeEvent
     public static void ImmortalrsMobHurtDamageDecay(LivingDamageEvent event) {
-        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
+        if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies && Config.useHighDamageCounteraction) {
             LivingEntity hurtOne = event.getEntity();
             if (!hurtOne.level().isClientSide) {
                 float oldDamage = event.getAmount();
                 float damage = oldDamage;
                 float damageDivisor = 0;
+                int id = -1;
 
                 boolean needLimitDamage = false;
-                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) {
-                    damageDivisor = 0.04f;
+                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) id = 2;
+                if (id == 2) {
+                    damageDivisor = getFromList(Config.damageCounteractionPerDamage,id,0);
                     if (hurtOne instanceof ImmortalersMob immMob) {
                         damageDivisor = immMob.getDamageDivisor();
                     }
                     if (oldDamage > 100*damageDivisor) {
-                        float buffer = Math.min(7,1 + damageDivisor * (oldDamage - 100 * damageDivisor));
+                        float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
                         damage = oldDamage / buffer;
                         needLimitDamage = true;
                     }
                 }
 
-                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) {
-                    damageDivisor = 0.05f;
+                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) id = 1;
+                if (id == 1) {
+                    damageDivisor = getFromList(Config.damageCounteractionPerDamage,id,0);
                     if (hurtOne instanceof ImmortalersMob immMob) {
                         damageDivisor = immMob.getDamageDivisor();
                     }
                     if (oldDamage > 100*damageDivisor) {
-                        float buffer = Math.min(11,1 + damageDivisor * (oldDamage - 100 * damageDivisor));
+                        float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
                         damage = oldDamage / buffer;
                         needLimitDamage = true;
                     }
                 }
 
-                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) {
-                    damageDivisor = 0.08f;
+                if (hurtOne.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) id = 0;
+                if (id == 0) {
+                    damageDivisor = getFromList(Config.damageCounteractionPerDamage,id,0);
                     if (hurtOne instanceof ImmortalersMob immMob) {
                         damageDivisor = immMob.getDamageDivisor();
                     }
                     if (oldDamage > 100*damageDivisor) {
-                        float buffer = Math.min(15,1 + damageDivisor * (oldDamage - 100 * damageDivisor));
+                        float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
                         damage = oldDamage / buffer;
                         needLimitDamage = true;
                     }

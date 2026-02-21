@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.ReflectionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,10 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CoralBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -22,6 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
+import vectorwing.farmersdelight.common.block.RichSoilFarmlandBlock;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -96,26 +95,54 @@ public class SextlotusCropBlock extends ReapCropBlock{
     public boolean devourEutrophic(ServerLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof SextlotusCropBlock) return false;
-        if (state.getBlock() instanceof IPlantable) {
-            if (!state.is(Blocks.DEAD_BUSH)) level.setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), Block.UPDATE_CLIENTS);
-            else level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_DIRT)) {
+            level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
             return true;
         }
-        if (state.is(BlockTags.LEAVES)) {
-            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
+            level.setBlockAndUpdate(pos, Blocks.COAL_BLOCK.defaultBlockState());
             return true;
         }
-        if (state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock || state.getBlock() instanceof RichSoilBlock) {
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND)) {
             if (!state.is(Blocks.COARSE_DIRT)) level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.SAND.defaultBlockState());
             return true;
         }
-        if (state.getBlock() instanceof CoralBlock coralBlock) {
-            Block deadBlock = ReflectionUtil.getCoralDeadBlock(coralBlock);
-            if (deadBlock != null) {
-                level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
-                return true;
-            } else return false;
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR)) {
+            if (!state.is(Blocks.DEAD_BUSH)) level.setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), Block.UPDATE_CLIENTS);
+            else level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            return true;
+        }
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SPECIAL)) {
+            if (state.getBlock() instanceof CoralBlock coralBlock) {
+                Block deadBlock = ReflectionUtil.getCoralDeadBlock(coralBlock);
+                if (deadBlock != null) {
+                    level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
+                    return true;
+                } else return false;
+            }
+            if (state.getBlock() instanceof CoralPlantBlock coralBlock) {
+                Block deadBlock = ReflectionUtil.getPlantCoralDeadBlock(coralBlock);
+                if (deadBlock != null) {
+                    level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
+                    return true;
+                } else return false;
+            }
+            if (state.getBlock() instanceof CoralWallFanBlock coralBlock) {
+                Block deadBlock = ReflectionUtil.getCoralWallFanDeadBlock(coralBlock);
+                if (deadBlock != null) {
+                    level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
+                    return true;
+                } else return false;
+            }
+            if (state.getBlock() instanceof CoralFanBlock coralBlock) {
+                Block deadBlock = ReflectionUtil.getCoralFanDeadBlock(coralBlock);
+                if (deadBlock != null) {
+                    level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
+                    return true;
+                } else return false;
+            }
         }
         return false;
     }

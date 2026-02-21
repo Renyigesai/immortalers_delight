@@ -1,8 +1,6 @@
 package com.renyigesai.immortalers_delight.util;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CoralBlock;
-import net.minecraft.world.level.block.CoralPlantBlock;
+import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -115,4 +113,76 @@ public class ReflectionUtil {
 //            e.printStackTrace();
 //        }
 //    }
+
+    //===========================用于访问第二种珊瑚扇方块的私有字段deadBlock============================//
+    // 缓存反射获取的Field对象（避免重复反射，提升性能）
+    private static Field CORAL_FAN_DEAD_BLOCK_FIELD;
+
+    static {
+        // 静态代码块初始化反射字段（仅执行一次）
+        try {
+            // 1. 获取CoralFanBlock类中的deadBlock字段
+            CORAL_FAN_DEAD_BLOCK_FIELD = CoralFanBlock.class.getDeclaredField("deadBlock");
+            // 2. 突破private访问限制
+            CORAL_FAN_DEAD_BLOCK_FIELD.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            // 反射失败时打印异常（避免游戏崩溃，便于调试）
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取CoralBlock实例对应的deadBlock字段值
+     * @param coralBlock CoralBlock实例（如原版的珊瑚方块对象）
+     * @return 该珊瑚对应的死亡态方块（deadBlock），失败返回null
+     */
+    @Nullable
+    public static Block getCoralFanDeadBlock(CoralFanBlock coralBlock) {
+        if (CORAL_FAN_DEAD_BLOCK_FIELD == null) {
+            return null;
+        }
+        try {
+            // 3. 读取私有字段的值
+            return (Block) CORAL_FAN_DEAD_BLOCK_FIELD.get(coralBlock);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //===========================用于访问第二种珊瑚扇方块的私有字段deadBlock============================//
+    // 缓存反射获取的Field对象（避免重复反射，提升性能）
+    private static Field CORAL_WALL_FAN_DEAD_BLOCK_FIELD;
+
+    static {
+        // 静态代码块初始化反射字段（仅执行一次）
+        try {
+            // 1. 获取CoralWallFanBlock类中的deadBlock字段
+            CORAL_WALL_FAN_DEAD_BLOCK_FIELD = CoralWallFanBlock.class.getDeclaredField("deadBlock");
+            // 2. 突破private访问限制
+            CORAL_WALL_FAN_DEAD_BLOCK_FIELD.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            // 反射失败时打印异常（避免游戏崩溃，便于调试）
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取CoralBlock实例对应的deadBlock字段值
+     * @param coralBlock CoralBlock实例（如原版的珊瑚方块对象）
+     * @return 该珊瑚对应的死亡态方块（deadBlock），失败返回null
+     */
+    @Nullable
+    public static Block getCoralWallFanDeadBlock(CoralWallFanBlock coralBlock) {
+        if (CORAL_WALL_FAN_DEAD_BLOCK_FIELD == null) {
+            return null;
+        }
+        try {
+            // 3. 读取私有字段的值
+            return (Block) CORAL_WALL_FAN_DEAD_BLOCK_FIELD.get(coralBlock);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
