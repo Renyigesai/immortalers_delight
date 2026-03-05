@@ -66,6 +66,7 @@ public class Config {
     private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
             .comment(" ")
             .comment("Set the maximum attack damage multiplier of powered mobs")
+            .comment("If use, it will make damage become (1 + the value) * old damage")
             .comment("Example: [0.5, 2.0, 5.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
             .defineList("maximumDamageMultiplier", List.of(0.5f, 2.0f, 5.0f), o -> o instanceof Float);
     private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
@@ -100,7 +101,11 @@ public class Config {
             .comment("Set the attack damage divisor per damage taken by mobs")
             .comment("Example: [0.04, 0.05, 0.08],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
             .defineList("damageDivisorPerDamage", List.of(0.04f, 0.05f, 0.08f), o -> o instanceof Float);
-
+    private static final ForgeConfigSpec.BooleanValue USE_BETTER_STUN = BUILDER
+            .comment(" ")
+            .comment("Configures whether to ignore the entity's potion effect immunity when the stun effect derives other potion effects.")
+            .comment("This allows stun to have a more consistent effect on different mobs.")
+            .define("useBetterStun", true);
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
     static {
         BUILDER.push("ReverseNormalEffect")
@@ -172,6 +177,7 @@ public class Config {
     public static boolean useHighDamageCounteraction;
     public static List<Float> maximumDamageCounteraction;
     public static List<Float> damageCounteractionPerDamage;
+    public static boolean useBetterStun;
     public static double mininProbability;
 
     public static boolean weakPoisonHealthOverlay;
@@ -230,6 +236,8 @@ public class Config {
         useHighDamageCounteraction =  USE_HIGH_DAMAGE_COUNTERACTION.get();
         maximumDamageCounteraction = convertToListFloat(MAXIMUM_DAMAGE_COUNTERACTION.get());
         damageCounteractionPerDamage = convertToListFloat(DAMAGE_COUNTERACTION_PER_DAMAGE.get());
+
+        useBetterStun = USE_BETTER_STUN.get();
 
         mininProbability = MININ_PROBABILITY.get();
 

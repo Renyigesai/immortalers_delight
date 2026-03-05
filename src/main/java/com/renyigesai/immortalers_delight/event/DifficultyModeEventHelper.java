@@ -56,16 +56,58 @@ public class DifficultyModeEventHelper {
             if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies && Config.useDynamicDamage) {
                 if (event.getSource().getEntity() instanceof LivingEntity attacker) {
 
-                    int id = -1;
-                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS)) id = 2;
-                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS)) id = 1;
-                    if (attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS)) id = 0;
+                    float oldDamage = event.getAmount();
+                    float buffer = 1;
+                    float healthHaveUsed = 0;
 
-                    if (id >= 0) {
-                        float oldDamage = event.getAmount();
-                        float buffer = Math.min(getFromList(Config.maximumAttackDamageMultiplier, id, 1), 1 + hurtOne.getMaxHealth() * getFromList(Config.attackDamageMultiplierPerHealth, id, 0));
-                        event.setAmount(Math.max(oldDamage * buffer, 0.0F));
+                    boolean isNormal = attacker.getType().is(ImmortalersDelightTags.IMMORTAL_NORMAL_MOBS);
+                    boolean isElite = attacker.getType().is(ImmortalersDelightTags.IMMORTAL_ELITE_MOBS);
+                    boolean isMidBoss = attacker.getType().is(ImmortalersDelightTags.IMMORTAL_MID_BOSS);
+                    int id = -1;
+
+                    //小怪的伤害倍率；因为精英怪和小boss也用到，所以用或条件
+                    if (isNormal || isElite || isMidBoss) id = 2;
+                    if (id >= 0 && healthHaveUsed < hurtOne.getMaxHealth()) {
+                        //从配置文件获取最大增伤倍率和每点生命的增伤倍率
+                        float maxBuffer = getFromList(Config.maximumAttackDamageMultiplier, id, 1);
+                        float BPH = getFromList(Config.attackDamageMultiplierPerHealth, id, 0);
+                        //排除默认值
+                        if (maxBuffer != 1 && BPH != 0) {
+                            //计算增伤
+                            float bufferEx = Math.min(maxBuffer, (hurtOne.getMaxHealth() - healthHaveUsed) * BPH);
+                            buffer += bufferEx;
+                            //减去已使用的生命值，实现梯度计算
+                            if (bufferEx == maxBuffer) healthHaveUsed += maxBuffer / BPH;
+                            else healthHaveUsed += hurtOne.getMaxHealth();
+                        }
                     }
+                    if (isElite || isMidBoss) id = 1;
+                    if (id == 1 && healthHaveUsed < hurtOne.getMaxHealth()) {
+                        float maxBuffer = getFromList(Config.maximumAttackDamageMultiplier, id, 1);
+                        float BPH = getFromList(Config.attackDamageMultiplierPerHealth, id, 0);
+
+                        if (maxBuffer != 1 && BPH != 0) {
+                            float bufferEx = Math.min(maxBuffer, (hurtOne.getMaxHealth() - healthHaveUsed) * BPH);
+                            buffer += bufferEx;
+
+                            if (bufferEx == maxBuffer) healthHaveUsed += maxBuffer / BPH;
+                            else healthHaveUsed += hurtOne.getMaxHealth();
+                        }
+                    }
+                    if (isMidBoss) id = 0;
+                    if (id == 0 && healthHaveUsed < hurtOne.getMaxHealth()) {
+                        float maxBuffer = getFromList(Config.maximumAttackDamageMultiplier, id, 1);
+                        float BPH = getFromList(Config.attackDamageMultiplierPerHealth, id, 0);
+
+                        if (maxBuffer != 1 && BPH != 0) {
+                            float bufferEx = Math.min(maxBuffer, (hurtOne.getMaxHealth() - healthHaveUsed) * BPH);
+                            buffer += bufferEx;
+
+                            if (bufferEx == maxBuffer) healthHaveUsed += maxBuffer / BPH;
+                            else healthHaveUsed += hurtOne.getMaxHealth();
+                        }
+                    }
+                    event.setAmount(Math.max(oldDamage * buffer, 0.0F));
                 }
             }
         }
@@ -145,7 +187,7 @@ public class DifficultyModeEventHelper {
                     }
                     if (oldDamage > 100*damageDivisor) {
                         float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
-                        damage = oldDamage / buffer;
+                        damage *= 1 / buffer;
                         needLimitDamage = true;
                     }
                 }
@@ -158,7 +200,7 @@ public class DifficultyModeEventHelper {
                     }
                     if (oldDamage > 100*damageDivisor) {
                         float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
-                        damage = oldDamage / buffer;
+                        damage *= 1 / buffer;
                         needLimitDamage = true;
                     }
                 }
@@ -171,7 +213,7 @@ public class DifficultyModeEventHelper {
                     }
                     if (oldDamage > 100*damageDivisor) {
                         float buffer = Math.min(getFromList(Config.maximumDamageCounteraction,id,1),1 + damageDivisor * (oldDamage - 100 * damageDivisor));
-                        damage = oldDamage / buffer;
+                        damage *= 1 / buffer;
                         needLimitDamage = true;
                     }
                 }

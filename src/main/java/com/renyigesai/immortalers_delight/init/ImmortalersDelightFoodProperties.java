@@ -1233,7 +1233,7 @@ public class ImmortalersDelightFoodProperties {
             .build();
     public static final FoodProperties DRAGON_SLAYING_ART = new FoodProperties.Builder()
             .alwaysEat()
-            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),9000,2),1.0F)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),4500,3),1.0F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F)
             .build();
 //    public static final FoodProperties TEXT = new FoodProperties.Builder()

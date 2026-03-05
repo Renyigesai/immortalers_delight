@@ -101,7 +101,9 @@ public class WarpedLaurelHitBoxModel <T extends EffectCloudBaseEntity> extends E
             this.all.yRot = f * 0.5f * (float) Math.PI;
             this.core.yRot = (float) Math.PI;
             this.layer_inside.yRot = (1 + f1 / 3) * (float) Math.PI;
-            this.layer_outside.yRot = -(1 + f1 / 3) * 2 * (float) Math.PI;;
+            this.layer_outside.yRot = -(1 + f1 / 3) * 2 * (float) Math.PI;
+
+            if (f1 > Math.PI) f1 = 3.14f;
             this.core.y = -2 -f1;
             this.layer_inside.y = -4 -f1 * 2;
             this.layer_outside.y = -6 -f1 * 3;

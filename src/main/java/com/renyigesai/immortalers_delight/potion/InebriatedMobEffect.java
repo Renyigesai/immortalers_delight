@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.Config;
+import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -40,7 +42,9 @@ public class InebriatedMobEffect extends MobEffect {
                     if (isPowerful && (health - damage) > 0 && pEntity.getHealth() > (health - damage)) {
                         pEntity.setHealth(health - damage);
                     }
-                    pEntity.addEffect(new MobEffectInstance(WEAK_POISON.get(), 902, amplifier + 1));
+                    if (Config.useBetterStun) {
+                        InebriatedToxicFoodItem.addEffectWithoutCanBeAffected(pEntity, new MobEffectInstance(WEAK_POISON.get(), time, amplifier), null);
+                    }else pEntity.addEffect(new MobEffectInstance(WEAK_POISON.get(), time, amplifier));
                     pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, time, amplifier));
                     pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, time, amplifier));
                     pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, amplifier));

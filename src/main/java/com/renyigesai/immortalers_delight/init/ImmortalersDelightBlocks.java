@@ -16,6 +16,8 @@ import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCooler
 import com.renyigesai.immortalers_delight.block.food.*;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightCeilingHangingSignBlock;
 import com.renyigesai.immortalers_delight.block.hanging_sign.ImmortalersDelightWallHangingSignBlockBlock;
+import com.renyigesai.immortalers_delight.block.sextlotus_lantern.*;
+import com.renyigesai.immortalers_delight.block.sextlotus_lantern.SextlotusLanternBlockEntity;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlock;
@@ -78,6 +80,13 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> SUSPICIOUS_ASH_PILE;
     public static final RegistryObject<BlockEntityType<SuspiciousAshPileBlockEntity>> SUSPICIOUS_ASH_PILE_BLOCK_ENTITY;
+    @BlockData(dropType = BlockData.DropType.GENERAL)
+    public static final RegistryObject<Block> SEXTLOTUS_LANTERN;
+    public static final RegistryObject<BlockEntityType<SextlotusLanternBlockEntity>> SEXTLOTUS_LANTERN_BLOCK_ENTITY;
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> MOONLIGHT_LIGHT_SOURCE;
+    public static final RegistryObject<BlockEntityType<LightSourceBlockEntity>> MOONLIGHT_LIGHT_SOURCE_BLOCK_ENTITY;
+
     public static final RegistryObject<Block> SUPPORT_BLOCK;
     public static final RegistryObject<BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
     @BlockData
@@ -855,6 +864,13 @@ public class ImmortalersDelightBlocks {
                     2)
     );
     @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> JENG_NANU = BLOCKS.register("jeng_nanu",()->
+            new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+                    ImmortalersDelightItems.JENG_NANU_SLICE,
+                    ImmortalersDelightItems.JENG_NANU,
+                    4)
+    );
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> EVOLUTCORN_HARD_CANDY = BLOCKS.register("evolutcorn_hard_candy",()->
             new StackedFoodBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
@@ -921,9 +937,7 @@ public class ImmortalersDelightBlocks {
                     :blockState.getValue(SextlotusCropBlock.AGE) == 5 ? 7
                     :blockState.getValue(SextlotusCropBlock.AGE) == 4 ? 4 : 0 )
                     .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
-    @BlockData(dropType = BlockData.DropType.GENERAL)
-    public static final RegistryObject<Block> SEXTLOTUS_LANTERN = BLOCKS.register("sextlotus_lantern",
-            ()-> new LanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F).lightLevel(state -> 15).sound(SoundType.WOOD)));
+
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> OXYGRAPE = BLOCKS.register("oxygrape",
             ()-> new  OxygrapeCropBlock(BlockBehaviour.Properties.copy(Blocks.SEAGRASS).randomTicks()));
@@ -1042,6 +1056,16 @@ public class ImmortalersDelightBlocks {
                         SoundEvents.BRUSH_GRAVEL_COMPLETED));
         SUSPICIOUS_ASH_PILE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("suspicious_ash_pile",
                 ()-> BlockEntityType.Builder.of(SuspiciousAshPileBlockEntity::new, SUSPICIOUS_ASH_PILE.get()).build(null));
+        SEXTLOTUS_LANTERN = BLOCKS.register("sextlotus_lantern",
+                ()-> new LanternBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F).lightLevel(state -> 15).sound(SoundType.WOOD)
+                ));
+        SEXTLOTUS_LANTERN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("sextlotus_lantern",
+                ()-> BlockEntityType.Builder.of(SextlotusLanternBlockEntity::new, SEXTLOTUS_LANTERN.get()).build(null));
+        MOONLIGHT_LIGHT_SOURCE = BLOCKS.register("moonlight_light_source",()->
+                new LightSourceBlock(BlockBehaviour.Properties.copy(Blocks.STRUCTURE_VOID)
+                ));
+        MOONLIGHT_LIGHT_SOURCE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("moonlight_light_source",
+                ()-> BlockEntityType.Builder.of(LightSourceBlockEntity::new, MOONLIGHT_LIGHT_SOURCE.get()).build(null));
 
         WARPED_LANTERN = BLOCKS.register("warped_lantern",()->
                 new WarpedLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)

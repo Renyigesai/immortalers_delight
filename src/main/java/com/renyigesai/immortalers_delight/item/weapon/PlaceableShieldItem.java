@@ -49,18 +49,32 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlaceableShieldItem extends ImmortalersShieldItem {
-    public final int type;
-    public final int maxDamage;
+    protected final int type;
+    protected final int maxDamage;
+    protected final int poweredMaxDamage;
+    public int getMaxUseCount() {
+        if (DifficultyModeUtil.isPowerBattleMode()) return this.poweredMaxDamage;
+        return this.maxDamage;
+    }
     public PlaceableShieldItem(Properties pProperties, int type) {
         super(pProperties);
         this.type = type;
         int[] maxDamages = {0, 1, 3};
         this.maxDamage = this.type >= maxDamages.length ? maxDamages[0] : maxDamages[type];
+        this.poweredMaxDamage = this.maxDamage + 2;
+    }
+    public PlaceableShieldItem(Properties pProperties, int type, int maxDamage, int poweredMaxDamage) {
+        super(pProperties);
+        this.type = type;
+        this.maxDamage = maxDamage;
+        this.poweredMaxDamage = poweredMaxDamage;
     }
 
     public BlockState getPlaceState(Level level, BlockPos blockpos) {
         Block block1 = ImmortalersDelightBlocks.LARGE_COLUMN.get();
+        Block block2 = ImmortalersDelightBlocks.JENG_NANU.get();
         if (type == 1 && block1 instanceof StackedFoodBlock stackedFoodBlock) return stackedFoodBlock.defaultBlockState().setValue(StackedFoodBlock.BITES, stackedFoodBlock.getMaxBites() - stackedFoodBlock.getPileBitesPerItem());
+        if (type == 2 && block2 instanceof StackedFoodBlock stackedFoodBlock) return stackedFoodBlock.defaultBlockState().setValue(StackedFoodBlock.BITES, stackedFoodBlock.getMaxBites() - stackedFoodBlock.getPileBitesPerItem());
         return Blocks.AIR.defaultBlockState();
     }
     public InteractionResult useOn(UseOnContext pContext) {
@@ -102,7 +116,8 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
             CompoundTag nbt = consumer.getPersistentData();
             if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
                 int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG);
-                makeAreaOfEffectCloud(level, consumer.blockPosition(), lv, consumer);
+
+                makeAreaOfEffectCloud(level, consumer.blockPosition(), lv, this.getMaxUseCount(), consumer);
                 nbt.remove(PlaceableShieldEvents.DAMAGE_TAG);
             }
         }
@@ -110,14 +125,21 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
     }
 
 
-    private static void makeAreaOfEffectCloud(Level level, BlockPos pPos, int lv, @Nullable LivingEntity caster) {
+    private static void makeAreaOfEffectCloud(Level level, BlockPos pPos, int lv, int maxDamage, @Nullable LivingEntity caster) {
         if (level.isClientSide()) return;
+
+        if (lv <= 0) lv = 1;
+        if (maxDamage <= 0) maxDamage = 1;
+        if (lv <= maxDamage / 2) lv *= 2;
+        else lv += maxDamage / 2;
+
         WarpedLaurelHitBoxEntity effectCloud = new WarpedLaurelHitBoxEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.05D, pPos.getZ() + 0.5D);
 
-        effectCloud.setDuration(64);
+        int time = 100 * (1 << lv) / (lv + 1);
+        effectCloud.setDuration(14 + time);
         effectCloud.setRadius(2.0F + lv * 0.5f);
         effectCloud.setRadiusOnUse(0.0F);
-        effectCloud.setWaitTime(10);
+        effectCloud.setWaitTime(14);
         effectCloud.setRadiusPerTick(0.0f);
         effectCloud.setParticle(ParticleTypes.SOUL_FIRE_FLAME);
         effectCloud.setOwner(caster);
@@ -155,7 +177,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
                     if (event.shieldTakesDamage()) {
                         //列巴没耐久，每个列巴固定能抗2下(记录在使用者)，战争面包则是抗4下
                         CompoundTag tag = hurtOne.getPersistentData();
-                        if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < placeableShieldItem.maxDamage) {
+                        if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < placeableShieldItem.getMaxUseCount()) {
                             doOnUsing(damage, tag, shield, hurtOne, isBroken);
                         } else if (!tag.contains(DAMAGE_TAG, Tag.TAG_INT)) {
                             doOnUsing(damage, tag, shield, hurtOne, isBroken);
@@ -188,7 +210,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
                     if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
                         //这里的条件与取消使用的不同是因为耐久损耗的值不会达到最大耐久，导致打了4下耐久损耗为3，所以加一
                         int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG) + 1;
-                        makeAreaOfEffectCloud(consumer.level(), consumer.blockPosition(), lv, consumer);
+                        makeAreaOfEffectCloud(consumer.level(), consumer.blockPosition(), lv, placeableShieldItem.getMaxUseCount(), consumer);
                     }
                 }
 
@@ -233,6 +255,10 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
             if (level.isClientSide() || level.random.nextFloat() * 30.0F < damage ) return;
             if (type == 1) ItemUtils.spawnItemEntity(level,
                     new ItemStack(ImmortalersDelightItems.LARGE_COLUMN_SLICE.get()),
+                    (double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5,
+                    (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
+            if (type == 2) ItemUtils.spawnItemEntity(level,
+                    new ItemStack(ImmortalersDelightItems.JENG_NANU_SLICE.get()),
                     (double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5,
                     (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
         }

@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticles;
+import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -153,8 +155,14 @@ public class StunEffect {
                 mob.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, Optional.empty());
             }
             spawnParticle(entity, 1);
-            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, 9, true, false));
-            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, time, 9, true, false));
+            if (Config.useBetterStun) {
+                InebriatedToxicFoodItem.addEffectWithoutCanBeAffected(entity, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, 9, true, false), null);
+                InebriatedToxicFoodItem.addEffectWithoutCanBeAffected(entity, new MobEffectInstance(MobEffects.DIG_SLOWDOWN, time, 9, true, false), null);
+            } else {
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, 9, true, false));
+                entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, time, 9, true, false));
+            }
+
         } else removeImmortalEffect(entity);
     }
 

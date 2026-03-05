@@ -5,6 +5,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -29,7 +31,7 @@ public class DamageOnTimeMobEffect extends MobEffect {
             }else if (pEntity.getHealth() > minHealth && pEntity.getMobType() != MobType.UNDEAD) {
                 float damage = 1 << amplifier;
                 if (damage > pEntity.getHealth() - minHealth) {damage = pEntity.getHealth() - minHealth;}
-                pEntity.hurt(pEntity.damageSources().magic(), damage);
+                pEntity.hurt(pEntity.damageSources().magic(), pEntity.hasEffect(INEBRIATED.get()) ? 1.6f * damage : damage);
             }
         }
         if (this == WEAK_WITHER.get()) {
@@ -46,7 +48,18 @@ public class DamageOnTimeMobEffect extends MobEffect {
             }
         }
     }
+    @Override
+    public void addAttributeModifiers(@NotNull LivingEntity pLivingEntity, @NotNull AttributeMap pAttributeMap, int pAmplifier) {
 
+        if (pLivingEntity.level().isClientSide) {
+            super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+            return;
+        }
+        if (pLivingEntity.isAlive()) {
+            this.applyEffectTick(pLivingEntity, pAmplifier);
+        }
+        super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+    }
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
         if (this == WEAK_POISON.get()) {

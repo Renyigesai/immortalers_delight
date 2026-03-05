@@ -269,7 +269,7 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
         createEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get(),"月明");
         /*药水效果描述*/
-        add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。");
+        add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。由酩酊效果产生时行为与中毒一致。");
         add("effect.immortalers_delight.relieve_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
         add("effect.immortalers_delight.resistance_to_undead.description","Reduced damage caused by undead creatures, about 25% per level, not 100%","来自亡灵生物的伤害减至 [效果等级+1] 分之一。超凡模式下，受到亡灵生物伤害时会派生丰茂效果。");
         add("effect.immortalers_delight.resistance_to_arthropod.description","Reduced damage caused by arthropod creatures, the proportion of damage reduction is about 25% per level, not 100%. Corresponding to Arthropod Killer: Damage taken by arthropod creatures spawners a short Speed IV effect.","来自节肢生物的伤害减至 [效果等级+1] 分之一。在受到节肢生物伤害时会派生迅捷IV效果。超凡模式下，受到节肢生物伤害时还会派生解毒IV效果。");

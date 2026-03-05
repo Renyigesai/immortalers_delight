@@ -69,82 +69,90 @@ public class SextlotusCropBlock extends ReapCropBlock{
         return SHAPE_BY_AGE[this.getAge(pState)];
     }
     @Override
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockPos blockpos = pPos.below();
-        if (pState.getBlock() == this)
-            return pLevel.getBlockState(blockpos).canSustainPlant(pLevel, blockpos, Direction.UP, this);
-        return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
+    public @NotNull BlockState updateShape(@NotNull BlockState pState, @NotNull Direction pFacing, @NotNull BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+        BlockState blockstate1 = pLevel.getBlockState(pCurrentPos.below());
+        if(blockstate1.is(BlockTags.DIRT) || blockstate1.is(BlockTags.SAND) || blockstate1.getBlock() instanceof FarmBlock) return pState;
+        return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
-    @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
-    }
+//    @Override
+//    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+//        BlockPos blockpos = pPos.below();
+//        if (pState.getBlock() == this)
+//            return pLevel.getBlockState(blockpos).canSustainPlant(pLevel, blockpos, Direction.UP, this);
+//        return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
+//    }
+//    @Override
+//    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+//        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
+//    }
     public byte hasNearCrop(ServerLevel level, BlockPos pos) {
+        byte i = 0;
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState neighborState = level.getBlockState(pos.relative(direction));
             if (neighborState.getBlock() instanceof SextlotusCropBlock sextlotusCropBlock) {
                 if (neighborState.hasProperty(SextlotusCropBlock.AGE) && neighborState.getValue(SextlotusCropBlock.AGE) >= sextlotusCropBlock.getMaxAge()) {
                     return 1;
-                } else return  -1;
+                } else i = -1;
             }
         }
-        return 0;
+        return i;
     }
 
     //吞噬转化周围植物方块
-    public boolean devourEutrophic(ServerLevel level, BlockPos pos) {
+    public int devourEutrophic(ServerLevel level, BlockPos pos, float chance) {
         BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof SextlotusCropBlock) return false;
+        if (state.getBlock() instanceof SextlotusCropBlock) return 0;
 
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
+            if (level.getRandom().nextFloat() < chance) level.setBlockAndUpdate(pos, Blocks.COAL_BLOCK.defaultBlockState());
+            else level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+            return 3;
+        }
         if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_DIRT)) {
             level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
-            return true;
+            return 1;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
-            level.setBlockAndUpdate(pos, Blocks.COAL_BLOCK.defaultBlockState());
-            return true;
-        }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND)) {
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND) || state.is(Blocks.COARSE_DIRT)) {
             if (!state.is(Blocks.COARSE_DIRT)) level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.SAND.defaultBlockState());
-            return true;
+            return 1;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR)) {
+        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR) || state.is(Blocks.DEAD_BUSH)) {
             if (!state.is(Blocks.DEAD_BUSH)) level.setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), Block.UPDATE_CLIENTS);
             else level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-            return true;
+            return 1;
         }
         if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SPECIAL)) {
             if (state.getBlock() instanceof CoralBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
-                    return true;
-                } else return false;
+                    return 2;
+                } else return 0;
             }
             if (state.getBlock() instanceof CoralPlantBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getPlantCoralDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
-                    return true;
-                } else return false;
+                    return 2;
+                } else return 0;
             }
             if (state.getBlock() instanceof CoralWallFanBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralWallFanDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
-                    return true;
-                } else return false;
+                    return 2;
+                } else return 0;
             }
             if (state.getBlock() instanceof CoralFanBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralFanDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
-                    return true;
-                } else return false;
+                    return 2;
+                } else return 0;
             }
         }
-        return false;
+        return 0;
     }
 
 
@@ -169,25 +177,27 @@ public class SextlotusCropBlock extends ReapCropBlock{
     public int findNeighborPlant(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int sum = 0;
         //列表记录待搜索的坐标与对应的曼哈顿距离
-        List<PosWithDistance> posHigh = new ArrayList<>();
-        List<PosWithDistance> posParallel = new ArrayList<>();
-        List<PosWithDistance> posLow = new ArrayList<>();
+        List<PosWithDistance> posList = new ArrayList<>();
+
         //通过8个"探针"确定搜索范围内的区块加载情况,每个探针决定是否要搜索对应的3*3*3区域
         for (int a = -1; a <= 1; ++a) {
             for (int b = -1; b <= 1; ++b) {
                 BlockPos pos1 = pos.offset(a*3, 0, b*3);
+                int maxJ = 1;
+                if (a == 0) maxJ += 3;
+                if (b == 0) maxJ += 3;
                 if (level.isAreaLoaded(pos1, 1)) {
                     //确定该区域在加载区块内，再搜索该区域
                     for (int i = -1; i <= 1; ++i) {
-                        for (int j = -1; j <= 1; ++j) {
+                        for (int j = -1; j <= maxJ; ++j) {
                             for (int k = -1; k <= 1; ++k) {
                                 BlockPos pos2 = pos1.offset(i, j, k);
                                 // 计算到中心的曼哈顿距离
                                 int distance = calculateManhattanDistance(pos2, pos);
+                                //因为在9*9范围内，曼哈顿距离最大为9，因此减9j即可区分每个y层级并且按顺序排列
+                                distance -= j * 9;
                                 // 存入列表
-                                if (j == 1) posHigh.add(new PosWithDistance(pos2, distance));
-                                if (j == 0) posParallel.add(new PosWithDistance(pos2, distance));
-                                if (j == -1) posLow.add(new PosWithDistance(pos2, distance));
+                                posList.add(new PosWithDistance(pos2, distance));
                             }
                         }
                     }
@@ -196,25 +206,17 @@ public class SextlotusCropBlock extends ReapCropBlock{
         }
 
         // 按曼哈顿距离排序（升序：近→远；如需降序则反转Comparator）
-        posHigh.sort(Comparator.comparingInt(PosWithDistance::manhattanDistance));
-        posParallel.sort(Comparator.comparingInt(PosWithDistance::manhattanDistance));
-        posLow.sort(Comparator.comparingInt(PosWithDistance::manhattanDistance));
-
-        // 合并列表
-        List<PosWithDistance> posList = new ArrayList<>();
-        posList.addAll(posHigh);
-        posList.addAll(posParallel);
-        posList.addAll(posLow);
+        posList.sort(Comparator.comparingInt(PosWithDistance::manhattanDistance));
 
         // 按照曼哈顿距离的顺序进行吞噬，同时曼哈顿距离也决定吞噬的概率
         for (PosWithDistance pwd : posList) {
             BlockPos pos3 = pwd.pos();
-            int distance = pwd.manhattanDistance();
-            if (distance == 0) continue;//忽视本身
+            int distance = Math.abs(pwd.manhattanDistance()) % 9;
+            if (level.getBlockState(pos3.above()).getBlock() == this) continue;//忽视本身
             float probability = 1.0F - distance * 0.1f;
             //进行吞噬
-            if (random.nextFloat() < probability && devourEutrophic(level, pos3)) {
-                sum += 1;
+            if (random.nextFloat() < probability) {
+                sum += devourEutrophic(level, pos3,  (this.getAge(state) + 1.0F) / this.getMaxAge());
             }
             if (sum >= 31) return sum;
         }
@@ -234,33 +236,31 @@ public class SextlotusCropBlock extends ReapCropBlock{
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         //判断基础生长条件：在已加载区块
         if (!worldIn.isAreaLoaded(pos, 1)) return;
+        int i = this.getAge(state);
         byte canGrow = hasNearCrop(worldIn, pos);
         //若无相邻的成熟作物，需要在暗处生长
-        if (canGrow > 0 || worldIn.getRawBrightness(pos, 0) >= 9) return;
+        if (canGrow <= 0 && i < this.getMaxAge() - 1 && worldIn.getRawBrightness(pos, 0) >= 9) return;
         //若有相邻的未成熟作物，则不进行生长
         if (canGrow < 0) return;
 
-        int i = this.getAge(state);
         if (i < this.getMaxAge()) {
             //微调搜索频率，令 random.nextInt((int) (7 / sum) + 1) == 0 的期望0.46354调整为 random.nextInt((8 - sum) + 1) == 0 的期望0.33972
             if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(9999) < 7329)) {
                 //记录吞噬的植物数量，初始值为1以免造成除0错误
                 int sum = 1;
-                //搜索3*3*3区域，分y层从上到下搜索，如果当前层搜索到有植物方块，则停止搜索
-                for (int y = 1; y >= -1; --y) {
+                //搜索3*6*3区域，分y层从上到下搜索，如果当前层为3*3*3以内且搜索到有植物方块，则停止搜索
+                for (int y = 4; y >= -1; --y) {
                     for (int x = 1; x >= -1; --x) {
                         for (int z = 1; z >= -1; --z) {
                             BlockPos pos1 = pos.offset(x, y, z);
                             if (x == 0 && y <= 0 && z == 0) continue; // 跳过中心
                             //进行吞噬
-                            if (devourEutrophic(worldIn, pos1)) {
-                                sum += 1;
-                                //随机生长每次最多吞噬7个方块
-                                if (sum >= 8) break;
-                            }
+                            sum += devourEutrophic(worldIn, pos1, (this.getAge(state) + 1.0F) / this.getMaxAge());
+                            //随机生长每次最多吞噬7个方块
+                            if (sum >= 8) break;
                         }
                     }
-                    if (sum > 1) break;
+                    if (y <= 1 && sum > 1) break;
                 }
                 int newAge = i + 1;
                 //初始值为1会导致不吞噬也有小概率生长，因此限定除非在满月，不吞噬不能完全成熟
@@ -294,6 +294,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
                     newAge += level.getRandom().nextInt(dAge) + 1;
                 }
             }
+            if (newAge > this.getMaxAge()) newAge = this.getMaxAge();
             level.setBlock(pPos, pState.setValue(AGE, newAge), Block.UPDATE_CLIENTS);
         }
     }

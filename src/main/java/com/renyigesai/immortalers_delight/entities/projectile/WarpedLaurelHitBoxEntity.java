@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.client.particle.SpiralSoulParticleOpti
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +33,7 @@ public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
 
     public WarpedLaurelHitBoxEntity(Level pLevel, double pX, double pY, double pZ) {
         this(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), pLevel);
+        this.reapplicationDelay = 10;
         this.setPos(pX, pY, pZ); // 设置初始位置
     }
 
@@ -70,28 +72,23 @@ public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
                             // 距离小于等于半径平方（在范围内）
                             if (d3 <= (double)(range * range)) {
                                 //对范围内的生物造成伤害
-                                //如果是无主的，则与岩浆一样造成伤害
-                                //如果有主，则造成目标生命上限0.25%的伤害，伤害每级翻倍
-                                if (caster != null) {
-                                    int damage = (int) (livingentity.getMaxHealth() * 0.0025f);
+                                //造成目标生命上限0.5%的伤害，伤害每级+100%
+                                float damage = livingentity.getMaxHealth() * 0.005f;
 
-                                    int amp = this.getDamageAmp();
-                                    damage *= 1 << amp;
-                                    //如果伤害将杀死目标，使用有源伤害；否则造成无来源岩浆伤害
-                                    DamageSource source = livingentity.getHealth() < damage ?
-                                            (caster instanceof Player ?
-                                                    caster.damageSources().playerAttack((Player) caster) : caster.damageSources().mobAttack(caster))
-                                            : caster.damageSources().lava();
-                                    //如果目标是防火的，则伤害极大幅度提升
-                                    if (livingentity.fireImmune()) damage *= 1 << amp;
+                                int amp = this.getDamageAmp();
+                                damage += damage * amp;
+                                if (DifficultyModeUtil.isPowerBattleMode() && damage < 4) damage = 4;
 
-                                    livingentity.hurt(source, damage);
-                                    //造成伤害会令目标的燃烧时间叠加
-                                    if (!livingentity.fireImmune()) livingentity.setSecondsOnFire(Math.max(15 * (amp + 2), livingentity.getRemainingFireTicks() / 20 + 15));
-                                }else if (!livingentity.fireImmune()) {
-                                    livingentity.hurt(livingentity.damageSources().lava(), 4);
-                                    livingentity.setSecondsOnFire(15);
+                                //如果伤害将杀死目标，使用有源伤害；否则造成无来源岩浆伤害
+                                DamageSource source = livingentity.damageSources().lava();
+                                if (damage >= livingentity.getHealth()) {
+                                    if (caster instanceof Player player) source = player.damageSources().playerAttack(player);
+                                    else if (caster != null) source = caster.damageSources().mobAttack(caster);
                                 }
+
+                                livingentity.hurt(source, damage);
+                                //造成伤害会令目标的燃烧时间叠加
+                                if (!livingentity.fireImmune()) livingentity.setSecondsOnFire(Math.max(15 * (amp + 2), livingentity.getRemainingFireTicks() / 20 + 15));
                             }
                         }
                     }
@@ -103,6 +100,7 @@ public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
 
 
     public void spawnHotSpring(Level pLevel, BlockPos pPos, int x, int y, int z) {
+        if (this.isDangerous() || pLevel.isClientSide()) return;
         for (int i = -x; i <= x; i++) {
             for (int j = -y; j <= y; j++) {
                 for (int k = -z; k <= z; k++) {

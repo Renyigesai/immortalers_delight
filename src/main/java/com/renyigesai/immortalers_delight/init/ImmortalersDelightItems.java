@@ -1822,7 +1822,7 @@ public class ImmortalersDelightItems {
         SEXTLOTUS_FIZZ = registerWithTab("sextlotus_fizz",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.SEXTLOTUS_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.SEXTLOTUS_FIZZ),  true));
         RAINBOW_FIZZ = register("rainbow_fizz",()->
-                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.RAINBOW_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.RAINBOW_FIZZ),  true));
+                new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.RAINBOW_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.RAINBOW_FIZZ).rarity(Rarity.RARE),  true));
         SPARROW_WINE = registerWithTab("sparrow_wine",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.SPARROW_WINE),true));
         DRAGON_SLAYING_ART = registerWithTab("dragon_slaying_art",()->

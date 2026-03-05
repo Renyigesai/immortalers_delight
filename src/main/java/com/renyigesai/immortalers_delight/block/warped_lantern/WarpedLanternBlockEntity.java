@@ -67,12 +67,13 @@ public class WarpedLanternBlockEntity extends BlockEntity {
 
     //=======================需求实现部分，实现当前方块实体的功能=========================//
 
-
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,
             bus = Mod.EventBusSubscriber.Bus.FORGE
     )
     public static class WarpedLanternBlockEvents {
+        //标记当前是否需要额外刻。
+        private static int needExtraTick = 0;
         @SubscribeEvent
         public static void onBlockGrow(BlockEvent.CropGrowEvent.Pre event) {
             //检测是否在正确的世界
@@ -90,6 +91,8 @@ public class WarpedLanternBlockEntity extends BlockEntity {
                                 spawnParticle(serverLevel, thisPos, 0);
                                 //存Map
                                 blocksNeedTick.put(event.getPos(), serverLevel.getLevel().dimension().toString());
+                                //标记需要额外刻
+                                if (needExtraTick <= 0) needExtraTick = 20;
                             } else {
                                 allThisblock.remove(thisPos);
                             }
@@ -102,7 +105,10 @@ public class WarpedLanternBlockEntity extends BlockEntity {
         public static void doExtraTick(@Nonnull TickEvent.LevelTickEvent event) {
 
             if (event.level instanceof ServerLevel serverLevel && event.phase.equals(TickEvent.Phase.START)) {
+                if (needExtraTick <= 0) return;
+
                 if (blocksNeedTick.size() > 0) {
+                    needExtraTick--;
                     //复制一个列表，避免影响原列表
                     Map<BlockPos, String> tickingBlocks = new HashMap<>(blocksNeedTick);
                     //遍历所有需要处理的方块

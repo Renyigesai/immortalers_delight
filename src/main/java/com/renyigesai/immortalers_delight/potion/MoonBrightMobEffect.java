@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -111,15 +112,15 @@ public class MoonBrightMobEffect extends MobEffect {
                 attacker.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
             }
 
+            Entity hiter = event.getSource().getDirectEntity();
             //箭矢造成伤害时，或超凡模式下任意弹射物伤害时，对目标施加负面状态
-            if (attacker != null && hurtOne.hasEffect(MobEffects.GLOWING)) {
+            if (attacker != null && (hurtOne.hasEffect(MobEffects.GLOWING) || hiter instanceof SpectralArrow)) {
                 thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get());
                 if (thisEffect != null) {
                     int lv = thisEffect.getAmplifier() + 1;
                     boolean isPowered = DifficultyModeUtil.isPowerBattleMode();
                     boolean flag = isPowered && event.getSource().is(DamageTypeTags.IS_PROJECTILE);
                     //判断伤害条件，普通模式需要为箭矢实体，超凡模式则满足弹射物伤害即可
-                    Entity hiter = event.getSource().getDirectEntity();
                     if (flag || hiter instanceof AbstractArrow) {
                         //基础效果时间为4秒，每级再提升2秒
                         int time = 80 + 40 * lv;
