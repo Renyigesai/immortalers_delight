@@ -284,6 +284,8 @@
   "effect.immortalers_delight.up_side_down.description": "持续产生漂浮效果，在潜行时则将其变为缓降。在有跳跃提升时将提升跳跃的方向调整为水平方向。",
   "effect.immortalers_delight.vitality": "丰茂",
   "effect.immortalers_delight.vitality.description": "生命值不满时恢复生命值。",
+  "effect.immortalers_delight.vulnerable": "脆弱",
+  "effect.immortalers_delight.vulnerable.description": "每级令所受伤害提升50%。",
   "effect.immortalers_delight.warm_current_surges": "燃起来了",
   "effect.immortalers_delight.warm_current_surges.description": "解除等级更低的缓慢效果。清除脚下的的雪和细雪。攻击时额外造成一次 火焰伤害，若目标处于着火状态，造成的伤害翻倍。超凡模式下，火焰伤害进一步提升。",
   "effect.immortalers_delight.weak_poison": "弱中毒",

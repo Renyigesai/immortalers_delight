@@ -268,6 +268,7 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.UNYIELDING.get(),"坚韧");
         createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
         createEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get(),"月明");
+        createEffect(ImmortalersDelightMobEffect.VULNERABLE.get(),"脆弱");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。由酩酊效果产生时行为与中毒一致。");
         add("effect.immortalers_delight.relieve_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
@@ -299,6 +300,7 @@ public class Languages extends LanguageProvider {
                 "Firing arrows at lit targets will cause them to be torn apart by Kuuvahki.\n" +
                 "After a short duration or when the target dies, it deals area damage to surrounding mobs.\n" +
                 "This effect is significantly stronger during a Full Moon.","在黑暗中令周围的实体发光。对发光的目标射出箭矢以令其受到月矩撕扯，在一段时间或目标死亡后对周围生物造成范围伤害。在满月夜这个效果将强得多。");
+        add("effect.immortalers_delight.vulnerable","Increases damage taken by 50% per level.","每级令所受伤害提升50%。");
 
     }
 
