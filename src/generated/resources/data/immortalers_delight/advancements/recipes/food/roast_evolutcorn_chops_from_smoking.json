@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "immortalers_delight:roast_evolutcorn_chops_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "roast_evolutcorn_chops": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:evolutcorn_grains"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "roast_evolutcorn_chops",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "immortalers_delight:roast_evolutcorn_chops_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

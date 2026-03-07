@@ -6,6 +6,7 @@
   "refmap": "immortalers_delight.refmap.json",
   "mixins": [
     "BrushableBlockEntityMixin",
+    "PlayerMixin",
     "SnifferMixin"
   ],
   "client": [

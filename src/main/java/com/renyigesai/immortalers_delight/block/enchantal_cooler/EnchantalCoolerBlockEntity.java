@@ -300,17 +300,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         }
     }
 
-//    private boolean isContainer(){
-//        Optional<EnchantalCoolerRecipe> recipeOptional = getCurrentRecipe();
-//        if (recipeOptional.isPresent()){
-//            EnchantalCoolerRecipe recipe = recipeOptional.get();
-//            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
-//                return true;
-//            }
-//            return recipe.getContainer().isEmpty();
-//        }
-//        return false;
-//    }
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
         SimpleContainer inventory = getInput(true);
 

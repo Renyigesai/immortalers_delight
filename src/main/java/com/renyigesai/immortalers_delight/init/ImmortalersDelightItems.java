@@ -658,7 +658,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BRAISED_PORK;
     @ItemData(zhCn = "亚波伦蛋卷")
     public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
-    @ItemData(zhCn = "诡怨灯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "诡怨灯")
     public static final RegistryObject<Item> WARPED_LANTERN;
 
 
@@ -830,7 +830,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SEXTLOTUS_ROOT_CUTS;
     @ItemData(zhCn = "月油")
     public static final RegistryObject<Item> MOON_OIL;
-    @ItemData(zhCn = "月莲灯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "月莲灯")
     public static final RegistryObject<Item> SEXTLOTUS_LANTERN;
     @ItemData(zhCn = "老北京鸡肉卷")
     public static final RegistryObject<Item> OLD_BEIJING_CHICKEN_ROLL;
@@ -840,6 +840,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> PICKLED_SEXTLOTUS_ROOT;
     @ItemData(zhCn = "氧葡萄")
     public static final RegistryObject<Item> OXYGRAPE;
+    @ItemData(zhCn = "氧葡萄干")
+    public static final RegistryObject<Item> OXYRAISINS;
+    @ItemData(zhCn = "氧葡萄玉黍麦芬")
+    public static final RegistryObject<Item> OXYGRAPE_EVOLUTCORN_MUFFIN;
     @ItemData(zhCn = "气泡水")
     public static final RegistryObject<Item> SPARKLING_WATER;
     @ItemData(zhCn = "会馆菲士")
@@ -1194,7 +1198,7 @@ public class ImmortalersDelightItems {
         WARPED_LAUREL_SEEDS = registerWithTab("warped_laurel_seeds",()->
                 new TooltipItemNameBlockItem(ImmortalersDelightBlocks.WARPED_LAUREL_CROP.get(), basicItem(),Component.translatable("tooltip.immortalers_delight.warped_laurel_seeds").withStyle(ChatFormatting.GRAY)));
 
-        WARPED_LAUREL = registerWithTab("warped_laurel",()-> new Item(new Item.Properties()));
+        WARPED_LAUREL = registerWithTab("warped_laurel",()-> new Item(basicItem()));
 
         TRAVAPLANK = registerWithTab("travaplank",()->new Item(basicItem()));
 
@@ -1781,10 +1785,12 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SMASHED_SEXTLOTUS_ROOT),true));
         PICKLED_SEXTLOTUS_ROOT = registerWithTab("pickled_sextlotus_root",()->
                 new DrinkItem(ImmortalersDelightBlocks.PICKLED_SEXTLOTUS_ROOT.get(), basicItem()));
-        OXYGRAPE = register("oxygrape",()->
+        OXYGRAPE = registerWithTab("oxygrape",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.OXYGRAPE.get(),foodItem(ImmortalersDelightFoodProperties.OXYGRAPE)));
+        OXYRAISINS = registerWithTab("oxyraisins",()-> new Item(foodItem(ImmortalersDelightFoodProperties.OXYRAISINS)));
+        OXYGRAPE_EVOLUTCORN_MUFFIN = registerWithTab("oxygrape_evolutcorn_muffin",()-> new Item(new Item.Properties().craftRemainder(Items.PAPER).food(ImmortalersDelightFoodProperties.OXYGRAPE_EVOLUTCORN_MUFFIN)));
         SPARKLING_WATER = registerWithTab("sparkling_water",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.SPARKLING_WATER),true));
+                new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.SPARKLING_WATER),true));
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->

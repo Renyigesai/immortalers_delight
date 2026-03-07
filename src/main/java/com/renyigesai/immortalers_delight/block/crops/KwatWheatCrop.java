@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
 import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
 import com.renyigesai.immortalers_delight.entities.projectile.GasCloudEntity;
@@ -110,6 +111,10 @@ public class KwatWheatCrop extends ReapCropBlock {
                             if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
                                 livingentity.hurt(level.damageSources().cactus(), 2.0F);
                                 livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
+                            }else {
+                                if (livingentity instanceof ServerPlayer serverPlayer) {
+                                    ImmortalersDelightMod.RESIST_GAS_POISONING_TRIGGER.trigger(serverPlayer);
+                                }
                             }
                         }
                     }

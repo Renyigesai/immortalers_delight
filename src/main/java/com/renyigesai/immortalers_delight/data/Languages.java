@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.data;
 
 import com.google.gson.JsonObject;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
@@ -16,6 +17,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
@@ -71,10 +73,10 @@ public class Languages extends LanguageProvider {
     protected void addTranslations() {
         try {
             addItems();
+            addBlocks();
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        addBlocks();
         addFluids();
         addLatiao();
         addTooltips();
@@ -115,10 +117,39 @@ public class Languages extends LanguageProvider {
         }
     }
 
-    private void addBlocks(){
-        addBlock(ImmortalersDelightBlocks.LEISAMBOO_STALK,"含茶竹节");
-        addBlock(ImmortalersDelightBlocks.EMPTY_PLATE,"空盘");
+    private void addBlocks() throws IllegalAccessException {
+        Class<ImmortalersDelightBlocks> _class = ImmortalersDelightBlocks.class;
+        for (Field field : _class.getDeclaredFields()) {
+            if (field.isAnnotationPresent(BlockData.class)) {
+                Object object = field.get(null);
+                RegistryObject<Block> deferredBlock = null;
+                if (object instanceof RegistryObject<?> registryObject) {
+                    if (Block.class.isAssignableFrom(registryObject.get().getClass())){
+                        deferredBlock = (RegistryObject<Block>) registryObject;
+                    }
+                }
+                if (deferredBlock != null && hasBlockItem(deferredBlock.get())) {
+                    BlockData blockData = field.getAnnotation(BlockData.class);
+                    if (blockData != null){
+                        String zhCn = blockData.zhCn();
+                        if (zhCn.isEmpty()){
+                            addBlock(deferredBlock);/*至少生成一个英文的键名*/
+                        }else {
+                            addBlock(deferredBlock,zhCn);/*有中文就写中文*/
+                        }
+                    }
+                }
+            }
+        }
         addBlock(ImmortalersDelightBlocks.HOT_SPRING_BLOCK,"温泉");
+    }
+
+    private boolean hasBlockItem(Block block){
+        boolean b = block.asItem() == Items.AIR;
+        if (b){
+            System.out.println(block + " " + "Execution was successful!");
+        }
+        return b;
     }
 
     private void addFluids(){
@@ -240,7 +271,7 @@ public class Languages extends LanguageProvider {
 
     private void addEffects(){
         createEffect(ImmortalersDelightMobEffect.GAIXIA.get(),"垓下");
-        createEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get(),"灼热","Strength effects can be obtained or prolonged while eating. In Extraordinary Mode, attacks can set enemies on fire.","进食时可以获得或延长力量效果。超凡模式下，攻击能使敌人着火。");
+        createEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get(),"灼热");
         createEffect(ImmortalersDelightMobEffect.WEAK_POISON.get(),"弱中毒");
         createEffect(ImmortalersDelightMobEffect.WEAK_WITHER.get(),"弱凋零");
         createEffect(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),"解毒");
@@ -271,7 +302,7 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.VULNERABLE.get(),"脆弱");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。由酩酊效果产生时行为与中毒一致。");
-        add("effect.immortalers_delight.relieve_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
+        add("effect.immortalers_delight.weak_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
         add("effect.immortalers_delight.resistance_to_undead.description","Reduced damage caused by undead creatures, about 25% per level, not 100%","来自亡灵生物的伤害减至 [效果等级+1] 分之一。超凡模式下，受到亡灵生物伤害时会派生丰茂效果。");
         add("effect.immortalers_delight.resistance_to_arthropod.description","Reduced damage caused by arthropod creatures, the proportion of damage reduction is about 25% per level, not 100%. Corresponding to Arthropod Killer: Damage taken by arthropod creatures spawners a short Speed IV effect.","来自节肢生物的伤害减至 [效果等级+1] 分之一。在受到节肢生物伤害时会派生迅捷IV效果。超凡模式下，受到节肢生物伤害时还会派生解毒IV效果。");
         add("effect.immortalers_delight.resistance_to_abyssal.description","Reduced damage caused by aquatic organisms, the proportion of damage reduction is about 25% per level, not 100%. A short period of underwater breathing is derived when damaged by aquatic organisms.","来自水生生物的伤害减至 [效果等级+1] 分之一。在受到水生生物伤害时会派生舒适、水下呼吸和海豚的恩惠效果。超凡模式下，受到水生生物伤害时派生的效果变为瞬间治疗、潮涌能量和海豚的恩惠。");
@@ -295,11 +326,12 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.up_side_down.description","When attacking, a sticky cube is generated under the target creature.Adjust extra jump force direction to horizontal when Jump Boost is active.","持续产生漂浮效果，在潜行时则将其变为缓降。在有跳跃提升时将提升跳跃的方向调整为水平方向。");
         add("effect.immortalers_delight.let_it_freeze.description","The attack causes the target to briefly enter a cold state, reducing its speed and continuously subjecting it to frostbite. In non-supernatural mode, the target cannot be completely frozen.","攻击使目标短暂进入寒冷状态，降低速度并持续受到冻伤，非超凡模式下不能完全冻结目标。");
         add("effect.immortalers_delight.unyielding.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","受到有源伤害时获得短暂的无敌时间，超凡模式下也对环境伤害生效。");
-        add("effect.immortalers_delight.smoke_abstinence","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力量II，急迫III，生命回复和抗火，如抗性提II般减免伤害。");
+        add("effect.immortalers_delight.smoke_abstinence.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力量II，急迫III，生命回复和抗火，如抗性提II般减免伤害。");
         add("effect.immortalers_delight.moon_bright","Illuminates nearby entities in the dark.\n" +
                 "Firing arrows at lit targets will cause them to be torn apart by Kuuvahki.\n" +
                 "After a short duration or when the target dies, it deals area damage to surrounding mobs.\n" +
                 "This effect is significantly stronger during a Full Moon.","在黑暗中令周围的实体发光。对发光的目标射出箭矢以令其受到月矩撕扯，在一段时间或目标死亡后对周围生物造成范围伤害。在满月夜这个效果将强得多。");
+        add("effect.immortalers_delight.incandescence.description","Strength effects can be obtained or prolonged while eating. In Extraordinary Mode, attacks can set enemies on fire.","进食时可以获得或延长力量效果。超凡模式下，攻击能使敌人着火。");
         add("effect.immortalers_delight.vulnerable","Increases damage taken by 50% per level.","每级令所受伤害提升50%。");
 
     }
@@ -318,7 +350,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("ice_extract",translateText("Ice Extract","冷萃"),translateText("Get Enchantal Cooler.","获得魔凝机。"));
         createAdvancement("get_warped_laurel",translateText("Very Fragrant Wrped Laurel","醇香诡果"),translateText("Plant seeds with a strange fragrance were dug out in Warped forest.","在诡异森林挖出带有奇香的果实种子。"));
         createAdvancement("get_torchflower_seeds",translateText("The earth was in an uproar","天火地起"),translateText("Get Torchflower Seeds.","获得火把花种子。"));
-        createAdvancement("get_torchflower_mustard",translateText("Frequent guest of party games","派对游戏常客"),translateText("Get Torchflower Mustard.","获得火火花芥末。"));
+        createAdvancement("get_torchflower_mustard",translateText("Frequent guest of party games","派对游戏常客"),translateText("Get Torchflower Mustard.","获得火花芥末。"));
         createAdvancement("get_stewed_rotten_meat_pot",translateText("Bewaria þīne clǽne","注意卫生"),translateText("Although the patterns are beautiful, when it comes to tableware, cleanliness is of greater importance.","纹饰虽美，但作为餐具，还是洁净更重要。"));
         createAdvancement("get_sniffer_fur",translateText("Fluffy Troubles","毛茸茸的烦恼"),translateText("Continuously use a brush to groom your Sniffer, then clean up the fur shed by your pet.","持续使用刷子为你的嗅探兽梳毛，然后清理你的宠物散落的毛发。"));
         createAdvancement("get_pitcher_pod_petal",translateText("Cheese Cheese？","芝士芝士？"),translateText("Get Pitcher Pod Petal.","获取瓶子草荚果瓣。"));
@@ -345,16 +377,35 @@ public class Languages extends LanguageProvider {
         createAdvancement("level_up_enchantment",translateText("Apply what you have learned","学以致用"),translateText("Under the influence of cultural heritage, enhance the enchanted book in your hand.","在文化底蕴的濡染下，改进你手上的附魔书。"));
         createAdvancement("pass_sniffer_cooldown",translateText("Use the floating sniffing method","应当使用飘闻法"),translateText("At a safe distance, let your sniffer savor the orifice-clearing efficacy of the caustic essential oil.","在安全的距离上，让你的嗅探兽品味炽烈精油的通窍功效。"));
         createAdvancement("get_caustic_essential_oil",translateText("Chloro-Phos Brave","氯磷好汉"),translateText("Obtain the Crimson Gas Potion, prove to your opponents that you have reasons to never lose.","获得绯红瓦斯药水，向对手证明你有不能输的理由。"));
+        createAdvancement("get_millenian_bamboo",translateText("the delicacies of Penglai","蓬莱的珍馐"),translateText("Get Millenian Bamboo.","获得千年竹。"));
+        createAdvancement("get_rotten_flesh_cuts",translateText("Cut open!","我的腐肉，被剪开了啊！"),translateText("Get Rotten Flesh Cuts.","获得腐肉碎。"));
+        createAdvancement("get_sealed_ancient_rations",translateText("Wulilililili!","唔哩哩哩哩哩！"),translateText("Get Sealed Ancient Rations.","获得古代口粮包。"));
+        createAdvancement("get_burn_the_boats",translateText("Not finished yet, kid!","还没完！小子！"),translateText("Get Burn the Boats Buff.","触发破釜效果。"));
+        createAdvancement("get_iced_kwat_soup",translateText("Get Iced Kwat Soup","参孙消气汤"),translateText("Get Iced Kwat Soup.","获得冰瓦斯麦汤。"));
+        createAdvancement("get_apollyon_cake_roll",translateText("Bullet Acceleration!","弹速上升！"),translateText("Get Apollyon Cake Roll.","获得亚波伦蛋卷。"));
+        createAdvancement("get_bizarre_sausage",translateText("like meat buns thrown at a dog—gone forever","肉包子打狗"),translateText("Get Bizarre Sausage.","获得诡异香肠。"));
+        createAdvancement("get_tropical_fruity_cyclone",translateText("The storm destroyed everything","风暴必须摧毁一切障碍"),translateText("Get Tropical Fruity Cyclone.","获得热带果味风暴。"));
+        createAdvancement("get_scarlet_sundae",translateText("Portraying a beautiful and ancient urban fairy tale","描绘着美丽古老的都市童话"),translateText("Get Scarlet Sundae.","获得红楼大圣代。"));
+        createAdvancement("get_piglin_odori_sake",translateText("Now it's you who should be afraid!","现在该害怕的是你们！"),translateText("Get Piglin Odori Sake.","获得猪灵踊。"));
+        createAdvancement("resist_gas_poisoning",translateText("Wear a mask properly","戴好口罩"),translateText("Use golden fabric veil to resist gas poisoning.","利用绯炵金纱抵御瓦斯毒。"));
+        createAdvancement("power_battle_mode",translateText("Activate power battle mode.","过去迟早会追上的"),translateText("Activate power battle mode.","开启超凡模式。"));
+        createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一搜大船。"));
+        createAdvancement("get_sextlotus_seeds",translateText("Lunar soil tide","月壤潮汐"),translateText("Obtain Sextlotus Seeds in Forest.","在森林获得既望莲子。"));
     }
 
     private void addEntitys(){
         createEntity(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(),"Skelverfish Thrasher");
+        createEntity(ImmortalersDelightEntities.SCAVENGER.get(),"拼凑者");
         createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
         createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
         createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
         createEntity(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(), "邪月之触");
+        createEntity(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), "千古船");
+        createEntity(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), "千古运输船");
+        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_BOAT.get(), "古木船");
+        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), "古木运输船");
     }
     private void addMessages(){
         createMessage("effect.stun","You're reeling!","你头晕目眩！");
@@ -438,6 +489,11 @@ public class Languages extends LanguageProvider {
     public void addBlock(Supplier<? extends Block> key, String zh_cn) {
         String path = BuiltInRegistries.BLOCK.getKey(key.get()).getPath();
         this.add(key.get().getDescriptionId(),this.getEnglishName(path),zh_cn);
+    }
+    public void addBlock(Supplier<? extends Block> key) {
+        String path = BuiltInRegistries.BLOCK.getKey(key.get()).getPath();
+        String descriptionId = key.get().getDescriptionId();
+        this.add(descriptionId,this.getEnglishName(path),this.getEnglishName(path));
     }
 
     protected void addItem(Supplier<? extends Item> key, String en_us, String zh_cn) {

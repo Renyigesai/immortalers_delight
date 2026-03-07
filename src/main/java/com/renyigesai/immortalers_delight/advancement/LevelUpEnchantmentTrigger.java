@@ -26,7 +26,7 @@ public class LevelUpEnchantmentTrigger extends SimpleCriterionTrigger<LevelUpEnc
     public void trigger(ServerPlayer player) {
         // 第二个参数是“条件校验器”，true表示无条件触发
         this.trigger(player, instance -> true);
-        System.out.println("触发条件");
+//        System.out.println("触发条件");
     }
 
     // ===================== 触发条件实例（CriterionInstance） =====================

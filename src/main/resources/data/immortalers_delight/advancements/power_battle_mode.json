@@ -1,0 +1,28 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.immortalers_delight.power_battle_mode.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.power_battle_mode.descr"
+    },
+    "icon": {
+      "item": "minecraft:netherite_axe"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "power_battle_mode": {
+      "trigger": "immortalers_delight:power_battle_mode"
+    }
+  },
+  "requirements": [
+    [
+      "power_battle_mode"
+    ]
+  ],
+  "parent": "immortalers_delight:root"
+}

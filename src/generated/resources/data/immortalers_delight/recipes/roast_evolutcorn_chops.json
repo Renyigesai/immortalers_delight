@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "immortalers_delight:evolutcorn_grains"
+  },
+  "result": "immortalers_delight:roast_evolutcorn_chops"
+}

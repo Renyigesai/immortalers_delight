@@ -1,8 +1,10 @@
 package com.renyigesai.immortalers_delight.util;
 
 import com.renyigesai.immortalers_delight.Config;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.DifficultyModeSaveLoadHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,6 +36,12 @@ public class DifficultyModeUtil {
          //System.out.println("玩家总得分" +  (damageProgress + healthProgress + armorProgress + armorToughnessProgress));
         if (damageProgress + healthProgress + armorProgress + armorToughnessProgress >= 4) {
             isPowerBattleMode = true;
+            //给世界所有玩家触发进度
+            hurtOne.level().players().forEach(player ->{
+                if (player instanceof ServerPlayer serverPlayer){
+                    ImmortalersDelightMod.POWER_BATTLE_MODE_TRIGGER.trigger(serverPlayer);
+                }
+            });
         }
     }
     public static void checkPlayerAttribute(Player player, float damageAmount) {
@@ -76,6 +84,9 @@ public class DifficultyModeUtil {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
             if (DifficultyModeSaveLoadHelper.loadDifficultyMode(serverLevel) != null) {
                 isPowerBattleMode = DifficultyModeSaveLoadHelper.loadDifficultyMode(serverLevel);
+//                if (isPowerBattleMode){
+//                    serverLevel.players().forEach(ImmortalersDelightMod.POWER_BATTLE_MODE_TRIGGER::trigger);
+//                }
                 //System.out.println("[ImmortalersDelight] 读取存档中信息成功！");
             }
         }

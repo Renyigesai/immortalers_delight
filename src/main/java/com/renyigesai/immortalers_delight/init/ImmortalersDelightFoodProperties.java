@@ -1189,7 +1189,7 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(MobEffects.WATER_BREATHING,200),1.0F)
             .build();
     public static final FoodProperties SPARKLING_WATER = new FoodProperties.Builder()
-            .alwaysEat().fast()
+            .alwaysEat().fast().effect( ()-> new MobEffectInstance(MobEffects.WATER_BREATHING,300),1f)
             .build();
     public static final FoodProperties MORNING_FIZZ = new FoodProperties.Builder()
             .alwaysEat()
@@ -1236,7 +1236,9 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),4500,3),1.0F)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),2400),1.0F)
             .build();
-//    public static final FoodProperties TEXT = new FoodProperties.Builder()
-//            .build();
+
+    public static final FoodProperties OXYRAISINS = new FoodProperties.Builder().saturationMod(3).nutrition(1).build();
+    public static final FoodProperties OXYGRAPE_EVOLUTCORN_MUFFIN = new FoodProperties.Builder().saturationMod(0.275f).nutrition(9).build();
+
 
 }

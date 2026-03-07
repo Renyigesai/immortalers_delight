@@ -9,6 +9,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 //import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;

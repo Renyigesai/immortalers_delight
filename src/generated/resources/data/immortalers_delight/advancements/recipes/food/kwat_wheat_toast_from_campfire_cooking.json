@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "immortalers_delight:kwat_wheat_toast_from_campfire_cooking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "kwat_wheat_toast": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:kwat_wheat_dough"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "kwat_wheat_toast",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "immortalers_delight:kwat_wheat_toast_from_campfire_cooking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

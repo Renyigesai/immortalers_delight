@@ -97,7 +97,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    @BlockData
+    @BlockData(zhCn = "溪竹")
     public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
             new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
@@ -117,7 +117,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_LOG = BLOCKS.register("stripped_himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
-    @BlockData
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> HIMEKAIDO_SHRUB = BLOCKS.register("himekaido_shrub",() ->
             new HimekaidoShrubBlock(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH).noCollission().randomTicks().instabreak()));
 
@@ -823,7 +823,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> NAAN_BAKING_PIT = BLOCKS.register("naan_baking_pit",()->
             new NaanBakingPitBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_ORE).strength(0.5F).mapColor(MapColor.NETHER)));
 
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "空盘")
     public static final RegistryObject<Block> EMPTY_PLATE = BLOCKS.register("empty_plate",()->
             new EmptyPlateBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
     /*嗅探兽毛块*/
@@ -849,21 +849,21 @@ public class ImmortalersDelightBlocks {
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "熔烬烤馕")
     public static final RegistryObject<Block> KU_MESH_NON = BLOCKS.register("ku_mesh_non",()->
             new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.MAGMA_BLOCK),
                     ImmortalersDelightItems.KU_MESH_NON_SLICE,
                     ImmortalersDelightItems.KU_MESH_NON,
                     4)
     );
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "古苜蓿大列巴")
     public static final RegistryObject<Block> LARGE_COLUMN = BLOCKS.register("large_column",()->
             new LargeColumnBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
                     ImmortalersDelightItems.LARGE_COLUMN_SLICE,
                     ImmortalersDelightItems.LARGE_COLUMN,
                     2)
     );
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "玉黍硬糖")
     public static final RegistryObject<Block> JENG_NANU = BLOCKS.register("jeng_nanu",()->
             new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
                     ImmortalersDelightItems.JENG_NANU_SLICE,

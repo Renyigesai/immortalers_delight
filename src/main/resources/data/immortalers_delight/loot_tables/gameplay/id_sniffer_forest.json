@@ -7,6 +7,11 @@
           "type": "minecraft:item",
           "weight": 1,
           "name": "immortalers_delight:himekaido_seed"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "immortalers_delight:sextlotus_seeds"
         }
       ]
     }

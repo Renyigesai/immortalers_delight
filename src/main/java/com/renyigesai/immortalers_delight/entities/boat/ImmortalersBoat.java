@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.entities.boat;
 
 import com.renyigesai.immortalers_delight.Config;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
@@ -10,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -160,6 +162,9 @@ public class ImmortalersBoat extends Boat {
             largeBoat.setVariant(this.getBoatVariant());
             this.level().addFreshEntity(largeBoat);
             this.level().playLocalSound(this.getX(),this.getY(),this.getZ(), SoundEvents.WOOD_BREAK, SoundSource.BLOCKS,0.8F,0.8F,false);
+            if (pPlayer instanceof ServerPlayer serverPlayer){
+                ImmortalersDelightMod.IMM_BOAT_UPGRADE_TRIGGER.trigger(serverPlayer);
+            }
             this.discard();
             return true;
         } else return false;
