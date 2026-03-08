@@ -14,7 +14,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -1393,7 +1396,21 @@ public class ImmortalersDelightItems {
                 new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
 
         HIMEKAIDO_JELLY = registerWithTab("himekaido_jelly", () ->
-                new DrinkItem(ImmortalersDelightBlocks.HIMEKAIDO_JELLY.get(),new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
+                new DrinkItem(ImmortalersDelightBlocks.HIMEKAIDO_JELLY.get(),new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)){
+                    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+                        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+                        if (itemstack.isEdible()) {
+                            if (pPlayer.canEat(itemstack.getFoodProperties(pPlayer).canAlwaysEat())) {
+                                pPlayer.startUsingItem(pUsedHand);
+                                return InteractionResultHolder.consume(itemstack);
+                            } else {
+                                return InteractionResultHolder.fail(itemstack);
+                            }
+                        } else {
+                            return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
+                        }
+                    }
+                });
 
         HIMEKANDY = registerWithTab("himekandy", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKANDY, Rarity.COMMON, false), true));
