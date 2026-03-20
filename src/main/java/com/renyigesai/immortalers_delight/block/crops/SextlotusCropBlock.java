@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
@@ -8,19 +9,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.block.RichSoilBlock;
-import vectorwing.farmersdelight.common.block.RichSoilFarmlandBlock;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,12 +50,12 @@ public class SextlotusCropBlock extends ReapCropBlock{
     };
 
     //上一次生长的时间，用于避免无尽沃土等高频催熟导致频繁遍历方块或实体，以免影响性能
-    protected Long lastGrowTime;
-    public Long getLastGrowTime() {return lastGrowTime;}
+    protected int growProgress;
+    public int getGrowProgress() {return growProgress;}
 
     public SextlotusCropBlock(Properties p_52247_) {
         super(p_52247_);
-        lastGrowTime = 0L;
+        growProgress = 0;
     }
     @Override
     protected @NotNull ItemLike getBaseSeedId() {return ImmortalersDelightItems.SEXTLOTUS_SEEDS.get();}
@@ -74,6 +73,12 @@ public class SextlotusCropBlock extends ReapCropBlock{
         if(blockstate1.is(BlockTags.DIRT) || blockstate1.is(BlockTags.SAND) || blockstate1.getBlock() instanceof FarmBlock) return pState;
         return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
+
+    @Override
+    public boolean canReap(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        boolean flag = Config.rightClickHarvest;
+        return (flag && state.getValue(AGE) == getMaxAge() - 1) || super.canReap(state, level, pos, player, hand, hitResult);
+    }
 //    @Override
 //    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
 //        BlockPos blockpos = pPos.below();
@@ -85,6 +90,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
 //    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
 //        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
 //    }
+
     public byte hasNearCrop(ServerLevel level, BlockPos pos) {
         byte i = 0;
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -99,30 +105,30 @@ public class SextlotusCropBlock extends ReapCropBlock{
     }
 
     //吞噬转化周围植物方块
-    public int devourEutrophic(ServerLevel level, BlockPos pos, float chance) {
+    public int devourEutrophic(ServerLevel level, BlockPos pos, float chance, int max) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof SextlotusCropBlock) return 0;
 
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
+        if (max >= 3 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
             if (level.getRandom().nextFloat() < chance) level.setBlockAndUpdate(pos, Blocks.COAL_BLOCK.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
             return 3;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_DIRT)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_DIRT)) {
             level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
             return 1;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND) || state.is(Blocks.COARSE_DIRT)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND) || state.is(Blocks.COARSE_DIRT)) {
             if (!state.is(Blocks.COARSE_DIRT)) level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.SAND.defaultBlockState());
             return 1;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR) || state.is(Blocks.DEAD_BUSH)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR) || state.is(Blocks.DEAD_BUSH)) {
             if (!state.is(Blocks.DEAD_BUSH)) level.setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), Block.UPDATE_CLIENTS);
             else level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             return 1;
         }
-        if (state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SPECIAL)) {
+        if (max >= 2 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SPECIAL)) {
             if (state.getBlock() instanceof CoralBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralDeadBlock(coralBlock);
                 if (deadBlock != null) {
@@ -130,26 +136,30 @@ public class SextlotusCropBlock extends ReapCropBlock{
                     return 2;
                 } else return 0;
             }
-            if (state.getBlock() instanceof CoralPlantBlock coralBlock) {
+            else if (state.getBlock() instanceof CoralPlantBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getPlantCoralDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
                     return 2;
                 } else return 0;
             }
-            if (state.getBlock() instanceof CoralWallFanBlock coralBlock) {
+            else if (state.getBlock() instanceof CoralWallFanBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralWallFanDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
                     return 2;
                 } else return 0;
             }
-            if (state.getBlock() instanceof CoralFanBlock coralBlock) {
+            else if (state.getBlock() instanceof CoralFanBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralFanDeadBlock(coralBlock);
                 if (deadBlock != null) {
                     level.setBlockAndUpdate(pos, deadBlock.defaultBlockState());
                     return 2;
                 } else return 0;
+            }
+            else {
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                return 2;
             }
         }
         return 0;
@@ -216,11 +226,18 @@ public class SextlotusCropBlock extends ReapCropBlock{
             float probability = 1.0F - distance * 0.1f;
             //进行吞噬
             if (random.nextFloat() < probability) {
-                sum += devourEutrophic(level, pos3,  (this.getAge(state) + 1.0F) / this.getMaxAge());
+                int diff = 31 - sum;
+                sum += devourEutrophic(level, pos3,  (this.getAge(state) + 1.0F) / this.getMaxAge(), diff);
             }
             if (sum >= 31) return sum;
         }
         return sum;
+    }
+
+    public boolean isRightMoonAge(int age, Level worldIn) {
+        int antiGrowMoonAge = age;
+        if (antiGrowMoonAge >= 8) antiGrowMoonAge -= 8;
+        return worldIn.getMoonPhase() != antiGrowMoonAge;
     }
 
     /**
@@ -244,8 +261,9 @@ public class SextlotusCropBlock extends ReapCropBlock{
         if (canGrow < 0) return;
 
         if (i < this.getMaxAge()) {
-            //微调搜索频率，令 random.nextInt((int) (7 / sum) + 1) == 0 的期望0.46354调整为 random.nextInt((8 - sum) + 1) == 0 的期望0.33972
-            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(9999) < 7329)) {
+            //每个生长阶段有两个月相不能生长，且6阶段对应月相为7,0(满月与满月前一个月相)，因此植株将在满月的后一天成熟
+            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
+                    isRightMoonAge(i, worldIn) && isRightMoonAge(i + 1, worldIn) && random.nextInt(833) > 19)) {
                 //记录吞噬的植物数量，初始值为1以免造成除0错误
                 int sum = 1;
                 //搜索3*6*3区域，分y层从上到下搜索，如果当前层为3*3*3以内且搜索到有植物方块，则停止搜索
@@ -255,7 +273,8 @@ public class SextlotusCropBlock extends ReapCropBlock{
                             BlockPos pos1 = pos.offset(x, y, z);
                             if (x == 0 && y <= 0 && z == 0) continue; // 跳过中心
                             //进行吞噬
-                            sum += devourEutrophic(worldIn, pos1, (this.getAge(state) + 1.0F) / this.getMaxAge());
+                            int diff = 8 - sum;
+                            sum += devourEutrophic(worldIn, pos1, (this.getAge(state) + 1.0F) / this.getMaxAge(), diff);
                             //随机生长每次最多吞噬7个方块
                             if (sum >= 8) break;
                         }
@@ -263,10 +282,8 @@ public class SextlotusCropBlock extends ReapCropBlock{
                     if (y <= 1 && sum > 1) break;
                 }
                 int newAge = i + 1;
-                //初始值为1会导致不吞噬也有小概率生长，因此限定除非在满月，不吞噬不能完全成熟
-                if (newAge >= this.getMaxAge() && worldIn.getMoonPhase() != 4 && sum <= 1) newAge = this.getMaxAge() - 1;
                 //实际进行生长
-                if (newAge != i && random.nextInt((7 / sum) + 1) == 0) {
+                if (newAge <= this.getMaxAge() && random.nextInt((7 / sum) + 1) == 0) {
                     worldIn.setBlock(pos, this.getStateForAge(i + 1), Block.UPDATE_CLIENTS);
                 }
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
@@ -279,9 +296,9 @@ public class SextlotusCropBlock extends ReapCropBlock{
     // 大范围搜索并吞噬植物方块，根据吞噬到的植物数量，额外生长1~4个阶段
     @Override
     public void growCrops(Level level, BlockPos pPos, BlockState pState) {
-        //判断上一次成熟时间，避免高频率大范围遍历坐标导致性能问题
-        if (level instanceof ServerLevel serverLevel && level.getGameTime() - this.lastGrowTime >= 50) {
-            this.lastGrowTime = level.getGameTime();
+        //避免高频率大范围遍历坐标导致性能问题
+        if (level instanceof ServerLevel serverLevel && this.growProgress >= 50) {
+            this.growProgress = 0;
             int currentAge = pState.getValue(AGE);
             int newAge = currentAge + 1;
 
@@ -296,7 +313,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
             }
             if (newAge > this.getMaxAge()) newAge = this.getMaxAge();
             level.setBlock(pPos, pState.setValue(AGE, newAge), Block.UPDATE_CLIENTS);
-        }
+        } else this.growProgress += 1;
     }
 
 
