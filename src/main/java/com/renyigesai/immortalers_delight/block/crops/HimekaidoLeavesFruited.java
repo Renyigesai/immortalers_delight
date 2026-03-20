@@ -31,6 +31,9 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (Config.rightClickHarvest) {
+            if (level.isClientSide){
+                return InteractionResult.SUCCESS;
+            }
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);
                 if (!stacks.isEmpty()) {

@@ -86,6 +86,9 @@ public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (Config.rightClickHarvest) {//通过配置文件决定是否使用右键收获
+            if (level.isClientSide){
+                return InteractionResult.SUCCESS;
+            }
                 boolean temp = false;
                 if (level instanceof ServerLevel level1) {
                     List<ItemStack> stacks = getDrops(state, level1, pos, null);

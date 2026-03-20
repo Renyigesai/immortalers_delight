@@ -1,0 +1,8 @@
+{
+  "parent": "immortalers_delight:custom/oxygrape_crop",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "immortalers_delight:block/oxygrape_stage",
+    "particle": "immortalers_delight:block/oxygrape_stage"
+  }
+}

@@ -39,7 +39,7 @@ public class SpoonBlock extends Block {
 
     public final Supplier<Item> spoonItem;
 
-    public SpoonBlock(BlockBehaviour.Properties p_49795_, Supplier<Item> spoonItem) {
+    public SpoonBlock(Properties p_49795_, Supplier<Item> spoonItem) {
         super(p_49795_);
         this.spoonItem = spoonItem;
         this.registerDefaultState(defaultBlockState().setValue(SERVINGS,3).setValue(FACING, Direction.NORTH));
@@ -115,7 +115,15 @@ public class SpoonBlock extends Block {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.below()).isSolid();
+        Direction value = state.getValue(FACING);
+        BlockState newState = null;
+        switch (value){
+            case SOUTH -> newState = level.getBlockState(pos.north());
+            case NORTH -> newState = level.getBlockState(pos.south());
+            case EAST -> newState = level.getBlockState(pos.west());
+            case WEST -> newState = level.getBlockState(pos.east());
+        }
+        return newState != null && newState.isAir();
     }
 
     @Override

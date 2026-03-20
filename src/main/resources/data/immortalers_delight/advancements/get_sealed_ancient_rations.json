@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:sealed_ancient_rations."
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_sealed_ancient_rations.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_sealed_ancient_rations.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:sealed_ancient_rations"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

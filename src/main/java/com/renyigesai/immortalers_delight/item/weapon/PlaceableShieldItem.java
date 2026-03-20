@@ -152,6 +152,11 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
         level.addFreshEntity(effectCloud);
     }
 
+    @Override
+    public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
+        return true;
+    }
+
     //实现列巴格挡掉列巴片以及格挡回饥饿
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,
@@ -170,17 +175,17 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
                     if (damage > 30) damage = 30;
                     if (!DifficultyModeUtil.isPowerBattleMode()) event.setBlockedDamage(30);
                     //判断是否会被破盾，ojng这个盾牌机制全是散装的写起来太赤石了
-                    boolean isBroken = false;
-                    Entity source = event.getDamageSource().getDirectEntity();
-                    if (source instanceof LivingEntity attacker) isBroken = willBeDisableShield(attacker,hurtOne, shield);
+//                    boolean isBroken = false;
+//                    Entity source = event.getDamageSource().getDirectEntity();
+//                    if (source instanceof LivingEntity attacker) isBroken = willBeDisableShield(attacker,hurtOne, shield);
                     //检查是否有mod特殊机制设置了当前伤害忽视盾牌
                     if (event.shieldTakesDamage()) {
                         //列巴没耐久，每个列巴固定能抗2下(记录在使用者)，战争面包则是抗4下
                         CompoundTag tag = hurtOne.getPersistentData();
                         if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < placeableShieldItem.getMaxUseCount()) {
-                            doOnUsing(damage, tag, shield, hurtOne, isBroken);
+                            doOnUsing(damage, tag, shield, hurtOne, false);
                         } else if (!tag.contains(DAMAGE_TAG, Tag.TAG_INT)) {
-                            doOnUsing(damage, tag, shield, hurtOne, isBroken);
+                            doOnUsing(damage, tag, shield, hurtOne, false);
                         } else {
                             doOnExhaust(damage, shield, hurtOne);
                             tag.remove(DAMAGE_TAG);

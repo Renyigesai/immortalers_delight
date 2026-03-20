@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:pitcher_plant_barbecue"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_burn_the_boats.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_burn_the_boats.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": {
+          "effects": {
+            "immortalers_delight:burn_the_boats": {}
+          }
+        }
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

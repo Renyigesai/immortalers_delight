@@ -10,10 +10,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
@@ -27,6 +29,10 @@ public class ReapCropBlock extends CropBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (canReap(state, level, pos, player, hand, hitResult)) {
+            if (level.isClientSide){
+//                player.swing(hand);
+                return InteractionResult.SUCCESS;
+            }
             boolean temp = false;
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null,player,player.getMainHandItem());
@@ -38,10 +44,16 @@ public class ReapCropBlock extends CropBlock {
                 }
             }
             if (temp) {
-                level.setBlock(pos, state.setValue(AGE, 0), 3);
+                BlockState blockState = state.setValue(AGE, 0);
+                level.setBlock(pos, blockState, 2);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
                 level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS;
             }
+        }
+        ItemStack itemInHand = player.getItemInHand(hand);
+        if (itemInHand.is(Items.BONE_MEAL)){
+            return InteractionResult.PASS;
         }
         return super.use(state, level, pos, player, hand, hitResult);
     }

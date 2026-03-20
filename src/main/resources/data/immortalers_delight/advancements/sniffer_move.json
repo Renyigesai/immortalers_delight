@@ -19,5 +19,5 @@
       "trigger": "minecraft:impossible"
     }
   },
-  "parent": "immortalers_delight:root"
+  "parent": "immortalers_delight:get_sniffer_fur"
 }

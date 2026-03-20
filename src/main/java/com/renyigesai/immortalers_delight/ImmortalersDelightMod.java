@@ -1,8 +1,7 @@
 package com.renyigesai.immortalers_delight;
 
 import com.mojang.logging.LogUtils;
-import com.renyigesai.immortalers_delight.advancement.LevelUpEnchantmentTrigger;
-import com.renyigesai.immortalers_delight.advancement.PassSnifferCoolDownTrigger;
+import com.renyigesai.immortalers_delight.advancement.*;
 import com.renyigesai.immortalers_delight.client.model.*;
 import com.renyigesai.immortalers_delight.client.model.projectile.*;
 import com.renyigesai.immortalers_delight.client.renderer.*;
@@ -70,6 +69,9 @@ public class ImmortalersDelightMod {
     );
     public static final LevelUpEnchantmentTrigger LEVEL_UP_ENCHANTMENT_TRIGGER = new LevelUpEnchantmentTrigger();
     public static final PassSnifferCoolDownTrigger PASS_SNIFFER_COOLDOWN_TRIGGER = new PassSnifferCoolDownTrigger();
+    public static final ResistGasPoisoningTrigger RESIST_GAS_POISONING_TRIGGER = new ResistGasPoisoningTrigger();
+    public static final PowerBattleModeTrigger POWER_BATTLE_MODE_TRIGGER = new PowerBattleModeTrigger();
+    public static final ImmBoatUpgradeTrigger IMM_BOAT_UPGRADE_TRIGGER = new ImmBoatUpgradeTrigger();
 
 
     public ImmortalersDelightMod() {
@@ -94,6 +96,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightMobEffect.REGISTRY.register(bus);
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);
         ImmortalersDelightPotions.REGISTRY.register(bus);
+        ImmortalersDelightBiomeFeatures.FEATURES.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
@@ -111,6 +114,9 @@ public class ImmortalersDelightMod {
     public static void registerCriterionTrigger() {
         CriteriaTriggers.register(LEVEL_UP_ENCHANTMENT_TRIGGER);
         CriteriaTriggers.register(PASS_SNIFFER_COOLDOWN_TRIGGER);
+        CriteriaTriggers.register(RESIST_GAS_POISONING_TRIGGER);
+        CriteriaTriggers.register(POWER_BATTLE_MODE_TRIGGER);
+        CriteriaTriggers.register(IMM_BOAT_UPGRADE_TRIGGER);
     }
 
     @Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

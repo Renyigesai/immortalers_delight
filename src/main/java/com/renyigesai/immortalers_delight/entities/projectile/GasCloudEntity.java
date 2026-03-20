@@ -177,12 +177,19 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
                         // 距离小于等于半径平方（在范围内）
                         if (d3 <= (double)(range * range)) {
                             //对免疫瓦斯毒的生物直接造成伤害，超凡模式下可以无视无敌帧，超凡模式下会修改生物的寻路目标点导致好吃爱吃
-                            if (!livingentity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get()) && !livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get())) {
-                                boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-                                if (isPowerful) livingentity.invulnerableTime = 0;
-                                livingentity.hurt(GasPoisonMobEffect.getDamageSource(livingentity, caster), isPowerful ? 1.2f * (1 + (caster == null ? 1 : caster.getMaxHealth() / 20)): 1.2f);
-                                if (isPowerful) livingentity.invulnerableTime = 0;
-                                if (isPowerful && livingentity instanceof Mob mob) mob.getNavigation().moveTo(this, 0.3);
+                            if (!livingentity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get())) {
+                                if (!livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get())) {
+                                    boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+                                    if (isPowerful) livingentity.invulnerableTime = 0;
+                                    livingentity.hurt(GasPoisonMobEffect.getDamageSource(livingentity, caster), isPowerful ? 1.2f * (1 + (caster == null ? 1 : caster.getMaxHealth() / 20)) : 1.2f);
+                                    if (isPowerful) livingentity.invulnerableTime = 0;
+                                    if (isPowerful && livingentity instanceof Mob mob)
+                                        mob.getNavigation().moveTo(this, 0.3);
+                                }else {
+                                    if (caster instanceof ServerPlayer serverPlayer) {
+                                        ImmortalersDelightMod.RESIST_GAS_POISONING_TRIGGER.trigger(serverPlayer);
+                                    }
+                                }
                             }
                         }
                         //这里用来刷新嗅探CD
