@@ -16,8 +16,8 @@ plugins {
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'maven-publish'
-    id 'io.freefair.lombok' version '8.6'
+//    id 'maven-publish'
+//    id 'io.freefair.lombok' version '8.6'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -160,23 +160,23 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
+//    maven {
+//        name = "Progwml6 maven"
+//        url = "https://dvs1.progwml6.com/files/maven/"
+//    }
+//    maven {
+//        name = "ModMaven"
+//        url = "https://modmaven.dev"
+//    }
     maven {
         url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        url = "https://maven.jaackson.me"
-    }
+//    maven {
+//        url = "https://maven.jaackson.me"
+//    }
 }
 
 sourceSets.main.resources {
@@ -195,9 +195,11 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:jade-324717:5672013")
 //    runtimeOnly fg.deobf("curse.maven:lmft-656346:4662630")
     implementation fg.deobf("curse.maven:ltc2-1163872:7073167")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+//    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+//    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+//    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+    implementation fg.deobf("curse.maven:jei-238222:7361881")
+//    implementation fg.deobf("curse.maven:jade-324717:6291330")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
