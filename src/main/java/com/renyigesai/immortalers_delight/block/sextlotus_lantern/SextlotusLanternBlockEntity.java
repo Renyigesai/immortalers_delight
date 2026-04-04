@@ -8,11 +8,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import lombok.Getter;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,6 @@ public class SextlotusLanternBlockEntity extends BlockEntity {
     public static final String LIGHT_SOURCE_POS_X = "light_source_pos_x";
     public static final String LIGHT_SOURCE_POS_Y = "light_source_pos_y";
     public static final String LIGHT_SOURCE_POS_Z = "light_source_pos_z";
-    @Getter
     private List<BlockPos> lightSourcePoses = new ArrayList<>();
     public List<BlockPos> getLightSourcePos() {return lightSourcePoses;}
     private final List<Vec3> defaultLightSourcePos = new ArrayList<>();
@@ -159,6 +155,8 @@ public class SextlotusLanternBlockEntity extends BlockEntity {
 //    public @Nullable BlockPos calculateLightSourcePosition(@NotNull Vec3 beamDirection) {
 //
 //    }
-//
 
+    public List<BlockPos> getLightSourcePoses() {
+        return lightSourcePoses;
+    }
 }

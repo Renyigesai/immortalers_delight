@@ -7,6 +7,7 @@ import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.mixin.SnifferMixin;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -83,6 +84,7 @@ public class SnifferEvent {
     }
 
     public static final String SNIFFER_BRUSHING_COOLDOWN = ImmortalersDelightMod.MODID + "_sniffer_brushing_cooldown";
+    public static final String SNIFFER_TAIL_REGENERATION_COOLDOWN = ImmortalersDelightMod.MODID + "_tail_regeneration_cooldown";
     @SubscribeEvent
     public static void snifferPrune(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getEntity() != null && event.getTarget() instanceof Sniffer sniffer){
@@ -90,29 +92,45 @@ public class SnifferEvent {
             Level level = player.level();
             int outputNumber = 0;
             CompoundTag tag = sniffer.getPersistentData();
-            if (tag.get(SNIFFER_BRUSHING_COOLDOWN) == null) tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 0);
+            if (tag.get(SNIFFER_BRUSHING_COOLDOWN) == null){
+                tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 0);
+            }
+            if (tag.get(SNIFFER_TAIL_REGENERATION_COOLDOWN) == null){
+                tag.putInt(SNIFFER_TAIL_REGENERATION_COOLDOWN, 0);
+            }
 
-            if ((level instanceof ServerLevel serverLevel) && (player instanceof ServerPlayer serverPlayer)) {
-
-                if (!tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) || tag.getInt(SNIFFER_BRUSHING_COOLDOWN) <= 0) {
-                    ItemStack itemStack = event.getItemStack();
-                    if (itemStack.getItem() instanceof ShearsItem) {
+            boolean flag = false;
+            if ((level instanceof ServerLevel) && (player instanceof ServerPlayer serverPlayer)) {
+                ItemStack itemStack = event.getItemStack();
+                if (itemStack.getItem() instanceof ShearsItem) {
+                    BlockPos pos = player.getOnPos().above();
+                    if (tag.getInt(SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0){
+                        vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.RAW_SNIFFER_TAIL.get()),
+                                pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+                        if (!player.getAbilities().instabuild){
+                            tag.putInt(SNIFFER_TAIL_REGENERATION_COOLDOWN, 144000);
+                            itemStack.hurtAndBreak(1, serverPlayer, (action) -> action.broadcastBreakEvent(event.getHand()));
+                        }
+                        flag = true;
+                    }
+                    if (tag.getInt(SNIFFER_BRUSHING_COOLDOWN) == 0){
                         outputNumber += 1 + player.getRandom().nextInt(3);
                         if (!player.getAbilities().instabuild) {
                             tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 10140);
-                            itemStack.hurtAndBreak(125, serverPlayer, (action) -> {
-                                action.broadcastBreakEvent(event.getHand());
-                            });
+                            itemStack.hurtAndBreak(125, serverPlayer, (action) -> action.broadcastBreakEvent(event.getHand()));
                         }
+                        if (outputNumber > 0) {
+                            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.SNIFFER_FUR.get(), outputNumber),
+                                    pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+                        }
+                        flag = true;
                     }
                 }
             }
-            if (outputNumber > 0) {
-                BlockPos pos = player.getOnPos().above();
-                vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.SNIFFER_FUR.get(), outputNumber),
-                        pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+            if (flag){
+                level.playSound(null,sniffer.getOnPos(),SoundEvents.SHEEP_SHEAR,SoundSource.BLOCKS);
+                event.setCancellationResult(InteractionResult.SUCCESS);
             }
-            //AidSupportAbility.onItemUse(player, itemStack);
         }
     }
 
@@ -125,7 +143,6 @@ public class SnifferEvent {
             if (tag.get(SNIFFER_BRUSHING_COOLDOWN) == null) tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 0);
 
             if ((level instanceof ServerLevel serverLevel) && (player instanceof ServerPlayer serverPlayer)) {
-
                 if (!tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) || tag.getInt(SNIFFER_BRUSHING_COOLDOWN) <= 0) {
                     ItemStack oldStack = event.getItemStack();
                     if (oldStack.getItem() == Items.BRUSH) {
@@ -138,7 +155,6 @@ public class SnifferEvent {
                     }
                 }
             }
-            //AidSupportAbility.onItemUse(player, itemStack);
         }
     }
 
@@ -148,6 +164,9 @@ public class SnifferEvent {
             CompoundTag tag = sniffer.getPersistentData();
             if (tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) && tag.getInt(SNIFFER_BRUSHING_COOLDOWN) > 0) {
                 tag.putInt(SNIFFER_BRUSHING_COOLDOWN, tag.getInt(SNIFFER_BRUSHING_COOLDOWN) - 1);
+            }
+            if (tag.contains(SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT) && tag.getInt(SNIFFER_TAIL_REGENERATION_COOLDOWN) > 0) {
+                tag.putInt(SNIFFER_TAIL_REGENERATION_COOLDOWN, tag.getInt(SNIFFER_TAIL_REGENERATION_COOLDOWN) - 1);
             }
         }
 

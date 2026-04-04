@@ -5,6 +5,8 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import jdk.jfr.Label;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
@@ -38,10 +40,14 @@ import java.util.List;
 @Mixin(Sniffer.class)
 public abstract class SnifferMixin extends Animal {
 
-
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
 
     @Shadow protected abstract BlockPos getHeadBlock();
+
+    @Shadow public abstract void tick();
+
+//    @Unique
+//    private int tailRegeneration;
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -56,4 +62,15 @@ public abstract class SnifferMixin extends Animal {
         list.clear();
         list.addAll(snifferDropSeedEvent.getStacks());
     }
+
+//    @Inject(method = "tick",at = @At("RETURN"))
+//    public void tick(CallbackInfo ci){
+//        CompoundTag tag = this.getPersistentData();
+//        if (tag.contains("immortalers_delight_sniffer_brushing_cooldown", Tag.TAG_INT) && tag.getInt("immortalers_delight_sniffer_brushing_cooldown") > 0) {
+//            tag.putInt("immortalers_delight_sniffer_brushing_cooldown", tag.getInt("immortalers_delight_sniffer_brushing_cooldown") - 1);
+//        }
+//        if (tag.contains("immortalers_delight_tail_regeneration_cooldown", Tag.TAG_INT) && tag.getInt("immortalers_delight_tail_regeneration_cooldown") > 0) {
+//            tag.putInt("immortalers_delight_tail_regeneration_cooldown", tag.getInt("immortalers_delight_tail_regeneration_cooldown") - 1);
+//        }
+//    }
 }

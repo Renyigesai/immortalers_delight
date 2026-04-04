@@ -1,9 +1,11 @@
 package com.renyigesai.immortalers_delight.util;
 
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class ItemUtils {
     public static void givePlayerItem(Player player, ItemStack item){
@@ -14,5 +16,9 @@ public class ItemUtils {
         ItemEntity entity = new ItemEntity(level, x, y, z, stack);
         entity.setDeltaMovement(xMotion, yMotion, zMotion);
         level.addFreshEntity(entity);
+    }
+
+    public static boolean isKnives(ItemStack handStack){
+        return handStack.is(ModTags.KNIVES) || handStack.is(ImmortalersDelightTags.KNIVES);
     }
 }

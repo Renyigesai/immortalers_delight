@@ -26,7 +26,6 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
@@ -40,163 +39,166 @@ public class ImmortalersDelightItems {
 
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
+    public static final String OFF_MAIN = ImmortalersDelightMod.MODID + "_decorative_blocks";
+    public static final String NOT = ImmortalersDelightMod.MODID + "_not";
+
     public static final RegistryObject<Item> DEBUG_ITEM;
     /*系列装饰方块--姬海棠*/
-    @ItemData(zhCn = "姬海棠原木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_LOG;
-    @ItemData(zhCn = "姬海棠木头",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木头",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_WOOD;
-    @ItemData(zhCn = "去皮姬海棠木头",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮姬海棠木头",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_WOOD;
-    @ItemData(zhCn = "去皮姬海棠原木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮姬海棠原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_LOG;
-    @ItemData(zhCn = "结果的姬海棠树叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "结果的姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_FRUITED_LEAVES;
-    @ItemData(zhCn = "盛开的姬海棠树叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "盛开的姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_FLOWERING_LEAVES;
-    @ItemData(zhCn = "姬海棠树叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_LEAVES;
-    @ItemData(zhCn = "姬海棠木板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_PLANKS;
-    @ItemData(zhCn = "姬海棠木楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_STAIRS;
-    @ItemData(zhCn = "姬海棠木台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_SLAB;
-    @ItemData(zhCn = "姬海棠木门")
+    @ItemData(zhCn = "姬海棠木门",group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_DOOR;
-    @ItemData(zhCn = "姬海棠木活板门",model = ItemData.ModelType.TRAPDOOR)
+    @ItemData(zhCn = "姬海棠木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_TRAPDOOR;
-    @ItemData(zhCn = "姬海棠木栅栏",model = ItemData.ModelType.FENCE)
+    @ItemData(zhCn = "姬海棠木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_FENCE;
-    @ItemData(zhCn = "姬海棠木栅栏门",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_FENCE_GATE;
-    @ItemData(zhCn = "姬海棠木压力板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_PRESSURE_PLATE;
-    @ItemData(zhCn = "姬海棠木按钮",model = ItemData.ModelType.BUTTON)
+    @ItemData(zhCn = "姬海棠木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_BUTTON;
-    @ItemData(zhCn = "姬海棠木橱柜",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "姬海棠木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_CABINET;
     @ItemData(zhCn = "姬海棠木船")
     public static final RegistryObject<Item> HIMEKAIDO_BOAT;
     @ItemData(zhCn = "姬海棠木运输船")
     public static final RegistryObject<Item> HIMEKAIDO_CHEST_BOAT;
-    @ItemData(zhCn = "姬海棠木告示牌")
+    @ItemData(zhCn = "姬海棠木告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_SIGN;
-    @ItemData(zhCn = "姬海棠木悬挂告示牌")
+    @ItemData(zhCn = "姬海棠木悬挂告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
 
     /*捆装类物品*/
-    @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
-    @ItemData(zhCn = "箱装姬海棠",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "箱装姬海棠",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> HIMEKAIDO_CRATE;
-    @ItemData(zhCn = "箱装珍珠棱蕉",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "箱装珍珠棱蕉",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_CRATE;
-    @ItemData(zhCn = "白垩玉黍捆",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "白垩玉黍捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
-    @ItemData(zhCn = "瓦斯麦捆",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "瓦斯麦捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> KWAT_WHEAT_BLOCK;
-    @ItemData(zhCn = "古苜蓿捆",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古苜蓿捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ALFALFA_BLOCK;
-    @ItemData(zhCn = "溪竹块",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹块",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_BLOCK;
-    @ItemData(zhCn = "瓦斯麦种袋",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "瓦斯麦种袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> KWAT_WHEAT_SEEDS_BAG;
 
     /*系列装饰方块--溪竹*/
-    @ItemData(zhCn = "溪竹板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_PLANKS;
-    @ItemData(zhCn = "溪竹楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_STAIRS;
-    @ItemData(zhCn = "溪竹台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_SLAB;
-    @ItemData(zhCn = "溪竹橱柜",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_CABINET;
-    @ItemData(zhCn = "溪竹门")
+    @ItemData(zhCn = "溪竹门",group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_DOOR;
-    @ItemData(zhCn = "溪竹活板门",model = ItemData.ModelType.TRAPDOOR)
+    @ItemData(zhCn = "溪竹活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;
-    @ItemData(zhCn = "溪竹栅栏",model = ItemData.ModelType.FENCE)
+    @ItemData(zhCn = "溪竹栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_FENCE;
-    @ItemData(zhCn = "溪竹栅栏门",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
-    @ItemData(zhCn = "溪竹压力板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "溪竹压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
-    @ItemData(zhCn = "溪竹按钮",model = ItemData.ModelType.BUTTON)
+    @ItemData(zhCn = "溪竹按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_BUTTON;
-    @ItemData(zhCn = "溪竹告示牌")
+    @ItemData(zhCn = "溪竹告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_SIGN;
-    @ItemData(zhCn = "溪竹悬挂告示牌")
+    @ItemData(zhCn = "溪竹悬挂告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;
 
     /*系列装饰方块--棱蕉*/
-    @ItemData(zhCn = "棱蕉木板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_PLANKS;
-    @ItemData(zhCn = "棱蕉木楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_STAIRS;
-    @ItemData(zhCn = "棱蕉木台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_SLAB;
-    @ItemData(zhCn = "棱蕉木橱柜",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_CABINET;
-    @ItemData(zhCn = "棱蕉木门")
+    @ItemData(zhCn = "棱蕉木门",group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_DOOR;
-    @ItemData(zhCn = "棱蕉木活板门",model = ItemData.ModelType.TRAPDOOR)
+    @ItemData(zhCn = "棱蕉木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_TRAPDOOR;
-    @ItemData(zhCn = "棱蕉木栅栏",model = ItemData.ModelType.FENCE)
+    @ItemData(zhCn = "棱蕉木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_FENCE;
-    @ItemData(zhCn = "棱蕉木栅栏门",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_FENCE_GATE;
-    @ItemData(zhCn = "棱蕉木压力板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "棱蕉木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_PRESSURE_PLATE;
-    @ItemData(zhCn = "棱蕉木按钮",model = ItemData.ModelType.BUTTON)
+    @ItemData(zhCn = "棱蕉木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_BUTTON;
-    @ItemData(zhCn = "棱蕉木告示牌")
+    @ItemData(zhCn = "棱蕉木告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_SIGN;
-    @ItemData(zhCn = "棱蕉木悬挂告示牌")
+    @ItemData(zhCn = "棱蕉木悬挂告示牌",group = OFF_MAIN)
     public static final RegistryObject<Item> PEARLIP_SHELL_HANGING_SIGN;
     @ItemData(zhCn = "棱蕉木船")
     public static final RegistryObject<Item> PEARLIP_SHELL_BOAT;
     @ItemData(zhCn = "棱蕉木运输船")
     public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
 
-    @ItemData(zhCn = "烬烟木",enUs = "A'bush Log",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木",enUs = "A'bush Log",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_LOG;
-    @ItemData(zhCn = "去皮烬烟木",enUs = "Stripped A'bush Log",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮烬烟木",enUs = "Stripped A'bush Log",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_A_BUSH_LOG;
-    @ItemData(zhCn = "烬烟木头",enUs = "A'bush Wood",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木头",enUs = "A'bush Wood",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_WOOD;
-    @ItemData(zhCn = "去皮烬烟木头",enUs = "Stripped A'bush Wood",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮烬烟木头",enUs = "Stripped A'bush Wood",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_A_BUSH_WOOD;
-    @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_PLANKS;
-    @ItemData(zhCn = "烬烟木橱柜",enUs = "A'bush Cabinet",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木橱柜",enUs = "A'bush Cabinet",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_CABINET;
-    @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_STAIRS;
-    @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_SLAB;
-    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door")
+    @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door",group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_DOOR;
-    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR)
+    @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
-    @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE)
+    @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_FENCE;
-    @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_FENCE_GATE;
-    @ItemData(zhCn = "烬烟木压力板",enUs = "A'bush Pressure Plate",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "烬烟木压力板",enUs = "A'bush Pressure Plate",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_PRESSURE_PLATE;
-    @ItemData(zhCn = "烬烟木按钮",enUs = "A'bush Button",model = ItemData.ModelType.BUTTON)
+    @ItemData(zhCn = "烬烟木按钮",enUs = "A'bush Button",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
     public static final RegistryObject<Item> A_BUSH_BUTTON;
 
 
     /*系列装饰方块--嗅探兽毛*/
-    @ItemData(zhCn = "嗅探兽毛块",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "嗅探兽毛块",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
-    @ItemData(zhCn = "嗅探兽毛榻榻米方块",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "嗅探兽毛榻榻米方块",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_TATAMI;
-    @ItemData(zhCn = "嗅探兽毛长榻榻米垫")
+    @ItemData(zhCn = "嗅探兽毛长榻榻米垫",group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
-    @ItemData(zhCn = "嗅探兽毛短榻榻米垫")
+    @ItemData(zhCn = "嗅探兽毛短榻榻米垫",group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
 
 
@@ -351,33 +353,33 @@ public class ImmortalersDelightItems {
 
 
     /*系列装饰方块--古木*/
-    @ItemData(zhCn = "古木原木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_LOG;
-    @ItemData(zhCn = "去皮古木原木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮古木原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD_LOG;
-    @ItemData(zhCn = "古木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD;
-    @ItemData(zhCn = "去皮古木",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮古木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
-    @ItemData(zhCn = "古木板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
-    @ItemData(zhCn = "古木橱柜",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
-    @ItemData(zhCn = "古木楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_STAIRS;
-    @ItemData(zhCn = "古木台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_SLAB;
-    @ItemData(zhCn = "古木门")
+    @ItemData(zhCn = "古木门",group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_DOOR;
-    @ItemData(zhCn = "古木活板门",model = ItemData.ModelType.TRAPDOOR)
+    @ItemData(zhCn = "古木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_TRAPDOOR;
-    @ItemData(zhCn = "古木栅栏",model = ItemData.ModelType.FENCE)
+    @ItemData(zhCn = "古木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_FENCE;
-    @ItemData(zhCn = "古木栅栏门",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_FENCE_GATE;
-    @ItemData(zhCn = "古木压力板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "古木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_PRESSURE_PLATE;
-    @ItemData(zhCn = "古木按钮",model = ItemData.ModelType.BUTTON)
+    @ItemData(zhCn = "古木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
     public static final RegistryObject<Item> ANCIENT_WOOD_BUTTON;
     @ItemData(zhCn = "古木船")
     public static final RegistryObject<Item> ANCIENT_WOOD_BOAT;
@@ -423,15 +425,15 @@ public class ImmortalersDelightItems {
     /*
     通天菅相关
     */
-    @ItemData(zhCn = "通天菅节",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "通天菅节",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
-    @ItemData(zhCn = "去皮通天菅节",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "去皮通天菅节",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
-    @ItemData(zhCn = "通天菅叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "通天菅叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
-    @ItemData(zhCn = "结实的通天菅叶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "结实的通天菅叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
-    @ItemData(zhCn = "菅草板",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "菅草板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> TRAVA_PLANKS;
     @ItemData(zhCn = "菅板材")
     public static final RegistryObject<Item> TRAVAPLANK;
@@ -458,8 +460,12 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> KWAT_WHEAT_DOUFU;
     @ItemData(zhCn = "炸瓦斯麦豆腐")
     public static final RegistryObject<Item> FRY_KWAT_WHEAT_DOUFU;
+    @ItemData(zhCn = "臭豆腐")
+    public static final RegistryObject<Item> STINKY_DOUFU;
     @ItemData(zhCn = "酿瓦斯麦豆腐")
     public static final RegistryObject<Item> SUTFFED_KWAT_WHEAT_DOUFU;
+    @ItemData(zhCn = "麻婆豆腐")
+    public static final RegistryObject<Item> MAPO_DOUFU;
     @ItemData(zhCn = "翡翠红玉汤")
     public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
     @ItemData(zhCn = "瓦斯麦吐司")
@@ -502,6 +508,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
     @ItemData(zhCn = "火花芥末曲奇")
     public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
+    @ItemData(zhCn = "灼菇披萨")
+    public static final RegistryObject<Item> ROASTED_MUSHROOM_PIZZA;
+    @ItemData(zhCn = "灼菇披萨片")
+    public static final RegistryObject<Item> ROASTED_MUSHROOM_PIZZA_SLICE;
 
 
     /*酒水相关物品*/
@@ -520,45 +530,45 @@ public class ImmortalersDelightItems {
 
 
     /*系列装饰方块--泥砖*/
-    @ItemData(zhCn = "泥瓦",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥瓦",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MUD_TILES;
-    @ItemData(zhCn = "泥瓦楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥瓦楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MUD_TILES_STAIRS;
-    @ItemData(zhCn = "泥瓦台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥瓦台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MUD_TILES_SLAB;
-    @ItemData(zhCn = "泥瓦墙",model = ItemData.ModelType.WALL)
+    @ItemData(zhCn = "泥瓦墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item> MUD_TILES_WALL;
-    @ItemData(zhCn = "裂泥瓦",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "裂泥瓦",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
     public static final RegistryObject<Item> CRACKED_MUD_TILES;
-    @ItemData(zhCn = "裂泥瓦楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥瓦楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> CRACKED_MUD_TILES_STAIRS;
-    @ItemData(zhCn = "裂泥瓦台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥瓦台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> CRACKED_MUD_TILES_SLAB;
-    @ItemData(zhCn = "裂泥瓦墙",model = ItemData.ModelType.WALL)
+    @ItemData(zhCn = "裂泥瓦墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item> CRACKED_MUD_TILES_WALL;
-    @ItemData(zhCn = "苔泥砖",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "苔泥砖",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK;
-    @ItemData(zhCn = "苔泥砖楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "苔泥砖楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_STAIRS;
-    @ItemData(zhCn = "苔泥砖台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "苔泥砖台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_SLAB;
-    @ItemData(zhCn = "苔泥砖墙",model = ItemData.ModelType.WALL)
+    @ItemData(zhCn = "苔泥砖墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item> MOSSY_MUD_BRICK_WALL;
-    @ItemData(zhCn = "裂泥砖",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "裂泥砖",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK;
-    @ItemData(zhCn = "裂泥砖楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥砖楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_STAIRS;
-    @ItemData(zhCn = "裂泥砖台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "裂泥砖台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_SLAB;
-    @ItemData(zhCn = "裂泥砖墙",model = ItemData.ModelType.WALL)
+    @ItemData(zhCn = "裂泥砖墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item>CRACKED_MUD_BRICK_WALL;
-    @ItemData(zhCn = "雕纹泥砖",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "雕纹泥砖",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
     public static final RegistryObject<Item>CHISELED_MUD_BRICK;
-    @ItemData(zhCn = "泥坯楼梯",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥坯楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item>PACKED_MUD_STAIRS;
-    @ItemData(zhCn = "泥坯台阶",model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "泥坯台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item>PACKED_MUD_SLAB;
-    @ItemData(zhCn = "泥坯墙",model = ItemData.ModelType.WALL)
+    @ItemData(zhCn = "泥坯墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item>PACKED_MUD_WALL;
 
 
@@ -580,15 +590,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GOLDEN_FABRIC;
     @ItemData(zhCn = "绯炵金纱")
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
-    @ItemData(zhCn = "生嗅探兽肉片")
-    public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
-    @ItemData(zhCn = "熟嗅探兽肉片")
-    public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
-    @ItemData(zhCn = "生嗅探兽肉排")
-    public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
-    @ItemData(zhCn = "熟嗅探兽肉排")
-    public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
-    @ItemData(zhCn = "Sniffer Rotating Roast Meat",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "Sniffer Rotating Roast Meat",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
     @ItemData(zhCn = "嗅探兽毛")
     public static final RegistryObject<Item> SNIFFER_FUR;
@@ -596,13 +598,13 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> BRUSH;
     @ItemData(zhCn = "嗅探兽毛刷")
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
@@ -627,7 +629,7 @@ public class ImmortalersDelightItems {
 
     @ItemData(zhCn = "谷物香囊")
     public static final RegistryObject<Item> SACHETS;
-    @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL)
+    @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL,group = NOT)
     public static final RegistryObject<Item> DRILL_ROD_WAND;
     @ItemData(zhCn = "锈蚀古刀",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
@@ -863,6 +865,22 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SPARROW_WINE;
     @ItemData(zhCn = "弑龙诀")
     public static final RegistryObject<Item> DRAGON_SLAYING_ART;
+
+    /*嗅探兽相关食物*/
+    @ItemData(zhCn = "煎嗅探兽蛋")
+    public static final RegistryObject<Item> FRIED_SNIFFER_EGG;
+    @ItemData(zhCn = "生嗅探兽尾")
+    public static final RegistryObject<Item> RAW_SNIFFER_TAIL;
+    @ItemData(zhCn = "熟嗅探兽尾")
+    public static final RegistryObject<Item> COOKED_SNIFFER_TAIL;
+    @ItemData(zhCn = "生嗅探兽肉片",group = NOT)
+    public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
+    @ItemData(zhCn = "熟嗅探兽肉片",group = NOT)
+    public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
+    @ItemData(zhCn = "生嗅探兽肉排")
+    public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
+    @ItemData(zhCn = "熟嗅探兽肉排")
+    public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
 
 
     static {
@@ -1483,8 +1501,14 @@ public class ImmortalersDelightItems {
         FRY_KWAT_WHEAT_DOUFU = registerWithTab("fry_kwat_wheat_doufu",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.FRY_KWAT_WHEAT_DOUFU),true,false));
 
+        STINKY_DOUFU = registerWithTab("stinky_doufu",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.STINKY_DOUFU),true));
+
         SUTFFED_KWAT_WHEAT_DOUFU = registerWithTab("sutffed_kwat_wheat_doufu",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SUTFFED_KWAT_WHEAT_DOUFU), ImmortalersDelightFoodProperties.SUTFFED_KWAT_WHEAT_DOUFU_POWERED,true, false));
+
+        MAPO_DOUFU = registerWithTab("mapo_doufu",()->
+                new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.MAPO_DOUFU).craftRemainder(Items.BOWL).stacksTo(16),true));
 
         JADE_AND_RUBY_SOUP = registerWithTab("jade_and_ruby_soup",()->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP_POWERED,true,false));
@@ -1518,12 +1542,6 @@ public class ImmortalersDelightItems {
 
         COOKED_SNIFFER_SLICE = REGISTER.register("cooked_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_SLICE, Rarity.COMMON, false), true));
-
-        RAW_SNIFFER_STEAK = REGISTER.register("raw_sniffer_steak", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK, Rarity.COMMON, false), true));
-
-        COOKED_SNIFFER_STEAK = REGISTER.register("cooked_sniffer_steak", () ->
-                new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, Rarity.COMMON, false), true));
 
         SNIFFER_ROTATING_ROAST_MEAT = REGISTER.register("sniffer_rotating_roast_meat",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.SNIFFER_ROTATING_ROAST_MEAT.get(), new Item.Properties()));
@@ -1589,6 +1607,10 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.HOT_HI_SOUP),ImmortalersDelightFoodProperties.HOT_HI_SOUP_POWERED,true,false));
 
         INCANDESCENCE_SUSHI = registerWithTab("incandescence_sushi",() -> new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI),ImmortalersDelightFoodProperties.INCANDESCENCE_SUSHI_POWERED,true,false));
+
+        ROASTED_MUSHROOM_PIZZA = block(ImmortalersDelightBlocks.ROASTED_MUSHROOM_PIZZA);
+
+        ROASTED_MUSHROOM_PIZZA_SLICE = foodItem("roasted_mushroom_pizza_slice",ImmortalersDelightFoodProperties.ROASTED_MUSHROOM_PIZZA_SLICE,true);
 
         /*
         瓶子草相关物品
@@ -1801,13 +1823,20 @@ public class ImmortalersDelightItems {
         SMASHED_SEXTLOTUS_ROOT = registerWithTab("smashed_sextlotus_root",()->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SMASHED_SEXTLOTUS_ROOT),true));
         PICKLED_SEXTLOTUS_ROOT = registerWithTab("pickled_sextlotus_root",()->
-                new DrinkItem(ImmortalersDelightBlocks.PICKLED_SEXTLOTUS_ROOT.get(), basicItem()));
+                new DrinkItem(ImmortalersDelightBlocks.PICKLED_SEXTLOTUS_ROOT.get(), drinkItem(ImmortalersDelightFoodProperties.PICKLED_SEXTLOTUS_ROOT),true));
         OXYGRAPE = registerWithTab("oxygrape",()->
                 new ItemNameBlockItem(ImmortalersDelightBlocks.OXYGRAPE.get(),foodItem(ImmortalersDelightFoodProperties.OXYGRAPE)));
         OXYRAISINS = registerWithTab("oxyraisins",()-> new Item(foodItem(ImmortalersDelightFoodProperties.OXYRAISINS)));
         OXYGRAPE_EVOLUTCORN_MUFFIN = registerWithTab("oxygrape_evolutcorn_muffin",()-> new Item(new Item.Properties().craftRemainder(Items.PAPER).food(ImmortalersDelightFoodProperties.OXYGRAPE_EVOLUTCORN_MUFFIN)));
         SPARKLING_WATER = registerWithTab("sparkling_water",()->
                 new DrinkableItem(drinkItem(ImmortalersDelightFoodProperties.SPARKLING_WATER),true));
+
+        /*嗅探兽食物*/
+        FRIED_SNIFFER_EGG = foodItem("fried_sniffer_egg",ImmortalersDelightFoodProperties.FRIED_SNIFFER_EGG);
+        RAW_SNIFFER_TAIL = foodItem("raw_sniffer_tail",ImmortalersDelightFoodProperties.RAW_SNIFFER_TAIL);
+        COOKED_SNIFFER_TAIL = foodItem("cooked_sniffer_tail",ImmortalersDelightFoodProperties.COOKED_SNIFFER_TAIL);
+        RAW_SNIFFER_STEAK = foodItem("raw_sniffer_steak", ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK,true);
+        COOKED_SNIFFER_STEAK = foodItem("cooked_sniffer_steak", ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, true);
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
@@ -1883,7 +1912,7 @@ public class ImmortalersDelightItems {
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
         RegistryObject<Item> item = REGISTER.register(name, supplier);
-        CREATIVE_TAB_ITEMS.add(item);
+//        CREATIVE_TAB_ITEMS.add(item);
         return item;
     }
 

@@ -94,7 +94,12 @@ public class BlockLootTables extends BlockLootSubProvider {
                 ImmortalersDelightBlocks.PEARLIP_BUBBLE_MILK.get(),
                 ImmortalersDelightBlocks.PURGATORY_ALE.get(),
                 ImmortalersDelightBlocks.FRUIT_TEA.get(),
-                ImmortalersDelightBlocks.AROMATIC_POD_AFFOGATO.get()
+                ImmortalersDelightBlocks.AROMATIC_POD_AFFOGATO.get(),
+                ImmortalersDelightBlocks.MORNING_FIZZ.get(),
+                ImmortalersDelightBlocks.GLISTERING_FIZZ.get(),
+                ImmortalersDelightBlocks.GREEN_TEA_FIZZ.get(),
+                ImmortalersDelightBlocks.SEXTLOTUS_FIZZ.get(),
+                ImmortalersDelightBlocks.RAINBOW_FIZZ.get()
                 );
     }
 

@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.block.food;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -48,7 +49,7 @@ public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implemen
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
-        if (hand.is(ModTags.KNIVES)){
+        if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand)){
             return cut(pState, pLevel, pPos, pPlayer, pHand, pHit);
         } else messageOnUse(pPlayer);
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

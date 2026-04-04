@@ -84,13 +84,13 @@ public class ImmortalersDelightEvent {
         if (Config.powerBattleModeHint && DifficultyModeUtil.isPowerBattleMode()){
             Player entity = event.getEntity();
             Level level = event.getEntity().level();
-            level.players().forEach(player -> {
-                if (player instanceof ServerPlayer serverPlayer){
-                    ImmortalersDelightMod.POWER_BATTLE_MODE_TRIGGER.trigger(serverPlayer);
-                }
-            });
             if (!entity.level().isClientSide){
                 entity.displayClientMessage(Component.translatable("tooltip.immortalers_delight.power_battle_mode_hint"), false);
+                level.players().forEach(player -> {
+                    if (player instanceof ServerPlayer serverPlayer){
+                        ImmortalersDelightMod.POWER_BATTLE_MODE_TRIGGER.trigger(serverPlayer);
+                    }
+                });
             }
         }
     }

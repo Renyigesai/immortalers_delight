@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.block.food;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,10 +53,10 @@ public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock implement
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
-            if (hand_stack.is(ModTags.KNIVES)) {
+            if (ItemUtils.isKnives(hand_stack)) {
                 return takeServing(state, level, pos, player);
             }
-            if (!hand_stack.is(ModTags.KNIVES)){
+            if (!ItemUtils.isKnives(hand_stack)){
                 return eat(state, level, pos, player);
             }
             return super.use(state, level, pos, player, hand, hitResult);
@@ -163,4 +164,5 @@ public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock implement
     public boolean isEmptyPlate(BlockState state) {
         return state.getValue(BITES) == 8;
     }
+
 }

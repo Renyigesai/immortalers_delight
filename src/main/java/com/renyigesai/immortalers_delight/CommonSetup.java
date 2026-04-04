@@ -1,37 +1,13 @@
 package com.renyigesai.immortalers_delight;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.common.Configuration;
-import vectorwing.farmersdelight.common.crafting.condition.VanillaCrateEnabledCondition;
-import vectorwing.farmersdelight.common.entity.RottenTomatoEntity;
-import vectorwing.farmersdelight.common.registry.ModAdvancements;
-import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
 
 public class CommonSetup
 {
@@ -75,8 +51,5 @@ public class CommonSetup
 		Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newFood))
 		{
 		};
-//		Chicken.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Chicken.FOOD_ITEMS, newFood))
-//		{
-//		};
 	}
 }

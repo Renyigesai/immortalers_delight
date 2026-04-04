@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.food;
 
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -48,13 +49,19 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
-            if (hand_stack.is(ModTags.KNIVES)) {
-                return cut(state, level, pos, player);
+        if (!level.isClientSide){
+            if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack)) {
+                return this.cut(state, level, pos, player);
             }
-            if (!hand_stack.is(ModTags.KNIVES)){
-                return eat(state, level, pos, player);
+            if (this.eat(state, level, pos, player) == InteractionResult.SUCCESS){
+                return InteractionResult.SUCCESS;
             }
-            return super.use(state, level, pos, player, hand, hitResult);
+            if (hand_stack.isEmpty()) {
+                return InteractionResult.CONSUME;
+            }
+        }
+        boolean isKnives = hand_stack.is(ModTags.KNIVES) || hand_stack.is(ImmortalersDelightTags.KNIVES);
+        return isKnives ? this.cut(state, level, pos, player) : this.eat(state, level, pos, player);
     }
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){
@@ -64,7 +71,6 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
                     setBlock(bites, state, level, pos);
                     ItemStack stack = new ItemStack(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get());
                     stack.finishUsingItem(level,player);
-                    //player.getFoodData().eat(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get(), new ItemStack(ImmortalersDelightItems.ZEA_PANCAKE_SLICE.get()));
                     level.gameEvent(player, GameEvent.EAT, pos);
                     level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
                 }else {
