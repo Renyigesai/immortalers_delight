@@ -1088,9 +1088,14 @@ public class ImmortalersDelightFoodProperties {
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),6000),1.0F)
             .build();
     public static final FoodProperties LONELY_SPIRIT_WINE = new FoodProperties.Builder()
+            .nutrition(-4).saturationMod(1.0f)
             .alwaysEat()
-            .effect(()->new MobEffectInstance(MobEffects.HUNGER,200,29),1.0F)
+            .effect(()->new MobEffectInstance(MobEffects.HUNGER,300,2),1.0F)
             .build();
+    public static final FoodProperties LONELY_SPIRIT_WINE_AHEAD = new FoodProperties.Builder()
+            .effect(()->new MobEffectInstance(MobEffects.CONFUSION,300,0),1.0F)
+            .build();
+
     public static final FoodProperties EVOLUTCORN_CHICKEN_BURGER = new FoodProperties.Builder()
             .nutrition(14).saturationMod(0.75f)
             .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.GAIXIA.get(),2200),1.0F)

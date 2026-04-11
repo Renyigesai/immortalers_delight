@@ -24,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -63,6 +64,10 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
         this.type = type;
     }
 
+    public @NotNull UseAnim getUseAnimation(ItemStack stack) {
+        if (this.type == 3) return UseAnim.DRINK;
+        return UseAnim.EAT;
+    }
     public BlockState getPlaceState(Level level, BlockPos blockpos) {
         Block block = Blocks.AIR;
         Block block1 = ImmortalersDelightBlocks.EVOLUTCORN_HARD_CANDY.get();
@@ -96,8 +101,9 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
     }
     @Override
     public int getUseDuration(@NotNull ItemStack pStack) {
-        if (this.type == 1) return 300;
-        return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;
+        if (this.type == 3) return DifficultyModeUtil.isPowerBattleMode() ? 32 : 300;
+        if (this.type == 2) return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;
+        return 300;
     }
 
     public @Nullable FoodProperties getAheadFoodProperties() {
@@ -108,6 +114,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
         if (stack.getItem() instanceof ShieldLikeFoodItem shieldLikeFoodItem && shieldLikeFoodItem.getAheadFoodProperties() != null) {
             for (Pair<MobEffectInstance, Float> pair : shieldLikeFoodItem.getAheadFoodProperties().getEffects()) {
                 if (!level.isClientSide() && pair.getFirst() != null) {
+                    if (this.type == 3 && livingEntity.hasEffect(pair.getFirst().getEffect())) return;
                     livingEntity.addEffect(pair.getFirst());
                 }
             }
@@ -116,12 +123,15 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));
+        if (this.type == 3) tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
+        else tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));
+
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
 
             MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             if (this.type == 2) tooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
+            if (this.type == 3) tooltip.add(textEmpty.withStyle(ChatFormatting.RED));
 
             this.addUsedEffectTooltip(stack, tooltip,1.0f);
         }

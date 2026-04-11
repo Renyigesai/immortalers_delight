@@ -218,6 +218,7 @@ public class Languages extends LanguageProvider {
         createTooltip("gelpitaya_seeds","可被种植在§f仙人掌§r上。","Can be planted on §fcacti§r.");
         createTooltip("a_bush","可被种植在§f下界岩§r上，成长到最大阶段后放置§f岩浆§r可以被转换为§f烬烟木§r。","It can be planted on §fnetherrack§r and, when fully grown, placed on §flava§r, which can then be transformed into §fa bush log§r.");
         createTooltip("tooltip_item_name_block_item","§o按住Shift查看更多","§oPress Shift to view");
+        createFarmersdelightTooltip("lonely_spirit_wine","Hard to put into words","一言难尽的风味");
 
         createFarmersdelightTooltip("jeng_nanu","Blocks 4 instances of damage,\n" +
                 "and punishes the disrespectful with Nether Flame.","抵挡4次伤害，用下界之焰惩罚不敬者");

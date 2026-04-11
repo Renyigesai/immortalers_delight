@@ -127,12 +127,8 @@ public class MoonBrightMobEffect extends MobEffect {
 
                         //在满月夜，效果时间翻4倍(但是过长的效果时间也可能导致范围轰击迟迟打不出来(笑))
                         boolean isFullMoon = canSeeMoon(hurtOne.level()) && hurtOne.level().getMoonPhase() == 0;
-                        boolean isLevelUp = true;
-                        if (isFullMoon) {
-                            time *= 4;
-                            isLevelUp = false;
-                        }
 
+                        if (isFullMoon) {time *= 4;}
 
                         //效果等级乘以（月明等级+1）/（2的月明等级次方）倍，月明等级越高，效果时间越短(但每级的dot伤害也翻倍)
                         time = time * (lv + 1) / (1 << lv);
@@ -141,11 +137,12 @@ public class MoonBrightMobEffect extends MobEffect {
                         time = Math.max(time, 2 + lv);
                         if (isFullMoon) time *= 3;
 
+                        boolean isLevelUp = false;
                         if (hiter instanceof AbstractArrow abstractArrow) {
-                            // 如果是可捡起的箭或药水箭（药水箭默认无法捡起），效果时间翻倍
+                            // 如果是可捡起的箭或药水箭（药水箭默认无法捡起），效果翻倍
                             if (abstractArrow.pickup == AbstractArrow.Pickup.ALLOWED
                                     || abstractArrow instanceof Arrow arrow && arrow.getColor() != -1) {
-                                if (!isLevelUp) isLevelUp = true;
+                                if (isFullMoon) isLevelUp = true;
                                 else time *= 2;
                             }
                         }

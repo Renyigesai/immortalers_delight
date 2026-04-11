@@ -4,6 +4,15 @@
     "#minecraft:saplings",
     "#minecraft:crops",
     "#minecraft:maintains_farmland",
-    "#minecraft:leaves"
+    "#minecraft:leaves",
+    "immortalers_delight:leisamboo_stalk",
+    "minecraft:cave_vines",
+    "minecraft:weeping_vines",
+    "minecraft:twisting_vines",
+    "minecraft:vine",
+    "minecraft:sugar_cane",
+    "minecraft:cactus",
+    "minecraft:big_dripleaf_stem",
+    "minecraft:bamboo"
   ]
 }

@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.ReflectionUtil;
@@ -50,8 +51,8 @@ public class SextlotusCropBlock extends ReapCropBlock{
     };
 
     //上一次生长的时间，用于避免无尽沃土等高频催熟导致频繁遍历方块或实体，以免影响性能
-    protected int growProgress;
-    public int getGrowProgress() {return growProgress;}
+    protected long growProgress;
+    public long getGrowProgress() {return growProgress;}
 
     public SextlotusCropBlock(Properties p_52247_) {
         super(p_52247_);
@@ -91,10 +92,11 @@ public class SextlotusCropBlock extends ReapCropBlock{
 //        return pState.is(BlockTags.DIRT) || pState.is(BlockTags.SAND);
 //    }
 
-    public byte hasNearCrop(ServerLevel level, BlockPos pos) {
+    public byte hasNearLantern(ServerLevel level, BlockPos pos) {
         byte i = 0;
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState neighborState = level.getBlockState(pos.relative(direction));
+            if (neighborState.getBlock() == ImmortalersDelightBlocks.SEXTLOTUS_LANTERN.get()) return 2;
             if (neighborState.getBlock() instanceof SextlotusCropBlock sextlotusCropBlock) {
                 if (neighborState.hasProperty(SextlotusCropBlock.AGE) && neighborState.getValue(SextlotusCropBlock.AGE) >= sextlotusCropBlock.getMaxAge()) {
                     return 1;
@@ -251,19 +253,25 @@ public class SextlotusCropBlock extends ReapCropBlock{
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
+
         //判断基础生长条件：在已加载区块
         if (!worldIn.isAreaLoaded(pos, 1)) return;
         int i = this.getAge(state);
-        byte canGrow = hasNearCrop(worldIn, pos);
+        byte canGrow = hasNearLantern(worldIn, pos);
+        //使用幻月灯可以无视月相生长(但也会造成其他影响)
+        boolean isNeededMoonPhase = canGrow > 1;
         //若无相邻的成熟作物，需要在暗处生长
         if (canGrow <= 0 && i < this.getMaxAge() - 1 && worldIn.getRawBrightness(pos, 0) >= 9) return;
         //若有相邻的未成熟作物，则不进行生长
         if (canGrow < 0) return;
+        //每个生长阶段有两个月相不能生长，且6阶段对应月相为7,0(满月与满月前一个月相)，因此植株将随着月相生长、在满月的后一天成熟
+        if (!isNeededMoonPhase) isNeededMoonPhase = isRightMoonAge(i, worldIn) && isRightMoonAge(i + 1, worldIn);
+
 
         if (i < this.getMaxAge()) {
-            //每个生长阶段有两个月相不能生长，且6阶段对应月相为7,0(满月与满月前一个月相)，因此植株将在满月的后一天成熟
+
             if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-                    isRightMoonAge(i, worldIn) && isRightMoonAge(i + 1, worldIn) && random.nextInt(833) > 19)) {
+                    isNeededMoonPhase && random.nextInt(833) > 19)) {
                 //记录吞噬的植物数量，初始值为1以免造成除0错误
                 int sum = 1;
                 //搜索3*6*3区域，分y层从上到下搜索，如果当前层为3*3*3以内且搜索到有植物方块，则停止搜索
@@ -281,9 +289,10 @@ public class SextlotusCropBlock extends ReapCropBlock{
                     }
                     if (y <= 1 && sum > 1) break;
                 }
-                int newAge = i + 1;
+                //使用幻月灯的的代价：生长速度-25%同时不吞噬不再自然生长，以免幻月灯过于逃课
+                if (canGrow > 1) sum -= 2;
                 //实际进行生长
-                if (newAge <= this.getMaxAge() && random.nextInt((7 / sum) + 1) == 0) {
+                if (sum > 0 && random.nextInt((7 / sum) + 1) == 0) {
                     worldIn.setBlock(pos, this.getStateForAge(i + 1), Block.UPDATE_CLIENTS);
                 }
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
@@ -296,23 +305,31 @@ public class SextlotusCropBlock extends ReapCropBlock{
     // 大范围搜索并吞噬植物方块，根据吞噬到的植物数量，额外生长1~4个阶段
     @Override
     public void growCrops(Level level, BlockPos pPos, BlockState pState) {
-        //避免高频率大范围遍历坐标导致性能问题
-        if (level instanceof ServerLevel serverLevel && this.growProgress >= 50) {
-            this.growProgress = 0;
-            int currentAge = pState.getValue(AGE);
-            int newAge = currentAge + 1;
+        //判断当前生长进度为计时制(正数)或计数制(负数)
+        if (level instanceof ServerLevel serverLevel && this.growProgress >= 0) {
+            //计时制：避免高频率大范围遍历坐标导致性能问题
+            if (level.getGameTime() - this.growProgress >= 50) {
+                this.growProgress = level.getGameTime();
+                int currentAge = pState.getValue(AGE);
+                int newAge = currentAge + 1;
+                float f = 1;
 
-            if (newAge < this.getMaxAge()) {
-                float f = findNeighborPlant(pState, serverLevel, pPos, level.getRandom());
-                if (f < 1) f = 1;
-                if (level.getRandom().nextInt((int) (29.53F / f) + 1) == 0) {
-                    int dAge = 1;
-                    for (int i = 0; i <= (f - 29.53f); i++) dAge *= 2;
-                    newAge += level.getRandom().nextInt(dAge) + 1;
+                if (newAge < this.getMaxAge()) {
+                    f = Math.max(findNeighborPlant(pState, serverLevel, pPos, level.getRandom()), 1.0F);
+
+                    if (level.getRandom().nextInt((int) (29.53F / f) + 1) == 0) {
+                        int dAge = 1;
+                        for (int i = 0; i <= (f - 29.53f); i++) dAge *= 2;
+                        newAge += level.getRandom().nextInt(dAge) + 1;
+                    }
                 }
+                //如果吸收的方块数量不足7，则将下一次成熟的时间设置为-50以启动计数催熟模式
+                if (f < 8) this.growProgress = -50;
+                //实际的生长方法
+                if (newAge > this.getMaxAge()) newAge = this.getMaxAge();
+                level.setBlock(pPos, pState.setValue(AGE, newAge), Block.UPDATE_CLIENTS);
             }
-            if (newAge > this.getMaxAge()) newAge = this.getMaxAge();
-            level.setBlock(pPos, pState.setValue(AGE, newAge), Block.UPDATE_CLIENTS);
+            //计数制：每触发一次催熟，令进度+1直到进度恢复到0后可以正常生长
         } else this.growProgress += 1;
     }
 

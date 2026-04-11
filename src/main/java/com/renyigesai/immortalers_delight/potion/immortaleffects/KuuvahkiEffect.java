@@ -189,7 +189,7 @@ public class KuuvahkiEffect {
         /* 具体效果的实现逻辑 */
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
             // 每秒对实体造成2点伤害，每级翻倍
-            if (entity.tickCount % 40 == 0) {
+            if (entity.tickCount % 40 == 20) {
                 int lv = map.get(uuid).getAmplifier() + 1;
                 long damage = 1L << lv;
                 spawnParticle(entity, 1);
