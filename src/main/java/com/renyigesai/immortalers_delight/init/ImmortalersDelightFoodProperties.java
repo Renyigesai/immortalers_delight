@@ -220,15 +220,26 @@ public class ImmortalersDelightFoodProperties {
             .saturationMod(1.45f)
             .effect(new MobEffectInstance(MobEffects.DIG_SPEED,80,0),1.0F).build();
 
+    public static final FoodProperties RAW_SNIFFER_TAIL = new FoodProperties.Builder()
+            .nutrition(9)
+            .saturationMod(0.5f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,120,0),1.0F).build();
+
+    public static final FoodProperties COOKED_SNIFFER_TAIL = new FoodProperties.Builder()
+            .nutrition(18)
+            .saturationMod(0.8f)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED,300,0),1.0F).build();
+
     public static final FoodProperties RAW_SNIFFER_STEAK = new FoodProperties.Builder()
-            .nutrition(4)
+            .nutrition(3)
             .saturationMod(0.5f)
             .effect(new MobEffectInstance(MobEffects.DIG_SPEED,120,0),1.0F).build();
 
     public static final FoodProperties COOKED_SNIFFER_STEAK = new FoodProperties.Builder()
-            .nutrition(9)
+            .nutrition(6)
             .saturationMod(0.8f)
             .effect(new MobEffectInstance(MobEffects.DIG_SPEED,300,0),1.0F).build();
+
 
     public static final FoodProperties CLEAR_WATER_VODKA = new FoodProperties.Builder()
             .alwaysEat()
@@ -1244,6 +1255,11 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties OXYRAISINS = new FoodProperties.Builder().saturationMod(3).nutrition(1).build();
     public static final FoodProperties OXYGRAPE_EVOLUTCORN_MUFFIN = new FoodProperties.Builder().saturationMod(0.275f).nutrition(9).build();
+    public static final FoodProperties PICKLED_SEXTLOTUS_ROOT = new FoodProperties.Builder().effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),1800),1f).alwaysEat().build();
+    public static final FoodProperties STINKY_DOUFU = new FoodProperties.Builder().nutrition(9).saturationMod(0.7F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,1200,2),1f).effect(()-> new MobEffectInstance(MobEffects.WEAKNESS,800,4),1f).build();
+    public static final FoodProperties MAPO_DOUFU = new FoodProperties.Builder().nutrition(10).saturationMod(0.5F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,600),1f).effect(()-> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,2),1f).build();
+    public static final FoodProperties ROASTED_MUSHROOM_PIZZA_SLICE = new FoodProperties.Builder().nutrition(8).saturationMod(0.55F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),600),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),1200),1f).build();
+    public static final FoodProperties FRIED_SNIFFER_EGG = new FoodProperties.Builder().nutrition(8).saturationMod(0.4F).build();
 
 
 }

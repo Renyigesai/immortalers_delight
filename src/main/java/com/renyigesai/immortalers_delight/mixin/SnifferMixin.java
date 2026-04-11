@@ -1,10 +1,13 @@
 package com.renyigesai.immortalers_delight.mixin;
 
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
+import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import jdk.jfr.Label;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
@@ -38,10 +41,11 @@ import java.util.List;
 @Mixin(Sniffer.class)
 public abstract class SnifferMixin extends Animal {
 
-
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
 
     @Shadow protected abstract BlockPos getHeadBlock();
+
+    @Shadow public abstract void tick();
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -56,4 +60,17 @@ public abstract class SnifferMixin extends Animal {
         list.clear();
         list.addAll(snifferDropSeedEvent.getStacks());
     }
+
+    @Override
+    public boolean canFallInLove() {
+        CompoundTag tag = this.getPersistentData();
+        if (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT)){
+            return super.canFallInLove();
+        }
+        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT) && tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0){
+            return super.canFallInLove();
+        }
+        return false;
+    }
+
 }

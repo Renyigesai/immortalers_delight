@@ -31,6 +31,9 @@ public class SmeltingRecipes {
         foodSmeltingRecipes(ImmortalersDelightItems.EVOLUTCORN_PASTE.get(),ImmortalersDelightItems.EVOLUTCORN_BREAD.get(), 0.35f,consumer);
         foodSmeltingRecipes(ImmortalersDelightItems.KWAT_WHEAT_DOUGH.get(),ImmortalersDelightItems.KWAT_WHEAT_TOAST.get(), 0.35f,consumer);
         foodSmeltingRecipes(ImmortalersDelightItems.OXYGRAPE.get(),ImmortalersDelightItems.OXYRAISINS.get(), 0.35f,consumer);
+        foodSmeltingRecipes(Items.SNIFFER_EGG,ImmortalersDelightItems.FRIED_SNIFFER_EGG.get(), 0.35f,consumer);
+        foodSmeltingRecipes(ImmortalersDelightItems.RAW_SNIFFER_STEAK.get(),ImmortalersDelightItems.COOKED_SNIFFER_STEAK.get(), 0.35f,consumer);
+        foodSmeltingRecipes(ImmortalersDelightItems.RAW_SNIFFER_TAIL.get(),ImmortalersDelightItems.COOKED_SNIFFER_TAIL.get(), 0.35f,consumer);
     }
 
     private static void foodSmeltingRecipes(ItemLike ingredient, ItemLike result, float experience, Consumer<FinishedRecipe> consumer) {

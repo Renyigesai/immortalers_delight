@@ -1,9 +1,9 @@
-package com.renyigesai.immortalers_delight.recipe.category;
+package com.renyigesai.immortalers_delight.integration.jei.category;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.integration.jei.JEIImmortalersDelightPlugin;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
-import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -21,27 +21,27 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
-public class HotSpringCategory implements IRecipeCategory<HotSpringRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(ImmortalersDelightMod.MODID, "hot_spring");
+public class EnchantalCoolerCategory implements IRecipeCategory<EnchantalCoolerRecipe> {
+    public final static ResourceLocation UID = new ResourceLocation(ImmortalersDelightMod.MODID, "enchantal_cooler");
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/hot_spring_jei.png");
+            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/enchantal_cooler_jei.png");
 
     public final IDrawable back;
     public final IDrawable icon;
 
-    public HotSpringCategory(IGuiHelper helper) {
-        this.back = helper.createDrawable(TEXTURE,0, 0, 186, 119);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(ImmortalersDelightItems.HOT_SPRING_BUCKET.get()));
+    public EnchantalCoolerCategory(IGuiHelper helper) {
+        this.back = helper.createDrawable(TEXTURE,0, 0, 138, 86);
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(ImmortalersDelightItems.ENCHANTAL_COOLER.get()));
     }
 
     @Override
-    public RecipeType<HotSpringRecipe> getRecipeType() {
-        return JEIImmortalersDelightPlugin.HOT_SPRING_TYPE;
+    public RecipeType<EnchantalCoolerRecipe> getRecipeType() {
+        return JEIImmortalersDelightPlugin.ENCHANTAL_COOLER_TYPE;
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("container.immortalers_delight.hot_spring");
+        return Component.translatable("container.immortalers_delight.enchantal_cooler");
     }
 
     @Override
@@ -56,28 +56,25 @@ public class HotSpringCategory implements IRecipeCategory<HotSpringRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, HotSpringRecipe recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, EnchantalCoolerRecipe recipe, IFocusGroup iFocusGroup) {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         int borderSlotSize = 18;
         //x和y轴的初始坐标，取值为gui贴图的x,y初始位置减一
-        int x0 = 25;
-        int y0 = 39;
+        int x = 13;
+        int y = 16;
         //添加原料槽
-        if (!(recipeIngredients.size() > 0)) return;
-        else builder.addSlot(RecipeIngredientRole.INPUT, x0 + 19, y0 -8)
-                .addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
-        for (int row = 0; row < 3; ++row) {
-            for (int column = 0; column < 3; ++column) {
-                int inputIndex = row * 3 + column + 1;
+        for (int row = 0; row < 2; ++row) {
+            for (int column = 0; column < 2; ++column) {
+                int inputIndex = row * 2 + column;
                 if (inputIndex < recipeIngredients.size()) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, x0 + (column * borderSlotSize) + 1, y0 + (row * borderSlotSize) + (column == 1 ? 10 : 1))
+                    builder.addSlot(RecipeIngredientRole.INPUT, x + (column * borderSlotSize) + 1, y + (row * borderSlotSize) + 1)
                             .addItemStacks(Arrays.asList(recipeIngredients.get(inputIndex).getItems()));
-                } else {
-                    break;
                 }
             }
         }
+        //添加容器槽
+        builder.addSlot(RecipeIngredientRole.INPUT,99,55).addItemStack(recipe.getContainer());
         //添加输出槽
-        builder.addSlot(RecipeIngredientRole.OUTPUT,144,57).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT,99,25).addItemStack(recipe.getResultItem(null));
     }
 }

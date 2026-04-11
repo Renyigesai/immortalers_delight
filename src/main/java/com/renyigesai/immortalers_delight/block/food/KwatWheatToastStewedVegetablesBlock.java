@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class KwatWheatToastStewedVegetablesBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,6);
@@ -49,7 +50,7 @@ public class KwatWheatToastStewedVegetablesBlock extends HorizontalDirectionalBl
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand){
         ItemStack handItem = player.getItemInHand(hand);
         if (!handItem.is(Items.BOWL)){
-            player.displayClientMessage(Component.translatable("block.immortalers_delight.spoon_block.tips.1"), true);
+            player.displayClientMessage(TextUtils.getTranslation("block.feast.use_container", new ItemStack(Items.BOWL).getHoverName()), true);
             return InteractionResult.PASS;
         }
         int bites = state.getValue(BITES);

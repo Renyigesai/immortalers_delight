@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "immortalers_delight:oxyraisins_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "oxyraisins": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:oxygrape"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "oxyraisins",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "immortalers_delight:oxyraisins_from_smoking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

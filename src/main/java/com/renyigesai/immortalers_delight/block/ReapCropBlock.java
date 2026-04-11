@@ -30,7 +30,6 @@ public class ReapCropBlock extends CropBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (canReap(state, level, pos, player, hand, hitResult)) {
             if (level.isClientSide){
-//                player.swing(hand);
                 return InteractionResult.SUCCESS;
             }
             boolean temp = false;

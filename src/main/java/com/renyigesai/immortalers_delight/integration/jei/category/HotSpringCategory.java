@@ -1,0 +1,83 @@
+package com.renyigesai.immortalers_delight.integration.jei.category;
+
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.integration.jei.JEIImmortalersDelightPlugin;
+import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+
+public class HotSpringCategory implements IRecipeCategory<HotSpringRecipe> {
+    public final static ResourceLocation UID = new ResourceLocation(ImmortalersDelightMod.MODID, "hot_spring");
+    public static final ResourceLocation TEXTURE =
+            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/hot_spring_jei.png");
+
+    public final IDrawable back;
+    public final IDrawable icon;
+
+    public HotSpringCategory(IGuiHelper helper) {
+        this.back = helper.createDrawable(TEXTURE,0, 0, 186, 119);
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(ImmortalersDelightItems.HOT_SPRING_BUCKET.get()));
+    }
+
+    @Override
+    public RecipeType<HotSpringRecipe> getRecipeType() {
+        return JEIImmortalersDelightPlugin.HOT_SPRING_TYPE;
+    }
+
+    @Override
+    public Component getTitle() {
+        return Component.translatable("container.immortalers_delight.hot_spring");
+    }
+
+    @Override
+    public @Nullable IDrawable getIcon() {
+        return this.icon;
+    }
+
+    @SuppressWarnings("removal")
+    @Override
+    public IDrawable getBackground() {
+        return this.back;
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, HotSpringRecipe recipe, IFocusGroup iFocusGroup) {
+        NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
+        int borderSlotSize = 18;
+        //x和y轴的初始坐标，取值为gui贴图的x,y初始位置减一
+        int x0 = 25;
+        int y0 = 39;
+        //添加原料槽
+        if (!(recipeIngredients.size() > 0)) return;
+        else builder.addSlot(RecipeIngredientRole.INPUT, x0 + 19, y0 -8)
+                .addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
+        for (int row = 0; row < 3; ++row) {
+            for (int column = 0; column < 3; ++column) {
+                int inputIndex = row * 3 + column + 1;
+                if (inputIndex < recipeIngredients.size()) {
+                    builder.addSlot(RecipeIngredientRole.INPUT, x0 + (column * borderSlotSize) + 1, y0 + (row * borderSlotSize) + (column == 1 ? 10 : 1))
+                            .addItemStacks(Arrays.asList(recipeIngredients.get(inputIndex).getItems()));
+                } else {
+                    break;
+                }
+            }
+        }
+        //添加输出槽
+        builder.addSlot(RecipeIngredientRole.OUTPUT,144,57).addItemStack(recipe.getResultItem(null));
+    }
+}

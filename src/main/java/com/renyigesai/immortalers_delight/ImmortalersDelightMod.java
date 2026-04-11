@@ -168,6 +168,7 @@ public class ImmortalersDelightMod {
             modelLayers.put(MoonlightBeamModel.LAYER_LOCATION, MoonlightBeamModel::createBodyLayer);
             modelLayers.put(MoonArrowHitboxModel.LAYER_LOCATION, MoonArrowHitboxModel::createBodyLayer);
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
+            modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -182,6 +183,7 @@ public class ImmortalersDelightMod {
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SUPPORT_BLOCK_ENTITY.get(), SupportBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(),TangyuanBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE_BLOCK_ENTITY.get(),NaanPitBlockRenderer::new);
+            event.registerBlockEntityRenderer(ImmortalersDelightBlocks.ROTATING_ROAST_MEAT_ENTITY.get(),RotatingRoastMeatRenderer::new);
 
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get(), SkelverfishRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_BOMBER.get(), SkelverfishBomberRenderer::new);

@@ -127,6 +127,7 @@ public class SnifferBrushItem extends BrushItem {
                                 tag.putInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, 1728 * (2 + player.getRandom().nextInt(4)));
                             }
                         }
+                        accelerateRegenerationTail(tag);
                         //实际消耗耐久
                         if (!player.getAbilities().instabuild) {
                             EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
@@ -196,6 +197,14 @@ public class SnifferBrushItem extends BrushItem {
                         ImmortalersDelightParticleTypes.SNIFFER_FUR.get(), x, y, z, 1, 0, 0, 0, 0.025
                 );
             }
+        }
+    }
+
+    private void accelerateRegenerationTail(CompoundTag tag){
+        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN)){
+            int tailTime = tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN);
+            int newTime = tailTime >= 12000 ? tailTime - 12000 : 0;
+            tag.putInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,newTime);
         }
     }
 }

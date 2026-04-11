@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -45,11 +48,12 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
 
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,4);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,18.0D,15.0D);
 
     public RotatingRoastMeatBlock(Properties p_54120_) {
         super(p_54120_);
-        super.registerDefaultState(defaultBlockState().setValue(BITES,0).setValue(LIT,false));
+        super.registerDefaultState(defaultBlockState().setValue(BITES,0).setValue(STATE,State.IDLE));
     }
 
     @Override
@@ -65,8 +69,13 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, ImmortalersDelightBlocks.ROTATING_ROAST_MEAT_ENTITY.get(),
-                RotatingRoastMeatBlockEntity::tick);
+        return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, ImmortalersDelightBlocks.ROTATING_ROAST_MEAT_ENTITY.get(),
+                RotatingRoastMeatBlockEntity::clientTick) : null;
+    }
+
+    @Override
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
     @Override
@@ -95,27 +104,27 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     public boolean isRandomlyTicking(BlockState pState) {
         return true;
     }
-    @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (pState.getValue(LIT)){
-            if (TimekeepingTask.getImmortalTickTime() % 5000 < 1000){
-
-            }
-        }
-    }
-    @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
-        super.animateTick(pState, pLevel, pPos, pRandom);
-        if (pState.getValue(LIT)) {
-            if (pRandom.nextInt(10) == 0) {
-                BlockPos blockpos = pPos.above();
-                BlockState blockstate = pLevel.getBlockState(blockpos);
-                if (!isFaceFull(blockstate.getCollisionShape(pLevel, blockpos), Direction.UP)) {
-                    pLevel.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, (double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, (double) (pRandom.nextFloat() / 2.0F), 5.0E-5D, (double) (pRandom.nextFloat() / 2.0F));
-                }
-            }
-        }
-    }
+//    @Override
+//    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+//        if (pState.getValue(LIT)){
+//            if (TimekeepingTask.getImmortalTickTime() % 5000 < 1000){
+//
+//            }
+//        }
+//    }
+//    @Override
+//    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+//        super.animateTick(pState, pLevel, pPos, pRandom);
+//        if (pState.getValue(LIT)) {
+//            if (pRandom.nextInt(10) == 0) {
+//                BlockPos blockpos = pPos.above();
+//                BlockState blockstate = pLevel.getBlockState(blockpos);
+//                if (!isFaceFull(blockstate.getCollisionShape(pLevel, blockpos), Direction.UP)) {
+//                    pLevel.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, (double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, (double) (pRandom.nextFloat() / 2.0F), 5.0E-5D, (double) (pRandom.nextFloat() / 2.0F));
+//                }
+//            }
+//        }
+//    }
 
     private boolean isHeated(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos.below());
@@ -129,12 +138,29 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BITES,LIT);
+        builder.add(BITES,STATE);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new RotatingRoastMeatBlockEntity(pPos,pState);
+    }
+
+    public enum State implements StringRepresentable {
+        IDLE("idle"),
+        LIT("lit"),
+        FINISH("finish");
+
+        private final String name;
+
+        State(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return this.name;
+        }
     }
 }

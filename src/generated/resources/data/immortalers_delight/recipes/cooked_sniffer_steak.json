@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "immortalers_delight:raw_sniffer_steak"
+  },
+  "result": "immortalers_delight:cooked_sniffer_steak"
+}

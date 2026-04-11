@@ -480,9 +480,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
             new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
-            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+//    @BlockData(dropType = BlockData.DropType.CUSTOM)
+//    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
+//            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
@@ -553,6 +553,10 @@ public class ImmortalersDelightBlocks {
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> GIANT_TART = BLOCKS.register("giant_tart",()-> new GiantTartBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.GIANT_TART_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> ROASTED_MUSHROOM_PIZZA = BLOCKS.register("roasted_mushroom_pizza",()->
+            new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
@@ -863,14 +867,14 @@ public class ImmortalersDelightBlocks {
                     ImmortalersDelightItems.LARGE_COLUMN,
                     2)
     );
-    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "玉黍硬糖")
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "战争面包")
     public static final RegistryObject<Block> JENG_NANU = BLOCKS.register("jeng_nanu",()->
             new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
                     ImmortalersDelightItems.JENG_NANU_SLICE,
                     ImmortalersDelightItems.JENG_NANU,
                     4)
     );
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "玉黍硬糖")
     public static final RegistryObject<Block> EVOLUTCORN_HARD_CANDY = BLOCKS.register("evolutcorn_hard_candy",()->
             new StackedFoodBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,

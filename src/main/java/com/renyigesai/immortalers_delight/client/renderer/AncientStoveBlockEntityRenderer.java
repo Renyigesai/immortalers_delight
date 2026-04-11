@@ -37,7 +37,7 @@ public class AncientStoveBlockEntityRenderer implements BlockEntityRenderer<Anci
                 poseStack.translate((double)itemOffset.x, (double)itemOffset.y, 0.0);
                 poseStack.scale(0.375F, 0.375F, 0.375F);
                 if (cncientStoveBlockEntity.getLevel() != null) {
-                    Minecraft.getInstance().getItemRenderer().renderStatic(stoveStack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(cncientStoveBlockEntity.getLevel(), cncientStoveBlockEntity.getBlockPos().above()), combinedOverlayIn, poseStack, buffer, cncientStoveBlockEntity.getLevel(), posLong + i);
+                    Minecraft.getInstance().getItemRenderer().renderStatic(stoveStack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(cncientStoveBlockEntity.getLevel(), cncientStoveBlockEntity.getBlockPos().above()), i1, poseStack, buffer, cncientStoveBlockEntity.getLevel(), posLong + i);
                 }
 
                 poseStack.popPose();
