@@ -27,7 +27,10 @@ public class ImmortalersDelightGroup {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab_immortalers_delight_main_tab"))
                     .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
-                    .displayItems((parameters, output) -> addCreativeModeTab(output,ImmortalersDelightMod.MODID + "_main",ImmortalersDelightItems.class,true))
+                    .displayItems((parameters, output) -> {
+                        addCreativeModeTab(output,ImmortalersDelightMod.MODID + "_main",ImmortalersDelightItems.class,true);
+                        ImmortalersDelightItems.CREATIVE_TAB_ITEMS.forEach(itemRegistryObject ->  output.accept(itemRegistryObject.get()));
+                    })
                     .build());
 
     public static final RegistryObject<CreativeModeTab> DECORATIVE_BLOCKS_TAB = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_decorative_blocks",
@@ -65,6 +68,4 @@ public class ImmortalersDelightGroup {
             }
         }
     }
-
-
 }

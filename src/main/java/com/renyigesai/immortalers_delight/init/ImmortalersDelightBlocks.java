@@ -480,9 +480,9 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
             new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
-    @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
-            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+//    @BlockData(dropType = BlockData.DropType.CUSTOM)
+//    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
+//            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->

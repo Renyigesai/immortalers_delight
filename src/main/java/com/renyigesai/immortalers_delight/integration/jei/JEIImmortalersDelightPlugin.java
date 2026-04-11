@@ -1,8 +1,10 @@
-package com.renyigesai.immortalers_delight.recipe.category;
+package com.renyigesai.immortalers_delight.integration.jei;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.integration.jei.category.EnchantalCoolerCategory;
+import com.renyigesai.immortalers_delight.integration.jei.category.HotSpringCategory;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;

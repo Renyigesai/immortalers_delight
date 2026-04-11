@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.mixin;
 
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
+import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import jdk.jfr.Label;
 import net.minecraft.core.BlockPos;
@@ -46,9 +47,6 @@ public abstract class SnifferMixin extends Animal {
 
     @Shadow public abstract void tick();
 
-//    @Unique
-//    private int tailRegeneration;
-
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }
@@ -63,14 +61,16 @@ public abstract class SnifferMixin extends Animal {
         list.addAll(snifferDropSeedEvent.getStacks());
     }
 
-//    @Inject(method = "tick",at = @At("RETURN"))
-//    public void tick(CallbackInfo ci){
-//        CompoundTag tag = this.getPersistentData();
-//        if (tag.contains("immortalers_delight_sniffer_brushing_cooldown", Tag.TAG_INT) && tag.getInt("immortalers_delight_sniffer_brushing_cooldown") > 0) {
-//            tag.putInt("immortalers_delight_sniffer_brushing_cooldown", tag.getInt("immortalers_delight_sniffer_brushing_cooldown") - 1);
-//        }
-//        if (tag.contains("immortalers_delight_tail_regeneration_cooldown", Tag.TAG_INT) && tag.getInt("immortalers_delight_tail_regeneration_cooldown") > 0) {
-//            tag.putInt("immortalers_delight_tail_regeneration_cooldown", tag.getInt("immortalers_delight_tail_regeneration_cooldown") - 1);
-//        }
-//    }
+    @Override
+    public boolean canFallInLove() {
+        CompoundTag tag = this.getPersistentData();
+        if (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT)){
+            return super.canFallInLove();
+        }
+        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT) && tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0){
+            return super.canFallInLove();
+        }
+        return false;
+    }
+
 }
