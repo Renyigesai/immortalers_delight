@@ -1,20 +1,25 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-public class KeepFastMobEffect extends MobEffect {
+public class KeepFastMobEffect extends BaseMobEffect {
 
     public KeepFastMobEffect() {
         super(MobEffectCategory.BENEFICIAL, -39424);
     }
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         if (!pEntity.getCommandSenderWorld().isClientSide && pEntity instanceof Player player) {
             FoodData foodData = player.getFoodData();
             int foodLevel = foodData.getFoodLevel();
@@ -50,7 +55,50 @@ public class KeepFastMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return true;
+    }
+
+
+    @Mod.EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID,
+            bus = Mod.EventBusSubscriber.Bus.FORGE
+    )
+    public static class KeepFastPotionEffect {
+        @SubscribeEvent
+        public static void onAddToEntity(MobEffectEvent.Added event) {
+            if (event != null && event.getEntity() != null) {
+                Entity entity = event.getEntity();
+                if (!entity.getCommandSenderWorld().isClientSide
+                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                        && entity instanceof Player player) {
+                    if ( !player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get())
+                            || event.getOldEffectInstance() == null
+                            || event.getOldEffectInstance().getEffect() != ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                    ) {
+                        FoodData foodData = player.getFoodData();
+                        foodData.setFoodLevel(foodData.getFoodLevel() / 2);
+                        foodData.setSaturation(foodData.getSaturationLevel() / 2);
+                    }
+                }
+            }
+        }
+        @SubscribeEvent
+        public static void onRemoveFromEntity(MobEffectEvent.Remove event) {
+            if (event != null && event.getEntity() != null) {
+                Entity entity = event.getEntity();
+                if (!entity.getCommandSenderWorld().isClientSide
+                        && event.getEffectInstance() != null
+                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                        && entity instanceof Player player) {
+                    FoodData foodData = player.getFoodData();
+                    int foodLevel = foodData.getFoodLevel();
+                    float saturation = foodData.getSaturationLevel();
+                    foodData.eat(foodLevel, saturation / (foodLevel * 2));
+                    if (foodLevel * 2 > 20 && event.getEffectInstance().getAmplifier() > 1) player.heal(foodLevel * 2 - 20);
+                    if (saturation * 2 >= 20 && event.getEffectInstance().getAmplifier() > 0) player.heal(saturation * 2 - 20);
+                }
+            }
+        }
     }
 }

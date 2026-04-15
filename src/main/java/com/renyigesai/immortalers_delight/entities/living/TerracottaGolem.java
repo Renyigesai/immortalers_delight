@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-import static com.renyigesai.immortalers_delight.potion.EsteemedGuestPotionEffect.FRIEND_TO;
+import static com.renyigesai.immortalers_delight.potion.EsteemedGuestMobEffect.FRIEND_TO;
 
 public class TerracottaGolem extends TamableAnimal implements ContainerListener, HasCustomInventoryScreen, RangedAttackMob, NeutralMob {
     private static final EntityDataAccessor<Byte> DATA_ID_DECORATE_LEFT = SynchedEntityData.defineId(TerracottaGolem.class, EntityDataSerializers.BYTE);

@@ -220,8 +220,12 @@ public class Languages extends LanguageProvider {
         createTooltip("tooltip_item_name_block_item","§o按住Shift查看更多","§oPress Shift to view");
         createTooltip("sniffer_tail_regeneration","剪尾冷却：","Tail Regeneration");
         createTooltip("sniffer_brushing","剪毛冷却：","Sniffer Brushing");
-        createFarmersdelightTooltip("lonely_spirit_wine","Hard to put into words","一言难尽的风味");
+        createTooltip("sextlotus_seeds","在§f暗处§r随§f月相§r生长，生长时令周围的生命向其§c奉献§r\n" +
+                "§f成熟后§r可以营造§f益于同类生长§r的环境","Grows with the §fmoon phase§r in §fdark areas§r\n" +
+                "Compels surrounding life to §foffer themselves to it§r as it grows.\n" +
+                "When §ffully grown§r, it fosters a §ffavorable environment for its own kind§r.");
 
+        createFarmersdelightTooltip("lonely_spirit_wine","Hard to put into words","一言难尽的风味");
         createFarmersdelightTooltip("jeng_nanu","Blocks 4 instances of damage,\n" +
                 "and punishes the disrespectful with Nether Flame.","抵挡4次伤害，用下界之焰惩罚不敬者");
         createFarmersdelightTooltip("morning_fizz","Produces the opposite effect to counteract DoT damage.","生成相反的效果对抗持续伤害");
@@ -394,6 +398,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("power_battle_mode",translateText("Activate power battle mode.","过去迟早会追上的"),translateText("Activate power battle mode.","开启超凡模式。"));
         createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一搜大船。"));
         createAdvancement("get_sextlotus_seeds",translateText("Lunar soil tide","月壤潮汐"),translateText("Obtain Sextlotus Seeds in Forest.","在森林获得既望莲子。"));
+        createAdvancement("get_moon_lantern",translateText("Pseudo Moonlight","赝作月华"),translateText("Use the Moonlight Phantom Lamp to accelerate the growth of Sextlotus.","使用幻月灯促进既望莲的生长。"));
     }
 
     private void addEntitys(){

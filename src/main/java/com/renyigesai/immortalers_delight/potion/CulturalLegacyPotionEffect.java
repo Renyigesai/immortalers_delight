@@ -46,38 +46,3 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber
-public class CulturalLegacyPotionEffect {
-    @SubscribeEvent
-    public static void onItemTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-
-        CompoundTag tag = stack.getTag();
-        if (tag != null) {
-            if (tag.contains(CulturalLegacyMobEffect.BOOK_EDITING)) {
-                int progress = tag.getInt(CulturalLegacyMobEffect.BOOK_EDITING);
-
-                if (progress > 0) {
-                    MutableComponent textValue = Component.translatable(
-                            "tooltip." +ImmortalersDelightMod.MODID+ ".book_progress", // 翻译键
-                            progress // 替换%d占位符
-                    );
-                    event.getToolTip().add(textValue.withStyle(ChatFormatting.GRAY));
-                }
-
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onEntityAddEffect(MobEffectEvent.Applicable event) {
-        if (event != null && event.getEntity() != null) {
-            Entity entity = event.getEntity();
-            if (entity instanceof LivingEntity livingEntity
-                    && livingEntity.hasEffect(ImmortalersDelightMobEffect.CULTURAL_LEGACY.get())
-                    && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.CULTURAL_LEGACY.get()) {
-                event.setResult(Event.Result.DENY);
-            }
-        }
-    }
-}

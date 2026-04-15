@@ -22,13 +22,13 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-public class UpSideDownMobEffect extends MobEffect {
+public class UpSideDownMobEffect extends BaseMobEffect {
     public UpSideDownMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 12875208);
     }
     public static int jumpCount = 0;
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity entity, int amplifier) {
         if (entity.level().isClientSide()) return;
         if (entity instanceof Player player) {
             if (player.isShiftKeyDown()) {
@@ -58,7 +58,7 @@ public class UpSideDownMobEffect extends MobEffect {
         }
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {return true; }
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {return true; }
 
 
     @Mod.EventBusSubscriber(
@@ -70,7 +70,7 @@ public class UpSideDownMobEffect extends MobEffect {
         public static void addJumpSpeed(LivingEvent.LivingJumpEvent event) {
             LivingEntity entity = event.getEntity();
             MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get());
-            if (thisEffect != null && (entity instanceof Player || !entity.level().isClientSide())) {
+            if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect && (entity instanceof Player || !entity.level().isClientSide())) {
                 int lv = 1;
                 MobEffectInstance jumpEffect = entity.getEffect(MobEffects.JUMP);
                 if (jumpEffect != null) {
@@ -79,7 +79,7 @@ public class UpSideDownMobEffect extends MobEffect {
                     float vy = (float)lv * -0.1f;
                     float f = entity.getYRot() * ((float)Math.PI / 180F);
                     entity.setDeltaMovement(entity.getDeltaMovement().add((double)(-Mth.sin(f) * vx), (double)vy, (double)(Mth.cos(f) *vx)));
-                } else entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15, thisEffect.getAmplifier() + 1));
+                } else entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 15,  effect.getTruthUsingAmplifier(thisEffect.getAmplifier())+ 1));
             }
         }
     }
