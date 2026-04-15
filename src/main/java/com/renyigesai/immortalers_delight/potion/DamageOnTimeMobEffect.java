@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
-public class DamageOnTimeMobEffect extends MobEffect {
+public class DamageOnTimeMobEffect extends BaseMobEffect {
 
 
     public DamageOnTimeMobEffect() {
@@ -20,7 +20,7 @@ public class DamageOnTimeMobEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         if (this == WEAK_POISON.get()) {
             float minHealth = pEntity.hasEffect(INEBRIATED.get()) ? 1.0F : pEntity.getMaxHealth() * 0.5F;
             if (pEntity.hasEffect(MobEffects.POISON)) {
@@ -61,7 +61,7 @@ public class DamageOnTimeMobEffect extends MobEffect {
         super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         if (this == WEAK_POISON.get()) {
             int j = 40 ;
             return duration % j == 0;

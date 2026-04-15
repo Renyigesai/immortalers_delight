@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-public class MoonBrightMobEffect extends MobEffect {
+public class MoonBrightMobEffect extends BaseMobEffect {
     //用于限制大范围遍历实体的频率
     private static boolean bypassLastUpdate = false;
     public MoonBrightMobEffect() {
@@ -37,7 +37,7 @@ public class MoonBrightMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTickInControl(int pDuration, int pAmplifier) {
         if (pDuration > 80) return pDuration % 80 == 0;
         else if (pDuration > 40) return pDuration % 40 == 0;
         else return pDuration % 20 == 0;
@@ -45,7 +45,7 @@ public class MoonBrightMobEffect extends MobEffect {
 
     //周期性对范围内的实体添加发光效果
     @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+    public void applyEffectTickInControl(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity.level() instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
             //在暗处时，令周围的实体发光
             if (isNight(serverLevel, pLivingEntity.getOnPos().above((int) pLivingEntity.getEyeHeight()))) {

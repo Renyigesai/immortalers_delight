@@ -30,8 +30,8 @@ public class GelpitayaCropBlock extends ReapCropBlock {
             Block.box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D),
             Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D),
             Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D),
-            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
-            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)
+            Block.box(0.5D, -0.5D, 0.5D, 15.5D, 16.0D, 15.5D),
+            Block.box(0.5D, -0.5D, 0.5D, 15.5D, 16.0D, 15.5D)
     };
 
     private static final VoxelShape[] COLLISION_SHAPE_BY_AGE = new VoxelShape[]{

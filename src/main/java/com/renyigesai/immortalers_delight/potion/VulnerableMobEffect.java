@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class VulnerableMobEffect extends MobEffect {
+public class VulnerableMobEffect extends BaseMobEffect {
     //=================数据管理部分。这里维护了一个map，用于“次数限制”版的脆弱buff===================//
 //    private static boolean needClear = false;
 //
@@ -121,8 +121,9 @@ public class VulnerableMobEffect extends MobEffect {
             }
 
             if (!hurtOne.level().isClientSide && attacker != null) {
-                if (hurtOne.hasEffect(ImmortalersDelightMobEffect.VULNERABLE.get())){
-                    int amplifier = Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get())).getAmplifier();
+                MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get());
+                if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect){
+                    int amplifier = effect.getTruthUsingAmplifier(thisEffect.getAmplifier());
                     int number = (isPowerful || amplifier >= 255) ? 255 : amplifier + 1;
                     int lv = amplifier + 1;
                     //if (isVulnerableHasLimit(hurtOne)) {

@@ -8,13 +8,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 
-public class LingeringInfusionMobEffect extends MobEffect {
+public class LingeringInfusionMobEffect extends BaseMobEffect {
     public LingeringInfusionMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 11325584);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         float healByFoodLevel = isPowerful ? 0.5F : 0.375F;
         float healBySaturation = isPowerful ? 1.5F : 0.5F;
@@ -44,7 +44,7 @@ public class LingeringInfusionMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return duration % 10 == 0;
     }
 }

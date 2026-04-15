@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.google.common.collect.Maps;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,12 +13,15 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.UUID;
 
-public class PrehistoricPowersMobEffect extends MobEffect {
+public class PrehistoricPowersMobEffect extends BaseMobEffect {
     private final Map<Attribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
 
     public PrehistoricPowersMobEffect() {
@@ -25,13 +30,13 @@ public class PrehistoricPowersMobEffect extends MobEffect {
 
     //每秒刷新属性修改
     @Override
-    public void applyEffectTick(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
+    public void applyEffectTickInControl(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
         this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
         if (pLivingEntity.hasEffect(MobEffects.DAMAGE_BOOST)) this.addAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return duration % 20 == 0;
     }
 
@@ -74,5 +79,34 @@ public class PrehistoricPowersMobEffect extends MobEffect {
     public @NotNull Map<Attribute, AttributeModifier> getAttributeModifiers() {
         if (DifficultyModeUtil.isPowerBattleMode()) return this.attributeModifierMap;
         return super.getAttributeModifiers();
+    }
+
+
+
+    @Mod.EventBusSubscriber
+    public static class PrehistoricPowersPotionEffect {
+        @SubscribeEvent
+        public static void onCreatureHurt(LivingDamageEvent evt) {
+            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)) {
+                return;
+            }
+            LivingEntity hurtOne = evt.getEntity();
+            LivingEntity attacker = null;
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+            if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
+                attacker = livingEntity;
+            }
+
+            if (!hurtOne.level().isClientSide && attacker != null) {
+                MobEffectInstance powers = attacker.getEffect(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get());
+                MobEffectInstance strength = attacker.getEffect(MobEffects.DAMAGE_BOOST);
+                if (powers != null && strength != null && powers.getEffect() instanceof BaseMobEffect effect){
+                    int lv = Math.min(effect.getTruthUsingAmplifier(powers.getAmplifier()) + 1, strength.getAmplifier() + 1);
+                    if (isPowerful) lv *= 2;
+                    double damage = (Math.pow(1.3,lv) - 1)/0.3;
+                    evt.setAmount(evt.getAmount() + (float)damage);
+                }
+            }
+        }
     }
 }

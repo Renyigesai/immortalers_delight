@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
@@ -12,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -142,7 +145,10 @@ public class FreezeEffect {
             //为实体添加缓慢并造成冻结伤害
             if (entity.tickCount % 40 == 0) {
                 boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+                MobEffect thisEffect = ImmortalersDelightMobEffect.LET_IT_FREEZE.get();
                 int lv = entityHasEffect.get(uuid).getAmplifier();
+                if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
+
                 //在普通模式下，冻结伤害遵守原版的冻伤规则；超凡模式下则将所有不免疫细雪的实体视为寒冷脆弱的，并且可以对免疫细雪的实体造成伤害
                 float damage = 1 << lv;
                 float bufferByEntity = 1.0f;

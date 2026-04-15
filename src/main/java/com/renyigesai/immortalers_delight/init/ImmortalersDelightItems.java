@@ -1827,7 +1827,7 @@ public class ImmortalersDelightItems {
         SEXTLOTUS_ROOT = registerWithTab("sextlotus_root",() ->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SEXTLOTUS_ROOT),true));
         SEXTLOTUS_SEEDS =  registerWithTab("sextlotus_seeds",()->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.SEXTLOTUS.get(), new Item.Properties()));
+                new TooltipItemNameBlockItem(ImmortalersDelightBlocks.SEXTLOTUS.get(), new Item.Properties(),Component.translatable("tooltip.immortalers_delight.sextlotus_seeds").withStyle(ChatFormatting.GRAY)));
         SEXTLOTUS_LEAF = registerWithTab("sextlotus_leaf",()->
                 new Item(basicItem()));
         SEXTLOTUS_ROOT_CUTS = registerWithTab("sextlotus_root_cuts",()->

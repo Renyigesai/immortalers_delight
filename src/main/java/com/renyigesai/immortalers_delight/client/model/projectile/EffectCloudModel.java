@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.renyigesai.immortalers_delight.entities.projectile.EffectCloudBaseEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.model.EntityModel;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -22,6 +23,7 @@ public class EffectCloudModel<T extends EffectCloudBaseEntity> extends EntityMod
 	private final ModelPart head;
 
 	public EffectCloudModel(ModelPart root) {
+		//super(RenderType::entityCutout);
 		this.body = root.getChild("body");
 		this.head = this.body.getChild("head");
 	}

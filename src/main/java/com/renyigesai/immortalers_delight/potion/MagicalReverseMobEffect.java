@@ -16,9 +16,6 @@ public class MagicalReverseMobEffect extends MobEffect {
     public boolean isInstantenous() {
         return true;
     }
-//    public MobEffect FD_Nourished = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":nourishment");
-//
-//    public MobEffect FD_Comfit = EffectUtils.get0therModMobEffect(FarmersDelight.MODID + ":comfort");
 
     public static Map<MobEffect,MobEffect> reverseNormalEffect = new HashMap<MobEffect,MobEffect>();
 //            .put(MobEffects.BAD_OMEN,MobEffects.HERO_OF_THE_VILLAGE)

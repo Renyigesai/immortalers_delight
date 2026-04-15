@@ -91,4 +91,34 @@ public class EffectUtils {
         //System.out.println("平缓的调和级数前 " + n + " 项和为：" + sum + ", 对应2的次方的数值为：" + (float) Math.pow(2, sum));
         return sum;
     }
+
+    public static Map<MobEffect, Float[]> getMobEffectWithLevelConfig(List<? extends List<?>> source)
+    {
+        Map<MobEffect, Float[]> map = new HashMap<>();
+        for (List<?> entry : source)
+        {
+            String inputEffectName = null;
+            float effectAddNumber = 0;
+            float effectAddPerLevel = 1;
+
+            if (!entry.isEmpty() && entry.get(0) instanceof String) {
+                inputEffectName = (String) entry.get(0);
+            }
+            if (entry.size() > 1 && entry.get(1) instanceof Number) {
+                effectAddNumber = ((Number) entry.get(1)).floatValue();
+            }
+            if (entry.size() > 2 && entry.get(2) instanceof Number) {
+                effectAddPerLevel = ((Number) entry.get(2)).floatValue();
+            }
+
+            MobEffect effectInput = null;
+            if (inputEffectName != null) {
+                effectInput = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(inputEffectName));
+            }
+
+            Float[] effectAdd = new Float[]{effectAddNumber, effectAddPerLevel};
+            if (effectInput != null) map.put(effectInput,effectAdd);
+        }
+        return map;
+    }
 }

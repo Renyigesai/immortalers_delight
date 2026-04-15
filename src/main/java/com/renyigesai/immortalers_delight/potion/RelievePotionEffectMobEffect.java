@@ -12,14 +12,14 @@ import java.util.Objects;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
-public class RelievePotionEffectMobEffect extends MobEffect {
+public class RelievePotionEffectMobEffect extends BaseMobEffect {
 
     public RelievePotionEffectMobEffect() {
         super(MobEffectCategory.BENEFICIAL, -39424);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (this == RELIEVE_POISON.get()) {
             if (pEntity.hasEffect(MobEffects.POISON)){
@@ -59,7 +59,7 @@ public class RelievePotionEffectMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return true;
     }
 }

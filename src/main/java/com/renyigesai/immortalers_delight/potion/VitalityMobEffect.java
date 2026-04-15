@@ -5,13 +5,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class VitalityMobEffect extends MobEffect {
+public class VitalityMobEffect extends BaseMobEffect {
     public VitalityMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 11325584);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         if (!pEntity.level().isClientSide){
             if (!(pEntity.getHealth() > 0.0F && pEntity.getHealth() < pEntity.getMaxHealth())) return;
             //计算生命值百分比
@@ -23,7 +23,7 @@ public class VitalityMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         int i = 20 >> amplifier;
         if (i > 0) {
             return duration % i == 0;

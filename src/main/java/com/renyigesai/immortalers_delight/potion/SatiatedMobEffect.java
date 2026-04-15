@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 
-public class SatiatedMobEffect extends MobEffect {
+public class SatiatedMobEffect extends BaseMobEffect {
     public static boolean isPowerful = true;
 
     public SatiatedMobEffect() {
@@ -17,7 +17,7 @@ public class SatiatedMobEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         isPowerful = DifficultyModeUtil.isPowerBattleMode();
         if (!pEntity.level().isClientSide()) {
             pEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 1, amplifier));
@@ -33,7 +33,7 @@ public class SatiatedMobEffect extends MobEffect {
         }
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return duration % (isPowerful ? 20 : 40) == 0;
     }
 }

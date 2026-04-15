@@ -2,7 +2,9 @@ package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.projectile.MoonArrowHitboxEntity;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
@@ -19,6 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -74,7 +77,11 @@ public class KuuvahkiEffect {
                 true);
 
         //为实体累积伤害标签，用于移除时进行范围轰击
-        int lv = amplifier + 1;
+        MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
+        int lv = amplifier;
+        if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
+        lv++;
+
         long damage = 2L << lv;
         if (duration < 40 || DifficultyModeUtil.isPowerBattleMode()) {
             CompoundTag tag = entity.getPersistentData();
@@ -108,7 +115,10 @@ public class KuuvahkiEffect {
         UUID uuid = entity.getUUID();
         int lv = -1;
         if (!(entityHasEffect.get(uuid) == null)) {
-            lv = entityHasEffect.get(uuid).getAmplifier() + 1;
+            MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
+            lv = entityHasEffect.get(uuid).getAmplifier();
+            if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
+
             entityHasEffect.remove(uuid);
         }
         onImmortalEffectRemove(entity,lv);
@@ -190,7 +200,11 @@ public class KuuvahkiEffect {
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
             // 每秒对实体造成2点伤害，每级翻倍
             if (entity.tickCount % 40 == 20) {
-                int lv = map.get(uuid).getAmplifier() + 1;
+                MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
+                int lv = map.get(uuid).getAmplifier();
+                if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
+                lv++;
+
                 long damage = 1L << lv;
                 spawnParticle(entity, 1);
 
@@ -226,8 +240,11 @@ public class KuuvahkiEffect {
             Long expireTime = map.get(deadOne.getUUID()).getTime();
             /* 具体效果的实现逻辑 */
             if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
+                MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
+                int lv = map.get(deadOne.getUUID()).getAmplifier();
+                if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
 
-                spawnBomb(deadOne, map.get(deadOne.getUUID()).getAmplifier());
+                spawnBomb(deadOne, lv);
             }
         }
     }

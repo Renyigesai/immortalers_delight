@@ -27,6 +27,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class LivingDamageUtil {
+    /**
+     * 获取一个数是2的几次方
+     * @param value
+     * @return
+     */
+    public static int getPowerOfTwo(int value) {
+        if (value <= 0) return 0;
+        return 31 - Integer.numberOfLeadingZeros(value);
+    }
+
     //疣猪兽击退
     public static void knockbackLikeHogLin(LivingEntity attacker, LivingEntity hurtOne) {
         double d0 = attacker.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
@@ -243,47 +253,91 @@ public class LivingDamageUtil {
         }
     }
 
-    // 缓存Method对象，避免每次反射获取，提升性能
-    private static Method ACTUALLY_HURT_METHOD;
 
-    // 静态代码块初始化Method（仅执行一次）
+
+    // ====================== 修复： Forge 混淆兼容 ======================
+    private static final Method ACTUALLY_HURT_METHOD;
+
     static {
+        Method method = null;
         try {
-            // 获取actuallyHurt方法（参数：DamageSource + float）
-            ACTUALLY_HURT_METHOD = LivingEntity.class.getDeclaredMethod(
-                    "actuallyHurt",
-                    DamageSource.class,
-                    float.class
-            );
-            // 突破protected访问限制
-            ACTUALLY_HURT_METHOD.setAccessible(true);
+            // 1. 开发环境：尝试原名
+            method = LivingEntity.class.getDeclaredMethod("actuallyHurt", DamageSource.class, float.class);
         } catch (NoSuchMethodException e) {
-            // 打印异常并抛出运行时异常，方便调试
-            e.printStackTrace();
-            throw new RuntimeException("无法找到LivingEntity的actuallyHurt方法", e);
-        }
-    }
-
-    /**
-     * 安全调用actuallyHurt方法
-     * @param entity 目标实体（如玩家、僵尸等LivingEntity子类）
-     * @param damageSource 伤害源（如GENERIC、FALL、ATTACK等）
-     * @param damageAmount 伤害值（浮点型，如5.0F表示5点伤害）
-     */
-    public static void callActuallyHurt(LivingEntity entity, DamageSource damageSource, float damageAmount) {
-        if (entity == null || damageSource == null) {
-            throw new IllegalArgumentException("实体或伤害源不能为null");
+            try {
+                // 2. 生产/打包/整合包：尝试混淆名 m_6469_
+                method = LivingEntity.class.getDeclaredMethod("m_6475_", DamageSource.class, float.class);
+            } catch (NoSuchMethodException ex) {
+                // 3. 都找不到 → 不抛异常！避免类初始化崩溃
+                method = null;
+                System.err.println("警告：无法找到 actuallyHurt 方法，将降级使用 hurt()");
+            }
         }
 
-        try {
-            // 调用方法：第一个参数是实体实例，后续是方法参数
-            ACTUALLY_HURT_METHOD.invoke(entity, damageSource, damageAmount);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("无法访问actuallyHurt方法", e);
-        } catch (InvocationTargetException e) {
-            // 捕获方法内部抛出的异常（如实体已死亡等）
-            throw new RuntimeException("调用actuallyHurt时方法内部出错", e.getTargetException());
+        if (method != null) {
+            method.setAccessible(true);
+        }
+        ACTUALLY_HURT_METHOD = method;
+    }
+
+    // ====================== 修复：安全调用方法 ======================
+    public static void callActuallyHurt(LivingEntity entity, DamageSource source, float amount) {
+        if (entity == null || source == null) return;
+        if (entity.isDeadOrDying()) return;
+
+        if (ACTUALLY_HURT_METHOD != null) {
+            try {
+                ACTUALLY_HURT_METHOD.invoke(entity, source, amount);
+            } catch (Exception e) {
+                // 降级兜底
+                entity.hurt(source, amount);
+            }
+        } else {
+            // 兜底
+            entity.hurt(source, amount);
         }
     }
+//    // 缓存Method对象，避免每次反射获取，提升性能
+//    private static Method ACTUALLY_HURT_METHOD;
+//
+//    // 静态代码块初始化Method（仅执行一次）
+//    static {
+//        try {
+//            // 获取actuallyHurt方法（参数：DamageSource + float）
+//            ACTUALLY_HURT_METHOD = LivingEntity.class.getDeclaredMethod(
+//                    "actuallyHurt",
+//                    DamageSource.class,
+//                    float.class
+//            );
+//            // 突破protected访问限制
+//            ACTUALLY_HURT_METHOD.setAccessible(true);
+//        } catch (NoSuchMethodException e) {
+//            // 打印异常并抛出运行时异常，方便调试
+//            e.printStackTrace();
+//            throw new RuntimeException("无法找到LivingEntity的actuallyHurt方法", e);
+//        }
+//    }
+//
+//    /**
+//     * 安全调用actuallyHurt方法
+//     * @param entity 目标实体（如玩家、僵尸等LivingEntity子类）
+//     * @param damageSource 伤害源（如GENERIC、FALL、ATTACK等）
+//     * @param damageAmount 伤害值（浮点型，如5.0F表示5点伤害）
+//     */
+//    public static void callActuallyHurt(LivingEntity entity, DamageSource damageSource, float damageAmount) {
+//        if (entity == null || damageSource == null) {
+//            throw new IllegalArgumentException("实体或伤害源不能为null");
+//        }
+//
+//        try {
+//            // 调用方法：第一个参数是实体实例，后续是方法参数
+//            ACTUALLY_HURT_METHOD.invoke(entity, damageSource, damageAmount);
+//        } catch (IllegalAccessException e) {
+//            throw new RuntimeException("无法访问actuallyHurt方法", e);
+//        } catch (InvocationTargetException e) {
+//            // 捕获方法内部抛出的异常（如实体已死亡等）
+//            throw new RuntimeException("调用actuallyHurt时方法内部出错", e.getTargetException());
+//        }
+//    }
 
 }

@@ -186,8 +186,9 @@ public class SextlotusCropBlock extends ReapCropBlock{
     }
 
     //搜索相连的植物或土质方块
-    public int findNeighborPlant(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public int findNeighborPlant(BlockState state, ServerLevel level, BlockPos pos, boolean treeBreaker) {
         int sum = 0;
+        RandomSource random = level.getRandom();
         //列表记录待搜索的坐标与对应的曼哈顿距离
         List<PosWithDistance> posList = new ArrayList<>();
 
@@ -195,13 +196,21 @@ public class SextlotusCropBlock extends ReapCropBlock{
         for (int a = -1; a <= 1; ++a) {
             for (int b = -1; b <= 1; ++b) {
                 BlockPos pos1 = pos.offset(a*3, 0, b*3);
+                int minJ = -1;
                 int maxJ = 1;
                 if (a == 0) maxJ += 3;
                 if (b == 0) maxJ += 3;
+                //毁灭树木模式下，吸收范围将颠倒
+                if (treeBreaker) {
+                    minJ = 5;
+                    maxJ = 7;
+                    if (a == 0) minJ -= 3;
+                    if (b == 0) minJ -= 3;
+                }
                 if (level.isAreaLoaded(pos1, 1)) {
                     //确定该区域在加载区块内，再搜索该区域
                     for (int i = -1; i <= 1; ++i) {
-                        for (int j = -1; j <= maxJ; ++j) {
+                        for (int j = minJ; j <= maxJ; ++j) {
                             for (int k = -1; k <= 1; ++k) {
                                 BlockPos pos2 = pos1.offset(i, j, k);
                                 // 计算到中心的曼哈顿距离
@@ -315,7 +324,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
                 float f = 1;
 
                 if (newAge < this.getMaxAge()) {
-                    f = Math.max(findNeighborPlant(pState, serverLevel, pPos, level.getRandom()), 1.0F);
+                    f = Math.max(findNeighborPlant(pState, serverLevel, pPos, !level.canSeeSky(pPos)), 1.0F);
 
                     if (level.getRandom().nextInt((int) (29.53F / f) + 1) == 0) {
                         int dAge = 1;

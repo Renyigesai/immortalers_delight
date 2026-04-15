@@ -1,8 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.Config;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffect;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.BaseImmortalEffectTask;
 //import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
@@ -10,33 +8,25 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.TagKey;
+import com.renyigesai.immortalers_delight.util.LivingDamageUtil;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraftforge.common.Tags;
-import vectorwing.farmersdelight.data.EntityTags;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class DebugItem extends Item {
     public DebugItem(Properties p_41383_) {
@@ -61,26 +51,60 @@ public class DebugItem extends Item {
     }
 
     public InteractionResult useOn(UseOnContext pContext) {
-        if (!pContext.getLevel().isClientSide()) {
-            BlockState blockState = pContext.getLevel().getBlockState(pContext.getClickedPos());
-            List<Property<?>> list = blockState.getProperties().stream().toList();
-            Property<?> needProperty = null;
-            for (Property<?> property : list) {
-                String info = "这是从配方输入的ID";
-                if (property.getName().equals(info)) {
-                    System.out.println("这是从方块状态中获取的ID：" + property.getName() + "可以满足要求");
-                    needProperty = property;
-                }
-            }
-
-            if (needProperty != null && blockState.hasProperty(needProperty)) {
-                blockState.
-            }
+        Map<MobEffect, Float[]> map = EffectUtils.getMobEffectWithLevelConfig(Config.EFFECTS_USING_LINEAR_GROWTH.get());
+        for (MobEffect effect : map.keySet()) {
+            System.out.println(effect.getDescriptionId() + ":" + map.get(effect)[0] + ":" + map.get(effect)[1]);
         }
+
+//        if (!pContext.getLevel().isClientSide()) {
+//            BlockState blockState = pContext.getLevel().getBlockState(pContext.getClickedPos());
+//            List<Property<?>> list = blockState.getProperties().stream().toList();
+//            Property<?> needProperty = null;
+//            for (Property<?> property : list) {
+//                String info = "这是从配方输入的ID";
+//                if (property.getName().equals(info)) {
+//                    System.out.println("这是从方块状态中获取的ID：" + property.getName() + "可以满足要求");
+//                    needProperty = property;
+//                }
+//            }
+//
+//            if (needProperty != null && blockState.hasProperty(needProperty)) {
+//                blockState.
+//            }
+//        }
         return InteractionResult.PASS;
     }
 
+    @Override
+    public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
+        System.out.println("hurtEnemy");
+        if (!target.level().isClientSide()) {
+            LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getMaxHealth());
+            if (target.isDeadOrDying()) {
+                System.out.println("target is dead");
+                target.die(attacker.damageSources().mobAttack(attacker));
+            }
+        }
 
+
+        return super.hurtEnemy(stack, target, attacker);
+    }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        System.out.println("onLeftClickEntity");
+        if (entity instanceof LivingEntity target && player instanceof ServerPlayer attacker) {
+            if (!target.level().isClientSide()) {
+                LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getHealth());
+                if (target.isDeadOrDying()) {
+                    System.out.println("target is dead");
+                    target.die(attacker.damageSources().mobAttack(attacker));
+                }
+            }
+        }
+
+        return super.onLeftClickEntity(stack, player, entity);
+    }
     @Override
     public ItemStack finishUsingItem (ItemStack pStack, Level level, LivingEntity pLivingEntity) {
 //        //CustomDataUsageExample.saveCustomInfo(level, "Hello, Minecraft!");
