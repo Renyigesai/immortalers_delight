@@ -1531,7 +1531,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP_POWERED,true,false));
 
         SCARLET_DEVILS_CAKE = registerWithTab("scarlet_devils_cake", () ->
-                new BlockItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem()));
+                new EdibleBlockFoodItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE).craftRemainder(Items.BOWL)));
 
         SCARLET_DEVILS_CAKE_SLICE = registerWithTab("scarlet_devils_cake_slice",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE_SLICE),true,false));

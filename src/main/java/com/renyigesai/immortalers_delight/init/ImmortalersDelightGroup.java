@@ -16,14 +16,9 @@ import java.lang.reflect.Field;
 public class ImmortalersDelightGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ImmortalersDelightMod.MODID);
 
-//    public static final RegistryObject<CreativeModeTab> TAB_FARMERS_DELIGHT = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_main",
-//            () -> CreativeModeTab.builder()
-//                    .title(Component.translatable("creativetab_immortalers_delight_tab"))
-//                    .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
-//                    .displayItems((parameters, output) -> ImmortalersDelightItems.CREATIVE_TAB_ITEMS.forEach((item) -> output.accept(item.get())))
-//                    .build());
 
-    public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_main",
+    /**name加数字是为了排序*/
+    public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register("0_" + ImmortalersDelightMod.MODID + "_main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab_immortalers_delight_main_tab"))
                     .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
@@ -33,7 +28,7 @@ public class ImmortalersDelightGroup {
                     })
                     .build());
 
-    public static final RegistryObject<CreativeModeTab> DECORATIVE_BLOCKS_TAB = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_decorative_blocks",
+    public static final RegistryObject<CreativeModeTab> DECORATIVE_BLOCKS_TAB = CREATIVE_TABS.register("1_" + ImmortalersDelightMod.MODID + "_decorative_blocks",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab_immortalers_delight_decorative_blocks_tab"))
                     .icon(() -> new ItemStack(ImmortalersDelightItems.HIMEKAIDO_LOG.get()))

@@ -1260,6 +1260,7 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties MAPO_DOUFU = new FoodProperties.Builder().nutrition(10).saturationMod(0.5F).effect(()-> new MobEffectInstance(MobEffects.DAMAGE_BOOST,600),1f).effect(()-> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,2),1f).build();
     public static final FoodProperties ROASTED_MUSHROOM_PIZZA_SLICE = new FoodProperties.Builder().nutrition(8).saturationMod(0.55F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(),600),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(),1200),1f).build();
     public static final FoodProperties FRIED_SNIFFER_EGG = new FoodProperties.Builder().nutrition(8).saturationMod(0.4F).build();
+    public static final FoodProperties SCARLET_DEVILS_CAKE = new FoodProperties.Builder().nutrition(20).saturationMod(0.6F).effect(() ->new MobEffectInstance(MobEffects.DAMAGE_BOOST,5400,3),1F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),4800,0),1F).effect(()-> new MobEffectInstance(MobEffects.HEAL,1,0),1F).build();
 
 
 }
