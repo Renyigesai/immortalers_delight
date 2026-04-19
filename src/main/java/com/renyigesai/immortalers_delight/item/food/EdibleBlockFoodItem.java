@@ -1,21 +1,16 @@
 package com.renyigesai.immortalers_delight.item.food;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.AntiFeedingFoodItem;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
-import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +37,11 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
     public EdibleBlockFoodItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
         this.poweredFoodProperties = null;
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.EAT;
     }
 
     @Override
