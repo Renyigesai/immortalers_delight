@@ -16,7 +16,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-public class UnyieldingMobEffect extends MobEffect {
+public class UnyieldingMobEffect extends BaseMobEffect {
     public UnyieldingMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 11123525);
     }
@@ -33,6 +33,7 @@ public class UnyieldingMobEffect extends MobEffect {
         return true;
     }
 
+    //无敌效果其实没有等级之分，所以在这里设置
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,
             bus = Mod.EventBusSubscriber.Bus.FORGE
@@ -43,8 +44,8 @@ public class UnyieldingMobEffect extends MobEffect {
             LivingEntity hurtOne = event.getEntity();
             if (hurtOne.level().isClientSide()) return;
             MobEffectInstance unyielding = hurtOne.getEffect(ImmortalersDelightMobEffect.UNYIELDING.get());
-            if (unyielding != null) {
-                int lv = unyielding.getAmplifier();
+            if (unyielding != null && unyielding.getEffect() instanceof BaseMobEffect effect) {
+                int lv = effect.getTruthUsingAmplifier(unyielding.getAmplifier());
                 boolean isPowered = DifficultyModeUtil.isPowerBattleMode();
                 if (isPowered || event.getSource().getEntity() != null) {
                     DeathlessEffect.applyImmortalEffect(hurtOne,(isPowered ? 24 : 12) + 6 * lv, lv);

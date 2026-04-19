@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-public class MoonBrightMobEffect extends MobEffect {
+public class MoonBrightMobEffect extends BaseMobEffect {
     //用于限制大范围遍历实体的频率
     private static boolean bypassLastUpdate = false;
     public MoonBrightMobEffect() {
@@ -37,7 +37,7 @@ public class MoonBrightMobEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTickInControl(int pDuration, int pAmplifier) {
         if (pDuration > 80) return pDuration % 80 == 0;
         else if (pDuration > 40) return pDuration % 40 == 0;
         else return pDuration % 20 == 0;
@@ -45,7 +45,7 @@ public class MoonBrightMobEffect extends MobEffect {
 
     //周期性对范围内的实体添加发光效果
     @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+    public void applyEffectTickInControl(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity.level() instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
             //在暗处时，令周围的实体发光
             if (isNight(serverLevel, pLivingEntity.getOnPos().above((int) pLivingEntity.getEyeHeight()))) {
@@ -126,9 +126,9 @@ public class MoonBrightMobEffect extends MobEffect {
                         int time = 80 + 40 * lv;
 
                         //在满月夜，效果时间翻4倍(但是过长的效果时间也可能导致范围轰击迟迟打不出来(笑))
-                        boolean isFullMoon = canSeeMoon(hurtOne.level()) && hurtOne.level().getMoonPhase() == 4;
-                        if (isFullMoon) time *= 4;
+                        boolean isFullMoon = canSeeMoon(hurtOne.level()) && hurtOne.level().getMoonPhase() == 0;
 
+                        if (isFullMoon) {time *= 4;}
 
                         //效果等级乘以（月明等级+1）/（2的月明等级次方）倍，月明等级越高，效果时间越短(但每级的dot伤害也翻倍)
                         time = time * (lv + 1) / (1 << lv);
@@ -137,12 +137,16 @@ public class MoonBrightMobEffect extends MobEffect {
                         time = Math.max(time, 2 + lv);
                         if (isFullMoon) time *= 3;
 
+                        boolean isLevelUp = false;
                         if (hiter instanceof AbstractArrow abstractArrow) {
-                            // 如果是可捡起的箭或药水箭（药水箭默认无法捡起），效果时间翻倍
+                            // 如果是可捡起的箭或药水箭（药水箭默认无法捡起），效果翻倍
                             if (abstractArrow.pickup == AbstractArrow.Pickup.ALLOWED
-                                    || abstractArrow instanceof Arrow arrow && arrow.getColor() != -1) time *= 2;
+                                    || abstractArrow instanceof Arrow arrow && arrow.getColor() != -1) {
+                                if (isFullMoon) isLevelUp = true;
+                                else time *= 2;
+                            }
                         }
-                        KuuvahkiEffect.addImmortalEffectWithSource(hurtOne, time, lv, attacker);
+                        KuuvahkiEffect.addImmortalEffectWithSource(hurtOne, time, isLevelUp ? lv : thisEffect.getAmplifier(), attacker);
                     }
                 }
             }

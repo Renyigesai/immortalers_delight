@@ -13,13 +13,14 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-public class LetItFreezeMobEffect extends MobEffect {
+public class LetItFreezeMobEffect extends BaseMobEffect {
     public LetItFreezeMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 5337801);
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier) { return true;}
+    public boolean isDurationEffectTickInControl(int pDuration, int pAmplifier) { return true;}
+    //等级控制在特殊状态里面实现
     @Mod.EventBusSubscriber(
             modid = ImmortalersDelightMod.MODID,
             bus = Mod.EventBusSubscriber.Bus.FORGE

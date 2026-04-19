@@ -116,9 +116,13 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
             CompoundTag nbt = consumer.getPersistentData();
             if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
                 int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG);
+                int haveUsed = 0;
+                if (nbt.contains(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG, Tag.TAG_INT)) {
+                    haveUsed = nbt.getInt(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG);
+                }
 
-                makeAreaOfEffectCloud(level, consumer.blockPosition(), lv, this.getMaxUseCount(), consumer);
-                nbt.remove(PlaceableShieldEvents.DAMAGE_TAG);
+                makeAreaOfEffectCloud(level, consumer.blockPosition(), lv - haveUsed, this.getMaxUseCount(), consumer);
+                nbt.putInt(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG, lv);
             }
         }
         super.releaseUsing(stack, level, consumer, timeLeft);
@@ -164,6 +168,8 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
     )
     public static class PlaceableShieldEvents {
         public static final String DAMAGE_TAG = ImmortalersDelightMod.MODID + "_bites";
+
+        public static final String DAMAGE_HAS_USED_TAG = ImmortalersDelightMod.MODID + "_bread_damage";
         @SubscribeEvent(priority = EventPriority.LOWEST)
             public static void onBlockedDamage(ShieldBlockEvent event) {
             LivingEntity hurtOne = event.getEntity();
@@ -215,7 +221,13 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
                     if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
                         //这里的条件与取消使用的不同是因为耐久损耗的值不会达到最大耐久，导致打了4下耐久损耗为3，所以加一
                         int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG) + 1;
-                        makeAreaOfEffectCloud(consumer.level(), consumer.blockPosition(), lv, placeableShieldItem.getMaxUseCount(), consumer);
+                        int haveUsed = 0;
+                        if (nbt.contains(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG, Tag.TAG_INT)) {
+                            haveUsed = nbt.getInt(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG);
+                        }
+                        makeAreaOfEffectCloud(consumer.level(), consumer.blockPosition(), lv - haveUsed, placeableShieldItem.getMaxUseCount(), consumer);
+
+                        nbt.remove(PlaceableShieldEvents.DAMAGE_HAS_USED_TAG);
                     }
                 }
 

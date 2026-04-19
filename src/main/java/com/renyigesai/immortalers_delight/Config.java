@@ -59,54 +59,63 @@ public class Config {
             .comment("For the sake of balance, you can use this option to synchronously strengthen some of the original enemies.")
             .comment("Configure which enemies can be strengthened in the entity tags file, to all the functions.")
             .define("needStrengthenTheEnemies", false);
-    private static final ForgeConfigSpec.BooleanValue USE_DYNAMIC_DAMAGE = BUILDER
-            .comment(" ")
-            .comment("Configure the attack damage multiplier of powered mobs be increased based on the target's health value")
-            .define("useDynamicDamage", false);
-    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
-            .comment(" ")
-            .comment("Set the maximum attack damage multiplier of powered mobs")
-            .comment("If use, it will make damage become (1 + the value) * old damage")
-            .comment("Example: [0.5, 2.0, 5.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
-            .defineList("maximumDamageMultiplier", List.of(0.5f, 2.0f, 5.0f), o -> o instanceof Float);
-    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
-            .comment(" ")
-            .comment("Set the attack damage multiplier per target's health")
-            .comment("Example: [0.002, 0.006, 0.02],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
-            .comment("Use gradient calculation. For example, for elite mobs, follow the default value:")
-            .comment(" the damage multiplier increases by 0.002 per health point until it reaches 1.5x (1+0.5), ")
-            .comment("then the damage multiplier increases by 0.006 per health point until it reaches 3.0x (1+2.0). ")
-            .defineList("damageMultiplierPerHealth", List.of(0.002f, 0.006f, 0.02f), o -> o instanceof Float);
-    private static final ForgeConfigSpec.BooleanValue USE_MIN_DAMAGE = BUILDER
-            .comment(" ")
-            .comment("Configure the min value when powered mobs attack")
-            .define("useMinDamage", false);
-    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MIN_DAMAGE = BUILDER
-            .comment(" ")
-            .comment("Set the min value when powered mobs attack")
-            .comment("Example: [1.0, 2.0, 2.5],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
-            .defineList("minDamageValue", List.of(1.0f, 2.0f, 2.5f), o -> o instanceof Float);
-    private static final ForgeConfigSpec.BooleanValue USE_HIGH_DAMAGE_COUNTERACTION = BUILDER
-            .comment(" ")
-            .comment("Configure the damage multiplier taken by mobs will decrease as the base damage value increases.")
-            .define("useHigh-DamageCounteraction", true);
-    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_DAMAGE_COUNTERACTION = BUILDER
-            .comment(" ")
-            .comment("Set the maximum damage divisor taken by mobs")
-            .comment("For example,if set 9.0 to a mob, damage taken by mobs will min become 0.1x.")
-            .comment("Example: [7.0, 11.0, 15.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
-            .defineList("maximumDamageDivisor", List.of(7.0f, 11.0f, 15.0f), o -> o instanceof Float);
-    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> DAMAGE_COUNTERACTION_PER_DAMAGE = BUILDER
-            .comment(" ")
-            .comment("Set the attack damage divisor per damage taken by mobs")
-            .comment("Example: [0.04, 0.05, 0.08],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
-            .defineList("damageDivisorPerDamage", List.of(0.04f, 0.05f, 0.08f), o -> o instanceof Float);
+//    private static final ForgeConfigSpec.BooleanValue USE_DYNAMIC_DAMAGE = BUILDER
+//            .comment(" ")
+//            .comment("Configure the attack damage multiplier of powered mobs be increased based on the target's health value")
+//            .define("useDynamicDamage", false);
+//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
+//            .comment(" ")
+//            .comment("Set the maximum attack damage multiplier of powered mobs")
+//            .comment("If use, it will make damage become (1 + the value) * old damage")
+//            .comment("Example: [0.5, 2.0, 5.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+//            .defineList("maximumDamageMultiplier", List.of(0.5f, 2.0f, 5.0f), o -> o instanceof Float);
+//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
+//            .comment(" ")
+//            .comment("Set the attack damage multiplier per target's health")
+//            .comment("Example: [0.002, 0.006, 0.02],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+//            .comment("Use gradient calculation. For example, for elite mobs, follow the default value:")
+//            .comment(" the damage multiplier increases by 0.002 per health point until it reaches 1.5x (1+0.5), ")
+//            .comment("then the damage multiplier increases by 0.006 per health point until it reaches 3.0x (1+2.0). ")
+//            .defineList("damageMultiplierPerHealth", List.of(0.002f, 0.006f, 0.02f), o -> o instanceof Float);
+//    private static final ForgeConfigSpec.BooleanValue USE_MIN_DAMAGE = BUILDER
+//            .comment(" ")
+//            .comment("Configure the min value when powered mobs attack")
+//            .define("useMinDamage", false);
+//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MIN_DAMAGE = BUILDER
+//            .comment(" ")
+//            .comment("Set the min value when powered mobs attack")
+//            .comment("Example: [1.0, 2.0, 2.5],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+//            .defineList("minDamageValue", List.of(1.0f, 2.0f, 2.5f), o -> o instanceof Float);
+//    private static final ForgeConfigSpec.BooleanValue USE_HIGH_DAMAGE_COUNTERACTION = BUILDER
+//            .comment(" ")
+//            .comment("Configure the damage multiplier taken by mobs will decrease as the base damage value increases.")
+//            .define("useHigh-DamageCounteraction", true);
+//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_DAMAGE_COUNTERACTION = BUILDER
+//            .comment(" ")
+//            .comment("Set the maximum damage divisor taken by mobs")
+//            .comment("For example,if set 9.0 to a mob, damage taken by mobs will min become 0.1x.")
+//            .comment("Example: [7.0, 11.0, 15.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+//            .defineList("maximumDamageDivisor", List.of(7.0f, 11.0f, 15.0f), o -> o instanceof Float);
+//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> DAMAGE_COUNTERACTION_PER_DAMAGE = BUILDER
+//            .comment(" ")
+//            .comment("Set the attack damage divisor per damage taken by mobs")
+//            .comment("Example: [0.04, 0.05, 0.08],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
+//            .defineList("damageDivisorPerDamage", List.of(0.04f, 0.05f, 0.08f), o -> o instanceof Float);
     private static final ForgeConfigSpec.BooleanValue USE_BETTER_STUN = BUILDER
             .comment(" ")
             .comment("Configures whether to ignore the entity's potion effect immunity when the stun effect derives other potion effects.")
             .comment("This allows stun to have a more consistent effect on different mobs.")
             .define("useBetterStun", true);
     private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
+
+
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_LINEAR_GROWTH;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_CLASSICAL_HARMONIC_SERIES_GROWTH;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_GRADUAL_HARMONIC_SERIES_GROWTH;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_DYNAMIC_DAMAGE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_MIN_DAMAGE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_HIGH_DAMAGE_COUNTERACTION;
+
     static {
         BUILDER.push("ReverseNormalEffect")
                 .comment("Potion effects that can be reversed. Effect in this Map will be remove every tick. ",
@@ -155,6 +164,133 @@ public class Config {
 
         BUILDER.pop();
 
+        BUILDER.push("EffectsUsingLinearGrowth")
+                .comment("Determine which potion effects use linear growth.",
+                        "Each entry should include a string representing the effect ID, along with two numbers,",
+                        "the numbers will serving as the additiveTermA and multiplicativeTermB of the growth function respectively.",
+                        "The final effective level of the potion effect is \"A + level × B\", where level is the original level of the effect — that is, the level entered when obtaining it via commands.",
+                        "If an effect does not appear in any of the three lists, it will take effect according to the rules in this list by default.",
+                        "Format: [[\"effect-id-1\", additive-term-A, multiplicative-term-B], [\"effect-id-2\", additive-term-A, multiplicative-term-B], ...etc]");
+        EFFECTS_USING_LINEAR_GROWTH = BUILDER
+                .defineList("effectsUsingLinearGrowth", Arrays.asList
+                                (
+                                        Arrays.asList("immortalers_delight:vulnerable", 0, 0.5),
+                                        Arrays.asList("immortalers_delight:relieve_poison", 1, 1)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+        BUILDER.push("EffectsUsingClassicalHarmonicSeriesGrowth")
+                .comment("Determine which potion effects use linear growth.",
+                        "Each entry should include a string representing the effect ID, along with two numbers,",
+                        "the numbers will serving as the additiveTermA and multiplicativeTermB of the growth function respectively.",
+                        "The final effective level of the potion effect is \"A + level × B\", ",
+                        "The level is calculated using the classic harmonic series. For effects with amplifier = 1 to 4, the values are 1, 1.5, 1.833, and 2.083 respectively.",
+                        "Format: [[\"effect-id-1\", additive-term-A, multiplicative-term-B], [\"effect-id-2\", additive-term-A, multiplicative-term-B], ...etc]");
+        EFFECTS_USING_CLASSICAL_HARMONIC_SERIES_GROWTH = BUILDER
+                .defineList("effectsUsingClassicalHarmonicSeriesGrowth", Arrays.asList
+                                (
+                                        Arrays.asList("immortalers_delight:gas_poison", 0, 1),
+                                        Arrays.asList("immortalers_delight:inebriated", 0, 1),
+                                        Arrays.asList("immortalers_delight:vitality", 0, 1)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+        BUILDER.push("EffectsUsingGradualHarmonicSeriesGrowth")
+                .comment("Determine which potion effects use linear growth.",
+                        "Each entry should include a string representing the effect ID, along with two numbers,",
+                        "the numbers will serving as the additiveTermA and multiplicativeTermB of the growth function respectively.",
+                        "The final effective level of the potion effect is \"A + level × B\",",
+                        "The level is calculated using a gentle harmonic series. For effects with amplifier values from 1 to 10, the corresponding values are 1, 1.5, 2, 2.333, 2.666, 3, 3.25, 3.5, 3.75, and 4 respectively.",
+                        "Format: [[\"effect-id-1\", additive-term-A, multiplicative-term-B], [\"effect-id-2\", additive-term-A, multiplicative-term-B], ...etc]");
+        EFFECTS_USING_GRADUAL_HARMONIC_SERIES_GROWTH = BUILDER
+                .defineList("effectsUsingGradualHarmonicSeriesGrowth", Arrays.asList
+                                (
+                                        Arrays.asList("immortalers_delight:prehistoric_powers", -0.5, 1.5),
+                                        Arrays.asList("immortalers_delight:resistance_to_undead", 0, 1),
+                                        Arrays.asList("immortalers_delight:resistance_to_arthropod", 0, 1),
+                                        Arrays.asList("immortalers_delight:resistance_to_abyssal", 0, 1),
+                                        Arrays.asList("immortalers_delight:resistance_to_illager", 0, 1),
+                                        Arrays.asList("immortalers_delight:warm_current_surges", 0, 1),
+                                        Arrays.asList("immortalers_delight:lingering_infusion", 0, 1),
+                                        Arrays.asList("immortalers_delight:deepness", 0, 1),
+                                        Arrays.asList("immortalers_delight:let_it_freeze", 0, 1),
+                                        Arrays.asList("immortalers_delight:moon_bright", 0, 1)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+        BUILDER.push("MobDynamicDamage")
+                .comment("Configure the attack damage multiplier of powered mobs be increased based on the target's health value.",
+                        "If use, it will make damage become (1 + the value) * old damage.",
+                        "the numbers will be stored as a growth factor A and an upper limit B.",
+                        "The damage multiplier will increase by A per point of the target's health until it reaches B.",
+                        "This configuration option only takes effect when the needStrengthenTheEnemies option is enabled.",
+                        "Format: [[\"mob_or_tag-id-1\", growth-factor-A, upper-limit-B], [\"mob_or_tag-id-2\", growth-factor-A, upper-limit-B], ...etc]");
+        MOB_DYNAMIC_DAMAGE = BUILDER
+                .defineList("mobDynamicDamage", Arrays.asList
+                                (
+                                        Arrays.asList("#immortalers_delight:normal_mobs", 0, 1),
+                                        Arrays.asList("#immortalers_delight:elite_mobs", 0.002, 1.5),
+                                        Arrays.asList("#immortalers_delight:mid_boss", 0.006, 3),
+                                        Arrays.asList("twilightforest:minoshroom", 0.02, 6)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+
+        BUILDER.push("MobMinDamage")
+                .comment("Configure the min value when powered mobs attack.",
+                        "If use, it will make the damage have a min value when powered mobs attack, even if you have the [Resistance V].",
+                        "the numbers will be stored as a percentage value A and an fixed value B.",
+                        "The damage will increase by \"A × target's maxHealth + B\".",
+                        "This configuration option only takes effect when the needStrengthenTheEnemies option is enabled.",
+                        "Format: [[\"mob_or_tag-id-1\", percentage-value-A, fixed-value-B], [\"mob_or_tag-id-2\", percentage-value-A, fixed-value-B], ...etc]");
+        MOB_MIN_DAMAGE = BUILDER
+                .defineList("mobMinDamage", Arrays.asList
+                                (
+                                        Arrays.asList("#immortalers_delight:normal_mobs", 0, 1),
+                                        Arrays.asList("#immortalers_delight:elite_mobs", 0, 2),
+                                        Arrays.asList("#immortalers_delight:mid_boss", 0, 2.5),
+                                        Arrays.asList("irons_spellbooks:dead_king", 0.03, 6)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+
+        BUILDER.push("MobHighDamageCounteraction")
+                .comment("Configure the damage multiplier taken by mobs will decrease as the base damage value increases.",
+                        "If use, it will divide the damage taken by the powered mobs by a coefficient.",
+                        "the numbers will be stored as a growth factor A and an upper limit B.",
+                        "The damage divisor will increase by A per point of the damage value until it reaches B.",
+                        "For example,if set upper limit 9.0 to a mob, damage taken by mobs will min become 0.1x if the damage high enough.",
+                        "This configuration option only takes effect when the needStrengthenTheEnemies option is enabled.",
+                        "Format: [[\"mob_or_tag-id-1\", growth-factor-A, upper-limit-B], [\"mob_or_tag-id-2\", growth-factor-A, upper-limit-B], ...etc]");
+        MOB_HIGH_DAMAGE_COUNTERACTION = BUILDER
+                .defineList("mobHighDamageCounteraction", Arrays.asList
+                                (
+                                        Arrays.asList("#immortalers_delight:normal_mobs", 0.08, 15),
+                                        Arrays.asList("#immortalers_delight:elite_mobs", 0.05, 11),
+                                        Arrays.asList("#immortalers_delight:mid_boss", 0.04, 7),
+                                        Arrays.asList("goety:brood_mother", 0.1, 100)
+
+                                ),
+                        it -> it instanceof List && ((List<?>) it).get(0) instanceof String && ((List<?>) it).get(1) instanceof Number);
+
+        BUILDER.pop();
+
+
         SPEC = BUILDER.build();
     }
 
@@ -169,14 +305,14 @@ public class Config {
     public static boolean rightClickHarvest;
     public static boolean powerBattleModeHint;
     public static boolean powerBattleModeStrengthenTheEnemies;
-    public static boolean useDynamicDamage;
-    public static List<Float> maximumAttackDamageMultiplier;
-    public static List<Float> attackDamageMultiplierPerHealth;
-    public static boolean useMinDamage;
-    public static List<Float> minDamage;
-    public static boolean useHighDamageCounteraction;
-    public static List<Float> maximumDamageCounteraction;
-    public static List<Float> damageCounteractionPerDamage;
+//    public static boolean useDynamicDamage;
+//    public static List<Float> maximumAttackDamageMultiplier;
+//    public static List<Float> attackDamageMultiplierPerHealth;
+//    public static boolean useMinDamage;
+//    public static List<Float> minDamage;
+//    public static boolean useHighDamageCounteraction;
+//    public static List<Float> maximumDamageCounteraction;
+//    public static List<Float> damageCounteractionPerDamage;
     public static boolean useBetterStun;
     public static double mininProbability;
 
@@ -228,14 +364,14 @@ public class Config {
         powerBattleModeHint = POWER_BATTLE_MODE_HINT.get();
 
         powerBattleModeStrengthenTheEnemies = POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES.get();
-        useDynamicDamage = USE_DYNAMIC_DAMAGE.get();
-        maximumAttackDamageMultiplier = convertToListFloat(MAXIMUM_ATTACK_DAMAGE_MULTIPLIER.get());
-        attackDamageMultiplierPerHealth = convertToListFloat(ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH.get());
-        useMinDamage = USE_MIN_DAMAGE.get();
-        minDamage = convertToListFloat(MIN_DAMAGE.get());
-        useHighDamageCounteraction =  USE_HIGH_DAMAGE_COUNTERACTION.get();
-        maximumDamageCounteraction = convertToListFloat(MAXIMUM_DAMAGE_COUNTERACTION.get());
-        damageCounteractionPerDamage = convertToListFloat(DAMAGE_COUNTERACTION_PER_DAMAGE.get());
+//        useDynamicDamage = USE_DYNAMIC_DAMAGE.get();
+//        maximumAttackDamageMultiplier = convertToListFloat(MAXIMUM_ATTACK_DAMAGE_MULTIPLIER.get());
+//        attackDamageMultiplierPerHealth = convertToListFloat(ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH.get());
+//        useMinDamage = USE_MIN_DAMAGE.get();
+//        minDamage = convertToListFloat(MIN_DAMAGE.get());
+//        useHighDamageCounteraction =  USE_HIGH_DAMAGE_COUNTERACTION.get();
+//        maximumDamageCounteraction = convertToListFloat(MAXIMUM_DAMAGE_COUNTERACTION.get());
+//        damageCounteractionPerDamage = convertToListFloat(DAMAGE_COUNTERACTION_PER_DAMAGE.get());
 
         useBetterStun = USE_BETTER_STUN.get();
 

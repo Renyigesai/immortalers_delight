@@ -48,6 +48,7 @@ public class MagicalReversePotionEffect {
     }
 
     public static void updateReverseEffect() {
+
         MagicalReverseMobEffect.reverseNormalEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_NORMAL_EFFECT.get());
         reverseInstantEffect = EffectUtils.get0therModMobEffect(Config.REVERSE_INSTANT_EFFECT.get());
     }

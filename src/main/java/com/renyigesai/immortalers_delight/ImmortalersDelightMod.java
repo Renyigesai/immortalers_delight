@@ -74,6 +74,9 @@ public class ImmortalersDelightMod {
     public static final ImmBoatUpgradeTrigger IMM_BOAT_UPGRADE_TRIGGER = new ImmBoatUpgradeTrigger();
 
 
+    public static final long RANDOM_SEED = System.currentTimeMillis();
+    public static final Random RANDOM = new Random(RANDOM_SEED);
+
     public ImmortalersDelightMod() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -132,6 +135,17 @@ public class ImmortalersDelightMod {
                         // 依次注册自定义包：示例 - 玩家打开生物背包界面的包（客户端→服务端）
 //                        ImmortalersNetwork.initChannel();
 //                        ImmortalersNetwork.registerPackets();
+//                        // 在这里获取版本号
+//                        String modVersion = ModList.get()
+//                                .getModContainerById(ImmortalersDelightMod.MODID)
+//                                .map(c -> c.getModInfo().getVersion().toString())
+//                                .orElse("default_version");
+//                        System.out.println("modVersion: " + modVersion);
+//                        // 生成固定种子
+//                        RANDOM_SEED = modVersion.hashCode() & 0xFFFFFFFFL;
+//
+//                        // 创建全局静态随机数
+//                        RANDOM = new Random(RANDOM_SEED);
                     }
             );
         }

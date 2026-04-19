@@ -34,7 +34,11 @@ public class PoweredFoodProperties {
             .build();
     public static final FoodProperties LONELY_SPIRIT_WINE = new FoodProperties.Builder()
             .alwaysEat()
-            .effect(()->new MobEffectInstance(MobEffects.HUNGER,60,99),1.0F)
+            .nutrition(-4).saturationMod(1.0f)
+            .effect(()->new MobEffectInstance(ImmortalersDelightMobEffect.WEAK_WITHER.get(),1200,4),1.0F)
+            .build();
+    public static final FoodProperties LONELY_SPIRIT_WINE_AHEAD = new FoodProperties.Builder()
+            .effect(()->new MobEffectInstance(MobEffects.CONFUSION,300,1),1.0F)
             .build();
     public static final FoodProperties GLISTERING_WATERMELON_JUICE = new FoodProperties.Builder()
             .alwaysEat()

@@ -1759,7 +1759,7 @@ public class ImmortalersDelightItems {
                 new ImmortalersDogFoodItem(foodItem(ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE),ImmortalersDelightFoodProperties.BIZARRE_SAUSAGE_FOE_DOG,PoweredFoodProperties.BIZARRE_SAUSAGE_FOE_DOG,true,true));
 
         LONELY_SPIRIT_WINE = registerWithTab("lonely_spirit_wine",()->
-                new PowerfulAbleFoodItem(drinkItem(ImmortalersDelightFoodProperties.LONELY_SPIRIT_WINE),PoweredFoodProperties.LONELY_SPIRIT_WINE,true,false));
+                new ShieldLikeFoodItem(drinkItem(ImmortalersDelightFoodProperties.LONELY_SPIRIT_WINE),PoweredFoodProperties.LONELY_SPIRIT_WINE,ImmortalersDelightFoodProperties.LONELY_SPIRIT_WINE_AHEAD,PoweredFoodProperties.LONELY_SPIRIT_WINE_AHEAD,true,true,3));
 
         EVOLUTCORN_CHICKEN_BURGER = registerWithTab("evolutcorn_chicken_burger",()->
                 new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_CHICKEN_BURGER),PoweredFoodProperties.EVOLUTCORN_CHICKEN_BURGER,true,false));
@@ -1827,7 +1827,7 @@ public class ImmortalersDelightItems {
         SEXTLOTUS_ROOT = registerWithTab("sextlotus_root",() ->
                 new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.SEXTLOTUS_ROOT),true));
         SEXTLOTUS_SEEDS =  registerWithTab("sextlotus_seeds",()->
-                new ItemNameBlockItem(ImmortalersDelightBlocks.SEXTLOTUS.get(), new Item.Properties()));
+                new TooltipItemNameBlockItem(ImmortalersDelightBlocks.SEXTLOTUS.get(), new Item.Properties(),Component.translatable("tooltip.immortalers_delight.sextlotus_seeds").withStyle(ChatFormatting.GRAY)));
         SEXTLOTUS_LEAF = registerWithTab("sextlotus_leaf",()->
                 new Item(basicItem()));
         SEXTLOTUS_ROOT_CUTS = registerWithTab("sextlotus_root_cuts",()->

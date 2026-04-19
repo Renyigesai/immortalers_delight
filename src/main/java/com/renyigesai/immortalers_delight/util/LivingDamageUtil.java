@@ -27,6 +27,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class LivingDamageUtil {
+    /**
+     * 获取一个数是2的几次方
+     * @param value
+     * @return
+     */
+    public static int getPowerOfTwo(int value) {
+        if (value <= 0) return 0;
+        return 31 - Integer.numberOfLeadingZeros(value);
+    }
+
     //疣猪兽击退
     public static void knockbackLikeHogLin(LivingEntity attacker, LivingEntity hurtOne) {
         double d0 = attacker.getAttributeValue(Attributes.ATTACK_KNOCKBACK);

@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
@@ -12,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -139,31 +142,31 @@ public class FreezeEffect {
         Long expireTime = entityHasEffect.get(uuid).getTime();
         /* 具体效果的实现逻辑 */
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
-            //令实体处于寒冷状态
-            entity.setIsInPowderSnow(true);
-            entity.setTicksFrozen(entity.getTicksRequiredToFreeze() + 4);
-            spawnParticle(entity, 1);
             //为实体添加缓慢并造成冻结伤害
-            if (entity.tickCount % 40 == 20) {
+            if (entity.tickCount % 40 == 0) {
                 boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+                MobEffect thisEffect = ImmortalersDelightMobEffect.LET_IT_FREEZE.get();
                 int lv = entityHasEffect.get(uuid).getAmplifier();
-                //冻结伤害每级翻倍，由于细雪状态本身有伤害所以额外伤害仅在大于1级生效。
+                if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
+
                 //在普通模式下，冻结伤害遵守原版的冻伤规则；超凡模式下则将所有不免疫细雪的实体视为寒冷脆弱的，并且可以对免疫细雪的实体造成伤害
-                if (isPowerful || lv > 0) {
-                    float damage = (isPowerful && lv == 0) ? 1.0f : 0.5f;
-                    for (int i = 0; i < lv; i++) {damage *= 2;}
-                    float bufferByEntity = 1.0f;
-                    if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES) || isPowerful) bufferByEntity = 5;
-                    if (entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) bufferByEntity = isPowerful ? 1 : 0;
-                    damage *= bufferByEntity;
-                    if (damage > 0) entity.hurt(entity.damageSources().freeze(), damage);
-                }
-                int lv1 = lv + 1;
+                float damage = 1 << lv;
+                float bufferByEntity = 1.0f;
+                if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES) || isPowerful) bufferByEntity = 5;
+                if (entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) bufferByEntity = isPowerful ? 1 : 0;
+                damage *= bufferByEntity;
+                if (damage > 0) entity.hurt(entity.damageSources().freeze(), damage);
+
                 //普通模式加最多附加缓慢V，即不能将实体的速度减速到0；
+                int lv1 = lv + 1;
                 if (!isPowerful && lv1 > 4) lv1 = 4;
                 MobEffectInstance effect = new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40 + lv1 * 20, lv1);
                 entity.addEffect( effect);
             }
+            //令实体处于寒冷状态
+            entity.setIsInPowderSnow(true);
+            entity.setTicksFrozen(entity.getTicksRequiredToFreeze() + 4);
+            spawnParticle(entity, 1);
         } else removeImmortalEffect(entity);
     }
 

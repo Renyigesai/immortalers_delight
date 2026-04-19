@@ -1,19 +1,30 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
-public class WarmCurrentSurgesMobEffect extends MobEffect {
+public class WarmCurrentSurgesMobEffect extends BaseMobEffect {
 
 
     public WarmCurrentSurgesMobEffect() {
@@ -21,7 +32,7 @@ public class WarmCurrentSurgesMobEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         if (this == WARM_CURRENT_SURGES.get()) {
             //免疫缓慢的逻辑实现
             if (pEntity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
@@ -48,7 +59,65 @@ public class WarmCurrentSurgesMobEffect extends MobEffect {
         }
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTickInControl(int duration, int amplifier) {
         return true;
+    }
+
+
+
+    @Mod.EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID,
+            bus = Mod.EventBusSubscriber.Bus.FORGE
+    )
+    public static class WarmCurrentSurgesPotionEffect {
+        @SubscribeEvent
+        public static void onEntityAddEffect(MobEffectEvent.Applicable event) {
+            if (event != null && event.getEntity() != null) {
+                Entity entity = event.getEntity();
+                if (entity instanceof LivingEntity livingEntity
+                        && livingEntity.hasEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get())
+                        && event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN) {
+                    //int time = Objects.requireNonNull(livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get())).getDuration();
+                    MobEffectInstance thisEffect = livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get());
+                    int lv = thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect ? effect.getTruthUsingAmplifier(thisEffect.getAmplifier()) : 0;
+                    //int timeEvt = event.getEffectInstance().getDuration();
+                    int lvEvt = event.getEffectInstance().getAmplifier();
+                    if (lv >= lvEvt){
+                        event.setResult(Event.Result.DENY);
+                    }
+                }
+            }
+        }
+
+        @SubscribeEvent
+        public static void onCreatureHurt(LivingHurtEvent evt) {
+            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+                return;
+            }
+            LivingEntity hurtOne = evt.getEntity();
+            LivingEntity attacker = null;
+            Boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+            if (evt.getSource().getEntity() instanceof LivingEntity livingEntity){
+                attacker = livingEntity;
+            }
+
+            if (!hurtOne.level().isClientSide) {
+                if (attacker != null){
+                    MobEffectInstance thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get());
+                    if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect) {
+                        int lv = effect.getTruthUsingAmplifier(thisEffect.getAmplifier());
+                        float damage = hurtOne.getRemainingFireTicks() > 1 ? 4 << lv : 2 << lv;
+                        //立即结算目标的着火伤害，结算上限为每级8点伤害
+                        if (isPowerful) {
+                            damage += Math.min(hurtOne.getRemainingFireTicks() / 20, (lv + 1) * 8);
+                            hurtOne.setRemainingFireTicks(0);
+                        }
+                        hurtOne.invulnerableTime = 0;
+                        hurtOne.hurt(hurtOne.damageSources().onFire(), damage);
+                        hurtOne.invulnerableTime = 0;
+                    }
+                }
+            }
+        }
     }
 }
