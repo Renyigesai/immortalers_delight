@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
+import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -24,7 +25,9 @@ public class ImmortalersDelightGroup {
                     .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
                     .displayItems((parameters, output) -> {
                         addCreativeModeTab(output,ImmortalersDelightMod.MODID + "_main",ImmortalersDelightItems.class,true);
-                        ImmortalersDelightItems.CREATIVE_TAB_ITEMS.forEach(itemRegistryObject ->  output.accept(itemRegistryObject.get()));
+                        if (ImmortalersDelightMod.isLtc2){
+                            Ltc2Items.CREATIVE_TAB_ITEMS.forEach(itemRegistryObject ->  output.accept(itemRegistryObject.get()));
+                        }
                     })
                     .build());
 

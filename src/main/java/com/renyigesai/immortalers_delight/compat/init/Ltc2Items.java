@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.compat.init;
 import com.doggystudio.chirencqr.ltc.server.item.ItemLatiaoBase;
 import com.doggystudio.chirencqr.ltc.server.misc.EnumLatiaoGrade;
 import com.doggystudio.chirencqr.ltc.server.item.UpgradableLatiaoItem;
+import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.compat.item.DeveloperLatiaoItem;
 import com.renyigesai.immortalers_delight.compat.item.KwatWheatLatiaoItem;
@@ -15,10 +16,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.LinkedHashSet;
 import java.util.function.Supplier;
 
 public class Ltc2Items {
     public static final DeferredRegister<Item> ITEMS;
+    public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
     /*原料*/
     public static final RegistryObject<Item> EVOLUTCORN_POWDER;
     /*辣条*/
@@ -92,7 +95,7 @@ public class Ltc2Items {
 
     public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
         RegistryObject<Item> item = ITEMS.register(name, supplier);
-        ImmortalersDelightItems.CREATIVE_TAB_ITEMS.add(item);
+        CREATIVE_TAB_ITEMS.add(item);
         return item;
     }
 

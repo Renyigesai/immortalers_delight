@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -83,6 +84,7 @@ public class AncientWoodBoat extends ImmortalersBoat {
     public static boolean isAnimalEsque(Entity passenger) {
         return passenger instanceof Animal || passenger instanceof HoglinBase || (passengerSize(passenger) > 1 && passenger instanceof Spider);
     }
+
     @Override
     public void positionRider(Entity passenger, Entity.MoveFunction function) {
         if (this.hasPassenger(passenger)) {
@@ -221,6 +223,11 @@ public class AncientWoodBoat extends ImmortalersBoat {
             this.discard();
             return true;
         } else return false;
+    }
+
+    @Override
+    public Component getName() {
+        return Component.translatable("entity.immortalers_delight.ancient_boat");
     }
 
 }
