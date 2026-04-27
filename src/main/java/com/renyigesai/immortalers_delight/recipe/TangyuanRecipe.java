@@ -17,6 +17,10 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class TangyuanRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
@@ -46,24 +50,32 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer inv, Level pLevel) {
-        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
+        if (!this.container.isEmpty() && !this.getContainer().is(inv.getItem(4).getItem())) {
+            return false;
+        }
 
-        if (this.container.isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {
-            ItemStack stack = inv.getItem(6);
-            boolean correct_order = this.getCacheItem().is(stack.getItem()) && this.getCacheItem().getOrCreateTag().equals(stack.getOrCreateTag());
-            if (this.result_cache.isEmpty() || correct_order) {
-                for (int j = 0; j < 4; ++j) {
-                    ItemStack itemstack = inv.getItem(j);
-                    if (!itemstack.isEmpty()) {
-                        ++i;
-                        inputs.add(itemstack);
-                    }
-                }
-                System.out.println("输入物品数量：" + i + ",输入物品：" + inputs);
-            } else System.out.println("缓存不对");
-        } else System.out.println("容器不对");
-        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+        if (!this.result_cache.isEmpty()) {
+            ItemStack currentCacheItem = inv.getItem(6);
+            ItemStack requiredCacheItem = this.getCacheItem();
+            boolean correctOrder = requiredCacheItem.is(currentCacheItem.getItem())
+                    && Objects.equals(requiredCacheItem.getTag(), currentCacheItem.getTag());
+            if (!correctOrder) {
+                return false;
+            }
+        }
+
+        List<ItemStack> inputs = new ArrayList<>();
+        int inputCount = 0;
+        for (int j = 0; j < 4; ++j) {
+            ItemStack itemStack = inv.getItem(j);
+            if (!itemStack.isEmpty()) {
+                inputCount++;
+                inputs.add(itemStack);
+            }
+        }
+
+        return inputCount == this.inputItems.size()
+                && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
     @Override
