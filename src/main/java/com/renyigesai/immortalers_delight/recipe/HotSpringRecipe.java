@@ -37,7 +37,7 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
-        for (int j = 0; j < 9; ++j) {
+        for (int j = 0; j < pContainer.getContainerSize(); ++j) {
             ItemStack itemstack = pContainer.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
