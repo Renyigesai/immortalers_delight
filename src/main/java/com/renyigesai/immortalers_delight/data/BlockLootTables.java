@@ -74,7 +74,7 @@ public class BlockLootTables extends BlockLootSubProvider {
     private void customDrop(){
         add(ImmortalersDelightBlocks.ANCIENT_WOOD_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.ANCIENT_WOOD_DOOR.get()));
         add(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get()));
-        add(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.HIMEKAIDO_DOOR.get()));
+        add(ImmortalersDelightBlocks.PEARLIP_SHELL_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.PEARLIP_SHELL_DOOR.get()));
         add(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get()));
         add(ImmortalersDelightBlocks.A_BUSH_DOOR.get(),createDoorTable(ImmortalersDelightBlocks.A_BUSH_DOOR.get()));
         addAllDrink(ImmortalersDelightBlocks.LEISAMBOO_TEA.get(),
