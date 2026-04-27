@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -18,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -33,30 +33,20 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import java.util.*;
 
 public class HotSpringFluidsBlock extends LiquidBlock {
+    private static final class RecipeMatchResult {
+        private final HotSpringRecipe recipe;
+        private final Map<ItemEntity, Integer> consumeCounts;
+
+        private RecipeMatchResult(HotSpringRecipe recipe, Map<ItemEntity, Integer> consumeCounts) {
+            this.recipe = recipe;
+            this.consumeCounts = consumeCounts;
+        }
+    }
 
     public HotSpringFluidsBlock() {
         super(ImmortalersDelightFluids.HOT_SPRING,
                 Properties.of().mapColor(MapColor.WATER).strength(100f)
                         .noCollission().noLootTable().liquid().pushReaction(PushReaction.DESTROY).sound(SoundType.EMPTY).replaceable().randomTicks());
-    }
-
-
-    private Optional<HotSpringRecipe> getCurrentRecipe(Level level, List<ItemStack> list) {
-        SimpleContainer inventory = new SimpleContainer(list.size());
-        List<ItemStack> inputs = new ArrayList<>();
-
-        for (ItemStack stack : list) {
-            if (!stack.isEmpty()) {
-                inputs.add(stack);
-            }
-        }
-
-        for (int i = 0; i < inputs.size(); i++) {
-            inventory.setItem(i, inputs.get(i));
-        }
-
-        return level.getRecipeManager()
-                .getRecipeFor(HotSpringRecipe.Type.INSTANCE, inventory, level);
     }
 
     @Override
@@ -113,15 +103,87 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         return false;
     }
 
-    private List<ItemEntity> getCraftableItemEntities(List<ItemEntity> itemEntityList) {
+    private List<ItemEntity> getCandidateItemEntities(List<ItemEntity> itemEntityList) {
         List<ItemEntity> craftableItems = new ArrayList<>();
         for (ItemEntity entity : itemEntityList) {
             ItemStack itemStack = entity.getItem();
-            if (!itemStack.isEmpty() && itemStack.getCount() == 1) {
+            if (!itemStack.isEmpty()) {
                 craftableItems.add(entity);
             }
         }
         return craftableItems;
+    }
+
+    private Optional<RecipeMatchResult> findMatchingRecipe(Level level, List<ItemEntity> itemEntityList) {
+        List<HotSpringRecipe> recipes = level.getRecipeManager().getAllRecipesFor(HotSpringRecipe.Type.INSTANCE);
+        for (HotSpringRecipe recipe : recipes) {
+            Map<ItemEntity, Integer> consumeCounts = matchRecipe(recipe, itemEntityList);
+            if (!consumeCounts.isEmpty()) {
+                return Optional.of(new RecipeMatchResult(recipe, consumeCounts));
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Map<ItemEntity, Integer> matchRecipe(HotSpringRecipe recipe, List<ItemEntity> itemEntityList) {
+        List<Ingredient> ingredients = new ArrayList<>(recipe.getIngredients());
+        if (ingredients.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        int[] remainingCounts = new int[itemEntityList.size()];
+        for (int i = 0; i < itemEntityList.size(); i++) {
+            remainingCounts[i] = itemEntityList.get(i).getItem().getCount();
+        }
+
+        LinkedHashMap<ItemEntity, Integer> consumeCounts = new LinkedHashMap<>();
+        boolean matched = matchIngredients(ingredients, itemEntityList, remainingCounts, 0, consumeCounts);
+        return matched ? consumeCounts : Collections.emptyMap();
+    }
+
+    private boolean matchIngredients(List<Ingredient> ingredients, List<ItemEntity> itemEntityList, int[] remainingCounts,
+                                     int ingredientIndex, Map<ItemEntity, Integer> consumeCounts) {
+        if (ingredientIndex >= ingredients.size()) {
+            return true;
+        }
+
+        Ingredient ingredient = ingredients.get(ingredientIndex);
+        for (int i = 0; i < itemEntityList.size(); i++) {
+            ItemEntity itemEntity = itemEntityList.get(i);
+            if (remainingCounts[i] <= 0 || !ingredient.test(itemEntity.getItem())) {
+                continue;
+            }
+
+            remainingCounts[i]--;
+            consumeCounts.merge(itemEntity, 1, Integer::sum);
+            if (matchIngredients(ingredients, itemEntityList, remainingCounts, ingredientIndex + 1, consumeCounts)) {
+                return true;
+            }
+
+            remainingCounts[i]++;
+            int currentCount = consumeCounts.getOrDefault(itemEntity, 0) - 1;
+            if (currentCount <= 0) {
+                consumeCounts.remove(itemEntity);
+            } else {
+                consumeCounts.put(itemEntity, currentCount);
+            }
+        }
+
+        return false;
+    }
+
+    private void consumeMatchedItems(Map<ItemEntity, Integer> consumeCounts) {
+        for (Map.Entry<ItemEntity, Integer> entry : consumeCounts.entrySet()) {
+            ItemEntity itemEntity = entry.getKey();
+            int consumeCount = entry.getValue();
+            ItemStack itemStack = itemEntity.getItem();
+            itemStack.shrink(consumeCount);
+            if (itemStack.isEmpty()) {
+                itemEntity.remove(Entity.RemovalReason.DISCARDED);
+            } else {
+                itemEntity.setItem(itemStack);
+            }
+        }
     }
 
     private void craftTick(Level level, BlockPos pos) {
@@ -130,26 +192,20 @@ public class HotSpringFluidsBlock extends LiquidBlock {
             return;
         }
 
-        List<ItemEntity> craftableItems = getCraftableItemEntities(itemEntityList);
-        if (craftableItems.isEmpty()) {
+        List<ItemEntity> candidateItems = getCandidateItemEntities(itemEntityList);
+        if (candidateItems.isEmpty()) {
             return;
         }
 
-        List<ItemStack> stackList = new ArrayList<>(craftableItems.size());
-        for (ItemEntity craftableItem : craftableItems) {
-            stackList.add(craftableItem.getItem());
-        }
-
-        Optional<HotSpringRecipe> recipeOptional = getCurrentRecipe(level, stackList);
-        if (recipeOptional.isEmpty()) {
+        Optional<RecipeMatchResult> matchResultOptional = findMatchingRecipe(level, candidateItems);
+        if (matchResultOptional.isEmpty()) {
             return;
         }
 
-        HotSpringRecipe recipe = recipeOptional.get();
+        RecipeMatchResult matchResult = matchResultOptional.get();
+        HotSpringRecipe recipe = matchResult.recipe;
         ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-        for (ItemEntity itemEntity : craftableItems) {
-            itemEntity.remove(Entity.RemovalReason.DISCARDED);
-        }
+        consumeMatchedItems(matchResult.consumeCounts);
         ItemUtils.spawnItemEntity(level, resultItem, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 0, 0);
         if (level instanceof ServerLevel serverLevel) {
             for (int i = 0; i < 4; i++) {
