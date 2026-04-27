@@ -61,10 +61,10 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         double z = pPos.getZ() + 0.5;
         boolean isNether = pLevel.dimension() == Level.NETHER;
         if ((isNether && pLevel.getGameTime() % 10 == 0) || isHeatSources(pLevel, pPos)) {
-            pLevel.addParticle(ParticleTypes.POOF, x + pRandom.nextDouble(-0.5D, 0.5D), y, z + pRandom.nextDouble(-0.5D, 0.5D), 0, 0, 0);
-            pLevel.addParticle(ModParticleTypes.STEAM.get(), x + pRandom.nextDouble(-0.5D, 0.5D), y, z + pRandom.nextDouble(-0.5D, 0.5D), 0, 0, 0);
+            pLevel.addParticle(ParticleTypes.POOF, x + pRandom.nextDouble() - 0.5D, y, z + pRandom.nextDouble() - 0.5D, 0, 0, 0);
+            pLevel.addParticle(ModParticleTypes.STEAM.get(), x + pRandom.nextDouble() - 0.5D, y, z + pRandom.nextDouble() - 0.5D, 0, 0, 0);
         } else if (pLevel.getGameTime() % 20 == 0) {
-            pLevel.addParticle(ParticleTypes.POOF, x + pRandom.nextDouble(-0.5D, 0.5D), y, z + pRandom.nextDouble(-0.5D, 0.5D), 0, 0, 0);
+            pLevel.addParticle(ParticleTypes.POOF, x + pRandom.nextDouble() - 0.5D, y, z + pRandom.nextDouble() - 0.5D, 0, 0, 0);
         }
     }
 
