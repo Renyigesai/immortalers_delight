@@ -18,6 +18,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      mod_version: ${{ steps.metadata.outputs.mod_version }}
+      release_tag: ${{ steps.metadata.outputs.release_tag }}
+      release_name: ${{ steps.metadata.outputs.release_name }}
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
@@ -31,6 +35,14 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Extract build metadata
+        id: metadata
+        run: |
+          mod_version="$(grep '^mod_version=' gradle.properties | cut -d= -f2-)"
+          echo "mod_version=${mod_version}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=pre-${mod_version}" >> "${GITHUB_OUTPUT}"
+          echo "release_name=Pre-release ${mod_version}" >> "${GITHUB_OUTPUT}"
+
       - name: Build with Gradle
         run: bash ./gradlew build --stacktrace
 
@@ -40,3 +52,126 @@ jobs:
             echo "No JAR file was generated under build/libs."
             exit 1
           fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-libs-${{ steps.metadata.outputs.mod_version }}
+          path: build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 14
+
+  prerelease:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build-libs-${{ needs.build.outputs.mod_version }}
+          path: release-artifacts
+
+      - name: Publish GitHub pre-release
+        uses: actions/github-script@v9
+        env:
+          MOD_VERSION: ${{ needs.build.outputs.mod_version }}
+          RELEASE_TAG: ${{ needs.build.outputs.release_tag }}
+          RELEASE_NAME: ${{ needs.build.outputs.release_name }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const releaseTag = process.env.RELEASE_TAG;
+            const releaseName = process.env.RELEASE_NAME;
+            const modVersion = process.env.MOD_VERSION;
+            const runUrl = process.env.RUN_URL;
+            const artifactDir = path.join(process.env.GITHUB_WORKSPACE, 'release-artifacts');
+
+            const body = [
+              `Automated pre-release build for \`${modVersion}\`.`,
+              '',
+              `- Commit: \`${context.sha}\``,
+              `- Workflow run: ${runUrl}`
+            ].join('\n');
+
+            let release;
+            try {
+              release = (await github.rest.repos.getReleaseByTag({
+                owner,
+                repo,
+                tag: releaseTag
+              })).data;
+
+              release = (await github.rest.repos.updateRelease({
+                owner,
+                repo,
+                release_id: release.id,
+                tag_name: releaseTag,
+                target_commitish: context.sha,
+                name: releaseName,
+                body,
+                draft: false,
+                prerelease: true
+              })).data;
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
+
+              release = (await github.rest.repos.createRelease({
+                owner,
+                repo,
+                tag_name: releaseTag,
+                target_commitish: context.sha,
+                name: releaseName,
+                body,
+                draft: false,
+                prerelease: true
+              })).data;
+            }
+
+            const files = fs.readdirSync(artifactDir)
+              .filter((file) => file.endsWith('.jar'))
+              .sort();
+
+            if (files.length === 0) {
+              core.setFailed('No JAR files were downloaded for the pre-release step.');
+              return;
+            }
+
+            const existingAssets = await github.paginate(github.rest.repos.listReleaseAssets, {
+              owner,
+              repo,
+              release_id: release.id,
+              per_page: 100
+            });
+
+            for (const fileName of files) {
+              const existingAsset = existingAssets.find((asset) => asset.name === fileName);
+              if (existingAsset) {
+                await github.rest.repos.deleteReleaseAsset({
+                  owner,
+                  repo,
+                  asset_id: existingAsset.id
+                });
+              }
+
+              const filePath = path.join(artifactDir, fileName);
+              const fileData = fs.readFileSync(filePath);
+
+              await github.rest.repos.uploadReleaseAsset({
+                owner,
+                repo,
+                release_id: release.id,
+                name: fileName,
+                data: fileData
+              });
+            }
