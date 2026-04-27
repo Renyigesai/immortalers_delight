@@ -3,7 +3,6 @@ package com.renyigesai.immortalers_delight.potion.immortaleffects;
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
-import com.renyigesai.immortalers_delight.message.DeathlessEffectPacket;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;

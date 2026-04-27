@@ -1,8 +1,6 @@
 package com.renyigesai.immortalers_delight.network;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.message.DeathlessEffectPacket;
-import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -72,20 +70,7 @@ public static SimpleChannel getChannel() {
     }
 
     public static void registerPackets() {
-        // 此处注册你的所有自定义网络包（如 PlayerMessagePacket）
-        getChannel().registerMessage(nextPacketId(),
-                TerracottaGolemMessage.class,
-                TerracottaGolemMessage::write,
-                TerracottaGolemMessage::read,
-                TerracottaGolemMessage.Handler::handle
-        );
-        getChannel().registerMessage(
-                nextPacketId(), // 包唯一ID
-                DeathlessEffectPacket.class, // 自定义包类
-                DeathlessEffectPacket::write, // 序列化方法（写入 PacketBuffer）
-                DeathlessEffectPacket::read, // 反序列化方法（从 PacketBuffer 读取）
-                DeathlessEffectPacket::handle // 包处理方法（服务端/客户端处理逻辑）
-        );
+        // 当前没有仍在使用的自定义消息包，保留该入口以便后续按需扩展。
     }
 
     public static void initChannel() {
