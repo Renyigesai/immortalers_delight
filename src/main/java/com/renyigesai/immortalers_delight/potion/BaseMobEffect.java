@@ -3,13 +3,9 @@ package com.renyigesai.immortalers_delight.potion;
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
-import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -91,7 +87,8 @@ public class BaseMobEffect extends MobEffect {
         int truthAmplifier = getTruthUsingAmplifier(amplifier);
         applyEffectTickInControl(pEntity, truthAmplifier);
     }
-    //拆分工具方法方便子类重写
+    // 拆分工具方法方便子类重写。这里收到的 amplifier 已经是换算后的真实等级，
+    // 子类不要在此处再调用 super.applyEffectTick(...)，否则会再次回到本方法形成递归。
     protected void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
 
     }

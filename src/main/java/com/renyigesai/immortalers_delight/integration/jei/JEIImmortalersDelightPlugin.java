@@ -18,9 +18,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Objects;
 
 @JeiPlugin
 public class JEIImmortalersDelightPlugin implements IModPlugin {
@@ -39,7 +39,13 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
+        Level level = Minecraft.getInstance().level;
+        if (level == null) {
+            ImmortalersDelightMod.LOGGER.warn("JEI 配方注册时客户端世界尚未初始化，跳过本次注册。");
+            return;
+        }
+
+        RecipeManager recipeManager = level.getRecipeManager();
         List<EnchantalCoolerRecipe> enchantalCoolerRecipes = recipeManager.getAllRecipesFor(EnchantalCoolerRecipe.Type.INSTANCE);
         registration.addRecipes(ENCHANTAL_COOLER_TYPE,enchantalCoolerRecipes);
 

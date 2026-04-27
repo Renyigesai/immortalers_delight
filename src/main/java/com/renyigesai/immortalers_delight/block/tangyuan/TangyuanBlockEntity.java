@@ -585,7 +585,6 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         //Optional<PillagerKnifeAddPotionRecipe> specialRecipe = findSpecialRecipe();
         // 检查普通配方
         Optional<TangyuanRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isEmpty()) System.out.println("no recipe");
         // 若无匹配配方，返回null，否则返回配方实例
         return recipeOptional.orElse(null);
     }
@@ -643,7 +642,6 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
             // 放入合成结果
             // 如果没有结束，将结果放入缓存槽，否则放入输出槽
             int slot_id = recipe.isFinished() ? OUTPUT_SLOT : RESULT_CACHE_SLOT;
-            System.out.println("is finished? "+recipe.isFinished());
             if (outputStack.isEmpty()) {
                 inventory.setStackInSlot(slot_id, resultItem);
             } else {

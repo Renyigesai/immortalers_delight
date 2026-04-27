@@ -52,6 +52,9 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class SnifferEvent {
+    private static final Method SERIALIZE_CAPS_METHOD = initSerializeCapsMethod();
+    private static boolean capNbtReadFailureLogged;
+
     @SubscribeEvent
     public static void onDropSeed(SnifferDropSeedEvent event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
@@ -215,24 +218,32 @@ public class SnifferEvent {
         }
     }
 
-    private static CompoundTag getItemStackCapNBT(ItemStack itemStack) {
-        CompoundTag tag = itemStack.getOrCreateTag();
+    private static Method initSerializeCapsMethod() {
         try {
-            // 获取private字段
             Method method = CapabilityProvider.class.getDeclaredMethod("serializeCaps");
-            method.setAccessible(true); // 允许访问private成员
-
-            // 读取值
-            CompoundTag value = (CompoundTag) method.invoke(itemStack); // 通过实例访问private字段
-            if (value != null) {
-                tag = value.copy();
-                //System.out.println("获取capNBT字段成功");
-            } else System.out.println("我们get到了null值，怎么会这样呢？");
-        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            System.out.println("获取capNBT字段失败");
-            e.printStackTrace();
+            method.setAccessible(true);
+            return method;
+        } catch (NoSuchMethodException e) {
+            ImmortalersDelightMod.LOGGER.warn("读取刷子 capability 数据失败，serializeCaps 方法不存在。", e);
+            return null;
         }
-        return tag;
+    }
+
+    private static CompoundTag getItemStackCapNBT(ItemStack itemStack) {
+        if (SERIALIZE_CAPS_METHOD == null) {
+            return new CompoundTag();
+        }
+
+        try {
+            CompoundTag value = (CompoundTag) SERIALIZE_CAPS_METHOD.invoke(itemStack);
+            return value == null ? new CompoundTag() : value.copy();
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            if (!capNbtReadFailureLogged) {
+                capNbtReadFailureLogged = true;
+                ImmortalersDelightMod.LOGGER.warn("读取刷子 capability 数据失败，已回退为空 capability。", e);
+            }
+            return new CompoundTag();
+        }
     }
 
 //    private static CompoundTag getItemStackCapNBT(ItemStack itemStack) {

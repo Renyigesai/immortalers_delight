@@ -6,7 +6,6 @@ import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,10 +21,6 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 public class SmokeAbstinenceEffect extends BaseMobEffect {
     public SmokeAbstinenceEffect() {
         super(MobEffectCategory.BENEFICIAL,-6710887);
@@ -33,7 +28,7 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
 
     @Override
     public void applyEffectTickInControl(LivingEntity pLivingEntity, int pAmplifier) {
-        super.applyEffectTick(pLivingEntity, pAmplifier);
+        // 这里的 pAmplifier 已经是 BaseMobEffect 换算后的真实等级，不能再回调父类入口。
         if (pLivingEntity.level().isClientSide()){
             return;
         }
@@ -44,7 +39,7 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
         //在下界时添加效果
         this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
         if (pLivingEntity.level().dimension() == Level.NETHER) {
-            removeEffects(pLivingEntity, pAmplifier);
+            removeEffects(pLivingEntity);
             //力量急迫属性加成
             this.addAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
             //生命回复回血
@@ -77,7 +72,7 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
     //添加效果，效果等级随本效果等级提升
     //I级破烟的效果为力量II、抗火、急迫III、抗性II、生命恢复，普通模式为加算等级，否则为乘算等级
     //不使用抗性提升以免出现抗性V
-    static void removeEffects(LivingEntity entity, int pAmplifier){
+    static void removeEffects(LivingEntity entity){
         entity.removeEffect(MobEffects.DAMAGE_BOOST);
         entity.removeEffect(MobEffects.FIRE_RESISTANCE);
         entity.removeEffect(MobEffects.DAMAGE_RESISTANCE);
@@ -128,20 +123,20 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
                 event.setNewSpeed(event.getNewSpeed() * multiplier);
             }
         }
-        //实现抗性II与抗火的效果
+        // 实现全维度减伤，并在下界额外模拟抗火效果。
         @SubscribeEvent
         public static void onCreatureHurt(LivingHurtEvent evt) {
             if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
-            if (!hurtOne.level().isClientSide() && hurtOne.level().dimension() == Level.NETHER) {
+            if (!hurtOne.level().isClientSide()) {
                 float damage = evt.getAmount();
                 MobEffectInstance effect = hurtOne.getEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get());
                 if (effect != null && effect.getEffect() instanceof BaseMobEffect baseMobEffect) {
                     boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                     int lv = baseMobEffect.getTruthUsingAmplifier(effect.getAmplifier());
-                    //因为原意为派生抗性进行减伤，因此其减伤与抗性提升互斥
+                    // 词条语义是“破烟减伤”与抗性提升互斥，抗性更高时破烟不再额外提供减伤。
                     MobEffectInstance effect2 = hurtOne.getEffect(MobEffects.DAMAGE_RESISTANCE);
                     if (effect2 != null) {
                         lv -= effect2.getAmplifier();
@@ -153,9 +148,8 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
                         }
                         evt.setAmount(Math.min(damage * buffer, damage));
                     }
-                    //因为原意为派生抗火进行防火，因此其防火效果与抗火互斥
-                    MobEffectInstance effect3 = hurtOne.getEffect(MobEffects.FIRE_RESISTANCE);
-                    if (effect3 == null) {
+                    // 词条中的“持续获得抗火”只应拦截火焰类伤害，不能把所有伤害都归零。
+                    if (hurtOne.level().dimension() == Level.NETHER && evt.getSource().is(DamageTypeTags.IS_FIRE)) {
                         evt.setAmount(0);
                         evt.setCanceled(true);
                     }
