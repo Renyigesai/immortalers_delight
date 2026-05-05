@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.projectile.MoonArrowHitboxEntity;
@@ -29,11 +30,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -42,7 +43,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class KuuvahkiEffect {
     /**
      * 这个类能对实体进行标记（以及解除标记），
@@ -145,11 +146,9 @@ public class KuuvahkiEffect {
      * @param evt
      */
     @SubscribeEvent
-    public static void onTick(@Nonnull TickEvent.LevelTickEvent evt) {
-        if (evt.phase.equals(TickEvent.Phase.START)) {
-            if (entityHasEffect.size() > 0 && TimekeepingTask.getImmortalTickTime() % 1000 * (entityHasEffect.size() + 1) <= 50) {
-                CheckAndClearMap(evt.level);
-            }
+    public static void onTick(@Nonnull LevelTickEvent.Pre evt) {
+        if (entityHasEffect.size() > 0 && TimekeepingTask.getImmortalTickTime() % 1000 * (entityHasEffect.size() + 1) <= 50) {
+            CheckAndClearMap(evt.getLevel());
         }
     }
 
@@ -177,18 +176,20 @@ public class KuuvahkiEffect {
 
     public static DamageSource getDamageSource(Entity hurtOne, @Nullable Entity attacker) {
         if (attacker != null) {
-            return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:moon_arrow"))), attacker);
+            return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:moon_arrow"))), attacker);
         }
-        return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:moon_arrow"))));
+        return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:moon_arrow"))));
     }
     /**
      * 在生物的tick事件处理效果的逻辑
      * @param event
      */
     @SubscribeEvent
-    public static void onTick(LivingEvent.LivingTickEvent event) {
+    public static void onTick(EntityTickEvent.Post event) {
+        if (!(event.getEntity() instanceof LivingEntity entity)) {
+            return;
+        }
         /* 判断当前实体是否合法 */
-        LivingEntity entity = event.getEntity();
         if (entity == null || entity.isRemoved() || !entity.isAlive()) {return;}
         if (entity.level().isClientSide()) {return;}
         /* 获取当前实体的效果结束时刻 */

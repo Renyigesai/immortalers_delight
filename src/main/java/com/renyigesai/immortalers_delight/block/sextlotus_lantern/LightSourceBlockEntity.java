@@ -1,8 +1,8 @@
 package com.renyigesai.immortalers_delight.block.sextlotus_lantern;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import com.renyigesai.immortalers_delight.util.NBTListUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,8 +32,9 @@ public class LightSourceBlockEntity  extends BlockEntity {
     }
     //=======================基础功能部分，实现方块实体的通用逻辑并管理数据==========================//
     //读取NBT，在加载时从nbt读取需要额外Tick的坐标数据
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    @Override
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
         if (pTag.contains(LANTERN_POS_X, Tag.TAG_INT) && pTag.contains(LANTERN_POS_Y, Tag.TAG_INT) && pTag.contains(LANTERN_POS_Z, Tag.TAG_INT)) {
             lanternBlockPos = new BlockPos(pTag.getInt(LANTERN_POS_X), pTag.getInt(LANTERN_POS_Y), pTag.getInt(LANTERN_POS_Z));
 
@@ -43,8 +44,9 @@ public class LightSourceBlockEntity  extends BlockEntity {
     }
 
     //保存NBT，在卸载时将需要额外Tick的坐标数据保存为nbt
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    @Override
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.saveAdditional(pTag, registries);
         if (!(lanternBlockPos == null)) {
             pTag.putInt(LANTERN_POS_X, lanternBlockPos.getX());
             pTag.putInt(LANTERN_POS_Y, lanternBlockPos.getY());
@@ -56,9 +58,10 @@ public class LightSourceBlockEntity  extends BlockEntity {
      * 初始化区块数据时导出NBT（确保区块加载时实体数据完整）
      * @return 包含实体数据的NBT复合标签
      */
-    public @NotNull CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
-        saveAdditional(tag);
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        saveAdditional(tag, registries);
         return tag;
     }
 

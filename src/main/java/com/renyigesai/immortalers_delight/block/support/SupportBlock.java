@@ -4,9 +4,16 @@ import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+
+import static net.minecraft.network.chat.Component.literal;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -19,16 +26,24 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static net.minecraft.world.level.block.Block.simpleCodec;
 
 public class SupportBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     private static final VoxelShape SHAPE = Block.box(7.0D, 5.0D, 7.0D, 9.0D, 7.0D, 9.0D);
 
+    public static final MapCodec<SupportBlock> CODEC = simpleCodec(SupportBlock::new);
+
     public SupportBlock(Properties pProperties) {
         super(pProperties);
         super.registerDefaultState(defaultBlockState().setValue(LIT,false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
@@ -42,15 +57,20 @@ public class SupportBlock extends BaseEntityBlock {
         builder.add(LIT);
     }
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState pState, net.minecraft.world.level.Level pLevel, BlockPos pPos, net.minecraft.world.entity.player.Player pPlayer, net.minecraft.world.InteractionHand pHand, net.minecraft.world.phys.BlockHitResult pHit) {
-        if (!pLevel.isClientSide && pHand == net.minecraft.world.InteractionHand.MAIN_HAND) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (!pLevel.isClientSide && pHand == InteractionHand.MAIN_HAND) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof SupportBlockEntity supportBlockEntity) {
                 int delay = supportBlockEntity.increase();
-                pPlayer.sendSystemMessage(Component.translatable("Spawn Delay:" + delay));
+                pPlayer.sendSystemMessage(literal("Spawn Delay:" + delay));
             }
         }
-        return InteractionResult.sidedSuccess(pLevel.isClientSide);
+        return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        return InteractionResult.PASS;
     }
 
     @Nullable

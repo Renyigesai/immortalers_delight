@@ -35,8 +35,8 @@ import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Map;
@@ -177,7 +177,7 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
         }
     }
 
-    static int getDarkColor(SignText text) {
+    public static int getDarkColor(SignText text) {
         int i = text.getColor().getTextColor();
         if (i == DyeColor.BLACK.getTextColor() && text.hasGlowingText()) {
             return -988212;
@@ -213,8 +213,9 @@ public class ImmortalersDelightSignRenderer extends SignRenderer {
             this.stick = p_173657_.getChild("stick");
         }
 
-        public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int p_112512_, int p_112513_, float p_112514_, float p_112515_, float p_112516_, float p_112517_) {
-            this.root.render(poseStack, consumer, p_112512_, p_112513_, p_112514_, p_112515_, p_112516_, p_112517_);
+        @Override
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int packedLight, int packedOverlay, int color) {
+            this.root.render(poseStack, consumer, packedLight, packedOverlay, color);
         }
     }
 }

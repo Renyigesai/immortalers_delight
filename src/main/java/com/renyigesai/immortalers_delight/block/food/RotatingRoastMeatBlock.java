@@ -1,21 +1,23 @@
 package com.renyigesai.immortalers_delight.block.food;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -37,11 +39,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 import java.util.Map;
 import java.util.Objects;
+
+import static net.minecraft.world.level.block.Block.simpleCodec;
 
 public class RotatingRoastMeatBlock extends BaseEntityBlock {
 //    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -51,9 +54,16 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,18.0D,15.0D);
 
+    public static final MapCodec<RotatingRoastMeatBlock> CODEC = simpleCodec(RotatingRoastMeatBlock::new);
+
     public RotatingRoastMeatBlock(Properties p_54120_) {
         super(p_54120_);
         super.registerDefaultState(defaultBlockState().setValue(BITES,0).setValue(STATE,State.IDLE));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -79,12 +89,16 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        ItemStack hand_stack = player.getItemInHand(hand);
-            if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack)) {
-                return cut(state, level, pos, player);
-            }
-            return super.use(state, level, pos, player, hand, hitResult);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.is(ImmortalersDelightTags.FARMERSDELIGHT_KNIVES) || stack.is(ImmortalersDelightTags.KNIVES)) {
+            return BlockItemInteraction.from(level, cut(state, level, pos, player));
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     public InteractionResult cut(BlockState state, Level level, BlockPos pos, Player player){
@@ -128,7 +142,7 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
 
     private boolean isHeated(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos.below());
-        return state.is(BlockTags.create(new ResourceLocation("farmersdelight:heat_sources"))) && state.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(booleanProperty);
+        return state.is(ImmortalersDelightTags.FARMERSDELIGHT_HEAT_SOURCES) && state.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(booleanProperty);
     }
 
     @Override

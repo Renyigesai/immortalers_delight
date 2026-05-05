@@ -23,7 +23,7 @@ import java.util.EnumSet;
 
 public class TerracottaGolemSideModel <T extends Entity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation TERRACOTTA_GOLEM_SIDE_LAYER = new ModelLayerLocation(new ResourceLocation("modid", "terracotta_golem_side_model"), "main");
+    public static final ModelLayerLocation TERRACOTTA_GOLEM_SIDE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "terracotta_golem_side_model"), "main");
     private final ModelPart root;
     private final ModelPart back;
     private final ModelPart left;
@@ -67,21 +67,21 @@ public class TerracottaGolemSideModel <T extends Entity> extends HierarchicalMod
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        back.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        left.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        right.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        back.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        left.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        right.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 
-    public void renderSide(int pSlotID, PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderSide(int pSlotID, PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
         if (pSlotID == 0){
-            left.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            left.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
         }
         else if (pSlotID == 1){
-            back.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            back.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
         }
         else if (pSlotID == 2){
-            right.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            right.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
         }
     }
 

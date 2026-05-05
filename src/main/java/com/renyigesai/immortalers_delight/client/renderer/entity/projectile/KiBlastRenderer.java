@@ -25,13 +25,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class KiBlastRenderer extends EntityRenderer<KiBlastEntity> {
-    public static final ModelLayerLocation MODEL_LOCATION = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "ki_blast"), "main");
-    private static final ResourceLocation LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/item/custom/ki_blast.png");
+    public static final ModelLayerLocation MODEL_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "ki_blast"), "main");
+    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/item/custom/ki_blast.png");
     // 凋灵头颅的模型实例，基于SkullModel（骷髅头模型）实现
     private final ModSkullModel model;
     public KiBlastRenderer(EntityRendererProvider.Context pContext) {
@@ -85,7 +85,7 @@ public class KiBlastRenderer extends EntityRenderer<KiBlastEntity> {
         //    - pPackedLight：打包光照值，控制模型的明暗
         //    - OverlayTexture.NO_OVERLAY：无叠加纹理（禁用受伤、发光等叠加效果）
         //    - 后续四个1.0F：RGBA颜色值（纯白，不修改模型纹理颜色）
-        this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
 
         // 8. 恢复之前保存的矩阵堆栈状态（出栈），完成当前实体的渲染，不影响后续渲染
         pPoseStack.popPose();

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:stripped_travastruggler_log"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "immortalers_delight:trava_planks"
+  }
+}

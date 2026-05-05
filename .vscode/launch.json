@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - immortalers_delight",
+        "order": 0
+      },
+      "projectName": "immortalers_delight",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - immortalers_delight",
+        "order": 1
+      },
+      "projectName": "immortalers_delight",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - immortalers_delight",
+        "order": 2
+      },
+      "projectName": "immortalers_delight",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - immortalers_delight",
+        "order": 3
+      },
+      "projectName": "immortalers_delight",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

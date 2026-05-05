@@ -77,11 +77,11 @@ public class TerracottaGolemSideLayer<T extends  TerracottaGolem> extends Render
         if (this.model instanceof TerracottaGolemSideModel) {
             for (int j = 0; j < 3; ++j) {
                 VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pLivingEntity,j)));
-                ((TerracottaGolemSideModel<T>) this.model).renderSide(j, pPoseStack, vertexconsumer, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+                ((TerracottaGolemSideModel<T>) this.model).renderSide(j, pPoseStack, vertexconsumer, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), -1);
             }
         } else {
             VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pLivingEntity)));
-            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), -1);
         }
 //        Minecraft minecraft = Minecraft.getInstance();
 //        boolean flag = minecraft.shouldEntityAppearGlowing(pLivingEntity) && pLivingEntity.isInvisible();
@@ -121,27 +121,27 @@ public class TerracottaGolemSideLayer<T extends  TerracottaGolem> extends Render
 
 
     public void createTextures() {
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BRICK_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ANGLER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ARCHER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ARMS_UP_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BLADE_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BREWER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BURN_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + DANGER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + EXPLORER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + FRIEND_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HEART_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HEARTBREAK_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HOWL_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + MINER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + MOURNER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + PLENTY_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + PRIZE_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SHEAF_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SHELTER_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SKULL_NAME + ".png"));
-        textrues.add(new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SNORT_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BRICK_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ANGLER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ARCHER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + ARMS_UP_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BLADE_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BREWER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + BURN_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + DANGER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + EXPLORER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + FRIEND_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HEART_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HEARTBREAK_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + HOWL_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + MINER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + MOURNER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + PLENTY_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + PRIZE_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SHEAF_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SHELTER_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SKULL_NAME + ".png"));
+        textrues.add(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/" + SNORT_NAME + ".png"));
         properties.add(BRICK_NAME);
         properties.add(ANGLER_NAME);
         properties.add(ARCHER_NAME);

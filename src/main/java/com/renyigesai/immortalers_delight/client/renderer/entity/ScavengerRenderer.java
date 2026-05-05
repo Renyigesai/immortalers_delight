@@ -21,7 +21,7 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 public class ScavengerRenderer extends IllagerRenderer<Scavenger> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/scavenger.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/scavenger.png");
     private static int degree = 0;
     public ScavengerRenderer(EntityRendererProvider.Context context) {
         super(context, new IllagerModel<>(context.bakeLayer(ScavengerModel.SCARVENGER_MODEL)),

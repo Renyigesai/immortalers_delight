@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 
 public class EffectCloudModel<T extends EffectCloudBaseEntity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation EFFECT_CLOUD_BASE = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "effect_cloud_base"), "main");
+	public static final ModelLayerLocation EFFECT_CLOUD_BASE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "effect_cloud_base"), "main");
 	private final ModelPart body;
 	private final ModelPart head;
 
@@ -61,7 +61,7 @@ public class EffectCloudModel<T extends EffectCloudBaseEntity> extends EntityMod
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
 	}
 }

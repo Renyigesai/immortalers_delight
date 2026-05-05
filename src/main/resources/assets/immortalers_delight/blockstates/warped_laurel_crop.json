@@ -20,6 +20,9 @@
     },
     "age=6": {
       "model": "immortalers_delight:block/warped_laurel_stage6"
+    },
+    "age=7": {
+      "model": "immortalers_delight:block/warped_laurel_stage6"
     }
   }
 }

@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "aba",
+    "cde",
+    "afa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:sniffer_fur"
+    },
+    "b": [
+      {
+        "item": "immortalers_delight:ancient_fiber"
+      },
+      {
+        "item": "minecraft:string"
+      }
+    ],
+    "c": {
+      "item": "immortalers_delight:alfalfa_seeds"
+    },
+    "d": [
+      {
+        "item": "immortalers_delight:ancient_wood_log"
+      },
+      {
+        "item": "immortalers_delight:ancient_wood"
+      }
+    ],
+    "e": {
+      "item": "immortalers_delight:alfalfa_seeds"
+    },
+    "f": {
+      "item": "immortalers_delight:alfalfa_seeds"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:sachets"
+  },
+  "show_notification": true
+}

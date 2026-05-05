@@ -1,16 +1,17 @@
 package com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.datautil.datastorage.DifficultyDataStorage;
 import com.renyigesai.immortalers_delight.util.datautil.worlddata.DifficultyModeWorldData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 // 使用自定义数据存储的示例类
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DifficultyModeSaveLoadHelper {
     // 存储自定义信息的方法，由于此处为退出时间，理论上不需要也不应该在他处主动使用
     public static void saveDifficultyMode(Level level, Boolean info) {

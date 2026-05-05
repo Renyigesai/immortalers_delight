@@ -1,19 +1,20 @@
 package com.renyigesai.immortalers_delight.util.task;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.DifficultyModeSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class TimekeepingTask {
     private static Long ImmortalTickTime = 0L;
     public static Long getImmortalTickTime() {return ImmortalTickTime;}
@@ -29,10 +30,8 @@ public class TimekeepingTask {
         }
     }
     @SubscribeEvent
-    public static void onTick(@Nonnull TickEvent.ServerTickEvent evt) {
-        if (evt.phase.equals(TickEvent.Phase.START)) {
-            run();
-        }
+    public static void onTick(@Nonnull ServerTickEvent.Pre evt) {
+        run();
     }
 //    @SubscribeEvent
 //    public static void clientTick(TickEvent.ClientTickEvent event) {

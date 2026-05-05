@@ -13,7 +13,7 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
 
     // GUI 纹理路径
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/enchantal_cooler.png");
+            ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/enchantal_cooler.png");
 
     public EnchantalCoolerScreen(EnchantalCoolerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -48,7 +48,7 @@ public class EnchantalCoolerScreen extends AbstractContainerScreen<EnchantalCool
 
     @Override
     public void render(GuiGraphics poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
+        renderBackground(poseStack, mouseX, mouseY, partialTicks);
 
         // 调用父类渲染方法
         super.render(poseStack, mouseX, mouseY, partialTicks);

@@ -65,9 +65,10 @@ public class SurveyorFangEntity extends Entity implements TraceableEntity {
         this.setPos(pX, pY, pZ);
     }
 
-    protected void defineSynchedData() {
-        this.entityData.define(DAMAGE, 0f);
-        this.getEntityData().define(DATA_ITEM, ItemStack.EMPTY);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DAMAGE, 0f);
+        builder.define(DATA_ITEM, ItemStack.EMPTY);
     }
 
     public float getDamage() {
@@ -117,7 +118,7 @@ public class SurveyorFangEntity extends Entity implements TraceableEntity {
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         CompoundTag compoundtag = pCompound.getCompound("Item");
         if (compoundtag != null && !compoundtag.isEmpty()) {
-            ItemStack itemstack = ItemStack.of(compoundtag);
+            ItemStack itemstack = ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY);
             if (itemstack.isEmpty()) {
                 ImmortalersDelightMod.LOGGER.warn("Unable to load item from: {}", (Object)compoundtag);
             }
@@ -140,7 +141,7 @@ public class SurveyorFangEntity extends Entity implements TraceableEntity {
             pCompound.putUUID("Owner", this.ownerUUID);
         }
         pCompound.putFloat("damage", this.getDamage());
-        pCompound.put("Item", this.getItem().save(new CompoundTag()));
+        pCompound.put("Item", this.getItem().save(this.registryAccess(), new CompoundTag()));
         pCompound.putFloat("ItemDropChance", this.dropChance);
     }
 
@@ -164,7 +165,7 @@ public class SurveyorFangEntity extends Entity implements TraceableEntity {
                 --this.lifeTicks;
                 if (this.lifeTicks == 12) {
                     for(int i = 0; i < 32; ++i) {
-                        ParticleOptions type = (i >= 12) ? ParticleTypes.ENTITY_EFFECT : ParticleTypes.CRIT;
+                        ParticleOptions type = ParticleTypes.CRIT;
                         double d0 = this.getX() + (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.getBbWidth() * 0.5D;
                         double d1 = this.getY() + 0.05D + this.random.nextDouble();
                         double d2 = this.getZ() + (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.getBbWidth() * 0.5D;

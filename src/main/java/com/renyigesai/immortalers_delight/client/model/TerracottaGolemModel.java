@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TerracottaGolemModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation TERRACOTTA_GOLEM = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "terracotta_golem"), "main");
+	public static final ModelLayerLocation TERRACOTTA_GOLEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "terracotta_golem"), "main");
 	private final ModelPart Body;
 	private final ModelPart right_arm;
 	private final ModelPart right_bristles_1;
@@ -116,10 +116,10 @@ public class TerracottaGolemModel<T extends Entity> extends HierarchicalModel<T>
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		RightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		LeftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+		Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+		RightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+		LeftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
 	}
 
 	@Override

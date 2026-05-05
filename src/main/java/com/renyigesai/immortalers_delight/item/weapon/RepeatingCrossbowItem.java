@@ -4,6 +4,13 @@ import com.google.common.collect.Lists;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -20,13 +27,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -34,11 +42,24 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class RepeatingCrossbowItem extends CrossbowItem {
+
+    private static final HolderLookup.Provider STACK_PARSE_REGISTRY = RegistryAccess.EMPTY;
+
+    private static CompoundTag modTag(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    }
+
+    private static void applyModTag(ItemStack stack, CompoundTag tag) {
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    }
+
+    private static Holder<Enchantment> enchantHolder(ResourceKey<Enchantment> key) {
+        return RegistryAccess.EMPTY.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
     private static final String MOD_TAG_CHARGED = ImmortalersDelightMod.MODID + "_charged";
     private static final String MOD_TAG_CHARGED_PROJECTILES = ImmortalersDelightMod.MODID + "_charged_projectiles";
     private static final String BULLET_COUNT = ImmortalersDelightMod.MODID + "remainder_bullet";
@@ -59,27 +80,29 @@ public class RepeatingCrossbowItem extends CrossbowItem {
 
     /**=================================数据值管理部分，实际处理装填与弹药相关的方法====================================**/
     public static int getBulletCount(ItemStack pCrossbowStack) {
-        CompoundTag compoundtag = pCrossbowStack.getOrCreateTag();
+        CompoundTag compoundtag = modTag(pCrossbowStack);
         return compoundtag.contains(BULLET_COUNT, Tag.TAG_INT) ? compoundtag.getInt(BULLET_COUNT) : 0;
     }
 
     public static void setBulletCount(ItemStack pCrossbowStack, int count) {
-        CompoundTag compoundtag = pCrossbowStack.getOrCreateTag();
+        CompoundTag compoundtag = modTag(pCrossbowStack);
         compoundtag.putInt(BULLET_COUNT, count);
+        applyModTag(pCrossbowStack, compoundtag);
     }
 
     public static boolean isModCharged(ItemStack pCrossbowStack) {
-        CompoundTag compoundtag = pCrossbowStack.getTag();
-        return compoundtag != null && compoundtag.getBoolean(MOD_TAG_CHARGED);
+        CompoundTag compoundtag = modTag(pCrossbowStack);
+        return compoundtag.getBoolean(MOD_TAG_CHARGED);
     }
 
     public static void setModCharged(ItemStack pCrossbowStack, boolean pIsCharged) {
-        CompoundTag compoundtag = pCrossbowStack.getOrCreateTag();
+        CompoundTag compoundtag = modTag(pCrossbowStack);
         compoundtag.putBoolean(MOD_TAG_CHARGED, pIsCharged);
+        applyModTag(pCrossbowStack, compoundtag);
     }
 
-    private static void addChargedModProjectile(ItemStack pCrossbowStack, ItemStack pAmmoStack) {
-        CompoundTag compoundtag = pCrossbowStack.getOrCreateTag();
+    private static void addChargedModProjectile(ItemStack pCrossbowStack, ItemStack pAmmoStack, HolderLookup.Provider registries) {
+        CompoundTag compoundtag = modTag(pCrossbowStack);
         ListTag listtag;
         if (compoundtag.contains(MOD_TAG_CHARGED_PROJECTILES, 9)) {
             listtag = compoundtag.getList(MOD_TAG_CHARGED_PROJECTILES, 10);
@@ -88,21 +111,20 @@ public class RepeatingCrossbowItem extends CrossbowItem {
         }
 
         CompoundTag compoundtag1 = new CompoundTag();
-        pAmmoStack.save(compoundtag1);
+        pAmmoStack.save(registries, compoundtag1);
         listtag.add(compoundtag1);
         compoundtag.put(MOD_TAG_CHARGED_PROJECTILES, listtag);
+        applyModTag(pCrossbowStack, compoundtag);
     }
 
-    private static List<ItemStack> getChargedModProjectiles(ItemStack pCrossbowStack) {
+    private static List<ItemStack> getChargedModProjectiles(ItemStack pCrossbowStack, HolderLookup.Provider registries) {
         List<ItemStack> list = Lists.newArrayList();
-        CompoundTag compoundtag = pCrossbowStack.getTag();
-        if (compoundtag != null && compoundtag.contains(MOD_TAG_CHARGED_PROJECTILES, 9)) {
+        CompoundTag compoundtag = modTag(pCrossbowStack);
+        if (compoundtag.contains(MOD_TAG_CHARGED_PROJECTILES, 9)) {
             ListTag listtag = compoundtag.getList(MOD_TAG_CHARGED_PROJECTILES, 10);
-            if (listtag != null) {
-                for(int i = 0; i < listtag.size(); ++i) {
-                    CompoundTag compoundtag1 = listtag.getCompound(i);
-                    list.add(ItemStack.of(compoundtag1));
-                }
+            for (int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag1 = listtag.getCompound(i);
+                list.add(ItemStack.parse(registries, compoundtag1).orElse(ItemStack.EMPTY));
             }
         }
 
@@ -110,22 +132,20 @@ public class RepeatingCrossbowItem extends CrossbowItem {
     }
 
     private static void clearChargedModProjectiles(ItemStack pCrossbowStack) {
-        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, pCrossbowStack) > 0 ? 3 : 1;
-        CompoundTag compoundtag = pCrossbowStack.getTag();
-        if (compoundtag != null) {
-            ListTag listtag = compoundtag.getList(MOD_TAG_CHARGED_PROJECTILES, 10);
-            for (int j = 0; j < i; ++j) {
-                if (!listtag.isEmpty()) {
-                    listtag.remove(listtag.size() - 1);
-                }
+        int i = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.MULTISHOT), pCrossbowStack) > 0 ? 3 : 1;
+        CompoundTag compoundtag = modTag(pCrossbowStack);
+        ListTag listtag = compoundtag.getList(MOD_TAG_CHARGED_PROJECTILES, 10);
+        for (int j = 0; j < i; ++j) {
+            if (!listtag.isEmpty()) {
+                listtag.remove(listtag.size() - 1);
             }
-            compoundtag.put(MOD_TAG_CHARGED_PROJECTILES, listtag);
         }
-
+        compoundtag.put(MOD_TAG_CHARGED_PROJECTILES, listtag);
+        applyModTag(pCrossbowStack, compoundtag);
     }
 
     public static boolean containsChargedModProjectile(ItemStack pCrossbowStack, Item pAmmoItem) {
-        return getChargedModProjectiles(pCrossbowStack).stream().anyMatch((p_40870_) -> {
+        return getChargedModProjectiles(pCrossbowStack, STACK_PARSE_REGISTRY).stream().anyMatch((p_40870_) -> {
             return p_40870_.is(pAmmoItem);
         });
     }
@@ -150,7 +170,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (isModCharged(itemstack)) {
             modPerformShooting(pLevel, pPlayer, pHand, itemstack, getShootingModPower(itemstack), 1.0F);
-            if (getChargedModProjectiles(itemstack).isEmpty()) {
+            if (getChargedModProjectiles(itemstack, pLevel.registryAccess()).isEmpty()) {
                 setModCharged(itemstack, false);
                 pPlayer.getCooldowns().addCooldown(itemstack.getItem(), getModCoolDown(itemstack));
             }
@@ -177,9 +197,8 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      * Performs the action of shooting a projectile.
      */
     public static void modPerformShooting(Level pLevel, LivingEntity pShooter, InteractionHand pUsedHand, ItemStack pCrossbowStack, float pVelocity, float pInaccuracy) {
-        if (pShooter instanceof Player player && net.minecraftforge.event.ForgeEventFactory.onArrowLoose(pCrossbowStack, pShooter.level(), player, 1, true) < 0) return;
-        boolean flag1 = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, pCrossbowStack) > 0;
-        List<ItemStack> list = getChargedModProjectiles(pCrossbowStack);
+        boolean flag1 = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.MULTISHOT), pCrossbowStack) > 0;
+        List<ItemStack> list = getChargedModProjectiles(pCrossbowStack, pLevel.registryAccess());
         float[] afloat = getModShotPitches(pShooter.getRandom());
 
         for(int i = 0; i < list.size(); ++i) {
@@ -220,23 +239,18 @@ public class RepeatingCrossbowItem extends CrossbowItem {
                 }
             }
 
-            if (pShooter instanceof CrossbowAttackMob crossbowattackmob && crossbowattackmob.getTarget() != null) {
-                crossbowattackmob.shootCrossbowProjectile(crossbowattackmob.getTarget(), pCrossbowStack, projectile, pProjectileAngle);
-            } else {
-                Vec3 vec31 = pShooter.getUpVector(1.0F);
-                Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double)(pProjectileAngle * ((float)Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
-                Vec3 vec3 = pShooter.getViewVector(1.0F);
-                Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
-                if (projectile instanceof AbstractArrow abstractarrow) {
-                    if (DifficultyModeUtil.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + pLevel.getDifficulty().getId());
-                    else abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (pLevel.getDifficulty() == Difficulty.HARD ? 1.5D : 2.0D));
-                }
-                projectile.shoot((double)vector3f.x(), (double)vector3f.y(), (double)vector3f.z(), pVelocity, pInaccuracy);
+            Vec3 vec31 = pShooter.getUpVector(1.0F);
+            Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double)(pProjectileAngle * ((float)Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
+            Vec3 vec3 = pShooter.getViewVector(1.0F);
+            Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
+            if (projectile instanceof AbstractArrow abstractarrow) {
+                if (DifficultyModeUtil.isPowerBattleMode()) abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 3.0D + pLevel.getDifficulty().getId());
+                else abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (pLevel.getDifficulty() == Difficulty.HARD ? 1.5D : 2.0D));
             }
+            projectile.shoot((double)vector3f.x(), (double)vector3f.y(), (double)vector3f.z(), pVelocity, pInaccuracy);
 
-            pCrossbowStack.hurtAndBreak(flag ? 3 : 1, pShooter, (p_40858_) -> {
-                p_40858_.broadcastBreakEvent(pHand);
-            });
+            EquipmentSlot breakSlot = pHand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+            pCrossbowStack.hurtAndBreak(flag ? 3 : 1, pShooter, breakSlot);
             pLevel.addFreshEntity(projectile);
             pLevel.playSound((Player)null, pShooter.getX(), pShooter.getY(), pShooter.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pSoundPitch);
         }
@@ -247,17 +261,12 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      **/
     private static AbstractArrow getModArrow(Level pLevel, LivingEntity pLivingEntity, ItemStack pCrossbowStack, ItemStack pAmmoStack) {
         ArrowItem arrowitem = (ArrowItem)(pAmmoStack.getItem() instanceof ArrowItem ? pAmmoStack.getItem() : Items.ARROW);
-        AbstractArrow abstractarrow = arrowitem.createArrow(pLevel, pAmmoStack, pLivingEntity);
+        AbstractArrow abstractarrow = arrowitem.createArrow(pLevel, pAmmoStack, pLivingEntity, pCrossbowStack);
         if (pLivingEntity instanceof Player) {
             abstractarrow.setCritArrow(true);
         }
 
         abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
-        abstractarrow.setShotFromCrossbow(true);
-        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, pCrossbowStack);
-        if (i > 0) {
-            abstractarrow.setPierceLevel((byte)i);
-        }
 
         return abstractarrow;
     }
@@ -292,7 +301,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      */
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
-        int i = this.getUseDuration(pStack) - pTimeLeft;
+        int i = this.getUseDuration(pStack, pEntityLiving) - pTimeLeft;
         float f = getModPowerForTime(i, pStack);
         if (f >= 1.0F && !isModCharged(pStack) && tryLoadModProjectiles(pEntityLiving, pStack)) {
             setModCharged(pStack, true);
@@ -306,7 +315,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      * 处理单次装弹，如果有三重射击，会装填3个
      **/
     private static boolean tryLoadModProjectiles(LivingEntity pShooter, ItemStack pCrossbowStack) {
-        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MULTISHOT, pCrossbowStack);
+        int i = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.MULTISHOT), pCrossbowStack);
         int j = i == 0 ? 3 : 9;
         boolean flag = pShooter instanceof Player && ((Player)pShooter).getAbilities().instabuild;
         ItemStack itemstack = pShooter.getProjectile(pCrossbowStack);
@@ -348,7 +357,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
                 itemstack = pAmmoStack.copy();
             }
 
-            addChargedModProjectile(pCrossbowStack, itemstack);
+            addChargedModProjectile(pCrossbowStack, itemstack, pShooter.level().registryAccess());
             return true;
         }
     }
@@ -360,10 +369,10 @@ public class RepeatingCrossbowItem extends CrossbowItem {
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pCount) {
         if (!pLevel.isClientSide) {
-            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, pStack);
-            SoundEvent soundevent = this.getStartSound(i);
-            SoundEvent soundevent1 = i == 0 ? SoundEvents.CROSSBOW_LOADING_MIDDLE : null;
-            float f = (float)(pStack.getUseDuration() - pCount) / (float) getModChargeDuration(pStack);
+            int i = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.QUICK_CHARGE), pStack);
+            Holder<SoundEvent> soundevent = this.getStartSound(i);
+            Holder<SoundEvent> soundevent1 = i == 0 ? SoundEvents.CROSSBOW_LOADING_MIDDLE : null;
+            float f = (float)(getUseDuration(pStack, pLivingEntity) - pCount) / (float) getModChargeDuration(pStack);
             if (f < 0.2F) {
                 this.startSoundPlayed = false;
                 this.midLoadSoundPlayed = false;
@@ -386,7 +395,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      * How long it takes to use or consume an item
      */
     @Override
-    public int getUseDuration(ItemStack pStack) {
+    public int getUseDuration(ItemStack pStack, LivingEntity entity) {
         return getModChargeDuration(pStack) + 3;
     }
 
@@ -394,12 +403,12 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      * The time the crossbow must be used to reload it
      */
     public static int getModChargeDuration(ItemStack pCrossbowStack) {
-        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, pCrossbowStack);
+        int i = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.QUICK_CHARGE), pCrossbowStack);
         return i == 0 ? maxChargeDuration : maxChargeDuration - 5 * i;
     }
 
     public static int getModCoolDown(ItemStack pCrossbowStack) {
-        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.QUICK_CHARGE, pCrossbowStack);
+        int i = EnchantmentHelper.getItemEnchantmentLevel(enchantHolder(Enchantments.QUICK_CHARGE), pCrossbowStack);
         return i == 0 ? maxCoolDown : maxCoolDown - 10 * i;
     }
 
@@ -411,7 +420,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
         return UseAnim.CROSSBOW;
     }
 
-    private SoundEvent getStartSound(int pEnchantmentLevel) {
+    private Holder<SoundEvent> getStartSound(int pEnchantmentLevel) {
         switch (pEnchantmentLevel) {
             case 1:
                 return SoundEvents.CROSSBOW_QUICK_CHARGE_1;
@@ -437,8 +446,8 @@ public class RepeatingCrossbowItem extends CrossbowItem {
      * Allows items to add custom lines of information to the mouseover description.
      */
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        List<ItemStack> list = getChargedModProjectiles(pStack);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext context, List<Component> pTooltip, TooltipFlag pFlag) {
+        List<ItemStack> list = getChargedModProjectiles(pStack, STACK_PARSE_REGISTRY);
         if (isModCharged(pStack) && !list.isEmpty()) {
             MutableComponent textValue = Component.translatable(
                     "tooltip." +ImmortalersDelightMod.MODID+ ".charged_projectiles",
@@ -449,7 +458,7 @@ public class RepeatingCrossbowItem extends CrossbowItem {
             pTooltip.add(Component.translatable("item.minecraft.crossbow.projectile").append(CommonComponents.SPACE).append(itemstack.getDisplayName()));
             if (pFlag.isAdvanced() && itemstack.is(Items.FIREWORK_ROCKET)) {
                 List<Component> list1 = Lists.newArrayList();
-                Items.FIREWORK_ROCKET.appendHoverText(itemstack, pLevel, list1, pFlag);
+                Items.FIREWORK_ROCKET.appendHoverText(itemstack, context, list1, pFlag);
                 if (!list1.isEmpty()) {
                     for(int i = 0; i < list1.size(); ++i) {
                         list1.set(i, Component.literal("  ").append(list1.get(i)).withStyle(ChatFormatting.GRAY));

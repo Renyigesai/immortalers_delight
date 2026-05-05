@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +26,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import vectorwing.farmersdelight.common.registry.ModSounds;
-
 import java.util.List;
 
 public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
@@ -40,7 +40,7 @@ public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
 
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
-            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(14) == 0)) {
+            if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(14) == 0)) {
                 Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(pRandom);
                 BlockPos blockpos = pPos.relative(direction);
                 BlockState blockstate = pLevel.getBlockState(blockpos);
@@ -66,7 +66,7 @@ public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
                     }
                     pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get().defaultBlockState().setValue(TravastrugglerLeavesTravariceBlock.DISTANCE, pState.getValue(DISTANCE)).setValue(TravastrugglerLeavesTravariceBlock.PERSISTENT, pState.getValue(PERSISTENT)).setValue(TravastrugglerLeavesTravariceBlock.WATERLOGGED, pState.getValue(WATERLOGGED)));
                 }
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
             }
 
         }
@@ -84,29 +84,43 @@ public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
         }
         return max;
     }
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (Config.rightClickHarvest) {//通过配置文件决定是否使用右键收获
-            if (level.isClientSide){
+    private InteractionResult travariceHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (Config.rightClickHarvest) {
+            if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
-                boolean temp = false;
-                if (level instanceof ServerLevel level1) {
-                    List<ItemStack> stacks = getDrops(state, level1, pos, null);
-                    if (!stacks.isEmpty()) {
-                        for (ItemStack stack : stacks) {
-                            popResource(level, pos, stack);
-                        }
-                        temp = true;
+            boolean temp = false;
+            if (level instanceof ServerLevel level1) {
+                List<ItemStack> stacks = getDrops(state, level1, pos, null);
+                if (!stacks.isEmpty()) {
+                    for (ItemStack stack : stacks) {
+                        popResource(level, pos, stack);
                     }
+                    temp = true;
                 }
-                if (temp) {
-                    BlockState blockstate = ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get().defaultBlockState().setValue(TravastrugglerLeavesTravariceBlock.DISTANCE,state.getValue(DISTANCE)).setValue(TravastrugglerLeavesTravariceBlock.PERSISTENT,state.getValue(PERSISTENT)).setValue(TravastrugglerLeavesTravariceBlock.WATERLOGGED,state.getValue(WATERLOGGED));
-                    level.setBlockAndUpdate(pos, blockstate);
-                    level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-                    return InteractionResult.SUCCESS;
-                }
+            }
+            if (temp) {
+                BlockState blockstate = ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get().defaultBlockState().setValue(TravastrugglerLeavesTravariceBlock.DISTANCE,state.getValue(DISTANCE)).setValue(TravastrugglerLeavesTravariceBlock.PERSISTENT,state.getValue(PERSISTENT)).setValue(TravastrugglerLeavesTravariceBlock.WATERLOGGED,state.getValue(WATERLOGGED));
+                level.setBlockAndUpdate(pos, blockstate);
+                level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                return InteractionResult.SUCCESS;
+            }
         }
-        return super.use(state, level, pos, player, hand, hit);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        InteractionResult result = travariceHarvest(state, level, pos, player, hand, hit);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        InteractionResult result = travariceHarvest(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(state, level, pos, player, hit);
     }
 }

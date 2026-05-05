@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -9,9 +10,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 public class DeepnessMobEffect extends BaseMobEffect {
     public DeepnessMobEffect() {
@@ -30,14 +31,12 @@ public class DeepnessMobEffect extends BaseMobEffect {
         return duration % 20 == 0;
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class DeepnessPotionEffect {
         @SubscribeEvent
-        public static void onCreatureHurt(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+        public static void onCreatureHurt(LivingDamageEvent.Pre evt) {
+            if (evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
@@ -48,8 +47,8 @@ public class DeepnessMobEffect extends BaseMobEffect {
 
             if (!hurtOne.level().isClientSide) {
                 if (attacker != null){
-                    float damage = evt.getAmount();
-                    MobEffectInstance thsEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.DEEPNESS.get());
+                    float damage = evt.getNewDamage();
+                    MobEffectInstance thsEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.DEEPNESS);
                     if (thsEffect != null && thsEffect.getEffect() instanceof BaseMobEffect baseMobEffect){
                         int lv = baseMobEffect.getTruthUsingAmplifier(thsEffect.getAmplifier());
                         attacker.addEffect(new MobEffectInstance(MobEffects.WEAKNESS,40 + thsEffect.getAmplifier() * 20,thsEffect.getAmplifier()));
@@ -59,7 +58,7 @@ public class DeepnessMobEffect extends BaseMobEffect {
                             for (int i = 0; i < lv; i++) {
                                 buffer  = buffer * 0.8F;
                             }
-                            evt.setAmount(Math.min(damage*buffer, damage));
+                            evt.setNewDamage(Math.min(damage*buffer, damage));
                         }
                     }
                 }

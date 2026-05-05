@@ -24,12 +24,12 @@ import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
 public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
-    private static final ResourceLocation HIMEKAIDO_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/himekaido.png");
-    private static final ResourceLocation HIMEKAIDO_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/himekaido.png");
-    private static final ResourceLocation ANCIENT_WOOD_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_wood.png");
-    private static final ResourceLocation ANCIENT_WOOD_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_wood.png");
-    private static final ResourceLocation PEARLIP_SHELL_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/pearlip_shell.png");
-    private static final ResourceLocation PEARLIP_SHELL_CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/pearlip_shell.png");
+    private static final ResourceLocation HIMEKAIDO_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/boat/himekaido.png");
+    private static final ResourceLocation HIMEKAIDO_CHEST_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/himekaido.png");
+    private static final ResourceLocation ANCIENT_WOOD_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_wood.png");
+    private static final ResourceLocation ANCIENT_WOOD_CHEST_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_wood.png");
+    private static final ResourceLocation PEARLIP_SHELL_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/boat/pearlip_shell.png");
+    private static final ResourceLocation PEARLIP_SHELL_CHEST_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/pearlip_shell.png");
     private final boolean hasChest;
     private ListModel<Boat> boatModel;
 
@@ -67,7 +67,7 @@ public class ImmortalersBoatRenderer extends EntityRenderer<Boat> {
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
         this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(getTextureLocation(boat)));
-        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, -1);
         if (!boat.isUnderWater()) {
             VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
             if (this.boatModel instanceof WaterPatchModel waterPatchModel) {

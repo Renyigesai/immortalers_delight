@@ -11,7 +11,6 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -21,7 +20,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,13 +32,6 @@ public class WarpedLaurelCrop extends ReapCropBlock {
     @Override
     protected ItemLike getBaseSeedId() {
         return ImmortalersDelightItems.WARPED_LAUREL_SEEDS.get();
-    }
-
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockPos blockpos = pPos.below();
-        if (pState.getBlock() == this)
-            return pLevel.getBlockState(blockpos).canSustainPlant(pLevel, blockpos, Direction.UP, this);
-        return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
     }
 
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
@@ -58,13 +49,13 @@ public class WarpedLaurelCrop extends ReapCropBlock {
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
-                float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
+                float f = getGrowthSpeed(pState, pLevel, pPos);
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
                     if (i == this.getMaxAge() - 1) {
                         makeAreaOfEffectCloud(pLevel, pPos);
                     }
                     pLevel.setBlock(pPos, this.getStateForAge(i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }

@@ -1,0 +1,15 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "minecraft:ice"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:ice_pearlip"
+  }
+}

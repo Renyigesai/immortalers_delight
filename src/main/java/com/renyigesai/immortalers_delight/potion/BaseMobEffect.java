@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -10,10 +11,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,9 +88,10 @@ public class BaseMobEffect extends MobEffect {
     }
     //将配置文件中的参数应用到效果中
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity pEntity, int amplifier) {
         int truthAmplifier = getTruthUsingAmplifier(amplifier);
         applyEffectTickInControl(pEntity, truthAmplifier);
+        return true;
     }
     //拆分工具方法方便子类重写
     protected void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
@@ -98,7 +100,7 @@ public class BaseMobEffect extends MobEffect {
 
     //将配置文件中的参数应用到效果中
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         int truthAmplifier = getTruthUsingAmplifier(amplifier);
         return isDurationEffectTickInControl(duration, truthAmplifier);
     }
@@ -107,10 +109,8 @@ public class BaseMobEffect extends MobEffect {
         return false;
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class BaseEffectEvent {
         //初始化
         @SubscribeEvent(priority = EventPriority.HIGH)

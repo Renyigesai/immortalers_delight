@@ -1,20 +1,15 @@
 package com.renyigesai.immortalers_delight;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-
-import java.util.Arrays;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class CommonSetup
 {
 	public static void init(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			ImmortalersDelightMod.LOGGER.info("IMMORTALERS DELIGHT SETUP");
 			registerCompostables();
-			registerItemSetAdditions();
 		});
 	}
 
@@ -50,10 +45,4 @@ public class CommonSetup
 
 	}
 
-	public static void registerItemSetAdditions() {
-		Ingredient newFood = Ingredient.of(ImmortalersDelightItems.ALFALFA.get());
-		Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newFood))
-		{
-		};
-	}
 }

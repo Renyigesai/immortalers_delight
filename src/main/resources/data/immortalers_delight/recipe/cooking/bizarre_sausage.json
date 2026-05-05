@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido_jelly"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "immortalers_delight:warped_laurel"
+    }
+  ],
+  "container": {
+    "id": "farmersdelight:canvas"
+  },
+  "result": {
+    "id": "immortalers_delight:bizarre_sausage"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

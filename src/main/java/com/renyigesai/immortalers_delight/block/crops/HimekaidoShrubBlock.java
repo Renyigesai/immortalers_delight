@@ -1,8 +1,8 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
-import com.renyigesai.immortalers_delight.block.tree.HimekaidoTreeGrower;
-import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
+import com.renyigesai.immortalers_delight.block.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
@@ -60,13 +61,13 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
             if (i < this.getMaxAge()) {
                 if (i > FRUITED_AGE) {
                     pLevel.setBlock(pPos, this.getStateForAge(i - 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
                 if (i < FRUITED_AGE) {
-                    float f = getGrowthSpeed(this, pLevel, pPos);
-                    if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(100.0F / f) + 1) == 0)) {
+                    float f = getGrowthSpeed(pState, pLevel, pPos);
+                    if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(100.0F / f) + 1) == 0)) {
                         pLevel.setBlock(pPos, this.getStateForAge(i + 1), 2);
-                        net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                        net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                     }
                 }
             }
@@ -83,46 +84,48 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
         /*
         巨大化条件：此处要求阶段6且生长速度不小于9
          */
-        if (this.getAge(state) == EXTRA_HARVEST_AGE && getGrowthSpeed(this, serverLevel, pos) >= 3.0f) {
-            HimekaidoTreeGrower tree = new HimekaidoTreeGrower();
-//            tree.setHeight(8,5);
-//            tree.setLeafDistanceLimit(3);
-            tree.growTree(serverLevel,serverLevel.getChunkSource().getGenerator(),pos,state,source);
+        if (this.getAge(state) == EXTRA_HARVEST_AGE && getGrowthSpeed(state, serverLevel, pos) >= 3.0f) {
+            ModTreeGrowers.HIMEKAIDO.growTree(serverLevel, serverLevel.getChunkSource().getGenerator(), pos, state, source);
         }
         else serverLevel.setBlock(pos, this.getStateForAge( this.getAge(state) + 1), 2);
     }
     /**
      * 定义收获的行为逻辑，并给玩家进行巨大化操作的空间
-     */@Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+     */
+    private InteractionResult shrubHarvestUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         int age = state.getValue(AGE);
         if (age == FRUITED_AGE) {
             ItemStack hand_stack = player.getItemInHand(hand);
-            /*
-            在阶段3（正常生长的结果阶段），如果不是使用骨粉或生长速度小于5，使用收获方法
-            也就是生长速度小于3收获方法会挤掉骨粉的操作，使得无法催大达到过度生长阶段
-             */
-            if (!(hand_stack.getItem() instanceof BoneMealItem) || getGrowthSpeed(this, level, pos) <= 3.0f) {
+            if (!(hand_stack.getItem() instanceof BoneMealItem) || getGrowthSpeed(state, level, pos) <= 3.0f) {
                 harvest(state,level,pos,1);
                 return InteractionResult.SUCCESS;
             }
-            /*
-            对if逻辑进行分析可以发现如果阶段3下满足了生长速度，那么使用骨粉时不会触发收获，也就是骨粉将生效，将灌木催大达到过度生长阶段
-             */
         } else if (age == EXTRA_HARVEST_AGE || age == MAX_AGE) {
-            /*
-            如果是6阶段或7阶段，均可收获
-             */
             ItemStack hand_stack = player.getItemInHand(hand);
             if (!(hand_stack.getItem() instanceof BoneMealItem)) {
                 harvest(state,level,pos,1);
                 return InteractionResult.SUCCESS;
             }
         }
-        /*
-        不满足收获条件，返回父类，骨粉的逻辑在此后处理
-         */
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = shrubHarvestUse(state, level, pos, player, hand);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = shrubHarvestUse(state, level, pos, player, InteractionHand.MAIN_HAND);
+        if (result != InteractionResult.PASS) {
+            return result;
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
     /*
     收获时用于生成掉落物，以及设置到指定的生长阶段，在超生长阶段回到阶段3也就是能马上再收获一次

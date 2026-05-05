@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.item.food;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.AntiFeedingFoodItem;
@@ -32,15 +33,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -69,18 +70,18 @@ public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
         }
     }
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             MutableComponent textValue = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".frosty_crown_mousse");
             tooltip.add(textValue.withStyle(ChatFormatting.RED));
         }
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
     }
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity livingEntity, ItemStack pStack, int pRemainingUseDuration) {
         //判断在使用物品
-        if (this.getUseDuration(pStack) - pRemainingUseDuration > 32) {
+        if (this.getUseDuration(pStack, livingEntity) - pRemainingUseDuration > 32) {
             addAheadFoodEffect(pStack, livingEntity.level(), livingEntity);
         }
         //结束使用物品
@@ -100,15 +101,15 @@ public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
         }
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class FrostyCrownMousseEvents {
         //存了寒冷nbt，怎么判断寒冷时间?搞一个冷却计时嘛。
         @SubscribeEvent
-        public static void eatPeiCooldown(LivingEvent.LivingTickEvent event) {
-            LivingEntity entity = event.getEntity();
+        public static void eatPeiCooldown(EntityTickEvent.Post event) {
+            if (!(event.getEntity() instanceof LivingEntity entity)) {
+                return;
+            }
             if (entity.isAlive() && entity.tickCount % 5 == 0
                     && !entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
                     && !entity.level().isClientSide()) {

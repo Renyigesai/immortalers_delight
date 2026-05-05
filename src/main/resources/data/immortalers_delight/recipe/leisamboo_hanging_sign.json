@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bark",
+  "key": {
+    "#": {
+      "item": "immortalers_delight:leisamboo_planks"
+    },
+    "A": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "A A",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "immortalers_delight:leisamboo_hanging_sign"
+  },
+  "show_notification": true
+}

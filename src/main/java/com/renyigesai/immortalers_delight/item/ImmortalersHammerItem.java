@@ -1,8 +1,11 @@
 package com.renyigesai.immortalers_delight.item;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
+import com.renyigesai.immortalers_delight.init.ImmortalersTiers;
 import com.renyigesai.immortalers_delight.potion.CulturalLegacyMobEffect;
 import com.renyigesai.immortalers_delight.potion.VulnerableMobEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.StunEffect;
@@ -20,6 +23,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -28,13 +32,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -54,7 +56,7 @@ public class ImmortalersHammerItem extends DiggerItem {
 
     public static final int[] GIDDINESS_TIME = new int[]{16, 20, 24, 28, 32, 36, 40, 44};
     public ImmortalersHammerItem(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.MINEABLE_HAMMER, pProperties);
+        super(pTier, ImmortalersDelightTags.MINEABLE_HAMMER, ImmortalersDelightItems.withTierToolAttributes(pProperties, pTier, pAttackDamageModifier, pAttackSpeedModifier));
         this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
         this.attackSpeed = pAttackSpeedModifier;
         this.extra_attackDamage = 0;
@@ -62,7 +64,7 @@ public class ImmortalersHammerItem extends DiggerItem {
     }
 
     public ImmortalersHammerItem(int type, Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, float pExtraAttackDamage, float pExtraAttackSpeed, Properties pProperties) {
-        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.MINEABLE_HAMMER, pProperties);
+        super(pTier, ImmortalersDelightTags.MINEABLE_HAMMER, ImmortalersDelightItems.withTierToolAttributes(pProperties, pTier, pAttackDamageModifier, pAttackSpeedModifier));
         this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
         this.attackSpeed = pAttackSpeedModifier;
         this.extra_attackDamage = pExtraAttackDamage;
@@ -79,7 +81,7 @@ public class ImmortalersHammerItem extends DiggerItem {
     @Override
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
         float speed = super.getDestroySpeed(pStack, pState);
-        if (speed > 1.0F && pState.getBlock().defaultDestroyTime() > this.getTier().getLevel()) {
+        if (speed > 1.0F && pState.getBlock().defaultDestroyTime() > ((ImmortalersTiers) this.getTier()).getLevel()) {
             speed *= 0.5F;
         }
         return speed;
@@ -95,7 +97,7 @@ public class ImmortalersHammerItem extends DiggerItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
 
         if (stack.getItem() instanceof ImmortalersHammerItem) {
             MutableComponent textValue1 = Component.translatable(
@@ -121,13 +123,11 @@ public class ImmortalersHammerItem extends DiggerItem {
                 tooltip.add(textValue2.withStyle(ChatFormatting.YELLOW));
             }
         }
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class ImmortalersHammerEvents {
         //玩家使用松肉锤满蓄力攻击，可以使生物眩晕。对已眩晕的生物再次攻击无效。
         @SubscribeEvent
@@ -140,7 +140,7 @@ public class ImmortalersHammerItem extends DiggerItem {
                 if (toolStack.getItem() instanceof ImmortalersHammerItem hammer) {
                     float attackInterval = attacker.getAttackStrengthScale(0.5F);
                     if (attackInterval >= 0.99F){
-                        StunEffect.applyImmortalEffect(hurtOne, GIDDINESS_TIME[hammer.getTier().getLevel()], 0);
+                        StunEffect.applyImmortalEffect(hurtOne, GIDDINESS_TIME[((ImmortalersTiers) hammer.getTier()).getLevel()], 0);
                     }
                 }
             }
@@ -148,7 +148,7 @@ public class ImmortalersHammerItem extends DiggerItem {
         }
 
         @SubscribeEvent
-        public static void VulnerableAndMobDizziness(LivingDamageEvent event) {
+        public static void VulnerableAndMobDizziness(LivingDamageEvent.Pre event) {
             if (event.getEntity() == null || event.getSource().getEntity() == null) return;
             LivingEntity hurtOne = event.getEntity();
             if (!hurtOne.level().isClientSide() && event.getSource().getEntity() instanceof LivingEntity attacker) {
@@ -156,15 +156,15 @@ public class ImmortalersHammerItem extends DiggerItem {
                     //易伤
 //                    VulnerableMobEffect.addEffectWithFrequencyLimit(
 //                            hurtOne,
-                            hurtOne.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.VULNERABLE.get(), GIDDINESS_TIME[hammer.getTier().getLevel()] + 50, 1));
+                            hurtOne.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.VULNERABLE, GIDDINESS_TIME[((ImmortalersTiers) hammer.getTier()).getLevel()] + 50, 1));
 //                            (byte) 1
 //                    );
 
                     //非玩家攻击眩晕
                     if (StunEffect.getEntityMap().get(hurtOne.getUUID()) != null || attacker instanceof Player) return;
-                    float f = (float) GIDDINESS_TIME[hammer.getTier().getLevel()] / 50;
+                    float f = (float) GIDDINESS_TIME[((ImmortalersTiers) hammer.getTier()).getLevel()] / 50;
                     if (attacker.getRandom().nextFloat() < f) {
-                        StunEffect.applyImmortalEffect(hurtOne, GIDDINESS_TIME[hammer.getTier().getLevel()], 0);
+                        StunEffect.applyImmortalEffect(hurtOne, GIDDINESS_TIME[((ImmortalersTiers) hammer.getTier()).getLevel()], 0);
                     }
                 }
             }

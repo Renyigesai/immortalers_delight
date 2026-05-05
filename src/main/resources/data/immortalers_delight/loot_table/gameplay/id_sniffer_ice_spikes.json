@@ -1,0 +1,24 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:gelpitaya"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:alfalfa_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "immortalers_delight:evolutcorn_grains"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.food;
 
-import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -12,10 +13,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TartareChickenBigMealBlock extends HorizontalDirectionalBlock {
 
+    public static final MapCodec<TartareChickenBigMealBlock> CODEC = simpleCodec(TartareChickenBigMealBlock::new);
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,8);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,12.0D,15.0D);
 
@@ -45,20 +48,39 @@ public class TartareChickenBigMealBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult mealUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         ItemStack hand_stack = player.getItemInHand(hand);
-            if (hand_stack.is(Items.BOWL)) {
-                return takeServing(state, level, pos, player);
-            }
-            if (!hand_stack.is(Items.BOWL)){
-                return eat(state, level, pos, player);
-            }
-            return super.use(state, level, pos, player, hand, hitResult);
+        if (hand_stack.is(Items.BOWL)) {
+            return takeServing(state, level, pos, player);
+        }
+        if (!hand_stack.is(Items.BOWL)) {
+            return eat(state, level, pos, player);
+        }
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = mealUse(state, level, pos, player, hand);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = mealUse(state, level, pos, player, InteractionHand.MAIN_HAND);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){
@@ -68,7 +90,7 @@ public class TartareChickenBigMealBlock extends HorizontalDirectionalBlock {
         for (int i = 1;bites + i <= 9; i++){
             if (player.canEat(false)){
                 eatCount = i;
-                player.getFoodData().eat(ImmortalersDelightItems.TARTARE_CHICKEN.get(), new ItemStack(ImmortalersDelightItems.TARTARE_CHICKEN.get()));
+                player.eat(level, new ItemStack(ImmortalersDelightItems.TARTARE_CHICKEN.get()));
                 level.gameEvent(player, GameEvent.EAT, pos);
                 level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
             }else {
@@ -94,27 +116,22 @@ public class TartareChickenBigMealBlock extends HorizontalDirectionalBlock {
      * @param p_21065_ 实体所在的游戏世界，用于判断是否为客户端，以及获取随机数生成器。
      * @param p_21066_ 食用物品的实体，即要添加药水效果的对象。
      */
-    private void addFoodPoisonEffect(ItemStack p_21064_, Level p_21065_, LivingEntity p_21066_, int timeBuffer) {
-        // 从物品栈中获取具体的物品
-        Item item = p_21064_.getItem();
-        // 检查该物品是否为可食用物品
-        if (item.isEdible()) {
-            // 遍历物品的食物属性中定义的所有药水效果及其概率
-            for (Pair<MobEffectInstance, Float> pair : p_21064_.getFoodProperties(p_21066_).getEffects()) {
-                // 条件判断：
-                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
-                // 2. 药水效果实例不为空，确保有有效的药水效果。
-                if (!p_21065_.isClientSide && pair.getFirst() != null) {
-                    // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
-                    // 然后将该药水效果添加到食用物品的实体上。
-                    if (timeBuffer > 1) {
-                        int time = pair.getFirst().getDuration() * timeBuffer;
-                        int lv = pair.getFirst().getAmplifier();
-                        p_21066_.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
-                    //如果时间倍率大于1，会将持续时间乘以倍率
-                    } else p_21066_.addEffect(new MobEffectInstance(pair.getFirst()));
-                }
+    private void addFoodPoisonEffect(ItemStack stack, Level level, LivingEntity entity, int timeBuffer) {
+        FoodProperties props = stack.getFoodProperties(entity);
+        if (level.isClientSide || props == null) {
+            return;
+        }
+        for (FoodProperties.PossibleEffect pe : props.effects()) {
+            if (entity.getRandom().nextFloat() >= pe.probability()) {
+                continue;
             }
+            MobEffectInstance base = pe.effectSupplier().get();
+            int duration = base.getDuration() > 0 ? base.getDuration() : 200;
+            int amplifier = base.getAmplifier();
+            if (timeBuffer > 1) {
+                duration *= timeBuffer;
+            }
+            entity.addEffect(new MobEffectInstance(base.getEffect(), duration, amplifier));
         }
     }
     public InteractionResult takeServing(BlockState state, Level level, BlockPos pos, Player player){

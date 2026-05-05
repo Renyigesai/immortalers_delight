@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.event;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -34,23 +35,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber(modid = ImmortalersDelightMod.MODID)
 public class SnifferEvent {
     @SubscribeEvent
     public static void onDropSeed(SnifferDropSeedEvent event) {
@@ -109,7 +105,7 @@ public class SnifferEvent {
                                 pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
                         if (!player.getAbilities().instabuild){
                             tag.putInt(SNIFFER_TAIL_REGENERATION_COOLDOWN, 144000);
-                            itemStack.hurtAndBreak(1, serverPlayer, (action) -> action.broadcastBreakEvent(event.getHand()));
+                            itemStack.hurtAndBreak(1, serverPlayer, event.getHand() == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
                         }
                         flag = true;
                     }
@@ -117,7 +113,7 @@ public class SnifferEvent {
                         outputNumber += 1 + player.getRandom().nextInt(3);
                         if (!player.getAbilities().instabuild) {
                             tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 10140);
-                            itemStack.hurtAndBreak(125, serverPlayer, (action) -> action.broadcastBreakEvent(event.getHand()));
+                            itemStack.hurtAndBreak(125, serverPlayer, event.getHand() == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
                         }
                         if (outputNumber > 0) {
                             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.SNIFFER_FUR.get(), outputNumber),
@@ -146,12 +142,7 @@ public class SnifferEvent {
                 if (!tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) || tag.getInt(SNIFFER_BRUSHING_COOLDOWN) <= 0) {
                     ItemStack oldStack = event.getItemStack();
                     if (oldStack.getItem() == Items.BRUSH) {
-                        ItemStack newStack = new ItemStack(ImmortalersDelightItems.BRUSH.get(), oldStack.getCount(), getItemStackCapNBT(oldStack));
-                        newStack.setPopTime(oldStack.getPopTime());
-                        if (oldStack.getTag() != null) {
-                            newStack.setTag(oldStack.getTag());
-                        }
-                        player.setItemInHand(event.getHand(), newStack);
+                        player.setItemInHand(event.getHand(), oldStack.transmuteCopy(ImmortalersDelightItems.BRUSH.get()));
                     }
                 }
             }
@@ -159,7 +150,7 @@ public class SnifferEvent {
     }
 
     @SubscribeEvent
-    public static void snifferCooldown(LivingEvent.LivingTickEvent event) {
+    public static void snifferCooldown(EntityTickEvent.Post event) {
         if (event.getEntity() instanceof Sniffer sniffer) {
             CompoundTag tag = sniffer.getPersistentData();
             if (tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) && tag.getInt(SNIFFER_BRUSHING_COOLDOWN) > 0) {
@@ -181,12 +172,7 @@ public class SnifferEvent {
                 }
                 if (!oldStack.isEmpty()) {
                     EquipmentSlot equipmentslot = oldStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                    ItemStack newStack = new ItemStack(Items.BRUSH, oldStack.getCount(), getItemStackCapNBT(oldStack));
-                    newStack.setPopTime(oldStack.getPopTime());
-                    if (oldStack.getTag() != null) {
-                        newStack.setTag(oldStack.getTag());
-                    }
-                    player.setItemSlot(equipmentslot, newStack);
+                    player.setItemSlot(equipmentslot, oldStack.transmuteCopy(Items.BRUSH));
                 }
             }
 
@@ -203,45 +189,11 @@ public class SnifferEvent {
         if (level instanceof ServerLevel serverLevel && block instanceof ModBrushableBlock) {
             ItemStack oldStack = event.getItemStack();
             if (oldStack.getItem() == Items.BRUSH) {
-                ItemStack newStack = new ItemStack(ImmortalersDelightItems.BRUSH.get(), oldStack.getCount(), getItemStackCapNBT(oldStack));
-                newStack.setPopTime(oldStack.getPopTime());
-                if (oldStack.getTag() != null) {
-                    newStack.setTag(oldStack.getTag());
-                }
-                event.getEntity().setItemInHand(event.getHand(), newStack);
+                event.getEntity().setItemInHand(event.getHand(), oldStack.transmuteCopy(ImmortalersDelightItems.BRUSH.get()));
             }
             //event.setCancellationResult(InteractionResult.SUCCESS);
             //event.setCanceled(true);
         }
     }
 
-    private static CompoundTag getItemStackCapNBT(ItemStack itemStack) {
-        CompoundTag tag = itemStack.getOrCreateTag();
-        try {
-            // 获取private字段
-            Method method = CapabilityProvider.class.getDeclaredMethod("serializeCaps");
-            method.setAccessible(true); // 允许访问private成员
-
-            // 读取值
-            CompoundTag value = (CompoundTag) method.invoke(itemStack); // 通过实例访问private字段
-            if (value != null) {
-                tag = value.copy();
-                //System.out.println("获取capNBT字段成功");
-            } else System.out.println("我们get到了null值，怎么会这样呢？");
-        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            System.out.println("获取capNBT字段失败");
-            e.printStackTrace();
-        }
-        return tag;
-    }
-
-//    private static CompoundTag getItemStackCapNBT(ItemStack itemStack) {
-//        // 获取父类的private字段
-//        Field capNBT = ItemStack.class.getDeclaredField("capNBT");
-//        capNBT.setAccessible(true); // 允许访问private成员
-//
-//        // 读取值
-//        CompoundTag value = (CompoundTag) capNBT.get(this); // 通过子类实例访问父类private字段
-//        //Sy//stem.out.println("通过反射获取父类private字段值：" + value);
-//    }
 }

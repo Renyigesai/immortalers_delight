@@ -58,9 +58,10 @@ public class MoonArrowHitboxEntity extends Entity implements TraceableEntity {
         this.setPos(pX, pY, pZ);
     }
 
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_RADIUS, 3.0F);
-        this.entityData.define(DATA_WAITING, true);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_RADIUS, 3.0F);
+        builder.define(DATA_WAITING, true);
     }
 
     public float getDamage() {

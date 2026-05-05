@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.event;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.api.mobbase.ImmortalersMob;
@@ -16,18 +17,18 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DifficultyModeEventHelper {
 
     private static final Map<UUID, Float> entityDeathless = new ConcurrentHashMap<>();
@@ -136,17 +137,17 @@ public class DifficultyModeEventHelper {
      *  这个增伤不影响保底伤害。
      */
     @SubscribeEvent
-    public static void ImmortalrsMobAttackProgressDamage(LivingHurtEvent event) {
+    public static void ImmortalrsMobAttackProgressDamage(LivingDamageEvent.Pre event) {
         LivingEntity hurtOne = event.getEntity();
         if (!hurtOne.level().isClientSide) {
             if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
                 if (event.getSource().getEntity() instanceof LivingEntity attacker) {
 
-                    float oldDamage = event.getAmount();
+                    float oldDamage = event.getNewDamage();
                     float buffer = 1;
                     float healthHaveUsed = 0;
 
-                    ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(attacker.getType());
+                    ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(attacker.getType());
                     if (entityId != null) {
                         String idString = entityId.toString();
                         //优先判断是否能实名匹配
@@ -162,7 +163,7 @@ public class DifficultyModeEventHelper {
                             //这是获取配置文件List中所有的Tag
                             Map<String, Float[]> tagMap = filterByFirstElementGreaterThanZero(mobDynamicDamage);
                             for (Map.Entry<String, Float[]> entry : tagMap.entrySet()) {
-                                ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
+                                ResourceLocation resourcelocation = ResourceLocation.parse(entry.getKey());
                                 TagKey<EntityType<?>> tagkey = TagKey.create(Registries.ENTITY_TYPE, resourcelocation);
                                 //从String中获取TagKey对实体进行匹配
                                 if (attacker.getType().is(tagkey)) {
@@ -224,7 +225,7 @@ public class DifficultyModeEventHelper {
 //                            else healthHaveUsed += hurtOne.getMaxHealth();
 //                        }
 //                    }
-                    event.setAmount(Math.max(oldDamage * buffer, 0.0F));
+                    event.setNewDamage(Math.max(oldDamage * buffer, 0.0F));
                 }
             }
         }
@@ -235,7 +236,7 @@ public class DifficultyModeEventHelper {
      *  修改了实现原理，现在的原理为最终加算伤害值
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void ImmortalrsMobAttackMinDamage(LivingDamageEvent event) {
+    public static void ImmortalrsMobAttackMinDamage(LivingDamageEvent.Pre event) {
 
         if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker && !attacker.level().isClientSide) {
@@ -243,7 +244,7 @@ public class DifficultyModeEventHelper {
 
                 float minDamage = 0;
 
-                ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(attacker.getType());
+                ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(attacker.getType());
                 if (entityId != null) {
                     String idString = entityId.toString();
                     //优先判断是否能实名匹配
@@ -259,7 +260,7 @@ public class DifficultyModeEventHelper {
                         //这是获取配置文件List中所有的Tag
                         Map<String, Float[]> tagMap = filterByFirstElementGreaterThanZero(mobMinDamage);
                         for (Map.Entry<String, Float[]> entry : tagMap.entrySet()) {
-                            ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
+                            ResourceLocation resourcelocation = ResourceLocation.parse(entry.getKey());
                             TagKey<EntityType<?>> tagkey = TagKey.create(Registries.ENTITY_TYPE, resourcelocation);
                             //从String中获取TagKey对实体进行匹配
                             if (attacker.getType().is(tagkey)) {
@@ -300,13 +301,13 @@ public class DifficultyModeEventHelper {
 //                    needMinDamage = true;
 //                }
 
-                if (hurtOne.hasEffect(ImmortalersDelightMobEffect.VULNERABLE.get())) {
-                    int amplifier = Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get())).getAmplifier();
+                if (hurtOne.hasEffect(ImmortalersDelightMobEffect.VULNERABLE)) {
+                    int amplifier = Objects.requireNonNull(hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE)).getAmplifier();
                     minDamage *= (amplifier + 2);
                 }
 
                 if (minDamage > 0) {
-                    event.setAmount(event.getAmount() + minDamage);
+                    event.setNewDamage(event.getNewDamage() + minDamage);
                 }
             }
         }
@@ -318,16 +319,16 @@ public class DifficultyModeEventHelper {
      *  该事件触发时生物自定义hurt方法、Forge伤害事件、原版护甲法抗已经完成计算
      */
     @SubscribeEvent
-    public static void ImmortalrsMobHurtDamageDecay(LivingDamageEvent event) {
+    public static void ImmortalrsMobHurtDamageDecay(LivingDamageEvent.Pre event) {
         if (DifficultyModeUtil.isPowerBattleMode() && Config.powerBattleModeStrengthenTheEnemies) {
             LivingEntity hurtOne = event.getEntity();
             if (!hurtOne.level().isClientSide) {
-                float oldDamage = event.getAmount();
+                float oldDamage = event.getNewDamage();
                 float damage = oldDamage;
                 float damageDivisor = 0;
 
 
-                ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(hurtOne.getType());
+                ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(hurtOne.getType());
                 if (entityId != null) {
                     String idString = entityId.toString();
                     //优先判断是否能实名匹配
@@ -344,7 +345,7 @@ public class DifficultyModeEventHelper {
                         //这是获取配置文件List中所有的Tag
                         Map<String, Float[]> tagMap = filterByFirstElementGreaterThanZero(mobHighDamageCounteraction);
                         for (Map.Entry<String, Float[]> entry : tagMap.entrySet()) {
-                            ResourceLocation resourcelocation = new ResourceLocation(entry.getKey());
+                            ResourceLocation resourcelocation = ResourceLocation.parse(entry.getKey());
                             TagKey<EntityType<?>> tagkey = TagKey.create(Registries.ENTITY_TYPE, resourcelocation);
                             //从String中获取TagKey对实体进行匹配
                             if (hurtOne.getType().is(tagkey)) {
@@ -401,7 +402,7 @@ public class DifficultyModeEventHelper {
 //                        needLimitDamage = true;
 //                    }
 //                }
-                event.setAmount(damage);
+                event.setNewDamage(damage);
             }
         }
     }
@@ -472,7 +473,7 @@ public class DifficultyModeEventHelper {
 //        }
 //        if (flag) {
 //            spawnParticle(entity, 1);
-//            entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:debug")))), 0);
+//            entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("immortalers_delight:debug")))), 0);
 //        }
 //        entity.deathTime = -2;
 //        return flag;

@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team;
 
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.IllagerRaidEnchantmentHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -45,6 +47,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -89,11 +93,12 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
                 .add(Attributes.MAX_HEALTH, 24.0D);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_MOD_SPELL_CASTING_ID, (byte)0);
-        this.entityData.define(DATA_TELEPORTING, false);
-        this.entityData.define(DATA_TAKE_POISON_COUNT, (byte)1);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_MOD_SPELL_CASTING_ID, (byte)0);
+        builder.define(DATA_TELEPORTING, false);
+        builder.define(DATA_TAKE_POISON_COUNT, (byte)1);
     }
 
     public boolean isSpellCasting() {
@@ -188,17 +193,18 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
             return true;
         } else if (pEntity instanceof Vex vex && vex.getOwner() != null) {
             return this.isAlliedTo(vex.getOwner());
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.ILLAGER) {
+        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getType().is(EntityTypeTags.ILLAGER)) {
             return this.getTeam() == null && pEntity.getTeam() == null;
         } else {
             return false;
         }
     }
 
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ImmortalersDelightItems.REPEATING_CROSSBOW.get()));
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()));
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     public AbstractIllager.@NotNull IllagerArmPose getArmPose() {
@@ -238,19 +244,22 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
         return SoundEvents.EVOKER_CAST_SPELL;
     }
 
-    public void applyRaidBuffs(int pWave, boolean pUnusedFalse) {
+    @Override
+    public void applyRaidBuffs(ServerLevel level, int wave, boolean unused) {
+        IllagerRaidEnchantmentHelper.enchantEquipmentSlotIfRaid(level, this, EquipmentSlot.OFFHAND, wave);
+        IllagerRaidEnchantmentHelper.enchantEquipmentSlotIfRaid(level, this, EquipmentSlot.MAINHAND, wave);
     }
 
     @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
         ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof net.minecraft.world.item.BowItem)));
-        AbstractArrow abstractarrow = ProjectileUtil.getMobArrow(this, itemstack, pVelocity);
         ItemStack bow = new ItemStack(Items.BOW);
         if (this.getMainHandItem().getItem() instanceof net.minecraft.world.item.BowItem) {
             bow = this.getMainHandItem();
         }
-        if (bow.getItem() instanceof BowItem bowItem) {
-            abstractarrow = bowItem.customArrow(abstractarrow);
+        AbstractArrow abstractarrow = ProjectileUtil.getMobArrow(this, itemstack, pVelocity, bow);
+        if (bow.getItem() instanceof ProjectileWeaponItem weaponItem) {
+            abstractarrow = weaponItem.customArrow(abstractarrow, itemstack, bow);
         }
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - abstractarrow.getY();
@@ -287,7 +296,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
 //        boolean flag = blockstate.blocksMotion();
 //        boolean flag1 = blockstate.getFluidState().is(FluidTags.WATER);
 //        if (flag && !flag1) {
-//            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, pX, pY, pZ);
+//            net.neoforged.neoforge.event.entity.EntityTeleportEvent.EnderEntity event = net.neoforged.neoforge.event.ForgeEventFactory.onEnderTeleport(this, pX, pY, pZ);
 //            if (event.isCanceled()) return false;
 //            Vec3 vec3 = this.position();
 //            boolean flag2 = this.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
@@ -365,7 +374,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
                         && this.level().noCollision(this, (new AABB(blockpos1)).deflate(1.0E-6D))) {
                     Direction direction = this.findAttachableSurface(blockpos1);
                     if (direction != null) {
-                        net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
+                        EntityTeleportEvent.EnderEntity event = EventHooks.onEnderTeleport(this, blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                         if (event.isCanceled()) direction = null;
                         blockpos1 = BlockPos.containing(event.getTargetX(), event.getTargetY(), event.getTargetZ());
                     }
@@ -454,15 +463,6 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
         public AttackGoal(Scavenger vindicator) {
             super(vindicator, 1.25, false);
 
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity entity) {
-            if (this.mob.getVehicle() instanceof Ravager) {
-                float f = this.mob.getVehicle().getBbWidth() - 0.1f;
-                return f * 2.0f * (f * 2.0f) + entity.getBbWidth();
-            }
-            return super.getAttackReachSqr(entity);
         }
     }
 
@@ -769,7 +769,7 @@ public class Scavenger extends SpellcasterIllager implements RangedAttackMob {
                 return false;
             } else if (Scavenger.this.tickCount < this.nextAttackTickCount) {
                 return false;
-            } else if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(Scavenger.this.level(), Scavenger.this)) {
+            } else if (!Scavenger.this.level().getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)) {
                 return false;
             } else {
                 List<Sheep> list = Scavenger.this.level().getNearbyEntities(Sheep.class, this.wololoTargeting, Scavenger.this, Scavenger.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));

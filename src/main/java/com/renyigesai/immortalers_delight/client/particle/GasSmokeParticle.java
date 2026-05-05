@@ -10,8 +10,8 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class GasSmokeParticle extends HugeSmokeParticle{
     public static GasSmokeParticleProvider gasSmokeProvider(SpriteSet spriteSet) {
@@ -43,9 +43,9 @@ public class GasSmokeParticle extends HugeSmokeParticle{
             return new GasSmokeParticle(pLevel, pX, pY, pZ);
         }
     }
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/particle/gas_smoke.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/particle/gas_smoke.png");
 
-    private static final ResourceLocation LAYER_TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/particle/gas_smoke_layer.png");
+    private static final ResourceLocation LAYER_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/particle/gas_smoke_layer.png");
 
     /**
      * 构造方法，初始化实体外观粒子

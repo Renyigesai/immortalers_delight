@@ -1,12 +1,12 @@
 package com.renyigesai.immortalers_delight.block.enchantal_cooler;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -26,16 +26,22 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class EnchantalCoolerBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape BOX = box(2.0,0,2.0,14.0,9.0,14.0);
 
+    public static final MapCodec<EnchantalCoolerBlock> CODEC = simpleCodec(EnchantalCoolerBlock::new);
+
     public EnchantalCoolerBlock(Properties p_49224_) {
         super(p_49224_);
         this.registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -64,17 +70,14 @@ public class EnchantalCoolerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-        super.use(blockstate, world, pos, entity, hand, hit);
-        if(!world.isClientSide()) {
+    protected InteractionResult useWithoutItem(BlockState blockstate, Level world, BlockPos pos, Player entity, BlockHitResult hit) {
+        if (!world.isClientSide()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof EnchantalCoolerBlockEntity ovenBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer) entity), ovenBlockEntity, pos);;
+                ((ServerPlayer) entity).openMenu(ovenBlockEntity, pos);
                 return InteractionResult.CONSUME;
-            }else {
-                throw new IllegalStateException("Our Container provider is missing!");
             }
+            throw new IllegalStateException("Our Container provider is missing!");
         }
         return InteractionResult.SUCCESS;
     }

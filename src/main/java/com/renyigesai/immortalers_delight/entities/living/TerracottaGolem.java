@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -27,7 +28,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
@@ -35,6 +35,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.AnimalTameEvent;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +44,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +74,6 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
     // 马匹的 inventory 容器（存储鞍具、护甲等）
     protected SimpleContainer inventory;
 
-    private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
     public static final int INV_SLOT_LEFT = 0;
     public static final int INV_SLOT_BACK = 1;
     public static final int INV_SLOT_RIGHT = 2;
@@ -302,8 +302,10 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
 
         this.inventory.addListener(this); // 添加容器监听器（自身）
         this.updateContainerEquipment(); // 更新装备状态
-        // 初始化Forge的物品处理器（用于mod扩展）
-        this.itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this.inventory));
+    }
+
+    public SimpleContainer getInventoryContainer() {
+        return this.inventory;
     }
 
     /**
@@ -391,35 +393,18 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
             if (isAlive()) {
 
                 // 删除冗余代码并转用简洁的打开方式
-                NetworkHooks.openScreen(serverplayer,
+                serverplayer.openMenu(
                         new SimpleMenuProvider(
-                                (containerId, inv, ServerPlayer) ->
-                                new TerracottaGolemMenu(containerId,inv,this),
+                                (containerId, inv, p) ->
+                                        new TerracottaGolemMenu(containerId, inv, TerracottaGolem.this),
                                 Component.translatable(ImmortalersDelightMod.MODID + ".container.terracotta_golem")
                         ),
-                        friendlyByteBuf -> friendlyByteBuf.writeVarInt(this.getId())); // 写入实体id，随后传入客户端
+                        buf -> buf.writeVarInt(this.getId()));
             }
         }
     }
 
 
-    @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.core.Direction facing) {
-        if (this.isAlive() && capability == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER && itemHandler != null)
-            return itemHandler.cast();
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        if (itemHandler != null) {
-            net.minecraftforge.common.util.LazyOptional<?> oldHandler = itemHandler;
-            itemHandler = null;
-            oldHandler.invalidate();
-        }
-    }
-//
     public boolean hasInventoryChanged(Container pInventory) {
         return this.inventory != pInventory;
     }
@@ -446,10 +431,11 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
         }
     }
 
-
-    public boolean canBreatheUnderwater() {
-        return true;
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ItemTags.WOLF_FOOD);
     }
+
 
 //    @Override
 //    public boolean isBaby() {
@@ -459,8 +445,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
     /**==================实体基本方法，处理Goal注册、属性注册、音效等实体通用方法==================**/
     public TerracottaGolem(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.setTame(false);
-        this.setMaxUpStep(1.0F);
+        this.setTame(false, false);
         this.createInventory();
     }
     protected void registerGoals() {
@@ -468,7 +453,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
         this.goalSelector.addGoal(1, new TerracottaGolem.TerracottaGolemPanicGoal(1.5D));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 
@@ -497,15 +482,16 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
                 .add(Attributes.MAX_HEALTH, 10.0D);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_INTERESTED_ID, false);
-        this.entityData.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
-        this.entityData.define(DATA_ID_FLAGS, (byte)0);
-        this.entityData.define(DATA_ID_DECORATE_BACK, (byte)0);
-        this.entityData.define(DATA_ID_DECORATE_LEFT, (byte)0);
-        this.entityData.define(DATA_ID_DECORATE_RIGHT, (byte)0);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_INTERESTED_ID, false);
+        builder.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
+        builder.define(DATA_REMAINING_ANGER_TIME, 0);
+        builder.define(DATA_ID_FLAGS, (byte)0);
+        builder.define(DATA_ID_DECORATE_BACK, (byte)0);
+        builder.define(DATA_ID_DECORATE_LEFT, (byte)0);
+        builder.define(DATA_ID_DECORATE_RIGHT, (byte)0);
     }
 
 
@@ -528,7 +514,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
             if (!itemstack.isEmpty()) {
                 CompoundTag compoundtag = new CompoundTag();
                 compoundtag.putByte("Slot", (byte)i);
-                itemstack.save(compoundtag);
+                itemstack.save(this.registryAccess(), compoundtag);
                 listtag.add(compoundtag);
             }
         }
@@ -558,7 +544,7 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
             CompoundTag compoundtag = listtag.getCompound(i);
             int j = compoundtag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize()) {
-                this.inventory.setItem(j, ItemStack.of(compoundtag));
+                this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
             }
         }
 
@@ -605,8 +591,9 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
      * 根据驯服状态调整狼的最大生命值和攻击伤害
      * @param pTamed true表示驯服，false表示未驯服
      */
-    public void setTame(boolean pTamed) {
-        super.setTame(pTamed);
+    @Override
+    public void setTame(boolean pTamed, boolean applyTamingSideEffects) {
+        super.setTame(pTamed, applyTamingSideEffects);
         if (pTamed) {
             // 驯服时将最大生命值设置为20
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
@@ -619,8 +606,9 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
         this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(4.0D);
     }
 
-    public boolean canBeLeashed(Player pPlayer) {
-        return !this.isAngry() && super.canBeLeashed(pPlayer);
+    @Override
+    public boolean canBeLeashed() {
+        return !this.isAngry() && super.canBeLeashed();
     }
 
     public @NotNull Vec3 getLeashOffset() {
@@ -648,7 +636,9 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
         if (!isTame() && stack.is(Items.DIAMOND_BLOCK)) {
             this.usePlayerItem(player, hand, stack);
             this.gameEvent(GameEvent.EAT);
-            if (!net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+            AnimalTameEvent tameEvent = new AnimalTameEvent(this, player);
+            NeoForge.EVENT_BUS.post(tameEvent);
+            if (!tameEvent.isCanceled()) {
                 this.tame(player);
                 this.level().broadcastEntityEvent(this, (byte) 7);
             } else {
@@ -693,17 +683,16 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
     /**===================================繁殖相关方法===============================**/
     @Nullable
     @Override
-    public Wolf getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        Wolf wolf = EntityType.WOLF.create(pLevel);
-        if (wolf != null) {
+    public TerracottaGolem getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        TerracottaGolem offspring = ImmortalersDelightEntities.TERRACOTTA_GOLEM.get().create(pLevel);
+        if (offspring != null) {
             UUID uuid = this.getOwnerUUID();
             if (uuid != null) {
-                // 如果当前狼有主人，设置后代狼的主人并标记为驯服
-                wolf.setOwnerUUID(uuid);
-                wolf.setTame(true);
+                offspring.setOwnerUUID(uuid);
+                offspring.setTame(true, false);
             }
         }
-        return wolf;
+        return offspring;
     }
 
     /**
@@ -717,16 +706,16 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
             return false;
         } else if (!this.isTame()) {
             return false;
-        } else if (!(pOtherAnimal instanceof Wolf)) {
+        } else if (!(pOtherAnimal instanceof TerracottaGolem)) {
             return false;
         } else {
-            Wolf wolf = (Wolf)pOtherAnimal;
-            if (!wolf.isTame()) {
+            TerracottaGolem other = (TerracottaGolem)pOtherAnimal;
+            if (!other.isTame()) {
                 return false;
-            } else if (wolf.isInSittingPose()) {
+            } else if (other.isInSittingPose()) {
                 return false;
             } else {
-                return this.isInLove() && wolf.isInLove();
+                return this.isInLove() && other.isInLove();
             }
         }
     }
@@ -795,7 +784,9 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
                 // 非创造模式下减少物品数量
                 itemstack.shrink(1);
             }
-            if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            AnimalTameEvent tameEvent = new AnimalTameEvent(this, pPlayer);
+            NeoForge.EVENT_BUS.post(tameEvent);
+            if (this.random.nextInt(3) == 0 && !tameEvent.isCanceled()) {
                 // 有三分之一的概率驯服成功
                 this.tame(pPlayer);
                 this.navigation.stop();
@@ -894,10 +885,6 @@ public class TerracottaGolem extends TamableAnimal implements ContainerListener,
      */
     public boolean doHurtTarget(Entity pEntity) {
         boolean flag = pEntity.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-        if (flag) {
-            // 攻击成功时应用附魔效果
-            this.doEnchantDamageEffects(this, pEntity);
-        }
         return flag;
     }
 

@@ -12,6 +12,10 @@
       "model": "immortalers_delight:block/sextlotus_fizz_3",
       "y": 270
     },
+    "facing=east,pile=4": {
+      "model": "immortalers_delight:block/sextlotus_fizz_3",
+      "y": 270
+    },
     "facing=north,pile=1": {
       "model": "immortalers_delight:block/sextlotus_fizz_1",
       "y": 180
@@ -24,6 +28,10 @@
       "model": "immortalers_delight:block/sextlotus_fizz_3",
       "y": 180
     },
+    "facing=north,pile=4": {
+      "model": "immortalers_delight:block/sextlotus_fizz_3",
+      "y": 180
+    },
     "facing=south,pile=1": {
       "model": "immortalers_delight:block/sextlotus_fizz_1"
     },
@@ -31,6 +39,9 @@
       "model": "immortalers_delight:block/sextlotus_fizz_2"
     },
     "facing=south,pile=3": {
+      "model": "immortalers_delight:block/sextlotus_fizz_3"
+    },
+    "facing=south,pile=4": {
       "model": "immortalers_delight:block/sextlotus_fizz_3"
     },
     "facing=west,pile=1": {
@@ -42,6 +53,10 @@
       "y": 90
     },
     "facing=west,pile=3": {
+      "model": "immortalers_delight:block/sextlotus_fizz_3",
+      "y": 90
+    },
+    "facing=west,pile=4": {
       "model": "immortalers_delight:block/sextlotus_fizz_3",
       "y": 90
     }

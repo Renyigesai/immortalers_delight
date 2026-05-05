@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,11 +14,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.level.GameType;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.Random;
 
@@ -29,48 +30,51 @@ public class WeakPoisonHealthOverlay {
 	// 生命值图标偏移量，用于确定图标在屏幕上的位置
 	protected static int healthIconsOffset;
 	// 虚弱中毒效果的图标纹理资源位置
-	private static final ResourceLocation HEALTH_ICONS_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/icons/weak_poison_icons.png");
+	private static final ResourceLocation HEALTH_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/icons/weak_poison_icons.png");
 
 	/**
 	 * 初始化方法，将WeakPoisonHealthOverlay类的实例注册到Minecraft Forge的事件总线中，
 	 * 以便监听相关事件。
 	 */
 	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new WeakPoisonHealthOverlay());
+		NeoForge.EVENT_BUS.register(new WeakPoisonHealthOverlay());
 	}
 
-	// 玩家生命值覆盖层的资源位置，用于识别玩家生命值显示的覆盖层
-	static ResourceLocation PLAYER_HEALTH_ELEMENT = new ResourceLocation("minecraft", "player_health");
+	private static boolean shouldDrawSurvivalHud(Minecraft mc) {
+		if (mc.player == null || mc.options.hideGui) {
+			return false;
+		}
+		if (mc.player.isSpectator()) {
+			return false;
+		}
+		GameType mode = mc.gameMode != null ? mc.gameMode.getPlayerMode() : GameType.DEFAULT_MODE;
+		return !mode.isCreative();
+	}
 
 	/**
-	 * 监听RenderGuiOverlayEvent.Post事件，当渲染玩家生命值覆盖层时，
-	 * 检查条件并调用renderWeakPoisonOverlay方法进行虚弱中毒效果的渲染。
+	 * 监听 RenderGuiLayerEvent.Post，在玩家生命值层绘制后叠加虚弱中毒图标。
 	 *
-	 * @param event 渲染GUI覆盖层后的事件
+	 * @param event 渲染 GUI 层后的事件
 	 */
 	@SubscribeEvent
-	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-		// 检查当前渲染的覆盖层是否为玩家生命值覆盖层
-		if (event.getOverlay() == GuiOverlayManager.findOverlay(PLAYER_HEALTH_ELEMENT)) {
-			// 获取Minecraft实例
-			Minecraft mc = Minecraft.getInstance();
-			// 获取ForgeGui实例
-			ForgeGui gui = (ForgeGui) mc.gui;
-			// 检查玩家是否隐藏了GUI，并且是否应该绘制生存元素
-			if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-				// 调用渲染虚弱中毒覆盖层的方法
-				renderWeakPoisonOverlay(gui, event.getGuiGraphics());
-			}
+	public void onRenderGuiLayerPost(RenderGuiLayerEvent.Post event) {
+		if (!VanillaGuiLayers.PLAYER_HEALTH.equals(event.getName())) {
+			return;
+		}
+		Minecraft mc = Minecraft.getInstance();
+		Gui gui = mc.gui;
+		if (shouldDrawSurvivalHud(mc)) {
+			renderWeakPoisonOverlay(gui, event.getGuiGraphics());
 		}
 	}
 
 	/**
 	 * 渲染虚弱中毒效果的覆盖层，根据配置和玩家状态决定是否进行渲染。
 	 *
-	 * @param gui 游戏的ForgeGui实例
+	 * @param gui 游戏的 Gui 实例
 	 * @param graphics 用于绘制的GuiGraphics实例
 	 */
-	public static void renderWeakPoisonOverlay(ForgeGui gui, GuiGraphics graphics) {
+	public static void renderWeakPoisonOverlay(Gui gui, GuiGraphics graphics) {
 		// 检查配置中是否启用了虚弱中毒生命值覆盖层功能
 		if (!Config.weakPoisonHealthOverlay) {
 			return;
@@ -100,7 +104,7 @@ public class WeakPoisonHealthOverlay {
 		boolean isPlayerEligibleForWeakPoison = !player.hasEffect(MobEffects.REGENERATION);
 
 		// 检查玩家是否有虚弱中毒效果，并且符合显示条件
-		if (player.getEffect(ImmortalersDelightMobEffect.WEAK_POISON.get()) != null && isPlayerEligibleForWeakPoison) {
+		if (player.getEffect(ImmortalersDelightMobEffect.WEAK_POISON) != null && isPlayerEligibleForWeakPoison) {
 			// 调用绘制虚弱中毒覆盖层的方法
 			drawWeakPoisonOverlay(player, minecraft, graphics, left, top);
 		}

@@ -1,40 +1,47 @@
 package com.renyigesai.immortalers_delight.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.item.weapon.PillagersKnifeItem;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
-    public PillagerKnifeAddPotionRecipe(NonNullList<Ingredient> ingredient, ItemStack output,ItemStack container, ResourceLocation id) {
-        super(ingredient, new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()), new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()), id);
+    public PillagerKnifeAddPotionRecipe(NonNullList<Ingredient> ingredient, ItemStack jsonOutput, ItemStack jsonContainer) {
+        super(ingredient, new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()), new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()));
     }
 
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    public boolean matches(SimpleContainer inv, Level pLevel) {
+    private static PillagerKnifeAddPotionRecipe fromCodec(List<Ingredient> ingredients, ItemStack jsonOutput, ItemStack jsonContainer) {
+        return new PillagerKnifeAddPotionRecipe(NonNullList.copyOf(ingredients), jsonOutput, jsonContainer);
+    }
+
+    @Override
+    public boolean matches(SimpleContainerRecipeInput recipeInput, Level pLevel) {
+        SimpleContainer inv = recipeInput.container();
         boolean hasPotion = false;
 
         if (this.getContainer().isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {
             for (int j = 0; j < 4; ++j) {
                 ItemStack itemstack = inv.getItem(j);
-                if (PotionUtils.getPotion(itemstack) != Potions.EMPTY || PotionUtils.getCustomEffects(itemstack).size() > 0) {
+                if (PillagersKnifeItem.hasPotionCoating(itemstack)) {
                     if (hasPotion) {
                         return false;
                     } else {
@@ -47,12 +54,14 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
         return hasPotion;
     }
 
-    public @NotNull ItemStack assemble(SimpleContainer pInv, RegistryAccess pRegistryAccess) {
+    @Override
+    public @NotNull ItemStack assemble(SimpleContainerRecipeInput recipeInput, HolderLookup.Provider registries) {
+        SimpleContainer pInv = recipeInput.container();
         ItemStack potion = ItemStack.EMPTY;
         ItemStack knife = ItemStack.EMPTY;
         for (int j = 0; j < 4; ++j) {
             ItemStack itemstack = pInv.getItem(j);
-            if (PotionUtils.getPotion(itemstack) != Potions.EMPTY || PotionUtils.getCustomEffects(itemstack).size() > 0) {
+            if (PillagersKnifeItem.hasPotionCoating(itemstack)) {
                 potion = itemstack;
             }
         }
@@ -63,24 +72,21 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
             return ItemStack.EMPTY;
         } else {
             ItemStack itemstack1 = knife.copy();
-            PotionUtils.setPotion(itemstack1, PotionUtils.getPotion(potion));
-            PotionUtils.setCustomEffects(itemstack1, PotionUtils.getCustomEffects(potion));
-            if (PotionUtils.getCustomEffects(potion).isEmpty()) {
-                itemstack1.getOrCreateTag().putInt(PillagersKnifeItem.MAX_POTION_COUNT, 8);
-            } else itemstack1.getOrCreateTag().putInt(PillagersKnifeItem.MAX_POTION_COUNT, 3);
+            PotionContents src = potion.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            itemstack1.set(DataComponents.POTION_CONTENTS, src);
+            int maxCount = src.customEffects().isEmpty() ? 8 : 3;
+            CompoundTag tag = itemstack1.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            tag.putInt(PillagersKnifeItem.MAX_POTION_COUNT, maxCount);
+            itemstack1.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
             return itemstack1;
         }
     }
 
-    /**
-     * Used to determine if this recipe can fit in a grid of the given width/height
-     */
-//    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-//        return pWidth >= 2 && pHeight >= 2;
-//    }
-
     @Override
-    public @NotNull RecipeType<?> getType() {return Type.INSTANCE;}
+    public @NotNull RecipeType<?> getType() {
+        return Type.INSTANCE;
+    }
+
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
@@ -93,46 +99,45 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
 
     public static class Serializer implements RecipeSerializer<PillagerKnifeAddPotionRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(ImmortalersDelightMod.MODID, "pillagers_knife_add_potion");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "pillagers_knife_add_potion");
 
-        @Override
-        public PillagerKnifeAddPotionRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+        public static final MapCodec<PillagerKnifeAddPotionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC.listOf(1, 9).fieldOf("ingredients").forGetter(r -> List.copyOf(r.getIngredients())),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
+                ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(r -> r.container)
+        ).apply(instance, PillagerKnifeAddPotionRecipe::fromCodec));
 
-            // 动态获取原料数量
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
+        private static final StreamCodec<RegistryFriendlyByteBuf, PillagerKnifeAddPotionRecipe> STREAM_CODEC =
+                StreamCodec.of(Serializer::writeNetwork, Serializer::readNetwork);
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(i)));
+        private static void writeNetwork(RegistryFriendlyByteBuf buf, PillagerKnifeAddPotionRecipe recipe) {
+            buf.writeVarInt(recipe.getIngredients().size());
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
             }
-            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
+            ItemStack.STREAM_CODEC.encode(buf, new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get()));
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.container);
+        }
 
-            return new PillagerKnifeAddPotionRecipe(inputs, output,container,pRecipeId);
+        private static PillagerKnifeAddPotionRecipe readNetwork(RegistryFriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+            }
+            ItemStack ignoredOutput = ItemStack.STREAM_CODEC.decode(buf);
+            ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+            return new PillagerKnifeAddPotionRecipe(inputs, ignoredOutput, container);
         }
 
         @Override
-        public @Nullable PillagerKnifeAddPotionRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-            for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-            ItemStack container = pBuffer.readItem();
-            ItemStack output = pBuffer.readItem();
-            return new PillagerKnifeAddPotionRecipe(inputs, output,container,pRecipeId);
+        public MapCodec<PillagerKnifeAddPotionRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, PillagerKnifeAddPotionRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.getIngredients().size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-            pBuffer.writeItem(pRecipe.getContainer());
+        public StreamCodec<RegistryFriendlyByteBuf, PillagerKnifeAddPotionRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

@@ -1,7 +1,14 @@
 # 项目排除路径
 /.gradle/
 /build/
-/build/classes/java/main/
 /run/
 /src/generated/resources/.cache/
 /.idea/
+
+# 本地编译备忘 / 重定向输出（勿提交）
+compile*.txt
+c[0-9].txt
+
+# 系统垃圾
+Thumbs.db
+.DS_Store

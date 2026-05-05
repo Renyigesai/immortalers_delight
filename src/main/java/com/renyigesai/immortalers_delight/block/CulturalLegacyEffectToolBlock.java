@@ -30,17 +30,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import vectorwing.farmersdelight.common.registry.ModSounds;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
 
-@Mod.EventBusSubscriber
 public class CulturalLegacyEffectToolBlock extends ReapCropBlock{
     /*
     用于显示附魔台粒子的列表
@@ -56,7 +49,6 @@ public class CulturalLegacyEffectToolBlock extends ReapCropBlock{
 
     public CulturalLegacyEffectToolBlock(Properties p_52247_) {
         super(p_52247_);
-        MinecraftForge.EVENT_BUS.register(this);
     }
     public boolean isRandomlyTicking(BlockState pState) {
         return true;
@@ -72,10 +64,10 @@ public class CulturalLegacyEffectToolBlock extends ReapCropBlock{
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
-                float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
+                float f = getGrowthSpeed(pState, pLevel, pPos);
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
                     pLevel.setBlock(pPos,Blocks.AIR.defaultBlockState(),2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }
@@ -189,7 +181,7 @@ public class CulturalLegacyEffectToolBlock extends ReapCropBlock{
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
     @Override
-    public boolean isValidBonemealTarget(LevelReader p_255715_, BlockPos p_52259_, BlockState p_52260_, boolean p_52261_) {
+    public boolean isValidBonemealTarget(LevelReader p_255715_, BlockPos p_52259_, BlockState p_52260_) {
         return false;
     }
     @Override

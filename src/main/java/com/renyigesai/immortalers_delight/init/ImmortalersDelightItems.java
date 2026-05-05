@@ -10,22 +10,28 @@ import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.weapon.*;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
@@ -35,34 +41,34 @@ import java.util.function.Supplier;
 
 
 public class ImmortalersDelightItems {
-    public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, ImmortalersDelightMod.MODID);
+    public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(Registries.ITEM, ImmortalersDelightMod.MODID);
 
-    public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
+    public static LinkedHashSet<DeferredHolder<Item, Item>> CREATIVE_TAB_ITEMS = Sets.newLinkedHashSet();
 
     public static final String OFF_MAIN = ImmortalersDelightMod.MODID + "_decorative_blocks";
     public static final String NOT = ImmortalersDelightMod.MODID + "_not";
 
-    public static final RegistryObject<Item> DEBUG_ITEM;
+    public static final DeferredHolder<Item, Item> DEBUG_ITEM;
 
     /*系列装饰方块--姬海棠*/
 
     /*捆装类物品*/
     @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_GRAIN_BAG;
     @ItemData(zhCn = "箱装姬海棠",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_CRATE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_CRATE;
     @ItemData(zhCn = "箱装珍珠棱蕉",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_CRATE;
+    public static final DeferredHolder<Item, Item> PEARLIP_CRATE;
     @ItemData(zhCn = "白垩玉黍捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> EVOLUTCORN_BLOCK;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_BLOCK;
     @ItemData(zhCn = "瓦斯麦捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> KWAT_WHEAT_BLOCK;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_BLOCK;
     @ItemData(zhCn = "古苜蓿捆",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ALFALFA_BLOCK;
+    public static final DeferredHolder<Item, Item> ALFALFA_BLOCK;
     @ItemData(zhCn = "溪竹块",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_BLOCK;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_BLOCK;
     @ItemData(zhCn = "瓦斯麦种袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> KWAT_WHEAT_SEEDS_BAG;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_SEEDS_BAG;
 
     /*系列装饰方块--溪竹*/
 
@@ -71,834 +77,834 @@ public class ImmortalersDelightItems {
 
     /*系列装饰方块--嗅探兽毛*/
     @ItemData(zhCn = "嗅探兽毛块",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> SNIFFER_FUR_BLOCK;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR_BLOCK;
     @ItemData(zhCn = "嗅探兽毛榻榻米方块",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
-    public static final RegistryObject<Item> SNIFFER_FUR_TATAMI;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR_TATAMI;
     @ItemData(zhCn = "嗅探兽毛长榻榻米垫",group = OFF_MAIN)
-    public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR_FULL_TATAMI_MAT;
     @ItemData(zhCn = "嗅探兽毛短榻榻米垫",group = OFF_MAIN)
-    public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR_HALF_TATAMI_MAT;
 
     /**主物品栏物品**/
 
     /*工作方块*/
     @ItemData(zhCn = "魔凝机",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> ENCHANTAL_COOLER;
+    public static final DeferredHolder<Item, Item> ENCHANTAL_COOLER;
     @ItemData(zhCn = "远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> ANCIENT_STOVE;
     @ItemData(zhCn = "风化远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> EXPOSED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> EXPOSED_ANCIENT_STOVE;
     @ItemData(zhCn = "锈蚀远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> WEATHERED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> WEATHERED_ANCIENT_STOVE;
     @ItemData(zhCn = "氧化远古炉灶",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> OXIDIZED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> OXIDIZED_ANCIENT_STOVE;
     @ItemData(zhCn = "凃蜡的远古炉灶",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> WAXED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> WAXED_ANCIENT_STOVE;
     @ItemData(zhCn = "凃蜡的风化远古炉灶",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> WAXED_EXPOSED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> WAXED_EXPOSED_ANCIENT_STOVE;
     @ItemData(zhCn = "凃蜡的锈蚀远古炉灶",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> WAXED_WEATHERED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> WAXED_WEATHERED_ANCIENT_STOVE;
     @ItemData(zhCn = "凃蜡的氧化远古炉灶",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> WAXED_OXIDIZED_ANCIENT_STOVE;
+    public static final DeferredHolder<Item, Item> WAXED_OXIDIZED_ANCIENT_STOVE;
 
     /*工具和武器*/
     @ItemData(zhCn = "谷物香囊")
-    public static final RegistryObject<Item> SACHETS;
+    public static final DeferredHolder<Item, Item> SACHETS;
     @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL,group = NOT)
-    public static final RegistryObject<Item> DRILL_ROD_WAND;
+    public static final DeferredHolder<Item, Item> DRILL_ROD_WAND;
     @ItemData(zhCn = "锈蚀古刀",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> RUSTY_ANCIENT_BLADE;
+    public static final DeferredHolder<Item, Item> RUSTY_ANCIENT_BLADE;
     @ItemData(zhCn = "新硎古刀",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> ANCIENT_BLADE;
+    public static final DeferredHolder<Item, Item> ANCIENT_BLADE;
     @ItemData(zhCn = "灾厄匕首",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> PILLAGER_KNIFE;
+    public static final DeferredHolder<Item, Item> PILLAGER_KNIFE;
     @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> BONE_KNIFE;
+    public static final DeferredHolder<Item, Item> BONE_KNIFE;
     @ItemData(zhCn = "手持式砂轮",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> GRINDSTONE_HAMMER;
+    public static final DeferredHolder<Item, Item> GRINDSTONE_HAMMER;
     @ItemData(zhCn = "古代连弩",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> REPEATING_CROSSBOW;
+    public static final DeferredHolder<Item, Item> REPEATING_CROSSBOW;
     @ItemData(zhCn = "汤勺",model = ItemData.ModelType.TOOL)
-    public static final RegistryObject<Item> SPOON;
+    public static final DeferredHolder<Item, Item> SPOON;
     @ItemData(zhCn = "刷子",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final RegistryObject<Item> BRUSH;
+    public static final DeferredHolder<Item, Item> BRUSH;
     @ItemData(zhCn = "嗅探兽毛刷")
-    public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR_BRUSH;
     @ItemData(zhCn = "绯炵金纱")
-    public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
+    public static final DeferredHolder<Item, Item> GOLDEN_FABRIC_VEIL;
 
     /*合成材料*/
     @ItemData(zhCn = "金丝织缕")
-    public static final RegistryObject<Item> GOLDEN_FABRIC;
+    public static final DeferredHolder<Item, Item> GOLDEN_FABRIC;
     @ItemData(zhCn = "嗅探兽毛")
-    public static final RegistryObject<Item> SNIFFER_FUR;
+    public static final DeferredHolder<Item, Item> SNIFFER_FUR;
     @ItemData(zhCn = "菅板材")
-    public static final RegistryObject<Item> TRAVAPLANK;
+    public static final DeferredHolder<Item, Item> TRAVAPLANK;
 
     /*种子和果实*/
     @ItemData(zhCn = "白垩玉黍")
-    public static final RegistryObject<Item> EVOLUTCORN;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN;
     @ItemData(zhCn = "棱蕉")
-    public static final RegistryObject<Item> PEARLIP;
+    public static final DeferredHolder<Item, Item> PEARLIP;
     @ItemData(zhCn = "棱珠")
-    public static final RegistryObject<Item> PEARLIPEARL;
+    public static final DeferredHolder<Item, Item> PEARLIPEARL;
     @ItemData(zhCn = "姬海棠果")
-    public static final RegistryObject<Item> HIMEKAIDO;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO;
     @ItemData(zhCn = "金姬海棠果")
-    public static final RegistryObject<Item> GOLDEN_HIMEKAIDO;
+    public static final DeferredHolder<Item, Item> GOLDEN_HIMEKAIDO;
     @ItemData(zhCn = "金魔法果",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> ENCHANTED_GOLDEN_HIMEKAIDO;
+    public static final DeferredHolder<Item, Item> ENCHANTED_GOLDEN_HIMEKAIDO;
     @ItemData(zhCn = "含茶竹节")
-    public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
+    public static final DeferredHolder<Item, Item> CONTAINS_TEA_LEISAMBOO;
     @ItemData(zhCn = "菅米")
-    public static final RegistryObject<Item> TRAVARICE;
+    public static final DeferredHolder<Item, Item> TRAVARICE;
     @ItemData(zhCn = "瓦斯麦")
-    public static final RegistryObject<Item> KWAT_WHEAT;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT;
     @ItemData(zhCn = "古苜蓿")
-    public static final RegistryObject<Item> ALFALFA;
+    public static final DeferredHolder<Item, Item> ALFALFA;
     @ItemData(zhCn = "诡怨桂果")
-    public static final RegistryObject<Item> WARPED_LAUREL;
+    public static final DeferredHolder<Item, Item> WARPED_LAUREL;
     @ItemData(zhCn = "冰蛟果")
-    public static final RegistryObject<Item> GELPITAYA;
+    public static final DeferredHolder<Item, Item> GELPITAYA;
     @ItemData(zhCn = "烬烟杆",enUs = "A'bush")
-    public static final RegistryObject<Item> A_BUSH;
+    public static final DeferredHolder<Item, Item> A_BUSH;
     @ItemData(zhCn = "既望芜菁")
-    public static final RegistryObject<Item> SEXTLOTUS_ROOT;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_ROOT;
     @ItemData(zhCn = "氧葡萄")
-    public static final RegistryObject<Item> OXYGRAPE;
+    public static final DeferredHolder<Item, Item> OXYGRAPE;
 
     @ItemData(zhCn = "白垩玉黍粒")
-    public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_GRAINS;
     @ItemData(zhCn = "姬海棠种子")
-    public static final RegistryObject<Item> HIMEKAIDO_SEED;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_SEED;
     @ItemData(zhCn = "瓦斯麦种子")
-    public static final RegistryObject<Item> KWAT_WHEAT_SEEDS;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_SEEDS;
     @ItemData(zhCn = "古苜蓿种子")
-    public static final RegistryObject<Item> ALFALFA_SEEDS;
+    public static final DeferredHolder<Item, Item> ALFALFA_SEEDS;
     @ItemData(zhCn = "诡怨桂种子")
-    public static final RegistryObject<Item> WARPED_LAUREL_SEEDS;
+    public static final DeferredHolder<Item, Item> WARPED_LAUREL_SEEDS;
     @ItemData(zhCn = "冰蛟果种子")
-    public static final RegistryObject<Item> GELPITAYA_SEEDS;
+    public static final DeferredHolder<Item, Item> GELPITAYA_SEEDS;
     @ItemData(zhCn = "既望莲子")
-    public static final RegistryObject<Item> SEXTLOTUS_SEEDS;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_SEEDS;
 
 
     /*玉米系列物品*/
 
     @ItemData(zhCn = "烤白垩玉黍")
-    public static final RegistryObject<Item> ROAST_EVOLUTCORN;
+    public static final DeferredHolder<Item, Item> ROAST_EVOLUTCORN;
     @ItemData(zhCn = "烤白垩玉黍粒")
-    public static final RegistryObject<Item> ROAST_EVOLUTCORN_CHOPS;
+    public static final DeferredHolder<Item, Item> ROAST_EVOLUTCORN_CHOPS;
     @ItemData(zhCn = "爆黍花")
-    public static final RegistryObject<Item> POPOLUTCORN;
+    public static final DeferredHolder<Item, Item> POPOLUTCORN;
     @ItemData(zhCn = "玉黍饭团")
-    public static final RegistryObject<Item> CRETACEOUS_ZEA_BALL;
+    public static final DeferredHolder<Item, Item> CRETACEOUS_ZEA_BALL;
     @ItemData(zhCn = "缤纷谷串")
-    public static final RegistryObject<Item> COLORFUL_GRILLED_SKEWERS;
+    public static final DeferredHolder<Item, Item> COLORFUL_GRILLED_SKEWERS;
     @ItemData(zhCn = "玉黍烙")
-    public static final RegistryObject<Item> ZEA_PANCAKE;
+    public static final DeferredHolder<Item, Item> ZEA_PANCAKE;
     @ItemData(zhCn = "玉黍烙切片")
-    public static final RegistryObject<Item> ZEA_PANCAKE_SLICE;
+    public static final DeferredHolder<Item, Item> ZEA_PANCAKE_SLICE;
     @ItemData(zhCn = "玉黍酥皮")
-    public static final RegistryObject<Item> EVOLUTCORN_PIE_CRUST;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_PIE_CRUST;
     @ItemData(zhCn = "玉黍啤酒")
-    public static final RegistryObject<Item> EVOLUTCORN_BEER;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_BEER;
     @ItemData(zhCn = "蛋挞坯")
-    public static final RegistryObject<Item> CUSTARD_TART_PASTRY;
+    public static final DeferredHolder<Item, Item> CUSTARD_TART_PASTRY;
     @ItemData(zhCn = "玉黍硬糖")
-    public static final RegistryObject<Item> EVOLUTCORN_HARD_CANDY;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_HARD_CANDY;
     @ItemData(zhCn = "桶装白垩玉黍面糊")
-    public static final RegistryObject<Item> EVOLUTCORN_PASTE_BUCKET;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_PASTE_BUCKET;
     @ItemData(zhCn = "白垩玉黍面糊")
-    public static final RegistryObject<Item> EVOLUTCORN_PASTE;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_PASTE;
     @ItemData(zhCn = "白垩玉黍面包")
-    public static final RegistryObject<Item> EVOLUTCORN_BREAD;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_BREAD;
     @ItemData(zhCn = "玉黍饺子")
-    public static final RegistryObject<Item> EVOLUTCORN_JIAOZI;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_JIAOZI;
     @ItemData(zhCn = "千年竹")
-    public static final RegistryObject<Item> MILLENIAN_BAMBOO;
+    public static final DeferredHolder<Item, Item> MILLENIAN_BAMBOO;
     @ItemData(zhCn = "碗装千年竹")
-    public static final RegistryObject<Item> BOWL_OF_MILLENIAN_BAMBOO;
+    public static final DeferredHolder<Item, Item> BOWL_OF_MILLENIAN_BAMBOO;
 
     /*香蕉系列物品*/
     @ItemData(zhCn = "棱蕉壳")
-    public static final RegistryObject<Item> PEARLIP_SHELL;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL;
     @ItemData(zhCn = "热带沙拉")
-    public static final RegistryObject<Item> PEATIC_MUSA_SALAD;
+    public static final DeferredHolder<Item, Item> PEATIC_MUSA_SALAD;
     @ItemData(zhCn = "珍珠棱蕉奶昔")
-    public static final RegistryObject<Item> PEARLIP_MILK_SHAKE;
+    public static final DeferredHolder<Item, Item> PEARLIP_MILK_SHAKE;
     @ItemData(zhCn = "珍珠棱蕉南瓜派")
-    public static final RegistryObject<Item> PEARLIP_PUMPKIN_PIE;
+    public static final DeferredHolder<Item, Item> PEARLIP_PUMPKIN_PIE;
     @ItemData(zhCn = "珍珠棱蕉蛋挞")
-    public static final RegistryObject<Item> PEARLIPEARL_TART;
+    public static final DeferredHolder<Item, Item> PEARLIPEARL_TART;
     @ItemData(zhCn = "蕉香蒸蛋")
-    public static final RegistryObject<Item> PEARLIPEARL_EGGSTEAM;
+    public static final DeferredHolder<Item, Item> PEARLIPEARL_EGGSTEAM;
     @ItemData(zhCn = "珍珠棱蕉果冻")
-    public static final RegistryObject<Item> PEARLIP_JELLY;
+    public static final DeferredHolder<Item, Item> PEARLIP_JELLY;
     @ItemData(zhCn = "珍珠棱蕉派")
-    public static final RegistryObject<Item> PEARLIP_PIE;
+    public static final DeferredHolder<Item, Item> PEARLIP_PIE;
     @ItemData(zhCn = "珍珠棱蕉派切片")
-    public static final RegistryObject<Item> PEARLIP_PIE_SLICE;
+    public static final DeferredHolder<Item, Item> PEARLIP_PIE_SLICE;
     @ItemData(zhCn = "冻棱蕉")
-    public static final RegistryObject<Item> ICE_PEARLIP;
+    public static final DeferredHolder<Item, Item> ICE_PEARLIP;
     @ItemData(zhCn = "巧克力棱蕉棒")
-    public static final RegistryObject<Item> CHOCOLATE_PEARLIP_STICKS;
+    public static final DeferredHolder<Item, Item> CHOCOLATE_PEARLIP_STICKS;
     @ItemData(zhCn = "完美夏冰")
-    public static final RegistryObject<Item> PERFECT_SUMMER_ICE;
+    public static final DeferredHolder<Item, Item> PERFECT_SUMMER_ICE;
     @ItemData(zhCn = "黄昏冰淇淋")
-    public static final RegistryObject<Item> TWILIGHT_GELATO;
+    public static final DeferredHolder<Item, Item> TWILIGHT_GELATO;
     @ItemData(zhCn = "棱珠牛奶")
-    public static final RegistryObject<Item> PEARLIP_BUBBLE_MILK;
+    public static final DeferredHolder<Item, Item> PEARLIP_BUBBLE_MILK;
     @ItemData(zhCn = "巧乐风")
-    public static final RegistryObject<Item> CHOCOREEZE;
+    public static final DeferredHolder<Item, Item> CHOCOREEZE;
     @ItemData(zhCn = "热带果味风暴")
-    public static final RegistryObject<Item> TROPICAL_FRUITY_CYCLONE;
+    public static final DeferredHolder<Item, Item> TROPICAL_FRUITY_CYCLONE;
     @ItemData(zhCn = "蕉盒鲑")
-    public static final RegistryObject<Item> BANANA_BOX_SALMON;
+    public static final DeferredHolder<Item, Item> BANANA_BOX_SALMON;
     @ItemData(zhCn = "蕉盒鳕")
-    public static final RegistryObject<Item> BANANA_BOX_COD;
+    public static final DeferredHolder<Item, Item> BANANA_BOX_COD;
     @ItemData(zhCn = "棱蕉寿司船")
-    public static final RegistryObject<Item> PEARLIP_RICE_ROLL_BOAT;
+    public static final DeferredHolder<Item, Item> PEARLIP_RICE_ROLL_BOAT;
 
     /*姬海棠系列物品*/
     @ItemData(zhCn = "马铃薯泥")
-    public static final RegistryObject<Item> MASHED_POTATOES;
+    public static final DeferredHolder<Item, Item> MASHED_POTATOES;
     @ItemData(zhCn = "毒马铃薯泥")
-    public static final RegistryObject<Item> MASHED_POISONOUS_POTATO;
+    public static final DeferredHolder<Item, Item> MASHED_POISONOUS_POTATO;
     @ItemData(zhCn = "果酱薯泥")
-    public static final RegistryObject<Item> MASHED_POTATO_WITH_JAM;
+    public static final DeferredHolder<Item, Item> MASHED_POTATO_WITH_JAM;
     @ItemData(zhCn = "果酱毒薯泥")
-    public static final RegistryObject<Item> MASHED_POISONOUS_POTATO_WITH_JAM;
+    public static final DeferredHolder<Item, Item> MASHED_POISONOUS_POTATO_WITH_JAM;
     @ItemData(zhCn = "腐肉碎")
-    public static final RegistryObject<Item> ROTTEN_FLESH_CUTS;
+    public static final DeferredHolder<Item, Item> ROTTEN_FLESH_CUTS;
     @ItemData(zhCn = "姬海棠果酱")
-    public static final RegistryObject<Item> HIMEKAIDO_JELLY;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_JELLY;
     @ItemData(zhCn = "酸奶")
-    public static final RegistryObject<Item> YOGURT;
+    public static final DeferredHolder<Item, Item> YOGURT;
     @ItemData(zhCn = "烤毒马铃薯")
-    public static final RegistryObject<Item> BAKED_POISONOUS_POTATO;
+    public static final DeferredHolder<Item, Item> BAKED_POISONOUS_POTATO;
     @ItemData(zhCn = "碗装四眼丸子")
-    public static final RegistryObject<Item> BRAISED_SPIDER_EYES_IN_GRAVY;
+    public static final DeferredHolder<Item, Item> BRAISED_SPIDER_EYES_IN_GRAVY;
     @ItemData(zhCn = "酱蘸腐肉")
-    public static final RegistryObject<Item> DIPPED_ROTTEN_FLESH;
+    public static final DeferredHolder<Item, Item> DIPPED_ROTTEN_FLESH;
     @ItemData(zhCn = "腐肉酸奶脆")
-    public static final RegistryObject<Item> CRISPY_YOGURT_ROTTEN_FLESH;
+    public static final DeferredHolder<Item, Item> CRISPY_YOGURT_ROTTEN_FLESH;
     @ItemData(zhCn = "烂茄肉汤")
-    public static final RegistryObject<Item> MEATY_ROTTEN_TOMATO_BROTH;
+    public static final DeferredHolder<Item, Item> MEATY_ROTTEN_TOMATO_BROTH;
     @ItemData(zhCn = "填馅毒马铃薯")
-    public static final RegistryObject<Item> STUFFED_POISONOUS_POTATO;
+    public static final DeferredHolder<Item, Item> STUFFED_POISONOUS_POTATO;
     @ItemData(zhCn = "河豚寿司")
-    public static final RegistryObject<Item> PUFFERFISH_ROLL;
+    public static final DeferredHolder<Item, Item> PUFFERFISH_ROLL;
 
     @ItemData(zhCn = "碗装的瓦罐烂肉炖")
-    public static final RegistryObject<Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
+    public static final DeferredHolder<Item, Item> BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT;
     @ItemData(zhCn = "鞑靼鸡肉")
-    public static final RegistryObject<Item> TARTARE_CHICKEN;
+    public static final DeferredHolder<Item, Item> TARTARE_CHICKEN;
     @ItemData(zhCn = "姬海棠酸奶派")
-    public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_YOGURT_PIE;
     @ItemData(zhCn = "姬海棠酸奶派切片")
-    public static final RegistryObject<Item> HIMEKAIDO_YOGURT_PIE_SLICE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_YOGURT_PIE_SLICE;
 
     @ItemData(zhCn = "极巨蛋挞")
-    public static final RegistryObject<Item> GIANT_TART;
+    public static final DeferredHolder<Item, Item> GIANT_TART;
     @ItemData(zhCn = "极巨蛋挞切块")
-    public static final RegistryObject<Item> GIANT_TART_SLICE;
+    public static final DeferredHolder<Item, Item> GIANT_TART_SLICE;
     @ItemData(zhCn = "醉梦姬")
-    public static final RegistryObject<Item> DREUMK_WINE;
+    public static final DeferredHolder<Item, Item> DREUMK_WINE;
     @ItemData(zhCn = "红楼冰淇淋")
-    public static final RegistryObject<Item> SCARLET_GELATO;
+    public static final DeferredHolder<Item, Item> SCARLET_GELATO;
     @ItemData(zhCn = "红楼大圣代")
-    public static final RegistryObject<Item> SCARLET_SUNDAE;
+    public static final DeferredHolder<Item, Item> SCARLET_SUNDAE;
     @ItemData(zhCn = "姬海棠茶泡饭")
-    public static final RegistryObject<Item> HIMEKAIDO_CHAZUKE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_CHAZUKE;
     @ItemData(zhCn = "姬海糖")
-    public static final RegistryObject<Item> HIMEKANDY;
+    public static final DeferredHolder<Item, Item> HIMEKANDY;
     @ItemData(zhCn = "瓦罐烂肉炖")
-    public static final RegistryObject<Item> STEWED_ROTTEN_MEAT_POT;
+    public static final DeferredHolder<Item, Item> STEWED_ROTTEN_MEAT_POT;
     @ItemData(zhCn = "四眼丸子")
-    public static final RegistryObject<Item> BRAISED_SPIDER_EYES_BLOCK;
+    public static final DeferredHolder<Item, Item> BRAISED_SPIDER_EYES_BLOCK;
     @ItemData(zhCn = "远古纤维")
-    public static final RegistryObject<Item> ANCIENT_FIBER;
+    public static final DeferredHolder<Item, Item> ANCIENT_FIBER;
 
 
     /*
      溪竹相关物品
      */
     @ItemData(zhCn = "树叶茶")
-    public static final RegistryObject<Item> LEAF_TEA;
+    public static final DeferredHolder<Item, Item> LEAF_TEA;
     @ItemData(zhCn = "空竹杯")
-    public static final RegistryObject<Item> EMPTY_BAMBOO_CUP;
+    public static final DeferredHolder<Item, Item> EMPTY_BAMBOO_CUP;
     @ItemData(zhCn = "溪竹茶")
-    public static final RegistryObject<Item> LEISAMBOO_TEA;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_TEA;
     @ItemData(zhCn = "冰红茶")
-    public static final RegistryObject<Item> ICED_BLACK_TEA;
+    public static final DeferredHolder<Item, Item> ICED_BLACK_TEA;
     @ItemData(zhCn = "棱珠奶茶")
-    public static final RegistryObject<Item> PEARLIPEARL_MILK_TEA;
+    public static final DeferredHolder<Item, Item> PEARLIPEARL_MILK_TEA;
     @ItemData(zhCn = "棱珠奶绿")
-    public static final RegistryObject<Item> PEARLIPEARL_MILK_GREEN;
+    public static final DeferredHolder<Item, Item> PEARLIPEARL_MILK_GREEN;
     @ItemData(zhCn = "炉红茶")
-    public static final RegistryObject<Item> STOVE_BLACK_TEA;
+    public static final DeferredHolder<Item, Item> STOVE_BLACK_TEA;
     @ItemData(zhCn = "叶绿茶")
-    public static final RegistryObject<Item> LEAF_GREEN_TEA;
+    public static final DeferredHolder<Item, Item> LEAF_GREEN_TEA;
     @ItemData(zhCn = "英黄茶")
-    public static final RegistryObject<Item> BRITISH_YELLOW_TEA;
+    public static final DeferredHolder<Item, Item> BRITISH_YELLOW_TEA;
     @ItemData(zhCn = "樱花棱蕉茶")
-    public static final RegistryObject<Item> CHERRY_PEARLIPEARL_TEA;
+    public static final DeferredHolder<Item, Item> CHERRY_PEARLIPEARL_TEA;
     @ItemData(zhCn = "伶人露")
-    public static final RegistryObject<Item> GLEEMAN_TEAR;
+    public static final DeferredHolder<Item, Item> GLEEMAN_TEAR;
     @ItemData(zhCn = "水果茶")
-    public static final RegistryObject<Item> FRUIT_TEA;
+    public static final DeferredHolder<Item, Item> FRUIT_TEA;
     @ItemData(zhCn = "溪竹茶饼")
-    public static final RegistryObject<Item> LEISAMBOO_TEA_CAKE;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_TEA_CAKE;
 
 
     /*
     通天菅相关
     */
     @ItemData(zhCn = "菅米饭")
-    public static final RegistryObject<Item> COOKED_TRAVARICE;
+    public static final DeferredHolder<Item, Item> COOKED_TRAVARICE;
     @ItemData(zhCn = "菅牧典")
-    public static final RegistryObject<Item> TRAVEER;
+    public static final DeferredHolder<Item, Item> TRAVEER;
 
 
     /*
     瓦斯麦相关物品
     */
     @ItemData(zhCn = "瓦斯麦面团")
-    public static final RegistryObject<Item> KWAT_WHEAT_DOUGH;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_DOUGH;
     @ItemData(zhCn = "瓦斯麦浆")
-    public static final RegistryObject<Item> KWAT_WHEAT_PASTE;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_PASTE;
     @ItemData(zhCn = "瓦斯麦豆腐")
-    public static final RegistryObject<Item> KWAT_WHEAT_DOUFU;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_DOUFU;
     @ItemData(zhCn = "炸瓦斯麦豆腐")
-    public static final RegistryObject<Item> FRY_KWAT_WHEAT_DOUFU;
+    public static final DeferredHolder<Item, Item> FRY_KWAT_WHEAT_DOUFU;
     @ItemData(zhCn = "臭豆腐")
-    public static final RegistryObject<Item> STINKY_DOUFU;
+    public static final DeferredHolder<Item, Item> STINKY_DOUFU;
     @ItemData(zhCn = "酿瓦斯麦豆腐")
-    public static final RegistryObject<Item> SUTFFED_KWAT_WHEAT_DOUFU;
+    public static final DeferredHolder<Item, Item> SUTFFED_KWAT_WHEAT_DOUFU;
     @ItemData(zhCn = "麻婆豆腐")
-    public static final RegistryObject<Item> MAPO_DOUFU;
+    public static final DeferredHolder<Item, Item> MAPO_DOUFU;
     @ItemData(zhCn = "翡翠红玉汤")
-    public static final RegistryObject<Item> JADE_AND_RUBY_SOUP;
+    public static final DeferredHolder<Item, Item> JADE_AND_RUBY_SOUP;
     @ItemData(zhCn = "瓦斯麦吐司")
-    public static final RegistryObject<Item> KWAT_WHEAT_TOAST;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_TOAST;
     @ItemData(zhCn = "瓦斯麦吐司片")
-    public static final RegistryObject<Item> KWAT_WHEAT_TOAST_SLICE;
+    public static final DeferredHolder<Item, Item> KWAT_WHEAT_TOAST_SLICE;
     @ItemData(zhCn = "金瓦斯麦吐司")
-    public static final RegistryObject<Item> GOLDEN_KWAT_TOAST;
+    public static final DeferredHolder<Item, Item> GOLDEN_KWAT_TOAST;
     @ItemData(zhCn = "金瓦斯麦吐司片")
-    public static final RegistryObject<Item> GOLDEN_KWAT_TOAST_SLICE;
+    public static final DeferredHolder<Item, Item> GOLDEN_KWAT_TOAST_SLICE;
     @ItemData(zhCn = "下界奶油面包浓汤")
-    public static final RegistryObject<Item> NETHER_BREAD_CREAM_SOUP;
+    public static final DeferredHolder<Item, Item> NETHER_BREAD_CREAM_SOUP;
     @ItemData(zhCn = "下界奶油浓汤")
-    public static final RegistryObject<Item> NETHER_CREAM_SOUP;
+    public static final DeferredHolder<Item, Item> NETHER_CREAM_SOUP;
     @ItemData(zhCn = "下界奶油面包")
-    public static final RegistryObject<Item> NETHER_CREAM_BREAD;
+    public static final DeferredHolder<Item, Item> NETHER_CREAM_BREAD;
     @ItemData(zhCn = "下界巨无霸")
-    public static final RegistryObject<Item> SUPER_KWAT_WHEAT_HAMBURGER;
+    public static final DeferredHolder<Item, Item> SUPER_KWAT_WHEAT_HAMBURGER;
     @ItemData(zhCn = "红魔鬼蛋糕")
-    public static final RegistryObject<Item> SCARLET_DEVILS_CAKE;
+    public static final DeferredHolder<Item, Item> SCARLET_DEVILS_CAKE;
     @ItemData(zhCn = "红魔鬼蛋糕切片")
-    public static final RegistryObject<Item> SCARLET_DEVILS_CAKE_SLICE;
+    public static final DeferredHolder<Item, Item> SCARLET_DEVILS_CAKE_SLICE;
     @ItemData(zhCn = "大红包子")
-    public static final RegistryObject<Item> RED_STUFFED_BUN;
+    public static final DeferredHolder<Item, Item> RED_STUFFED_BUN;
 
     /*
     火把花相关物品
     */
     @ItemData(zhCn = "火花芥末")
-    public static final RegistryObject<Item> TORCHFLOWER_MUSTARD;
+    public static final DeferredHolder<Item, Item> TORCHFLOWER_MUSTARD;
     @ItemData(zhCn = "热嗨汤")
-    public static final RegistryObject<Item> HOT_HI_SOUP;
+    public static final DeferredHolder<Item, Item> HOT_HI_SOUP;
     @ItemData(zhCn = "火热寿司")
-    public static final RegistryObject<Item> INCANDESCENCE_SUSHI;
+    public static final DeferredHolder<Item, Item> INCANDESCENCE_SUSHI;
     @ItemData(zhCn = "火把花饼")
-    public static final RegistryObject<Item> TORCHFLOWER_CAKE;
+    public static final DeferredHolder<Item, Item> TORCHFLOWER_CAKE;
     @ItemData(zhCn = "火把花咖喱饭")
-    public static final RegistryObject<Item> TORCHFLOWER_CURRY_RICE;
+    public static final DeferredHolder<Item, Item> TORCHFLOWER_CURRY_RICE;
     @ItemData(zhCn = "特辣意面")
-    public static final RegistryObject<Item> EXTRA_SPICY_PASTA;
+    public static final DeferredHolder<Item, Item> EXTRA_SPICY_PASTA;
     @ItemData(zhCn = "火花芥末曲奇")
-    public static final RegistryObject<Item> TORCHFLOWER_COOKIE;
+    public static final DeferredHolder<Item, Item> TORCHFLOWER_COOKIE;
     @ItemData(zhCn = "灼菇披萨")
-    public static final RegistryObject<Item> ROASTED_MUSHROOM_PIZZA;
+    public static final DeferredHolder<Item, Item> ROASTED_MUSHROOM_PIZZA;
     @ItemData(zhCn = "灼菇披萨片")
-    public static final RegistryObject<Item> ROASTED_MUSHROOM_PIZZA_SLICE;
+    public static final DeferredHolder<Item, Item> ROASTED_MUSHROOM_PIZZA_SLICE;
 
 
     /*酒水相关物品*/
     @ItemData(zhCn = "清水伏特加")
-    public static final RegistryObject<Item> CLEAR_WATER_VODKA;
+    public static final DeferredHolder<Item, Item> CLEAR_WATER_VODKA;
     @ItemData(zhCn = "火神鸡尾酒")
-    public static final RegistryObject<Item> VULCAN_COKTAIL;
+    public static final DeferredHolder<Item, Item> VULCAN_COKTAIL;
     @ItemData(zhCn = "地狱格瓦斯")
-    public static final RegistryObject<Item> NETHER_KVASS;
+    public static final DeferredHolder<Item, Item> NETHER_KVASS;
     @ItemData(zhCn = "炼狱麦酒")
-    public static final RegistryObject<Item> PURGATORY_ALE;
+    public static final DeferredHolder<Item, Item> PURGATORY_ALE;
     @ItemData(zhCn = "猪灵踊")
-    public static final RegistryObject<Item> PIGLIN_ODORI_SAKE;
+    public static final DeferredHolder<Item, Item> PIGLIN_ODORI_SAKE;
     @ItemData(zhCn = "黏糊啤酒")
-    public static final RegistryObject<Item> STICKY_BEER;
+    public static final DeferredHolder<Item, Item> STICKY_BEER;
 
     /*ALFALFA*/
     @ItemData(zhCn = "古苜蓿七草粥")
-    public static final RegistryObject<Item> ALFALFA_PORRIDGE;
+    public static final DeferredHolder<Item, Item> ALFALFA_PORRIDGE;
 
 
     /*考古与冒险相关*/
     @ItemData(zhCn = "虫蚀的沙砾",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> INFESTED_GRAVEL;
+    public static final DeferredHolder<Item, Item> INFESTED_GRAVEL;
     @ItemData(zhCn = "虫蚀的沙子",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> INFESTED_SAND;
+    public static final DeferredHolder<Item, Item> INFESTED_SAND;
 //    @ItemData(zhCn = "Sniffer Rotating Roast Meat",model = ItemData.ModelType.CUSTOM,group = NOT)
-//    public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
+//    public static final DeferredHolder<Item, Item> SNIFFER_ROTATING_ROAST_MEAT;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
+    public static final DeferredHolder<Item, Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
+    public static final DeferredHolder<Item, Item> SKELVERFISH_BOMBER_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
+    public static final DeferredHolder<Item, Item> SKELVERFISH_THRASHER_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    public static final DeferredHolder<Item, Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
+    public static final DeferredHolder<Item, Item> SCAVENGER_SPAWN_EGG;
 
     @ItemData(zhCn = "古代口粮包")
-    public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
+    public static final DeferredHolder<Item, Item> SEALED_ANCIENT_RATIONS;
     @ItemData(zhCn = "尖刺栅栏",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
-    public static final RegistryObject<Item> SPIKE_BAR_BASE;
+    public static final DeferredHolder<Item, Item> SPIKE_BAR_BASE;
 
     /*诡怨藤*/
 
     @ItemData(zhCn = "卤鸡腿")
-    public static final RegistryObject<Item> LU_CHICKEN_LEGS;
+    public static final DeferredHolder<Item, Item> LU_CHICKEN_LEGS;
     @ItemData(zhCn = "下界汤")
-    public static final RegistryObject<Item> NETHER_SOUP;
+    public static final DeferredHolder<Item, Item> NETHER_SOUP;
     @ItemData(zhCn = "红烧肉")
-    public static final RegistryObject<Item> BRAISED_PORK;
+    public static final DeferredHolder<Item, Item> BRAISED_PORK;
     @ItemData(zhCn = "亚波伦蛋卷")
-    public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
+    public static final DeferredHolder<Item, Item> APOLLYON_CAKE_ROLL;
     @ItemData(zhCn = "诡怨灯",group = OFF_MAIN)
-    public static final RegistryObject<Item> WARPED_LANTERN;
+    public static final DeferredHolder<Item, Item> WARPED_LANTERN;
     @ItemData(zhCn = "月莲灯",group = OFF_MAIN)
-    public static final RegistryObject<Item> SEXTLOTUS_LANTERN;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_LANTERN;
 
 
     /*瓶子草*/
     @ItemData(zhCn = "瓶子草荚果瓣")
-    public static final RegistryObject<Item> PITCHER_POD_PETAL;
+    public static final DeferredHolder<Item, Item> PITCHER_POD_PETAL;
     @ItemData(zhCn = "瓶子草烤肉")
-    public static final RegistryObject<Item> PITCHER_PLANT_BARBECUE;
+    public static final DeferredHolder<Item, Item> PITCHER_PLANT_BARBECUE;
     @ItemData(zhCn = "荚壳汉堡肉")
-    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT;
+    public static final DeferredHolder<Item, Item> POD_SHELL_BURGER_MEAT;
     @ItemData(zhCn = "荚壳汉堡肉块")
-    public static final RegistryObject<Item> POD_SHELL_BURGER_MEAT_CUBE;
+    public static final DeferredHolder<Item, Item> POD_SHELL_BURGER_MEAT_CUBE;
     @ItemData(zhCn = "辛荚佳朵")
-    public static final RegistryObject<Item> AROMATIC_POD_AFFOGATO;
+    public static final DeferredHolder<Item, Item> AROMATIC_POD_AFFOGATO;
     @ItemData(zhCn = "瓶子皇烧麦")
-    public static final RegistryObject<Item> PITCHER_PLANT_SHAO_MAI;
+    public static final DeferredHolder<Item, Item> PITCHER_PLANT_SHAO_MAI;
     @ItemData(zhCn = "瓶子福袋饺")
-    public static final RegistryObject<Item> PITCHER_PLANT_JIAO_ZI;
+    public static final DeferredHolder<Item, Item> PITCHER_PLANT_JIAO_ZI;
     @ItemData(zhCn = "芝香瓜果汁")
-    public static final RegistryObject<Item> CHEESE_MELON_JUICE;
+    public static final DeferredHolder<Item, Item> CHEESE_MELON_JUICE;
     @ItemData(zhCn = "瓶装芝香瓜果汁")
-    public static final RegistryObject<Item> BOTTLE_MELON_JUICE;
+    public static final DeferredHolder<Item, Item> BOTTLE_MELON_JUICE;
     @ItemData(zhCn = "瓶子煲仔饭")
-    public static final RegistryObject<Item> PITCHER_PLANT_CLAYPOT_RICE;
+    public static final DeferredHolder<Item, Item> PITCHER_PLANT_CLAYPOT_RICE;
     @ItemData(zhCn = "碗装瓶子煲仔饭")
-    public static final RegistryObject<Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
+    public static final DeferredHolder<Item, Item> BOWL_PITCHER_PLANT_CLAYPOT_RICE;
 
 
     /*冰龙果*/
     @ItemData(zhCn = "冰蛟果肉")
-    public static final RegistryObject<Item> GELPITAYA_FLESH;
+    public static final DeferredHolder<Item, Item> GELPITAYA_FLESH;
     @ItemData(zhCn = "冰蛟棍")
-    public static final RegistryObject<Item> GELPITAYA_ICEPOP;
+    public static final DeferredHolder<Item, Item> GELPITAYA_ICEPOP;
     @ItemData(zhCn = "冰蛋挞")
-    public static final RegistryObject<Item> GELPITAYA_TART;
+    public static final DeferredHolder<Item, Item> GELPITAYA_TART;
     @ItemData(zhCn = "脆筒")
-    public static final RegistryObject<Item> EGG_CONE;
+    public static final DeferredHolder<Item, Item> EGG_CONE;
     @ItemData(zhCn = "瓦斯麦汤")
-    public static final RegistryObject<Item> KWAT_SOUP;
+    public static final DeferredHolder<Item, Item> KWAT_SOUP;
     @ItemData(zhCn = "冰瓦斯麦汤")
-    public static final RegistryObject<Item> ICED_KWAT_SOUP;;
+    public static final DeferredHolder<Item, Item> ICED_KWAT_SOUP;;
     @ItemData(zhCn = "归魂茶")
-    public static final RegistryObject<Item> SOUL_TEA;
+    public static final DeferredHolder<Item, Item> SOUL_TEA;
     @ItemData(zhCn = "汉堡肉寿司")
-    public static final RegistryObject<Item> HAMBURGER_MEAT_SUSHI;
+    public static final DeferredHolder<Item, Item> HAMBURGER_MEAT_SUSHI;
     @ItemData(zhCn = "红美玲")
-    public static final RegistryObject<Item> HONG_MEI_LING;
+    public static final DeferredHolder<Item, Item> HONG_MEI_LING;
     @ItemData(zhCn = "胡萝卜特饮")
-    public static final RegistryObject<Item> CARROT_TEA;
+    public static final DeferredHolder<Item, Item> CARROT_TEA;
     @ItemData(zhCn = "荚壳奶酪棒")
-    public static final RegistryObject<Item> POD_PETAL_CHEESE_STICK;
+    public static final DeferredHolder<Item, Item> POD_PETAL_CHEESE_STICK;
     @ItemData(zhCn = "棱蕉啤酒")
-    public static final RegistryObject<Item> PEARLIP_BEER;
+    public static final DeferredHolder<Item, Item> PEARLIP_BEER;
     @ItemData(zhCn = "古苜蓿大列巴",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> LARGE_COLUMN;
+    public static final DeferredHolder<Item, Item> LARGE_COLUMN;
     @ItemData(zhCn = "列巴切片")
-    public static final RegistryObject<Item> LARGE_COLUMN_SLICE;
+    public static final DeferredHolder<Item, Item> LARGE_COLUMN_SLICE;
     @ItemData(zhCn = "麦腐味增汤")
-    public static final RegistryObject<Item> KWAT_TOFU_MISO_SOUP;
+    public static final DeferredHolder<Item, Item> KWAT_TOFU_MISO_SOUP;
     @ItemData(zhCn = "瓶张寿司")
-    public static final RegistryObject<Item> PITCHER_SUSHI;
+    public static final DeferredHolder<Item, Item> PITCHER_SUSHI;
     @ItemData(zhCn = "石锅炖麦腐")
-    public static final RegistryObject<Item> STONE_POT_KWAT_TOFU_STEW;
+    public static final DeferredHolder<Item, Item> STONE_POT_KWAT_TOFU_STEW;
     @ItemData(zhCn = "碗装石锅炖麦腐")
-    public static final RegistryObject<Item> BOWL_OF_KWAT_TOFU_STEW;
+    public static final DeferredHolder<Item, Item> BOWL_OF_KWAT_TOFU_STEW;
     @ItemData(zhCn = "溪茶冰")
-    public static final RegistryObject<Item> LEISAMBOO_ICECREAM;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_ICECREAM;
     @ItemData(zhCn = "小盒子的饺")
-    public static final RegistryObject<Item> HAKO_JIAOZI;
+    public static final DeferredHolder<Item, Item> HAKO_JIAOZI;
     @ItemData(zhCn = "野蜂玉黍饼")
-    public static final RegistryObject<Item> EVOLUTCORN_HONEYCOMB_CAKE;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_HONEYCOMB_CAKE;
     @ItemData(zhCn = "玉麦寿司")
-    public static final RegistryObject<Item> KWAT_POCKET_SUSHI;
+    public static final DeferredHolder<Item, Item> KWAT_POCKET_SUSHI;
     @ItemData(zhCn = "玉黍挞")
-    public static final RegistryObject<Item> EVOLUTCORN_MILLEFEUILLE;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_MILLEFEUILLE;
     @ItemData(zhCn = "玉黍锅贴")
-    public static final RegistryObject<Item> EVOLUTCORN_POT_STICKERS;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_POT_STICKERS;
     @ItemData(zhCn = "玉黍雪糕")
-    public static final RegistryObject<Item> EVOLUTCORN_ICECREAM;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_ICECREAM;
     @ItemData(zhCn = "玉黍汁")
-    public static final RegistryObject<Item> EVOLUTCORN_JUICE;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_JUICE;
     @ItemData(zhCn = "熔烬烤馕",enUs = "Kümesh Non")
-    public static final RegistryObject<Item> KU_MESH_NON;
+    public static final DeferredHolder<Item, Item> KU_MESH_NON;
     @ItemData(zhCn = "战争面包",enUs = "Jeng Nanu",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> JENG_NANU;
+    public static final DeferredHolder<Item, Item> JENG_NANU;
     @ItemData(zhCn = "熔烬烤馕切片",enUs = "Kümesh Non Slice")
-    public static final RegistryObject<Item> KU_MESH_NON_SLICE;
+    public static final DeferredHolder<Item, Item> KU_MESH_NON_SLICE;
     @ItemData(zhCn = "战争面包切片",enUs = "Jeng Nanu Slice")
-    public static final RegistryObject<Item> JENG_NANU_SLICE;
+    public static final DeferredHolder<Item, Item> JENG_NANU_SLICE;
     @ItemData(zhCn = "灼酒盗")
-    public static final RegistryObject<Item> SHUTORCH;
+    public static final DeferredHolder<Item, Item> SHUTORCH;
     @ItemData(zhCn = "瓶子香肠")
-    public static final RegistryObject<Item> PITCHER_SAUSAGE;
+    public static final DeferredHolder<Item, Item> PITCHER_SAUSAGE;
     @ItemData(zhCn = "诡异香肠")
-    public static final RegistryObject<Item> BIZARRE_SAUSAGE;
+    public static final DeferredHolder<Item, Item> BIZARRE_SAUSAGE;
     @ItemData(zhCn = "冷宫姬")
-    public static final RegistryObject<Item> LONELY_SPIRIT_WINE;
+    public static final DeferredHolder<Item, Item> LONELY_SPIRIT_WINE;
     @ItemData(zhCn = "玉黍鸡腿堡")
-    public static final RegistryObject<Item> EVOLUTCORN_CHICKEN_BURGER;
+    public static final DeferredHolder<Item, Item> EVOLUTCORN_CHICKEN_BURGER;
     @ItemData(zhCn = "瓦拉吉")
-    public static final RegistryObject<Item> VARA_JI;
+    public static final DeferredHolder<Item, Item> VARA_JI;
     @ItemData(zhCn = "烁金西瓜汁")
-    public static final RegistryObject<Item> GLISTERING_WATERMELON_JUICE;
+    public static final DeferredHolder<Item, Item> GLISTERING_WATERMELON_JUICE;
     @ItemData(zhCn = "凉拌麦腐")
-    public static final RegistryObject<Item> COLD_KWAT_TOFU_SALAD;
+    public static final DeferredHolder<Item, Item> COLD_KWAT_TOFU_SALAD;
     @ItemData(zhCn = "寒冽霜冠慕斯")
-    public static final RegistryObject<Item> FROSTY_CROWN_MOUSSE;
+    public static final DeferredHolder<Item, Item> FROSTY_CROWN_MOUSSE;
     @ItemData(zhCn = "霜冠慕斯切片")
-    public static final RegistryObject<Item> FROSTY_CROWN_MOUSSE_SLICE;
+    public static final DeferredHolder<Item, Item> FROSTY_CROWN_MOUSSE_SLICE;
     @ItemData(zhCn = "玛格丽特酒冻")
-    public static final RegistryObject<Item> FROZEN_MARGARITA_JELLY;
+    public static final DeferredHolder<Item, Item> FROZEN_MARGARITA_JELLY;
     @ItemData(zhCn = "炽烈精油")
-    public static final RegistryObject<Item> CAUSTIC_ESSENTIAL_OIL;
+    public static final DeferredHolder<Item, Item> CAUSTIC_ESSENTIAL_OIL;
     @ItemData(zhCn = "馕坯",model = ItemData.ModelType.CUSTOM)
-    public static final RegistryObject<Item> NAN_DOUGH;
+    public static final DeferredHolder<Item, Item> NAN_DOUGH;
     @ItemData(zhCn = "火馕坑",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> NAAN_BAKING_PIT;
+    public static final DeferredHolder<Item, Item> NAAN_BAKING_PIT;
     @ItemData(zhCn = "可疑的灰堆",model = ItemData.ModelType.BLOCK)
-    public static final RegistryObject<Item> SUSPICIOUS_ASH_PILE;
+    public static final DeferredHolder<Item, Item> SUSPICIOUS_ASH_PILE;
     @ItemData(zhCn = "古老温泉蛋")
-    public static final RegistryObject<Item> ANCIENT_ONSEN_TAMAGO;
+    public static final DeferredHolder<Item, Item> ANCIENT_ONSEN_TAMAGO;
     @ItemData(zhCn = "温泉蛋")
-    public static final RegistryObject<Item> ONSEN_TAMAGO;
+    public static final DeferredHolder<Item, Item> ONSEN_TAMAGO;
 
     /*石锅与新烹饪*/
     @ItemData(zhCn = "怨泉桶")
-    public static final RegistryObject<Item> HOT_SPRING_BUCKET;
+    public static final DeferredHolder<Item, Item> HOT_SPRING_BUCKET;
     @ItemData(zhCn = "石锅")
-    public static final RegistryObject<Item> STONE_POT;
+    public static final DeferredHolder<Item, Item> STONE_POT;
     @ItemData(zhCn = "怨桂鸡汤锅")
-    public static final RegistryObject<Item> UNIVERSAL_CHICKEN_SOUP;
+    public static final DeferredHolder<Item, Item> UNIVERSAL_CHICKEN_SOUP;
     @ItemData(zhCn = "碗装怨桂鸡汤")
-    public static final RegistryObject<Item> BOWL_OF_UNIVERSAL_CHICKEN_SOUP;
+    public static final DeferredHolder<Item, Item> BOWL_OF_UNIVERSAL_CHICKEN_SOUP;
     @ItemData(zhCn = "天地无用")
-    public static final RegistryObject<Item> TENCHIMUYO;
+    public static final DeferredHolder<Item, Item> TENCHIMUYO;
     @ItemData(zhCn = "碗装天地无用")
-    public static final RegistryObject<Item> BOWL_OF_TENCHIMUYO;
+    public static final DeferredHolder<Item, Item> BOWL_OF_TENCHIMUYO;
     @ItemData(zhCn = "天地有用")
-    public static final RegistryObject<Item> THIS_SIDE_DOWN;
+    public static final DeferredHolder<Item, Item> THIS_SIDE_DOWN;
     @ItemData(zhCn = "碗装天地有用")
-    public static final RegistryObject<Item> BOWL_OF_THIS_SIDE_DOWN;
+    public static final DeferredHolder<Item, Item> BOWL_OF_THIS_SIDE_DOWN;
 
     /*烬烟杆*/
     @ItemData(zhCn = "烬烟粉",enUs = "A'b'ash")
-    public static final RegistryObject<Item> AB_ASH;
+    public static final DeferredHolder<Item, Item> AB_ASH;
     @ItemData(zhCn = "苦烟曲奇",enUs = "A'B'C'ookie")
-    public static final RegistryObject<Item> ABC_OOKIE;
+    public static final DeferredHolder<Item, Item> ABC_OOKIE;
     @ItemData(zhCn = "烬烟咖啡",enUs = "A'B'C'offee")
-    public static final RegistryObject<Item> ABC_OFFEE;
+    public static final DeferredHolder<Item, Item> ABC_OFFEE;
     @ItemData(zhCn = "蓝嫣枝咖啡",enUs = "A'B' Blue Beauty C'offee")
-    public static final RegistryObject<Item> ABBLUE_BEAUTY_C_OFFEE;
+    public static final DeferredHolder<Item, Item> ABBLUE_BEAUTY_C_OFFEE;
     @ItemData(zhCn = "Jvav",enUs = "Jvav")
-    public static final RegistryObject<Item> JVAV_OFFEE;
+    public static final DeferredHolder<Item, Item> JVAV_OFFEE;
 
     /*既望莲*/
     @ItemData(zhCn = "既望莲叶")
-    public static final RegistryObject<Item> SEXTLOTUS_LEAF;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_LEAF;
     @ItemData(zhCn = "既望芜菁切块")
-    public static final RegistryObject<Item> SEXTLOTUS_ROOT_CUTS;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_ROOT_CUTS;
     @ItemData(zhCn = "月油")
-    public static final RegistryObject<Item> MOON_OIL;
+    public static final DeferredHolder<Item, Item> MOON_OIL;
     @ItemData(zhCn = "老北京鸡肉卷")
-    public static final RegistryObject<Item> OLD_BEIJING_CHICKEN_ROLL;
+    public static final DeferredHolder<Item, Item> OLD_BEIJING_CHICKEN_ROLL;
     @ItemData(zhCn = "拍既望芜菁")
-    public static final RegistryObject<Item> SMASHED_SEXTLOTUS_ROOT;
+    public static final DeferredHolder<Item, Item> SMASHED_SEXTLOTUS_ROOT;
     @ItemData(zhCn = "酸既望芜菁")
-    public static final RegistryObject<Item> PICKLED_SEXTLOTUS_ROOT;
+    public static final DeferredHolder<Item, Item> PICKLED_SEXTLOTUS_ROOT;
     @ItemData(zhCn = "氧葡萄干")
-    public static final RegistryObject<Item> OXYRAISINS;
+    public static final DeferredHolder<Item, Item> OXYRAISINS;
     @ItemData(zhCn = "氧葡萄玉黍麦芬")
-    public static final RegistryObject<Item> OXYGRAPE_EVOLUTCORN_MUFFIN;
+    public static final DeferredHolder<Item, Item> OXYGRAPE_EVOLUTCORN_MUFFIN;
     @ItemData(zhCn = "气泡水")
-    public static final RegistryObject<Item> SPARKLING_WATER;
+    public static final DeferredHolder<Item, Item> SPARKLING_WATER;
     @ItemData(zhCn = "会馆菲士")
-    public static final RegistryObject<Item> MORNING_FIZZ;
+    public static final DeferredHolder<Item, Item> MORNING_FIZZ;
     @ItemData(zhCn = "烁金菲士")
-    public static final RegistryObject<Item> GLISTERING_FIZZ;
+    public static final DeferredHolder<Item, Item> GLISTERING_FIZZ;
     @ItemData(zhCn = "绿茶菲士")
-    public static final RegistryObject<Item> GREEN_TEA_FIZZ;
+    public static final DeferredHolder<Item, Item> GREEN_TEA_FIZZ;
     @ItemData(zhCn = "月莲菲士")
-    public static final RegistryObject<Item> SEXTLOTUS_FIZZ;
+    public static final DeferredHolder<Item, Item> SEXTLOTUS_FIZZ;
     @ItemData(zhCn = "彩虹菲士")
-    public static final RegistryObject<Item> RAINBOW_FIZZ;
+    public static final DeferredHolder<Item, Item> RAINBOW_FIZZ;
     @ItemData(zhCn = "雀酒")
-    public static final RegistryObject<Item> SPARROW_WINE;
+    public static final DeferredHolder<Item, Item> SPARROW_WINE;
     @ItemData(zhCn = "弑龙诀")
-    public static final RegistryObject<Item> DRAGON_SLAYING_ART;
+    public static final DeferredHolder<Item, Item> DRAGON_SLAYING_ART;
 
     /*嗅探兽相关食物*/
     @ItemData(zhCn = "煎嗅探兽蛋")
-    public static final RegistryObject<Item> FRIED_SNIFFER_EGG;
+    public static final DeferredHolder<Item, Item> FRIED_SNIFFER_EGG;
     @ItemData(zhCn = "生嗅探兽尾")
-    public static final RegistryObject<Item> RAW_SNIFFER_TAIL;
+    public static final DeferredHolder<Item, Item> RAW_SNIFFER_TAIL;
     @ItemData(zhCn = "熟嗅探兽尾")
-    public static final RegistryObject<Item> COOKED_SNIFFER_TAIL;
+    public static final DeferredHolder<Item, Item> COOKED_SNIFFER_TAIL;
     @ItemData(zhCn = "生嗅探兽肉片",group = NOT)
-    public static final RegistryObject<Item> RAW_SNIFFER_SLICE;
+    public static final DeferredHolder<Item, Item> RAW_SNIFFER_SLICE;
     @ItemData(zhCn = "熟嗅探兽肉片",group = NOT)
-    public static final RegistryObject<Item> COOKED_SNIFFER_SLICE;
+    public static final DeferredHolder<Item, Item> COOKED_SNIFFER_SLICE;
     @ItemData(zhCn = "生嗅探兽肉排")
-    public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
+    public static final DeferredHolder<Item, Item> RAW_SNIFFER_STEAK;
     @ItemData(zhCn = "熟嗅探兽肉排")
-    public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
+    public static final DeferredHolder<Item, Item> COOKED_SNIFFER_STEAK;
 
     /*船*/
     @ItemData(zhCn = "姬海棠木船")
-    public static final RegistryObject<Item> HIMEKAIDO_BOAT;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_BOAT;
     @ItemData(zhCn = "姬海棠木运输船")
-    public static final RegistryObject<Item> HIMEKAIDO_CHEST_BOAT;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_CHEST_BOAT;
     @ItemData(zhCn = "棱蕉木船")
-    public static final RegistryObject<Item> PEARLIP_SHELL_BOAT;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_BOAT;
     @ItemData(zhCn = "棱蕉木运输船")
-    public static final RegistryObject<Item> PEARLIP_SHELL_CHEST_BOAT;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_CHEST_BOAT;
     @ItemData(zhCn = "古木船")
-    public static final RegistryObject<Item> ANCIENT_WOOD_BOAT;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_BOAT;
     @ItemData(zhCn = "古木运输船")
-    public static final RegistryObject<Item> ANCIENT_WOOD_CHEST_BOAT;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_CHEST_BOAT;
 
     /**副物品栏物品（装饰方块）**/
     /*姬海棠装饰方块*/
     @ItemData(zhCn = "姬海棠原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_LOG;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_LOG;
     @ItemData(zhCn = "姬海棠木头",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_WOOD;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_WOOD;
     @ItemData(zhCn = "去皮姬海棠木头",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_WOOD;
+    public static final DeferredHolder<Item, Item> STRIPPED_HIMEKAIDO_WOOD;
     @ItemData(zhCn = "去皮姬海棠原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_HIMEKAIDO_LOG;
+    public static final DeferredHolder<Item, Item> STRIPPED_HIMEKAIDO_LOG;
     @ItemData(zhCn = "姬海棠木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_PLANKS;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_PLANKS;
     @ItemData(zhCn = "姬海棠木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_STAIRS;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_STAIRS;
     @ItemData(zhCn = "姬海棠木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_SLAB;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_SLAB;
     @ItemData(zhCn = "姬海棠木门",group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_DOOR;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_DOOR;
     @ItemData(zhCn = "姬海棠木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_TRAPDOOR;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_TRAPDOOR;
     @ItemData(zhCn = "姬海棠木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_FENCE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_FENCE;
     @ItemData(zhCn = "姬海棠木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_FENCE_GATE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_FENCE_GATE;
     @ItemData(zhCn = "姬海棠木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_PRESSURE_PLATE;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_PRESSURE_PLATE;
     @ItemData(zhCn = "姬海棠木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_BUTTON;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_BUTTON;
     @ItemData(zhCn = "姬海棠木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_CABINET;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_CABINET;
     @ItemData(zhCn = "姬海棠木告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_SIGN;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_SIGN;
     @ItemData(zhCn = "姬海棠木悬挂告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_HANGING_SIGN;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_HANGING_SIGN;
     @ItemData(zhCn = "结果的姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_FRUITED_LEAVES;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_FRUITED_LEAVES;
     @ItemData(zhCn = "盛开的姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_FLOWERING_LEAVES;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_FLOWERING_LEAVES;
     @ItemData(zhCn = "姬海棠树叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> HIMEKAIDO_LEAVES;
+    public static final DeferredHolder<Item, Item> HIMEKAIDO_LEAVES;
     /*溪竹装饰方块*/
     @ItemData(zhCn = "溪竹板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_PLANKS;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_PLANKS;
     @ItemData(zhCn = "溪竹楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_STAIRS;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_STAIRS;
     @ItemData(zhCn = "溪竹台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_SLAB;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_SLAB;
     @ItemData(zhCn = "溪竹橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_CABINET;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_CABINET;
     @ItemData(zhCn = "溪竹门",group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_DOOR;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_DOOR;
     @ItemData(zhCn = "溪竹活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_TRAPDOOR;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_TRAPDOOR;
     @ItemData(zhCn = "溪竹栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_FENCE;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_FENCE;
     @ItemData(zhCn = "溪竹栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_FENCE_GATE;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_FENCE_GATE;
     @ItemData(zhCn = "溪竹压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_PRESSURE_PLATE;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_PRESSURE_PLATE;
     @ItemData(zhCn = "溪竹按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_BUTTON;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_BUTTON;
     @ItemData(zhCn = "溪竹告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_SIGN;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_SIGN;
     @ItemData(zhCn = "溪竹悬挂告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> LEISAMBOO_HANGING_SIGN;
+    public static final DeferredHolder<Item, Item> LEISAMBOO_HANGING_SIGN;
     /*棱蕉装饰方块*/
     @ItemData(zhCn = "棱蕉木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_PLANKS;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_PLANKS;
     @ItemData(zhCn = "棱蕉木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_STAIRS;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_STAIRS;
     @ItemData(zhCn = "棱蕉木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_SLAB;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_SLAB;
     @ItemData(zhCn = "棱蕉木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_CABINET;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_CABINET;
     @ItemData(zhCn = "棱蕉木门",group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_DOOR;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_DOOR;
     @ItemData(zhCn = "棱蕉木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_TRAPDOOR;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_TRAPDOOR;
     @ItemData(zhCn = "棱蕉木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_FENCE;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_FENCE;
     @ItemData(zhCn = "棱蕉木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_FENCE_GATE;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_FENCE_GATE;
     @ItemData(zhCn = "棱蕉木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_PRESSURE_PLATE;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_PRESSURE_PLATE;
     @ItemData(zhCn = "棱蕉木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_BUTTON;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_BUTTON;
     @ItemData(zhCn = "棱蕉木告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_SIGN;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_SIGN;
     @ItemData(zhCn = "棱蕉木悬挂告示牌",group = OFF_MAIN)
-    public static final RegistryObject<Item> PEARLIP_SHELL_HANGING_SIGN;
+    public static final DeferredHolder<Item, Item> PEARLIP_SHELL_HANGING_SIGN;
     /*烬烟木装饰方块*/
     @ItemData(zhCn = "烬烟木",enUs = "A'bush Log",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_LOG;
+    public static final DeferredHolder<Item, Item> A_BUSH_LOG;
     @ItemData(zhCn = "去皮烬烟木",enUs = "Stripped A'bush Log",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_A_BUSH_LOG;
+    public static final DeferredHolder<Item, Item> STRIPPED_A_BUSH_LOG;
     @ItemData(zhCn = "烬烟木头",enUs = "A'bush Wood",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_WOOD;
+    public static final DeferredHolder<Item, Item> A_BUSH_WOOD;
     @ItemData(zhCn = "去皮烬烟木头",enUs = "Stripped A'bush Wood",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_A_BUSH_WOOD;
+    public static final DeferredHolder<Item, Item> STRIPPED_A_BUSH_WOOD;
     @ItemData(zhCn = "烬烟木板",enUs = "A'bush Planks",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_PLANKS;
+    public static final DeferredHolder<Item, Item> A_BUSH_PLANKS;
     @ItemData(zhCn = "烬烟木橱柜",enUs = "A'bush Cabinet",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_CABINET;
+    public static final DeferredHolder<Item, Item> A_BUSH_CABINET;
     @ItemData(zhCn = "烬烟木楼梯",enUs = "A'bush Stairs",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_STAIRS;
+    public static final DeferredHolder<Item, Item> A_BUSH_STAIRS;
     @ItemData(zhCn = "烬烟木台阶",enUs = "A'bush Slab",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_SLAB;
+    public static final DeferredHolder<Item, Item> A_BUSH_SLAB;
     @ItemData(zhCn = "烬烟木门",enUs = "A'bush Door",group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_DOOR;
+    public static final DeferredHolder<Item, Item> A_BUSH_DOOR;
     @ItemData(zhCn = "烬烟木活板门",enUs = "A'bush Trapdoor",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_TRAPDOOR;
+    public static final DeferredHolder<Item, Item> A_BUSH_TRAPDOOR;
     @ItemData(zhCn = "烬烟木栅栏",enUs = "A'bush Fence",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_FENCE;
+    public static final DeferredHolder<Item, Item> A_BUSH_FENCE;
     @ItemData(zhCn = "烬烟木栅栏门",enUs = "A'bush Fence Gate",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_FENCE_GATE;
+    public static final DeferredHolder<Item, Item> A_BUSH_FENCE_GATE;
     @ItemData(zhCn = "烬烟木压力板",enUs = "A'bush Pressure Plate",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_PRESSURE_PLATE;
+    public static final DeferredHolder<Item, Item> A_BUSH_PRESSURE_PLATE;
     @ItemData(zhCn = "烬烟木按钮",enUs = "A'bush Button",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
-    public static final RegistryObject<Item> A_BUSH_BUTTON;
+    public static final DeferredHolder<Item, Item> A_BUSH_BUTTON;
     /*系列装饰方块--古木*/
     @ItemData(zhCn = "古木原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_LOG;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_LOG;
     @ItemData(zhCn = "去皮古木原木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD_LOG;
+    public static final DeferredHolder<Item, Item> STRIPPED_ANCIENT_WOOD_LOG;
     @ItemData(zhCn = "古木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD;
     @ItemData(zhCn = "去皮古木",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_ANCIENT_WOOD;
+    public static final DeferredHolder<Item, Item> STRIPPED_ANCIENT_WOOD;
     @ItemData(zhCn = "古木板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_PLANKS;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_PLANKS;
     @ItemData(zhCn = "古木橱柜",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_CABINET;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_CABINET;
     @ItemData(zhCn = "古木楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_STAIRS;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_STAIRS;
     @ItemData(zhCn = "古木台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_SLAB;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_SLAB;
     @ItemData(zhCn = "古木门",group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_DOOR;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_DOOR;
     @ItemData(zhCn = "古木活板门",model = ItemData.ModelType.TRAPDOOR,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_TRAPDOOR;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_TRAPDOOR;
     @ItemData(zhCn = "古木栅栏",model = ItemData.ModelType.FENCE,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_FENCE;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_FENCE;
     @ItemData(zhCn = "古木栅栏门",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_FENCE_GATE;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_FENCE_GATE;
     @ItemData(zhCn = "古木压力板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_PRESSURE_PLATE;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_PRESSURE_PLATE;
     @ItemData(zhCn = "古木按钮",model = ItemData.ModelType.BUTTON,group = OFF_MAIN)
-    public static final RegistryObject<Item> ANCIENT_WOOD_BUTTON;
+    public static final DeferredHolder<Item, Item> ANCIENT_WOOD_BUTTON;
     /*通天菅装饰方块*/
     @ItemData(zhCn = "通天菅节",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LOG;
+    public static final DeferredHolder<Item, Item> TRAVASTRUGGLER_LOG;
     @ItemData(zhCn = "去皮通天菅节",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> STRIPPED_TRAVASTRUGGLER_LOG;
+    public static final DeferredHolder<Item, Item> STRIPPED_TRAVASTRUGGLER_LOG;
     @ItemData(zhCn = "通天菅叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES;
+    public static final DeferredHolder<Item, Item> TRAVASTRUGGLER_LEAVES;
     @ItemData(zhCn = "结实的通天菅叶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
+    public static final DeferredHolder<Item, Item> TRAVASTRUGGLER_LEAVES_TRAVARICE;
     @ItemData(zhCn = "菅草板",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> TRAVA_PLANKS;
+    public static final DeferredHolder<Item, Item> TRAVA_PLANKS;
     /*系列装饰方块--泥砖*/
     @ItemData(zhCn = "泥瓦",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MUD_TILES;
+    public static final DeferredHolder<Item, Item> MUD_TILES;
     @ItemData(zhCn = "泥瓦楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MUD_TILES_STAIRS;
+    public static final DeferredHolder<Item, Item> MUD_TILES_STAIRS;
     @ItemData(zhCn = "泥瓦台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MUD_TILES_SLAB;
+    public static final DeferredHolder<Item, Item> MUD_TILES_SLAB;
     @ItemData(zhCn = "泥瓦墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
-    public static final RegistryObject<Item> MUD_TILES_WALL;
+    public static final DeferredHolder<Item, Item> MUD_TILES_WALL;
     @ItemData(zhCn = "裂泥瓦",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
-    public static final RegistryObject<Item> CRACKED_MUD_TILES;
+    public static final DeferredHolder<Item, Item> CRACKED_MUD_TILES;
     @ItemData(zhCn = "裂泥瓦楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> CRACKED_MUD_TILES_STAIRS;
+    public static final DeferredHolder<Item, Item> CRACKED_MUD_TILES_STAIRS;
     @ItemData(zhCn = "裂泥瓦台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> CRACKED_MUD_TILES_SLAB;
+    public static final DeferredHolder<Item, Item> CRACKED_MUD_TILES_SLAB;
     @ItemData(zhCn = "裂泥瓦墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
-    public static final RegistryObject<Item> CRACKED_MUD_TILES_WALL;
+    public static final DeferredHolder<Item, Item> CRACKED_MUD_TILES_WALL;
     @ItemData(zhCn = "苔泥砖",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MOSSY_MUD_BRICK;
+    public static final DeferredHolder<Item, Item> MOSSY_MUD_BRICK;
     @ItemData(zhCn = "苔泥砖楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MOSSY_MUD_BRICK_STAIRS;
+    public static final DeferredHolder<Item, Item> MOSSY_MUD_BRICK_STAIRS;
     @ItemData(zhCn = "苔泥砖台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item> MOSSY_MUD_BRICK_SLAB;
+    public static final DeferredHolder<Item, Item> MOSSY_MUD_BRICK_SLAB;
     @ItemData(zhCn = "苔泥砖墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
-    public static final RegistryObject<Item> MOSSY_MUD_BRICK_WALL;
+    public static final DeferredHolder<Item, Item> MOSSY_MUD_BRICK_WALL;
     @ItemData(zhCn = "裂泥砖",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
-    public static final RegistryObject<Item>CRACKED_MUD_BRICK;
+    public static final DeferredHolder<Item, Item>CRACKED_MUD_BRICK;
     @ItemData(zhCn = "裂泥砖楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item>CRACKED_MUD_BRICK_STAIRS;
+    public static final DeferredHolder<Item, Item>CRACKED_MUD_BRICK_STAIRS;
     @ItemData(zhCn = "裂泥砖台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item>CRACKED_MUD_BRICK_SLAB;
+    public static final DeferredHolder<Item, Item>CRACKED_MUD_BRICK_SLAB;
     @ItemData(zhCn = "裂泥砖墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
-    public static final RegistryObject<Item>CRACKED_MUD_BRICK_WALL;
+    public static final DeferredHolder<Item, Item>CRACKED_MUD_BRICK_WALL;
     @ItemData(zhCn = "雕纹泥砖",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
-    public static final RegistryObject<Item>CHISELED_MUD_BRICK;
+    public static final DeferredHolder<Item, Item>CHISELED_MUD_BRICK;
     @ItemData(zhCn = "泥坯楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item>PACKED_MUD_STAIRS;
+    public static final DeferredHolder<Item, Item>PACKED_MUD_STAIRS;
     @ItemData(zhCn = "泥坯台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
-    public static final RegistryObject<Item>PACKED_MUD_SLAB;
+    public static final DeferredHolder<Item, Item>PACKED_MUD_SLAB;
     @ItemData(zhCn = "泥坯墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
-    public static final RegistryObject<Item>PACKED_MUD_WALL;
+    public static final DeferredHolder<Item, Item>PACKED_MUD_WALL;
 
     static {
         DEBUG_ITEM = register("debug_item", () -> new DebugItem(new Item.Properties().durability(1024)));
@@ -1434,7 +1440,7 @@ public class ImmortalersDelightItems {
                 new DrinkItem(ImmortalersDelightBlocks.HIMEKAIDO_JELLY.get(),new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)){
                     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
                         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-                        if (itemstack.isEdible()) {
+                        if (itemstack.getFoodProperties(pPlayer) != null) {
                             if (pPlayer.canEat(itemstack.getFoodProperties(pPlayer).canAlwaysEat())) {
                                 pPlayer.startUsingItem(pUsedHand);
                                 return InteractionResultHolder.consume(itemstack);
@@ -1531,7 +1537,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP_POWERED,true,false));
 
         SCARLET_DEVILS_CAKE = registerWithTab("scarlet_devils_cake", () ->
-                new EdibleBlockFoodItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem().craftRemainder(Items.BOWL)));
+                new EdibleBlockFoodItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE).craftRemainder(Items.BOWL)));
 
         SCARLET_DEVILS_CAKE_SLICE = registerWithTab("scarlet_devils_cake_slice",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE_SLICE),true,false));
@@ -1552,7 +1558,7 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
 
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
-                new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
+                new GoldenFabricArmor(Holder.direct(ImmortalersArmorMaterials.GOLDEN_FABRIC), ArmorItem.Type.HELMET, fantasticItem(Rarity.RARE)));
 
         RAW_SNIFFER_SLICE = REGISTER.register("raw_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));
@@ -1801,10 +1807,10 @@ public class ImmortalersDelightItems {
                     @Override
                     public String getDescriptionId() {return this.getOrCreateDescriptionId();}
                     @Override
-                    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+                    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
                         MutableComponent textValue = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".nan_dough");
                         tooltip.add(textValue.withStyle(ChatFormatting.GRAY));
-                        super.appendHoverText(stack, level, tooltip, isAdvanced);
+                        super.appendHoverText(stack, context, tooltip, isAdvanced);
                     }
                 });
 
@@ -1912,28 +1918,28 @@ public class ImmortalersDelightItems {
 
         //隐藏
         SKELVERFISH_AMBUSHER_SPAWN_EGG = register("skelverfish_ambusher_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER,1645516,6845733,new Item.Properties()));
+                new DeferredSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER,1645516,6845733,new Item.Properties()));
         SKELVERFISH_BOMBER_SPAWN_EGG = register("skelverfish_bomber_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_BOMBER,1645516,6845733,new Item.Properties()));
+                new DeferredSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_BOMBER,1645516,6845733,new Item.Properties()));
         SKELVERFISH_THRASHER_SPAWN_EGG = register("skelverfish_thrasher_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
+                new DeferredSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
         STRANGE_ARMOUR_STAND_SPAWN_EGG = register("strange_armour_stand_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
+                new DeferredSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
-                new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
-        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+                new DeferredSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
+        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING.get(),new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 
 
     }
 
-    public static RegistryObject<Item> registerWithTab(String name, Supplier<Item> supplier) {
-        RegistryObject<Item> item = REGISTER.register(name, supplier);
+    public static DeferredHolder<Item, Item> registerWithTab(String name, Supplier<Item> supplier) {
+        DeferredHolder<Item, Item> item = REGISTER.register(name, supplier);
 //        CREATIVE_TAB_ITEMS.add(item);
         return item;
     }
 
-    public static RegistryObject<Item> register(String name, Supplier<Item> supplier) {
+    public static DeferredHolder<Item, Item> register(String name, Supplier<Item> supplier) {
         return REGISTER.register(name, supplier);
     }
 
@@ -1945,14 +1951,14 @@ public class ImmortalersDelightItems {
         return (new Item.Properties()).food(food);
     }
 
-    public static RegistryObject<Item> foodItem(String name,FoodProperties food) {
+    public static DeferredHolder<Item, Item> foodItem(String name,FoodProperties food) {
         return registerWithTab(name,()->new Item(new Item.Properties().food(food)));
     }
 
-    public static RegistryObject<Item> foodItem(String name,FoodProperties food,boolean hasFoodEffectTooltip) {
+    public static DeferredHolder<Item, Item> foodItem(String name,FoodProperties food,boolean hasFoodEffectTooltip) {
         return registerWithTab(name,()->new ConsumableItem(new Item.Properties().food(food),hasFoodEffectTooltip));
     }
-    public static RegistryObject<Item> foodItem(String name,FoodProperties food,FoodProperties poweredFood,boolean hasCustomTooltip) {
+    public static DeferredHolder<Item, Item> foodItem(String name,FoodProperties food,FoodProperties poweredFood,boolean hasCustomTooltip) {
         return registerWithTab(name,()->new PowerfulAbleFoodItem(new Item.Properties().food(food),poweredFood,true,hasCustomTooltip));
     }
 
@@ -1971,6 +1977,17 @@ public class ImmortalersDelightItems {
         return (new Item.Properties()).rarity(soCool);
     }
 
+    public static Item.Properties withTierToolAttributes(Item.Properties props, Tier tier, float attackDamageModifier, float attackSpeedModifier) {
+        return props.component(DataComponents.ATTRIBUTE_MODIFIERS, tierToolModifiers(tier, attackDamageModifier, attackSpeedModifier));
+    }
+
+    public static ItemAttributeModifiers tierToolModifiers(Tier tier, float attackDamageModifier, float attackSpeedModifier) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamageModifier + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeedModifier, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .build();
+    }
+
 
     private static Item.Properties fantasticFoodItem(FoodProperties foodProperties, Rarity soCool, boolean isBowl) {
         if (isBowl) {
@@ -1979,15 +1996,15 @@ public class ImmortalersDelightItems {
         return (new Item.Properties().rarity(soCool).food(foodProperties));
     }
 
-    private static RegistryObject<Item> block(RegistryObject<? extends Block> block) {
+    private static DeferredHolder<Item, Item> block(DeferredHolder<Block, ? extends Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static RegistryObject<Item> blockFood(RegistryObject<Block> block) {
+    private static DeferredHolder<Item, Item> blockFood(DeferredHolder<Block, ? extends Block> block) {
         return registerWithTab(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().stacksTo(1)));
     }
 
-    private static RegistryObject<Item> block(RegistryObject<Block> block,boolean hide) {
+    private static DeferredHolder<Item, Item> block(DeferredHolder<Block, Block> block, boolean hide) {
         return register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 }

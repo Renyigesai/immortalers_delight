@@ -21,11 +21,15 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_chest_boat_need_2");
     public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
     public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
-    public static final TagKey<Item> OFFHAND_EQUIPMENT = createImmItemTag("offhand_equipment");
     public static final TagKey<Item> MILK = createItemTag("milk");
     public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
-    public static final TagKey<Item> CACTUS_RESISTANCE = createImmItemTag("cactus_resistance");
+    /** Farmer's Delight `#farmersdelight:knives` (avoid deprecated `ModTags.KNIVES`). */
+    public static final TagKey<Item> FARMERSDELIGHT_KNIVES = TagKey.create(Registries.ITEM, ResourceLocation.parse("farmersdelight:knives"));
+    public static final TagKey<Block> FARMERSDELIGHT_HEAT_SOURCES = TagKey.create(Registries.BLOCK, ResourceLocation.parse("farmersdelight:heat_sources"));
+    public static final TagKey<Block> FARMERSDELIGHT_HEAT_CONDUCTORS = TagKey.create(Registries.BLOCK, ResourceLocation.parse("farmersdelight:heat_conductors"));
+    /** Mirrors Farmer's Delight offhand equipment tag for interactions that must ignore offhand items. */
+    public static final TagKey<Item> OFFHAND_EQUIPMENT = TagKey.create(Registries.ITEM, ResourceLocation.parse("farmersdelight:offhand_equipment"));
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
     public static final TagKey<Block> MINEABLE_HAMMER = createBlockTag("mineable/meat_tenderizer");
     public static final TagKey<Block> SEXTLOTUS_TRANSFORM_AIR = createBlockTag("sextlotus_transform_air");
@@ -33,6 +37,11 @@ public class ImmortalersDelightTags {
     public static final TagKey<Block> SEXTLOTUS_TRANSFORM_DIRT = createBlockTag("sextlotus_transform_dirt");
     public static final TagKey<Block> SEXTLOTUS_TRANSFORM_COAL = createBlockTag("sextlotus_transform_coal");
     public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SPECIAL = createBlockTag("sextlotus_transform_special");
+
+    public static final TagKey<EntityType<?>> FARMERSDELIGHT_DOG_FOOD_USERS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("farmersdelight:dog_food_users"));
+    public static final TagKey<Block> FARMERSDELIGHT_DROPS_CAKE_SLICE =
+            TagKey.create(Registries.BLOCK, ResourceLocation.parse("farmersdelight:drops_cake_slice"));
 
     public static final TagKey<EntityType<?>> IMMORTAL_NORMAL_MOBS = createEntityTag("normal_mobs");
 
@@ -49,7 +58,7 @@ public class ImmortalersDelightTags {
     }
 
     private static TagKey<Item> createItemTag(String pName) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation("forge",pName));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", pName));
     }
 
     private static TagKey<Block> createBlockTag(String pName) {

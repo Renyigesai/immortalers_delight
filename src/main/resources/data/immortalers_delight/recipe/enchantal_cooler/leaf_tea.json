@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "container": {
+    "id": "minecraft:glass_bottle"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:leaf_tea"
+  }
+}

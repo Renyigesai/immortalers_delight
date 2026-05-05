@@ -92,7 +92,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //        能解的实现：若无对应buff，取消计划任务
 //        因为计划任务本身就是为了不能续而生，所以不需要专门写一个不能续
 //         */
-//        if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
+//        if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
 //            reverseEffect(pLivingEntity, amplifier);
 //        } else if (tick > 1){
 //            this.cancel();

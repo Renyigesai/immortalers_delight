@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.Config;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +13,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,20 +34,22 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.IForgeShearable;
-import org.checkerframework.checker.units.qual.A;
-import vectorwing.farmersdelight.common.registry.ModSounds;
-
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer, IForgeShearable,BonemealableBlock {
+public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer, BonemealableBlock {
+    public static final MapCodec<OxygrapeCropBlock> CODEC = simpleCodec(OxygrapeCropBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     public static final BooleanProperty DOWN = BooleanProperty.create("down");
     public static final VoxelShape BOX = box(2.0D,0.0D,2.0D,14.0D,16.0D,14.0D);
     public OxygrapeCropBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0).setValue(DOWN,true));
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -75,8 +80,7 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
         BlockState state = p_154540_.getBlockState(p_154541_);
         return state.isFaceSturdy(p_154540_, p_154541_, Direction.DOWN) || state.is(this);
     }
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult oxygrapeUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (canReap(state, level, pos, player, hand, hitResult)) {
             boolean temp = false;
             if (level instanceof ServerLevel level1) {
@@ -94,7 +98,22 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = oxygrapeUse(state, level, pos, player, hand, hitResult);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = oxygrapeUse(state, level, pos, player, InteractionHand.MAIN_HAND, hitResult);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     public boolean canReap(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
@@ -104,9 +123,9 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int age = pState.getValue(AGE);
-        if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(35) == 0)) {
+        if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(35) == 0)) {
             grow(pState,pLevel,pPos,pRandom,age);
-            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+            net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
         }
     }
 
@@ -140,7 +159,8 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
         return Fluids.WATER.getSource(false);
     }
 
-    public boolean canPlaceLiquid(BlockGetter p_154505_, BlockPos p_154506_, BlockState p_154507_, Fluid p_154508_) {
+    @Override
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
         return false;
     }
 
@@ -154,7 +174,7 @@ public class OxygrapeCropBlock extends BushBlock implements LiquidBlockContainer
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         return pState.getValue(AGE) != 3;
     }
 

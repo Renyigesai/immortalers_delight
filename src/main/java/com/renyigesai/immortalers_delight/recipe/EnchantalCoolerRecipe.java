@@ -1,47 +1,46 @@
 package com.renyigesai.immortalers_delight.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
+public class EnchantalCoolerRecipe implements Recipe<SimpleContainerRecipeInput> {
     private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
-    private final ResourceLocation id;
-    private final ItemStack container;
+    protected final ItemStack output;
+    protected final ItemStack container;
 
-    public EnchantalCoolerRecipe(NonNullList<Ingredient> ingredient, ItemStack output,ItemStack container, ResourceLocation id) {
+    public EnchantalCoolerRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ItemStack container) {
         this.inputItems = ingredient;
         this.output = output;
-        this.id = id;
-        if (container.isEmpty()){
+        if (container.isEmpty()) {
             this.container = ItemStack.EMPTY;
-        }else {
+        } else {
             this.container = container;
         }
     }
 
+    private static EnchantalCoolerRecipe fromCodec(List<Ingredient> ingredients, ItemStack output, ItemStack container) {
+        return new EnchantalCoolerRecipe(NonNullList.copyOf(ingredients), output, container);
+    }
+
     @Override
-    public boolean matches(SimpleContainer inv, Level pLevel) {
+    public boolean matches(SimpleContainerRecipeInput recipeInput, Level pLevel) {
+        SimpleContainer inv = recipeInput.container();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
@@ -54,11 +53,11 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
                 }
             }
         }
-        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+        return i == this.inputItems.size() && net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(SimpleContainerRecipeInput pContainer, HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -72,13 +71,8 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     @Override
@@ -98,50 +92,45 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<EnchantalCoolerRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(ImmortalersDelightMod.MODID, "enchantal_cooler");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "enchantal_cooler");
 
-        @Override
-        public EnchantalCoolerRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+        public static final MapCodec<EnchantalCoolerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(r -> List.copyOf(r.inputItems)),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
+                ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(r -> r.container)
+        ).apply(instance, EnchantalCoolerRecipe::fromCodec));
 
-            // 动态获取原料数量
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
+        private static final StreamCodec<RegistryFriendlyByteBuf, EnchantalCoolerRecipe> STREAM_CODEC =
+                StreamCodec.of(Serializer::writeNetwork, Serializer::readNetwork);
 
-            if (ingredients.size() > 4){
-                throw new JsonParseException("Too many ingredients for enchantal cooler recipe! The max is 4");
-            }else {
-                for (int i = 0; i < ingredients.size(); i++) {
-                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
-                }
-                ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
-
-                return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
+        private static void writeNetwork(RegistryFriendlyByteBuf buf, EnchantalCoolerRecipe recipe) {
+            buf.writeVarInt(recipe.inputItems.size());
+            for (Ingredient ingredient : recipe.inputItems) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
             }
+            ItemStack.STREAM_CODEC.encode(buf, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.container);
+        }
+
+        private static EnchantalCoolerRecipe readNetwork(RegistryFriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+            }
+            ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+            ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+            return new EnchantalCoolerRecipe(inputs, output, container);
         }
 
         @Override
-        public @Nullable EnchantalCoolerRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-            for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-            ItemStack output = pBuffer.readItem();
-            ItemStack container = pBuffer.readItem();
-            return new EnchantalCoolerRecipe(inputs, output,container,pRecipeId);
+        public MapCodec<EnchantalCoolerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, EnchantalCoolerRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-            pBuffer.writeItem(pRecipe.container);
+        public StreamCodec<RegistryFriendlyByteBuf, EnchantalCoolerRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 

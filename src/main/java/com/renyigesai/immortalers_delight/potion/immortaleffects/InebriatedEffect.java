@@ -11,17 +11,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 //
-//@Mod.EventBusSubscriber
+//@EventBusSubscriber
 //public class InebriatedEffect {
 //    /*
 //    这个类能对实体进行标记（以及解除标记），
@@ -122,7 +122,7 @@ import java.util.concurrent.ConcurrentHashMap;
 ////        ImmortalersDelightMod.LOGGER.info("附一个现在的时间" + TimekeepingTask.getImmortalTickTime());
 //        if (TimekeepingTask.getImmortalTickTime() > expireTime) {
 //            removeImmortalEffect(entity);
-//            entity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED.get(),1,0,false,false));
+//            entity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.INEBRIATED,1,0,false,false));
 //        } else {
 //            /*
 //            此处为具体的效果方法逻辑

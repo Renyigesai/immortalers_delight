@@ -24,13 +24,14 @@ import com.renyigesai.immortalers_delight.block.support.SupportBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
-import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
+import com.renyigesai.immortalers_delight.block.tree.ModTreeGrowers;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlock;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlockEntity;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
@@ -46,585 +47,584 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
-
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, ImmortalersDelightMod.MODID);
+            DeferredRegister.create(Registries.BLOCK, ImmortalersDelightMod.MODID);
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ImmortalersDelightMod.MODID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ImmortalersDelightMod.MODID);
 
     @BlockData
-    public static final RegistryObject<Block> ENCHANTAL_COOLER;
-    public static final RegistryObject<BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
+    public static final DeferredHolder<Block, Block> ENCHANTAL_COOLER;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EnchantalCoolerBlockEntity>> ENCHANTAL_COOLER_ENTITY;
 //    @BlockData
-//    public static final RegistryObject<Block> ANCIENT_STOVE;
-    public static final RegistryObject<BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
+//    public static final DeferredHolder<Block, Block> ANCIENT_STOVE;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AncientStoveBlockEntity>> ANCIENT_STOVE_ENTITY;
     @BlockData
-    public static final RegistryObject<Block> UNFINISHED_TANGYUAN;
-    public static final RegistryObject<BlockEntityType<TangyuanBlockEntity>> UNFINISHED_TANGYUAN_ENTITY;
-    public static final RegistryObject<BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
-    public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK;
+    public static final DeferredHolder<Block, Block> UNFINISHED_TANGYUAN;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TangyuanBlockEntity>> UNFINISHED_TANGYUAN_ENTITY;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RotatingRoastMeatBlockEntity>> ROTATING_ROAST_MEAT_ENTITY;
+    public static final DeferredHolder<Block, LiquidBlock> HOT_SPRING_BLOCK;
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SUSPICIOUS_ASH_PILE;
-    public static final RegistryObject<BlockEntityType<SuspiciousAshPileBlockEntity>> SUSPICIOUS_ASH_PILE_BLOCK_ENTITY;
+    public static final DeferredHolder<Block, Block> SUSPICIOUS_ASH_PILE;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SuspiciousAshPileBlockEntity>> SUSPICIOUS_ASH_PILE_BLOCK_ENTITY;
     @BlockData(dropType = BlockData.DropType.GENERAL)
-    public static final RegistryObject<Block> SEXTLOTUS_LANTERN;
-    public static final RegistryObject<BlockEntityType<SextlotusLanternBlockEntity>> SEXTLOTUS_LANTERN_BLOCK_ENTITY;
+    public static final DeferredHolder<Block, Block> SEXTLOTUS_LANTERN;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SextlotusLanternBlockEntity>> SEXTLOTUS_LANTERN_BLOCK_ENTITY;
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> MOONLIGHT_LIGHT_SOURCE;
-    public static final RegistryObject<BlockEntityType<LightSourceBlockEntity>> MOONLIGHT_LIGHT_SOURCE_BLOCK_ENTITY;
+    public static final DeferredHolder<Block, Block> MOONLIGHT_LIGHT_SOURCE;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LightSourceBlockEntity>> MOONLIGHT_LIGHT_SOURCE_BLOCK_ENTITY;
 
-    public static final RegistryObject<Block> SUPPORT_BLOCK;
-    public static final RegistryObject<BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
+    public static final DeferredHolder<Block, Block> SUPPORT_BLOCK;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SupportBlockEntity>> SUPPORT_BLOCK_ENTITY;
     @BlockData
-    public static final RegistryObject<Block> WARPED_LANTERN;
-    public static final RegistryObject<BlockEntityType<WarpedLanternBlockEntity>> WARPED_LANTERN_ENTITY;
+    public static final DeferredHolder<Block, Block> WARPED_LANTERN;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WarpedLanternBlockEntity>> WARPED_LANTERN_ENTITY;
 
     @BlockData
-    public static final RegistryObject<BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
+    public static final DeferredHolder<Block, BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData(zhCn = "溪竹")
-    public static final RegistryObject<Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
+    public static final DeferredHolder<Block, Block> LEISAMBOO_STALK = BLOCKS.register("leisamboo_stalk",() ->
             new LeisambooStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
+    public static final DeferredHolder<Block, Block> LEISAMBOO_CROP = BLOCKS.register("leisamboo_crop",() ->
             new LeisambooCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().sound(SoundType.BAMBOO).noOcclusion().dynamicShape().pushReaction(PushReaction.DESTROY).offsetType(BlockBehaviour.OffsetType.XZ)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_WOOD = BLOCKS.register("himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_WOOD = BLOCKS.register("stripped_himekaido_wood",() ->
+    public static final DeferredHolder<Block, Block> STRIPPED_HIMEKAIDO_WOOD = BLOCKS.register("stripped_himekaido_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> STRIPPED_HIMEKAIDO_LOG = BLOCKS.register("stripped_himekaido_log",() ->
+    public static final DeferredHolder<Block, Block> STRIPPED_HIMEKAIDO_LOG = BLOCKS.register("stripped_himekaido_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_SHRUB = BLOCKS.register("himekaido_shrub",() ->
-            new HimekaidoShrubBlock(BlockBehaviour.Properties.copy(Blocks.SWEET_BERRY_BUSH).noCollission().randomTicks().instabreak()));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_SHRUB = BLOCKS.register("himekaido_shrub",() ->
+            new HimekaidoShrubBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH).noCollission().randomTicks().instabreak()));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_FRUITED_LEAVES = BLOCKS.register("himekaido_fruited_leaves",() ->
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_FRUITED_LEAVES = BLOCKS.register("himekaido_fruited_leaves",() ->
         new HimekaidoLeavesFruited(leavesProperties(SoundType.GRASS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_FLOWERING_LEAVES = BLOCKS.register("himekaido_flowering_leaves",() ->
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_FLOWERING_LEAVES = BLOCKS.register("himekaido_flowering_leaves",() ->
         new HimekaidoLeavesGrowing((HimekaidoLeavesFruited) HIMEKAIDO_FRUITED_LEAVES.get(), leavesProperties(SoundType.GRASS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_LEAVES = BLOCKS.register("himekaido_leaves",() ->
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_LEAVES = BLOCKS.register("himekaido_leaves",() ->
             new HimekaidoLeavesGrowing((HimekaidoLeavesGrowing) HIMEKAIDO_FLOWERING_LEAVES.get(), leavesProperties(SoundType.GRASS)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_PLANKS = BLOCKS.register("himekaido_planks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_PLANKS = BLOCKS.register("himekaido_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_STAIRS = BLOCKS.register("himekaido_stairs",
-            () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(HIMEKAIDO_PLANKS.get())));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_STAIRS = BLOCKS.register("himekaido_stairs",
+            () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(HIMEKAIDO_PLANKS.get())));
 
-    public static final RegistryObject<Block> HIMEKAIDO_SLAB = BLOCKS.register("himekaido_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_SLAB = BLOCKS.register("himekaido_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_DOOR = BLOCKS.register("himekaido_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.HIMEKAIDO));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_DOOR = BLOCKS.register("himekaido_door",
+            () -> new DoorBlock(ImmortalersDelightWoodSetType.HIMEKAIDO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_TRAPDOOR = BLOCKS.register("himekaido_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.HIMEKAIDO));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_TRAPDOOR = BLOCKS.register("himekaido_trapdoor",
+            () -> new TrapDoorBlock(ImmortalersDelightWoodSetType.HIMEKAIDO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_FENCE = BLOCKS.register("himekaido_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_FENCE = BLOCKS.register("himekaido_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_FENCE_GATE = BLOCKS.register("himekaido_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.HIMEKAIDO));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_FENCE_GATE = BLOCKS.register("himekaido_fence_gate",
+            () -> new FenceGateBlock(ImmortalersDelightWoodType.HIMEKAIDO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_PRESSURE_PLATE = BLOCKS.register("himekaido_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.HIMEKAIDO));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_PRESSURE_PLATE = BLOCKS.register("himekaido_pressure_plate",
+            () -> new PressurePlateBlock(ImmortalersDelightWoodSetType.HIMEKAIDO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_BUTTON = BLOCKS.register("himekaido_button",
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_BUTTON = BLOCKS.register("himekaido_button",
             () ->woodenButton(ImmortalersDelightWoodSetType.HIMEKAIDO));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_CABINET = BLOCKS.register("himekaido_cabinet",
-            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_CABINET = BLOCKS.register("himekaido_cabinet",
+            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
-    public static final RegistryObject<Block> MILLENIAN_BAMBOO = BLOCKS.register("millenian_bamboo",
+    public static final DeferredHolder<Block, Block> MILLENIAN_BAMBOO = BLOCKS.register("millenian_bamboo",
             () -> new MillenianBambooBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(2.0F,3.0F).sound(SoundType.BAMBOO),ImmortalersDelightItems.BOWL_OF_MILLENIAN_BAMBOO));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_SIGN = BLOCKS.register("himekaido_sign",
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_SIGN = BLOCKS.register("himekaido_sign",
             () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
     @BlockData
-    public static final RegistryObject<Block>  HIMEKAIDO_WALL_SIGN = BLOCKS.register("himekaido_wall_sign",
+    public static final DeferredHolder<Block, Block>  HIMEKAIDO_WALL_SIGN = BLOCKS.register("himekaido_wall_sign",
             () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_HANGING_SIGN = BLOCKS.register("himekaido_hanging_sign",
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_HANGING_SIGN = BLOCKS.register("himekaido_hanging_sign",
             () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
 
     @BlockData
-    public static final RegistryObject<Block>  HIMEKAIDO_WALL_HANGING_SIGN = BLOCKS.register("himekaido_wall_hanging_sign",
+    public static final DeferredHolder<Block, Block>  HIMEKAIDO_WALL_HANGING_SIGN = BLOCKS.register("himekaido_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(HIMEKAIDO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.HIMEKAIDO));
     /*
     古木
     */
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_LOG = BLOCKS.register("ancient_wood_log",() ->
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_LOG = BLOCKS.register("ancient_wood_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD = BLOCKS.register("ancient_wood",() ->
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD = BLOCKS.register("ancient_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> STRIPPED_ANCIENT_WOOD = BLOCKS.register("stripped_ancient_wood",() ->
+    public static final DeferredHolder<Block, Block> STRIPPED_ANCIENT_WOOD = BLOCKS.register("stripped_ancient_wood",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> STRIPPED_ANCIENT_WOOD_LOG = BLOCKS.register("stripped_ancient_wood_log",() ->
+    public static final DeferredHolder<Block, Block> STRIPPED_ANCIENT_WOOD_LOG = BLOCKS.register("stripped_ancient_wood_log",() ->
             log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_PLANKS = BLOCKS.register("ancient_wood_planks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_PLANKS = BLOCKS.register("ancient_wood_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_CABINET = BLOCKS.register("ancient_wood_cabinet",
-            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_CABINET = BLOCKS.register("ancient_wood_cabinet",
+            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_STAIRS = BLOCKS.register("ancient_wood_stairs",
-            () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(ANCIENT_WOOD_PLANKS.get())));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_STAIRS = BLOCKS.register("ancient_wood_stairs",
+            () -> new StairBlock(HIMEKAIDO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(ANCIENT_WOOD_PLANKS.get())));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_SLAB = BLOCKS.register("ancient_wood_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_SLAB = BLOCKS.register("ancient_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ANCIENT_WOOD_DOOR = BLOCKS.register("ancient_wood_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_DOOR = BLOCKS.register("ancient_wood_door",
+            () -> new DoorBlock(ImmortalersDelightWoodSetType.ANCIENT_WOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_TRAPDOOR = BLOCKS.register("ancient_wood_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_TRAPDOOR = BLOCKS.register("ancient_wood_trapdoor",
+            () -> new TrapDoorBlock(ImmortalersDelightWoodSetType.ANCIENT_WOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_FENCE = BLOCKS.register("ancient_wood_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_FENCE = BLOCKS.register("ancient_wood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_FENCE_GATE = BLOCKS.register("ancient_wood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.ANCIENT_WOOD));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_FENCE_GATE = BLOCKS.register("ancient_wood_fence_gate",
+            () -> new FenceGateBlock(ImmortalersDelightWoodType.ANCIENT_WOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_PRESSURE_PLATE = BLOCKS.register("ancient_wood_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE),ImmortalersDelightWoodSetType.ANCIENT_WOOD));
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_PRESSURE_PLATE = BLOCKS.register("ancient_wood_pressure_plate",
+            () -> new PressurePlateBlock(ImmortalersDelightWoodSetType.ANCIENT_WOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
 
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_WOOD_BUTTON = BLOCKS.register("ancient_wood_button",
+    public static final DeferredHolder<Block, Block> ANCIENT_WOOD_BUTTON = BLOCKS.register("ancient_wood_button",
             () ->woodenButton(ImmortalersDelightWoodSetType.ANCIENT_WOOD));
 
     /*
     泥砖
      */
     @BlockData
-    public static final RegistryObject<Block> MUD_TILES = BLOCKS.register("mud_tiles",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> MUD_TILES = BLOCKS.register("mud_tiles",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> MUD_TILES_STAIRS = BLOCKS.register("mud_tiles_stairs",
-            () -> new StairBlock(MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.copy(MUD_TILES.get())));
+    public static final DeferredHolder<Block, Block> MUD_TILES_STAIRS = BLOCKS.register("mud_tiles_stairs",
+            () -> new StairBlock(MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(MUD_TILES.get())));
 
     @BlockData
-    public static final RegistryObject<Block> MUD_TILES_SLAB = BLOCKS.register("mud_tiles_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> MUD_TILES_SLAB = BLOCKS.register("mud_tiles_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> MUD_TILES_WALL = BLOCKS.register("mud_tiles_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+    public static final DeferredHolder<Block, Block> MUD_TILES_WALL = BLOCKS.register("mud_tiles_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_TILES = BLOCKS.register("cracked_mud_tiles",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_TILES = BLOCKS.register("cracked_mud_tiles",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_TILES_STAIRS = BLOCKS.register("cracked_mud_tiles_stairs",
-            () -> new StairBlock(CRACKED_MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.copy(CRACKED_MUD_TILES.get())));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_TILES_STAIRS = BLOCKS.register("cracked_mud_tiles_stairs",
+            () -> new StairBlock(CRACKED_MUD_TILES.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(CRACKED_MUD_TILES.get())));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_TILES_SLAB = BLOCKS.register("cracked_mud_tiles_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_TILES_SLAB = BLOCKS.register("cracked_mud_tiles_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_TILES_WALL = BLOCKS.register("cracked_mud_tiles_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_TILES_WALL = BLOCKS.register("cracked_mud_tiles_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     @BlockData
-    public static final RegistryObject<Block> MOSSY_MUD_BRICK = BLOCKS.register("mossy_mud_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> MOSSY_MUD_BRICK = BLOCKS.register("mossy_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> MOSSY_MUD_BRICK_STAIRS = BLOCKS.register("mossy_mud_brick_stairs",
-            () -> new StairBlock(MOSSY_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.copy(MOSSY_MUD_BRICK.get())));
+    public static final DeferredHolder<Block, Block> MOSSY_MUD_BRICK_STAIRS = BLOCKS.register("mossy_mud_brick_stairs",
+            () -> new StairBlock(MOSSY_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(MOSSY_MUD_BRICK.get())));
 
     @BlockData
-    public static final RegistryObject<Block> MOSSY_MUD_BRICK_SLAB = BLOCKS.register("mossy_mud_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> MOSSY_MUD_BRICK_SLAB = BLOCKS.register("mossy_mud_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> MOSSY_MUD_BRICK_WALL = BLOCKS.register("mossy_mud_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+    public static final DeferredHolder<Block, Block> MOSSY_MUD_BRICK_WALL = BLOCKS.register("mossy_mud_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_BRICK = BLOCKS.register("cracked_mud_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_BRICK = BLOCKS.register("cracked_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_BRICK_STAIRS = BLOCKS.register("cracked_mud_brick_stairs",
-            () -> new StairBlock(CRACKED_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.copy(CRACKED_MUD_BRICK.get())));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_BRICK_STAIRS = BLOCKS.register("cracked_mud_brick_stairs",
+            () -> new StairBlock(CRACKED_MUD_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(CRACKED_MUD_BRICK.get())));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_BRICK_SLAB = BLOCKS.register("cracked_mud_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_BRICK_SLAB = BLOCKS.register("cracked_mud_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> CRACKED_MUD_BRICK_WALL = BLOCKS.register("cracked_mud_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+    public static final DeferredHolder<Block, Block> CRACKED_MUD_BRICK_WALL = BLOCKS.register("cracked_mud_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     @BlockData
-    public static final RegistryObject<Block> CHISELED_MUD_BRICK = BLOCKS.register("chiseled_mud_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> CHISELED_MUD_BRICK = BLOCKS.register("chiseled_mud_brick",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> PACKED_MUD_STAIRS = BLOCKS.register("packed_mud_stairs",
-            () -> new StairBlock(Blocks.PACKED_MUD.defaultBlockState(),BlockBehaviour.Properties.copy(Blocks.PACKED_MUD)));
+    public static final DeferredHolder<Block, Block> PACKED_MUD_STAIRS = BLOCKS.register("packed_mud_stairs",
+            () -> new StairBlock(Blocks.PACKED_MUD.defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(Blocks.PACKED_MUD)));
 
     @BlockData
-    public static final RegistryObject<Block> PACKED_MUD_SLAB = BLOCKS.register("packed_mud_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS)));
+    public static final DeferredHolder<Block, Block> PACKED_MUD_SLAB = BLOCKS.register("packed_mud_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS)));
 
     @BlockData
-    public static final RegistryObject<Block> PACKED_MUD_WALL = BLOCKS.register("packed_mud_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+    public static final DeferredHolder<Block, Block> PACKED_MUD_WALL = BLOCKS.register("packed_mud_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS).forceSolidOn()));
 
     /**
      * 溪竹制品
      */
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_PLANKS = BLOCKS.register("leisamboo_planks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_PLANKS = BLOCKS.register("leisamboo_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
-            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
+            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_STAIRS = BLOCKS.register("leisamboo_stairs",
-            () -> new StairBlock(LEISAMBOO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(LEISAMBOO_PLANKS.get())));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_STAIRS = BLOCKS.register("leisamboo_stairs",
+            () -> new StairBlock(LEISAMBOO_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(LEISAMBOO_PLANKS.get())));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_SLAB = BLOCKS.register("leisamboo_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_SLAB = BLOCKS.register("leisamboo_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_DOOR = BLOCKS.register("leisamboo_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.LEISAMBOO));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_DOOR = BLOCKS.register("leisamboo_door",
+            () -> new DoorBlock(ImmortalersDelightWoodSetType.LEISAMBOO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_TRAPDOOR = BLOCKS.register("leisamboo_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.LEISAMBOO));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_TRAPDOOR = BLOCKS.register("leisamboo_trapdoor",
+            () -> new TrapDoorBlock(ImmortalersDelightWoodSetType.LEISAMBOO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_FENCE = BLOCKS.register("leisamboo_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_FENCE = BLOCKS.register("leisamboo_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_FENCE_GATE = BLOCKS.register("leisamboo_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.LEISAMBOO));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_FENCE_GATE = BLOCKS.register("leisamboo_fence_gate",
+            () -> new FenceGateBlock(ImmortalersDelightWoodType.LEISAMBOO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_PRESSURE_PLATE = BLOCKS.register("leisamboo_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.LEISAMBOO));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_PRESSURE_PLATE = BLOCKS.register("leisamboo_pressure_plate",
+            () -> new PressurePlateBlock(ImmortalersDelightWoodSetType.LEISAMBOO, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_BUTTON = BLOCKS.register("leisamboo_button",
+    public static final DeferredHolder<Block, Block> LEISAMBOO_BUTTON = BLOCKS.register("leisamboo_button",
             () ->woodenButton(ImmortalersDelightWoodSetType.LEISAMBOO));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_SIGN = BLOCKS.register("leisamboo_sign",
+    public static final DeferredHolder<Block, Block> LEISAMBOO_SIGN = BLOCKS.register("leisamboo_sign",
             () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_WALL_SIGN = BLOCKS.register("leisamboo_wall_sign",
+    public static final DeferredHolder<Block, Block> LEISAMBOO_WALL_SIGN = BLOCKS.register("leisamboo_wall_sign",
             () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEISAMBOO_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_HANGING_SIGN = BLOCKS.register("leisamboo_hanging_sign",
+    public static final DeferredHolder<Block, Block> LEISAMBOO_HANGING_SIGN = BLOCKS.register("leisamboo_hanging_sign",
             () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_WALL_HANGING_SIGN = BLOCKS.register("leisamboo_wall_hanging_sign",
+    public static final DeferredHolder<Block, Block> LEISAMBOO_WALL_HANGING_SIGN = BLOCKS.register("leisamboo_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEISAMBOO_HANGING_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.LEISAMBOO));
 
     /*
     棱蕉制品
      */
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_SHELL_PLANKS = BLOCKS.register("pearlip_shell_planks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_PLANKS = BLOCKS.register("pearlip_shell_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_SHELL_STAIRS = BLOCKS.register("pearlip_shell_stairs",
-            () -> new StairBlock(PEARLIP_SHELL_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(PEARLIP_SHELL_PLANKS.get())));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_STAIRS = BLOCKS.register("pearlip_shell_stairs",
+            () -> new StairBlock(PEARLIP_SHELL_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(PEARLIP_SHELL_PLANKS.get())));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_SHELL_SLAB = BLOCKS.register("pearlip_shell_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_SLAB = BLOCKS.register("pearlip_shell_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_DOOR = BLOCKS.register("pearlip_shell_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_DOOR = BLOCKS.register("pearlip_shell_door",
+            () -> new DoorBlock(ImmortalersDelightWoodSetType.PEARLIP_SHELL, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_TRAPDOOR = BLOCKS.register("pearlip_shell_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_TRAPDOOR = BLOCKS.register("pearlip_shell_trapdoor",
+            () -> new TrapDoorBlock(ImmortalersDelightWoodSetType.PEARLIP_SHELL, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_SHELL_FENCE = BLOCKS.register("pearlip_shell_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_FENCE = BLOCKS.register("pearlip_shell_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_FENCE_GATE = BLOCKS.register("pearlip_shell_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ImmortalersDelightWoodType.PEARLIP_SHELL));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_FENCE_GATE = BLOCKS.register("pearlip_shell_fence_gate",
+            () -> new FenceGateBlock(ImmortalersDelightWoodType.PEARLIP_SHELL, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_PRESSURE_PLATE = BLOCKS.register("pearlip_shell_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodSetType.PEARLIP_SHELL));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_PRESSURE_PLATE = BLOCKS.register("pearlip_shell_pressure_plate",
+            () -> new PressurePlateBlock(ImmortalersDelightWoodSetType.PEARLIP_SHELL, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_BUTTON = BLOCKS.register("pearlip_shell_button",
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_BUTTON = BLOCKS.register("pearlip_shell_button",
             () ->woodenButton(ImmortalersDelightWoodSetType.PEARLIP_SHELL));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_SHELL_CABINET = BLOCKS.register("pearlip_shell_cabinet",
-            () -> new CabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_CABINET = BLOCKS.register("pearlip_shell_cabinet",
+            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_SIGN = BLOCKS.register("pearlip_shell_sign",
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_SIGN = BLOCKS.register("pearlip_shell_sign",
             () ->  new ImmortalersDelightStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_WALL_SIGN = BLOCKS.register("pearlip_shell_wall_sign",
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_WALL_SIGN = BLOCKS.register("pearlip_shell_wall_sign",
             () -> new ImmortalersDelightWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(PEARLIP_SHELL_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_HANGING_SIGN = BLOCKS.register("pearlip_shell_hanging_sign",
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_HANGING_SIGN = BLOCKS.register("pearlip_shell_hanging_sign",
             () ->  new ImmortalersDelightCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_SHELL_WALL_HANGING_SIGN = BLOCKS.register("pearlip_shell_wall_hanging_sign",
+    public static final DeferredHolder<Block, Block> PEARLIP_SHELL_WALL_HANGING_SIGN = BLOCKS.register("pearlip_shell_wall_hanging_sign",
             () -> new ImmortalersDelightWallHangingSignBlockBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(PEARLIP_SHELL_HANGING_SIGN.get()).ignitedByLava(), ImmortalersDelightWoodType.PEARLIP_SHELL));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
+    public static final DeferredHolder<Block, Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIPEARL_BUNDLE = BLOCKS.register("pearlipearl_bundle",
+    public static final DeferredHolder<Block, Block> PEARLIPEARL_BUNDLE = BLOCKS.register("pearlipearl_bundle",
             ()-> new PearlipearlBeanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(0.5F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).randomTicks()));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIPEARL_STALK = BLOCKS.register("pearlipearl_stalk",
+    public static final DeferredHolder<Block, Block> PEARLIPEARL_STALK = BLOCKS.register("pearlipearl_stalk",
             ()-> new PearlipearlStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(1.0F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).randomTicks()));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ZEA_PANCAKE = BLOCKS.register("zea_pancake",()->
-            new ZeaPancakeBLock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> ZEA_PANCAKE = BLOCKS.register("zea_pancake",()->
+            new ZeaPancakeBLock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> STEWED_ROTTEN_MEAT_POT = BLOCKS.register("stewed_rotten_meat_pot",()->
-            new StewedRottenMeatPot(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
+    public static final DeferredHolder<Block, Block> STEWED_ROTTEN_MEAT_POT = BLOCKS.register("stewed_rotten_meat_pot",()->
+            new StewedRottenMeatPot(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATED_POT),ImmortalersDelightItems.BOWL_OF_STEWED_ROTTEN_MEAT_IN_CLAY_POT));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> BRAISED_SPIDER_EYES_BLOCK = BLOCKS.register("braised_spider_eyes_block",()->
-            new BraisedSpiderEyesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> BRAISED_SPIDER_EYES_BLOCK = BLOCKS.register("braised_spider_eyes_block",()->
+            new BraisedSpiderEyesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
-            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> ROTATING_ROAST_MEAT = BLOCKS.register("rotating_roast_meat",()->
+            new RotatingRoastMeatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
 //    @BlockData(dropType = BlockData.DropType.CUSTOM)
-//    public static final RegistryObject<Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
-//            new RotatingRoastMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+//    public static final DeferredHolder<Block, Block> SNIFFER_ROTATING_ROAST_MEAT = BLOCKS.register("sniffer_rotating_roast_meat",()->
+//            new RotatingRoastMeatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
-            new TartareChickenBigMealBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> TARTARE_CHICKEN_BIG_MEAL = BLOCKS.register("tartare_chicken_big_meal",()->
+            new TartareChickenBigMealBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SCARLET_DEVILS_CAKE = BLOCKS.register("scarlet_devils_cake",()->
-            new ScarletDevilsCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> SCARLET_DEVILS_CAKE = BLOCKS.register("scarlet_devils_cake",()->
+            new ScarletDevilsCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData
-    public static final RegistryObject<Block> EVOLUTCORN_GRAIN_BAG = BLOCKS.register("evolutcorn_grain_bag",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final DeferredHolder<Block, Block> EVOLUTCORN_GRAIN_BAG = BLOCKS.register("evolutcorn_grain_bag",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
 
     @BlockData
-    public static final RegistryObject<Block> HIMEKAIDO_CRATE = BLOCKS.register("himekaido_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_CRATE = BLOCKS.register("himekaido_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> PEARLIP_CRATE = BLOCKS.register("pearlip_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> PEARLIP_CRATE = BLOCKS.register("pearlip_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> BEEF_CRATE = BLOCKS.register("beef_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> BEEF_CRATE = BLOCKS.register("beef_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> COOKED_BEEF_CRATE = BLOCKS.register("cooked_beef_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> COOKED_BEEF_CRATE = BLOCKS.register("cooked_beef_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> CHICKEN_CRATE = BLOCKS.register("chicken_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> CHICKEN_CRATE = BLOCKS.register("chicken_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> SPIDER_EYE_CRATE = BLOCKS.register("spider_eye_crate",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final DeferredHolder<Block, Block> SPIDER_EYE_CRATE = BLOCKS.register("spider_eye_crate",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
     @BlockData
-    public static final RegistryObject<Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final DeferredHolder<Block, Block> EVOLUTCORN_BLOCK = BLOCKS.register("evolutcorn_block",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
 
     @BlockData
-    public static final RegistryObject<Block> KWAT_WHEAT_BLOCK = BLOCKS.register("kwat_wheat_block",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final DeferredHolder<Block, Block> KWAT_WHEAT_BLOCK = BLOCKS.register("kwat_wheat_block",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
     @BlockData
-    public static final RegistryObject<Block> KWAT_WHEAT_SEEDS_BAG = BLOCKS.register("kwat_wheat_seeds_bag",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+    public static final DeferredHolder<Block, Block> KWAT_WHEAT_SEEDS_BAG = BLOCKS.register("kwat_wheat_seeds_bag",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
 
     @BlockData
-    public static final RegistryObject<Block> ALFALFA_BLOCK = BLOCKS.register("alfalfa_block",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final DeferredHolder<Block, Block> ALFALFA_BLOCK = BLOCKS.register("alfalfa_block",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.HAY_BLOCK)));
 
     @BlockData
-    public static final RegistryObject<Block> LEISAMBOO_BLOCK = BLOCKS.register("leisamboo_block",()->
-            new Block(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_BLOCK = BLOCKS.register("leisamboo_block",()->
+            new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",
+    public static final DeferredHolder<Block, Block> CULTURAL_LEGACY = BLOCKS.register("cultural_legacy",
             () -> new CulturalLegacyEffectToolBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().lightLevel(ageBlockEmission(2)).instabreak().sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_PIE = BLOCKS.register("pearlip_pie",()->
-            new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.PEARLIP_PIE_SLICE));
+    public static final DeferredHolder<Block, Block> PEARLIP_PIE = BLOCKS.register("pearlip_pie",()->
+            new PieBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.PEARLIP_PIE_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
-            new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
+            new PieBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> GIANT_TART = BLOCKS.register("giant_tart",()-> new GiantTartBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.GIANT_TART_SLICE));
+    public static final DeferredHolder<Block, Block> GIANT_TART = BLOCKS.register("giant_tart",()-> new GiantTartBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.GIANT_TART_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ROASTED_MUSHROOM_PIZZA = BLOCKS.register("roasted_mushroom_pizza",()->
-            new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
+    public static final DeferredHolder<Block, Block> ROASTED_MUSHROOM_PIZZA = BLOCKS.register("roasted_mushroom_pizza",()->
+            new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
+    public static final DeferredHolder<Block, Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
             () -> new KwatWheatCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> NETHER_BREAD_CREAM_SOUP = BLOCKS.register("nether_bread_cream_soup",
-            () -> new KwatWheatToastStewedVegetablesBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> NETHER_BREAD_CREAM_SOUP = BLOCKS.register("nether_bread_cream_soup",
+            () -> new KwatWheatToastStewedVegetablesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
-            () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> POD_SHELL_BURGER_MEAT = BLOCKS.register("pod_shell_burger_meat",
+            () -> new PodShellBurgerMeatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     /*远古炉灶系列*/
     @BlockData
-    public static final RegistryObject<Block> ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,false));
+    public static final DeferredHolder<Block, Block> ANCIENT_STOVE = BLOCKS.register("ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,false));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SUPER_KWAT_WHEAT_HAMBURGER = BLOCKS.register("super_kwat_wheat_hamburger",
-            () -> new SuperKwatBurgerBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> SUPER_KWAT_WHEAT_HAMBURGER = BLOCKS.register("super_kwat_wheat_hamburger",
+            () -> new SuperKwatBurgerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     @BlockData
-    public static final RegistryObject<Block> EXPOSED_ANCIENT_STOVE = BLOCKS.register("exposed_ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,false));
+    public static final DeferredHolder<Block, Block> EXPOSED_ANCIENT_STOVE = BLOCKS.register("exposed_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,false));
 
     @BlockData
-    public static final RegistryObject<Block> WEATHERED_ANCIENT_STOVE = BLOCKS.register("weathered_ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,false));
+    public static final DeferredHolder<Block, Block> WEATHERED_ANCIENT_STOVE = BLOCKS.register("weathered_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,false));
 
     @BlockData
-    public static final RegistryObject<Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove", () ->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,false));
+    public static final DeferredHolder<Block, Block> OXIDIZED_ANCIENT_STOVE = BLOCKS.register("oxidized_ancient_stove", () ->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,false));
 
     @BlockData
-    public static final RegistryObject<Block> WAXED_ANCIENT_STOVE = BLOCKS.register("waxed_ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,true));
+    public static final DeferredHolder<Block, Block> WAXED_ANCIENT_STOVE = BLOCKS.register("waxed_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(15)), WeatheringCopper.WeatherState.UNAFFECTED,true));
 
     @BlockData
-    public static final RegistryObject<Block> WAXED_EXPOSED_ANCIENT_STOVE = BLOCKS.register("waxed_exposed_ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,true));
+    public static final DeferredHolder<Block, Block> WAXED_EXPOSED_ANCIENT_STOVE = BLOCKS.register("waxed_exposed_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.EXPOSED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(10)),WeatheringCopper.WeatherState.EXPOSED,true));
 
     @BlockData
-    public static final RegistryObject<Block> WAXED_WEATHERED_ANCIENT_STOVE = BLOCKS.register("waxed_weathered_ancient_stove",()->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,true));
+    public static final DeferredHolder<Block, Block> WAXED_WEATHERED_ANCIENT_STOVE = BLOCKS.register("waxed_weathered_ancient_stove",()->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WEATHERED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER).lightLevel(litBlockLight(5)),WeatheringCopper.WeatherState.WEATHERED,true));
 
     @BlockData
-    public static final RegistryObject<Block> WAXED_OXIDIZED_ANCIENT_STOVE = BLOCKS.register("waxed_oxidized_ancient_stove", () ->
-            new AncientStoveBlock(BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,true));
+    public static final DeferredHolder<Block, Block> WAXED_OXIDIZED_ANCIENT_STOVE = BLOCKS.register("waxed_oxidized_ancient_stove", () ->
+            new AncientStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OXIDIZED_COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER),WeatheringCopper.WeatherState.OXIDIZED,true));
 
     /*
     通天竹
     */
     @BlockData
-    public static final RegistryObject<Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(new TravastrugglerTreeGrower(),BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(ModTreeGrowers.TRAVASTRUGGLER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     @BlockData
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", ()-> travastrugglerLog());
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", ()-> travastrugglerLog());
 
     @BlockData
-    public static final RegistryObject<Block> STRIPPED_TRAVASTRUGGLER_LOG = BLOCKS.register("stripped_travastruggler_log", ()-> travastrugglerLog());
+    public static final DeferredHolder<Block, Block> STRIPPED_TRAVASTRUGGLER_LOG = BLOCKS.register("stripped_travastruggler_log", ()-> travastrugglerLog());
 
     @BlockData
-    public static final RegistryObject<Block> TRAVA_PLANKS = BLOCKS.register("trava_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2).ignitedByLava().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.COLOR_GRAY)));
+    public static final DeferredHolder<Block, Block> TRAVA_PLANKS = BLOCKS.register("trava_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2).ignitedByLava().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.COLOR_GRAY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new TravastrugglerLeavesTravariceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new TravastrugglerLeavesTravariceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
 
 
     /*
@@ -632,180 +632,180 @@ public class ImmortalersDelightBlocks {
     */
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEISAMBOO_TEA = BLOCKS.register("leisamboo_tea",()->new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.3F)));
+    public static final DeferredHolder<Block, Block> LEISAMBOO_TEA = BLOCKS.register("leisamboo_tea",()->new DrinksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(0.3F)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
+    public static final DeferredHolder<Block, Block> ICED_BLACK_TEA = drinksBlock("iced_black_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIPEARL_MILK_TEA = drinksBlock("pearlipearl_milk_tea");
+    public static final DeferredHolder<Block, Block> PEARLIPEARL_MILK_TEA = drinksBlock("pearlipearl_milk_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIPEARL_MILK_GREEN = drinksBlock("pearlipearl_milk_green");
+    public static final DeferredHolder<Block, Block> PEARLIPEARL_MILK_GREEN = drinksBlock("pearlipearl_milk_green");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> STOVE_BLACK_TEA = drinksBlock("stove_black_tea");
+    public static final DeferredHolder<Block, Block> STOVE_BLACK_TEA = drinksBlock("stove_black_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEAF_GREEN_TEA = drinksBlock("leaf_green_tea");
+    public static final DeferredHolder<Block, Block> LEAF_GREEN_TEA = drinksBlock("leaf_green_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> BRITISH_YELLOW_TEA = drinksBlock("british_yellow_tea");
+    public static final DeferredHolder<Block, Block> BRITISH_YELLOW_TEA = drinksBlock("british_yellow_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> LEAF_TEA = drinksBlock("leaf_tea");
+    public static final DeferredHolder<Block, Block> LEAF_TEA = drinksBlock("leaf_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> YOGURT = drinksBlock("yogurt");
+    public static final DeferredHolder<Block, Block> YOGURT = drinksBlock("yogurt");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> EVOLUTCORN_BEER = drinksBlock("evolutcorn_beer");
+    public static final DeferredHolder<Block, Block> EVOLUTCORN_BEER = drinksBlock("evolutcorn_beer");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> STICKY_BEER = drinksBlock("sticky_beer");
+    public static final DeferredHolder<Block, Block> STICKY_BEER = drinksBlock("sticky_beer");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> VULCAN_COKTAIL = drinksBlock("vulcan_coktail");
+    public static final DeferredHolder<Block, Block> VULCAN_COKTAIL = drinksBlock("vulcan_coktail");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> DREUMK_WINE = drinksBlock("dreumk_wine");
+    public static final DeferredHolder<Block, Block> DREUMK_WINE = drinksBlock("dreumk_wine");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PIGLIN_ODORI_SAKE = BLOCKS.register("piglin_odori_sake",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.3F)));
+    public static final DeferredHolder<Block, Block> PIGLIN_ODORI_SAKE = BLOCKS.register("piglin_odori_sake",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.3F)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_BUBBLE_MILK = drinksBlock("pearlip_bubble_milk");
+    public static final DeferredHolder<Block, Block> PEARLIP_BUBBLE_MILK = drinksBlock("pearlip_bubble_milk");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PURGATORY_ALE = drinksBlock("purgatory_ale");
+    public static final DeferredHolder<Block, Block> PURGATORY_ALE = drinksBlock("purgatory_ale");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> FRUIT_TEA = drinksBlock("fruit_tea");
+    public static final DeferredHolder<Block, Block> FRUIT_TEA = drinksBlock("fruit_tea");
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> AROMATIC_POD_AFFOGATO = drinksBlock("aromatic_pod_affogato");
+    public static final DeferredHolder<Block, Block> AROMATIC_POD_AFFOGATO = drinksBlock("aromatic_pod_affogato");
 
 
 
 
 
     @BlockData
-    public static final RegistryObject<Block> POISONOUS_SPIKE_TRAP = BLOCKS.register("poisonous_spike_trap",
+    public static final DeferredHolder<Block, Block> POISONOUS_SPIKE_TRAP = BLOCKS.register("poisonous_spike_trap",
             () -> new SpikeTrapBlock(2.0F,
                     BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
             });
 
     @BlockData
-    public static final RegistryObject<Block> SPIKE_TRAP = BLOCKS.register("spike_trap",
+    public static final DeferredHolder<Block, Block> SPIKE_TRAP = BLOCKS.register("spike_trap",
             () -> new SpikeTrapBlock(4.0F,BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).forceSolidOff().sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)) {
             });
 
     @BlockData
-    public static final RegistryObject<Block> POISONOUS_LONG_SPIKE_TRAP = BLOCKS.register("poisonous_long_spike_trap",
+    public static final DeferredHolder<Block, Block> POISONOUS_LONG_SPIKE_TRAP = BLOCKS.register("poisonous_long_spike_trap",
             () -> new SpikeTrapBlock(true,2.0F,
-                    BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
 
     @BlockData
-    public static final RegistryObject<Block> LONG_SPIKE_TRAP = BLOCKS.register("long_spike_trap",
+    public static final DeferredHolder<Block, Block> LONG_SPIKE_TRAP = BLOCKS.register("long_spike_trap",
             () -> new SpikeTrapBlock(true,6.0F,
-                    BlockBehaviour.Properties.copy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.BIG_DRIPLEAF).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE).strength(18.0F, 50.0F).pushReaction(PushReaction.BLOCK)));
 
     @BlockData
-    public static final RegistryObject<Block> POISONOUS_METAL_CALTROP = BLOCKS.register("poisonous_metal_caltrop",
+    public static final DeferredHolder<Block, Block> POISONOUS_METAL_CALTROP = BLOCKS.register("poisonous_metal_caltrop",
             () -> new MetalCaltropBlock(false,2.0F,
-                    BlockBehaviour.Properties.copy(Blocks.PISTON).strength(55.0F, 1200.0F)) {
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.PISTON).strength(55.0F, 1200.0F)) {
             });
 
     @BlockData
-    public static final RegistryObject<Block> METAL_CALTROP = BLOCKS.register("metal_caltrop",
+    public static final DeferredHolder<Block, Block> METAL_CALTROP = BLOCKS.register("metal_caltrop",
             () -> new MetalCaltropBlock(false,3.0F,
-                    BlockBehaviour.Properties.copy(Blocks.PISTON).strength(55.0F, 1200.0F).pushReaction(PushReaction.NORMAL)) {
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.PISTON).strength(55.0F, 1200.0F).pushReaction(PushReaction.NORMAL)) {
             });
 
     @BlockData
-    public static final RegistryObject<Block> SPIKE_BAR_BASE = BLOCKS.register("spike_bar_base",
+    public static final DeferredHolder<Block, Block> SPIKE_BAR_BASE = BLOCKS.register("spike_bar_base",
             () -> new IronBarsBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
 
     @BlockData
-    public static final RegistryObject<Block> SPIKE_BAR = BLOCKS.register("spike_bar",
+    public static final DeferredHolder<Block, Block> SPIKE_BAR = BLOCKS.register("spike_bar",
             () -> new SpikeBarBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(15.0F, 50.0F).sound(SoundType.METAL).noOcclusion()));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_SAND = BLOCKS.register("infested_sand",
-            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_SAND,BlockBehaviour.Properties.copy(Blocks.SAND)));
+    public static final DeferredHolder<Block, Block> INFESTED_SAND = BLOCKS.register("infested_sand",
+            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_SAND,BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_GRAVEL = BLOCKS.register("infested_gravel",
-            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_GRAVEL,BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+    public static final DeferredHolder<Block, Block> INFESTED_GRAVEL = BLOCKS.register("infested_gravel",
+            () -> new InfestedFallingBlock(Blocks.SUSPICIOUS_GRAVEL,BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_COAL_BLOCK = BLOCKS.register("infested_coal_block",
+    public static final DeferredHolder<Block, Block> INFESTED_COAL_BLOCK = BLOCKS.register("infested_coal_block",
             () -> new InfestedOreBlock(Blocks.COAL_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_COPPER_BLOCK = BLOCKS.register("infested_copper_block",
+    public static final DeferredHolder<Block, Block> INFESTED_COPPER_BLOCK = BLOCKS.register("infested_copper_block",
             () -> new InfestedOreBlock(Blocks.COPPER_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_IRON_BLOCK = BLOCKS.register("infested_iron_block",
+    public static final DeferredHolder<Block, Block> INFESTED_IRON_BLOCK = BLOCKS.register("infested_iron_block",
             () -> new InfestedOreBlock(Blocks.IRON_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.METAL)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_REDSTONE_BLOCK = BLOCKS.register("infested_redstone_block",
+    public static final DeferredHolder<Block, Block> INFESTED_REDSTONE_BLOCK = BLOCKS.register("infested_redstone_block",
             () -> new InfestedOreBlock(Blocks.REDSTONE_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.FIRE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_LAPIS_BLOCK = BLOCKS.register("infested_lapis_block",
+    public static final DeferredHolder<Block, Block> INFESTED_LAPIS_BLOCK = BLOCKS.register("infested_lapis_block",
             () -> new InfestedOreBlock(Blocks.LAPIS_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.LAPIS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_GOLD_BLOCK = BLOCKS.register("infested_gold_block",
+    public static final DeferredHolder<Block, Block> INFESTED_GOLD_BLOCK = BLOCKS.register("infested_gold_block",
             () -> new InfestedOreBlock(Blocks.GOLD_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.GOLD)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_EMERALD_BLOCK = BLOCKS.register("infested_emerald_block",
+    public static final DeferredHolder<Block, Block> INFESTED_EMERALD_BLOCK = BLOCKS.register("infested_emerald_block",
             () -> new InfestedOreBlock(Blocks.EMERALD_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.EMERALD)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> INFESTED_DIAMOND_BLOCK = BLOCKS.register("infested_diamond_block",
+    public static final DeferredHolder<Block, Block> INFESTED_DIAMOND_BLOCK = BLOCKS.register("infested_diamond_block",
             () -> new InfestedOreBlock(Blocks.DIAMOND_BLOCK,BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> ALFALFA = BLOCKS.register("alfalfa",
+    public static final DeferredHolder<Block, Block> ALFALFA = BLOCKS.register("alfalfa",
             () -> new AlfalfaCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PEARLIP_RICE_ROLL_BOAT = BLOCKS.register("pearlip_rice_roll_boat",
-            () -> new PearlipRiceRollBoatBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> PEARLIP_RICE_ROLL_BOAT = BLOCKS.register("pearlip_rice_roll_boat",
+            () -> new PearlipRiceRollBoatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
     /*诡怨藤*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
-            new WarpedLaurelCrop(BlockBehaviour.Properties.copy(Blocks.NETHER_WART).speedFactor(0.4F)));
+    public static final DeferredHolder<Block, Block> WARPED_LAUREL_CROP = BLOCKS.register("warped_laurel_crop",()->
+            new WarpedLaurelCrop(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART).speedFactor(0.4F)));
 
     /*冰龙果*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> GELPITAYA_CROP = BLOCKS.register("gelpitaya_crop",()->
-            new GelpitayaCropBlock(BlockBehaviour.Properties.copy(Blocks.CACTUS).mapColor(MapColor.ICE).strength(2.8F).requiresCorrectToolForDrops().sound(SoundType.GLASS)));
+    public static final DeferredHolder<Block, Block> GELPITAYA_CROP = BLOCKS.register("gelpitaya_crop",()->
+            new GelpitayaCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CACTUS).mapColor(MapColor.ICE).strength(2.8F).requiresCorrectToolForDrops().sound(SoundType.GLASS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> STONE_POT_KWAT_TOFU_STEW = BLOCKS.register("stone_pot_kwat_tofu_stew",()->
-            new StonePotKwatTofuStewBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_KWAT_TOFU_STEW,true));
+    public static final DeferredHolder<Block, Block> STONE_POT_KWAT_TOFU_STEW = BLOCKS.register("stone_pot_kwat_tofu_stew",()->
+            new StonePotKwatTofuStewBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_KWAT_TOFU_STEW,true));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> FROSTY_CROWN_MOUSSE = BLOCKS.register("frosty_crown_mousse",()->
-            new FrostyCrownMousseBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.FROSTY_CROWN_MOUSSE_SLICE));
+    public static final DeferredHolder<Block, Block> FROSTY_CROWN_MOUSSE = BLOCKS.register("frosty_crown_mousse",()->
+            new FrostyCrownMousseBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE),ImmortalersDelightItems.FROSTY_CROWN_MOUSSE_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> TENCHIMUYO = BLOCKS.register("tenchimuyo",()->
-            new TenchimuyoBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_TENCHIMUYO,true));
+    public static final DeferredHolder<Block, Block> TENCHIMUYO = BLOCKS.register("tenchimuyo",()->
+            new TenchimuyoBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_TENCHIMUYO,true));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> THIS_SIDE_DOWN = BLOCKS.register("this_side_down",()->
-            new ThisSideDownSoupBlock(BlockBehaviour.Properties.copy(Blocks.SHULKER_BOX),ImmortalersDelightItems.BOWL_OF_THIS_SIDE_DOWN,true));
+    public static final DeferredHolder<Block, Block> THIS_SIDE_DOWN = BLOCKS.register("this_side_down",()->
+            new ThisSideDownSoupBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHULKER_BOX),ImmortalersDelightItems.BOWL_OF_THIS_SIDE_DOWN,true));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> CAUSTIC_ESSENTIAL_OIL = BLOCKS.register("caustic_essential_oil",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> CAUSTIC_ESSENTIAL_OIL = BLOCKS.register("caustic_essential_oil",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -814,67 +814,67 @@ public class ImmortalersDelightBlocks {
 
     /*瓶子草*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> CHEESE_MELON_JUICE = BLOCKS.register("cheese_melon_juice",()->
-            new CheeseMelonJuiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOTTLE_MELON_JUICE));
+    public static final DeferredHolder<Block, Block> CHEESE_MELON_JUICE = BLOCKS.register("cheese_melon_juice",()->
+            new CheeseMelonJuiceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.BOTTLE_MELON_JUICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
-            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE));
+    public static final DeferredHolder<Block, Block> PITCHER_PLANT_CLAYPOT_RICE = BLOCKS.register("pitcher_plant_claypot_rice",()->
+            new PitcherPlantClaypotRiceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.BOWL_PITCHER_PLANT_CLAYPOT_RICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> NAAN_BAKING_PIT = BLOCKS.register("naan_baking_pit",()->
-            new NaanBakingPitBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_ORE).strength(0.5F).mapColor(MapColor.NETHER)));
+    public static final DeferredHolder<Block, Block> NAAN_BAKING_PIT = BLOCKS.register("naan_baking_pit",()->
+            new NaanBakingPitBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.REDSTONE_ORE).strength(0.5F).mapColor(MapColor.NETHER)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "空盘")
-    public static final RegistryObject<Block> EMPTY_PLATE = BLOCKS.register("empty_plate",()->
-            new EmptyPlateBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+    public static final DeferredHolder<Block, Block> EMPTY_PLATE = BLOCKS.register("empty_plate",()->
+            new EmptyPlateBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
     /*嗅探兽毛块*/
     @BlockData
-    public static final RegistryObject<Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final DeferredHolder<Block, Block> SNIFFER_FUR_BLOCK = BLOCKS.register("sniffer_fur_block",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F)));
 
     @BlockData
-    public static final RegistryObject<Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final DeferredHolder<Block, Block> SNIFFER_FUR_TATAMI = BLOCKS.register("sniffer_fur_tatami",()-> new TatamiBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SNIFFER_FUR_FULL_TATAMI_MAT = BLOCKS.register("sniffer_fur_full_tatami_mat", () -> new TatamiMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F)));
+    public static final DeferredHolder<Block, Block> SNIFFER_FUR_FULL_TATAMI_MAT = BLOCKS.register("sniffer_fur_full_tatami_mat", () -> new TatamiMatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F)));
 
     @BlockData
-    public static final RegistryObject<Block> SNIFFER_FUR_HALF_TATAMI_MAT = BLOCKS.register("sniffer_fur_half_tatami_mat", () -> new TatamiHalfMatBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredHolder<Block, Block> SNIFFER_FUR_HALF_TATAMI_MAT = BLOCKS.register("sniffer_fur_half_tatami_mat", () -> new TatamiHalfMatBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.3F).pushReaction(PushReaction.DESTROY)));
 
     /*石锅*/
     @BlockData
-    public static final RegistryObject<Block> STONE_POT = BLOCKS.register("stone_pot",()-> new StonePotBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final DeferredHolder<Block, Block> STONE_POT = BLOCKS.register("stone_pot",()-> new StonePotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> UNIVERSAL_CHICKEN_SOUP = BLOCKS.register("universal_chicken_soup",()-> new UniversalChickenSoupBlock(BlockBehaviour.Properties.copy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true));
+    public static final DeferredHolder<Block, Block> UNIVERSAL_CHICKEN_SOUP = BLOCKS.register("universal_chicken_soup",()-> new UniversalChickenSoupBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE),ImmortalersDelightItems.BOWL_OF_UNIVERSAL_CHICKEN_SOUP,true));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
+    public static final DeferredHolder<Block, Block> GAIXIA_SILME = BLOCKS.register("gaixia_silme",()-> new GaixiaSlimeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).forceSolidOn().noCollission()));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "熔烬烤馕")
-    public static final RegistryObject<Block> KU_MESH_NON = BLOCKS.register("ku_mesh_non",()->
-            new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.MAGMA_BLOCK),
+    public static final DeferredHolder<Block, Block> KU_MESH_NON = BLOCKS.register("ku_mesh_non",()->
+            new KuMeshNonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MAGMA_BLOCK),
                     ImmortalersDelightItems.KU_MESH_NON_SLICE,
                     ImmortalersDelightItems.KU_MESH_NON,
                     4)
     );
     @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "古苜蓿大列巴")
-    public static final RegistryObject<Block> LARGE_COLUMN = BLOCKS.register("large_column",()->
-            new LargeColumnBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+    public static final DeferredHolder<Block, Block> LARGE_COLUMN = BLOCKS.register("large_column",()->
+            new LargeColumnBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),
                     ImmortalersDelightItems.LARGE_COLUMN_SLICE,
                     ImmortalersDelightItems.LARGE_COLUMN,
                     2)
     );
     @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "战争面包")
-    public static final RegistryObject<Block> JENG_NANU = BLOCKS.register("jeng_nanu",()->
-            new KuMeshNonBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+    public static final DeferredHolder<Block, Block> JENG_NANU = BLOCKS.register("jeng_nanu",()->
+            new KuMeshNonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),
                     ImmortalersDelightItems.JENG_NANU_SLICE,
                     ImmortalersDelightItems.JENG_NANU,
                     4)
     );
     @BlockData(dropType = BlockData.DropType.CUSTOM,zhCn = "玉黍硬糖")
-    public static final RegistryObject<Block> EVOLUTCORN_HARD_CANDY = BLOCKS.register("evolutcorn_hard_candy",()->
-            new StackedFoodBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),
+    public static final DeferredHolder<Block, Block> EVOLUTCORN_HARD_CANDY = BLOCKS.register("evolutcorn_hard_candy",()->
+            new StackedFoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
                     ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY,
                     1)
@@ -884,55 +884,55 @@ public class ImmortalersDelightBlocks {
     });
     /*烟杆*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).lightLevel(SimpleLavaloggedBlock.litBlockLight())));
+    public static final DeferredHolder<Block, Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).lightLevel(SimpleLavaloggedBlock.litBlockLight())));
 
     @BlockData
-    public static final RegistryObject<BasicsLogsBlock> A_BUSH_LOG = BLOCKS.register("a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
+    public static final DeferredHolder<Block, BasicsLogsBlock> A_BUSH_LOG = BLOCKS.register("a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<BasicsLogsBlock> STRIPPED_A_BUSH_LOG = BLOCKS.register("stripped_a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
+    public static final DeferredHolder<Block, BasicsLogsBlock> STRIPPED_A_BUSH_LOG = BLOCKS.register("stripped_a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<BasicsLogsBlock> A_BUSH_WOOD = BLOCKS.register("a_bush_wood",()-> log(MapColor.WOOD, MapColor.PODZOL));
+    public static final DeferredHolder<Block, BasicsLogsBlock> A_BUSH_WOOD = BLOCKS.register("a_bush_wood",()-> log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<BasicsLogsBlock> STRIPPED_A_BUSH_WOOD = BLOCKS.register("stripped_a_bush_wood",()-> log(MapColor.WOOD, MapColor.PODZOL));
+    public static final DeferredHolder<Block, BasicsLogsBlock> STRIPPED_A_BUSH_WOOD = BLOCKS.register("stripped_a_bush_wood",()-> log(MapColor.WOOD, MapColor.PODZOL));
 
     @BlockData
-    public static final RegistryObject<Block> A_BUSH_PLANKS = BLOCKS.register("a_bush_planks",()-> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, Block> A_BUSH_PLANKS = BLOCKS.register("a_bush_planks",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<CabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new ABushCabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, CabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new ABushCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
-    public static final RegistryObject<StairBlock> A_BUSH_STAIRS = BLOCKS.register("a_bush_stairs",()-> new StairBlock(A_BUSH_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, StairBlock> A_BUSH_STAIRS = BLOCKS.register("a_bush_stairs",()-> new StairBlock(A_BUSH_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<SlabBlock> A_BUSH_SLAB = BLOCKS.register("a_bush_slab",()-> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, SlabBlock> A_BUSH_SLAB = BLOCKS.register("a_bush_slab",()-> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<DoorBlock> A_BUSH_DOOR = BLOCKS.register("a_bush_door",()-> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final DeferredHolder<Block, DoorBlock> A_BUSH_DOOR = BLOCKS.register("a_bush_door",()-> new DoorBlock(ImmortalersDelightWoodSetType.A_BUSH, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<TrapDoorBlock> A_BUSH_TRAPDOOR = BLOCKS.register("a_bush_trapdoor",()-> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final DeferredHolder<Block, TrapDoorBlock> A_BUSH_TRAPDOOR = BLOCKS.register("a_bush_trapdoor",()-> new TrapDoorBlock(ImmortalersDelightWoodSetType.A_BUSH, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<FenceBlock> A_BUSH_FENCE = BLOCKS.register("a_bush_fence",()-> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final DeferredHolder<Block, FenceBlock> A_BUSH_FENCE = BLOCKS.register("a_bush_fence",()-> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<FenceGateBlock> A_BUSH_FENCE_GATE = BLOCKS.register("a_bush_fence_gate",()-> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodType.A_BUSH));
+    public static final DeferredHolder<Block, FenceGateBlock> A_BUSH_FENCE_GATE = BLOCKS.register("a_bush_fence_gate",()-> new FenceGateBlock(ImmortalersDelightWoodType.A_BUSH, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<PressurePlateBlock> A_BUSH_PRESSURE_PLATE = BLOCKS.register("a_bush_pressure_plate",()-> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final DeferredHolder<Block, PressurePlateBlock> A_BUSH_PRESSURE_PLATE = BLOCKS.register("a_bush_pressure_plate",()-> new PressurePlateBlock(ImmortalersDelightWoodSetType.A_BUSH, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final RegistryObject<ButtonBlock> A_BUSH_BUTTON = BLOCKS.register("a_bush_button",()-> woodenButton(ImmortalersDelightWoodSetType.A_BUSH));
+    public static final DeferredHolder<Block, ButtonBlock> A_BUSH_BUTTON = BLOCKS.register("a_bush_button",()-> woodenButton(ImmortalersDelightWoodSetType.A_BUSH));
 
     /*
     既望莲
      */
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SEXTLOTUS = BLOCKS.register("sextlotus",
+    public static final DeferredHolder<Block, Block> SEXTLOTUS = BLOCKS.register("sextlotus",
             () -> new SextlotusCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
                     .lightLevel(blockState -> blockState.getValue(SextlotusCropBlock.AGE) == 7 ? 15
                     : blockState.getValue(SextlotusCropBlock.AGE) == 6 ? 12
@@ -941,10 +941,10 @@ public class ImmortalersDelightBlocks {
                     .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> OXYGRAPE = BLOCKS.register("oxygrape",
-            ()-> new  OxygrapeCropBlock(BlockBehaviour.Properties.copy(Blocks.SEAGRASS).randomTicks()));
+    public static final DeferredHolder<Block, Block> OXYGRAPE = BLOCKS.register("oxygrape",
+            ()-> new  OxygrapeCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS).randomTicks()));
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> HIMEKAIDO_JELLY = BLOCKS.register("himekaido_jelly",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> HIMEKAIDO_JELLY = BLOCKS.register("himekaido_jelly",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -957,7 +957,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> PICKLED_SEXTLOTUS_ROOT = BLOCKS.register("pickled_sextlotus_root",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> PICKLED_SEXTLOTUS_ROOT = BLOCKS.register("pickled_sextlotus_root",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(0.3F)){
         @Override
         public int getMaxPile(){return 1;}
         @Override
@@ -966,7 +966,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> MORNING_FIZZ = BLOCKS.register("morning_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> MORNING_FIZZ = BLOCKS.register("morning_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -977,7 +977,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> GLISTERING_FIZZ = BLOCKS.register("glistering_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> GLISTERING_FIZZ = BLOCKS.register("glistering_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -988,7 +988,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> GREEN_TEA_FIZZ = BLOCKS.register("green_tea_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> GREEN_TEA_FIZZ = BLOCKS.register("green_tea_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -999,7 +999,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> SEXTLOTUS_FIZZ = BLOCKS.register("sextlotus_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> SEXTLOTUS_FIZZ = BLOCKS.register("sextlotus_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -1010,7 +1010,7 @@ public class ImmortalersDelightBlocks {
         }
     });
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<Block> RAINBOW_FIZZ = BLOCKS.register("rainbow_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.3F)){
+    public static final DeferredHolder<Block, Block> RAINBOW_FIZZ = BLOCKS.register("rainbow_fizz",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.3F)){
         @Override
         public int getMaxPile(){
             return 3;
@@ -1025,7 +1025,7 @@ public class ImmortalersDelightBlocks {
         //方块实体 Block Entity
 
         ENCHANTAL_COOLER = BLOCKS.register("enchantal_cooler",()->
-                new EnchantalCoolerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                new EnchantalCoolerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
                         .requiresCorrectToolForDrops()
                 ));
 
@@ -1037,7 +1037,7 @@ public class ImmortalersDelightBlocks {
         });
 
         UNFINISHED_TANGYUAN = BLOCKS.register("unfinished_tangyuan",()->
-                new UnfinishedTangyuanBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
+                new UnfinishedTangyuanBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
                 ));
         UNFINISHED_TANGYUAN_ENTITY = BLOCK_ENTITY_REGISTRY.register("unfinished_tangyuan",
                 ()-> BlockEntityType.Builder.of(TangyuanBlockEntity::new, UNFINISHED_TANGYUAN.get()).build(null));
@@ -1045,7 +1045,7 @@ public class ImmortalersDelightBlocks {
         ROTATING_ROAST_MEAT_ENTITY = BLOCK_ENTITY_REGISTRY.register("rotating_roast_meat",
                 ()-> BlockEntityType.Builder.of(RotatingRoastMeatBlockEntity::new, ROTATING_ROAST_MEAT.get()).build(null));
         SUPPORT_BLOCK= BLOCKS.register("support_block",()->
-                new SupportBlock(BlockBehaviour.Properties.of().strength(55.0F, 1200.0F).noCollission().noLootTable().lightLevel(litBlockEmission(9)).noParticlesOnBreak().pushReaction(PushReaction.BLOCK)));
+                new SupportBlock(BlockBehaviour.Properties.of().strength(55.0F, 1200.0F).noCollission().noLootTable().lightLevel(litBlockEmission(9)).pushReaction(PushReaction.BLOCK)));
         SUPPORT_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("support_block_entity",
                 ()-> BlockEntityType.Builder.of(SupportBlockEntity::new, SUPPORT_BLOCK.get()).build(null));
 
@@ -1064,13 +1064,13 @@ public class ImmortalersDelightBlocks {
         SEXTLOTUS_LANTERN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("sextlotus_lantern",
                 ()-> BlockEntityType.Builder.of(SextlotusLanternBlockEntity::new, SEXTLOTUS_LANTERN.get()).build(null));
         MOONLIGHT_LIGHT_SOURCE = BLOCKS.register("moonlight_light_source",()->
-                new LightSourceBlock(BlockBehaviour.Properties.copy(Blocks.STRUCTURE_VOID)
+                new LightSourceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRUCTURE_VOID)
                 ));
         MOONLIGHT_LIGHT_SOURCE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("moonlight_light_source",
                 ()-> BlockEntityType.Builder.of(LightSourceBlockEntity::new, MOONLIGHT_LIGHT_SOURCE.get()).build(null));
 
         WARPED_LANTERN = BLOCKS.register("warped_lantern",()->
-                new WarpedLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
+                new WarpedLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)
                 ));
         WARPED_LANTERN_ENTITY = BLOCK_ENTITY_REGISTRY.register("warped_lantern",
                 ()-> BlockEntityType.Builder.of(WarpedLanternBlockEntity::new, WARPED_LANTERN.get()).build(null));
@@ -1110,11 +1110,11 @@ public class ImmortalersDelightBlocks {
             blockbehaviour$properties = blockbehaviour$properties.requiredFeatures(p_278229_);
         }
 
-        return new ButtonBlock(blockbehaviour$properties, p_278239_, 30, true);
+        return new ButtonBlock(p_278239_, 30, blockbehaviour$properties);
     }
 
-    private static RegistryObject<Block> drinksBlock(String name){
-        return BLOCKS.register(name,()->new DrinksBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    private static DeferredHolder<Block, Block> drinksBlock(String name){
+        return BLOCKS.register(name,()->new DrinksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
     }
 
     private static BlockBehaviour.Properties leavesProperties(SoundType pType) {

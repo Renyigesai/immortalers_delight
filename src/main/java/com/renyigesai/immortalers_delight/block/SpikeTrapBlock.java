@@ -1,6 +1,9 @@
 package com.renyigesai.immortalers_delight.block;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
@@ -11,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -37,6 +41,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -101,32 +106,35 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
     // 定义一个缓存，存储每个方块状态对应的形状
     private final Map<BlockState, VoxelShape> shapesCache;
 
-    // 构造函数，初始化方块的属性和默认状态，并缓存形状
+    public static final MapCodec<SpikeTrapBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec(),
+            Codec.FLOAT.fieldOf("entity_damage").forGetter(b -> b.entity_damage),
+            Codec.BOOL.fieldOf("long_type").forGetter(b -> b.isLongType)
+    ).apply(instance, SpikeTrapBlock::new));
+
     public SpikeTrapBlock(Properties pProperties) {
-        super(pProperties);
-        // 注册默认状态，设置初始的水logged为false，朝向为北方，倾斜状态为NONE
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.NORTH).setValue(TILT, Tilt.NONE));
-        // 计算并缓存每个状态的形状
-        this.shapesCache = this.getShapeForEachState(SpikeTrapBlock::calculateShape);
-    }
-    public SpikeTrapBlock(Float damage,Properties pProperties) {
-        super(pProperties);
-        // 注册默认状态，设置初始的水logged为false，朝向为北方，倾斜状态为NONE
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.NORTH).setValue(TILT, Tilt.NONE));
-        // 计算并缓存每个状态的形状
-        this.shapesCache = this.getShapeForEachState(SpikeTrapBlock::calculateShape);
-        this.entity_damage = damage;
+        this(pProperties, 1.0F, false);
     }
 
+    public SpikeTrapBlock(Float damage, Properties pProperties) {
+        this(pProperties, damage, false);
+    }
 
     public SpikeTrapBlock(boolean isLong, Float damage, Properties pProperties) {
+        this(pProperties, damage, isLong);
+    }
+
+    private SpikeTrapBlock(BlockBehaviour.Properties pProperties, float entityDamage, boolean longType) {
         super(pProperties);
-        // 注册默认状态，设置初始的水logged为false，朝向为北方，倾斜状态为NONE
+        this.entity_damage = entityDamage;
+        this.isLongType = longType;
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.NORTH).setValue(TILT, Tilt.NONE));
-        // 计算并缓存每个状态的形状
         this.shapesCache = this.getShapeForEachState(SpikeTrapBlock::calculateShape);
-        this.entity_damage = damage;
-        this.isLongType = isLong;
+    }
+
+    @Override
+    protected MapCodec<? extends SpikeTrapBlock> codec() {
+        return CODEC;
     }
 
     // 计算方块形状的静态方法，根据倾斜状态和朝向返回对应的形状
@@ -235,12 +243,9 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
     }
 
     // 判断是否可以对当前方块使用骨粉的方法
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        // 获取上方方块的状态
-        BlockState blockstate = pLevel.getBlockState(pPos.above());
-        // 判断上方方块是否可以被替换
-        //return canReplace(blockstate);
-        return  false;
+    @Override
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+        return false;
     }
 
     // 判断使用骨粉是否成功的方法，这里总是返回true
@@ -444,7 +449,8 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
         if (state.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
             if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
                 entity.hurt(entity.damageSources().cactus(), 2.0f);
-                if(!(entity.hasEffect(ImmortalersDelightMobEffect.WEAK_POISON.get()) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.WEAK_POISON.get(), 100, 4));
+                Holder<net.minecraft.world.effect.MobEffect> weakPoison = ImmortalersDelightMobEffect.WEAK_POISON;
+                if(!(entity.hasEffect(weakPoison) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(weakPoison, 100, 4));
             }
         }
     }
@@ -458,7 +464,8 @@ public class SpikeTrapBlock extends HorizontalDirectionalBlock implements Boneme
     private void onPoisonousSpikeTrap(BlockState state,LivingEntity entity){
         if (state.getValue(BlockStateProperties.TILT) == Tilt.FULL) {
             if (entity instanceof Player ? !((Player) entity).isCreative() : entity.getHealth() > 2.0f) {
-                if(!(entity.hasEffect(ImmortalersDelightMobEffect.WEAK_POISON.get()) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
+                Holder<net.minecraft.world.effect.MobEffect> weakPoison = ImmortalersDelightMobEffect.WEAK_POISON;
+                if(!(entity.hasEffect(weakPoison) || entity.hasEffect(MobEffects.POISON))) entity.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
             }
         }
     }

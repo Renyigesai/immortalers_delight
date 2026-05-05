@@ -45,7 +45,7 @@ public class GoldenToastItem extends PowerfulAbleFoodItem {
                 int time = 300;
                 if (thisItem.type_id == 1) time = 12000;
                 if (thisItem.type_id == 2) time = 3600;
-                pLivingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get(), time));
+                pLivingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.ESTEEMED_GUEST, time));
             }
         }
         return super.finishUsingItem(outStack,pLevel,pLivingEntity);

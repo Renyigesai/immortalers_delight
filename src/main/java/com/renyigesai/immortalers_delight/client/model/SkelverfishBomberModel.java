@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Entity;
 
 public class SkelverfishBomberModel<T extends Entity> extends EntityModel<T> {
 
-    public static final ModelLayerLocation SKELVERFISH_BOMBER = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "skelverfish_bomber"), "main");
+    public static final ModelLayerLocation SKELVERFISH_BOMBER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "skelverfish_bomber"), "main");
     private final ModelPart bodyPart_2;
     private final ModelPart bodyPart_0;
     private final ModelPart bodyPart_1;
@@ -103,7 +103,7 @@ public class SkelverfishBomberModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bodyPart_2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        bodyPart_2.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 }

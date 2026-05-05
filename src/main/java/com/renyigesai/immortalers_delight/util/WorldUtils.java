@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +20,8 @@ public class WorldUtils {
     /*通过输入资源地址获取一个战利品表*/
     public static LootTable getLootTables(String name,Level world){
         if (!world.isClientSide() && world.getServer() != null) {
-            return world.getServer().getLootData().getLootTable(new ResourceLocation(name));
+            ResourceLocation id = ResourceLocation.parse(name);
+            return world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, id));
         }
         return LootTable.lootTable().build();
     }

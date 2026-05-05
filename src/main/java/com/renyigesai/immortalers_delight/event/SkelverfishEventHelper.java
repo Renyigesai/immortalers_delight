@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.event;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -7,12 +8,17 @@ import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBomber;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
@@ -24,7 +30,7 @@ import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -33,22 +39,20 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.EntityMobGriefingEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.EntityMobGriefingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class SkelverfishEventHelper {
 
     @SubscribeEvent
-    public static void onExplosionDamage(LivingHurtEvent event) {
+    public static void onExplosionDamage(LivingDamageEvent.Pre event) {
         if (event.getSource().is(DamageTypeTags.IS_EXPLOSION) && event.getSource().getEntity() instanceof SkelverfishBomber bomber) {
             float f = event.getEntity().getRandom().nextFloat();
             float extraDamage = (bomber.getMaxFireDamage() +
@@ -57,14 +61,14 @@ public class SkelverfishEventHelper {
                     (bomber.level().getDifficulty() == Difficulty.EASY ? 2.0F + f * 1.5F : 0.0F) +
                     (bomber.level().getDifficulty() == Difficulty.NORMAL ? 5.0F + f * 4.0F : 0.0F) +
                     (bomber.level().getDifficulty() == Difficulty.HARD ? 6.0F + f * 3.0F : 0.0F);
-            event.setAmount(event.getAmount() + extraDamage); // 提升爆炸伤害，造成攻击力200%或400%爆炸伤害
+            event.setNewDamage(event.getNewDamage() + extraDamage); // 提升爆炸伤害，造成攻击力200%或400%爆炸伤害
         }
     }
 
     @SubscribeEvent
-    public static void onAmbusherAttack(LivingHurtEvent event) {
+    public static void onAmbusherAttack(LivingDamageEvent.Pre event) {
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-            ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(attacker.getType());
+            ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(attacker.getType());
             if (entityId != null && !attacker.level().isClientSide) {
                 String idString = entityId.toString();
                 if (idString.equals(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.getId().toString())) {
@@ -72,7 +76,7 @@ public class SkelverfishEventHelper {
                     if (hurtArmor > 0) {
                         if (hurtArmor > 20) hurtArmor = 20;
                         float damageBuffer = (1/(1-(hurtArmor * 0.04f))) > 3.0f ? 3.0f : (1/(1-(hurtArmor * 0.04f)));
-                        event.setAmount(event.getAmount() * damageBuffer);
+                        event.setNewDamage(event.getNewDamage() * damageBuffer);
                     }
                 }
             }
@@ -91,7 +95,7 @@ public class SkelverfishEventHelper {
                 if (r == 0) {
                     Scavenger scavenger = new Scavenger(ImmortalersDelightEntities.SCAVENGER.get(), pillager.level());
                     scavenger.setCurrentRaid(pillager.getCurrentRaid());
-                    scavenger.finalizeSpawn(serverLevel, pillager.level().getCurrentDifficultyAt(pillager.blockPosition()), MobSpawnType.SPAWNER, (SpawnGroupData)null, (CompoundTag)null);
+                    scavenger.finalizeSpawn(serverLevel, pillager.level().getCurrentDifficultyAt(pillager.blockPosition()), MobSpawnType.SPAWNER, null);
                     scavenger.moveTo(pillager.getX(), pillager.getY(), pillager.getZ(), pillager.getYRot(), pillager.getXRot());
                     pillager.level().addFreshEntity(scavenger);
                 }
@@ -99,10 +103,10 @@ public class SkelverfishEventHelper {
                     //掠夺者装备匕首
                     ItemStack knife = new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get());
                     int i = pillager.getRandom().nextInt(4);
-                    if (i == 0) PotionUtils.setPotion(knife, Potions.POISON);
-                    if (i == 1) PotionUtils.setPotion(knife, Potions.WEAKNESS);
-                    if (i == 2) PotionUtils.setPotion(knife, Potions.HARMING);
-                    if (i == 3) PotionUtils.setPotion(knife, Potions.SLOWNESS);
+                    if (i == 0) knife.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.POISON));
+                    if (i == 1) knife.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.WEAKNESS));
+                    if (i == 2) knife.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.HARMING));
+                    if (i == 3) knife.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.SLOWNESS));
                     ItemStack mainHand = pillager.getItemInHand(InteractionHand.MAIN_HAND);
                     if (mainHand.is(Items.CROSSBOW)){
                         pillager.setItemSlot(EquipmentSlot.MAINHAND, knife);
@@ -123,7 +127,7 @@ public class SkelverfishEventHelper {
         if (deceased.level() instanceof ServerLevel serverLevel && event.getSource().getEntity() instanceof Player player) {
             CompoundTag entityTag = deceased.getPersistentData();
             if (entityTag.contains(PILLAGER_HAS_KNIFE, Tag.TAG_INT) && entityTag.getInt(PILLAGER_HAS_KNIFE) > 0) {
-                ResourceLocation resourcelocation = new ResourceLocation(ImmortalersDelightMod.MODID, "entities/pillager_knife_loot");
+                ResourceLocation resourcelocation = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "entities/pillager_knife_loot");
                 if (!resourcelocation.equals(BuiltInLootTables.EMPTY)) {
                     LootParams.Builder lootparams$builder = (new LootParams.Builder(serverLevel))
                             .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(deceased.getOnPos()))
@@ -132,14 +136,15 @@ public class SkelverfishEventHelper {
                             // 关键：添加LAST_DAMAGE_PLAYER参数（killed_by_player条件需要）
                             .withOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
                             // 可选：击杀者实体
-                            .withOptionalParameter(LootContextParams.KILLER_ENTITY, player)
+                            .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, player)
                             // 可选：直接击杀者（如箭、三叉戟）
-                            .withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, event.getSource().getDirectEntity());
+                            .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, event.getSource().getDirectEntity());
 
 
                     LootParams lootparams = lootparams$builder
                             .create(LootContextParamSets.ENTITY);
-                    LootTable loottable = serverLevel.getServer().getLootData().getLootTable(resourcelocation);
+                    ResourceKey<LootTable> lootTableKey = ResourceKey.create(Registries.LOOT_TABLE, resourcelocation);
+                    LootTable loottable = serverLevel.getServer().reloadableRegistries().getLootTable(lootTableKey);
                     for (int i = 0; i < entityTag.getInt(PILLAGER_HAS_KNIFE); ++i) {
                         List<ItemStack> items = loottable.getRandomItems(lootparams);
                         if (items.isEmpty()) items = WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:entities/pillager_knife_loot",serverLevel),serverLevel,deceased.getOnPos().above());
@@ -160,10 +165,10 @@ public class SkelverfishEventHelper {
     }
 
     @SubscribeEvent
-    public static void onPillagerHurt(LivingHurtEvent event) {
+    public static void onPillagerHurt(LivingDamageEvent.Pre event) {
         if (event.getEntity() instanceof Pillager hurtOne && !hurtOne.level().isClientSide()) {
             if (event.getSource().getEntity() instanceof LivingEntity attacker
-                    && attacker.getMobType() != MobType.ILLAGER
+                    && !attacker.getType().is(EntityTypeTags.ILLAGER)
                     && hurtOne.distanceTo(attacker) <= 3.5) {
                 if (hurtOne.getItemInHand(InteractionHand.MAIN_HAND).is(ImmortalersDelightItems.PILLAGER_KNIFE.get())
                         || hurtOne.getItemInHand(InteractionHand.MAIN_HAND).is(ImmortalersDelightItems.PILLAGER_KNIFE.get())) {
@@ -193,7 +198,7 @@ public class SkelverfishEventHelper {
     @SubscribeEvent
     public static void onSilverfishsIntoStone(EntityMobGriefingEvent event) {
         if (event.getEntity() instanceof SkelverfishBase skelverfishBase) {
-            event.setResult(Event.Result.DENY);
+            event.setCanGrief(false);
         }
 //        if (event.getEntity() instanceof SkelverfishThrasher skelverfishThrasher) {
 //            skelverfishThrasher.goalSelector.removeGoal(new MeleeAttackGoal(skelverfishThrasher, 1.0D, false));

@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.block.DrinksBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -29,8 +30,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 
     private final Set<Block> generatedLootTables = new HashSet<>();
 
-    public BlockLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public BlockLootTables(HolderLookup.Provider provider) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
     }
 
     @Override
@@ -45,23 +46,25 @@ public class BlockLootTables extends BlockLootSubProvider {
             if (field.isAnnotationPresent(BlockData.class)) {
                 try {
                     Object object = field.get(null);
-                    RegistryObject<Block> deferredBlock = null;
-                    if (object instanceof RegistryObject<?> registryObject) {
+                    DeferredHolder<Block, Block> deferredBlock = null;
+                    if (object instanceof DeferredHolder<?, ?> registryObject) {
                         if (Block.class.isAssignableFrom(registryObject.get().getClass())) {
-                            deferredBlock = (RegistryObject<Block>) registryObject;
+                            @SuppressWarnings("unchecked")
+                            DeferredHolder<Block, Block> asBlock = (DeferredHolder<Block, Block>) registryObject;
+                            deferredBlock = asBlock;
                         }
-                        if (deferredBlock != null) {
-                            System.out.println("Yes deferredBlock " + deferredBlock.get());
-                            BlockData annotation = field.getAnnotation(BlockData.class);
-                            BlockData.DropType dropType = annotation.dropType();
-                            boolean generalDrop = dropType == BlockData.DropType.GENERAL;
-                            System.out.println("Yes Drop " + generalDrop);
-                            if (generalDrop) {
-                                System.out.println("generalDrop Yes");
-                                dropSelf(deferredBlock.get());
-                            } else {
-                                customDrop();
-                            }
+                    }
+                    if (deferredBlock != null) {
+                        System.out.println("Yes deferredBlock " + deferredBlock.get());
+                        BlockData annotation = field.getAnnotation(BlockData.class);
+                        BlockData.DropType dropType = annotation.dropType();
+                        boolean generalDrop = dropType == BlockData.DropType.GENERAL;
+                        System.out.println("Yes Drop " + generalDrop);
+                        if (generalDrop) {
+                            System.out.println("generalDrop Yes");
+                            dropSelf(deferredBlock.get());
+                        } else {
+                            customDrop();
                         }
                     }
                 } catch (IllegalAccessException e) {

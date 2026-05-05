@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.support;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -27,17 +28,15 @@ public class SupportBlockEntity extends BlockEntity {
         return delay;
     }
 
-    //读取NBT，用于加载
     @Override
-    public void load(CompoundTag pTag) {
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
         delay = pTag.getInt("delay");
-        super.load(pTag);
     }
 
-    //写入NBT，用于存档
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.saveAdditional(pTag, registries);
         pTag.putInt("delay",delay);
     }
 

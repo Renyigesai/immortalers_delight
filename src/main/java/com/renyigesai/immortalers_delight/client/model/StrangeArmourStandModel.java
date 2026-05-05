@@ -19,7 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
 public class StrangeArmourStandModel<T extends Entity> extends HierarchicalModel<T> {
-    public static final ModelLayerLocation STRANGE_ARMOUR_STAND = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "strange_armour_stand"), "main");
+    public static final ModelLayerLocation STRANGE_ARMOUR_STAND = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "strange_armour_stand"), "main");
     private final ModelPart Body;
     private final ModelPart Waist;
     private final ModelPart Head;
@@ -113,7 +113,7 @@ public class StrangeArmourStandModel<T extends Entity> extends HierarchicalModel
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        Body.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 }

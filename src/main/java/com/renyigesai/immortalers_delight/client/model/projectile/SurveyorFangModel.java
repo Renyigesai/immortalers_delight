@@ -14,7 +14,7 @@ import net.minecraft.util.Mth;
 
 public class SurveyorFangModel<T extends SurveyorFangEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation SURVEYOR_FANG = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "sword_on_a_stick"), "main");
+    public static final ModelLayerLocation SURVEYOR_FANG = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "sword_on_a_stick"), "main");
     private final ModelPart bone;
 
     public SurveyorFangModel(ModelPart root) {
@@ -73,8 +73,8 @@ public class SurveyorFangModel<T extends SurveyorFangEntity> extends Hierarchica
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 
     @Override

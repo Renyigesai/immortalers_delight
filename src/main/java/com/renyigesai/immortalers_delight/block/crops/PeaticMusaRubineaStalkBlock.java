@@ -2,11 +2,12 @@ package com.renyigesai.immortalers_delight.block.crops;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -18,9 +19,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.function.Supplier;
-
 public class PeaticMusaRubineaStalkBlock extends StemBlock {
+    private final ResourceKey<Block> fruitBlockKey;
     public static final int JOINTING_STAGE_AGE = 3;
     public static final int FRUIT_STAGE_AGE = 6;
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
@@ -38,8 +38,10 @@ public class PeaticMusaRubineaStalkBlock extends StemBlock {
      * 仙人掌的碰撞箱。
      */
     protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
-    public PeaticMusaRubineaStalkBlock(StemGrownBlock pFruit, Supplier<Item> pSeedSupplier, Properties pProperties) {
-        super(pFruit, pSeedSupplier, pProperties);
+
+    public PeaticMusaRubineaStalkBlock(ResourceKey<Block> fruitBlock, ResourceKey<Block> attachedStemBlock, ResourceKey<Item> seedItem, Properties pProperties) {
+        super(fruitBlock, attachedStemBlock, seedItem, pProperties);
+        this.fruitBlockKey = fruitBlock;
     }
 //    public CretaceousZeaMaysBlock(Properties p_52247_) {
 //        super(p_52247_);
@@ -85,7 +87,7 @@ public class PeaticMusaRubineaStalkBlock extends StemBlock {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState soil = pLevel.getBlockState(pPos.below());
-        if (soil.canSustainPlant(pLevel, pPos.below(), Direction.UP, this)) return true;
+        if (soil.canSustainPlant(pLevel, pPos.below(), Direction.UP, pState).isTrue()) return true;
 
         /*
          *如果下方也是香蕉梗，判定仙人掌的存活条件
@@ -132,7 +134,7 @@ public class PeaticMusaRubineaStalkBlock extends StemBlock {
             /*
             *使用了竹子的ForgeHooks，肥肠合理的生长速度，主要是不能密植已经失去了getGrowthSpeed的意义
              */
-            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(3) == 0)) {
+            if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(3) == 0)) {
                 int i = pState.getValue(AGE);
                 /*
                  *0 1 2 3 4 5 6为生长中的阶段，其中3和6分别执行拔高和结果的操作。
@@ -154,17 +156,17 @@ public class PeaticMusaRubineaStalkBlock extends StemBlock {
                       达到生长阶段6，使向上结果
                      */
                     if (pLevel.getBlockState(pPos.below()).getValue(AGE) == FRUIT_STAGE_AGE) {
-                        pLevel.setBlockAndUpdate(pPos.above(), this.getFruit().defaultBlockState());
+                        pLevel.setBlockAndUpdate(pPos.above(), pLevel.registryAccess().registryOrThrow(Registries.BLOCK).getOrThrow(this.fruitBlockKey).defaultBlockState());
                     }
                 }
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
             }
 
         }
     }
 
     @Override
-    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
-        return super.use(p_60503_, p_60504_, p_60505_, p_60506_, p_60507_, p_60508_);
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return InteractionResult.PASS;
     }
 }

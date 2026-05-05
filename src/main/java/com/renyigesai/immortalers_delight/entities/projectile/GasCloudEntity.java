@@ -150,9 +150,7 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
     protected void doOnAddEffect(LivingEntity livingentity, List<MobEffectInstance> list) {
         //戴口罩免疫瓦斯
         if (livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get())) {
-            livingentity.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((this.isDangerous() ? 3 : 1), livingentity, (action) -> {
-                action.broadcastBreakEvent(EquipmentSlot.HEAD);
-            });
+            livingentity.getItemBySlot(EquipmentSlot.HEAD).hurtAndBreak((this.isDangerous() ? 3 : 1), livingentity, EquipmentSlot.HEAD);
         } else super.doOnAddEffect(livingentity, list);
     }
 
@@ -177,7 +175,7 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
                         // 距离小于等于半径平方（在范围内）
                         if (d3 <= (double)(range * range)) {
                             //对免疫瓦斯毒的生物直接造成伤害，超凡模式下可以无视无敌帧，超凡模式下会修改生物的寻路目标点导致好吃爱吃
-                            if (!livingentity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get())) {
+                            if (!livingentity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON)) {
                                 if (!livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get())) {
                                     boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                                     if (isPowerful) livingentity.invulnerableTime = 0;

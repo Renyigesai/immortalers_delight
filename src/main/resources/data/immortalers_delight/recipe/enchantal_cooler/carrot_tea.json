@@ -1,0 +1,26 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "container": {
+    "id": "minecraft:glass_bottle"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:carrot_tea"
+  }
+}

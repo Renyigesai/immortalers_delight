@@ -5,10 +5,14 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.recipe.EnchantalCoolerRecipe;
 import com.renyigesai.immortalers_delight.recipe.PillagerKnifeAddPotionRecipe;
+import com.renyigesai.immortalers_delight.recipe.SimpleContainerRecipeInput;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -16,8 +20,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -28,21 +32,20 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+
+    private static final TagKey<Item> ENCHANTAL_COOLER_FUEL = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("immortalers_delight", "enchantal_cooler_fuel"));
 
     private final ItemStackHandler inventory = new ItemStackHandler(7);// 7个槽位
     public int cookingTotalTime;
@@ -56,9 +59,6 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     private static final int[] FUEL_SLOTS = new int[]{6};
     private static final int[] CONTAINER_SLOTS = new int[]{4};
     private boolean newVersion = false;
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private final EnumMap<Direction, LazyOptional<WrappedHandler>> directionHandlers = new EnumMap<>(Direction.class);
 
     public EnchantalCoolerBlockEntity(BlockPos pos, BlockState state) {
         super(ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(), pos, state);
@@ -111,7 +111,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     public boolean isFuel(ItemStack fuel){
-        return fuel.is(Items.LAPIS_LAZULI) || fuel.is(ItemTags.create(new ResourceLocation("immortalers_delight:enchantal_cooler_fuel")));
+        return fuel.is(Items.LAPIS_LAZULI) || fuel.is(ENCHANTAL_COOLER_FUEL);
     }
 
     public boolean getIntList(int i,int[] intList){
@@ -175,52 +175,36 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-        Direction facing = getDirection();
+    protected NonNullList<ItemStack> getItems() {
+        NonNullList<ItemStack> list = NonNullList.withSize(inventory.getSlots(), ItemStack.EMPTY);
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            list.set(i, inventory.getStackInSlot(i));
+        }
+        return list;
+    }
 
-        lazyItemHandler = LazyOptional.of(() -> inventory);
-
-        directionHandlers.put(Direction.UP, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,INPUT_SLOTS) && canPlaceItem(i,s))));
-
-        directionHandlers.put(Direction.DOWN, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> getIntList(i,OUTPUT_SLOTS), (i, s) -> false)));
-
-        directionHandlers.put(facing, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> false, (i,s) -> getIntList(i,FUEL_SLOTS))));
-
-        for (Direction dir : Direction.values()) {
-            if (dir != Direction.UP && dir != Direction.DOWN && dir != facing) {
-                directionHandlers.put(dir, LazyOptional.of(
-                        () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,CONTAINER_SLOTS) && canPlaceItem(i,s))));
-            }
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            inventory.setStackInSlot(i, i < items.size() ? items.get(i) : ItemStack.EMPTY);
         }
     }
 
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (isMigration(tag)){
-            ItemStackHandler newInventory = new ItemStackHandler(7);
             ItemStackHandler oldInventory = new ItemStackHandler(5);
             ItemStackHandler oldFuel = new ItemStackHandler(1);
             ItemStackHandler oldContainerslot = new ItemStackHandler(1);
             if (tag.contains("Inventory")) {
-                oldInventory.deserializeNBT(tag.getCompound("Inventory"));
-                inventory.deserializeNBT(newInventory.serializeNBT());
+                oldInventory.deserializeNBT(registries, tag.getCompound("Inventory"));
             }
             if (tag.contains("Containerslot")) {
-                oldContainerslot.deserializeNBT(tag.getCompound("Containerslot"));
+                oldContainerslot.deserializeNBT(registries, tag.getCompound("Containerslot"));
             }
             if (tag.contains("Fuelslot")) {
-                oldFuel.deserializeNBT(tag.getCompound("Fuelslot"));
+                oldFuel.deserializeNBT(registries, tag.getCompound("Fuelslot"));
             }
             inventory.setStackInSlot(0,oldInventory.getStackInSlot(0));
             inventory.setStackInSlot(1,oldInventory.getStackInSlot(1));
@@ -231,7 +215,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
             inventory.setStackInSlot(FUEL_SLOT,oldFuel.getStackInSlot(0));
         }else {
             if (tag.contains("Inventory")) {
-                inventory.deserializeNBT(tag.getCompound("Inventory"));
+                inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
             }
         }
         cookingTotalTime = tag.getInt("CookingTotalTime");
@@ -240,9 +224,9 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        tag.put("Inventory", inventory.serializeNBT());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("Inventory", inventory.serializeNBT(registries));
         tag.putInt("CookingTotalTime", cookingTotalTime);
         tag.putInt("ResidualDye", residualDye);
         tag.putInt("LoadVersion", 11);
@@ -259,8 +243,13 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putInt("CookingTotalTime", cookingTotalTime);
+        tag.putInt("ResidualDye", residualDye);
+        tag.putInt("LoadVersion", loadVersion);
+        return tag;
     }
 
     @Override
@@ -269,8 +258,8 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries) {
+        super.onDataPacket(net, pkt, registries);
     }
 
     public boolean stillValid(Player player) {
@@ -301,23 +290,24 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     private Optional<EnchantalCoolerRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = getInput(true);
-
-        if (level != null) {
-            return level.getRecipeManager()
-                    .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, inventory, level);
+        SimpleContainer inv = getInput(true);
+        if (level == null) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return level.getRecipeManager()
+                .getRecipeFor(EnchantalCoolerRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inv), level)
+                .map(RecipeHolder::value)
+                .filter(r -> !(r instanceof PillagerKnifeAddPotionRecipe));
     }
 
     private Optional<PillagerKnifeAddPotionRecipe> findSpecialRecipe() {
-        SimpleContainer inventory = getInput(true);
-
-        if (level != null) {
-            return level.getRecipeManager()
-                    .getRecipeFor(PillagerKnifeAddPotionRecipe.Type.INSTANCE, inventory, level);
+        SimpleContainer inv = getInput(true);
+        if (level == null) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return level.getRecipeManager()
+                .getRecipeFor(PillagerKnifeAddPotionRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inv), level)
+                .map(RecipeHolder::value);
     }
 
     private SimpleContainer getInput(boolean needContainer) {
@@ -349,7 +339,7 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         }
         EnchantalCoolerRecipe recipe =specialRecipe.isEmpty() ? recipeOptional.get() : specialRecipe.get();
         SimpleContainer inputs = getInput(true);
-        ItemStack resultItem = recipe.assemble(inputs,level.registryAccess()).copy();
+        ItemStack resultItem = recipe.assemble(new SimpleContainerRecipeInput(inputs), level.registryAccess()).copy();
         ItemStack outputStack = inventory.getStackInSlot(5);
 
         if (!canCraft(resultItem, outputStack)) {
@@ -444,14 +434,20 @@ public class EnchantalCoolerBlockEntity extends BaseContainerBlockEntity impleme
         return false;
     }
 
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    if (cap == ForgeCapabilities.ITEM_HANDLER) {
+    public IItemHandler getAutomationHandler(@Nullable Direction side) {
         if (side == null) {
-            return lazyItemHandler.cast();
+            return inventory;
         }
-        return directionHandlers.getOrDefault(side, LazyOptional.empty()).cast();
-    }
-    return super.getCapability(cap, side);
+        Direction facing = getDirection();
+        if (side == Direction.UP) {
+            return new WrappedHandler(inventory, i -> false, (i, s) -> getIntList(i, INPUT_SLOTS) && canPlaceItem(i, s));
+        }
+        if (side == Direction.DOWN) {
+            return new WrappedHandler(inventory, i -> getIntList(i, OUTPUT_SLOTS), (i, s) -> false);
+        }
+        if (side == facing) {
+            return new WrappedHandler(inventory, i -> false, (i, s) -> getIntList(i, FUEL_SLOTS));
+        }
+        return new WrappedHandler(inventory, i -> false, (i, s) -> getIntList(i, CONTAINER_SLOTS) && canPlaceItem(i, s));
     }
 }

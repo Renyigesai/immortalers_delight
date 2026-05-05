@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.a_bush_wood;
 
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,6 +8,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ItemStack;
@@ -29,8 +32,7 @@ public class ABushCabinetBlock extends CabinetBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack itemInHand = player.getItemInHand(hand);
+    protected ItemInteractionResult useItemOn(ItemStack itemInHand, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         boolean lit = state.getValue(LIT);
         if (lit){
             if (itemInHand.is(Items.WATER_BUCKET)){
@@ -42,21 +44,26 @@ public class ABushCabinetBlock extends CabinetBlock {
                 if (!level.isClientSide()) {
                     level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
-                return InteractionResult.SUCCESS;
+                return BlockItemInteraction.from(level, InteractionResult.SUCCESS);
             }else {
-                return super.use(state, level, pos, player, hand, hit);
+                return super.useItemOn(itemInHand, state, level, pos, player, hand, hit);
             }
         }else {
             if (itemInHand.getItem() instanceof FlintAndSteelItem){
                 level.setBlock(pos,state.setValue(LIT,true),3);
                 if (!player.getAbilities().instabuild){
-                    itemInHand.hurtAndBreak(1,player,(entiity)->entiity.broadcastBreakEvent(hand));
+                    itemInHand.hurtAndBreak(1, player, hand == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
                 }
                 level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
-                return InteractionResult.SUCCESS;
+                return BlockItemInteraction.from(level, InteractionResult.SUCCESS);
             }
         }
-        return super.use(state, level, pos, player, hand, hit);
+        return super.useItemOn(itemInHand, state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return super.useWithoutItem(state, level, pos, player, hit);
     }
 
     @Override

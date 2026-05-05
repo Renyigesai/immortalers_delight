@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.item.food;
 
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.AntiFeedingFoodItem;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
@@ -22,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -100,7 +100,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
         }
     }
     @Override
-    public int getUseDuration(@NotNull ItemStack pStack) {
+    public int getUseDuration(@NotNull ItemStack pStack, LivingEntity entity) {
         if (this.type == 3) return DifficultyModeUtil.isPowerBattleMode() ? 32 : 300;
         if (this.type == 2) return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;
         return 300;
@@ -112,21 +112,27 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
     private void addAheadFoodEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
         if (stack.getItem() instanceof ShieldLikeFoodItem shieldLikeFoodItem && shieldLikeFoodItem.getAheadFoodProperties() != null) {
-            for (Pair<MobEffectInstance, Float> pair : shieldLikeFoodItem.getAheadFoodProperties().getEffects()) {
-                if (!level.isClientSide() && pair.getFirst() != null) {
-                    if (this.type == 3 && livingEntity.hasEffect(pair.getFirst().getEffect())) return;
-                    livingEntity.addEffect(pair.getFirst());
+            for (FoodProperties.PossibleEffect pe : shieldLikeFoodItem.getAheadFoodProperties().effects()) {
+                if (!level.isClientSide()) {
+                    MobEffectInstance first = pe.effect();
+                    if (level.random.nextFloat() >= pe.probability()) {
+                        continue;
+                    }
+                    if (this.type == 3 && livingEntity.hasEffect(first.getEffect())) {
+                        return;
+                    }
+                    livingEntity.addEffect(new MobEffectInstance(first));
                 }
             }
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (this.type == 3) tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         else tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));
 
-        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 
             MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
@@ -139,7 +145,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
-        if (!level.isClientSide() && DifficultyModeUtil.isPowerBattleMode() && timeLeft + 1 <= this.getUseDuration(stack) / 2) {
+        if (!level.isClientSide() && DifficultyModeUtil.isPowerBattleMode() && timeLeft + 1 <= this.getUseDuration(stack, consumer) / 2) {
             this.addEatEffect(stack, level, consumer);
             //玉黍硬糖吃完后2s无敌帧
             if (this.type == 1) DeathlessEffect.applyImmortalEffect(consumer, 40, 0);
@@ -152,20 +158,24 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
     @Override
     public FoodProperties getWholeFoodStats(ItemStack itemIn) {
-        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+        if (DifficultyModeUtil.isPowerBattleMode() && this.poweredFoodProperties != null) {
+            return this.poweredFoodProperties;
+        }
+        return super.getFoodProperties(itemIn, null);
     }
     @javax.annotation.Nullable
     private FoodProperties noEffectFoodProperties = null;
 
     @Override
-    public FoodProperties getFoodProperties() {
-        if (this.noEffectFoodProperties != null) {
-            return this.noEffectFoodProperties;
-        } else if (super.getFoodProperties() != null) {
-            this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
-            return this.noEffectFoodProperties;
+    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
+        FoodProperties full = super.getFoodProperties(stack, entity);
+        if (full == null) {
+            return null;
         }
-        return super.getFoodProperties();
+        if (this.noEffectFoodProperties == null) {
+            this.noEffectFoodProperties = this.notEffectFood(full);
+        }
+        return this.noEffectFoodProperties;
     }
 
     @Override
@@ -173,7 +183,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
         //判断在使用物品
         if (pRemainingUseDuration >= 0 && !pLivingEntity.level().isClientSide()) {
             if (pStack.getItem() instanceof ShieldLikeFoodItem && pRemainingUseDuration >= 14) {
-                if ((this.getUseDuration(pStack) - pRemainingUseDuration + 1) % 14 == 1) {
+                if ((this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration + 1) % 14 == 1) {
                     addAheadFoodEffect(pStack, pLivingEntity.level(), pLivingEntity);
                 }
             }

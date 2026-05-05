@@ -15,18 +15,18 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class MoonArrowHitboxRenderer extends EntityRenderer<MoonArrowHitboxEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION_0 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_0.png");
-    private static final ResourceLocation TEXTURE_LOCATION_1 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_1.png");
-    private static final ResourceLocation TEXTURE_LOCATION_2 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_2.png");
-    private static final ResourceLocation TEXTURE_LOCATION_3 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_3.png");
-    private static final ResourceLocation TEXTURE_LOCATION_4 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_4.png");
-    private static final ResourceLocation TEXTURE_LOCATION_5 = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/moon_arrow_hitbox_5.png");
+    private static final ResourceLocation TEXTURE_LOCATION_0 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_0.png");
+    private static final ResourceLocation TEXTURE_LOCATION_1 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_1.png");
+    private static final ResourceLocation TEXTURE_LOCATION_2 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_2.png");
+    private static final ResourceLocation TEXTURE_LOCATION_3 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_3.png");
+    private static final ResourceLocation TEXTURE_LOCATION_4 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_4.png");
+    private static final ResourceLocation TEXTURE_LOCATION_5 = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/moon_arrow_hitbox_5.png");
     private final MoonArrowHitboxModel<MoonArrowHitboxEntity> model;
     private static int degree = 0;
 
@@ -77,7 +77,7 @@ public class MoonArrowHitboxRenderer extends EntityRenderer<MoonArrowHitboxEntit
                     vertexconsumer = pBuffer.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pEntity)));
                 }
             } else vertexconsumer = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
-            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
             pPoseStack.popPose();
 
             super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);

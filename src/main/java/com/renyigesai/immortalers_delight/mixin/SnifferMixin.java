@@ -1,76 +1,88 @@
 package com.renyigesai.immortalers_delight.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import jdk.jfr.Label;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Tags;
-import org.spongepowered.asm.mixin.Final;
+import net.neoforged.neoforge.common.NeoForge;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-@Mixin(Sniffer.class)
+@Mixin(value = Sniffer.class, remap = false)
 public abstract class SnifferMixin extends Animal {
-
-    @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
-
-    @Shadow protected abstract BlockPos getHeadBlock();
-
-    @Shadow public abstract void tick();
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
     }
 
-    @Inject(method = "dropSeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/sniffer/Sniffer;getHeadBlock()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER),locals = LocalCapture.CAPTURE_FAILHARD)
-    private void dropSeed(CallbackInfo ci, ServerLevel serverlevel, LootTable loottable, LootParams lootparams, List<ItemStack> list){
-        Level level = this.level();
-        BlockPos headBlock = getHeadBlock();
-        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,headBlock,new ArrayList<>(list));
-        MinecraftForge.EVENT_BUS.post(snifferDropSeedEvent);
-        list.clear();
-        list.addAll(snifferDropSeedEvent.getStacks());
+    @Invoker(value = "getHeadBlock", remap = false)
+    protected abstract BlockPos immortalers_delight$invokeGetHeadBlock();
+
+    @WrapOperation(
+            method = "dropSeed",
+            remap = false,
+            require = 0,
+            at = @At(
+                    value = "INVOKE",
+                    remap = false,
+                    target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;JLjava/util/function/Consumer;)V"
+            )
+    )
+    private void immortalers$wrapDropSeedSeeded(Operation<Void> original, LootTable lootTable, LootParams lootParams, long seed, Consumer<ItemStack> consumer) {
+        List<ItemStack> buffer = new ArrayList<>();
+        original.call(new Object[] { lootTable, lootParams, seed, (Consumer<ItemStack>) buffer::add });
+        immortalers$applyDropSeedEvent(buffer, consumer);
+    }
+
+    @WrapOperation(
+            method = "dropSeed",
+            remap = false,
+            require = 0,
+            at = @At(
+                    value = "INVOKE",
+                    remap = false,
+                    target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;Ljava/util/function/Consumer;)V"
+            )
+    )
+    private void immortalers$wrapDropSeedTwoArg(Operation<Void> original, LootTable lootTable, LootParams lootParams, Consumer<ItemStack> consumer) {
+        List<ItemStack> buffer = new ArrayList<>();
+        original.call(new Object[] { lootTable, lootParams, (Consumer<ItemStack>) buffer::add });
+        immortalers$applyDropSeedEvent(buffer, consumer);
+    }
+
+    private void immortalers$applyDropSeedEvent(List<ItemStack> buffer, Consumer<ItemStack> consumer) {
+        Sniffer self = (Sniffer) (Object) this;
+        SnifferDropSeedEvent event = new SnifferDropSeedEvent(self.level(), immortalers_delight$invokeGetHeadBlock(), new ArrayList<>(buffer));
+        NeoForge.EVENT_BUS.post(event);
+        for (ItemStack stack : event.getStacks()) {
+            consumer.accept(stack);
+        }
     }
 
     @Override
     public boolean canFallInLove() {
         CompoundTag tag = this.getPersistentData();
-        if (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT)){
+        if (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)) {
             return super.canFallInLove();
         }
-        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT) && tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0){
+        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT) && tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0) {
             return super.canFallInLove();
         }
         return false;
     }
-
 }

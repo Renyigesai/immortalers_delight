@@ -1,40 +1,43 @@
 package com.renyigesai.immortalers_delight.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HotSpringRecipe implements Recipe<SimpleContainer> {
+public class HotSpringRecipe implements Recipe<SimpleContainerRecipeInput> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
-    private final ResourceLocation id;
 
-    public HotSpringRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ResourceLocation id) {
+    public HotSpringRecipe(NonNullList<Ingredient> ingredient, ItemStack output) {
         this.inputItems = ingredient;
         this.output = output;
-        this.id = id;
+    }
+
+    private static HotSpringRecipe fromCodec(List<Ingredient> ingredients, ItemStack output) {
+        if (ingredients.size() > 10) {
+            throw new IllegalStateException("Too many ingredients for hot spring recipe! The max is 10");
+        }
+        return new HotSpringRecipe(NonNullList.copyOf(ingredients), output);
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
+    public boolean matches(SimpleContainerRecipeInput recipeInput, Level pLevel) {
+        SimpleContainer pContainer = recipeInput.container();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
         for (int j = 0; j < 9; ++j) {
@@ -44,11 +47,11 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
                 inputs.add(itemstack);
             }
         }
-        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+        return i == this.inputItems.size() && net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(SimpleContainerRecipeInput pContainer, HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -58,13 +61,8 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     @Override
@@ -84,46 +82,42 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<HotSpringRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(ImmortalersDelightMod.MODID, "hot_spring");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "hot_spring");
 
-        @Override
-        public HotSpringRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+        public static final MapCodec<HotSpringRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC.listOf(1, 10).fieldOf("ingredients").forGetter(r -> List.copyOf(r.inputItems)),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output)
+        ).apply(instance, HotSpringRecipe::fromCodec));
 
-            // 动态获取原料数量
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
-            if (ingredients.size() > 10){
-                throw new JsonParseException("Too many ingredients for hot spring recipe! The max is 10");
-            }else {
-                for (int i = 0; i < ingredients.size(); i++) {
-                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
-                }
+        private static final StreamCodec<RegistryFriendlyByteBuf, HotSpringRecipe> STREAM_CODEC =
+                StreamCodec.of(Serializer::writeNetwork, Serializer::readNetwork);
 
-                return new HotSpringRecipe(inputs, output,pRecipeId);
+        private static void writeNetwork(RegistryFriendlyByteBuf buf, HotSpringRecipe recipe) {
+            buf.writeVarInt(recipe.inputItems.size());
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
             }
+            ItemStack.STREAM_CODEC.encode(buf, recipe.output);
+        }
+
+        private static HotSpringRecipe readNetwork(RegistryFriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+            }
+            ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+            return new HotSpringRecipe(inputs, output);
         }
 
         @Override
-        public @Nullable HotSpringRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-            for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-            ItemStack output = pBuffer.readItem();
-            return new HotSpringRecipe(inputs, output,pRecipeId);
+        public MapCodec<HotSpringRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, HotSpringRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+        public StreamCodec<RegistryFriendlyByteBuf, HotSpringRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 

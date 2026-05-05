@@ -9,12 +9,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -28,10 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class AncientWoodChestBoat extends ImmortalersChestBoat{
     private static final int CONTAINER_SIZE = 54;
-    private static final EntityDataAccessor<Boolean> DATA_HAS_CANOPIES = SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_HAS_CANOPIES = SynchedEntityData.defineId(AncientWoodChestBoat.class, EntityDataSerializers.BOOLEAN);
     private NonNullList<ItemStack> bigItemStacks = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
-    @Nullable
-    private ResourceLocation lootTable;
     public AncientWoodChestBoat(EntityType<? extends Boat> entityType, Level level) {
         super(entityType, level);
     }
@@ -43,9 +39,10 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
         this.yo = y;
         this.zo = z;
     }
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_HAS_CANOPIES, false);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_HAS_CANOPIES, false);
     }
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -82,7 +79,7 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
     @Override
     @Nullable
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        if (this.lootTable == null || !player.isSpectator()) {
+        if (this.getLootTable() == null || !player.isSpectator()) {
             this.unpackLootTable(inventory.player);
             return ChestMenu.sixRows(i, inventory, this);
         }
@@ -94,16 +91,6 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
         this.chestVehicleDestroyed(damageSource, this.level(), this);
     }
     @Override
-    @Nullable
-    public ResourceLocation getLootTable() {
-        return this.lootTable;
-    }
-    @Override
-    public void setLootTable(@Nullable ResourceLocation resourceLocation) {
-        this.lootTable = resourceLocation;
-    }
-
-    @Override
     public boolean hasEnoughSpaceFor(Entity pEntity) {
         return pEntity.getBbWidth() < 1.375F;
     }
@@ -111,11 +98,13 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
     protected float getSinglePassengerXOffset() {
         return -1.45f;
     }
+    @Override
     protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
         super.positionRider(pPassenger, pCallback);
         if (this.hasPassenger(pPassenger)) {
             float f = this.getSinglePassengerXOffset();
-            float f1 = (float)((this.isRemoved() ? (double)0.01F : this.getPassengersRidingOffset()) + pPassenger.getMyRidingOffset());
+            float riderYOffset = (float) pPassenger.getVehicleAttachmentPoint(this).y;
+            float f1 = (float)((this.isRemoved() ? (double)0.01F : this.getPassengersRidingOffset()) + riderYOffset);
             if (this.getPassengers().size() > 1) {
                 int i = this.getPassengers().indexOf(pPassenger);
                 if (i == 0) {
@@ -130,7 +119,6 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
 
         }
     }
-    @Override
     public double getPassengersRidingOffset() {
         return 0.15D;
     }

@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pitcher_pod_petal"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "container": {
+    "id": "minecraft:glass_bottle"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:sticky_beer"
+  }
+}

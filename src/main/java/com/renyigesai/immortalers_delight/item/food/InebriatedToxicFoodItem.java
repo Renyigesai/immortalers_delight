@@ -1,41 +1,26 @@
 package com.renyigesai.immortalers_delight.item.food;
 
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-//import com.renyigesai.immortalers_delight.potion.immortaleffects.GasPoisonEffect;
-//import com.renyigesai.immortalers_delight.potion.immortaleffects.InebriatedEffect;
-import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-@Mod.EventBusSubscriber
 public class InebriatedToxicFoodItem extends DrinkableItem {
 
     private final boolean foil;
@@ -73,60 +58,46 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
      * @param livingEntity 食用物品的实体，即要添加药水效果的对象。
      */
     public static void addInebriatedEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
-        // 从物品栈中获取具体的物品
-        Item item = stack.getItem();
-        // 检查该物品是否为可食用物品
-        if (item.isEdible()) {
-            // 遍历物品的食物属性中定义的所有药水效果及其概率
-            for (Pair<MobEffectInstance, Float> pair : stack.getFoodProperties(livingEntity).getEffects()) {
-                // 条件判断：
-                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
-                // 2. 药水效果实例不为空，确保有有效的药水效果。
-                // 3. 药水效果为我们指定的酒精效果
-                if (!level.isClientSide && pair.getFirst() != null) {
-                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()) {
-                        // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
-                        // 然后将该药水效果添加到食用物品的实体上。
-                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getAmplifier() : 0;
-                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0;
-                        int time = pair.getFirst().getDuration() + oldTime;
-                        int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
-//                        if (DifficultyModeUtil.isPowerBattleMode() || livingEntity instanceof Player) {
-//                            addEffectWithoutCanBeAffected(livingEntity, new MobEffectInstance(pair.getFirst().getEffect(), time, lv), null);
-//                        } else
-                            livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(), time, lv));
+        net.minecraft.world.food.FoodProperties fp = stack.getFoodProperties(livingEntity);
+        if (fp != null) {
+            for (net.minecraft.world.food.FoodProperties.PossibleEffect pe : fp.effects()) {
+                MobEffectInstance first = pe.effect();
+                if (!level.isClientSide && first != null) {
+                    if (first.getEffect().is(ImmortalersDelightMobEffect.INEBRIATED)) {
+                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED).getAmplifier() : 0;
+                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED).getDuration() : 0;
+                        int time = first.getDuration() + oldTime;
+                        int lv = first.getAmplifier() > oldLv ? first.getAmplifier() : oldLv;
+                        livingEntity.addEffect(new MobEffectInstance(first.getEffect(), time, lv));
+                    } else {
+                        livingEntity.addEffect(first);
                     }
-                    else  livingEntity.addEffect(pair.getFirst());
                 }
             }
         }
     }
 
     public static boolean addEffectWithoutCanBeAffected(LivingEntity livingEntity, MobEffectInstance pEffectInstance, @Nullable Entity source) {
-        Map<MobEffect, MobEffectInstance> activeEffects = livingEntity.getActiveEffectsMap();
-        MobEffectInstance mobeffectinstance = activeEffects.get(pEffectInstance.getEffect());
+        Map<Holder<MobEffect>, MobEffectInstance> activeEffects = livingEntity.getActiveEffectsMap();
+        Holder<MobEffect> holder = pEffectInstance.getEffect();
+        MobEffectInstance mobeffectinstance = activeEffects.get(holder);
         if (mobeffectinstance == null) {
-            activeEffects.put(pEffectInstance.getEffect(), pEffectInstance);
-            if (!livingEntity.level().isClientSide()) {
-                pEffectInstance.getEffect().addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                livingEntity.sendEffectToPassengers(pEffectInstance);
-            }
-            return true;
-        } else if (mobeffectinstance.update(pEffectInstance)) {
-            if (!livingEntity.level().isClientSide()) {
-                MobEffect mobeffect = pEffectInstance.getEffect();
-                mobeffect.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                mobeffect.addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                livingEntity.sendEffectToPassengers(pEffectInstance);
-            }
-            return true;
-        } else {
-            return false;
+            return livingEntity.addEffect(pEffectInstance);
         }
+        if (mobeffectinstance.update(pEffectInstance)) {
+            if (!livingEntity.level().isClientSide()) {
+                MobEffect mobeffect = holder.value();
+                mobeffect.removeAttributeModifiers(livingEntity.getAttributes());
+                mobeffect.addAttributeModifiers(livingEntity.getAttributes(), pEffectInstance.getAmplifier());
+                livingEntity.sendEffectToPassengers(pEffectInstance);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
 
         if (this.can_feed) {
             MutableComponent textValue = Component.translatable(
@@ -134,6 +105,6 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
             );
             tooltip.add(textValue.withStyle(ChatFormatting.YELLOW));
         }
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
     }
 }

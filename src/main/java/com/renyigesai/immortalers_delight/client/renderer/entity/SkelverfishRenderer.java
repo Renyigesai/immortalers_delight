@@ -9,7 +9,7 @@ import net.minecraft.world.entity.monster.Silverfish;
 
 public class SkelverfishRenderer extends SilverfishRenderer {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_ambusher.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_ambusher.png");
     public SkelverfishRenderer(EntityRendererProvider.Context p_174378_) {
         super(p_174378_);
         this.shadowRadius = 0.3F;

@@ -1,0 +1,24 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:pearlipearl"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:contains_tea_leisamboo"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "immortalers_delight:himekaido_seed"
+        }
+      ]
+    }
+  ]
+}

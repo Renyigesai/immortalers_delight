@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:snowball"
+    }
+  ],
+  "container": {
+    "id": "minecraft:stick"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:evolutcorn_icecream"
+  }
+}

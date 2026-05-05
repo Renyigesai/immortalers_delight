@@ -58,16 +58,7 @@ public class NeedStrawDrinkItem extends InebriatedToxicFoodItem{
     }
 
     @Override
-    public FoodProperties getFoodProperties() {
-        if (DifficultyModeUtil.isPowerBattleMode()) {
-            if (poweredFoodProperties != null) {
-                return this.poweredFoodProperties;
-            }
-        }
-        return super.getFoodProperties();
-    }
-    @Override
-    public FoodProperties getFoodProperties(ItemStack stack, @org.jetbrains.annotations.Nullable LivingEntity entity) {
+    public FoodProperties getFoodProperties(ItemStack stack, @javax.annotation.Nullable LivingEntity entity) {
         if (entity != null && haveStrawFoodProperties != null) {
             if (entity instanceof Player) {
                 if (entity.getOffhandItem().is(ImmortalersDelightTags.STRAW) || entity.getMainHandItem().is(ImmortalersDelightTags.STRAW)) {
@@ -83,7 +74,10 @@ public class NeedStrawDrinkItem extends InebriatedToxicFoodItem{
                 return this.haveStrawFoodProperties;
             }
         }
-        return this.getFoodProperties();
+        if (DifficultyModeUtil.isPowerBattleMode() && poweredFoodProperties != null) {
+            return this.poweredFoodProperties;
+        }
+        return super.getFoodProperties(stack, entity);
     }
 
 }

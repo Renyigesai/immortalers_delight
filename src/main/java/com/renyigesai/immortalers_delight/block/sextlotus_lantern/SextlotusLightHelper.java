@@ -20,11 +20,16 @@ public class SextlotusLightHelper {
      * 类型安全地转换 BlockEntity 并执行消费逻辑，转换失败时记录错误日志
      * @param blockEntity 待转换的方块实体（可为 null）
      * @param blockPos    方块实体所在坐标（用于日志定位）
+     * @param type        期望的 BlockEntity 类型
      * @param result      转换成功后执行的消费逻辑（入参为目标类型的 BlockEntity）
      * @param <T>         目标 BlockEntity 类型
      * @return 转换并执行成功返回 true；转换失败/方块实体无效返回 false
      */
-    public static <@Nullable T extends BlockEntity> boolean castBlockEntity(@Nullable BlockEntity blockEntity, @NotNull BlockPos blockPos, @NotNull Consumer<T> result)
+    public static <T extends BlockEntity> boolean castBlockEntity(
+            @Nullable BlockEntity blockEntity,
+            @NotNull BlockPos blockPos,
+            @NotNull Class<T> type,
+            @NotNull Consumer<T> result)
     {
         // 空值校验：方块实体为 null 时记录错误并返回
         if (blockEntity == null)
@@ -56,23 +61,18 @@ public class SextlotusLightHelper {
             }
             return false;
         }
-        // 类型转换：失败时记录错误日志
-        try
-        {
-            //noinspection unchecked
-            result.accept((T) blockEntity);
-            return true;
-        }
-        catch (ClassCastException ex)
+        if (!type.isInstance(blockEntity))
         {
             ImmortalersDelightMod.LOGGER.error(
-                    String.format("Attempted to cast '%s' (%s) at %s but failed",
+                    String.format("Attempted to cast '%s' (%s) at %s to %s but failed",
                             blockEntity,
                             blockEntity.getClass(),
-                            blockPos),
-                    ex);
+                            blockPos,
+                            type.getName()));
             return false;
         }
+        result.accept(type.cast(blockEntity));
+        return true;
     }
 
 

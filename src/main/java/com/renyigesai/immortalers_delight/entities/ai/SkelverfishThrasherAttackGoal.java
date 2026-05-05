@@ -82,7 +82,8 @@ public class SkelverfishThrasherAttackGoal extends MeleeAttackGoal {
      * @param squaredDistance  与目标的平方距离
      */
     @Override
-    protected void checkAndPerformAttack(@NotNull LivingEntity target, double squaredDistance) {
+    protected void checkAndPerformAttack(@NotNull LivingEntity target) {
+        double squaredDistance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
         //如果实体在攻击范围内，启动冷却计时。
         if (isEnemyWithinAttackDistanse(target, squaredDistance)) {
             shouldCountTillNextAttack = true;
@@ -144,11 +145,13 @@ public class SkelverfishThrasherAttackGoal extends MeleeAttackGoal {
      * @return 如果攻击目标在攻击范围内，则返回 true；否则返回 false。
      */
     private boolean isEnemyWithinAttackDistanse(LivingEntity target, double squaredDistance) {
-        return squaredDistance <= this.getAttackReachSqr(target);
+        return squaredDistance <= this.computeExtendedAttackReachSqr(target);
     }
-    @Override
-    protected double getAttackReachSqr(@NotNull LivingEntity pAttackTarget) {
-        return (double)(4.0F + super.getAttackReachSqr(pAttackTarget) + pAttackTarget.getBbWidth());
+
+    private double computeExtendedAttackReachSqr(LivingEntity pAttackTarget) {
+        float w = this.mob.getBbWidth();
+        double vanillaReach = (double) (w * 2.0F * w * 2.0F + pAttackTarget.getBbWidth());
+        return 4.0 + vanillaReach + pAttackTarget.getBbWidth();
     }
 }
 

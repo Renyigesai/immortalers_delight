@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.event;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -17,6 +18,7 @@ import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -36,27 +38,28 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.common.EffectCures;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class FoodItemEventHelper {
     @SubscribeEvent
     public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
@@ -64,7 +67,7 @@ public class FoodItemEventHelper {
             ItemStack stack = event.getItem();
             Entity entity = event.getEntity();
             if (entity instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide()) {
-                if (stack.getItem().isEdible()) {
+                if (stack.getFoodProperties(livingEntity) != null) {
                     //大红包子的隐藏幸运效果
                     if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.RED_STUFFED_BUN) {
                         if (DifficultyModeUtil.isPowerBattleMode()) {
@@ -79,9 +82,10 @@ public class FoodItemEventHelper {
                     }
                     //棱珠牛奶的解除buff
                     if (stack.getFoodProperties(livingEntity) == ImmortalersDelightFoodProperties.PEARLIP_BUBBLE_MILK) {
-                        livingEntity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
-                        for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(stack.getFoodProperties(livingEntity)).getEffects()) {
-                            livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
+                        livingEntity.removeEffectsCuredBy(EffectCures.MILK);
+                        FoodProperties milkFp = Objects.requireNonNull(stack.getFoodProperties(livingEntity));
+                        for (FoodProperties.PossibleEffect pe : milkFp.effects()) {
+                            livingEntity.addEffect(new MobEffectInstance(pe.effect()));
                         }
                     }
                     //红美玲的气功波
@@ -94,17 +98,17 @@ public class FoodItemEventHelper {
                         float damage = isPowerBattleMode ? Math.min(18.0f,livingEntity.getMaxHealth()*0.9f) : Math.max(18.0f,livingEntity.getMaxHealth()*0.9f);
                         DamageSource source = isPowerBattleMode ? (livingEntity instanceof Player player ? player.damageSources().playerAttack(player) : livingEntity.damageSources().mobAttack(livingEntity)) : GasPoisonMobEffect.getDamageSource(livingEntity,null);
                         livingEntity.hurt(source, damage);
-                        if (isPowerBattleMode) livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(), 1500,2));
-                        else livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(), 1200,1));
+                        if (isPowerBattleMode) livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED, 1500,2));
+                        else livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED, 1200,1));
                     }
                     //冰瓦斯麦汤的buff
                     if (stack.getItem() == ImmortalersDelightItems.ICED_KWAT_SOUP.get()) {
-                        MobEffectInstance incandence = livingEntity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
+                        MobEffectInstance incandence = livingEntity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE);
                         if (incandence != null) {
                             int lv = incandence.getAmplifier();
                             int duration = incandence.getDuration();
                             if (lv > 0) {lv--; duration *= 2.5f;}
-                            livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(), duration, lv));
+                            livingEntity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.COOL, duration, lv));
                             FreezeEffect.applyImmortalEffect(livingEntity, 200, 0);
                         }
                     }
@@ -131,9 +135,9 @@ public class FoodItemEventHelper {
 
                         MobEffectInstance posion = livingEntity.getEffect(MobEffects.POISON);
                         MobEffectInstance wither = livingEntity.getEffect(MobEffects.WITHER);
-                        MobEffectInstance weakPoison = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_POISON.get());
-                        MobEffectInstance weakWither = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_WITHER.get());
-                        MobEffectInstance gasPosion = livingEntity.getEffect(ImmortalersDelightMobEffect.GAS_POISON.get());
+                        MobEffectInstance weakPoison = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_POISON);
+                        MobEffectInstance weakWither = livingEntity.getEffect(ImmortalersDelightMobEffect.WEAK_WITHER);
+                        MobEffectInstance gasPosion = livingEntity.getEffect(ImmortalersDelightMobEffect.GAS_POISON);
                         if (posion != null) antiDot(livingEntity, posion);
                         if (wither != null) antiDot(livingEntity, wither);
                         if (weakPoison != null) antiDot(livingEntity, weakPoison);
@@ -149,8 +153,10 @@ public class FoodItemEventHelper {
         if (MagicalReverseMobEffect.reverseNormalEffect.isEmpty()) MagicalReversePotionEffect.updateReverseEffect();
 
         Map<MobEffect,MobEffect> map = new HashMap<>(MagicalReverseMobEffect.reverseNormalEffect);
-        if (map.get(effect.getEffect()) != null) {
-            livingEntity.addEffect(new MobEffectInstance(map.get(effect.getEffect()), effect.getDuration(), effect.getAmplifier()));
+        MobEffect from = effect.getEffect().value();
+        MobEffect mapped = map.get(from);
+        if (mapped != null) {
+            livingEntity.addEffect(new MobEffectInstance(Holder.direct(mapped), effect.getDuration(), effect.getAmplifier()));
             return true;
         }
         return false;
@@ -224,13 +230,12 @@ public class FoodItemEventHelper {
     @SubscribeEvent
     public static void onLivingRemoveEffect(MobEffectEvent.Remove event) {
         LivingEntity livingEntity = event.getEntity();
-        MobEffect removingOne = event.getEffect();
+        Holder<MobEffect> removingOne = event.getEffect();
         // 食用天地有用的玩家被标记，如果尝试移除虚弱或挖掘疲劳，在有拉格朗日效果时会无法移除
-        if (removingOne == MobEffects.WEAKNESS || removingOne == MobEffects.DIG_SLOWDOWN) {
+        if (removingOne.is(MobEffects.WEAKNESS) || removingOne.is(MobEffects.DIG_SLOWDOWN)) {
             CompoundTag tag = livingEntity.getPersistentData();
             if (tag.contains(EAT_THIS_SIDE_DOWN)) {
-                if (livingEntity.hasEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get())) {
-                    event.setResult(Event.Result.DENY);
+                if (livingEntity.hasEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN)) {
                     event.setCanceled(true);
                 } else {
                     tag.remove(EAT_THIS_SIDE_DOWN);
@@ -241,8 +246,8 @@ public class FoodItemEventHelper {
     }
 
     @SubscribeEvent
-    public static void onEntityHurt(LivingHurtEvent evt) {
-        if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+    public static void onEntityHurt(LivingDamageEvent.Pre evt) {
+        if (evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
             return;
         }
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
@@ -256,13 +261,14 @@ public class FoodItemEventHelper {
             //玉黍硬糖食用期间有40~80%线性递增的减伤，在超凡模式下则为60~120%，在超过100%时会将负伤害转化为回血
             if (hurtOne.getUseItem().getItem() == ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()) {
                 if (hurtOne.getTicksUsingItem() > (isPowerful ? 16 : 32)) {
-                    float buffer = (isPowerful ? 0.4f : 0.6f) - ((isPowerful ? 0.6f : 0.4f) * hurtOne.getTicksUsingItem() / hurtOne.getUseItem().getUseDuration());
+                    ItemStack using = hurtOne.getUseItem();
+                    int useDuration = using.getItem().getUseDuration(using, hurtOne);
+                    float buffer = (isPowerful ? 0.4f : 0.6f) - ((isPowerful ? 0.6f : 0.4f) * hurtOne.getTicksUsingItem() / (float) useDuration);
                     if (buffer > 0) {
-                        evt.setAmount(evt.getAmount() * buffer);
+                        evt.setNewDamage(evt.getNewDamage() * buffer);
                     } else {
-                        if (isPowerful) {hurtOne.heal(evt.getAmount() * buffer * (-1));}
-                        evt.setAmount(0);
-                        evt.setCanceled(true);
+                        if (isPowerful) {hurtOne.heal(evt.getNewDamage() * buffer * (-1));}
+                        evt.setNewDamage(0);
                     }
                 }
             }
@@ -288,7 +294,7 @@ public class FoodItemEventHelper {
             //金瓦斯麦面包
             if (itemStack.getItem() == ImmortalersDelightItems.GOLDEN_KWAT_TOAST.get()) {
                 if (target instanceof PiglinBrute piglin) {
-                    player.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get(), 48000,1));
+                    player.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.ESTEEMED_GUEST, 48000,1));
                     piglin.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ImmortalersDelightItems.GOLDEN_KWAT_TOAST.get()));
                     CompoundTag tag = piglin.getPersistentData();
                     if (tag.get(DELETE_PIGLIN) == null) tag.putLong(DELETE_PIGLIN, TimekeepingTask.getImmortalTickTime());
@@ -299,14 +305,14 @@ public class FoodItemEventHelper {
             }
             //诡异香肠喂狗
 //            if (itemStack.getItem() == ImmortalersDelightItems.BIZARRE_SAUSAGE.get()) {
-//                if (target.getType().is(ModTags.DOG_FOOD_USERS)) {
+//                if (target.getType().is(ImmortalersDelightTags.FARMERSDELIGHT_DOG_FOOD_USERS)) {
 //                    boolean isTameable = target instanceof TamableAnimal;
 //                    if (target.isAlive() && (!isTameable || ((TamableAnimal)target).isTame()) && itemStack.getItem().equals(ModItems.DOG_FOOD.get())) {
 //                        target.setHealth(target.getMaxHealth());
 //
 //                        for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(itemStack.getFoodProperties(player)).getEffects()) {
 //                            if (pair.getFirst().getEffect().isBeneficial()) target.addEffect(new MobEffectInstance(pair.getFirst()));
-//                            else target.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS.get(), 12000, 3));
+//                            else target.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.BURN_THE_BOATS, 12000, 3));
 //                        }
 //
 //                        target.level().playSound((Player)null, target.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
@@ -343,11 +349,11 @@ public class FoodItemEventHelper {
 //                // 2. 药水效果实例不为空，确保有有效的药水效果。
 //                // 3. 药水效果为我们指定的酒精效果
 //                if (!level.isClientSide && pair.getFirst() != null) {
-//                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()) {
+//                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED) {
 //                        // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
 //                        // 然后将该药水效果添加到食用物品的实体上。
-//                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getAmplifier() : 0;
-//                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0;
+//                        int oldLv = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED).getAmplifier() : 0;
+//                        int oldTime = livingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED) ? livingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED).getDuration() : 0;
 //                        int time = pair.getFirst().getDuration() + oldTime;
 //                        int lv = pair.getFirst().getAmplifier() > oldLv ? pair.getFirst().getAmplifier() : oldLv;
 //                        livingEntity.addEffect(new MobEffectInstance(pair.getFirst().getEffect(),time,lv));
@@ -360,7 +366,7 @@ public class FoodItemEventHelper {
 //    }
 
     @SubscribeEvent
-    public static void onLivingUpdate(LivingEvent.LivingTickEvent event) {
+    public static void onLivingUpdate(EntityTickEvent.Post event) {
 
         if (!event.getEntity().level().isClientSide()) {
             if (event.getEntity() instanceof AbstractPiglin piglin && piglin.getPersistentData().contains(DELETE_PIGLIN,Tag.TAG_LONG)) {

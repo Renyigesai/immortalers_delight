@@ -15,7 +15,7 @@ import net.minecraft.world.entity.monster.AbstractIllager;
 
 public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> implements ArmedModel {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation SCARVENGER_MODEL = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "scavenger"), "main");
+    public static final ModelLayerLocation SCARVENGER_MODEL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "scavenger"), "main");
     private final ModelPart waist;
     private final ModelPart body;
     private final ModelPart head;
@@ -76,14 +76,14 @@ public class ScavengerModel<T extends AbstractIllager> extends IllagerModel<T> i
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        waist.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        waist.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        rightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
+        leftArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 
     @Override

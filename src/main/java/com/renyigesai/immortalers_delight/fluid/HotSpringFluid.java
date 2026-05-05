@@ -6,10 +6,10 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class HotSpringFluid extends ForgeFlowingFluid {
+public abstract class HotSpringFluid extends BaseFlowingFluid {
     public static final Properties PROPERTIES = new Properties(ImmortalersDelightFluidTypes.HOT_SPRING_TYPE, ImmortalersDelightFluids.HOT_SPRING,
             ImmortalersDelightFluids.FLOWING_HOT_SPRING).explosionResistance(100f).bucket(ImmortalersDelightItems.HOT_SPRING_BUCKET)
             .block(ImmortalersDelightBlocks.HOT_SPRING_BLOCK);

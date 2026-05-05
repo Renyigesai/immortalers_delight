@@ -1,15 +1,12 @@
 package com.renyigesai.immortalers_delight.network;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonProxy {
 
     public void init() {

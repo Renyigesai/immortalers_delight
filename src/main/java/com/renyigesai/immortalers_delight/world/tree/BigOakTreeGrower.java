@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.core.BlockPos;
@@ -23,7 +22,7 @@ import static net.minecraft.world.level.block.RotatedPillarBlock.AXIS;
 /**
   * WorldGenTestTree类用于在游戏世界中生成特定的树，继承自WorldGenAbstractTree
  */
-public class BigOakTreeGrower extends AbstractTreeGrower {
+public class BigOakTreeGrower {
 
     /**
      * 生成树所用的原木、树叶与对应的树苗方块和种植所需的“耕地方块”
@@ -36,30 +35,19 @@ public class BigOakTreeGrower extends AbstractTreeGrower {
      * 构造函数，调用父类构造函数并传入自定义的变种方块，使用空值构造将生成默认的橡树
      */
     public BigOakTreeGrower() {
-        super();
     }
     public BigOakTreeGrower(BlockState logBlockIn, BlockState leavesBlockIn, BlockState saplingBlockIn) {
-        super();
         logBlock = logBlockIn;
         leavesBlock = leavesBlockIn;
         saplingBlock = saplingBlockIn;
     }
     public BigOakTreeGrower(BlockState logBlockIn, BlockState leavesBlockIn, BlockState saplingBlockIn, BlockState placeOnBlockIn) {
-        super();
         logBlock = logBlockIn;
         leavesBlock = leavesBlockIn;
         saplingBlock = saplingBlockIn;
         placeOnBlock = placeOnBlockIn;
     }
 
-    /**
-     * 实现父类中的抽象方法，但....我们不走数据包所以这其实很尴尬？
-     */
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pHasFlowers) {
-        return null;
-    }
     /**
      *用于生成树的随机数生成器
      */
@@ -551,9 +539,8 @@ public class BigOakTreeGrower extends AbstractTreeGrower {
     }
 
     /**
-     * 生成树的主要方法，这一个是继承类而需要声明的方法
+     * 生成树的主要方法（自定义生成器，非 Vanilla Feature 覆盖）
      */
-    @Override
     public boolean growTree(ServerLevel worldIn, ChunkGenerator p_222906_, BlockPos position, BlockState p_222908_, RandomSource rand)
     {
         this.world = worldIn;

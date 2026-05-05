@@ -1,6 +1,9 @@
 package com.renyigesai.immortalers_delight.block;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.google.common.collect.Maps;
 
 import java.util.ArrayList;
@@ -80,24 +83,35 @@ public class MetalCaltropBlock extends DirectionalBlock {
     // 表示该活塞是否为粘性活塞
     private final boolean isSticky;
 
+    public static final MapCodec<MetalCaltropBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec(),
+            Codec.BOOL.fieldOf("sticky").forGetter(b -> b.isSticky),
+            Codec.FLOAT.fieldOf("entity_damage").forGetter(b -> b.entity_damage)
+    ).apply(instance, MetalCaltropBlock::new));
+
     /**
      * 构造函数，初始化活塞方块的属性。
      * @param pIsSticky 是否为粘性活塞
      * @param pProperties 方块的行为属性
      */
     public MetalCaltropBlock(boolean pIsSticky, Properties pProperties) {
-        super(pProperties);
-        // 注册默认的方块状态，包括面向方向和扩展状态
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EXTENDED, Boolean.valueOf(false)));
-        this.isSticky = pIsSticky;
+        this(pProperties, pIsSticky, 1.0F);
     }
 
-    public MetalCaltropBlock(boolean pIsSticky, float entity_damage,Properties pProperties) {
+    public MetalCaltropBlock(boolean pIsSticky, float entity_damage, Properties pProperties) {
+        this(pProperties, pIsSticky, entity_damage);
+    }
+
+    private MetalCaltropBlock(BlockBehaviour.Properties pProperties, boolean pIsSticky, float entityDamage) {
         super(pProperties);
-        // 注册默认的方块状态，包括面向方向和扩展状态
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EXTENDED, Boolean.valueOf(false)));
         this.isSticky = pIsSticky;
-        this.entity_damage = entity_damage;
+        this.entity_damage = entityDamage;
+    }
+
+    @Override
+    protected MapCodec<? extends MetalCaltropBlock> codec() {
+        return CODEC;
     }
 
     /**
@@ -283,7 +297,7 @@ public class MetalCaltropBlock extends DirectionalBlock {
 //        }
 //        if (pId == 0) {
 //            // 扩展事件
-//            if (net.minecraftforge.event.ForgeEventFactory.onPistonMovePre(pLevel, pPos, direction, true)) return false;
+//            if (net.neoforged.neoforge.event.ForgeEventFactory.onPistonMovePre(pLevel, pPos, direction, true)) return false;
 //            if (!this.moveBlocks(pLevel, pPos, direction, true)) {
 //                return false;
 //            }
@@ -292,7 +306,7 @@ public class MetalCaltropBlock extends DirectionalBlock {
 //            pLevel.gameEvent(GameEvent.BLOCK_ACTIVATE, pPos, GameEvent.Context.of(blockstate));
 //        } else if (pId == 1 || pId == 2) {
 //            // 收缩或掉落事件
-//            if (net.minecraftforge.event.ForgeEventFactory.onPistonMovePre(pLevel, pPos, direction, false)) return false;
+//            if (net.neoforged.neoforge.event.ForgeEventFactory.onPistonMovePre(pLevel, pPos, direction, false)) return false;
 //            BlockEntity blockentity1 = pLevel.getBlockEntity(pPos.relative(direction));
 //            if (blockentity1 instanceof PistonMovingBlockEntity) {
 //                ((PistonMovingBlockEntity)blockentity1).finalTick();
@@ -329,7 +343,7 @@ public class MetalCaltropBlock extends DirectionalBlock {
 //            pLevel.playSound((Player)null, pPos, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.5F, pLevel.random.nextFloat() * 0.15F + 0.6F);
 //            pLevel.gameEvent(GameEvent.BLOCK_DEACTIVATE, pPos, GameEvent.Context.of(blockstate1));
 //        }
-//        net.minecraftforge.event.ForgeEventFactory.onPistonMovePost(pLevel, pPos, direction, (pId == 0));
+//        net.neoforged.neoforge.event.ForgeEventFactory.onPistonMovePost(pLevel, pPos, direction, (pId == 0));
 //        return true;
 //    }
 

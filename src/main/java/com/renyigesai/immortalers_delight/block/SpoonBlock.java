@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -52,8 +54,18 @@ public class SpoonBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_60508_) {
-        return level.isClientSide && this.takeServing(state, level, pos, player, hand).consumesAction() ? InteractionResult.SUCCESS : this.takeServing(state, level, pos, player, hand);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        InteractionResult result = takeServing(state, level, pos, player, hand);
+        if (level.isClientSide && result.consumesAction()) {
+            return ItemInteractionResult.SUCCESS;
+        }
+        return BlockItemInteraction.from(level, result);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        InteractionResult result = takeServing(state, level, pos, player, InteractionHand.MAIN_HAND);
+        return level.isClientSide && result.consumesAction() ? InteractionResult.SUCCESS : result;
     }
 
     public ItemStack getSpoonItem() {

@@ -1,11 +1,9 @@
 package com.renyigesai.immortalers_delight.util;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.tags.ITag;
 
 import java.util.*;
 
@@ -17,7 +15,7 @@ public class EffectUtils {
      */
 //    public static MobEffect get0therModMobEffect(String effectName) {
 //// 遍历所有已注册的 MobEffect
-//        for (MobEffect effect : ForgeRegistries.MOB_EFFECTS) {
+//        for (MobEffect effect : BuiltInRegistries.MOB_EFFECT) {
 //// 获取当前 MobEffect 的注册名
 //            ResourceLocation registryName = Objects. requireNonNull(ForgeRegistries. MOB_EFFECTS. getKey(effect));
 ////将注册名转换为字符串
@@ -37,10 +35,10 @@ public class EffectUtils {
         {
             String inputEffectName = (String) entry.get(0);
             String outputEffectName = (String) entry.get(1);
-            MobEffect effectInput = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(inputEffectName));
-            MobEffect effectOutput = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(outputEffectName));
+            MobEffect effectInput = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(inputEffectName));
+            MobEffect effectOutput = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(outputEffectName));
 
-            if (effectInput != null && effectOutput != null) map.put(effectInput,effectOutput);
+            if (effectInput != null && effectOutput != null) map.put(effectInput, effectOutput);
         }
         return map;
     }
@@ -113,7 +111,7 @@ public class EffectUtils {
 
             MobEffect effectInput = null;
             if (inputEffectName != null) {
-                effectInput = ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(inputEffectName));
+                effectInput = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(inputEffectName));
             }
 
             Float[] effectAdd = new Float[]{effectAddNumber, effectAddPerLevel};

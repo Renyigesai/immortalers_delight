@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,40 +38,39 @@ public class MagicalReverseMobEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(@NotNull LivingEntity pEntity, int amplifier) {
+    public boolean applyEffectTick(@NotNull LivingEntity pEntity, int amplifier) {
         /*
         下面是金魔法果反转效果的实现
          */
-        if (this == MAGICAL_REVERSE.get() && !pEntity.level().isClientSide()) {
+        if (this == MAGICAL_REVERSE.value() && !pEntity.level().isClientSide()) {
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            /*获取实体的EffectMap进行遍历*/
-            Map<MobEffect, MobEffectInstance> effectsMap = new HashMap<>(pEntity.getActiveEffectsMap());
-            Map<MobEffect, MobEffectInstance> inputEffectsMap = new HashMap<>();
+            Map<Holder<MobEffect>, MobEffectInstance> effectsMap = new HashMap<>(pEntity.getActiveEffectsMap());
+            Map<Holder<MobEffect>, MobEffectInstance> inputEffectsMap = new HashMap<>();
             Map<MobEffect, MobEffectInstance> outputEffectsMap = new HashMap<>();
-            for (Map.Entry<MobEffect, MobEffectInstance> entry : effectsMap.entrySet()) {
-                MobEffect mobeffect = entry.getKey();
+            for (Map.Entry<Holder<MobEffect>, MobEffectInstance> entry : effectsMap.entrySet()) {
+                MobEffect mobeffect = entry.getKey().value();
                 if (!mobeffect.isBeneficial()) {
-                    inputEffectsMap.put(entry.getKey(),  entry.getValue());
+                    inputEffectsMap.put(entry.getKey(), entry.getValue());
                 }
             }
-            /*遍历获取到的所有负面效果，判断是否能反转并尝试去除*/
-            for (Map.Entry<MobEffect, MobEffectInstance> entry : inputEffectsMap.entrySet()) {
+            for (Map.Entry<Holder<MobEffect>, MobEffectInstance> entry : inputEffectsMap.entrySet()) {
+                MobEffect mobeffect = entry.getKey().value();
                 boolean flag = isPowerful || (entry.getValue().getAmplifier() <= amplifier && entry.getValue().getDuration() >= 0);
                 if (flag) {
-                    if (reverseNormalEffect.get(entry.getKey()) != null) {
-                        outputEffectsMap.put(reverseNormalEffect.get(entry.getKey()), entry.getValue());
+                    if (reverseNormalEffect.get(mobeffect) != null) {
+                        outputEffectsMap.put(reverseNormalEffect.get(mobeffect), entry.getValue());
                     }
                     pEntity.removeEffect(entry.getKey());
                 }
             }
-            /*添加反转后的效果*/
             for (Map.Entry<MobEffect, MobEffectInstance> entry : outputEffectsMap.entrySet()) {
                 int tureTime = entry.getValue().getDuration() > (3000 << amplifier) ? (3000 << amplifier) : entry.getValue().getDuration();
                 int tureLv = entry.getValue().getAmplifier() > amplifier ? amplifier : entry.getValue().getAmplifier();
+                Holder<MobEffect> outHolder = Holder.direct(entry.getKey());
                 if (isPowerful) {
-                    pEntity.addEffect(new MobEffectInstance(entry.getKey(), entry.getValue().getDuration(), entry.getValue().getAmplifier()));
+                    pEntity.addEffect(new MobEffectInstance(outHolder, entry.getValue().getDuration(), entry.getValue().getAmplifier()));
                 } else {
-                    pEntity.addEffect(new MobEffectInstance(entry.getKey(), tureTime, tureLv));
+                    pEntity.addEffect(new MobEffectInstance(outHolder, tureTime, tureLv));
                 }
             }
 //            Iterator<MobEffect> iterator = effectsMap.keySet().iterator();
@@ -114,9 +114,10 @@ public class MagicalReverseMobEffect extends MobEffect {
 //            } catch (ConcurrentModificationException concurrentmodificationexception) {
 //            }
         }
+        return true;
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 }

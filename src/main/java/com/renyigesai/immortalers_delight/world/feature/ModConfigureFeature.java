@@ -3,7 +3,7 @@ package com.renyigesai.immortalers_delight.world.feature;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -43,7 +43,7 @@ public class ModConfigureFeature {
      * 注册使用的主方法，实际矿物规则的注册在此处进行，这个方法应在Init或主类进行调用
      * @param context
      */
-    public static void bootrap(BootstapContext<ConfiguredFeature<?,?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?,?>> context) {
         /*
         声明替换规则，即指出可被替换的方块
          */
@@ -111,11 +111,11 @@ public class ModConfigureFeature {
      * @return
      */
     public static ResourceKey<ConfiguredFeature<?,?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(ImmortalersDelightMod.MODID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, name));
     }
 
 //    public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String pName) {
-//        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(pName));
+//        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(pName));
 //    }
 
     /**
@@ -131,7 +131,7 @@ public class ModConfigureFeature {
      * @param <F>
      */
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(
-            BootstapContext<ConfiguredFeature<?,?>> context, ResourceKey<ConfiguredFeature<?,?>> key, F feature, FC configuration) {
+            BootstrapContext<ConfiguredFeature<?,?>> context, ResourceKey<ConfiguredFeature<?,?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 }

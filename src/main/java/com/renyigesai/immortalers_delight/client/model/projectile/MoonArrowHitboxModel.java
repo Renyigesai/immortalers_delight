@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class MoonArrowHitboxModel<T extends MoonArrowHitboxEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "moon_arrow_hitbox"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "moon_arrow_hitbox"), "main");
     private final ModelPart all;
     private final ModelPart base;
     private final ModelPart edge_left;
@@ -105,8 +105,8 @@ public class MoonArrowHitboxModel<T extends MoonArrowHitboxEntity> extends Hiera
         this.core.visible = hide;
     }
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        all.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        all.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 
     @Override

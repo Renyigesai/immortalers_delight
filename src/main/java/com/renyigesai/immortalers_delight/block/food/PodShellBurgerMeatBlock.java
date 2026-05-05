@@ -1,9 +1,10 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,11 +31,13 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
 public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implements PlateBaseBlock {
+    public static final MapCodec<PodShellBurgerMeatBlock> CODEC = simpleCodec(PodShellBurgerMeatBlock::new);
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,4);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,2.0D,15.0D);
     public PodShellBurgerMeatBlock(Properties pProperties) {
@@ -42,17 +46,37 @@ public class PodShellBurgerMeatBlock extends HorizontalDirectionalBlock implemen
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    private InteractionResult podInteract(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand)){
             return cut(pState, pLevel, pPos, pPlayer, pHand, pHit);
-        } else messageOnUse(pPlayer);
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        }
+        messageOnUse(pPlayer);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        InteractionResult result = podInteract(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(pLevel, result);
+        }
+        return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        InteractionResult result = podInteract(pState, pLevel, pPos, pPlayer, InteractionHand.MAIN_HAND, pHit);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
     }
 
     private InteractionResult cut(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){

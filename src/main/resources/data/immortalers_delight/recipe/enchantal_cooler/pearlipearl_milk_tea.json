@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:stove_black_tea"
+    }
+  ],
+  "container": {
+    "id": "minecraft:glass_bottle"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:pearlipearl_milk_tea"
+  }
+}

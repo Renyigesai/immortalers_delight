@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -45,20 +46,24 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack pStack) {return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;}
+    public int getUseDuration(@NotNull ItemStack pStack, LivingEntity entity) {
+        return DifficultyModeUtil.isPowerBattleMode() ? 150 : 300;
+    }
+
     protected void addAheadFoodEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
 
     }
+
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
-        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
-           if (this.hasCustomToolTip) {
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
+            if (this.hasCustomToolTip) {
                 MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
                 tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             }
             if (this.hasPotionEffectTooltip) {
-                this.addUsedEffectTooltip(stack, tooltip,1.0f);
+                this.addUsedEffectTooltip(stack, tooltip, 1.0f);
             }
         }
     }
@@ -66,19 +71,24 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
     @Nullable
     @Override
     public FoodProperties getWholeFoodStats(ItemStack itemIn) {
-        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+        if (DifficultyModeUtil.isPowerBattleMode() && this.poweredFoodProperties != null) {
+            return this.poweredFoodProperties;
+        }
+        return super.getFoodProperties(itemIn, null);
     }
+
     @Nullable
     protected FoodProperties noEffectFoodProperties = null;
 
     @Override
-    public FoodProperties getFoodProperties() {
-        if (this.noEffectFoodProperties != null) {
-            return this.noEffectFoodProperties;
-        } else if (super.getFoodProperties() != null) {
-            this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
-            return this.noEffectFoodProperties;
+    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
+        FoodProperties full = super.getFoodProperties(stack, entity);
+        if (full == null) {
+            return null;
         }
-        return super.getFoodProperties();
+        if (this.noEffectFoodProperties == null) {
+            this.noEffectFoodProperties = this.notEffectFood(full);
+        }
+        return this.noEffectFoodProperties;
     }
 }

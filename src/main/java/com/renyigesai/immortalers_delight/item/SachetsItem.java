@@ -1,7 +1,7 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -65,9 +65,7 @@ public class SachetsItem extends EnchantAbleFoodItem{
                     }
                     if (!player.getAbilities().instabuild) {
                         EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                        pStack.hurtAndBreak(itemDamage, player, (action) -> {
-                            action.broadcastBreakEvent(equipmentslot);
-                        });
+                        pStack.hurtAndBreak(itemDamage, player, equipmentslot);
                     }
                 }
             }
@@ -78,7 +76,7 @@ public class SachetsItem extends EnchantAbleFoodItem{
 
     private void addAdvancement(Entity player){
         if (player instanceof ServerPlayer serverPlayer){
-            Advancement adv = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("immortalers_delight:sniffer_move"));
+            AdvancementHolder adv = serverPlayer.server.getAdvancements().get(ResourceLocation.parse("immortalers_delight:sniffer_move"));
             if (adv == null){
                 return;
             }

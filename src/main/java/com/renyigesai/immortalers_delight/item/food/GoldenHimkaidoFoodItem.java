@@ -82,9 +82,9 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem {
 //        if (!pLevel.isClientSide) {
 //            if (outStack.getItem() instanceof GoldenHimkaidoFoodItem thisItem) {
 //                if (thisItem.getReverseDuration() > 0 && thisItem.getReverseAmplifier() > 0) {
-//                    if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get()) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get()).getDuration() : 0) < 3600) {
+//                    if((pLivingEntity.hasEffect(ImmortalersDelightMobEffect.INEBRIATED) ? pLivingEntity.getEffect(ImmortalersDelightMobEffect.INEBRIATED).getDuration() : 0) < 3600) {
 //                        //InebriatedEffect.removeImmortalEffect(pLivingEntity);
-//                        pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
+//                        pLivingEntity.removeEffect(ImmortalersDelightMobEffect.INEBRIATED);
 //                    }
 //                    reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
 //                    new ScheduledExecuteTask(1, 1) {
@@ -93,13 +93,13 @@ public class GoldenHimkaidoFoodItem extends EnchantAbleFoodItem {
 //                        @Override
 //                        public void run() {
 //                            if (++tick > thisItem.reverseDuration || !pLivingEntity.isAlive()) {
-//                                if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-//                                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get());
+//                                if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
+//                                    pLivingEntity.removeEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE);
 //                                }
 //                                this.cancel();
 //                                return;
 //                            }
-//                            if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
+//                            if (pLivingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
 //                                reverseEffect(pLivingEntity, thisItem.getReverseAmplifier());
 //                            } else if (tick > 1){
 //                                this.cancel();

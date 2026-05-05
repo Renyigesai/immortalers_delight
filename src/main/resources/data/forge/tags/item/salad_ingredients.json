@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#c:crops/tomato",
+    "#c:foods/tomato",
+    "#c:foods/vegetable",
+    "#c:foods/vegetables",
+    "minecraft:carrot",
+    "minecraft:beetroot",
+    "minecraft:sweet_berries",
+    "minecraft:red_mushroom",
+    "minecraft:brown_mushroom",
+    "farmersdelight:cabbage",
+    "farmersdelight:cabbage_leaf",
+    "farmersdelight:tomato",
+    "farmersdelight:onion"
+  ]
+}

@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.item.weapon;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
@@ -30,6 +31,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -37,10 +39,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.event.entity.living.ShieldBlockEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
@@ -100,9 +102,9 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));
-        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 
             MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
@@ -112,7 +114,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity consumer, int timeLeft) {
-        if (this.type == 2 && timeLeft <= this.getUseDuration(stack) - 32) {
+        if (this.type == 2 && timeLeft <= this.getUseDuration(stack, consumer) - 32) {
             CompoundTag nbt = consumer.getPersistentData();
             if (nbt.contains(PlaceableShieldEvents.DAMAGE_TAG, Tag.TAG_INT)) {
                 int lv = nbt.getInt(PlaceableShieldEvents.DAMAGE_TAG);
@@ -133,13 +135,13 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
         if (level.isClientSide()) return;
 
         if (lv <= 0) lv = 1;
-        int time = 100 * (1 << lv) / (lv + 1);
         if (maxDamage <= 0) maxDamage = 1;
         if (lv <= maxDamage / 2) lv *= 2;
         else lv += maxDamage / 2;
 
         WarpedLaurelHitBoxEntity effectCloud = new WarpedLaurelHitBoxEntity(level, pPos.getX() + 0.5D, pPos.getY() + 0.05D, pPos.getZ() + 0.5D);
 
+        int time = 100 * (1 << lv) / (lv + 1);
         effectCloud.setDuration(14 + time);
         effectCloud.setRadius(2.0F + lv * 0.5f);
         effectCloud.setRadiusOnUse(0.0F);
@@ -162,18 +164,16 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
     }
 
     //实现列巴格挡掉列巴片以及格挡回饥饿
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class PlaceableShieldEvents {
         public static final String DAMAGE_TAG = ImmortalersDelightMod.MODID + "_bites";
 
         public static final String DAMAGE_HAS_USED_TAG = ImmortalersDelightMod.MODID + "_bread_damage";
         @SubscribeEvent(priority = EventPriority.LOWEST)
-            public static void onBlockedDamage(ShieldBlockEvent event) {
+            public static void onBlockedDamage(LivingShieldBlockEvent event) {
             LivingEntity hurtOne = event.getEntity();
-            if (!hurtOne.level().isClientSide() && !event.isCanceled()) {
+            if (!hurtOne.level().isClientSide()) {
                 ItemStack shield = hurtOne.getUseItem();
                 if (shield.getItem() instanceof PlaceableShieldItem placeableShieldItem) {
                     float damage = event.getBlockedDamage();
@@ -185,7 +185,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
 //                    Entity source = event.getDamageSource().getDirectEntity();
 //                    if (source instanceof LivingEntity attacker) isBroken = willBeDisableShield(attacker,hurtOne, shield);
                     //检查是否有mod特殊机制设置了当前伤害忽视盾牌
-                    if (event.shieldTakesDamage()) {
+                    if (event.shieldDamage() > 0.0F) {
                         //列巴没耐久，每个列巴固定能抗2下(记录在使用者)，战争面包则是抗4下
                         CompoundTag tag = hurtOne.getPersistentData();
                         if (tag.contains(DAMAGE_TAG, Tag.TAG_INT) && tag.getInt(DAMAGE_TAG) < placeableShieldItem.getMaxUseCount()) {

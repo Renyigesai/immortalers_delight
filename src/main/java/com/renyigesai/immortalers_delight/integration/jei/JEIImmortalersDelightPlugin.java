@@ -17,6 +17,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
     public static final mezz.jei.api.recipe.RecipeType<HotSpringRecipe> HOT_SPRING_TYPE = new mezz.jei.api.recipe.RecipeType<>(HotSpringCategory.UID, HotSpringRecipe.class);
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(ImmortalersDelightMod.MODID,"jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "jei_plugin");
     }
 
     @Override
@@ -40,10 +41,10 @@ public class JEIImmortalersDelightPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<EnchantalCoolerRecipe> enchantalCoolerRecipes = recipeManager.getAllRecipesFor(EnchantalCoolerRecipe.Type.INSTANCE);
+        List<EnchantalCoolerRecipe> enchantalCoolerRecipes = recipeManager.getAllRecipesFor(EnchantalCoolerRecipe.Type.INSTANCE).stream().map(RecipeHolder::value).toList();
         registration.addRecipes(ENCHANTAL_COOLER_TYPE,enchantalCoolerRecipes);
 
-        List<HotSpringRecipe> hotSpringRecipes = recipeManager.getAllRecipesFor(HotSpringRecipe.Type.INSTANCE);
+        List<HotSpringRecipe> hotSpringRecipes = recipeManager.getAllRecipesFor(HotSpringRecipe.Type.INSTANCE).stream().map(RecipeHolder::value).toList();
         registration.addRecipes(HOT_SPRING_TYPE,hotSpringRecipes);
     }
 

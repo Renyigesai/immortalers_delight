@@ -1,22 +1,23 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class MagicalReversePotionEffect {
     public static Map<MobEffect,MobEffect> reverseInstantEffect = new HashMap<MobEffect,MobEffect>();
     @SubscribeEvent
@@ -24,22 +25,26 @@ public class MagicalReversePotionEffect {
         if (event != null && event.getEntity() != null) {
             Entity entity = event.getEntity();
             if (entity instanceof LivingEntity livingEntity) {
-                if (livingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-                    if (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.MAGICAL_REVERSE.get()) {
-                        event.setResult(Event.Result.DENY);
+                if (livingEntity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
+                    Holder<MobEffect> adding = event.getEffectInstance().getEffect();
+                    if (adding.is(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
+                        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                     }
-                    if (reverseInstantEffect.get(event.getEffectInstance().getEffect()) != null) {
+                    MobEffect addingEffect = adding.value();
+                    if (reverseInstantEffect.get(addingEffect) != null) {
                         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                         int lv = event.getEffectInstance().getAmplifier();
                         int time = event.getEffectInstance().getDuration();
-                        int amplifier = livingEntity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get()).getAmplifier();
+                        int amplifier = livingEntity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE).getAmplifier();
                         int tureTime = time > (3000 << amplifier) ? (3000 << amplifier) : time;
                         int tureLv = lv > amplifier ? amplifier : lv;
-                        if (isPowerful) livingEntity.addEffect(new MobEffectInstance(reverseInstantEffect.get(event.getEffectInstance().getEffect()), time, lv));
-                        if (!isPowerful) livingEntity.addEffect(new MobEffectInstance(reverseInstantEffect.get(event.getEffectInstance().getEffect()), tureTime, tureLv));
-                        event.setResult(Event.Result.DENY);
+                        MobEffect reversed = reverseInstantEffect.get(addingEffect);
+                        Holder<MobEffect> reversedHolder = Holder.direct(reversed);
+                        if (isPowerful) livingEntity.addEffect(new MobEffectInstance(reversedHolder, time, lv));
+                        if (!isPowerful) livingEntity.addEffect(new MobEffectInstance(reversedHolder, tureTime, tureLv));
+                        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                     }
-                } else if (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.MAGICAL_REVERSE.get()) {
+                } else if (event.getEffectInstance().getEffect().is(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
                     updateReverseEffect();
                 }
 

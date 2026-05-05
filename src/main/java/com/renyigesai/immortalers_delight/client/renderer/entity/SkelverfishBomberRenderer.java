@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SkelverfishBomberRenderer extends MobRenderer<SkelverfishBomber, SkelverfishBomberModel<SkelverfishBomber>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_bomber.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_bomber.png");
     public SkelverfishBomberRenderer(EntityRendererProvider.Context pContext) {
         super(pContext,
                 new SkelverfishBomberModel<>(pContext.bakeLayer(SkelverfishBomberModel.SKELVERFISH_BOMBER)),

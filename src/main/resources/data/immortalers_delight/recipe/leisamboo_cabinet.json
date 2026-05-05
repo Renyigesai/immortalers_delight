@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "b b",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "immortalers_delight:leisamboo_planks"
+    },
+    "b": {
+      "item": "immortalers_delight:leisamboo_trapdoor"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:leisamboo_cabinet"
+  }
+}

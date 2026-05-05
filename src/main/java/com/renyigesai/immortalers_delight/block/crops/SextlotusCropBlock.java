@@ -279,7 +279,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
 
         if (i < this.getMaxAge()) {
 
-            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
+            if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(worldIn, pos, state,
                     isNeededMoonPhase && random.nextInt(833) > 19)) {
                 //记录吞噬的植物数量，初始值为1以免造成除0错误
                 int sum = 1;
@@ -304,7 +304,7 @@ public class SextlotusCropBlock extends ReapCropBlock{
                 if (sum > 0 && random.nextInt((7 / sum) + 1) == 0) {
                     worldIn.setBlock(pos, this.getStateForAge(i + 1), Block.UPDATE_CLIENTS);
                 }
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(worldIn, pos, state);
             }
         }
 

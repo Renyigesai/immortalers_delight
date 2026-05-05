@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "immortalers_delight:travarice"
+    },
+    {
+      "item": "minecraft:feather"
+    }
+  ],
+  "container": {
+    "id": "immortalers_delight:contains_tea_leisamboo"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:sparrow_wine"
+  }
+}

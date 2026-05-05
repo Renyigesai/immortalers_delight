@@ -1,57 +1,63 @@
 package com.renyigesai.immortalers_delight.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class TangyuanRecipe implements Recipe<SimpleContainer> {
+import java.util.List;
+
+public class TangyuanRecipe implements Recipe<SimpleContainerRecipeInput> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
-    private final ResourceLocation id;
     private final ItemStack container;
     private final Ingredient tool;
     private final ItemStack result_cache;
     private final boolean finished;
 
-    public TangyuanRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ItemStack container, ItemStack last_result, boolean finish, Ingredient tool_item, ResourceLocation id) {
+    public TangyuanRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ItemStack container, ItemStack last_result, boolean finish, Ingredient tool_item) {
         this.inputItems = ingredient;
         this.output = output;
-        this.id = id;
-        if (container.isEmpty()){
+        if (container.isEmpty()) {
             this.container = ItemStack.EMPTY;
-        }else {
+        } else {
             this.container = container;
         }
-        if (last_result.isEmpty()){
+        if (last_result.isEmpty()) {
             this.result_cache = ItemStack.EMPTY;
-        }else {
+        } else {
             this.result_cache = last_result;
         }
         this.finished = finish;
         this.tool = tool_item;
     }
 
+    private static TangyuanRecipe fromCodec(List<Ingredient> ingredients, ItemStack output, ItemStack container, ItemStack previousResult, Boolean finished, Ingredient tool) {
+        return new TangyuanRecipe(NonNullList.copyOf(ingredients), output, container, previousResult, finished, tool);
+    }
+
     @Override
-    public boolean matches(SimpleContainer inv, Level pLevel) {
+    public boolean matches(SimpleContainerRecipeInput recipeInput, Level pLevel) {
+        SimpleContainer inv = recipeInput.container();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
         if (this.container.isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {
             ItemStack stack = inv.getItem(6);
-            boolean correct_order = this.getCacheItem().is(stack.getItem()) && this.getCacheItem().getOrCreateTag().equals(stack.getOrCreateTag());
+            boolean correct_order = ItemStack.isSameItemSameComponents(this.getCacheItem(), stack);
             if (this.result_cache.isEmpty() || correct_order) {
                 for (int j = 0; j < 4; ++j) {
                     ItemStack itemstack = inv.getItem(j);
@@ -63,18 +69,12 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
                 System.out.println("输入物品数量：" + i + ",输入物品：" + inputs);
             } else System.out.println("缓存不对");
         } else System.out.println("容器不对");
-        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+        return i == this.inputItems.size() && net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        ItemStack result = output.copy();
-        CompoundTag outputNBT = result.getTag();
-        if (outputNBT != null && !outputNBT.isEmpty()) {
-            result.setTag(outputNBT); // 附加NBT标签
-            // 若需要合并现有NBT，使用：result.getTag().merge(outputNBT);
-        }
-        return result;
+    public ItemStack assemble(SimpleContainerRecipeInput pContainer, HolderLookup.Provider registries) {
+        return output.copy();
     }
 
     @Override
@@ -85,21 +85,26 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
     public ItemStack getContainer() {
         return container.copy();
     }
+
     public ItemStack getCacheItem() {
         return result_cache.copy();
     }
+
     public Ingredient getTool() {
         return this.tool;
     }
-    public boolean isFinished() {return finished;}
-    @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return output.copy();
+
+    public boolean isFinished() {
+        return finished;
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return output.copy();
+    }
+
+    public ItemStack copyOutputForNetwork() {
+        return output.copy();
     }
 
     @Override
@@ -119,56 +124,54 @@ public class TangyuanRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<TangyuanRecipe> {
         public static final TangyuanRecipe.Serializer INSTANCE = new TangyuanRecipe.Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(ImmortalersDelightMod.MODID, "tangyuan");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "tangyuan");
 
-        @Override
-        public TangyuanRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            // 动态获取原料数量
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
+        public static final MapCodec<TangyuanRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC.listOf(1, 9).fieldOf("ingredients").forGetter(r -> List.copyOf(r.inputItems)),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
+                ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(r -> r.container),
+                ItemStack.STRICT_CODEC.optionalFieldOf("previous_result", ItemStack.EMPTY).forGetter(r -> r.result_cache),
+                Codec.BOOL.optionalFieldOf("finished", true).forGetter(TangyuanRecipe::isFinished),
+                Ingredient.CODEC.fieldOf("tool").forGetter(TangyuanRecipe::getTool)
+        ).apply(instance, TangyuanRecipe::fromCodec));
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(i)));
+        private static final StreamCodec<RegistryFriendlyByteBuf, TangyuanRecipe> STREAM_CODEC =
+                StreamCodec.of(Serializer::writeNetwork, Serializer::readNetwork);
+
+        private static void writeNetwork(RegistryFriendlyByteBuf buf, TangyuanRecipe recipe) {
+            buf.writeVarInt(recipe.inputItems.size());
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
             }
-            // 读取结果物品及NBT
-            ItemStack output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"),true);
-            //读取容器和上一步缓存物品
-            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
-            ItemStack last_result = GsonHelper.isValidNode(pSerializedRecipe, "previous_result") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "previous_result"), true) : ItemStack.EMPTY;
-            JsonObject toolObject = GsonHelper.getAsJsonObject(pSerializedRecipe, "tool");
-            Ingredient toolIn = Ingredient.fromJson(toolObject);
-            boolean finished = !GsonHelper.isValidNode(pSerializedRecipe, "finished") || GsonHelper.getAsBoolean(pSerializedRecipe, "finished");
-            return new TangyuanRecipe(inputs, output,container,last_result,finished,toolIn,pRecipeId);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.copyOutputForNetwork());
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.getContainer());
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.getCacheItem());
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getTool());
+            buf.writeBoolean(recipe.isFinished());
+        }
+
+        private static TangyuanRecipe readNetwork(RegistryFriendlyByteBuf buf) {
+            int size = buf.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+            }
+            ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+            ItemStack container = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+            ItemStack last_result = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+            Ingredient toolIn = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            boolean finished = buf.readBoolean();
+            return new TangyuanRecipe(inputs, output, container, last_result, finished, toolIn);
         }
 
         @Override
-        public @Nullable TangyuanRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-            for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-            ItemStack output = pBuffer.readItem();
-            ItemStack container = pBuffer.readItem();
-            ItemStack last_result = pBuffer.readItem();
-            Ingredient toolIn = Ingredient.fromNetwork(pBuffer);
-            boolean finished = pBuffer.readBoolean();
-            return new TangyuanRecipe(inputs, output,container,last_result,finished,toolIn,pRecipeId);
+        public MapCodec<TangyuanRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, TangyuanRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-            pBuffer.writeItem(pRecipe.getContainer());
-            pBuffer.writeItemStack(pRecipe.getCacheItem(),false);
-            pRecipe.getTool().toNetwork(pBuffer);
-            pBuffer.writeBoolean(pRecipe.isFinished());
+        public StreamCodec<RegistryFriendlyByteBuf, TangyuanRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 

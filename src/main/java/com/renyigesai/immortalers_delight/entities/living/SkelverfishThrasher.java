@@ -1,18 +1,13 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
 import com.renyigesai.immortalers_delight.entities.ai.SkelverfishThrasherAttackGoal;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,15 +19,13 @@ import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class SkelverfishThrasher extends SkelverfishBase{
-    public static final UUID HARD_ATTACK = UUID.fromString("1023c998-0635-c985-eeff-d30fbfb8d26f");
-    public static final UUID NORMAL_ATTACK = UUID.fromString("d7ce190e-b28e-9617-db38-7beba96bbe40");
+    private static final ResourceLocation HARD_ATTACK_MODIFIER = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "skelverfish_thrasher_hard_attack");
+    private static final ResourceLocation NORMAL_ATTACK_MODIFIER = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "skelverfish_thrasher_normal_attack");
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationDuration = 0;
     public SkelverfishThrasher(EntityType<? extends Silverfish> pEntityType, Level pLevel) {
@@ -59,21 +52,16 @@ public class SkelverfishThrasher extends SkelverfishBase{
      * 此处主要用于实现类似原版怪物不同难度下属性的变化。
      */
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         if (pDifficulty.getDifficulty().getId() >= Difficulty.HARD.getId()) {
             this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(
-                    new AttributeModifier(HARD_ATTACK,
-                            "hard_difficulty_extra_attack",
-                            3.0F,
-                            AttributeModifier.Operation.ADDITION)
+                    new AttributeModifier(HARD_ATTACK_MODIFIER, 3.0, AttributeModifier.Operation.ADD_VALUE)
             );
         } else if (pDifficulty.getDifficulty().getId() >= Difficulty.NORMAL.getId()) {
             this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(
-                    new AttributeModifier(NORMAL_ATTACK,
-                            "normal_difficulty_extra_attack",
-                            1.5F,
-                            AttributeModifier.Operation.ADDITION)
+                    new AttributeModifier(NORMAL_ATTACK_MODIFIER, 1.5, AttributeModifier.Operation.ADD_VALUE)
             );
         }
         return pSpawnData;
@@ -117,7 +105,6 @@ public class SkelverfishThrasher extends SkelverfishBase{
             double d1 = Math.max(0.0D, 1.0D - d0);
             ((LivingEntity)pEntity).knockback((double)((1.0F + this.level().getDifficulty().getId()) * 0.25F), (double) Mth.sin(this.getYRot() * ((float)Math.PI / 180F)), (double)(-Mth.cos(this.getYRot() * ((float)Math.PI / 180F))));
             pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(0.0D, (double)0.4F * d1, 0.0D));
-            this.doEnchantDamageEffects(this, pEntity);
         }
 
         this.playSound(SoundEvents.STONE_BREAK, 1.0F, 1.0F);

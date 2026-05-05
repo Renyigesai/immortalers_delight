@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 50,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "immortalers_delight:golden_fabric"
+  },
+  "result": {
+    "id": "minecraft:gold_nugget",
+    "count": 1
+  }
+}

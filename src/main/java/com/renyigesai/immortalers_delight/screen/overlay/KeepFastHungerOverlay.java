@@ -4,17 +4,18 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.level.GameRules;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.level.GameType;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.Random;
 
@@ -26,43 +27,49 @@ public class KeepFastHungerOverlay {
 	// 食物图标偏移量，用于调整食物图标的位置
 	public static int foodIconsOffset;
 	// 节食图标的纹理资源位置
-	private static final ResourceLocation KEEP_FAST_ICONS_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/icons/keep_fast_icons.png");
+	private static final ResourceLocation KEEP_FAST_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/icons/keep_fast_icons.png");
 
 	/**
 	 * 初始化方法，将当前类的实例注册到 Minecraft Forge 的事件总线中
 	 */
 	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new KeepFastHungerOverlay());
+		NeoForge.EVENT_BUS.register(new KeepFastHungerOverlay());
 	}
 
-	// 食物等级元素的资源位置
-	static ResourceLocation FOOD_LEVEL_ELEMENT = new ResourceLocation("minecraft", "food_level");
+	private static boolean shouldDrawSurvivalHud(Minecraft mc) {
+		if (mc.player == null || mc.options.hideGui) {
+			return false;
+		}
+		if (mc.player.isSpectator()) {
+			return false;
+		}
+		GameType mode = mc.gameMode != null ? mc.gameMode.getPlayerMode() : GameType.DEFAULT_MODE;
+		return !mode.isCreative();
+	}
 
 	/**
 	 * 处理渲染 GUI 覆盖层的后置事件
 	 * @param event 渲染 GUI 覆盖层的后置事件
 	 */
 	@SubscribeEvent
-	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-		// 检查事件的覆盖层是否为食物等级元素的覆盖层
-		if (event.getOverlay() == GuiOverlayManager.findOverlay(FOOD_LEVEL_ELEMENT)) {
-			Minecraft mc = Minecraft.getInstance();
-			ForgeGui gui = (ForgeGui) mc.gui;
-			// 检查玩家是否乘坐了其他生物
-			boolean isMounted = mc.player != null && mc.player.getVehicle() instanceof LivingEntity;
-			// 如果玩家没有乘坐其他生物，GUI 没有隐藏，并且应该绘制生存元素，则渲染节食覆盖层
-			if (!isMounted && !mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-				renderKeepFastOverlay(gui, event.getGuiGraphics());
-			}
+	public void onRenderGuiLayerPost(RenderGuiLayerEvent.Post event) {
+		if (!VanillaGuiLayers.FOOD_LEVEL.equals(event.getName())) {
+			return;
+		}
+		Minecraft mc = Minecraft.getInstance();
+		Gui gui = mc.gui;
+		boolean isMounted = mc.player != null && mc.player.getVehicle() instanceof LivingEntity;
+		if (!isMounted && shouldDrawSurvivalHud(mc)) {
+			renderKeepFastOverlay(gui, event.getGuiGraphics());
 		}
 	}
 
 	/**
 	 * 渲染节食覆盖层的方法
-	 * @param gui ForgeGui 实例，用于获取 GUI 相关信息
+	 * @param gui Gui 实例，用于获取 GUI 相关信息
 	 * @param graphics GuiGraphics 实例，用于进行图形绘制
 	 */
-	public static void renderKeepFastOverlay(ForgeGui gui, GuiGraphics graphics) {
+	public static void renderKeepFastOverlay(Gui gui, GuiGraphics graphics) {
 //		if (!Configuration.NOURISHED_HUNGER_OVERLAY.get()) {
 //			return;
 //		}
@@ -85,7 +92,7 @@ public class KeepFastHungerOverlay {
 		int left = minecraft.getWindow().getGuiScaledWidth() / 2 + 91;
 
 		// 如果玩家有 KEEP_FAST 效果，则绘制节食覆盖层
-		if (player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) != null) {
+		if (player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST) != null) {
 			drawKeepFastOverlay(stats, minecraft, graphics, left, top);
 		}
 	}
@@ -162,11 +169,11 @@ public class KeepFastHungerOverlay {
 //import net.minecraft.world.entity.player.Player;
 //import net.minecraft.world.food.FoodData;
 //import net.minecraft.world.level.GameRules;
-//import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-//import net.minecraftforge.client.gui.overlay.ForgeGui;
-//import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-//import net.minecraftforge.common.MinecraftForge;
-//import net.minecraftforge.eventbus.api.SubscribeEvent;
+//import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
+//import net.neoforged.neoforge.client.gui.overlay.ForgeGui;
+//import net.neoforged.neoforge.client.gui.overlay.GuiOverlayManager;
+//import net.neoforged.neoforge.common.NeoForge;
+//import net.neoforged.bus.api.SubscribeEvent;
 //
 //import java.util.Random;
 //
@@ -178,13 +185,13 @@ public class KeepFastHungerOverlay {
 //public class KeepFastHungerOverlay
 //{
 //	public static int foodIconsOffset;
-//	private static final ResourceLocation KEEP_FAST_ICONS_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/icons/keep_fast_icons.png");
+//	private static final ResourceLocation KEEP_FAST_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/icons/keep_fast_icons.png");
 //
 //	public static void init() {
-//		MinecraftForge.EVENT_BUS.register(new KeepFastHungerOverlay());
+//		NeoForge.EVENT_BUS.register(new KeepFastHungerOverlay());
 //	}
 //
-//	static ResourceLocation FOOD_LEVEL_ELEMENT = new ResourceLocation("minecraft", "food_level");
+//	static ResourceLocation FOOD_LEVEL_ELEMENT = ResourceLocation.fromNamespaceAndPath("minecraft", "food_level");
 //
 //	@SubscribeEvent
 //	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
@@ -220,7 +227,7 @@ public class KeepFastHungerOverlay {
 //						&& player.isHurt()
 //						&& stats.getFoodLevel() >= 18;
 //
-//		if (player.getEffect(ImmortalersDelightMobEffect.KEEP_FAST.get()) != null) {
+//		if (player.getEffect(ImmortalersDelightMobEffect.KEEP_FAST) != null) {
 //			drawKeepFastOverlay(stats, minecraft, graphics, left, top, isPlayerHealingWithSaturation);
 //		}
 //	}

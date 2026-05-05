@@ -1,0 +1,34 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "tag": "forge:sugar"
+      }
+    ]
+  ],
+  "result": {
+    "count": 4,
+    "id": "immortalers_delight:pearlip_pumpkin_pie"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

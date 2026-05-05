@@ -17,13 +17,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class SurveyorFangRenderer extends EntityRenderer<SurveyorFangEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/sword_tipped_long_pole.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/sword_tipped_long_pole.png");
     private final SurveyorFangModel<SurveyorFangEntity> model;
 
     public SurveyorFangRenderer(EntityRendererProvider.Context pContext) {
@@ -49,7 +49,7 @@ public class SurveyorFangRenderer extends EntityRenderer<SurveyorFangEntity> {
             //this.model.setupAnim(pEntity, f, 1.0F, pEntity.tickCount + pPartialTicks, pEntity.getYRot(), pEntity.getXRot());
             this.model.setupAnim(pEntity, f, 0.0F, 0.0F, pEntity.getYRot(), pEntity.getXRot());
             VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(TEXTURE_LOCATION));
-            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
             pPoseStack.popPose();
 
 //            pPoseStack.pushPose();

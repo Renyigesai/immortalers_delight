@@ -1,11 +1,10 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,13 +13,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
-import java.util.Objects;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 public class IncandescenceMobEffect extends BaseMobEffect {
 
@@ -33,27 +29,25 @@ public class IncandescenceMobEffect extends BaseMobEffect {
         return true;
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class IncandescencePotionEffect {
         @SubscribeEvent
         public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
             if (event != null && event.getEntity() != null) {
                 ItemStack stack = event.getResultStack();
                 LivingEntity entity = event.getEntity();
-                if (stack.getItem().isEdible() && noIncandescenceFood(stack,entity)) {
-                    MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
-                    if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect baseMobEffect) {
+                if (stack.getFoodProperties(entity) != null && noIncandescenceFood(stack, entity)) {
+                    MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE);
+                    if (thisEffect != null && thisEffect.getEffect().value() instanceof BaseMobEffect baseMobEffect) {
                         int lv = baseMobEffect.getTruthUsingAmplifier(thisEffect.getAmplifier());
                         MobEffectInstance effectInstance = entity.getEffect(MobEffects.DAMAGE_BOOST);
                         int time = effectInstance != null ? effectInstance.getDuration() : 0;
 
-                        FoodProperties food = stack.getItem().getFoodProperties(stack, entity);
+                        FoodProperties food = stack.getFoodProperties(entity);
                         if (food != null) {
-                            int nutrition = food.getNutrition();
-                            float saturation = food.getSaturationModifier();
+                            int nutrition = food.nutrition();
+                            float saturation = food.saturation();
                             float foodValue = nutrition * 2.0f * saturation + nutrition;
                             time += foodValue * 20 * (lv <= 3 ? (4 - lv) : 1);
                             entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, time + 100, thisEffect.getAmplifier()));
@@ -65,8 +59,8 @@ public class IncandescenceMobEffect extends BaseMobEffect {
         }
 
         @SubscribeEvent
-        public static void onCreatureHurt(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+        public static void onCreatureHurt(LivingDamageEvent.Pre evt) {
+            if (evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
@@ -78,8 +72,8 @@ public class IncandescenceMobEffect extends BaseMobEffect {
 
             if (!hurtOne.level().isClientSide) {
                 if (attacker != null && isPowerful){
-                    MobEffectInstance thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE.get());
-                    if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect baseMobEffect) {
+                    MobEffectInstance thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.INCANDESCENCE);
+                    if (thisEffect != null && thisEffect.getEffect().value() instanceof BaseMobEffect baseMobEffect) {
                         int lv = baseMobEffect.getTruthUsingAmplifier(thisEffect.getAmplifier());
 
                         if (hurtOne.hasEffect(MobEffects.FIRE_RESISTANCE)) hurtOne.removeEffect(MobEffects.FIRE_RESISTANCE);
@@ -99,9 +93,12 @@ public class IncandescenceMobEffect extends BaseMobEffect {
         }
 
         public static boolean noIncandescenceFood(ItemStack stack, LivingEntity entity){
-            List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(entity)).getEffects();
-            for (Pair<MobEffectInstance, Float> effect : effects) {
-                if (effect.getFirst().getEffect() == ImmortalersDelightMobEffect.INCANDESCENCE.get()) {
+            FoodProperties fp = stack.getFoodProperties(entity);
+            if (fp == null) {
+                return true;
+            }
+            for (FoodProperties.PossibleEffect pe : fp.effects()) {
+                if (pe.effect().getEffect().is(ImmortalersDelightMobEffect.INCANDESCENCE)) {
                     return false;
                 }
             }

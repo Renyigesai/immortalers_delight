@@ -1,14 +1,17 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,11 +31,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+
+import static net.minecraft.world.level.block.Block.simpleCodec;
 
 public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements PlateBaseBlock {
 
+    public static final MapCodec<ZeaPancakeBLock> CODEC = simpleCodec(ZeaPancakeBLock::new);
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,4);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,2.0D,15.0D);
 
@@ -42,12 +47,16 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult zeaInteract(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
         if (!level.isClientSide){
             if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack)) {
@@ -60,8 +69,18 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
                 return InteractionResult.CONSUME;
             }
         }
-        boolean isKnives = com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack);
+        boolean isKnives = hand_stack.is(ImmortalersDelightTags.FARMERSDELIGHT_KNIVES) || hand_stack.is(ImmortalersDelightTags.KNIVES);
         return isKnives ? this.cut(state, level, pos, player) : this.eat(state, level, pos, player);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        return BlockItemInteraction.from(level, zeaInteract(state, level, pos, player, hand, hitResult));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return zeaInteract(state, level, pos, player, InteractionHand.MAIN_HAND, hitResult);
     }
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){

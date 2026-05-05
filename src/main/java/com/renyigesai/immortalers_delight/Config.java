@@ -1,41 +1,43 @@
 package com.renyigesai.immortalers_delight;
+import net.neoforged.fml.common.EventBusSubscriber;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.config.ModConfigEvent;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Forge's config APIs
-@Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ImmortalersDelightMod.MODID)
 public class Config {
-    static final ForgeConfigSpec SPEC;
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    static final ModConfigSpec SPEC;
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER.comment("Whether to log the dirt block on common setup").define("logDirtBlock", true);
+    private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER.comment("Whether to log the dirt block on common setup").define("logDirtBlock", true);
 
-    private static final ForgeConfigSpec.IntValue MAGIC_NUMBER = BUILDER.comment("A magic number").defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER.comment("A magic number").defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
 
-    public static final ForgeConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER.comment("What you want the introduction message to be for the magic number").define("magicNumberIntroduction", "The magic number is... ");
+    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER.comment("What you want the introduction message to be for the magic number").define("magicNumberIntroduction", "The magic number is... ");
 
     // a list of strings that are treated as resource locations for items
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER.comment("A list of items to log on common setup.").defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER.comment("A list of items to log on common setup.").defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
 
-    private static final ForgeConfigSpec.BooleanValue WEAK_POISON_HEALTH_OVERLAY = BUILDER.comment("Whether to enable the health value display override for the weak potion effect").define("useWeakPoisonOverLay", true);
+    private static final ModConfigSpec.BooleanValue WEAK_POISON_HEALTH_OVERLAY = BUILDER.comment("Whether to enable the health value display override for the weak potion effect").define("useWeakPoisonOverLay", true);
 
-    private static final ForgeConfigSpec.IntValue ANCIENT_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_boat_need_1 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_1]", 5, 0, Short.MAX_VALUE);
+    private static final ModConfigSpec.IntValue ANCIENT_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_boat_need_1 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_1]", 5, 0, Short.MAX_VALUE);
 
-    private static final ForgeConfigSpec.IntValue ANCIENT_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_boat_need_2 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_2]", 2, 0, Short.MAX_VALUE);
-    private static final ForgeConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_1 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_1]", 5, 0, Short.MAX_VALUE);
-    private static final ForgeConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_2 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_2]", 1, 0, Short.MAX_VALUE);
+    private static final ModConfigSpec.IntValue ANCIENT_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_boat_need_2 that need to be held in hand to repair the ancient boat.").defineInRange("count of [ancient_boat_need_2]", 2, 0, Short.MAX_VALUE);
+    private static final ModConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_1_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_1 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_1]", 5, 0, Short.MAX_VALUE);
+    private static final ModConfigSpec.IntValue ANCIENT_CHEST_BOAT_NEEDED_2_NUMBER = BUILDER.comment("The number of #ancient_chest_boat_need_2 that need to be held in hand to repair the ancient chest boat.").defineInRange("count of [ancient_chest_boat_need_2]", 1, 0, Short.MAX_VALUE);
 
-    public static final ForgeConfigSpec.ConfigValue<String> POWER_BATTLE_MODE = BUILDER
+    public static final ModConfigSpec.ConfigValue<String> POWER_BATTLE_MODE = BUILDER
             .comment(" ")
             .comment("Greatly enhance effects and monsters. Use for that games using mods with additional cultivation content- such as Curios, any Skill mods or Guns mods.")
             .comment("true: Always enabled this mode.")
@@ -43,33 +45,33 @@ public class Config {
             .comment("false: Never enabled this mode.")
             .define("powerBattleMode", "default");
 
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> TERRACOTTA_GOLEM_SIDE_DECORATES = BUILDER
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> TERRACOTTA_GOLEM_SIDE_DECORATES = BUILDER
             .comment(" ")
             .comment("A list of items that can use on side of terracotta golem.")
             .comment("You can add other item to this list, it's texture must named be the same as item id.")
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
 
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_NORMAL_EFFECT;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
-    private static final ForgeConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
-    private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_HINT = BUILDER.comment("After being turned off, when the Power Battle Mode is enabled, the prompt field will no longer be displayed in the game").define("powerBattleModeHint", true);
-    private static final ForgeConfigSpec.BooleanValue POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES = BUILDER
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_NORMAL_EFFECT;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> REVERSE_INSTANT_EFFECT;
+    private static final ModConfigSpec.BooleanValue RIGHT_CLICK_HARVEST = BUILDER.comment("After opening, you can right-click to harvest the crops of the module").define("rightClickHarvest", true);
+    private static final ModConfigSpec.BooleanValue POWER_BATTLE_MODE_HINT = BUILDER.comment("After being turned off, when the Power Battle Mode is enabled, the prompt field will no longer be displayed in the game").define("powerBattleModeHint", true);
+    private static final ModConfigSpec.BooleanValue POWER_BATTLE_MODE_STRENGTHEN_THE_ENEMIES = BUILDER
             .comment(" ")
             .comment("We apologize for making players excessively capable. ")
             .comment("For the sake of balance, you can use this option to synchronously strengthen some of the original enemies.")
             .comment("Configure which enemies can be strengthened in the entity tags file, to all the functions.")
             .define("needStrengthenTheEnemies", false);
-//    private static final ForgeConfigSpec.BooleanValue USE_DYNAMIC_DAMAGE = BUILDER
+//    private static final ModConfigSpec.BooleanValue USE_DYNAMIC_DAMAGE = BUILDER
 //            .comment(" ")
 //            .comment("Configure the attack damage multiplier of powered mobs be increased based on the target's health value")
 //            .define("useDynamicDamage", false);
-//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
+//    private static final ModConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_ATTACK_DAMAGE_MULTIPLIER = BUILDER
 //            .comment(" ")
 //            .comment("Set the maximum attack damage multiplier of powered mobs")
 //            .comment("If use, it will make damage become (1 + the value) * old damage")
 //            .comment("Example: [0.5, 2.0, 5.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
 //            .defineList("maximumDamageMultiplier", List.of(0.5f, 2.0f, 5.0f), o -> o instanceof Float);
-//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
+//    private static final ModConfigSpec.ConfigValue<List<? extends Float>> ATTACK_DAMAGE_MULTIPLIER_PER_HEALTH = BUILDER
 //            .comment(" ")
 //            .comment("Set the attack damage multiplier per target's health")
 //            .comment("Example: [0.002, 0.006, 0.02],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
@@ -77,44 +79,44 @@ public class Config {
 //            .comment(" the damage multiplier increases by 0.002 per health point until it reaches 1.5x (1+0.5), ")
 //            .comment("then the damage multiplier increases by 0.006 per health point until it reaches 3.0x (1+2.0). ")
 //            .defineList("damageMultiplierPerHealth", List.of(0.002f, 0.006f, 0.02f), o -> o instanceof Float);
-//    private static final ForgeConfigSpec.BooleanValue USE_MIN_DAMAGE = BUILDER
+//    private static final ModConfigSpec.BooleanValue USE_MIN_DAMAGE = BUILDER
 //            .comment(" ")
 //            .comment("Configure the min value when powered mobs attack")
 //            .define("useMinDamage", false);
-//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MIN_DAMAGE = BUILDER
+//    private static final ModConfigSpec.ConfigValue<List<? extends Float>> MIN_DAMAGE = BUILDER
 //            .comment(" ")
 //            .comment("Set the min value when powered mobs attack")
 //            .comment("Example: [1.0, 2.0, 2.5],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
 //            .defineList("minDamageValue", List.of(1.0f, 2.0f, 2.5f), o -> o instanceof Float);
-//    private static final ForgeConfigSpec.BooleanValue USE_HIGH_DAMAGE_COUNTERACTION = BUILDER
+//    private static final ModConfigSpec.BooleanValue USE_HIGH_DAMAGE_COUNTERACTION = BUILDER
 //            .comment(" ")
 //            .comment("Configure the damage multiplier taken by mobs will decrease as the base damage value increases.")
 //            .define("useHigh-DamageCounteraction", true);
-//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_DAMAGE_COUNTERACTION = BUILDER
+//    private static final ModConfigSpec.ConfigValue<List<? extends Float>> MAXIMUM_DAMAGE_COUNTERACTION = BUILDER
 //            .comment(" ")
 //            .comment("Set the maximum damage divisor taken by mobs")
 //            .comment("For example,if set 9.0 to a mob, damage taken by mobs will min become 0.1x.")
 //            .comment("Example: [7.0, 11.0, 15.0],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
 //            .defineList("maximumDamageDivisor", List.of(7.0f, 11.0f, 15.0f), o -> o instanceof Float);
-//    private static final ForgeConfigSpec.ConfigValue<List<? extends Float>> DAMAGE_COUNTERACTION_PER_DAMAGE = BUILDER
+//    private static final ModConfigSpec.ConfigValue<List<? extends Float>> DAMAGE_COUNTERACTION_PER_DAMAGE = BUILDER
 //            .comment(" ")
 //            .comment("Set the attack damage divisor per damage taken by mobs")
 //            .comment("Example: [0.04, 0.05, 0.08],it must have 3 number,to normal mobs,elite mobs,mod bosses.")
 //            .defineList("damageDivisorPerDamage", List.of(0.04f, 0.05f, 0.08f), o -> o instanceof Float);
-    private static final ForgeConfigSpec.BooleanValue USE_BETTER_STUN = BUILDER
+    private static final ModConfigSpec.BooleanValue USE_BETTER_STUN = BUILDER
             .comment(" ")
             .comment("Configures whether to ignore the entity's potion effect immunity when the stun effect derives other potion effects.")
             .comment("This allows stun to have a more consistent effect on different mobs.")
             .define("useBetterStun", true);
-    private static final ForgeConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
+    private static final ModConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
 
 
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_LINEAR_GROWTH;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_CLASSICAL_HARMONIC_SERIES_GROWTH;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_GRADUAL_HARMONIC_SERIES_GROWTH;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_DYNAMIC_DAMAGE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_MIN_DAMAGE;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends List<?>>> MOB_HIGH_DAMAGE_COUNTERACTION;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_LINEAR_GROWTH;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_CLASSICAL_HARMONIC_SERIES_GROWTH;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_GRADUAL_HARMONIC_SERIES_GROWTH;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> MOB_DYNAMIC_DAMAGE;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> MOB_MIN_DAMAGE;
+    public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> MOB_HIGH_DAMAGE_COUNTERACTION;
 
     static {
         BUILDER.push("ReverseNormalEffect")
@@ -322,7 +324,7 @@ public class Config {
 
 
     private static boolean validateItemName(final Object obj) {
-        return obj instanceof final String itemName && ForgeRegistries.ITEMS.containsKey(new ResourceLocation(itemName));
+        return obj instanceof final String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
     }
 
     public static List<Float> convertToListFloat(List<?> sourceList) {
@@ -356,7 +358,11 @@ public class Config {
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
 
         // convert the list of strings into a set of items
-        items = ITEM_STRINGS.get().stream().map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName))).collect(Collectors.toSet());
+        items = ITEM_STRINGS.get().stream()
+                .map(ResourceLocation::parse)
+                .map(BuiltInRegistries.ITEM::get)
+                .filter(item -> item != Items.AIR)
+                .collect(Collectors.toSet());
 
         weakPoisonHealthOverlay = WEAK_POISON_HEALTH_OVERLAY.get();
         powerBattleMode = POWER_BATTLE_MODE.get();

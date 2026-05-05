@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "aba",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:glass"
+    },
+    "b": {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    "c": {
+      "item": "minecraft:warped_fungus"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:warped_lantern"
+  }
+}

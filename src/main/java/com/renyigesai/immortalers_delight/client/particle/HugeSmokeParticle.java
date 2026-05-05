@@ -16,10 +16,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -57,9 +58,9 @@ public class HugeSmokeParticle extends Particle {
             return new HugeSmokeParticle(pLevel, pX, pY, pZ);
         }
     }
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/particle/huge_smoke.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/particle/huge_smoke.png");
 
-    private static final ResourceLocation LAYER_TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/particle/huge_smoke_layer.png");
+    private static final ResourceLocation LAYER_TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/particle/huge_smoke_layer.png");
     // 用于渲染粒子的模型对象
     private final HugeSmokeParticleModel<?> model;
     protected float quadSize = 1.0F + (this.random.nextFloat() * 0.5F + (this.random.nextBoolean() ? 1 : -1) * 0.5F) * 0.2F;
@@ -83,6 +84,14 @@ public class HugeSmokeParticle extends Particle {
      * @param pY 粒子初始Y坐标
      * @param pZ 粒子初始Z坐标
      */
+    private static int packSmokeColor(float r, float g, float b, float a) {
+        int ai = Mth.clamp(Mth.floor(a * 255.0F), 0, 255);
+        int ri = Mth.clamp(Mth.floor(r * 255.0F), 0, 255);
+        int gi = Mth.clamp(Mth.floor(g * 255.0F), 0, 255);
+        int bi = Mth.clamp(Mth.floor(b * 255.0F), 0, 255);
+        return FastColor.ARGB32.color(ai, ri, gi, bi);
+    }
+
     HugeSmokeParticle(ClientLevel pLevel, double pX, double pY, double pZ) {
         super(pLevel, pX, pY, pZ);
         // 初始化模型（基于模型图层）
@@ -166,13 +175,13 @@ public class HugeSmokeParticle extends Particle {
             coreAnim(pBuffer,pRenderInfo,pPartialTicks);
             LayerAnim(pBuffer,pRenderInfo,pPartialTicks);
             VertexConsumer vertexconsumer = multibuffersource$buffersource.getBuffer(RenderType.entityTranslucent(getTextureLocation(pBuffer,pRenderInfo,pPartialTicks)));
-            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, this.rCol, this.gCol, this.bCol, this.alpha);
+            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, packSmokeColor(this.rCol, this.gCol, this.bCol, this.alpha));
         }
         if (needLayerRender(pBuffer,pRenderInfo,pPartialTicks)){
             coreAnim(pBuffer,pRenderInfo,pPartialTicks);
             LayerAnim(pBuffer,pRenderInfo,pPartialTicks);
             VertexConsumer vertexconsumer = multibuffersource$buffersource.getBuffer(RenderType.entityTranslucent(getLayerTextureLocation(pBuffer,pRenderInfo,pPartialTicks)));
-            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, this.layer_rCol, this.layer_gCol, this.layer_bCol, this.layer_alpha);
+            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, packSmokeColor(this.layer_rCol, this.layer_gCol, this.layer_bCol, this.layer_alpha));
         }
         // 结束当前渲染批次，提交渲染数据
         multibuffersource$buffersource.endBatch();

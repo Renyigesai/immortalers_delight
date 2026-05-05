@@ -22,10 +22,6 @@ public class SkelverfishBase extends Silverfish {
         super(pEntityType, pLevel);
     }
 
-    @Override
-    public MobType getMobType() {
-        return MobType.UNDEAD;
-    }//声明为亡灵生物
     /**
      * 被动技能：免疫火焰和爆炸伤害
      * @param pSource

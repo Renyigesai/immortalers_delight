@@ -1,0 +1,24 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:travarice"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:kwat_wheat_seeds"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "immortalers_delight:alfalfa_seeds"
+        }
+      ]
+    }
+  ]
+}

@@ -17,12 +17,17 @@ import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.Util;
 import net.minecraft.commands.arguments.ParticleArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.ShriekParticleOption;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,8 +41,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+
+import java.util.Optional;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
@@ -54,7 +60,7 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<ParticleOptions> DATA_PARTICLE = SynchedEntityData.defineId(EffectCloudBaseEntity.class, EntityDataSerializers.PARTICLE);
-    private Potion potion = Potions.EMPTY; // 关联的药水（默认空药水）
+    private Potion potion = Potions.WATER.value(); // 关联的药水（默认清水，无效果）
     private final List<MobEffectInstance> effects = Lists.newArrayList(); // 额外的药水效果列表
     protected final Map<Entity, Integer> victims = Maps.newHashMap(); // 记录受影响实体及下次可再次受影响的刻数
     private boolean isStarting = false; // 是否在结束等待状态（注意：这个字段在客户端与服务端有不同的行为）
@@ -96,11 +102,12 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
      * 定义需要在客户端和服务器之间同步的实体数据
      * （如半径、颜色等视觉和关键逻辑属性）
      */
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_DANGEROUS, false);
-        this.getEntityData().define(DATA_RADIUS, 3.0F); // 初始半径3.0F
-        this.getEntityData().define(DATA_WAITING, false); // 初始不处于等待状态
-        this.getEntityData().define(DATA_PARTICLE, ParticleTypes.ENTITY_EFFECT); // 初始粒子效果为实体效果粒子
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_DANGEROUS, false);
+        builder.define(DATA_RADIUS, 3.0F); // 初始半径3.0F
+        builder.define(DATA_WAITING, false); // 初始不处于等待状态
+        builder.define(DATA_PARTICLE, ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, -1));
     }
 
     public boolean isDangerous() {
@@ -426,9 +433,11 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
     protected void doOnAddEffect(LivingEntity livingentity, List<MobEffectInstance> list) {
         // 对生物施加所有效果
         for(MobEffectInstance mobeffectinstance1 : list) {
-            if (mobeffectinstance1.getEffect().isInstantenous()) {
+            var effectHolder = mobeffectinstance1.getEffect();
+            MobEffect mobEffect = effectHolder.value();
+            if (mobEffect.isInstantenous()) {
                 // 瞬时效果（如瞬间治疗）直接应用
-                mobeffectinstance1.getEffect().applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
+                mobEffect.applyInstantenousEffect(this, this.getOwner(), livingentity, mobeffectinstance1.getAmplifier(), 0.5D);
             } else {
                 // 持续效果添加到生物身上
                 livingentity.addEffect(new MobEffectInstance(mobeffectinstance1), this);
@@ -562,18 +571,25 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
             this.ownerUUID = pCompound.getUUID("Owner");
         }
 
-        // 读取粒子效果
-        if (pCompound.contains("Particle", 8)) {
-            try {
-                this.setParticle(ParticleArgument.readParticle(new StringReader(pCompound.getString("Particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup()));
-            } catch (CommandSyntaxException commandsyntaxexception) {
-                LOGGER.warn("Couldn't load custom particle {}", pCompound.getString("Particle"), commandsyntaxexception);
+        // 读取粒子效果（旧存档为字符串；新存档为 Codec NBT）
+        Tag particleTag = pCompound.get("Particle");
+        if (particleTag != null) {
+            if (particleTag instanceof StringTag) {
+                try {
+                    this.setParticle(ParticleArgument.readParticle(new StringReader(particleTag.getAsString()), this.registryAccess()));
+                } catch (CommandSyntaxException commandsyntaxexception) {
+                    LOGGER.warn("Couldn't load custom particle {}", particleTag.getAsString(), commandsyntaxexception);
+                }
+            } else {
+                ParticleTypes.CODEC.parse(NbtOps.INSTANCE, particleTag).result().ifPresent(this::setParticle);
             }
         }
 
         // 读取关联药水
         if (pCompound.contains("Potion", 8)) {
-            this.setPotion(PotionUtils.getPotion(pCompound));
+            this.setPotion(Optional.ofNullable(ResourceLocation.tryParse(pCompound.getString("Potion")))
+                    .map(BuiltInRegistries.POTION::get)
+                    .orElse(Potions.WATER.value()));
         }
 
         // 读取额外药水效果
@@ -602,15 +618,15 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         pCompound.putFloat("RadiusOnUse", this.radiusOnUse);
         pCompound.putFloat("RadiusPerTick", this.radiusPerTick);
         pCompound.putFloat("Radius", this.getRadius());
-        pCompound.putString("Particle", this.getParticle().writeToString()); // 粒子效果序列化
+        ParticleTypes.CODEC.encodeStart(NbtOps.INSTANCE, this.getParticle()).result().ifPresent(t -> pCompound.put("Particle", t));
 
         // 写入所有者UUID
         if (this.ownerUUID != null) {
             pCompound.putUUID("Owner", this.ownerUUID);
         }
 
-        // 写入关联药水（非空时）
-        if (this.potion != Potions.EMPTY) {
+        // 写入关联药水（非清水时）
+        if (this.potion != Potions.WATER.value()) {
             pCompound.putString("Potion", BuiltInRegistries.POTION.getKey(this.potion).toString());
         }
 
@@ -618,7 +634,7 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         if (!this.effects.isEmpty()) {
             ListTag listtag = new ListTag();
             for(MobEffectInstance mobeffectinstance : this.effects) {
-                listtag.add(mobeffectinstance.save(new CompoundTag()));
+                listtag.add(mobeffectinstance.save());
             }
             pCompound.put("Effects", listtag);
         }

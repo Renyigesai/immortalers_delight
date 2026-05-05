@@ -3,7 +3,7 @@ package com.renyigesai.immortalers_delight.screen;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -12,10 +12,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 public class EnchantalCoolerMenu extends AbstractContainerMenu {
@@ -56,7 +56,7 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
         layoutPlayerInventorySlots(8, 84);
     }
 
-    public static EnchantalCoolerMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
+    public static EnchantalCoolerMenu create(int windowId, Inventory playerInventory, RegistryFriendlyByteBuf data) {
         BlockPos pos = data.readBlockPos();
         BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(pos);
         if (blockEntity instanceof EnchantalCoolerBlockEntity) {

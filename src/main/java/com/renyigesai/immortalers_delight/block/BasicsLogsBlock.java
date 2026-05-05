@@ -10,7 +10,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ToolAction;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -22,7 +22,7 @@ public class BasicsLogsBlock extends RotatedPillarBlock {
         super(p_49795_);
     }
 
-    public @Nullable BlockState getToolModifiedState (BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
         ItemStack handStack = context.getItemInHand();
         if (handStack.is(ItemTags.AXES)) {
             Block block = BasicsLogsBlock.LOGS.get().get(state.getBlock());
@@ -30,9 +30,9 @@ public class BasicsLogsBlock extends RotatedPillarBlock {
                 BlockState newState = block.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                 return newState;
             }
-            return super.getToolModifiedState(state, context, toolAction, simulate);
+                return super.getToolModifiedState(state, context, itemAbility, simulate);
         }
-        return super.getToolModifiedState(state, context, toolAction, simulate);
+        return super.getToolModifiedState(state, context, itemAbility, simulate);
     }
 
     static {

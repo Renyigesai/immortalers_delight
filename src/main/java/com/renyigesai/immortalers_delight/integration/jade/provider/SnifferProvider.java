@@ -22,20 +22,20 @@ public enum SnifferProvider implements IEntityComponentProvider , IServerDataPro
         if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN)){
             int tailTime = entityAccessor.getServerData().getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN);
             if (tailTime > 0){
-                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_tail_regeneration").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(tailTime)));
+                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_tail_regeneration").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(tailTime, 0f)));
             }
         }
         if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN)){
             int brushingTime = entityAccessor.getServerData().getInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN);
             if (brushingTime > 0){
-                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_brushing").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(brushingTime)));
+                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_brushing").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(brushingTime, 0f)));
             }
         }
     }
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(ImmortalersDelightMod.MODID,"sniffer");
+        return ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "sniffer");
     }
 
     @Override
