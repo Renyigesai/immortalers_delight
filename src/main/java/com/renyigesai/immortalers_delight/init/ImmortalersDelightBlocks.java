@@ -31,7 +31,6 @@ import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +52,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
-import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.function.ToIntFunction;
 

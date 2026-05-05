@@ -1,7 +1,6 @@
 {
-  "parent": "farmersdelight:block/pie",
+  "parent": "farmersdelight:block/template_pie",
   "textures": {
-    "particle": "immortalers_delight:block/himekaido_yogurt_pie_top",
     "bottom": "immortalers_delight:block/evolutcorn_pie_bottom",
     "side": "immortalers_delight:block/evolutcorn_pie_side",
     "top": "immortalers_delight:block/himekaido_yogurt_pie_top"

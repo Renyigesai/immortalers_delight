@@ -90,11 +90,11 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     //温泉热源逻辑，在下界以外同厨锅，补充了温泉在下界沸腾的设定，在下界则是单独的温泉方块即可(避免出现大片温泉高频查配方导致卡顿)
     public boolean isHeatSources(Level level, BlockPos pos){
         BlockState stateBelow = level.getBlockState(pos.below());
-        if (stateBelow.is(ModTags.HEAT_SOURCES)) {
+        if (stateBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
             return stateBelow.hasProperty(BlockStateProperties.LIT) ? stateBelow.getValue(BlockStateProperties.LIT) : !stateBelow.getFluidState().is(ImmortalersDelightFluids.HOT_SPRING.get());
-        } else if (stateBelow.is(ModTags.HEAT_CONDUCTORS)) {
+        } else if (stateBelow.is(ModTags.Blocks.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = level.getBlockState(pos.below(2));
-            if (stateFurtherBelow.is(ModTags.HEAT_SOURCES)) {
+            if (stateFurtherBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
                 if (stateFurtherBelow.hasProperty(BlockStateProperties.LIT)) {
                     return (Boolean)stateFurtherBelow.getValue(BlockStateProperties.LIT);
                 }

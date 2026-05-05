@@ -5,6 +5,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.IItemHandler;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class ItemUtils {
@@ -19,6 +20,15 @@ public class ItemUtils {
     }
 
     public static boolean isKnives(ItemStack handStack){
-        return handStack.is(ModTags.KNIVES) || handStack.is(ImmortalersDelightTags.KNIVES);
+        return vectorwing.farmersdelight.common.utility.ItemUtils.isKnife(handStack) || handStack.is(ImmortalersDelightTags.KNIVES);
+    }
+
+    public static boolean isInventoryEmpty(IItemHandler inventory) {
+        for(int i = 0; i < inventory.getSlots(); ++i) {
+            if (!inventory.getStackInSlot(i).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

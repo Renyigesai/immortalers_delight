@@ -77,7 +77,7 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
         return super.use(state, level, pos, player, hand, hitResult);
     }
     public boolean isCuttable(ItemStack stack){
-        return stack.is(ModTags.KNIVES);
+        return com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(stack);
     }
     public boolean isEdible(){
         return true;

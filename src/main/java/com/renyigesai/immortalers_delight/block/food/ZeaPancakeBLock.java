@@ -60,7 +60,7 @@ public class ZeaPancakeBLock extends HorizontalDirectionalBlock implements Plate
                 return InteractionResult.CONSUME;
             }
         }
-        boolean isKnives = hand_stack.is(ModTags.KNIVES) || hand_stack.is(ImmortalersDelightTags.KNIVES);
+        boolean isKnives = com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack);
         return isKnives ? this.cut(state, level, pos, player) : this.eat(state, level, pos, player);
     }
 

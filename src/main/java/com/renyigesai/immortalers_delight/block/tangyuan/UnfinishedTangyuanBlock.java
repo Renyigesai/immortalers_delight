@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.tangyuan;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.recipe.TangyuanRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -155,13 +156,10 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
             else if (tangyuanBlockEntity.tryInput(heldStack, true) || tangyuanBlockEntity.tryInput(offhandStack, true)) {
                 // 处理副手物品的特殊情况（如装备类物品不能放置）
                 if (!offhandStack.isEmpty()) {
-                    if (hand.equals(InteractionHand.MAIN_HAND)
-                            && !offhandStack.is(ModTags.OFFHAND_EQUIPMENT)
-                            && !(heldStack.getItem() instanceof BlockItem)) {
+                    if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
                         return InteractionResult.PASS;
                     }
-                    if (hand.equals(InteractionHand.OFF_HAND)
-                            && offhandStack.is(ModTags.OFFHAND_EQUIPMENT)) {
+                    if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT)) {
                         return InteractionResult.PASS;
                     }
                 }

@@ -5,7 +5,9 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
+import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
 
 import java.util.function.Consumer;
@@ -35,7 +37,7 @@ public class CookingRecipes {
                 .addIngredient(Items.TORCHFLOWER)
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
-                .addIngredient(ForgeTags.DOUGH).build(consumer);
+                .addIngredient(CommonTags.Items.DOUGH).build(consumer);
     }
 
 }

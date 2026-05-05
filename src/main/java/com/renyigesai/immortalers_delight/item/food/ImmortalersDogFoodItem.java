@@ -126,7 +126,7 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
             Entity target = event.getTarget();
             ItemStack itemStack = event.getItemStack();
             if (target instanceof LivingEntity entity) {
-                if (target.getType().is(ModTags.DOG_FOOD_USERS)) {
+                if (target.getType().is(ModTags.EntityTypes.DOG_FOOD_USERS)) {
                     boolean isTameable = entity instanceof TamableAnimal;
                     if (entity.isAlive() && (!isTameable || ((TamableAnimal)entity).isTame()) && itemStack.getItem() instanceof ImmortalersDogFoodItem  immortalersDogFoodItem) {
                         List<MobEffectInstance> effects = Lists.newArrayList();

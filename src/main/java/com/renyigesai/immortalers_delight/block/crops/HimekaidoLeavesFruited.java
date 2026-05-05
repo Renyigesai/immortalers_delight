@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,7 +43,7 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
                     }
                     int distance = state.getValue(DISTANCE);
                     level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
-                    level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                    level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
             }

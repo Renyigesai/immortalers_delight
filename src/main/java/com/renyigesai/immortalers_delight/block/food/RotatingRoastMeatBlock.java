@@ -81,7 +81,7 @@ public class RotatingRoastMeatBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
-            if (hand_stack.is(ModTags.KNIVES)) {
+            if (com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(hand_stack)) {
                 return cut(state, level, pos, player);
             }
             return super.use(state, level, pos, player, hand, hitResult);

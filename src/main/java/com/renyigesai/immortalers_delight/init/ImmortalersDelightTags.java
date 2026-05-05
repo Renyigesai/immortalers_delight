@@ -21,9 +21,11 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_chest_boat_need_2");
     public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
     public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
+    public static final TagKey<Item> OFFHAND_EQUIPMENT = createImmItemTag("offhand_equipment");
     public static final TagKey<Item> MILK = createItemTag("milk");
     public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
+    public static final TagKey<Item> CACTUS_RESISTANCE = createImmItemTag("cactus_resistance");
     public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
     public static final TagKey<Block> MINEABLE_HAMMER = createBlockTag("mineable/meat_tenderizer");
     public static final TagKey<Block> SEXTLOTUS_TRANSFORM_AIR = createBlockTag("sextlotus_transform_air");

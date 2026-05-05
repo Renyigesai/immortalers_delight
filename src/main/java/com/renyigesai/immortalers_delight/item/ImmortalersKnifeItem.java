@@ -184,7 +184,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
                 BlockPos pos = event.getPos();
                 BlockState state = event.getLevel().getBlockState(pos);
                 Block block = state.getBlock();
-                if (state.is(ModTags.DROPS_CAKE_SLICE)) {
+                if (state.is(ModTags.Blocks.DROPS_CAKE_SLICE)) {
                     level.setBlock(pos, (BlockState) Blocks.CAKE.defaultBlockState().setValue(CakeBlock.BITES, 1), 3);
                     Block.dropResources(state, level, pos);
                     ItemUtils.spawnItemEntity(level, new ItemStack((ItemLike) ModItems.CAKE_SLICE.get()), (double)pos.getX(), (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, -0.05, 0.0, 0.0);
