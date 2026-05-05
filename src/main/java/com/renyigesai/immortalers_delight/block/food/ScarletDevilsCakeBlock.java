@@ -64,28 +64,42 @@ public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock implement
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){
         int bites = state.getValue(BITES);
-        if (!player.canEat(false)) {return InteractionResult.PASS;}
-        int eatCount = 1;
-        for (int i = 1;bites + i <= 8; i++){
-            if (player.canEat(false)){
-                eatCount = i;
-                player.getFoodData().eat(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get(),
-                        new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()));
-                level.gameEvent(player, GameEvent.EAT, pos);
-                level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
-            }else {
-                break;
-            }
+        if (!player.canEat(false)) {
+            return InteractionResult.PASS;
         }
-        addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()),level,player,eatCount);
-        if (bites + eatCount < 9) {
-            setBlock(bites + eatCount,state,level,pos);
+        if (bites < 8){
+            player.getFoodData().eat(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get(), new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()));
+            addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()),level,player,bites);
+            setBlock(bites + 1,state,level,pos);
+            level.gameEvent(player, GameEvent.EAT, pos);
+            level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else {
             level.destroyBlock(pos, false);
             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
                     new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
             level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }
+//        int eatCount = 1;
+//        for (int i = 1;bites + i <= 8; i++){
+//            if (player.canEat(false)){
+//                eatCount = i;
+//                player.getFoodData().eat(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get(),
+//                        new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()));
+//                level.gameEvent(player, GameEvent.EAT, pos);
+//                level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+//            }else {
+//                break;
+//            }
+//        }
+//        addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()),level,player,eatCount);
+//        if (bites + eatCount < 9) {
+//            setBlock(bites + eatCount,state,level,pos);
+//        }else {
+//            level.destroyBlock(pos, false);
+//            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
+//                    new ItemStack(Items.BOWL),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
+//            level.playSound(null,pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
+//        }
         return InteractionResult.SUCCESS;
     }
     /**

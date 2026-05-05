@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -92,6 +93,12 @@ public class ImmortalersChestBoat extends ChestBoat {
             case PEARLIP_SHELL -> ImmortalersDelightItems.PEARLIP_SHELL_CHEST_BOAT.get();
         };
     }
+
+    @Override
+    public Component getName() {
+        return Component.translatable("entity.immortalers_delight." + getBoatVariant().name +".chest_boat");
+    }
+
     @Override
     public void destroy(DamageSource damageSource) {
         if (this.getBoatVariant() == ImmortalersChestBoat.Type.ANCIENT_WOOD) {

@@ -27,6 +27,9 @@ public class DifficultyModeUtil {
         LivingEntity hurtOne = evt.getEntity();
         Entity attacker = evt.getSource().getEntity();
         //System.out.println("这里是难度控制");
+        if (Config.powerBattleMode != null && Config.powerBattleMode.equals("false")){
+            return;
+        }
         if (hurtOne instanceof Player player) {
             checkPlayerAttribute(player, evt.getAmount());
         }

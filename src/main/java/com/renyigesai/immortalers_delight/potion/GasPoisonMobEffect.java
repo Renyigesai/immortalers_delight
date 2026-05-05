@@ -98,41 +98,41 @@ public class GasPoisonMobEffect extends BaseMobEffect {
     )
     public static class GasPoisonPotionEffect {
 
-        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void onLivingAttack(LivingAttackEvent event) {
-            //这里是条件判断，什么伤害需要绝对真伤
-            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-                if (event.isCanceled()) event.setCanceled(false);
-                LivingEntity pEntity = event.getEntity();
-                float health = pEntity.getHealth();
-                float damage = event.getAmount();
-                //记录应该减扣至的血量
-                entityDamage.put(pEntity.getUUID(), health - damage);
-            }
-        }
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void onLivingHurt(LivingHurtEvent event) {
-            //这里是条件判断，什么伤害需要绝对真伤
-            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-                if (event.isCanceled()) event.setCanceled(false);
-            }
-        }
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void onLivingDamage(LivingDamageEvent event) {
-            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            LivingEntity pEntity = event.getEntity();
-            if (entityDamage.containsKey(pEntity.getUUID())) {
-                float health = pEntity.getHealth();
-                float needHealth = entityDamage.get(pEntity.getUUID());
-                //如果发现被减伤了(当前血量减伤害值大于记录的血量)
-                if (isPowerful && health - event.getAmount() > needHealth) {
-                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
-                    event.setAmount(0.0F);
-                }
-                entityDamage.remove(pEntity.getUUID());
-            }
-        }
+//        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
+//        @SubscribeEvent(priority = EventPriority.LOWEST)
+//        public static void onLivingAttack(LivingAttackEvent event) {
+//            //这里是条件判断，什么伤害需要绝对真伤
+//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
+//                if (event.isCanceled()) event.setCanceled(false);
+//                LivingEntity pEntity = event.getEntity();
+//                float health = pEntity.getHealth();
+//                float damage = event.getAmount();
+//                //记录应该减扣至的血量
+//                entityDamage.put(pEntity.getUUID(), health - damage);
+//            }
+//        }
+//        @SubscribeEvent(priority = EventPriority.LOWEST)
+//        public static void onLivingHurt(LivingHurtEvent event) {
+//            //这里是条件判断，什么伤害需要绝对真伤
+//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
+//                if (event.isCanceled()) event.setCanceled(false);
+//            }
+//        }
+//        @SubscribeEvent(priority = EventPriority.LOWEST)
+//        public static void onLivingDamage(LivingDamageEvent event) {
+//            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+//            LivingEntity pEntity = event.getEntity();
+//            if (entityDamage.containsKey(pEntity.getUUID())) {
+//                float health = pEntity.getHealth();
+//                float needHealth = entityDamage.get(pEntity.getUUID());
+//                //如果发现被减伤了(当前血量减伤害值大于记录的血量)
+//                if (isPowerful && health - event.getAmount() > needHealth) {
+//                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
+//                    event.setAmount(0.0F);
+//                }
+//                entityDamage.remove(pEntity.getUUID());
+//            }
+//        }
         @SubscribeEvent
         public static void onRemoveFromEntity(MobEffectEvent.Remove event) {
             if (event != null && event.getEntity() != null) {

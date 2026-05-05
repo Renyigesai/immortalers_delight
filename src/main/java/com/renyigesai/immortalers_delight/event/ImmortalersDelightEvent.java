@@ -76,6 +76,7 @@ public class ImmortalersDelightEvent {
         fuels.put(ImmortalersDelightItems.A_BUSH_PLANKS.get(),1200);
         fuels.put(ImmortalersDelightItems.A_BUSH_CABINET.get(),1200);
         fuels.put(ImmortalersDelightItems.MOON_OIL.get(),1600);
+        fuels.put(ImmortalersDelightItems.ANCIENT_FIBER.get(),100);
         return fuels;
     }
 

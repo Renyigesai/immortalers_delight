@@ -141,7 +141,7 @@ public class Languages extends LanguageProvider {
                 }
             }
         }
-        addBlock(ImmortalersDelightBlocks.HOT_SPRING_BLOCK,"温泉");
+        addBlock(ImmortalersDelightBlocks.HOT_SPRING_BLOCK,"Grudge Spring","怨泉");
     }
 
     private boolean hasBlockItem(Block block){
@@ -153,7 +153,7 @@ public class Languages extends LanguageProvider {
     }
 
     private void addFluids(){
-        add("fluid_type.immortalers.delight.hot_spring","Hot Spring","温泉");
+        add("fluid_type.immortalers.delight.hot_spring","Grudge Spring","怨泉");
     }
 
     private void addLatiao(){
@@ -214,7 +214,7 @@ public class Languages extends LanguageProvider {
         createTooltip("cut_ku_mesh_non","你需要用刀切开它","You need a knife to cut it.");
         createTooltip("cut_large_column","你需要用斧子劈开它","You need an axe to split it.");
         createTooltip("cut_pod_shell_burger_meat","你需要用刀切开它","You need a knife to cut it.");
-        createTooltip("warped_laurel_seeds","可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为温泉§r。","It can be planted on the §fsoul sand§r. When it matures, it will convert the surrounding §fwater into a hot spring§r");
+        createTooltip("warped_laurel_seeds","可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为怨泉§r。","It can be planted on the §fsoul sand§r. When it matures, it will convert the surrounding §fwater into a grudge spring§r");
         createTooltip("gelpitaya_seeds","可被种植在§f仙人掌§r上。","Can be planted on §fcacti§r.");
         createTooltip("a_bush","可被种植在§f下界岩§r上，成长到最大阶段后放置§f岩浆§r可以被转换为§f烬烟木§r。","It can be planted on §fnetherrack§r and, when fully grown, placed on §flava§r, which can then be transformed into §fa bush log§r.");
         createTooltip("tooltip_item_name_block_item","§o按住Shift查看更多","§oPress Shift to view");
@@ -272,7 +272,7 @@ public class Languages extends LanguageProvider {
 
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
-        createContainer("hot_spring","Hot Spring","温泉");
+        createContainer("hot_spring","Grudge Spring","怨泉");
     }
 
 
@@ -379,8 +379,8 @@ public class Languages extends LanguageProvider {
         createAdvancement("get_himekaido_trees",translateText("Spryt teon tō helpe hīe growan","拔苗助长"),translateText("Fertile land, extra fertilizers —— there is always a sacrifice to be made when pursuing excellence.","肥沃的土地、额外的肥料——追求卓越总要伴随牺牲。"));
         createAdvancement("get_gelpitaya",translateText("Snowbound Dragon","雪境妖龙"),translateText("Obtain gelpitaya in Ice Spikes.","在冰刺之地获得冰蛟果。"));
         createAdvancement("get_a_bush",translateText("Hardship Ends, Joy Begins","苦尽余华"),translateText("Obtain Abush in the Nether Wastes.","在下界荒地获得烬烟杆。"));
-        createAdvancement("get_hot_spring_bucket",translateText("A clear current","一股清流"),translateText("Plant the warped laurel in the soul sand, and then place water around it. When the warped laurel plants naturally mature, the water will be transformed into a hot spring!","将诡怨桂种在灵魂沙上后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为温泉！"));
-        createAdvancement("get_onsen_tamago",translateText("Can be cooked!＼(^◡^)／","泉都可以煮！＼(^◡^)／"),translateText("Place a heat source beneath the hot spring, and then throw an egg in!","在温泉底下放置热源，然后丢一个蛋进去！"));
+        createAdvancement("get_hot_spring_bucket",translateText("A clear current","一股清流"),translateText("Plant the warped laurel in the soul sand, and then place water around it. When the warped laurel plants naturally mature, the water will be transformed into a grudge spring!","将诡怨桂种在灵魂沙上后，再在周围放置水，当诡怨桂作物自然成熟时，水会被转换为怨泉！"));
+        createAdvancement("get_onsen_tamago",translateText("Can be cooked!＼(^◡^)／","泉都可以煮！＼(^◡^)／"),translateText("Place a heat source beneath the grudge spring, and then throw an egg in!","在怨泉底下放置热源，然后丢一个蛋进去！"));
         createAdvancement("level_up_enchantment",translateText("Apply what you have learned","学以致用"),translateText("Under the influence of cultural heritage, enhance the enchanted book in your hand.","在文化底蕴的濡染下，改进你手上的附魔书。"));
         createAdvancement("pass_sniffer_cooldown",translateText("Use the floating sniffing method","应当使用飘闻法"),translateText("At a safe distance, let your sniffer savor the orifice-clearing efficacy of the caustic essential oil.","在安全的距离上，让你的嗅探兽品味炽烈精油的通窍功效。"));
         createAdvancement("get_caustic_essential_oil",translateText("Chloro-Phos Brave","氯磷好汉"),translateText("Obtain the Crimson Gas Potion, prove to your opponents that you have reasons to never lose.","获得绯红瓦斯药水，向对手证明你有不能输的理由。"));
@@ -410,10 +410,19 @@ public class Languages extends LanguageProvider {
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
         createEntity(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(), "邪月之触");
-        createEntity(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), "千古船");
-        createEntity(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), "千古运输船");
-        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_BOAT.get(), "古木船");
-        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), "古木运输船");
+//        createEntity(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), "千古船");
+//        createEntity(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), "千古运输船");
+//        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_BOAT.get(), "古船");
+//        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), "古船");
+        createEntity("himekaido","Himekaido Boat","姬海棠木船");
+        createEntity("himekaido.chest_boat","Himekaido Boat","姬海棠木运输船");
+        createEntity("ancient_wood","Ancient Wood Boat","古木船");
+        createEntity("ancient_wood.chest_boat","Ancient Wood Chest Boat","古木运输船");
+        createEntity("leisamboo","Leisamboo Boat","溪竹船");
+        createEntity("leisamboo.chest_boat","Leisamboo Chest Boat","溪竹运输船");
+        createEntity("pearlip_shell","Pearlip Shell Boat","棱蕉船");
+        createEntity("pearlip_shell.chest_boat","Pearlip Shell Chest Boat","棱蕉运输船");
+        createEntity("ancient_boat","Ancient Boat","古船");
     }
     private void addMessages(){
         createMessage("effect.stun","You're reeling!","你头晕目眩！");
@@ -439,7 +448,7 @@ public class Languages extends LanguageProvider {
         add("potion.potency.9","X","X");
         add("potion.potency.29","XXX","XXX");
         add("potion.potency.99","C","C");
-        add("creativetab_immortalers_delight_main_tab","Immortalers Delight","千古乐事");
+        add("creativetab_immortalers_delight_main_tab","Immortalers Delight Main","千古乐事 主物品");
         add("creativetab_immortalers_delight_decorative_blocks_tab","Immortalers Delight Decorative Blocks","千古乐事 装饰方块");
         add("config.jade.plugin_immortalers_delight.sniffer","Sniffer","嗅探兽");
     }

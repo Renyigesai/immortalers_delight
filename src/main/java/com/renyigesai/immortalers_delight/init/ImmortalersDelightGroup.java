@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
+import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -16,24 +17,21 @@ import java.lang.reflect.Field;
 public class ImmortalersDelightGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ImmortalersDelightMod.MODID);
 
-//    public static final RegistryObject<CreativeModeTab> TAB_FARMERS_DELIGHT = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_main",
-//            () -> CreativeModeTab.builder()
-//                    .title(Component.translatable("creativetab_immortalers_delight_tab"))
-//                    .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
-//                    .displayItems((parameters, output) -> ImmortalersDelightItems.CREATIVE_TAB_ITEMS.forEach((item) -> output.accept(item.get())))
-//                    .build());
 
-    public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_main",
+    /**name加数字是为了排序*/
+    public static final RegistryObject<CreativeModeTab> MAIN_TAB = CREATIVE_TABS.register("0_" + ImmortalersDelightMod.MODID + "_main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab_immortalers_delight_main_tab"))
                     .icon(() -> new ItemStack(ImmortalersDelightItems.EVOLUTCORN.get()))
                     .displayItems((parameters, output) -> {
                         addCreativeModeTab(output,ImmortalersDelightMod.MODID + "_main",ImmortalersDelightItems.class,true);
-                        ImmortalersDelightItems.CREATIVE_TAB_ITEMS.forEach(itemRegistryObject ->  output.accept(itemRegistryObject.get()));
+                        if (ImmortalersDelightMod.isLtc2){
+                            Ltc2Items.CREATIVE_TAB_ITEMS.forEach(itemRegistryObject ->  output.accept(itemRegistryObject.get()));
+                        }
                     })
                     .build());
 
-    public static final RegistryObject<CreativeModeTab> DECORATIVE_BLOCKS_TAB = CREATIVE_TABS.register(ImmortalersDelightMod.MODID + "_decorative_blocks",
+    public static final RegistryObject<CreativeModeTab> DECORATIVE_BLOCKS_TAB = CREATIVE_TABS.register("1_" + ImmortalersDelightMod.MODID + "_decorative_blocks",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("creativetab_immortalers_delight_decorative_blocks_tab"))
                     .icon(() -> new ItemStack(ImmortalersDelightItems.HIMEKAIDO_LOG.get()))

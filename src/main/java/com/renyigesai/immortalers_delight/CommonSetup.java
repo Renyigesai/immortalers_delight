@@ -46,6 +46,10 @@ public class CommonSetup
 		ComposterBlock.COMPOSTABLES.put(ImmortalersDelightItems.ALFALFA_BLOCK.get(), 0.85f);
 	}
 
+	public static void fuel(){
+
+	}
+
 	public static void registerItemSetAdditions() {
 		Ingredient newFood = Ingredient.of(ImmortalersDelightItems.ALFALFA.get());
 		Pig.FOOD_ITEMS = new CompoundIngredient(Arrays.asList(Pig.FOOD_ITEMS, newFood))

@@ -120,7 +120,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> REPEATING_CROSSBOW;
     @ItemData(zhCn = "汤勺",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> SPOON;
-    @ItemData(zhCn = "刷子",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "刷子",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> BRUSH;
     @ItemData(zhCn = "嗅探兽毛刷")
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
@@ -480,6 +480,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> APOLLYON_CAKE_ROLL;
     @ItemData(zhCn = "诡怨灯",group = OFF_MAIN)
     public static final RegistryObject<Item> WARPED_LANTERN;
+    @ItemData(zhCn = "月莲灯",group = OFF_MAIN)
+    public static final RegistryObject<Item> SEXTLOTUS_LANTERN;
 
 
     /*瓶子草*/
@@ -604,7 +606,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ONSEN_TAMAGO;
 
     /*石锅与新烹饪*/
-    @ItemData(zhCn = "温泉桶")
+    @ItemData(zhCn = "怨泉桶")
     public static final RegistryObject<Item> HOT_SPRING_BUCKET;
     @ItemData(zhCn = "石锅")
     public static final RegistryObject<Item> STONE_POT;
@@ -640,8 +642,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SEXTLOTUS_ROOT_CUTS;
     @ItemData(zhCn = "月油")
     public static final RegistryObject<Item> MOON_OIL;
-    @ItemData(zhCn = "月莲灯")
-    public static final RegistryObject<Item> SEXTLOTUS_LANTERN;
     @ItemData(zhCn = "老北京鸡肉卷")
     public static final RegistryObject<Item> OLD_BEIJING_CHICKEN_ROLL;
     @ItemData(zhCn = "拍既望芜菁")
@@ -1531,7 +1531,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP),ImmortalersDelightFoodProperties.JADE_AND_RUBY_SOUP_POWERED,true,false));
 
         SCARLET_DEVILS_CAKE = registerWithTab("scarlet_devils_cake", () ->
-                new BlockItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem()));
+                new EdibleBlockFoodItem(ImmortalersDelightBlocks.SCARLET_DEVILS_CAKE.get(), basicItem().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE).craftRemainder(Items.BOWL)));
 
         SCARLET_DEVILS_CAKE_SLICE = registerWithTab("scarlet_devils_cake_slice",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SCARLET_DEVILS_CAKE_SLICE),true,false));

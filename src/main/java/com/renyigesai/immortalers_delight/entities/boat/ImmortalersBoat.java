@@ -8,6 +8,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -91,6 +92,12 @@ public class ImmortalersBoat extends Boat {
             this.setVariant(Type.byName(pCompound.getString("ModType")));
         }
     }
+
+    @Override
+    public Component getName() {
+        return Component.translatable("entity.immortalers_delight." + getBoatVariant().name);
+    }
+
     public enum Type implements StringRepresentable {
         HIMEKAIDO(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get(), "himekaido"),
         LEISAMBOO(ImmortalersDelightBlocks.LEISAMBOO_PLANKS.get(), "leisamboo"),
