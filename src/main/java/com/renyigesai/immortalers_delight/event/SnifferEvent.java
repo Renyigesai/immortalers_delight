@@ -8,7 +8,6 @@ import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.mixin.SnifferMixin;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -20,6 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -40,9 +40,11 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,32 +52,35 @@ import java.util.Map;
 public class SnifferEvent {
     @SubscribeEvent
     public static void onDropSeed(SnifferDropSeedEvent event) {
-        if (event.getLevel() instanceof ServerLevel serverLevel) {
-            BlockPos pos = event.getBlockPos();
-            Holder<Biome> biomeHolder = event.getLevel().getBiome(pos);
-            for (Map.Entry<TagKey<Biome>, List<ItemStack>> key : getSeeds(serverLevel,pos).entrySet()) {
-                TagKey<Biome> tagKey = key.getKey();
-                if (biomeHolder.is(tagKey)){
-                    if (Math.random() < Config.mininProbability) {//根据配置文件的概率决定是否替换掉落物
-                        HashMap<TagKey<Biome>, List<ItemStack>> seeds = getSeeds(serverLevel, pos);
-                        event.setStacks(seeds.get(tagKey));
-                    }
-                }
+        if (!(event.getLevel() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        BlockPos pos = event.getBlockPos();
+        Holder<Biome> biomeHolder = event.getLevel().getBiome(pos);
+        RandomSource random = event.getSniffer() != null ? event.getSniffer().getRandom() : serverLevel.getRandom();
+        Map<TagKey<Biome>, List<ItemStack>> seeds = getSeeds(serverLevel, pos, event.getSniffer());
+        for (Map.Entry<TagKey<Biome>, List<ItemStack>> entry : seeds.entrySet()) {
+            if (!biomeHolder.is(entry.getKey())) {
+                continue;
+            }
+            if (random.nextDouble() < Config.mininProbability) {
+                event.setStacks(new ArrayList<>(entry.getValue()));
+                break;
             }
         }
     }
 
-    private static HashMap<TagKey<Biome>, List<ItemStack>> getSeeds(Level level,BlockPos pos){
-        HashMap<TagKey<Biome>, List<ItemStack>> itemStackHashMap = new HashMap<>();
-        itemStackHashMap.put(BiomeTags.IS_JUNGLE, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_jungle",level),level,pos));
-        itemStackHashMap.put(Tags.Biomes.IS_PLAINS, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_plains",level),level,pos));
-        itemStackHashMap.put(BiomeTags.IS_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_forest",level),level,pos));
-        itemStackHashMap.put(BiomeTags.IS_RIVER, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_river",level),level,pos));
-        itemStackHashMap.put(ImmortalersDelightTags.IS_CRIMSON_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_crimson_forest",level),level,pos));
-        itemStackHashMap.put(ImmortalersDelightTags.IS_WARPED_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_warped_forest",level),level,pos));
-        itemStackHashMap.put(ImmortalersDelightTags.IS_ICE_SPIKES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_ice_spikes",level),level,pos));
-        itemStackHashMap.put(ImmortalersDelightTags.IS_NETHER_WASTES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_nether_wastes",level),level,pos));
-        itemStackHashMap.put(BiomeTags.IS_MOUNTAIN, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_mountain",level),level,pos));
+    private static Map<TagKey<Biome>, List<ItemStack>> getSeeds(Level level, BlockPos pos, @Nullable Sniffer sniffer) {
+        LinkedHashMap<TagKey<Biome>, List<ItemStack>> itemStackHashMap = new LinkedHashMap<>();
+        itemStackHashMap.put(BiomeTags.IS_JUNGLE, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_jungle", level), level, pos, sniffer));
+        itemStackHashMap.put(Tags.Biomes.IS_PLAINS, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_plains", level), level, pos, sniffer));
+        itemStackHashMap.put(BiomeTags.IS_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_forest", level), level, pos, sniffer));
+        itemStackHashMap.put(BiomeTags.IS_RIVER, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_river", level), level, pos, sniffer));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_CRIMSON_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_crimson_forest", level), level, pos, sniffer));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_WARPED_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_warped_forest", level), level, pos, sniffer));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_ICE_SPIKES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_ice_spikes", level), level, pos, sniffer));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_NETHER_WASTES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_nether_wastes", level), level, pos, sniffer));
+        itemStackHashMap.put(BiomeTags.IS_MOUNTAIN, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_mountain", level), level, pos, sniffer));
         return itemStackHashMap;
     }
 
@@ -88,10 +93,10 @@ public class SnifferEvent {
             Level level = player.level();
             int outputNumber = 0;
             CompoundTag tag = sniffer.getPersistentData();
-            if (tag.get(SNIFFER_BRUSHING_COOLDOWN) == null){
+            if (!tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT)) {
                 tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 0);
             }
-            if (tag.get(SNIFFER_TAIL_REGENERATION_COOLDOWN) == null){
+            if (!tag.contains(SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)) {
                 tag.putInt(SNIFFER_TAIL_REGENERATION_COOLDOWN, 0);
             }
 
@@ -113,7 +118,7 @@ public class SnifferEvent {
                         outputNumber += 1 + player.getRandom().nextInt(3);
                         if (!player.getAbilities().instabuild) {
                             tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 10140);
-                            itemStack.hurtAndBreak(125, serverPlayer, event.getHand() == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
+                            itemStack.hurtAndBreak(1, serverPlayer, event.getHand() == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
                         }
                         if (outputNumber > 0) {
                             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,new ItemStack(ImmortalersDelightItems.SNIFFER_FUR.get(), outputNumber),

@@ -168,6 +168,8 @@ public class ImmortalersDelightMod {
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(modEventBus);
 
+        ImmortalersDelightLootModifierSerializers.register(modEventBus);
+
         ImmortalersDelightRecipeTypes.register(modEventBus);
 
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, Config.SPEC);

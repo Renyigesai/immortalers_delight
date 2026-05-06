@@ -12,11 +12,11 @@
       "projectName": "immortalers_delight",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\clientRunProgramArgs.txt"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\clientRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\immortalers_delight-pr\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -34,11 +34,11 @@
       "projectName": "immortalers_delight",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\dataRunProgramArgs.txt"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\dataRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\dataRunVmArgs.txt",
-        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\immortalers_delight-pr\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -56,11 +56,11 @@
       "projectName": "immortalers_delight",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\gameTestServerRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\gameTestServerRunVmArgs.txt",
-        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\immortalers_delight-pr\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -78,11 +78,11 @@
       "projectName": "immortalers_delight",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\serverRunProgramArgs.txt"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\serverRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@E:\\mod\\immortalers_delight-master\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\mod\\immortalers_delight-master\\bin\\main"
+        "@E:\\immortalers_delight-pr\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dimmortalers_delight%%E:\\immortalers_delight-pr\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},

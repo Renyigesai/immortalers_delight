@@ -19,16 +19,16 @@ public enum SnifferProvider implements IEntityComponentProvider , IServerDataPro
     INSTANCE;
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
-        if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN)){
+        if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)) {
             int tailTime = entityAccessor.getServerData().getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN);
-            if (tailTime > 0){
-                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_tail_regeneration").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(tailTime, 0f)));
+            if (tailTime > 0) {
+                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_tail_regeneration").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(tailTime, 20f)));
             }
         }
-        if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN)){
+        if (entityAccessor.getServerData().contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT)) {
             int brushingTime = entityAccessor.getServerData().getInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN);
-            if (brushingTime > 0){
-                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_brushing").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(brushingTime, 0f)));
+            if (brushingTime > 0) {
+                iTooltip.add(Component.translatable("tooltip.immortalers_delight.sniffer_brushing").withStyle(ChatFormatting.GRAY).append(ThemeHelper.INSTANCE.seconds(brushingTime, 20f)));
             }
         }
     }
@@ -41,10 +41,10 @@ public enum SnifferProvider implements IEntityComponentProvider , IServerDataPro
     @Override
     public void appendServerData(CompoundTag compoundTag, EntityAccessor entityAccessor) {
         Sniffer sniffer = (Sniffer)entityAccessor.getEntity();
-        if (sniffer.getPersistentData().contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)){
+        if (sniffer.getPersistentData().contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)) {
             compoundTag.putInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,sniffer.getPersistentData().getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN));
         }
-        if (sniffer.getPersistentData().contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT)){
+        if (sniffer.getPersistentData().contains(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT)) {
             compoundTag.putInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN,sniffer.getPersistentData().getInt(SnifferEvent.SNIFFER_BRUSHING_COOLDOWN));
         }
     }

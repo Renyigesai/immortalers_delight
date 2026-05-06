@@ -1,0 +1,9 @@
+{
+  "type": "immortalers_delight:sniffer_biome_digging",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:gameplay/sniffer_digging"
+    }
+  ]
+}

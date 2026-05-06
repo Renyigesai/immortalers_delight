@@ -5,18 +5,8 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "immortalers_delight:contains_tea_leisamboo"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "immortalers_delight:sextlotus_seeds"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 1,
-          "name": "immortalers_delight:himekaido_seed"
+          "name": "immortalers_delight:contains_tea_leisamboo"
         }
       ]
     }

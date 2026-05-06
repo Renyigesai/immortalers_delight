@@ -12,16 +12,6 @@
           "type": "minecraft:item",
           "weight": 1,
           "name": "immortalers_delight:sextlotus_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "immortalers_delight:alfalfa_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
-          "name": "immortalers_delight:evolutcorn_grains"
         }
       ]
     }

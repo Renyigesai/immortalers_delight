@@ -5,17 +5,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 2,
+          "weight": 3,
           "name": "immortalers_delight:a_bush"
         },
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "immortalers_delight:kwat_wheat_seeds"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
           "name": "immortalers_delight:gelpitaya_seeds"
         }
       ]
