@@ -5,13 +5,24 @@
       "item": "immortalers_delight:contains_tea_leisamboo"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
   "result": [
     {
-      "count": 1,
-      "id": "immortalers_delight:leisamboo_tea"
+      "item": {
+        "id": "immortalers_delight:leisamboo_tea",
+        "count": 1
+      }
     }
   ]
 }

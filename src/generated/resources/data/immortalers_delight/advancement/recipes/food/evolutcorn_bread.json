@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "immortalers_delight:evolutcorn_paste"
-            ]
+            "items": "immortalers_delight:evolutcorn_paste"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "evolutcorn_bread",
-      "has_the_recipe"
+      "has_the_recipe",
+      "evolutcorn_bread"
     ]
   ],
   "rewards": {
     "recipes": [
       "immortalers_delight:evolutcorn_bread"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

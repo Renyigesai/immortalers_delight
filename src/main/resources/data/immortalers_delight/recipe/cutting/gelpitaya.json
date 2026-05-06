@@ -5,13 +5,24 @@
       "item": "immortalers_delight:gelpitaya"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
   "result": [
     {
-      "count": 2,
-      "id": "immortalers_delight:gelpitaya_flesh"
+      "item": {
+        "id": "immortalers_delight:gelpitaya_flesh",
+        "count": 2
+      }
     }
   ]
 }

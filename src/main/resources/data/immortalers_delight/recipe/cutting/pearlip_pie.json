@@ -5,13 +5,24 @@
       "item": "immortalers_delight:pearlip_pie"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
   "result": [
     {
-      "count": 4,
-      "id": "immortalers_delight:pearlip_pie_slice"
+      "item": {
+        "id": "immortalers_delight:pearlip_pie_slice",
+        "count": 4
+      }
     }
   ]
 }

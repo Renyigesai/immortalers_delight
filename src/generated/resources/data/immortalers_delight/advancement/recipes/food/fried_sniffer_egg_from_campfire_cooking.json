@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sniffer_egg"
-            ]
+            "items": "minecraft:sniffer_egg"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "fried_sniffer_egg",
-      "has_the_recipe"
+      "has_the_recipe",
+      "fried_sniffer_egg"
     ]
   ],
   "rewards": {
     "recipes": [
       "immortalers_delight:fried_sniffer_egg_from_campfire_cooking"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
