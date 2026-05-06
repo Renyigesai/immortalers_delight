@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "immortalers_delight:evolutcorn"
-            ]
+            "items": "immortalers_delight:evolutcorn"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "roast_evolutcorn",
-      "has_the_recipe"
+      "has_the_recipe",
+      "roast_evolutcorn"
     ]
   ],
   "rewards": {
     "recipes": [
       "immortalers_delight:roast_evolutcorn_from_campfire_cooking"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

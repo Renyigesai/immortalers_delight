@@ -5,13 +5,24 @@
       "item": "minecraft:pitcher_pod"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
   "result": [
     {
-      "count": 4,
-      "id": "immortalers_delight:pitcher_pod_petal"
+      "item": {
+        "id": "immortalers_delight:pitcher_pod_petal",
+        "count": 4
+      }
     }
   ]
 }

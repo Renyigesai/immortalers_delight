@@ -7,15 +7,28 @@
   ],
   "result": [
     {
-      "id": "immortalers_delight:stripped_himekaido_log"
+      "item": {
+        "id": "immortalers_delight:stripped_himekaido_log",
+        "count": 1
+      }
     },
     {
-      "id": "farmersdelight:tree_bark"
+      "item": {
+        "id": "farmersdelight:tree_bark",
+        "count": 1
+      }
     }
   ],
-  "sound": "minecraft:item.axe.strip",
-  "tool": {
-    "type": "farmersdelight:tool_action",
-    "action": "axe_strip"
-  }
+  "sound": {
+    "sound_id": "minecraft:item.axe.strip"
+  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "axe_strip"
+    },
+    {
+      "tag": "minecraft:axes"
+    }
+  ]
 }

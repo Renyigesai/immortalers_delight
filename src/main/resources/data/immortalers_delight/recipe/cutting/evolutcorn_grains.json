@@ -5,16 +5,30 @@
       "item": "immortalers_delight:evolutcorn"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
-  "result": [
+  "tool": [
     {
-      "count": 1,
-      "id": "immortalers_delight:evolutcorn_grains"
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
     },
     {
-      "id": "immortalers_delight:ancient_fiber"
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "immortalers_delight:evolutcorn_grains",
+        "count": 1
+      }
+    },
+    {
+      "item": {
+        "id": "immortalers_delight:ancient_fiber",
+        "count": 1
+      }
     }
   ]
 }

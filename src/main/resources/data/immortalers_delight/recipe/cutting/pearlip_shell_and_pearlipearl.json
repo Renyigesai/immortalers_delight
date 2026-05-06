@@ -5,15 +5,30 @@
       "item": "immortalers_delight:pearlip"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
-  "result": [
+  "tool": [
     {
-      "id": "immortalers_delight:pearlip_shell"
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
     },
     {
-      "id": "immortalers_delight:pearlipearl"
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "immortalers_delight:pearlip_shell",
+        "count": 1
+      }
+    },
+    {
+      "item": {
+        "id": "immortalers_delight:pearlipearl",
+        "count": 1
+      }
     }
   ]
 }

@@ -5,13 +5,24 @@
       "item": "immortalers_delight:kwat_wheat_toast"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_knives"
-  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
   "result": [
     {
-      "count": 3,
-      "id": "immortalers_delight:kwat_wheat_toast_slice"
+      "item": {
+        "id": "immortalers_delight:kwat_wheat_toast_slice",
+        "count": 3
+      }
     }
   ]
 }

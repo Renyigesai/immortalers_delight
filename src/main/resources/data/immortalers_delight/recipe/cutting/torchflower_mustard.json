@@ -5,13 +5,17 @@
       "item": "minecraft:torchflower"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_hammers"
-  },
+  "tool": [
+    {
+      "tag": "immortalers_delight:tools/immortal_hammers"
+    }
+  ],
   "result": [
     {
-      "count": 1,
-      "id": "immortalers_delight:torchflower_mustard"
+      "item": {
+        "id": "immortalers_delight:torchflower_mustard",
+        "count": 1
+      }
     }
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bowl"
+  },
+  "experience": 0.35,
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:torchflower_mustard"
+    },
+    {
+      "item": "minecraft:torchflower"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:mapo_doufu"
+  }
+}

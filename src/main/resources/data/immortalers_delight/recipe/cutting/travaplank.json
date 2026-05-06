@@ -5,17 +5,30 @@
       "item": "immortalers_delight:travastruggler_log"
     }
   ],
-  "tool": {
-    "tag": "forge:tools/axes"
-  },
-  "result": [
+  "tool": [
     {
-      "count": 4,
-      "id": "immortalers_delight:travaplank"
+      "type": "farmersdelight:item_ability",
+      "action": "axe_strip"
     },
     {
-      "count": 1,
-      "id": "immortalers_delight:ancient_fiber"
+      "tag": "minecraft:axes"
     }
-  ]
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "immortalers_delight:travaplank",
+        "count": 4
+      }
+    },
+    {
+      "item": {
+        "id": "immortalers_delight:ancient_fiber",
+        "count": 1
+      }
+    }
+  ],
+  "sound": {
+    "sound_id": "minecraft:item.axe.strip"
+  }
 }

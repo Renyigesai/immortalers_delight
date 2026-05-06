@@ -5,13 +5,17 @@
       "item": "minecraft:poisonous_potato"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_hammers"
-  },
+  "tool": [
+    {
+      "tag": "immortalers_delight:tools/immortal_hammers"
+    }
+  ],
   "result": [
     {
-      "count": 1,
-      "id": "immortalers_delight:mashed_poisonous_potato"
+      "item": {
+        "id": "immortalers_delight:mashed_poisonous_potato",
+        "count": 1
+      }
     }
   ]
 }

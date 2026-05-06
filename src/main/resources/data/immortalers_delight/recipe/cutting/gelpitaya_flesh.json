@@ -5,13 +5,17 @@
       "item": "immortalers_delight:gelpitaya_flesh"
     }
   ],
-  "tool": {
-    "tag": "immortalers_delight:tools/immortal_hammers"
-  },
+  "tool": [
+    {
+      "tag": "immortalers_delight:tools/immortal_hammers"
+    }
+  ],
   "result": [
     {
-      "count": 1,
-      "id": "immortalers_delight:gelpitaya_seeds"
+      "item": {
+        "id": "immortalers_delight:gelpitaya_seeds",
+        "count": 1
+      }
     }
   ]
 }

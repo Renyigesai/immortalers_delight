@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "immortalers_delight:raw_sniffer_steak"
-            ]
+            "items": "immortalers_delight:raw_sniffer_steak"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "cooked_sniffer_steak",
-      "has_the_recipe"
+      "has_the_recipe",
+      "cooked_sniffer_steak"
     ]
   ],
   "rewards": {
     "recipes": [
       "immortalers_delight:cooked_sniffer_steak_from_smoking"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
