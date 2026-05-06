@@ -1,9 +1,9 @@
-{
+﻿{
   "type": "farmersdelight:add_item",
   "conditions": [
     {
       "condition": "minecraft:entity_properties",
-      "entity": "killer",
+      "entity": "direct_attacker",
       "predicate": {
         "equipment": {
           "mainhand": {

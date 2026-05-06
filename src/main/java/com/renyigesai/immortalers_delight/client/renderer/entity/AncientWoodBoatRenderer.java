@@ -22,9 +22,9 @@ import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
 public class AncientWoodBoatRenderer extends EntityRenderer<Boat> {
-    private static final ResourceLocation BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_boat.png");
-    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_canopies_boat.png");
-    private static final ResourceLocation CHEST_BOAT_NO_CANOPIES_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_chest_boat.png");
+    private static final ResourceLocation BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/boat/ancient_boat.png");
+    private static final ResourceLocation CHEST_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_canopies_boat.png");
+    private static final ResourceLocation CHEST_BOAT_NO_CANOPIES_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/chest_boat/ancient_chest_boat.png");
 
     private final boolean hasChest;
     private ListModel<Boat> boatModel;
@@ -66,7 +66,7 @@ public class AncientWoodBoatRenderer extends EntityRenderer<Boat> {
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
         this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(getTextureLocation(boat)));
-        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, -1);
         if (!boat.isUnderWater()) {
             VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
             if (this.boatModel instanceof WaterPatchModel waterPatchModel) {

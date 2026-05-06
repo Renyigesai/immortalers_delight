@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion.immortaleffects;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
@@ -17,9 +18,9 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.datautil.EffectData;
@@ -31,17 +32,15 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class StunEffect {
     /**
      * 这个类能对实体进行标记（以及解除标记），
@@ -101,11 +100,9 @@ public class StunEffect {
      * @param evt
      */
     @SubscribeEvent
-    public static void onTick(@Nonnull TickEvent.LevelTickEvent evt) {
-        if (evt.phase.equals(TickEvent.Phase.START)) {
-            if (entityHasEffect.size() > 0 && TimekeepingTask.getImmortalTickTime() % 1000 * (entityHasEffect.size() + 1) <= 50) {
-                CheckAndClearMap(evt.level);
-            }
+    public static void onTick(@Nonnull LevelTickEvent.Pre evt) {
+        if (entityHasEffect.size() > 0 && TimekeepingTask.getImmortalTickTime() % 1000 * (entityHasEffect.size() + 1) <= 50) {
+            CheckAndClearMap(evt.getLevel());
         }
     }
 
@@ -134,9 +131,11 @@ public class StunEffect {
      * @param event
      */
     @SubscribeEvent
-    public static void onTick(LivingEvent.LivingTickEvent event) {
+    public static void onTick(EntityTickEvent.Post event) {
+        if (!(event.getEntity() instanceof LivingEntity entity)) {
+            return;
+        }
         /* 判断当前实体是否合法 */
-        LivingEntity entity = event.getEntity();
         if (entity == null || entity.isRemoved() || !entity.isAlive()) {return;}
         if (entity.level().isClientSide()) {return;}
         /* 获取当前实体的效果结束时刻 */
@@ -167,13 +166,12 @@ public class StunEffect {
     }
 
     @SubscribeEvent
-    public static void undoStunningAttack(LivingDamageEvent event) {
+    public static void undoStunningAttack(LivingDamageEvent.Pre event) {
         LivingEntity hurtOne = event.getEntity();
         if (hurtOne.level().isClientSide()) return;
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             if (entityHasEffect.get(attacker.getUUID()) != null) {
-                event.setAmount(0.0F);
-                event.setCanceled(true);
+                event.setNewDamage(0.0F);
             }
         }
     }

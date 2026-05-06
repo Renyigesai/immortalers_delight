@@ -6,8 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
 
-import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.food.FoodProperties;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
@@ -25,19 +26,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -68,9 +66,10 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
         return dogFoodProperties;
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
-        if ((Boolean)Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             tooltip.add(Component.empty());
             MutableComponent textWhenFeeding = TextUtils.getTranslation("tooltip.dog_food.when_feeding", new Object[0]);
             tooltip.add(textWhenFeeding.withStyle(ChatFormatting.GRAY));
@@ -80,8 +79,8 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
             Item item = stack.getItem();
             List<MobEffectInstance> effects = Lists.newArrayList();
             if (item instanceof ImmortalersDogFoodItem immortalersDogFoodItem && immortalersDogFoodItem.getDogFoodProperties() != null) {
-                for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.getDogFoodProperties().getEffects()) {
-                    effects.add(pair.getFirst());
+                for (FoodProperties.PossibleEffect pe : immortalersDogFoodItem.getDogFoodProperties().effects()) {
+                    effects.add(pe.effect());
                 }
             }
             for(Iterator var6 = effects.iterator(); var6.hasNext(); tooltip.add(effectDescription.withStyle(effect.getCategory().getTooltipFormatting()))) {
@@ -89,13 +88,13 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
                 effectDescription = Component.literal(" ");
                 MutableComponent effectName = Component.translatable(effectInstance.getDescriptionId());
                 effectDescription.append(effectName);
-                effect = effectInstance.getEffect();
+                effect = effectInstance.getEffect().value();
                 if (effectInstance.getAmplifier() > 0) {
                     effectDescription.append(" ").append(Component.translatable("potion.potency." + effectInstance.getAmplifier()));
                 }
 
                 if (effectInstance.getDuration() > 20) {
-                    effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(")");
+                    effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F, 20.0F)).append(")");
                 }
             }
 
@@ -113,9 +112,7 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
     }
 
     @EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Bus.FORGE
-    )
+            modid = ImmortalersDelightMod.MODID)
     public static class DogFoodEvent {
         public DogFoodEvent() {
         }
@@ -126,15 +123,15 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
             Entity target = event.getTarget();
             ItemStack itemStack = event.getItemStack();
             if (target instanceof LivingEntity entity) {
-                if (target.getType().is(ModTags.EntityTypes.DOG_FOOD_USERS)) {
+                if (target.getType().is(ImmortalersDelightTags.FARMERSDELIGHT_DOG_FOOD_USERS)) {
                     boolean isTameable = entity instanceof TamableAnimal;
                     if (entity.isAlive() && (!isTameable || ((TamableAnimal)entity).isTame()) && itemStack.getItem() instanceof ImmortalersDogFoodItem  immortalersDogFoodItem) {
                         List<MobEffectInstance> effects = Lists.newArrayList();
                         if (immortalersDogFoodItem.getDogFoodProperties() != null) {
-                            for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.getDogFoodProperties().getEffects()) {
+                            for (FoodProperties.PossibleEffect pe : immortalersDogFoodItem.getDogFoodProperties().effects()) {
                                 target.level();
-                                if (!target.level().isClientSide && pair.getFirst() != null && entity.getRandom().nextFloat() < pair.getSecond()) {
-                                    effects.add(pair.getFirst());
+                                if (!target.level().isClientSide && entity.getRandom().nextFloat() < pe.probability()) {
+                                    effects.add(pe.effect());
                                 }
                             }
                         }

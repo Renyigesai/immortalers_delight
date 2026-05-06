@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,7 +54,14 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
      * @param pOffsetZ Z轴运动偏移量
      */
     public KiBlastEntity(Level pLevel, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ) {
-        super(ImmortalersDelightEntities.KI_BLAST.get(), pShooter, pOffsetX, pOffsetY, pOffsetZ, pLevel);
+        super(
+                ImmortalersDelightEntities.KI_BLAST.get(),
+                pShooter.getX(),
+                pShooter.getY(),
+                pShooter.getZ(),
+                new Vec3(pOffsetX, pOffsetY, pOffsetZ),
+                pLevel);
+        this.setOwner(pShooter);
     }
 
     @Override
@@ -116,14 +124,6 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
                 damage = Math.max(damage, 5.0f) * 1.3f;
                 if (isDangerous()) damage *= 1.7F;
                 isHurtSuccess = hitEntity.hurt(this.damageSources().explosion(this, livingOwner), damage);
-
-                // 若伤害成功触发
-                if (isHurtSuccess) {
-                    // 若被命中实体仍存活，执行附魔相关的附加伤害效果（如火焰、锋利等）
-                    if (hitEntity.isAlive()) {
-                        this.doEnchantDamageEffects(livingOwner, hitEntity);
-                    }
-                }
             }
             // 分支2：发射者不是活体实体（特殊场景），造成5.0F的魔法伤害
             else {
@@ -184,9 +184,10 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
      * 定义该实体的同步数据（原版重写方法，实体初始化时调用）
      * 用于注册需要在服务端和客户端之间同步的实体数据，此处注册危险级标记
      */
-    protected void defineSynchedData() {
-        // 初始化同步数据，默认该凋灵头颅为非危险级（false）
-        this.entityData.define(DATA_DANGEROUS, false);
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_DANGEROUS, false);
     }
 
     /**

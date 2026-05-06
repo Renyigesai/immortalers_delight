@@ -21,7 +21,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
+import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -73,7 +76,7 @@ public class LivingDamageUtil {
     }
     //实现玩家盾牌扣耐久
     public static void hurtCurrentlyUsedShield(Player player, float pDamage) {
-        if (player.getUseItem().canPerformAction(net.minecraftforge.common.ToolActions.SHIELD_BLOCK)) {
+        if (player.getUseItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
             if (!player.level().isClientSide) {
                 player.awardStat(Stats.ITEM_USED.get(player.getUseItem().getItem()));
             }
@@ -81,11 +84,9 @@ public class LivingDamageUtil {
             if (pDamage >= 3.0F) {
                 int i = 1 + Mth.floor(pDamage);
                 InteractionHand interactionhand = player.getUsedItemHand();
-                player.getUseItem().hurtAndBreak(i, player, (p_219739_) -> {
-                    p_219739_.broadcastBreakEvent(interactionhand);
-                    net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, player.getUseItem(), interactionhand);
-                    player.stopUsingItem(); // Forge: fix MC-168573
-                });
+                EquipmentSlot shieldSlot = interactionhand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                player.getUseItem().hurtAndBreak(i, player, shieldSlot);
+                player.stopUsingItem(); // Forge: fix MC-168573
                 if (player.getUseItem().isEmpty()) {
                     if (interactionhand == InteractionHand.MAIN_HAND) {
                         player.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
@@ -105,7 +106,6 @@ public class LivingDamageUtil {
     }
     public static boolean hurtEntity(LivingEntity hurtOne, DamageSource source, float pDamage) {
         float damage = pDamage;
-        if (!net.minecraftforge.common.ForgeHooks.onLivingAttack(hurtOne, source, damage)) return false;
         if (hurtOne.level().isClientSide) {
             return false;
         } else if (hurtOne.isDeadOrDying()) {
@@ -120,9 +120,10 @@ public class LivingDamageUtil {
             boolean flag = false;
             float f1 = 0.0F;
             if (damage > 0.0F && hurtOne.isDamageSourceBlocked(source)) {
-                net.minecraftforge.event.entity.living.ShieldBlockEvent ev = net.minecraftforge.common.ForgeHooks.onShieldBlock(hurtOne, source, damage);
+                DamageContainer shieldContainer = new DamageContainer(source, damage);
+                LivingShieldBlockEvent ev = CommonHooks.onDamageBlock(hurtOne, shieldContainer, hurtOne.isDamageSourceBlocked(source));
                 if (!ev.isCanceled()) {
-                    if (ev.shieldTakesDamage() && hurtOne instanceof Player player) hurtCurrentlyUsedShield(player,damage);
+                    if (ev.shieldDamage() > 0.0F && hurtOne instanceof Player player) hurtCurrentlyUsedShield(player, damage);
                     f1 = ev.getBlockedDamage();
                     damage -= ev.getBlockedDamage();
                     if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
@@ -131,7 +132,7 @@ public class LivingDamageUtil {
                             hurtOne.knockback(0.5D, hurtOne.getX() - attacker.getX(), hurtOne.getZ() - attacker.getZ());
                             if (attacker instanceof Ravager) knockbackLikeRavager(attacker,hurtOne);
                             if (attacker instanceof HoglinBase) knockbackLikeHogLin(attacker,hurtOne);
-                            if (hurtOne instanceof Player player && willBeDisableShield(attacker,hurtOne,attacker.getMainHandItem())) player.disableShield(true);
+                            if (hurtOne instanceof Player player && willBeDisableShield(attacker,hurtOne,attacker.getMainHandItem())) player.disableShield();
                         }
                     }
 
@@ -228,7 +229,8 @@ public class LivingDamageUtil {
 
     public static void actuallyHurtLivingEntity(LivingEntity hurtOne, DamageSource pDamageSource, float pDamageAmount) {
         if (!hurtOne.isInvulnerableTo(pDamageSource)) {
-            pDamageAmount = net.minecraftforge.common.ForgeHooks.onLivingHurt(hurtOne, pDamageSource, pDamageAmount);
+            DamageContainer damageContainer = new DamageContainer(pDamageSource, pDamageAmount);
+            pDamageAmount = CommonHooks.onLivingDamagePre(hurtOne, damageContainer);
             if (pDamageAmount <= 0) return;
             //pDamageAmount = hurtOne.getDamageAfterArmorAbsorb(pDamageSource, pDamageAmount);
             //pDamageAmount = hurtOne.getDamageAfterMagicAbsorb(pDamageSource, pDamageAmount);
@@ -243,7 +245,6 @@ public class LivingDamageUtil {
                 }
             }
 
-            f1 = net.minecraftforge.common.ForgeHooks.onLivingDamage(hurtOne, pDamageSource, f1);
             if (f1 != 0.0F) {
                 hurtOne.getCombatTracker().recordDamage(pDamageSource, f1);
                 hurtOne.setHealth(hurtOne.getHealth() - f1);
@@ -253,91 +254,47 @@ public class LivingDamageUtil {
         }
     }
 
+    // 缓存Method对象，避免每次反射获取，提升性能
+    private static Method ACTUALLY_HURT_METHOD;
 
-
-    // ====================== 修复： Forge 混淆兼容 ======================
-    private static final Method ACTUALLY_HURT_METHOD;
-
+    // 静态代码块初始化Method（仅执行一次）
     static {
-        Method method = null;
         try {
-            // 1. 开发环境：尝试原名
-            method = LivingEntity.class.getDeclaredMethod("actuallyHurt", DamageSource.class, float.class);
+            // 获取actuallyHurt方法（参数：DamageSource + float）
+            ACTUALLY_HURT_METHOD = LivingEntity.class.getDeclaredMethod(
+                    "actuallyHurt",
+                    DamageSource.class,
+                    float.class
+            );
+            // 突破protected访问限制
+            ACTUALLY_HURT_METHOD.setAccessible(true);
         } catch (NoSuchMethodException e) {
-            try {
-                // 2. 生产/打包/整合包：尝试混淆名 m_6469_
-                method = LivingEntity.class.getDeclaredMethod("m_6475_", DamageSource.class, float.class);
-            } catch (NoSuchMethodException ex) {
-                // 3. 都找不到 → 不抛异常！避免类初始化崩溃
-                method = null;
-                System.err.println("警告：无法找到 actuallyHurt 方法，将降级使用 hurt()");
-            }
-        }
-
-        if (method != null) {
-            method.setAccessible(true);
-        }
-        ACTUALLY_HURT_METHOD = method;
-    }
-
-    // ====================== 修复：安全调用方法 ======================
-    public static void callActuallyHurt(LivingEntity entity, DamageSource source, float amount) {
-        if (entity == null || source == null) return;
-        if (entity.isDeadOrDying()) return;
-
-        if (ACTUALLY_HURT_METHOD != null) {
-            try {
-                ACTUALLY_HURT_METHOD.invoke(entity, source, amount);
-            } catch (Exception e) {
-                // 降级兜底
-                entity.hurt(source, amount);
-            }
-        } else {
-            // 兜底
-            entity.hurt(source, amount);
+            // 打印异常并抛出运行时异常，方便调试
+            e.printStackTrace();
+            throw new RuntimeException("无法找到LivingEntity的actuallyHurt方法", e);
         }
     }
-//    // 缓存Method对象，避免每次反射获取，提升性能
-//    private static Method ACTUALLY_HURT_METHOD;
-//
-//    // 静态代码块初始化Method（仅执行一次）
-//    static {
-//        try {
-//            // 获取actuallyHurt方法（参数：DamageSource + float）
-//            ACTUALLY_HURT_METHOD = LivingEntity.class.getDeclaredMethod(
-//                    "actuallyHurt",
-//                    DamageSource.class,
-//                    float.class
-//            );
-//            // 突破protected访问限制
-//            ACTUALLY_HURT_METHOD.setAccessible(true);
-//        } catch (NoSuchMethodException e) {
-//            // 打印异常并抛出运行时异常，方便调试
-//            e.printStackTrace();
-//            throw new RuntimeException("无法找到LivingEntity的actuallyHurt方法", e);
-//        }
-//    }
-//
-//    /**
-//     * 安全调用actuallyHurt方法
-//     * @param entity 目标实体（如玩家、僵尸等LivingEntity子类）
-//     * @param damageSource 伤害源（如GENERIC、FALL、ATTACK等）
-//     * @param damageAmount 伤害值（浮点型，如5.0F表示5点伤害）
-//     */
-//    public static void callActuallyHurt(LivingEntity entity, DamageSource damageSource, float damageAmount) {
-//        if (entity == null || damageSource == null) {
-//            throw new IllegalArgumentException("实体或伤害源不能为null");
-//        }
-//
-//        try {
-//            // 调用方法：第一个参数是实体实例，后续是方法参数
-//            ACTUALLY_HURT_METHOD.invoke(entity, damageSource, damageAmount);
-//        } catch (IllegalAccessException e) {
-//            throw new RuntimeException("无法访问actuallyHurt方法", e);
-//        } catch (InvocationTargetException e) {
-//            // 捕获方法内部抛出的异常（如实体已死亡等）
-//            throw new RuntimeException("调用actuallyHurt时方法内部出错", e.getTargetException());
-//        }
-//    }
+
+    /**
+     * 安全调用actuallyHurt方法
+     * @param entity 目标实体（如玩家、僵尸等LivingEntity子类）
+     * @param damageSource 伤害源（如GENERIC、FALL、ATTACK等）
+     * @param damageAmount 伤害值（浮点型，如5.0F表示5点伤害）
+     */
+    public static void callActuallyHurt(LivingEntity entity, DamageSource damageSource, float damageAmount) {
+        if (entity == null || damageSource == null) {
+            throw new IllegalArgumentException("实体或伤害源不能为null");
+        }
+
+        try {
+            // 调用方法：第一个参数是实体实例，后续是方法参数
+            ACTUALLY_HURT_METHOD.invoke(entity, damageSource, damageAmount);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("无法访问actuallyHurt方法", e);
+        } catch (InvocationTargetException e) {
+            // 捕获方法内部抛出的异常（如实体已死亡等）
+            throw new RuntimeException("调用actuallyHurt时方法内部出错", e.getTargetException());
+        }
+    }
 
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity;
 
 public class HugeSmokeParticleModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation HUGE_SMOKE_PARTICLE = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "huge_smoke_particle"), "main");
+	public static final ModelLayerLocation HUGE_SMOKE_PARTICLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "huge_smoke_particle"), "main");
 	private final ModelPart all;
 	private final ModelPart layer;
 	private final ModelPart core;
@@ -47,8 +47,8 @@ public class HugeSmokeParticleModel<T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
 	}
 
 	public ModelPart getLayer() {

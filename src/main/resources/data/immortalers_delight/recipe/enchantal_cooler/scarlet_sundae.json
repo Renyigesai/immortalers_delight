@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:scarlet_gelato"
+    },
+    {
+      "item": "immortalers_delight:himekaido_jelly"
+    }
+  ],
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:scarlet_sundae"
+  }
+}

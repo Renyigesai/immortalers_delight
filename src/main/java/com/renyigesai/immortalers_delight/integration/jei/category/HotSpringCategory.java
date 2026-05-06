@@ -22,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 
 public class HotSpringCategory implements IRecipeCategory<HotSpringRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(ImmortalersDelightMod.MODID, "hot_spring");
+    public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "hot_spring");
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/hot_spring_jei.png");
+            ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/hot_spring_jei.png");
 
     public final IDrawable back;
     public final IDrawable icon;

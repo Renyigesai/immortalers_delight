@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.event;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.block.food.EmptyPlateBlock;
@@ -11,6 +12,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,13 +28,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class BoatsEventHelper {
     @SubscribeEvent
     public static void buildLargeBoat(PlayerInteractEvent.EntityInteractSpecific event) {
@@ -59,7 +61,7 @@ public class BoatsEventHelper {
             Player player = event.getEntity();
             Level level = player.level();
             if (!(level instanceof ServerLevel serverLevel)) return;
-            ResourceLocation entityId = ForgeRegistries.ENTITY_TYPES.getKey(chestboat.getType());
+            ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(chestboat.getType());
             if (entityId == null || level.isClientSide) return;
             if (entityId.toString().equals(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.getId().toString())
                     && chestboat.getBoatVariant() == ImmortalersChestBoat.Type.ANCIENT_WOOD) {
@@ -116,9 +118,8 @@ public class BoatsEventHelper {
                         level.setBlockAndUpdate(blockpos1, ImmortalersDelightBlocks.EMPTY_PLATE.get().defaultBlockState());
                         if (!player.getAbilities().instabuild) {
                             player.getItemInHand(otherHand).shrink(1);
-                            itemStack.hurtAndBreak(2, serverPlayer, (action) -> {
-                                action.broadcastBreakEvent(event.getHand());
-                            });
+                            EquipmentSlot spoonSlot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                            itemStack.hurtAndBreak(2, serverPlayer, spoonSlot);
                         }
                         level.playSound(null,blockPos,SoundEvents.WOOL_PLACE,SoundSource.BLOCKS);
                     }

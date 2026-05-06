@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:custard_tart_pastry"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "immortalers_delight:pearlipearl_tart"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

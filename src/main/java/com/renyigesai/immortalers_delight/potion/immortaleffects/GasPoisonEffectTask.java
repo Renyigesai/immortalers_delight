@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 //
 //public class GasPoisonEffectTask extends ScheduledExecuteTask {
-//    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.GAS_POISON.get();
+//    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.GAS_POISON;
 //    private final LivingEntity pLivingEntity;
 //    private final Long expireTime;
 //    /*
@@ -118,7 +118,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //        if (pEntity.getHealth() - damage > 0) {
 //            if (tick % (32 >> amplifier) == 0){//tick % (32 >> amplifier) == 0) pEntity.setHealth(pEntity.getHealth() - damage
 //                pEntity.invulnerableTime = 0;
-//                pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))), damage);
+//                pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("immortalers_delight:gas")))), damage);
 //            }
 //            /*
 //            瓦斯毒派生其他DeBuff，通过Map记录DeBuff时间以使得派生的DeBuff也无法通过常规手段解掉

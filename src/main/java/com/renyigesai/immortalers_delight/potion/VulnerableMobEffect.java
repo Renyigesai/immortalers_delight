@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -10,10 +11,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -65,52 +65,33 @@ public class VulnerableMobEffect extends BaseMobEffect {
 
     //====================实际功能部分，实现buff本身的易伤功能与次数限制系统，以及清表========================//
     @Override
-    public void removeAttributeModifiers(@NotNull LivingEntity pLivingEntity, @NotNull AttributeMap pAttributeMap, int pAmplifier) {
-
-//        if (pLivingEntity.level().isClientSide || !entitiesWithFrequencyLimit.containsKey(pLivingEntity.getUUID())) {
-//            super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
-//            return;
-//        }
-//        if (pLivingEntity.isAlive()) {
-//            removeVulnerableEntityWithFrequencyLimit(pLivingEntity);
-//        }
-        super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+    public void removeAttributeModifiers(@NotNull AttributeMap pAttributeMap) {
+        super.removeAttributeModifiers(pAttributeMap);
     }
 
     @Override
-    public void addAttributeModifiers(@NotNull LivingEntity pLivingEntity, @NotNull AttributeMap pAttributeMap, int pAmplifier) {
-
-//        if (pLivingEntity.level().isClientSide || entitiesWithFrequencyLimit.containsKey(pLivingEntity.getUUID())) {
-//            super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
-//            return;
-//        }
-//        if (pLivingEntity.isAlive()) {
-//            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-//            int lv = (isPowerful || pAmplifier >= 255) ? 255 : pAmplifier + 1;
-//            addVulnerableEntityWithFrequencyLimit(pLivingEntity, (byte) lv);
-//        }
-        super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+    public void addAttributeModifiers(@NotNull AttributeMap pAttributeMap, int pAmplifier) {
+        super.addAttributeModifiers(pAttributeMap, pAmplifier);
     }
 
     @Override
-    public void applyEffectTick(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
+    public boolean applyEffectTick(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
         //super.applyEffectTick(pLivingEntity, pAmplifier);
-    }
-
-    @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @Override
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+        return true;
+    }
+
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class VulnerablePotionEffect {
 
         @SubscribeEvent
-        public static void onCreatureHurt(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)) {
+        public static void onCreatureHurt(LivingDamageEvent.Pre evt) {
+            if (evt.getSource().is(DamageTypeTags.BYPASSES_EFFECTS)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
@@ -121,18 +102,18 @@ public class VulnerableMobEffect extends BaseMobEffect {
             }
 
             if (!hurtOne.level().isClientSide && attacker != null) {
-                MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE.get());
+                MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.VULNERABLE);
                 if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect){
                     int amplifier = effect.getTruthUsingAmplifier(thisEffect.getAmplifier());
                     int number = (isPowerful || amplifier >= 255) ? 255 : amplifier + 1;
                     int lv = amplifier + 1;
                     //if (isVulnerableHasLimit(hurtOne)) {
                     //    if (getEntitiesWithFrequencyLimit().get(hurtOne.getUUID()) > 0) {
-                            evt.setAmount(evt.getAmount() * (lv * 0.5F + 1));
+                            evt.setNewDamage(evt.getNewDamage() * (lv * 0.5F + 1));
                     //        getEntitiesWithFrequencyLimit().put(hurtOne.getUUID(), (byte) (entitiesWithFrequencyLimit.get(hurtOne.getUUID()) - 1));
                     //    } else {
                     //        isNeedClear(true);
-                    //        hurtOne.removeEffect(ImmortalersDelightMobEffect.VULNERABLE.get());
+                    //        hurtOne.removeEffect(ImmortalersDelightMobEffect.VULNERABLE);
                     //        removeVulnerableEntityWithFrequencyLimit(hurtOne);
                     //    }
                     //} else addVulnerableEntityWithFrequencyLimit(hurtOne, (byte) number);

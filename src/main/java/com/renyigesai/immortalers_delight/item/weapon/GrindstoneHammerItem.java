@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -50,9 +51,8 @@ public class GrindstoneHammerItem extends ImmortalersHammerItem {
             ItemStack heldStack = player.getUseItem();
             if (heldStack.getItem() instanceof GrindstoneHammerItem thisHammer) {
                 if (!player.level().isClientSide()) {
-                    pStack.hurtAndBreak(2, player, (p_289501_) -> {
-                        p_289501_.broadcastBreakEvent(player.getUsedItemHand());
-                    });
+                    EquipmentSlot breakSlot = player.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                    pStack.hurtAndBreak(2, player, breakSlot);
                     player.openMenu(thisHammer.getMenuProvider(player.level(), new BlockPos(player.getOnPos())));
                     player.awardStat(Stats.INTERACT_WITH_GRINDSTONE);
                 }
@@ -91,7 +91,7 @@ public class GrindstoneHammerItem extends ImmortalersHammerItem {
 //        ItemStack item = player.getItemInHand(hand);
 //        InteractionHand otherhand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 //        ItemStack otheritem = player.getItemInHand(otherhand);
-//        if (otheritem.canPerformAction(net.minecraftforge.common.ToolActions.SHIELD_BLOCK) && !player.getCooldowns().isOnCooldown(otheritem.getItem())) {
+//        if (otheritem.canPerformAction(net.neoforged.neoforge.common.ToolActions.SHIELD_BLOCK) && !player.getCooldowns().isOnCooldown(otheritem.getItem())) {
 //            return InteractionResultHolder.fail(item);
 //        }else{
 //            player.startUsingItem(hand);

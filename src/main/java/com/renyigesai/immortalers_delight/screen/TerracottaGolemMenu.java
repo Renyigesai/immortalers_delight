@@ -3,7 +3,7 @@ package com.renyigesai.immortalers_delight.screen;
 
 import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,7 +17,7 @@ public class TerracottaGolemMenu extends AbstractContainerMenu {
     private final TerracottaGolem horse;
 
     // 客户端专用构造函数
-    public TerracottaGolemMenu(int id, Inventory inventory, FriendlyByteBuf buf)
+    public TerracottaGolemMenu(int id, Inventory inventory, RegistryFriendlyByteBuf buf)
     {
         this(id,inventory, (TerracottaGolem)inventory.player.level().getEntity(buf.readVarInt())); // 反序列化实体id，再调用统一构造
     }

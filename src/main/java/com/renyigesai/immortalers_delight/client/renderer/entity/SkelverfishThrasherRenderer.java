@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SkelverfishThrasherRenderer<T extends LivingEntity> extends MobRenderer<SkelverfishThrasher, SkelverfishThrasherModel<SkelverfishThrasher>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_thrasher.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/skelverfish_thrasher.png");
 
     public SkelverfishThrasherRenderer(EntityRendererProvider.Context pContext) {
         super(pContext,

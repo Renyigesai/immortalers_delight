@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -15,12 +16,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 public class UpSideDownMobEffect extends BaseMobEffect {
     public UpSideDownMobEffect() {
@@ -61,15 +62,13 @@ public class UpSideDownMobEffect extends BaseMobEffect {
     public boolean isDurationEffectTickInControl(int duration, int amplifier) {return true; }
 
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class UpSideDownEvents {
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addJumpSpeed(LivingEvent.LivingJumpEvent event) {
             LivingEntity entity = event.getEntity();
-            MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN.get());
+            MobEffectInstance thisEffect = entity.getEffect(ImmortalersDelightMobEffect.UP_SIDE_DOWN);
             if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect && (entity instanceof Player || !entity.level().isClientSide())) {
                 int lv = 1;
                 MobEffectInstance jumpEffect = entity.getEffect(MobEffects.JUMP);

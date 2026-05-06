@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class WarpedLaurelHitBoxRenderer extends EntityRenderer<WarpedLaurelHitBoxEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/projectile/warped_laurel_hitbox.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/projectile/warped_laurel_hitbox.png");
     private final WarpedLaurelHitBoxModel<WarpedLaurelHitBoxEntity> model;
 
     public WarpedLaurelHitBoxRenderer(EntityRendererProvider.Context pContext) {
@@ -56,7 +56,7 @@ public class WarpedLaurelHitBoxRenderer extends EntityRenderer<WarpedLaurelHitBo
                     vertexconsumer = pBuffer.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pEntity)));
                 }
             } else vertexconsumer = pBuffer.getBuffer(this.model.renderType(TEXTURE_LOCATION));
-            this.model.renderToBuffer(pPoseStack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderToBuffer(pPoseStack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, -1);
             pPoseStack.popPose();
 
             super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);

@@ -1,8 +1,11 @@
 package com.renyigesai.immortalers_delight.block.tangyuan;
+import net.neoforged.fml.common.EventBusSubscriber;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.recipe.TangyuanRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -32,12 +36,12 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.tag.ModTags;
+
+import static net.minecraft.world.level.block.Block.simpleCodec;
 
 /**
  * 附魔冷却器方块类，继承自带实体的方块基类BaseEntityBlock
@@ -49,6 +53,8 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
     // 方块的碰撞箱形状定义：从(2,0,2)到(14,9,14)的立方体（基于16x16x16方块坐标系统）
     private static final VoxelShape BOX = box(2.0, 0, 2.0, 14.0, 9.0, 14.0);
 
+    public static final MapCodec<UnfinishedTangyuanBlock> CODEC = simpleCodec(UnfinishedTangyuanBlock::new);
+
     /**
      * 构造方法，初始化方块属性
      * @param p_49224_ 方块的属性设置（硬度、抗性等）
@@ -57,6 +63,11 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
         super(p_49224_);
         // 注册默认方块状态，默认朝向为北方
         this.registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     public static boolean canBePlacedAt(Level level, BlockPos blockpos1, Direction horizontalDirection) {
@@ -124,17 +135,7 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
         }
     }
 
-    /**
-     * 处理玩家与方块的交互逻辑
-     * @param state 方块状态
-     * @param level 世界对象
-     * @param pos 方块位置
-     * @param player 交互的玩家
-     * @param hand 玩家使用的手（主手/副手）
-     * @param hit 碰撞结果
-     * @return 交互结果（成功/失败等）
-     */
-    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult tangyuanInteract(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity tileEntity = level.getBlockEntity(pos);
         // 确保方块实体是切菜板实体
         if (tileEntity instanceof TangyuanBlockEntity tangyuanBlockEntity) {
@@ -156,10 +157,13 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
             else if (tangyuanBlockEntity.tryInput(heldStack, true) || tangyuanBlockEntity.tryInput(offhandStack, true)) {
                 // 处理副手物品的特殊情况（如装备类物品不能放置）
                 if (!offhandStack.isEmpty()) {
-                    if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
+                    if (hand.equals(InteractionHand.MAIN_HAND)
+                            && !offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT)
+                            && !(heldStack.getItem() instanceof BlockItem)) {
                         return InteractionResult.PASS;
                     }
-                    if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT)) {
+                    if (hand.equals(InteractionHand.OFF_HAND)
+                            && offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT)) {
                         return InteractionResult.PASS;
                     }
                 }
@@ -199,6 +203,16 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
         }
 
         return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return BlockItemInteraction.from(level, tangyuanInteract(state, level, pos, player, hand, hit));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return tangyuanInteract(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 
 //    public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
@@ -299,10 +313,8 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
     /**
      * 工具雕刻事件监听器，处理潜行时使用工具在切菜板上雕刻的逻辑
      */
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class ToolCarvingEvent {
         public ToolCarvingEvent() {
         }

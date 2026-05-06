@@ -89,7 +89,7 @@ public class PercussionProber extends Monster implements TraceableEntity {
      * @return 眼睛高度
      */
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
-        return pDimensions.height - 0.28125F;
+        return pDimensions.height() - 0.28125F;
     }
 
     /**
@@ -157,9 +157,10 @@ public class PercussionProber extends Monster implements TraceableEntity {
     /**
      * 定义需要同步的网络数据（客户端与服务器同步）
      */
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0); // 初始化状态标记为 0
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_FLAGS_ID, (byte)0); // 初始化状态标记为 0
     }
 
     /**
@@ -325,15 +326,15 @@ public class PercussionProber extends Monster implements TraceableEntity {
      * @param pDifficulty 难度实例
      * @param pReason 生成类型
      * @param pSpawnData 生成数据
-     * @param pDataTag NBT 标签
      * @return 生成数据
      */
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty); // 生成默认装备
-        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty); // 生成装备附魔
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.populateDefaultEquipmentEnchantments(pLevel, randomsource, pDifficulty); // 生成装备附魔
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     /**

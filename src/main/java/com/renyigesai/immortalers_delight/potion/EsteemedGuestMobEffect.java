@@ -1,11 +1,14 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.LivingDamageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -28,23 +31,22 @@ import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
+import net.minecraft.resources.ResourceLocation;
 public class EsteemedGuestMobEffect extends BaseMobEffect {
     public static final String FRIEND_TO = ImmortalersDelightMod.MODID + "_esteemed_guest_friend_to";
-    public static final UUID ESTEEMED_GUEST_FOLLOW_MOD = UUID.fromString("58e46d04-d6a8-4397-a1a9-2f09c919b388");
-    public static final UUID ESTEEMED_GUEST_HEALTH_MOD = UUID.fromString("2f945b07-f673-4c32-abbb-eaa86f15787f");
+    public static final ResourceLocation ESTEEMED_GUEST_FOLLOW_MOD_ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "esteemed_guest_follow");
+    public static final ResourceLocation ESTEEMED_GUEST_HEALTH_MOD_ID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "esteemed_guest_health");
     public EsteemedGuestMobEffect() {
         super(MobEffectCategory.NEUTRAL, -39424);
     }
@@ -55,20 +57,18 @@ public class EsteemedGuestMobEffect extends BaseMobEffect {
     }
 
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class EsteemedGuestPotionEffect {
         private static final int[] LEVEL_UP = new int[] {5, 10, 15, 18, 20, 22, 23, 24};
         @SubscribeEvent
-        public static void PiglinIgnore(LivingEvent.LivingTickEvent event) {
+        public static void PiglinIgnore(EntityTickEvent.Post event) {
 
             if (!event.getEntity().level().isClientSide() && event.getEntity() instanceof AbstractPiglin piglin) {
                 if (piglin.getTarget() != null) {
                     boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                     boolean flag = isPowerful || piglin.getLastHurtByMob() != piglin.getTarget();
-                    boolean flag2 = piglin.getTarget().hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get());
+                    boolean flag2 = piglin.getTarget().hasEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST);
                     if (piglin.getPersistentData().contains(FRIEND_TO, Tag.TAG_INT_ARRAY)) {
                         if (piglin.getPersistentData().getUUID(FRIEND_TO).toString().equals(piglin.getTarget().getUUID().toString())) {
                             flag2 = true;
@@ -86,25 +86,25 @@ public class EsteemedGuestMobEffect extends BaseMobEffect {
         }
 
         @SubscribeEvent
-        public static void callPiglinFriend(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getEntity().level().isClientSide) {
+        public static void callPiglinFriend(LivingDamageEvent.Pre evt) {
+            if (evt.getEntity().level().isClientSide()) {
                 return;
             }
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             LivingEntity hurtOne = evt.getEntity();
-            MobEffectInstance esteemedGuest = hurtOne.getEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get());
-            if (esteemedGuest != null && esteemedGuest.getEffect() instanceof BaseMobEffect baseMobEffect && evt.getSource().getEntity() instanceof LivingEntity attacker) {
+            MobEffectInstance esteemedGuest = hurtOne.getEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST);
+            if (esteemedGuest != null && esteemedGuest.getEffect().value() instanceof BaseMobEffect baseMobEffect && evt.getSource().getEntity() instanceof LivingEntity attacker) {
                 int lv = baseMobEffect.getTruthUsingAmplifier(esteemedGuest.getAmplifier());
                 //lv++;
                 float workHealth = (hurtOne.getMaxHealth() * lv) / (2 * (lv + 1)) > 3 * (lv + 1) ? 3 * (lv + 1) : (hurtOne.getMaxHealth() * lv / (2 * (lv + 1)));
                 if (isPowerful) {
-                    if (hurtOne.getHealth() - evt.getAmount() < workHealth) {
+                    if (hurtOne.getHealth() - evt.getNewDamage() < workHealth) {
                         spawnPiglinFriends(hurtOne.level(),attacker,hurtOne,lv,esteemedGuest.getAmplifier());
-                        hurtOne.removeEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get());
+                        hurtOne.removeEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST);
                     }
                 } else if (hurtOne.getHealth() < workHealth) {
                     spawnPiglinFriends(hurtOne.level(),attacker,hurtOne,lv,esteemedGuest.getAmplifier());
-                    hurtOne.removeEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST.get());
+                    hurtOne.removeEffect(ImmortalersDelightMobEffect.ESTEEMED_GUEST);
                 }
             }
         }
@@ -117,52 +117,49 @@ public class EsteemedGuestMobEffect extends BaseMobEffect {
                     piglin.moveTo(target.getX(), target.getY(), target.getZ(), 0.0F, 0.0F);
                     piglin.setPersistenceRequired();
                     AttributeInstance att = piglin.getAttribute(Attributes.FOLLOW_RANGE);
-                    if (att != null && att.getModifier(ESTEEMED_GUEST_FOLLOW_MOD) == null)
+                    if (att != null && att.getModifier(ESTEEMED_GUEST_FOLLOW_MOD_ID) == null)
                         att.addTransientModifier(
                                 new AttributeModifier(
-                                        ESTEEMED_GUEST_FOLLOW_MOD,
-                                        "esteemed_guest_follow_mod",
+                                        ESTEEMED_GUEST_FOLLOW_MOD_ID,
                                         64,
-                                        AttributeModifier.Operation.ADDITION
+                                        AttributeModifier.Operation.ADD_VALUE
                                 )
                         );
                     att = piglin.getAttribute(Attributes.MAX_HEALTH);
-                    if (att != null && att.getModifier(ESTEEMED_GUEST_HEALTH_MOD) == null)
+                    if (att != null && att.getModifier(ESTEEMED_GUEST_HEALTH_MOD_ID) == null)
                         att.addPermanentModifier(
                                 new AttributeModifier(
-                                        ESTEEMED_GUEST_HEALTH_MOD,
-                                        "esteemed_guest_health_mod",
+                                        ESTEEMED_GUEST_HEALTH_MOD_ID,
                                         lv,
-                                        AttributeModifier.Operation.MULTIPLY_BASE)
+                                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                         );
-                    piglin.addEffect(new MobEffectInstance(MobEffects.HEAL, amplifier,8));
-                    piglin.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, -1,amplifier, false, false));
+                    piglin.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, Math.min(amplifier, 127)));
+                    piglin.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, -1, amplifier, false, false));
+                    var enchReg = piglin.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
                     if (isPowerful) {
                         int enchLv = lv + LEVEL_UP[(LivingDamageUtil.getPowerOfTwo(lv + 1) >= LEVEL_UP.length ? LEVEL_UP.length - 1 : LivingDamageUtil.getPowerOfTwo(lv + 1))];
                         ItemStack mainHand = new ItemStack(Items.NETHERITE_AXE);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), mainHand, enchLv, true);
-                        mainHand.enchant(Enchantments.SHARPNESS , lv + 1);
+                        mainHand.enchant(enchReg.getOrThrow(Enchantments.SHARPNESS), lv + 1);
                         piglin.setItemSlot(EquipmentSlot.MAINHAND, mainHand);
                         ItemStack offHand = createCustomShield();
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), offHand, enchLv, true);
+                        offHand.enchant(enchReg.getOrThrow(Enchantments.UNBREAKING), Math.min(enchLv, 3));
                         piglin.setItemSlot(EquipmentSlot.OFFHAND, offHand);
                         ItemStack head = new ItemStack(Items.NETHERITE_HELMET);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), head, enchLv, true);
+                        head.enchant(enchReg.getOrThrow(Enchantments.PROTECTION), Math.min(enchLv, 4));
                         piglin.setItemSlot(EquipmentSlot.HEAD, head);
                         ItemStack chest = new ItemStack(Items.NETHERITE_CHESTPLATE);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), chest, enchLv, true);
+                        chest.enchant(enchReg.getOrThrow(Enchantments.PROTECTION), Math.min(enchLv, 4));
                         piglin.setItemSlot(EquipmentSlot.CHEST, chest);
                         ItemStack legs = new ItemStack(Items.NETHERITE_LEGGINGS);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), legs, enchLv, true);
+                        legs.enchant(enchReg.getOrThrow(Enchantments.PROTECTION), Math.min(enchLv, 4));
                         piglin.setItemSlot(EquipmentSlot.LEGS, legs);
                         ItemStack boots = new ItemStack(Items.NETHERITE_BOOTS);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), boots, enchLv, true);
+                        boots.enchant(enchReg.getOrThrow(Enchantments.PROTECTION), Math.min(enchLv, 4));
                         piglin.setItemSlot(EquipmentSlot.FEET, boots);
                     } else {
                         int enchLv = lv + LEVEL_UP[(LivingDamageUtil.getPowerOfTwo(lv + 1) >= LEVEL_UP.length ? LEVEL_UP.length - 1 : LivingDamageUtil.getPowerOfTwo(lv + 1))];
                         ItemStack mainHand = new ItemStack(Items.GOLDEN_AXE);
-                        EnchantmentHelper.enchantItem(piglin.getRandom(), mainHand, enchLv, true);
-                        mainHand.enchant(Enchantments.SHARPNESS , lv + 1);
+                        mainHand.enchant(enchReg.getOrThrow(Enchantments.SHARPNESS), lv + 1);
                         piglin.setItemSlot(EquipmentSlot.MAINHAND, mainHand);
                         piglin.setItemSlot(EquipmentSlot.OFFHAND, createCustomShield());
                     }
@@ -176,13 +173,12 @@ public class EsteemedGuestMobEffect extends BaseMobEffect {
 
                     if (target instanceof Mob mob) {
                         AttributeInstance att1 = mob.getAttribute(Attributes.FOLLOW_RANGE);
-                        if (att1 != null && att1.getModifier(ESTEEMED_GUEST_FOLLOW_MOD) == null)
+                        if (att1 != null && att1.getModifier(ESTEEMED_GUEST_FOLLOW_MOD_ID) == null)
                             att1.addTransientModifier(
                                     new AttributeModifier(
-                                            ESTEEMED_GUEST_FOLLOW_MOD,
-                                            "esteemed_guest_follow_mod",
+                                            ESTEEMED_GUEST_FOLLOW_MOD_ID,
                                             64,
-                                            AttributeModifier.Operation.ADDITION
+                                            AttributeModifier.Operation.ADD_VALUE
                                     )
                             );
                         mob.setTarget(piglin);
@@ -239,7 +235,7 @@ public class EsteemedGuestMobEffect extends BaseMobEffect {
             shieldTag.putInt("Damage", 0); // 耐久值（0为满耐久）
 
             // 6. 将NBT标签设置到盾牌物品栈
-            shield.setTag(shieldTag);
+            shield.set(DataComponents.CUSTOM_DATA, CustomData.of(shieldTag));
 
             return shield;
         }

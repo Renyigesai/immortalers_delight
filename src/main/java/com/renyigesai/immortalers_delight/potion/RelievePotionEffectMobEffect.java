@@ -31,14 +31,14 @@ public class RelievePotionEffectMobEffect extends BaseMobEffect {
                     if (lv > amplifier) {
                         int time = pEntity.hasEffect(MobEffects.POISON)? Objects.requireNonNull(pEntity.getEffect(MobEffects.POISON)).getDuration():0;
                         MobEffectInstance weakPoison = new MobEffectInstance(
-                                ImmortalersDelightMobEffect.WEAK_POISON.get(),time,lv - amplifier);
+                                ImmortalersDelightMobEffect.WEAK_POISON,time,lv - amplifier);
                         pEntity.addEffect(weakPoison);
                     }
                 }
                 pEntity.removeEffect(MobEffects.POISON);
             }
-            if (isPowerful && pEntity.hasEffect(WEAK_POISON.get())) {
-                pEntity.removeEffect(WEAK_POISON.get());
+            if (isPowerful && pEntity.hasEffect(WEAK_POISON)) {
+                pEntity.removeEffect(WEAK_POISON);
             }
             if (pEntity.hasEffect(MobEffects.WITHER)){
                 int lv = pEntity.hasEffect(MobEffects.WITHER)? Objects.requireNonNull(pEntity.getEffect(MobEffects.WITHER)).getAmplifier():0;
@@ -52,7 +52,7 @@ public class RelievePotionEffectMobEffect extends BaseMobEffect {
                     lv = lv - amplifier > 0 ? lv - amplifier : 0;
                 }
                 MobEffectInstance weakWither = new MobEffectInstance(
-                        ImmortalersDelightMobEffect.WEAK_WITHER.get(),time,lv);
+                        ImmortalersDelightMobEffect.WEAK_WITHER,time,lv);
                 pEntity.addEffect(weakWither);
             }
         }

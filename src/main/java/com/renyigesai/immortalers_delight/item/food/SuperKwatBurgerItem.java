@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -46,12 +47,12 @@ public class SuperKwatBurgerItem extends EdibleBlockFoodItem {
 //        super.releaseUsing(stack, level, consumer, timeLeft);
 //    }
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             MutableComponent textValue = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".super_kwat_burger");
             tooltip.add(textValue.withStyle(ChatFormatting.GRAY));
         }
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
     }
 
     public UseAnim getUseAnimation(ItemStack stack) {
@@ -62,7 +63,7 @@ public class SuperKwatBurgerItem extends EdibleBlockFoodItem {
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
         //判断在使用物品
         if (pRemainingUseDuration >= 0 && !pLivingEntity.level().isClientSide()) {
-            if (pRemainingUseDuration + 1 <= this.getUseDuration(pStack) / 2) {
+            if (pRemainingUseDuration + 1 <= this.getUseDuration(pStack, pLivingEntity) / 2) {
                 if (pRemainingUseDuration % (DifficultyModeUtil.isPowerBattleMode() ? 20 : 40) == 0) addAheadFoodEffect(pStack, pLivingEntity.level(), pLivingEntity);
             }
         }

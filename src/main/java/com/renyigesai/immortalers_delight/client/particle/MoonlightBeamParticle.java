@@ -20,10 +20,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
@@ -84,6 +85,14 @@ public class MoonlightBeamParticle extends Particle {
      * @param pY 粒子初始Y坐标
      * @param pZ 粒子初始Z坐标
      */
+    private static int packBeamColor(float r, float g, float b, float a) {
+        int ai = Mth.clamp(Mth.floor(a * 255.0F), 0, 255);
+        int ri = Mth.clamp(Mth.floor(r * 255.0F), 0, 255);
+        int gi = Mth.clamp(Mth.floor(g * 255.0F), 0, 255);
+        int bi = Mth.clamp(Mth.floor(b * 255.0F), 0, 255);
+        return FastColor.ARGB32.color(ai, ri, gi, bi);
+    }
+
     MoonlightBeamParticle(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet pSprite) {
         super(pLevel, pX, pY, pZ);
         // 初始化模型（基于模型图层）
@@ -126,7 +135,7 @@ public class MoonlightBeamParticle extends Particle {
         if (isFirstRender) {
             List<ResourceLocation> textures = new ArrayList<>();
             for (byte i = 0; i < 20; i++) {
-                ResourceLocation textureRL = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/particle/moonlight_beam_" + i + ".png");
+                ResourceLocation textureRL = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/particle/moonlight_beam_" + i + ".png");
                 textures.add(textureRL);
             }
             this.textures = textures;
@@ -168,7 +177,7 @@ public class MoonlightBeamParticle extends Particle {
         if (needCoreRender(pBuffer,pRenderInfo,pPartialTicks)) {
             coreAnim(pBuffer,pRenderInfo,pPartialTicks);
             VertexConsumer vertexconsumer = multibuffersource$buffersource.getBuffer(RenderType.entityTranslucent(getTextureLocation(pBuffer,pRenderInfo,pPartialTicks)));
-            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, this.rCol, this.gCol, this.bCol, this.alpha);
+            this.model.renderToBuffer(posestack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, packBeamColor(this.rCol, this.gCol, this.bCol, this.alpha));
         }
         // 结束当前渲染批次，提交渲染数据
         multibuffersource$buffersource.endBatch();

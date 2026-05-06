@@ -1,11 +1,12 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.mojang.serialization.MapCodec;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -27,14 +28,17 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class PeaticMusaRubineaBundleBlock extends StemGrownBlock implements BonemealableBlock {
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
+public class PeaticMusaRubineaBundleBlock extends HorizontalDirectionalBlock implements BonemealableBlock {
     /**
      * 注册香蕉梗标签，用于判断与香蕉梗的依附关系。标签的注册方法大概是这样？添加方块到标签似乎在数据包实现。如果要统一管理，你可以移到Init去。
      */
-    public static final TagKey<Block> BANANA_STALK = BlockTags.create(new ResourceLocation("maintains_farmland"));
+    public static final TagKey<Block> BANANA_STALK = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "maintains_farmland"));
     public static final int MAX_AGE = 2;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final MapCodec<PeaticMusaRubineaBundleBlock> CODEC = simpleCodec(PeaticMusaRubineaBundleBlock::new);
     /**
      * 一堆不知所谓的东西，由于是复制了可可豆类而不是继承，所以原来的代码即使没有用到也没有删除。
      */
@@ -74,13 +78,8 @@ public class PeaticMusaRubineaBundleBlock extends StemGrownBlock implements Bone
     }
 
     @Override
-    public StemBlock getStem() {
-        return (StemBlock)ImmortalersDelightBlocks.PEARLIPEARL_STALK.get();
-    }
-
-    @Override
-    public AttachedStemBlock getAttachedStem() {
-        return (AttachedStemBlock)Blocks.ATTACHED_PUMPKIN_STEM;
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
@@ -114,13 +113,13 @@ public class PeaticMusaRubineaBundleBlock extends StemGrownBlock implements Bone
      * 生长刻的行为，如果生长阶段不满，且满足光照，长大（AGE+1），并随机变换方向（取random设置FACING）。生长速度沿用可可豆。
      */
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (isRandomlyTicking) {
+        if (isRandomlyTicking(pState)) {
             int i = pState.getValue(AGE);
             if (pLevel.getRawBrightness(pPos, 0) >= 8 || pLevel.canSeeSky(pPos) &&
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, i == 0 || pLevel.random.nextInt(5) == 0)) {
+                    net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, i == 0 || pLevel.random.nextInt(5) == 0)) {
                 Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(pRandom);
                 pLevel.setBlock(pPos, pState.setValue(AGE, i + 1).setValue(FACING, direction), 2);
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
             }
         }
 
@@ -180,7 +179,7 @@ public class PeaticMusaRubineaBundleBlock extends StemGrownBlock implements Bone
     /**
      * @return 可否使用骨粉。
      */
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         return pState.getValue(AGE) < 2;
     }
 

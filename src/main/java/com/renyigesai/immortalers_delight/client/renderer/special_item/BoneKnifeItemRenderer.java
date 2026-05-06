@@ -30,7 +30,7 @@ public class BoneKnifeItemRenderer extends BlockEntityWithoutLevelRenderer {
 //        }
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        float partialTick = Minecraft.getInstance().getPartialTick();
+        float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
         BakedModel bakedModel = itemRenderer.getModel(pStack,null,null,1);
         float ageInTicks = Minecraft.getInstance().player == null ? 0F : Minecraft.getInstance().player.tickCount + partialTick;
         float pullAmount = BoneKnifeItem.getPullingAmount(pStack, partialTick);

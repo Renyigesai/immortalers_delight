@@ -88,7 +88,10 @@ public class WarpedLaurelHitBoxEntity extends EffectCloudBaseEntity{
 
                                 livingentity.hurt(source, damage);
                                 //造成伤害会令目标的燃烧时间叠加
-                                if (!livingentity.fireImmune()) livingentity.setSecondsOnFire(Math.max(15 * (amp + 2), livingentity.getRemainingFireTicks() / 20 + 15));
+                                if (!livingentity.fireImmune()) {
+                                    int seconds = Math.max(15 * (amp + 2), livingentity.getRemainingFireTicks() / 20 + 15);
+                                    livingentity.setRemainingFireTicks(seconds * 20);
+                                }
                             }
                         }
                     }

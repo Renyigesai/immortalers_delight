@@ -22,9 +22,9 @@ public class LingeringInfusionMobEffect extends BaseMobEffect {
         if (!pEntity.getCommandSenderWorld().isClientSide){
             if (pEntity instanceof Player player) {
                 if (!player.isHurt()) return;
-                boolean hasKeepFast = pEntity.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get());
-                int time = player.hasEffect(ImmortalersDelightMobEffect.LINGERING_INFUSION.get()) ?
-                        player.getEffect(ImmortalersDelightMobEffect.LINGERING_INFUSION.get()).getDuration() : 0;
+                boolean hasKeepFast = pEntity.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST);
+                int time = player.hasEffect(ImmortalersDelightMobEffect.LINGERING_INFUSION) ?
+                        player.getEffect(ImmortalersDelightMobEffect.LINGERING_INFUSION).getDuration() : 0;
                 FoodData foodData = player.getFoodData();
                 boolean canHealBySaturation = isPowerful ? foodData.getFoodLevel() >= (hasKeepFast ? 10 : 20)
                         : foodData.getFoodLevel() >= 20 && foodData.getSaturationLevel() > 0;

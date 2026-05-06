@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:contains_tea_leisamboo"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  },
+  "result": [
+    {
+      "count": 1,
+      "id": "immortalers_delight:leisamboo_tea"
+    }
+  ]
+}

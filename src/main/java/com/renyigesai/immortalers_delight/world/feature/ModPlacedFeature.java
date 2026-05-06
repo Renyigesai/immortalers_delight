@@ -5,7 +5,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -31,7 +31,7 @@ public class ModPlacedFeature {
      * 注册使用的主方法，实际矿物生成器的注册在此处进行，这个方法应在Init或主类进行调用
      * @param context
      */
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?,?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         /*
@@ -85,10 +85,10 @@ public class ModPlacedFeature {
         PlacementUtils.register(context, TRAVASTRUGGLER_TREE_PLACED, holder2, PlacementUtils.filteredByBlockSurvival(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get()));
     }
     private static ResourceKey<PlacedFeature> createKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(ImmortalersDelightMod.MODID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, name));
     }
 
-    private static void register(BootstapContext<PlacedFeature> context,
+    private static void register(BootstrapContext<PlacedFeature> context,
                                  ResourceKey<PlacedFeature> key,
                                  Holder<ConfiguredFeature<?,?>> configuredFeature,
                                  List<PlacementModifier> modifiers) {

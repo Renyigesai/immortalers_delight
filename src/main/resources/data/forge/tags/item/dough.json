@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#c:foods/dough",
+    "farmersdelight:wheat_dough"
+  ]
+}

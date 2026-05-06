@@ -32,12 +32,11 @@ import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -52,7 +51,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -102,7 +100,7 @@ public class KwatWheatCrop extends ReapCropBlock {
         if (pEntity instanceof LivingEntity) {
             int age = state.getValue(AGE);
             if (age == 7) {
-                if (state.getValue(POISON) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, pEntity)) {
+                if (state.getValue(POISON) && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
                     makeAreaOfEffectCloud(level,pPos);
                 } else {
                     List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(3.0D, 3.0D, 3.0D));
@@ -110,7 +108,7 @@ public class KwatWheatCrop extends ReapCropBlock {
                         for (LivingEntity livingentity : list) {
                             if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
                                 livingentity.hurt(level.damageSources().cactus(), 2.0F);
-                                livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
+                                livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON, 120, 1));
                             }else {
                                 if (livingentity instanceof ServerPlayer serverPlayer) {
                                     ImmortalersDelightMod.RESIST_GAS_POISONING_TRIGGER.trigger(serverPlayer);
@@ -126,15 +124,15 @@ public class KwatWheatCrop extends ReapCropBlock {
     }
 
     @Override
-    public void playerWillDestroy(@NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull Player pPlayer) {
+    public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
         if (pState.getValue(POISON) && pState.getValue(AGE) == 7) {
             makeAreaOfEffectCloud(pLevel,pPos);
         }
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+        return super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected net.minecraft.world.InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level instanceof ServerLevel serverLevel && state.getValue(POISON) && state.getValue(AGE) >= 3) {
             for (int i = 0; i < 8; i++) {
                 Vec3 vec3 = new Vec3(pos.getX() + serverLevel.random.nextFloat(),pos.getY() + serverLevel.random.nextFloat(),pos.getZ() + serverLevel.random.nextFloat());
@@ -143,7 +141,7 @@ public class KwatWheatCrop extends ReapCropBlock {
                 );
             }
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     private void spawnParticle(Level level, BlockPos pPos) {
@@ -168,15 +166,8 @@ public class KwatWheatCrop extends ReapCropBlock {
     }
 
 
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockPos blockpos = pPos.below();
-        if (pState.getBlock() == this)
-            return pLevel.getBlockState(blockpos).canSustainPlant(pLevel, blockpos, Direction.UP, this);
-        return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
-    }
-
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.SOUL_SAND) || pState.is(Blocks.SOUL_SOIL);
+        return pState.is(Blocks.SOUL_SAND) || pState.is(Blocks.SOUL_SOIL) || pState.is(Blocks.FARMLAND);
     }
 
     @Override
@@ -205,10 +196,10 @@ public class KwatWheatCrop extends ReapCropBlock {
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
-                float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
+                float f = getGrowthSpeed(pState, pLevel, pPos);
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
                     pLevel.setBlock(pPos, pState.setValue(getAgeProperty(),i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }

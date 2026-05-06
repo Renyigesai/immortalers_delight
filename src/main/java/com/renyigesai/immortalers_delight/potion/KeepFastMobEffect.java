@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
@@ -9,9 +10,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 public class KeepFastMobEffect extends BaseMobEffect {
 
@@ -29,7 +30,7 @@ public class KeepFastMobEffect extends BaseMobEffect {
                 player.getFoodData().eat(differenceValue, 0.1F);
             }
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()).getDuration() : 0;
+            int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST).getDuration() : 0;
             if (time > 0) {
                 if (time == 1) {
                     foodData.eat(foodLevel, saturation / (foodLevel * 2));
@@ -60,21 +61,19 @@ public class KeepFastMobEffect extends BaseMobEffect {
     }
 
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class KeepFastPotionEffect {
         @SubscribeEvent
         public static void onAddToEntity(MobEffectEvent.Added event) {
             if (event != null && event.getEntity() != null) {
                 Entity entity = event.getEntity();
                 if (!entity.getCommandSenderWorld().isClientSide
-                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST
                         && entity instanceof Player player) {
-                    if ( !player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get())
+                    if ( !player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST)
                             || event.getOldEffectInstance() == null
-                            || event.getOldEffectInstance().getEffect() != ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                            || event.getOldEffectInstance().getEffect() != ImmortalersDelightMobEffect.KEEP_A_FAST
                     ) {
                         FoodData foodData = player.getFoodData();
                         foodData.setFoodLevel(foodData.getFoodLevel() / 2);
@@ -89,7 +88,7 @@ public class KeepFastMobEffect extends BaseMobEffect {
                 Entity entity = event.getEntity();
                 if (!entity.getCommandSenderWorld().isClientSide
                         && event.getEffectInstance() != null
-                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
+                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST
                         && entity instanceof Player player) {
                     FoodData foodData = player.getFoodData();
                     int foodLevel = foodData.getFoodLevel();

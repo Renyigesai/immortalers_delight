@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
 public class SkelverfishThrasherModel<T extends SkelverfishThrasher> extends HierarchicalModel<T> {
-    public static final ModelLayerLocation SKELVERFISH_THRASHER = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "skelverfish_thrasher"), "main");
+    public static final ModelLayerLocation SKELVERFISH_THRASHER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "skelverfish_thrasher"), "main");
     private final ModelPart bodyPart_2;
     private final ModelPart bodyPart_0;
     private final ModelPart bodyPart_1;
@@ -140,7 +140,7 @@ public class SkelverfishThrasherModel<T extends SkelverfishThrasher> extends Hie
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bodyPart_2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+        bodyPart_2.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
     }
 }

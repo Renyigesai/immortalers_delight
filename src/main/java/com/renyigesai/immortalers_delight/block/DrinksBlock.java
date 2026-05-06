@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.block;
 
+import com.mojang.serialization.MapCodec;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -27,9 +30,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class DrinksBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,4);
+    public static final MapCodec<DrinksBlock> CODEC = simpleCodec(DrinksBlock::new);
+
     public DrinksBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PILE, 1));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -54,8 +64,7 @@ public class DrinksBlock extends HorizontalDirectionalBlock {
         return 4;
     }
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    private InteractionResult drinksUse(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         if (!pPlayer.isShiftKeyDown()){
             if (hand.is(this.asItem())){
@@ -64,7 +73,25 @@ public class DrinksBlock extends HorizontalDirectionalBlock {
         }else {
             return take(pState, pLevel, pPos, pPlayer, pHand);
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        InteractionResult result = drinksUse(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(pLevel, result);
+        }
+        return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        InteractionResult result = drinksUse(pState, pLevel, pPos, pPlayer, InteractionHand.MAIN_HAND, pHit);
+        if (result != InteractionResult.PASS) {
+            return result;
+        }
+        return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
     }
 
     public InteractionResult pileUp(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand){

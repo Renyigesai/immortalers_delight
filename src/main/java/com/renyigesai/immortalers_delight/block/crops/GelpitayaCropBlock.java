@@ -12,6 +12,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
@@ -30,8 +31,8 @@ public class GelpitayaCropBlock extends ReapCropBlock {
             Block.box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D),
             Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D),
             Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D),
-            Block.box(0.5D, -0.5D, 0.5D, 15.5D, 16.0D, 15.5D),
-            Block.box(0.5D, -0.5D, 0.5D, 15.5D, 16.0D, 15.5D)
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)
     };
 
     private static final VoxelShape[] COLLISION_SHAPE_BY_AGE = new VoxelShape[]{
@@ -63,17 +64,14 @@ public class GelpitayaCropBlock extends ReapCropBlock {
 
     @Override
     public boolean canReap(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.isCorrectToolForDrops(state)) {
-            boolean flag = super.canReap(state, level, pos, player, hand, hitResult);
-            if (flag && !player.getAbilities().instabuild && player instanceof ServerPlayer serverPlayer) {
-                itemStack.hurtAndBreak(1, serverPlayer, (action) -> {
-                    action.broadcastBreakEvent(hand);
-                });
+        boolean flag = super.canReap(state, level, pos, player, hand, hitResult);
+        if (flag && !player.getAbilities().instabuild && player instanceof ServerPlayer serverPlayer) {
+            ItemStack itemStack = player.getItemInHand(hand);
+            if (!itemStack.isEmpty() && itemStack.isCorrectToolForDrops(state)) {
+                itemStack.hurtAndBreak(1, serverPlayer, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             }
-            return flag;
         }
-        return false;
+        return flag;
     }
 
     @Override
@@ -111,14 +109,14 @@ public class GelpitayaCropBlock extends ReapCropBlock {
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
-                float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
+                float f = getGrowthSpeed(pState, pLevel, pPos);
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
                     if (i == this.getMaxAge() - 1) {
                         spawnParticle(pLevel, pPos);
                         spawnSnow(pLevel, pPos, 1, 3, 1);
                     }
                     pLevel.setBlock(pPos, this.getStateForAge(i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }

@@ -14,7 +14,7 @@ import net.minecraft.util.Mth;
 
 public class AncientWoodBoatModel extends ListModel<Boat> implements WaterPatchModel {
 
-    public static final ModelLayerLocation ANCIENT_BOAT = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "ancient_wood_boat"), "main");
+    public static final ModelLayerLocation ANCIENT_BOAT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "ancient_wood_boat"), "main");
 
     private static final String PADDLE_LEFT = "paddle_left";
     private static final String PADDLE_RIGHT = "paddle_right";

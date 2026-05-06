@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:oxyraisins"
+    },
+    {
+      "item": "immortalers_delight:oxyraisins"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn_paste"
+    },
+    {
+      "tag": "forge:eggs"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:oxygrape_evolutcorn_muffin"
+  }
+}

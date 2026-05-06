@@ -6,12 +6,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 //
 //// 自定义世界数据存储管理器类
-//@Mod.EventBusSubscriber
+//@EventBusSubscriber
 //public class BaseImmortalWorldData extends SavedData {
 //    private static final String BASE_IMMORTAL_DATA_NAME = ImmortalersDelightMod.MODID + "base_immortal_data";
 //    // 自定义数据存储实例

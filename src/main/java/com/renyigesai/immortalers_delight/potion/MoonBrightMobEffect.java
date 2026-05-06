@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -22,10 +23,10 @@ import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.List;
 
@@ -90,10 +91,8 @@ public class MoonBrightMobEffect extends BaseMobEffect {
         i = 15 - i;
         return i >= 12;
     }
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class KuuvahkiPotionEffect{
 
 
@@ -101,13 +100,13 @@ public class MoonBrightMobEffect extends BaseMobEffect {
         //如果使用药水箭或光灵箭，debuff事件会大幅延长
         //当携带者受到伤害时，会对攻击者施加发光效果进行标记
         @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void onLivingHurt(LivingHurtEvent event) {
+        public static void onLivingHurt(LivingDamageEvent.Pre event) {
             LivingEntity hurtOne = event.getEntity();
             if (hurtOne.level().isClientSide()) return;
             LivingEntity attacker = event.getSource().getEntity() instanceof LivingEntity ? (LivingEntity) event.getSource().getEntity() : null;
 
             //受到伤害时，发光标记攻击者
-            MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get());
+            MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT);
             if (thisEffect != null && attacker != null) {
                 attacker.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
             }
@@ -115,7 +114,7 @@ public class MoonBrightMobEffect extends BaseMobEffect {
             Entity hiter = event.getSource().getDirectEntity();
             //箭矢造成伤害时，或超凡模式下任意弹射物伤害时，对目标施加负面状态
             if (attacker != null && (hurtOne.hasEffect(MobEffects.GLOWING) || hiter instanceof SpectralArrow)) {
-                thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get());
+                thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT);
                 if (thisEffect != null) {
                     int lv = thisEffect.getAmplifier() + 1;
                     boolean isPowered = DifficultyModeUtil.isPowerBattleMode();
@@ -186,7 +185,7 @@ public class MoonBrightMobEffect extends BaseMobEffect {
 //            if (hitresult$type == HitResult.Type.ENTITY) {
 //                //判断箭矢的射手是否有月明buff
 //                if (projectile instanceof AbstractArrow abstractArrow && abstractArrow.getOwner() != null && abstractArrow.getOwner() instanceof LivingEntity shooter) {
-//                    MobEffectInstance thisEffect = shooter.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get());
+//                    MobEffectInstance thisEffect = shooter.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT);
 //                    if (thisEffect != null) {
 //                        //造成法术伤害
 //                        double range = 2.5D;
@@ -297,7 +296,7 @@ public class MoonBrightMobEffect extends BaseMobEffect {
 //            if (!(event.getLevel() instanceof ServerLevel)) return;
 //            Player shooter = event.getEntity();
 //
-//            MobEffectInstance thisEffect = shooter.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get());
+//            MobEffectInstance thisEffect = shooter.getEffect(ImmortalersDelightMobEffect.MOONBRIGHT);
 //            if (thisEffect != null) {
 //                arrowList.add(event.get);
 //            }

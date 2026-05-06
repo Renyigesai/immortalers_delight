@@ -4,6 +4,7 @@ import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -19,7 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -46,7 +47,7 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
     }
 
     private ParticleOptions getParticle() {
-        ItemStack itemstack = this.getItemRaw();
+        ItemStack itemstack = this.getItem();
         return (ParticleOptions)(itemstack.isEmpty() ? ImmortalersDelightParticleTypes.KWAT.get() : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
     }
 
@@ -70,7 +71,8 @@ public class ToxicGasGrenadeEntity extends ThrowableItemProjectile {
                     pResult.getType() == HitResult.Type.ENTITY ?
                             ((EntityHitResult)pResult).getEntity().blockPosition()
                             : this.blockPosition());
-            this.level().levelEvent(2002, this.blockPosition(), PotionUtils.getColor(this.getItem()));
+            PotionContents contents = this.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            this.level().levelEvent(2002, this.blockPosition(), contents.getColor());
             this.discard();
         }
     }

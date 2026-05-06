@@ -10,6 +10,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,6 +25,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
+
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks.*;
 
@@ -78,18 +82,15 @@ public class HimekaidoShrubBlockOld extends EvolutcornBlock {
     /**
      * 定义收获的行为逻辑，代码来源于玩家与南瓜方块交互的方法
      */
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        /*
-        检查玩家手中物品是否可以执行雕刻操作（如剪刀）
-         */
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.canPerformAction(net.minecraftforge.common.ToolActions.SHEARS_CARVE)) {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_CARVE)) {
             if (!pLevel.isClientSide) {
                 /*
                 判断方块状态，如果不是指定的收获阶段，直接返回
                  */
                 if (!(pState == this.defaultBlockState().setValue(AGE,MAX_AGE))) {
-                    return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+                    return super.useItemOn(itemstack, pState, pLevel, pPos, pPlayer, pHand, pHit);
                 }
                 /*
                 在服务器端播放南瓜雕刻的声音
@@ -112,9 +113,7 @@ public class HimekaidoShrubBlockOld extends EvolutcornBlock {
                 /*
                  对玩家手中的工具造成 1 点耐久损耗，并触发物品损坏事件
                  */
-                itemstack.hurtAndBreak(1, pPlayer, (p_55287_) -> {
-                    p_55287_.broadcastBreakEvent(pHand);
-                });
+                itemstack.hurtAndBreak(1, pPlayer, pHand == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
                 /*
                  触发游戏事件，表示玩家进行了雕刻操作
                  */
@@ -125,15 +124,13 @@ public class HimekaidoShrubBlockOld extends EvolutcornBlock {
                 pPlayer.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
 
-            /*
-            根据是否是客户端返回相应的交互结果
-             */
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
-        } else {
-            /*
-            如果玩家手中物品不能雕刻南瓜，则调用父类的交互方法
-             */
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+            return BlockItemInteraction.from(pLevel, InteractionResult.sidedSuccess(pLevel.isClientSide));
         }
+        return super.useItemOn(itemstack, pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
     }
 }

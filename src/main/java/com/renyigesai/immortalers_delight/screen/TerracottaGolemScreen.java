@@ -8,11 +8,11 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class TerracottaGolemScreen extends AbstractContainerScreen<TerracottaGolemMenu> {
-    private static final ResourceLocation HORSE_INVENTORY_LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/gui/terracotta_golem_chest.png");
+    private static final ResourceLocation HORSE_INVENTORY_LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/terracotta_golem_chest.png");
     private final TerracottaGolem golem;
     private float xMouse;
     private float yMouse;
@@ -31,7 +31,7 @@ public class TerracottaGolemScreen extends AbstractContainerScreen<TerracottaGol
         if (golem.hasChest()) {
             p_282553_.blit(HORSE_INVENTORY_LOCATION, i + 79, j + 7, 0, this.imageHeight, golem.getInventoryColumns() * 18, 18*4);
         }
-        InventoryScreen.renderEntityInInventoryFollowsMouse(p_282553_, i + 51, j + 60, 17, (float)(i + 51) - this.xMouse, (float)(j + 75 - 50) - this.yMouse, golem);
+        InventoryScreen.renderEntityInInventoryFollowsMouse(p_282553_, i + 51, j + 60, i + 51, j + 60, 17, (float) (j + 75 - 50), (float) (i + 51) - this.xMouse, (float) (j + 75 - 50) - this.yMouse, golem);
 
     }
 
@@ -49,7 +49,7 @@ public class TerracottaGolemScreen extends AbstractContainerScreen<TerracottaGol
     }
 
     public void render(GuiGraphics p_281697_, int p_282103_, int p_283529_, float p_283079_) {
-        this.renderBackground(p_281697_);
+        this.renderBackground(p_281697_, p_282103_, p_283529_, p_283079_);
         this.xMouse = (float)p_282103_;
         this.yMouse = (float)p_283529_;
         super.render(p_281697_, p_282103_, p_283529_, p_283079_);

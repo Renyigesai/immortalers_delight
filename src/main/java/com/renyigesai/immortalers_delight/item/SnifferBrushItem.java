@@ -13,7 +13,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,10 +22,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
@@ -59,9 +57,8 @@ public class SnifferBrushItem extends BrushItem {
     }
 
     private HitResult calculateHitResult(LivingEntity pEntity) {
-        return ProjectileUtil.getHitResultOnViewVector(pEntity, (p_281111_) -> {
-            return !p_281111_.isSpectator() && p_281111_.isPickable();
-        }, (Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D));
+        double reach = pEntity instanceof Player p ? p.blockInteractionRange() : 4.5D;
+        return ProjectileUtil.getHitResultOnViewVector(pEntity, ent -> !ent.isSpectator() && ent.isPickable(), reach);
     }
 
     @Override
@@ -72,7 +69,7 @@ public class SnifferBrushItem extends BrushItem {
                 //被刷毛的嗅探兽不移动
                 if (pRemainingUseDuration % 4 == 0 && pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer sniffer) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false,  false));
 
-                if ((this.getUseDuration(pStack) - pRemainingUseDuration + 1) == this.getUseDuration(pStack)/2) {
+                if ((this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration + 1) == this.getUseDuration(pStack, pLivingEntity) / 2) {
                     Entity entity = entityHitResult.getEntity();
                     BlockPos blockPos = entity.blockPosition();
                     pLevel.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC, SoundSource.BLOCKS);
@@ -131,9 +128,7 @@ public class SnifferBrushItem extends BrushItem {
                         //实际消耗耐久
                         if (!player.getAbilities().instabuild) {
                             EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                            pStack.hurtAndBreak(itemDamage, player, (action) -> {
-                                action.broadcastBreakEvent(equipmentslot);
-                            });
+                            pStack.hurtAndBreak(itemDamage, player, equipmentslot);
                         }
 
                         if (!flag) pLivingEntity.releaseUsingItem();
@@ -142,7 +137,7 @@ public class SnifferBrushItem extends BrushItem {
             }
             //这里实现刷mod内的方块实体的逻辑
             else if (hitResult instanceof BlockHitResult blockhitresult && hitResult.getType() == HitResult.Type.BLOCK) {
-                int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
+                int i = this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration + 1;
                 boolean flag = i % 10 == 5;
                 if (flag) {
                     //这个标记表示我们是否处理了自己的逻辑并需要打断原版刷子的逻辑。
@@ -152,8 +147,13 @@ public class SnifferBrushItem extends BrushItem {
                     Block $$18 = blockstate.getBlock();
                     if ($$18 instanceof ModBrushableBlock brushableblock) {
                         SoundEvent soundevent;
-                        HumanoidArm humanoidarm = pLivingEntity.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
-                        this.spawnDustParticles(pLevel, blockhitresult, blockstate, pLivingEntity.getViewVector(0.0F), humanoidarm);
+                        if (pLevel.isClientSide()) {
+                            Vec3 dir = Vec3.atLowerCornerOf(blockhitresult.getDirection().getNormal());
+                            Vec3 center = Vec3.atCenterOf(blockpos).add(dir.scale(0.6));
+                            for (int j = 0; j < 16; ++j) {
+                                pLevel.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate), center.x, center.y, center.z, dir.x * 0.01, dir.y * 0.01, dir.z * 0.01);
+                            }
+                        }
                         soundevent = brushableblock.getBrushSound();
                         pLevel.playSound(player, blockpos, soundevent, SoundSource.BLOCKS);
                         needReturn = true;
@@ -167,9 +167,7 @@ public class SnifferBrushItem extends BrushItem {
                             boolean flag1 = brushableblockentity.brush(pLevel.getGameTime(), player, blockhitresult.getDirection());
                             if (flag1) {
                                 EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                                pStack.hurtAndBreak(1, pLivingEntity, (p_279044_) -> {
-                                    p_279044_.broadcastBreakEvent(equipmentslot);
-                                });
+                                pStack.hurtAndBreak(1, pLivingEntity, equipmentslot);
                             }
                             needReturn = true;
                         } else System.out.println("mod内方块实体不存在");

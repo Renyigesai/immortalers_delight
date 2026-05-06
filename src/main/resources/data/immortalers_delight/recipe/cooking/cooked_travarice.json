@@ -1,0 +1,16 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:travarice"
+    }
+  ],
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "result": {
+    "id": "immortalers_delight:cooked_travarice"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

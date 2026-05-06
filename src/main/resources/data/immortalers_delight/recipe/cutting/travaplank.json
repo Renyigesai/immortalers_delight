@@ -1,0 +1,21 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:travastruggler_log"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/axes"
+  },
+  "result": [
+    {
+      "count": 4,
+      "id": "immortalers_delight:travaplank"
+    },
+    {
+      "count": 1,
+      "id": "immortalers_delight:ancient_fiber"
+    }
+  ]
+}

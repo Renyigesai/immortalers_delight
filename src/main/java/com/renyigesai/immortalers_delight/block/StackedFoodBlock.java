@@ -1,19 +1,26 @@
 package com.renyigesai.immortalers_delight.block;
 
-import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.api.PlateBaseBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +34,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -35,13 +44,19 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.function.Supplier;
 
 public class StackedFoodBlock extends HorizontalDirectionalBlock implements PlateBaseBlock {
+
+    public static final MapCodec<StackedFoodBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec(),
+            BuiltInRegistries.ITEM.byNameCodec().fieldOf("serving_item").forGetter(b -> b.servingItem.get()),
+            BuiltInRegistries.ITEM.byNameCodec().fieldOf("pile_item").forGetter(b -> b.pileItem.get()),
+            Codec.INT.fieldOf("pile_per_item").forGetter(b -> b.pilePerItem)
+    ).apply(instance, (props, serving, pile, perItem) -> new StackedFoodBlock(props, () -> serving, () -> pile, perItem)));
 
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,16);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,12.0D,15.0D);
@@ -58,12 +73,16 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult stackedFoodUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack hand_stack = player.getItemInHand(hand);
         if (hand_stack.is(this.pileItem.get())){
             return pileUp(state, level, pos, player, hand);
@@ -74,10 +93,28 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
         }else {
             messageOnUse( player);
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = stackedFoodUse(state, level, pos, player, hand, hitResult);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = stackedFoodUse(state, level, pos, player, InteractionHand.MAIN_HAND, hitResult);
+        if (result != InteractionResult.PASS) {
+            return result;
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
     public boolean isCuttable(ItemStack stack){
-        return com.renyigesai.immortalers_delight.util.ItemUtils.isKnives(stack);
+        return stack.is(ImmortalersDelightTags.FARMERSDELIGHT_KNIVES) || stack.is(ImmortalersDelightTags.KNIVES);
     }
     public boolean isEdible(){
         return true;
@@ -100,7 +137,11 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
             if (bites < getMaxBites()){
                 if (player.canEat(false)){
                     setBlock(bites, state, level, pos);
-                    player.getFoodData().eat(this.servingItem.get(), new ItemStack(this.servingItem.get()));
+                    ItemStack serving = new ItemStack(this.servingItem.get());
+                    FoodProperties foodProperties = serving.getFoodProperties(player);
+                    if (foodProperties != null) {
+                        player.getFoodData().eat(foodProperties);
+                    }
                     addFoodPoisonEffect(new ItemStack(this.servingItem.get()), level, player);
                     level.gameEvent(player, GameEvent.EAT, pos);
                     level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
@@ -145,16 +186,24 @@ public class StackedFoodBlock extends HorizontalDirectionalBlock implements Plat
         return InteractionResult.FAIL;
     }
 
-    private void addFoodPoisonEffect(ItemStack p_21064_, Level p_21065_, LivingEntity p_21066_) {
-        Item item = p_21064_.getItem();
-        if (item.isEdible()) {
-            for (Pair<MobEffectInstance, Float> pair : p_21064_.getFoodProperties(p_21066_).getEffects()) {
-                if (!p_21065_.isClientSide && pair.getFirst() != null) {
-                    if (pair.getFirst().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get() && p_21066_.hasEffect(ImmortalersDelightMobEffect.INEBRIATED.get())) {
-                        MobEffectInstance instance = p_21066_.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
-                        p_21066_.addEffect(new MobEffectInstance(pair.getFirst().getEffect(), pair.getFirst().getDuration() + instance.getDuration(), Math.max(pair.getFirst().getAmplifier(), instance.getAmplifier())));
-                    } else p_21066_.addEffect(new MobEffectInstance(pair.getFirst()));
+    private void addFoodPoisonEffect(ItemStack stack, Level level, LivingEntity entity) {
+        FoodProperties fp = stack.getFoodProperties(entity);
+        if (fp == null) {
+            return;
+        }
+        Holder<MobEffect> inebriated = ImmortalersDelightMobEffect.INEBRIATED;
+        for (FoodProperties.PossibleEffect pe : fp.effects()) {
+            if (level.isClientSide() || level.random.nextFloat() >= pe.probability()) {
+                continue;
+            }
+            MobEffectInstance applied = pe.effect();
+            if (applied.getEffect().equals(inebriated) && entity.hasEffect(inebriated)) {
+                MobEffectInstance instance = entity.getEffect(inebriated);
+                if (instance != null) {
+                    entity.addEffect(new MobEffectInstance(applied.getEffect(), applied.getDuration() + instance.getDuration(), Math.max(applied.getAmplifier(), instance.getAmplifier())));
                 }
+            } else {
+                entity.addEffect(new MobEffectInstance(applied));
             }
         }
     }

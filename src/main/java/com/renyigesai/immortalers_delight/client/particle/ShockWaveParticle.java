@@ -7,8 +7,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -149,11 +149,10 @@ public class ShockWaveParticle extends TextureSheetParticle {
      * @param pPackedLight 打包的光照信息（天空光+方块光）
      */
     private void makeCornerVertex(VertexConsumer pConsumer, Vector3f pVertex, float pU, float pV, int pPackedLight) {
-        pConsumer.vertex((double)pVertex.x(), (double)pVertex.y(), (double)pVertex.z()) // 顶点坐标
-                .uv(pU, pV)                                                             // 纹理UV坐标
-                .color(this.rCol, this.gCol, this.bCol, this.alpha)                     // 粒子颜色+透明度
-                .uv2(pPackedLight)                                                      // 光照信息
-                .endVertex();                                                           // 结束顶点写入
+        pConsumer.addVertex(pVertex.x(), pVertex.y(), pVertex.z())
+                .setUv(pU, pV)
+                .setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+                .setLight(pPackedLight);
     }
 
     /**

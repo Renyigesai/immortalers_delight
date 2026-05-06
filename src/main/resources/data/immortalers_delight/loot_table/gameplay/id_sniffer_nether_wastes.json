@@ -1,0 +1,19 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "immortalers_delight:a_bush"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "immortalers_delight:gelpitaya_seeds"
+        }
+      ]
+    }
+  ]
+}

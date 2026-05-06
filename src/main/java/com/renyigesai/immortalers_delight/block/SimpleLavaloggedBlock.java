@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -15,12 +16,13 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.ToIntFunction;
 
 public interface SimpleLavaloggedBlock extends BucketPickup, LiquidBlockContainer {
     public static final BooleanProperty LAVALOGGED = BooleanProperty.create("lavalogged");
-    default boolean canPlaceLiquid(BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
+    default boolean canPlaceLiquid(@Nullable Player player, BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
         return pFluid == Fluids.LAVA;
     }
 
@@ -37,7 +39,7 @@ public interface SimpleLavaloggedBlock extends BucketPickup, LiquidBlockContaine
         }
     }
 
-    default ItemStack pickupBlock(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+    default ItemStack pickupBlock(@Nullable Player player, LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
         if ((Boolean)pState.getValue(LAVALOGGED)) {
             pLevel.setBlock(pPos, (BlockState)pState.setValue(LAVALOGGED, false), 3);
             if (!pState.canSurvive(pLevel, pPos)) {

@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -16,13 +17,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class GasPoisonMobEffect extends BaseMobEffect {
         super(MobEffectCategory.HARMFUL, 9574964);
     }
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity pEntity, int amplifier) {
         super.applyEffectTick(pEntity, amplifier);
         int i = pEntity.getRandom().nextInt(5);
         switch (i) {
@@ -46,6 +46,7 @@ public class GasPoisonMobEffect extends BaseMobEffect {
             case 3 -> pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, amplifier));
             case 4 -> pEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, amplifier));
         }
+        return true;
     }
     @Override
     public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
@@ -67,9 +68,9 @@ public class GasPoisonMobEffect extends BaseMobEffect {
 
     public static DamageSource getDamageSource(Entity hurtOne, @Nullable Entity attacker) {
         if (attacker != null) {
-            return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas"))), attacker);
+            return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:gas"))), attacker);
         }
-        return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas"))));
+        return new DamageSource(hurtOne.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:gas"))));
     }
 
     @Override
@@ -92,29 +93,27 @@ public class GasPoisonMobEffect extends BaseMobEffect {
         }
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class GasPoisonPotionEffect {
 
 //        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
 //        @SubscribeEvent(priority = EventPriority.LOWEST)
 //        public static void onLivingAttack(LivingAttackEvent event) {
 //            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
+//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:gas")))) {
 //                if (event.isCanceled()) event.setCanceled(false);
 //                LivingEntity pEntity = event.getEntity();
 //                float health = pEntity.getHealth();
-//                float damage = event.getAmount();
+//                float damage = event.getNewDamage();
 //                //记录应该减扣至的血量
 //                entityDamage.put(pEntity.getUUID(), health - damage);
 //            }
 //        }
 //        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingHurt(LivingHurtEvent event) {
+//        public static void onLivingHurt(LivingDamageEvent.Pre event) {
 //            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
+//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("immortalers_delight:gas")))) {
 //                if (event.isCanceled()) event.setCanceled(false);
 //            }
 //        }
@@ -126,9 +125,9 @@ public class GasPoisonMobEffect extends BaseMobEffect {
 //                float health = pEntity.getHealth();
 //                float needHealth = entityDamage.get(pEntity.getUUID());
 //                //如果发现被减伤了(当前血量减伤害值大于记录的血量)
-//                if (isPowerful && health - event.getAmount() > needHealth) {
+//                if (isPowerful && health - event.getNewDamage() > needHealth) {
 //                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
-//                    event.setAmount(0.0F);
+//                    event.setNewDamage(0.0F);
 //                }
 //                entityDamage.remove(pEntity.getUUID());
 //            }
@@ -140,11 +139,11 @@ public class GasPoisonMobEffect extends BaseMobEffect {
 
                 if (entity instanceof Player player && player.isCreative()) return;
                 if (!entity.getCommandSenderWorld().isClientSide
-                        && entity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get())
-                        && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())
+                        && entity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON)
+                        && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)
                         && !(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof GoldenFabricArmor)) {
                     if (event.getEffectInstance() != null
-                            && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.GAS_POISON.get()
+                            && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.GAS_POISON
                             || event.getEffectInstance().getEffect() == MobEffects.HUNGER
                             || event.getEffectInstance().getEffect() == MobEffects.BLINDNESS
                             || event.getEffectInstance().getEffect() == MobEffects.CONFUSION

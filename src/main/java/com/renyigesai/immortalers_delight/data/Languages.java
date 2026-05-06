@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
-import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
@@ -19,8 +18,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.lang.reflect.Field;
 import java.nio.file.Path;
@@ -78,7 +77,6 @@ public class Languages extends LanguageProvider {
             throw new RuntimeException(e);
         }
         addFluids();
-        addLatiao();
         addTooltips();
         addMessages();
         addContainers();
@@ -93,10 +91,12 @@ public class Languages extends LanguageProvider {
         for (Field field : _class.getDeclaredFields()) {
             if (field.isAnnotationPresent(ItemData.class)) {
                 Object object = field.get(null);
-                RegistryObject<Item> deferredItem = null;
-                if (object instanceof RegistryObject<?> registryObject) {
+                DeferredHolder<Item, Item> deferredItem = null;
+                if (object instanceof DeferredHolder<?, ?> registryObject) {
                     if (Item.class.isAssignableFrom(registryObject.get().getClass())){
-                        deferredItem = (RegistryObject<Item>) registryObject;
+                        @SuppressWarnings("unchecked")
+                        DeferredHolder<Item, Item> asItem = (DeferredHolder<Item, Item>) registryObject;
+                        deferredItem = asItem;
                     }
                 }
                 if (deferredItem != null) {
@@ -122,10 +122,12 @@ public class Languages extends LanguageProvider {
         for (Field field : _class.getDeclaredFields()) {
             if (field.isAnnotationPresent(BlockData.class)) {
                 Object object = field.get(null);
-                RegistryObject<Block> deferredBlock = null;
-                if (object instanceof RegistryObject<?> registryObject) {
+                DeferredHolder<Block, Block> deferredBlock = null;
+                if (object instanceof DeferredHolder<?, ?> registryObject) {
                     if (Block.class.isAssignableFrom(registryObject.get().getClass())){
-                        deferredBlock = (RegistryObject<Block>) registryObject;
+                        @SuppressWarnings("unchecked")
+                        DeferredHolder<Block, Block> asBlock = (DeferredHolder<Block, Block>) registryObject;
+                        deferredBlock = asBlock;
                     }
                 }
                 if (deferredBlock != null && hasBlockItem(deferredBlock.get())) {
@@ -154,39 +156,6 @@ public class Languages extends LanguageProvider {
 
     private void addFluids(){
         add("fluid_type.immortalers.delight.hot_spring","Grudge Spring","怨泉");
-    }
-
-    private void addLatiao(){
-        addItem(Ltc2Items.EVOLUTCORN_POWDER,"白垩玉黍粉");
-        addItem(Ltc2Items.EVOLUTCORN_LATIAO,"白垩玉黍辣条");
-        addItem(Ltc2Items.RARE_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
-        addItem(Ltc2Items.SUPERIOR_EVOLUTCORN_LATIA,"白垩玉黍辣条");
-        addItem(Ltc2Items.DELICACY_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
-        addItem(Ltc2Items.TREASURE_EVOLUTCORN_LATIAO,"白垩玉黍辣条");
-
-        addItem(Ltc2Items.KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
-        addItem(Ltc2Items.RARE_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
-        addItem(Ltc2Items.SUPERIOR_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
-        addItem(Ltc2Items.DELICACY_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
-        addItem(Ltc2Items.TREASURE_KWAT_WHEAT_LATIAO,"瓦斯麦辣条");
-
-        addItem(Ltc2Items.MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
-        addItem(Ltc2Items.RARE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
-        addItem(Ltc2Items.SUPERIOR_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
-        addItem(Ltc2Items.DELICACY_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
-        addItem(Ltc2Items.TREASURE_MASHED_POISONOUS_POTATO_WITH_JAM_LATIAO,"果酱毒薯泥辣条");
-
-        addItem(Ltc2Items.IMMORTALERS_LATIAO_LUCKY_BAG,"千古辣条福袋");
-        addItem(Ltc2Items.HAKO_LATIAO,"「小盒子」的辣条");
-        addItem(Ltc2Items.WINDY_NARRATOR_LATIA,"「Windy Narrator」的辣条");
-        addItem(Ltc2Items.MOASWIES_LATIAO,"「Moaswies」的辣条");
-        addItem(Ltc2Items.RENYIGESAI_LATIAO,"「人一个噻」的辣条");
-        addItem(Ltc2Items.LYZ_DELIGHT_LATIAO,"「LYZ」的辣条");
-        addItem(Ltc2Items.XIAOSUHUAJI_LATIAO,"「小苏滑稽」的辣条");
-        addItem(Ltc2Items.TELLURIUM_LATIAO,"「Tellurium」的辣条");
-        addItem(Ltc2Items.KA_QKO_LATIAO,"「KaQko」的辣条");
-        addItem(Ltc2Items.BEI_DOU_LATIAO,"「北斗·神」的辣条");
-        addItem(Ltc2Items.DOUGER_LATIAO,"「多格」的辣条");
     }
 
     private void addTooltips(){

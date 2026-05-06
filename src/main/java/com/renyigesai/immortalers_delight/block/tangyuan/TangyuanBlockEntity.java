@@ -2,11 +2,14 @@ package com.renyigesai.immortalers_delight.block.tangyuan;
 
 import com.renyigesai.immortalers_delight.block.WrappedHandler;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.recipe.SimpleContainerRecipeInput;
 import com.renyigesai.immortalers_delight.recipe.TangyuanRecipe;
 import com.renyigesai.immortalers_delight.screen.GrindstoneWithNoBlockMenu;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -21,15 +24,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,11 +63,6 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
     private static final int[] CONTAINER_SLOTS = new int[]{4};
     // 是否为新版本标识（未使用）
     private boolean newVersion = false;
-
-    // 物品处理器的延迟可选实例（用于能力系统）
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    // 按方向存储的物品处理器包装器（用于不同方向的自动化交互）
-    private final EnumMap<Direction, LazyOptional<WrappedHandler>> directionHandlers = new EnumMap<>(Direction.class);
 
     /**
      * 构造函数
@@ -318,74 +313,40 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         }
     }
 
-    /**
-     * 方块实体加载时初始化能力系统（用于自动化设备交互）
-     */
     @Override
-    public void onLoad() {
-        super.onLoad();
-        Direction facing = getDirection();
+    protected NonNullList<ItemStack> getItems() {
+        NonNullList<ItemStack> list = NonNullList.withSize(inventory.getSlots(), ItemStack.EMPTY);
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            list.set(i, inventory.getStackInSlot(i));
+        }
+        return list;
+    }
 
-        // 初始化基础物品处理器
-        lazyItemHandler = LazyOptional.of(() -> inventory);
-
-        // 向上方向：仅允许放入输入槽位物品
-        directionHandlers.put(Direction.UP, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,INPUT_SLOTS) && canPlaceItem(i,s))));
-
-        // 向下方向：仅允许取出输出槽位物品
-        directionHandlers.put(Direction.DOWN, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> getIntList(i,OUTPUT_SLOTS), (i, s) -> false)));
-
-        // 方块朝向方向：仅允许取出缓存槽位物品
-        directionHandlers.put(facing, LazyOptional.of(
-                () -> new WrappedHandler(inventory, (i) -> getIntList(i, RESULT_CACHE_SLOTS), (i,s) -> false)));
-
-        // 其他方向：仅允许放入容器槽位物品
-        for (Direction dir : Direction.values()) {
-            if (dir != Direction.UP && dir != Direction.DOWN && dir != facing) {
-                directionHandlers.put(dir, LazyOptional.of(
-                        () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,CONTAINER_SLOTS) && canPlaceItem(i,s))));
-            }
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            inventory.setStackInSlot(i, i < items.size() ? items.get(i) : ItemStack.EMPTY);
         }
     }
 
-    /**
-     * 使能力失效（方块卸载时调用）
-     */
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    /**
-     * 从NBT标签加载数据
-     * @param tag NBT标签
-     */
-    @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
-        // 检查是否需要版本迁移（旧版本数据结构转换）
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (isMigration(tag)){
-            ItemStackHandler newInventory = new ItemStackHandler(7);
             ItemStackHandler oldInventory = new ItemStackHandler(5);
             ItemStackHandler oldFuel = new ItemStackHandler(1);
             ItemStackHandler oldContainerslot = new ItemStackHandler(1);
 
-            // 读取旧版本数据
             if (tag.contains("Inventory")) {
-                oldInventory.deserializeNBT(tag.getCompound("Inventory"));
-                inventory.deserializeNBT(newInventory.serializeNBT());
+                oldInventory.deserializeNBT(registries, tag.getCompound("Inventory"));
             }
             if (tag.contains("Containerslot")) {
-                oldContainerslot.deserializeNBT(tag.getCompound("Containerslot"));
+                oldContainerslot.deserializeNBT(registries, tag.getCompound("Containerslot"));
             }
             if (tag.contains("Fuelslot")) {
-                oldFuel.deserializeNBT(tag.getCompound("Fuelslot"));
+                oldFuel.deserializeNBT(registries, tag.getCompound("Fuelslot"));
             }
 
-            // 迁移到新的槽位结构
             inventory.setStackInSlot(0,oldInventory.getStackInSlot(0));
             inventory.setStackInSlot(1,oldInventory.getStackInSlot(1));
             inventory.setStackInSlot(2,oldInventory.getStackInSlot(2));
@@ -394,28 +355,20 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
             inventory.setStackInSlot(CONTAINER_SLOT,oldContainerslot.getStackInSlot(0));
             inventory.setStackInSlot(RESULT_CACHE_SLOT,oldFuel.getStackInSlot(0));
         }else {
-            // 直接读取新版本数据
             if (tag.contains("Inventory")) {
-                inventory.deserializeNBT(tag.getCompound("Inventory"));
+                inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
             }
         }
-        // 加载其他数据
-        //cookingTotalTime = tag.getInt("CookingTotalTime");
         residualProgress = tag.getInt("ResidualDye");
         loadVersion = tag.getInt("LoadVersion");
     }
 
-    /**
-     * 保存数据到NBT标签
-     * @param tag NBT标签
-     */
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        tag.put("Inventory", inventory.serializeNBT());
-        //tag.putInt("CookingTotalTime", cookingTotalTime);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("Inventory", inventory.serializeNBT(registries));
         tag.putInt("ResidualDye", residualProgress);
-        tag.putInt("LoadVersion", 11); // 保存当前版本号
+        tag.putInt("LoadVersion", 11);
     }
 
     /**
@@ -438,8 +391,12 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @return 包含实体数据的NBT标签
      */
     @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putInt("ResidualDye", residualProgress);
+        tag.putInt("LoadVersion", loadVersion);
+        return tag;
     }
 
     /**
@@ -457,8 +414,8 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @param pkt 数据包
      */
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries) {
+        super.onDataPacket(net, pkt, registries);
     }
 
     /**
@@ -504,13 +461,13 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
      * @return 配方的可选实例
      */
     private Optional<TangyuanRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = getInput();
-
-        if (level != null) {
-            return level.getRecipeManager()
-                    .getRecipeFor(TangyuanRecipe.Type.INSTANCE, inventory, level);
-        } else System.out.println("level is null");
-        return Optional.empty();
+        SimpleContainer inv = getInput();
+        if (level == null) {
+            return Optional.empty();
+        }
+        return level.getRecipeManager()
+                .getRecipeFor(TangyuanRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inv), level)
+                .map(RecipeHolder::value);
     }
 
     /**
@@ -606,7 +563,7 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         // 获取合成结果
         ItemStack resultItem = ItemStack.EMPTY;
         if (level != null) {
-            resultItem = recipe.assemble(inputs,level.registryAccess()).copy();
+            resultItem = recipe.assemble(new SimpleContainerRecipeInput(inputs), level.registryAccess()).copy();
         }
         ItemStack outputStack = inventory.getStackInSlot(recipe.isFinished() ? OUTPUT_SLOT : RESULT_CACHE_SLOT);
 
@@ -746,20 +703,20 @@ public class TangyuanBlockEntity extends BaseContainerBlockEntity implements Wor
         return false;
     }
 
-    /**
-     * 获取能力接口（用于自动化设备交互）
-     * @param cap 能力类型
-     * @param side 方向
-     * @return 能力的延迟可选实例
-     */
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == null) {
-                return lazyItemHandler.cast();
-            }
-            return directionHandlers.getOrDefault(side, LazyOptional.empty()).cast();
+    public IItemHandler getAutomationHandler(@Nullable Direction side) {
+        if (side == null) {
+            return inventory;
         }
-        return super.getCapability(cap, side);
+        Direction facing = getDirection();
+        if (side == Direction.UP) {
+            return new WrappedHandler(inventory, i -> false, (i, s) -> getIntList(i, INPUT_SLOTS) && canPlaceItem(i, s));
+        }
+        if (side == Direction.DOWN) {
+            return new WrappedHandler(inventory, i -> getIntList(i, OUTPUT_SLOTS), (i, s) -> false);
+        }
+        if (side == facing) {
+            return new WrappedHandler(inventory, i -> getIntList(i, RESULT_CACHE_SLOTS), (i, s) -> false);
+        }
+        return new WrappedHandler(inventory, i -> false, (i, s) -> getIntList(i, CONTAINER_SLOTS) && canPlaceItem(i, s));
     }
 }

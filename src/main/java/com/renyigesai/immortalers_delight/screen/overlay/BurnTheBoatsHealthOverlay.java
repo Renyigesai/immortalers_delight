@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,11 +14,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.level.GameType;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.Objects;
 import java.util.Random;
@@ -30,48 +31,51 @@ public class BurnTheBoatsHealthOverlay {
 	// 生命值图标偏移量，用于确定图标在屏幕上的位置
 	protected static int healthIconsOffset;
 	// 背水一战效果的图标纹理资源位置
-	private static final ResourceLocation HEALTH_ICONS_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/icons/burn_the_boats_icons.png");
+	private static final ResourceLocation HEALTH_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/icons/burn_the_boats_icons.png");
 
 	/**
 	 * 初始化方法，将BurnTheBoatsHealthOverlay类的实例注册到Minecraft Forge的事件总线中，
 	 * 以便监听相关事件。
 	 */
 	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new BurnTheBoatsHealthOverlay());
+		NeoForge.EVENT_BUS.register(new BurnTheBoatsHealthOverlay());
 	}
 
-	// 玩家生命值覆盖层的资源位置，用于识别玩家生命值显示的覆盖层
-	static ResourceLocation PLAYER_HEALTH_ELEMENT = new ResourceLocation("minecraft", "player_health");
+	private static boolean shouldDrawSurvivalHud(Minecraft mc) {
+		if (mc.player == null || mc.options.hideGui) {
+			return false;
+		}
+		if (mc.player.isSpectator()) {
+			return false;
+		}
+		GameType mode = mc.gameMode != null ? mc.gameMode.getPlayerMode() : GameType.DEFAULT_MODE;
+		return !mode.isCreative();
+	}
 
 	/**
-	 * 监听RenderGuiOverlayEvent.Post事件，当渲染玩家生命值覆盖层时，
-	 * 检查条件并调用renderBurnTheBoatsOverlay方法进行背水一战效果的渲染。
+	 * 在玩家生命值 GUI 层之后渲染背水一战叠加层。
 	 *
-	 * @param event 渲染GUI覆盖层后的事件
+	 * @param event 渲染 GUI 层后的事件
 	 */
 	@SubscribeEvent
-	public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-		// 检查当前渲染的覆盖层是否为玩家生命值覆盖层
-		if (event.getOverlay() == GuiOverlayManager.findOverlay(PLAYER_HEALTH_ELEMENT)) {
-			// 获取Minecraft实例
-			Minecraft mc = Minecraft.getInstance();
-			// 获取ForgeGui实例
-			ForgeGui gui = (ForgeGui) mc.gui;
-			// 检查玩家是否隐藏了GUI，并且是否应该绘制生存元素
-			if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-				// 调用渲染背水一战覆盖层的方法
-				renderBurnTheBoatsOverlay(gui, event.getGuiGraphics());
-			}
+	public void onRenderGuiLayerPost(RenderGuiLayerEvent.Post event) {
+		if (!VanillaGuiLayers.PLAYER_HEALTH.equals(event.getName())) {
+			return;
+		}
+		Minecraft mc = Minecraft.getInstance();
+		Gui gui = mc.gui;
+		if (shouldDrawSurvivalHud(mc)) {
+			renderBurnTheBoatsOverlay(gui, event.getGuiGraphics());
 		}
 	}
 
 	/**
 	 * 渲染背水一战效果的覆盖层，根据配置和玩家状态决定是否进行渲染。
 	 *
-	 * @param gui 游戏的ForgeGui实例
+	 * @param gui 游戏的 Gui 实例
 	 * @param graphics 用于绘制的GuiGraphics实例
 	 */
-	public static void renderBurnTheBoatsOverlay(ForgeGui gui, GuiGraphics graphics) {
+	public static void renderBurnTheBoatsOverlay(Gui gui, GuiGraphics graphics) {
 		// 检查配置中是否启用了背水一战生命值覆盖层功能
 		if (!Config.weakPoisonHealthOverlay) {
 			return;
@@ -101,7 +105,7 @@ public class BurnTheBoatsHealthOverlay {
 		boolean isPlayerEligibleForBurnTheBoats = !player.hasEffect(MobEffects.WITHER);
 
 		// 检查玩家是否有背水一战效果，并且符合显示条件
-		if (player.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get()) != null && isPlayerEligibleForBurnTheBoats) {
+		if (player.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS) != null && isPlayerEligibleForBurnTheBoats) {
 			// 调用绘制背水一战覆盖层的方法
 			drawBurnTheBoatsOverlay(player, minecraft, graphics, left, top);
 		}
@@ -174,7 +178,7 @@ public class BurnTheBoatsHealthOverlay {
 			// 如果当前图标位置与再生效果帧数相同，调整y坐标
 			if (i == regen) y -= 2;
 			//计算触发血线
-			int lv = player.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(player.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;
+			int lv = player.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS)? Objects.requireNonNull(player.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS)).getAmplifier() :0;
 			lv++;
 			float workHealth = (healthMax * lv) / (2 * (lv + 1)) > 3 * (lv + 1) ? 3 * (lv + 1) : (healthMax * lv)/ (2 * (lv + 1));
 			// 计算当前栏的有效生命值

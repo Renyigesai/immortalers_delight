@@ -23,7 +23,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 
 public class AbushBlock extends Block implements SimpleLavaloggedBlock, BonemealableBlock {
 
@@ -57,7 +57,7 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock, Bonemeal
     }
 
     private void onRandomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom){
-        if (ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(6) == 0)) {
+        if (CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(6) == 0)) {
             if (pState.getValue(STAGE) < 3) {
                 pLevel.setBlock(pPos, pState.setValue(STAGE, pState.getValue(STAGE) + 1), 3);
             }else if (pState.getValue(LAVALOGGED)){
@@ -92,15 +92,7 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock, Bonemeal
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable){
-        if (mayPlaceOn(state)){
-            return super.canSustainPlant(state, world, pos, facing, plantable);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean b) {
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
         return blockState.getValue(STAGE) < 3;
     }
 

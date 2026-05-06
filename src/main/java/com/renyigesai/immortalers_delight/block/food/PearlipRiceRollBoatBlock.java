@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,11 +30,19 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
 public class PearlipRiceRollBoatBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<PearlipRiceRollBoatBlock> CODEC = simpleCodec(PearlipRiceRollBoatBlock::new);
     public static final IntegerProperty SERVINGS = IntegerProperty.create("servings",0,5);
     public PearlipRiceRollBoatBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(defaultBlockState().setValue(SERVINGS,5).setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -49,15 +60,20 @@ public class PearlipRiceRollBoatBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        return take(pState, pLevel, pPos, pPlayer, pHand);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        return BlockItemInteraction.from(pLevel, take(pState, pLevel, pPos, pPlayer, pHand));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        return take(pState, pLevel, pPos, pPlayer, InteractionHand.MAIN_HAND);
     }
 
     private InteractionResult take(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand){
         int servings = pState.getValue(SERVINGS);
         if (servings == 0){
-            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(pLevel,new ItemStack(ImmortalersDelightItems.PEARLIP_SHELL.get()),(double)pPos.getX() + 0.5, (double)pPos.getY() + 0.3, (double)pPos.getZ() + 0.5, 0.0,0.0,0.0);
-            vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(pLevel,new ItemStack(Items.WHITE_BANNER),(double)pPos.getX() + 0.5, (double)pPos.getY() + 0.3, (double)pPos.getZ() + 0.5, 0.0,0.0,0.0);
+            ItemUtils.spawnItemEntity(pLevel,new ItemStack(ImmortalersDelightItems.PEARLIP_SHELL.get()),(double)pPos.getX() + 0.5, (double)pPos.getY() + 0.3, (double)pPos.getZ() + 0.5, 0.0,0.0,0.0);
+            ItemUtils.spawnItemEntity(pLevel,new ItemStack(Items.WHITE_BANNER),(double)pPos.getX() + 0.5, (double)pPos.getY() + 0.3, (double)pPos.getZ() + 0.5, 0.0,0.0,0.0);
             pLevel.removeBlock(pPos,false);
         }else {
             pLevel.setBlock(pPos,pState.setValue(SERVINGS,servings-1),3);

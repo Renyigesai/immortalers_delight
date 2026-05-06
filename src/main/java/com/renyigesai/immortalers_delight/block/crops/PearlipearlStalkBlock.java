@@ -1,7 +1,9 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -9,8 +11,9 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,10 +33,12 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
+import net.neoforged.neoforge.common.CommonHooks;
 
-public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements IPlantable, BonemealableBlock {
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
+public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements BonemealableBlock {
+    public static final MapCodec<PearlipearlStalkBlock> CODEC = simpleCodec(PearlipearlStalkBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
     public static final BooleanProperty BLOOM = BooleanProperty.create("bloom");
@@ -43,6 +48,11 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
     public PearlipearlStalkBlock(Properties p_49795_) {
         super(p_49795_);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(IS_LEAVES,true).setValue(BLOOM,false).setValue(FACING,Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -70,7 +80,7 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
             int i;
             for(i = 1; level.getBlockState(pos.below(i)).is(this); ++i) {
             }
-            if (ForgeHooks.onCropsGrowPre(level, pos, state, randomSource.nextInt(6) == 0)) {
+            if (CommonHooks.canCropGrow(level, pos, state, randomSource.nextInt(6) == 0)) {
                 stalkGrowing(state,level,pos,randomSource,i);
                 if (state.getValue(BLOOM)) {
                     // 获取当前方块的朝向
@@ -94,7 +104,7 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
         if (hight < 3){
             level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(FACING, state.getValue(FACING)).setValue(IS_LEAVES,true));
             level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
-            ForgeHooks.onCropsGrowPost(level, pos.above(), this.defaultBlockState());
+            CommonHooks.fireCropGrowPost(level, pos.above(), this.defaultBlockState());
         }else {
             if (age < 2){
                 /*每个茎age需达到3才能变粗*/
@@ -123,7 +133,7 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
 
     public boolean canSurvive(BlockState p_57175_, LevelReader p_57176_, BlockPos p_57177_) {
         BlockState soil = p_57176_.getBlockState(p_57177_.below());
-        if (soil.canSustainPlant(p_57176_, p_57177_.below(), Direction.UP, this)) return true;
+        if (soil.canSustainPlant(p_57176_, p_57177_.below(), Direction.UP, p_57175_).isTrue()) return true;
         BlockState blockstate = p_57176_.getBlockState(p_57177_.below());
         if (blockstate.is(this)) {
             return true;
@@ -144,17 +154,36 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
         }
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult pearlipUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).is(ImmortalersDelightItems.PEARLIP.get())) {
-            if (player.isCreative()) return super.use(state, level, pos, player, hand, hitResult);
-            else {return InteractionResult.SUCCESS;}
+            if (player.isCreative()) {
+                return InteractionResult.PASS;
+            }
+            return InteractionResult.SUCCESS;
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = pearlipUse(state, level, pos, player, hand);
+        if (result == InteractionResult.PASS && player.isCreative() && stack.is(ImmortalersDelightItems.PEARLIP.get())) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        }
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = pearlipUse(state, level, pos, player, InteractionHand.MAIN_HAND);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     // 判断是否可以对当前方块使用骨粉的方法
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         // 获取上方方块的状态
         BlockState blockstate = pLevel.getBlockState(pPos.above());
         BlockState blockstate1 = pLevel.getBlockState(pPos.above(2));
@@ -205,7 +234,7 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
                 int age = neighborState.getValue(AGE);
                 if (age < 2 && pRandom.nextInt(4) == 0) {
                     pLevel.setBlock(neighborPos,neighborState.setValue(AGE, age + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }
@@ -229,8 +258,4 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
         stateBuilder.add(AGE,IS_LEAVES,BLOOM,FACING);
     }
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return defaultBlockState();
-    }
 }

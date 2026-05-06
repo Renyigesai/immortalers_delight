@@ -7,15 +7,15 @@ import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.GasPoisonWorldData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Map;
 import java.util.UUID;
 //
 //// 使用自定义数据存储的示例类
-//@Mod.EventBusSubscriber
+//@EventBusSubscriber
 //public class GasPoisonMapSaveLoadHelper {
 //    // 存储自定义信息的方法
 //    public static void saveEntityHasEffect (Level level, Map<UUID, EffectData> entitiesHasGasPoisonEffect) {

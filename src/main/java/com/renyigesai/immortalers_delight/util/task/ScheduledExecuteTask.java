@@ -1,16 +1,14 @@
 package com.renyigesai.immortalers_delight.util.task;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Random;
 
-@Mod.EventBusSubscriber
 public abstract class ScheduledExecuteTask implements Runnable {
     /*
     这是一个计划任务，在服务端tick执行自身tick
@@ -66,25 +64,23 @@ public abstract class ScheduledExecuteTask implements Runnable {
     public static ScheduledExecuteTask getTaskFromID(Integer id) {return TASK_LIST.get(id);}
 
     @SubscribeEvent
-    public void onTick(@Nonnull TickEvent.ServerTickEvent evt) {
-        if (evt.phase.equals(TickEvent.Phase.START)) {
-            tick++;
-            if (first) {
-                if (tick >= INITIALDELAY) {
-                    first = false;
+    public void onTick(@Nonnull ServerTickEvent.Pre evt) {
+        tick++;
+        if (first) {
+            if (tick >= INITIALDELAY) {
+                first = false;
+                tick = 0;
+                this.run();
+            }
+        } else {
+            if (delay >= 0) {
+                if (tick >= DELAY) {
                     tick = 0;
                     this.run();
                 }
             } else {
-                if (delay >= 0) {
-                    if (tick >= DELAY) {
-                        tick = 0;
-                        this.run();
-                    }
-                } else {
-                    ImmortalersDelightMod.LOGGER.info("孩子们，我已经超时了，但我还在跑");
-                    cancel();
-                }
+                ImmortalersDelightMod.LOGGER.info("孩子们，我已经超时了，但我还在跑");
+                cancel();
             }
         }
     }
@@ -97,7 +93,7 @@ public abstract class ScheduledExecuteTask implements Runnable {
         if (!start) {
             start = true;
             TASK_LIST.put(getTaskID(), this);
-            MinecraftForge.EVENT_BUS.register(this);
+            NeoForge.EVENT_BUS.register(this);
         }
     }
 
@@ -105,7 +101,7 @@ public abstract class ScheduledExecuteTask implements Runnable {
         start = false;
         TASK_LIST.remove(this.getTaskID());
         ImmortalersDelightMod.LOGGER.info("我是Task，孩子们我被取消了");
-        MinecraftForge.EVENT_BUS.unregister(this);
+        NeoForge.EVENT_BUS.unregister(this);
     }
     public void stop() {
         delay = -1;

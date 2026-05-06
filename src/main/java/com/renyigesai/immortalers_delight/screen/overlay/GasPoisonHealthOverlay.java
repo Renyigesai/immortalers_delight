@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -13,38 +14,48 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.level.GameType;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.Random;
 
 public class GasPoisonHealthOverlay
 {
     protected static int healthIconsOffset;
-    private static final ResourceLocation HEALTH_ICONS_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/icons/gas_poison_icons.png");
+    private static final ResourceLocation HEALTH_ICONS_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/icons/gas_poison_icons.png");
 
     public static void init() {
-        MinecraftForge.EVENT_BUS.register(new WeakPoisonHealthOverlay());
+        NeoForge.EVENT_BUS.register(new WeakPoisonHealthOverlay());
     }
 
 
-    static ResourceLocation PLAYER_HEALTH_ELEMENT = new ResourceLocation("minecraft", "player_health");
+    private static boolean shouldDrawSurvivalHud(Minecraft mc) {
+        if (mc.player == null || mc.options.hideGui) {
+            return false;
+        }
+        if (mc.player.isSpectator()) {
+            return false;
+        }
+        GameType mode = mc.gameMode != null ? mc.gameMode.getPlayerMode() : GameType.DEFAULT_MODE;
+        return !mode.isCreative();
+    }
 
     @SubscribeEvent
-    public void onRenderGuiOverlayPost(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay() == GuiOverlayManager.findOverlay(PLAYER_HEALTH_ELEMENT)) {
-            Minecraft mc = Minecraft.getInstance();
-            ForgeGui gui = (ForgeGui) mc.gui;
-            if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-                renderWeakPoisonOverlay(gui, event.getGuiGraphics());
-            }
+    public void onRenderGuiLayerPost(RenderGuiLayerEvent.Post event) {
+        if (!VanillaGuiLayers.PLAYER_HEALTH.equals(event.getName())) {
+            return;
+        }
+        Minecraft mc = Minecraft.getInstance();
+        Gui gui = mc.gui;
+        if (shouldDrawSurvivalHud(mc)) {
+            renderWeakPoisonOverlay(gui, event.getGuiGraphics());
         }
     }
 
-    public static void renderWeakPoisonOverlay(ForgeGui gui, GuiGraphics graphics) {
+    public static void renderWeakPoisonOverlay(Gui gui, GuiGraphics graphics) {
         if (!Config.weakPoisonHealthOverlay) {
             return;
         }
@@ -61,7 +72,7 @@ public class GasPoisonHealthOverlay
         int top = minecraft.getWindow().getGuiScaledHeight() - healthIconsOffset + 10;
         int left = minecraft.getWindow().getGuiScaledWidth() / 2 - 91;
 
-        if (player.getEffect(ImmortalersDelightMobEffect.GAS_POISON.get()) != null) {
+        if (player.getEffect(ImmortalersDelightMobEffect.GAS_POISON) != null) {
             drawWeakPoisonOverlay(player, minecraft, graphics, left, top);
         }
     }

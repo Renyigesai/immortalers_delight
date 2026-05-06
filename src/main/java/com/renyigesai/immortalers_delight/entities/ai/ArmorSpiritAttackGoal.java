@@ -39,7 +39,8 @@ public class ArmorSpiritAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    protected void checkAndPerformAttack(LivingEntity target, double squaredDistance) {
+    protected void checkAndPerformAttack(LivingEntity target) {
+        double squaredDistance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
         if (isEnemyWithinAttackDistanse(target, squaredDistance)) {
             shouldCountTillNextAttack = true;
 
@@ -78,6 +79,8 @@ public class ArmorSpiritAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isEnemyWithinAttackDistanse(LivingEntity target, double squaredDistance) {
-        return squaredDistance <= 4.0 + this.getAttackReachSqr(target);
+        float w = this.mob.getBbWidth();
+        double meleeReachSqr = (double) (w * 2.0F * w * 2.0F + target.getBbWidth());
+        return squaredDistance <= 4.0 + meleeReachSqr;
     }
 }

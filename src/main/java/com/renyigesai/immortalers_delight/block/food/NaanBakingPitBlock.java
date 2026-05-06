@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.food;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.block.brushable.SuspiciousAshPileBlock;
@@ -9,13 +10,14 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +39,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
 public class NaanBakingPitBlock extends HorizontalDirectionalBlock {
     private static final Iterable<Vec3> PARTICLE_OFFSETS = ImmutableList.of(new Vec3(0.5D, 1.0D, 0.5D));
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
@@ -46,28 +50,42 @@ public class NaanBakingPitBlock extends HorizontalDirectionalBlock {
     public static final VoxelShape OUTLINE_BOX = box(1.9D,0.0D,1.9D,14.1D,4.2D,14.1D);
     public static final VoxelShape OUTLINE_BOX_LIT = box(0.1D,0.0D,0.1D,15.9D,12.0D,15.9D);
 
+    public static final MapCodec<NaanBakingPitBlock> CODEC = simpleCodec(NaanBakingPitBlock::new);
+
     public NaanBakingPitBlock(Properties pProperties) {
         super(pProperties);
         super.registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(LIT, Boolean.valueOf(true)));
     }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (!pLevel.isClientSide && pState.getValue(LIT)) {
             pEntity.hurt(pEntity.damageSources().hotFloor(), 1.1F);
-            pEntity.setSecondsOnFire(8);
+            pEntity.setRemainingFireTicks(8 * 20);
         }
     }
+
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pState.getValue(LIT)) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (itemstack.getItem() == Items.MAGMA_BLOCK) {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(LIT, Boolean.valueOf(true)));
                 if (!pPlayer.isCreative()) itemstack.shrink(1);
-                return InteractionResult.sidedSuccess(pLevel.isClientSide);
+                return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
             }
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
     }
     @Override
     public boolean isRandomlyTicking(BlockState p_54449_) {
@@ -76,20 +94,13 @@ public class NaanBakingPitBlock extends HorizontalDirectionalBlock {
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
-        if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(3) == 0)) {
+        if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(3) == 0)) {
             pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE.get().defaultBlockState().setValue(SuspiciousAshPileBlock.FACING, pState.getValue(FACING)));
-            // 构建方块的实体数据（TileEntity NBT），设置自定义战利品表
-            CompoundTag blockEntityTag = new CompoundTag();
-            // 关键：设置战利品表路径（替换为你的自定义战利品表ID）
-            blockEntityTag.putString("LootTable", ImmortalersDelightMod.MODID + ":archaeology/naan_baking_pit");
-            // 可选：设置战利品表种子（随机数，保证每次掉落不同）
-            blockEntityTag.putLong("LootTableSeed", pLevel.getRandom().nextLong());
-            // 为方块实体附加NBT（关键：战利品表通过方块实体存储）
             if (pLevel.getBlockEntity(pPos) instanceof ModBrushableBlockEntity blockEntity) {
-                blockEntity.load(blockEntityTag);
-                blockEntity.setChanged(); // 标记方块实体数据变更
+                blockEntity.setLootTable(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "archaeology/naan_baking_pit"), pLevel.getRandom().nextLong());
+                blockEntity.setChanged();
             }
-            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+            net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
         }
     }
     @Override

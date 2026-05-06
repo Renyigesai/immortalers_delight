@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -8,18 +9,17 @@ import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Objects;
 
@@ -31,14 +31,14 @@ public class InebriatedMobEffect extends BaseMobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity pEntity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity pEntity, int amplifier) {
         if (this == INEBRIATED.get() && !pEntity.level().isClientSide()) {
-            int time = pEntity.hasEffect(INEBRIATED.get()) ? Objects.requireNonNull(pEntity.getEffect(INEBRIATED.get()).getDuration()):0;
+            int time = pEntity.hasEffect(INEBRIATED) ? Objects.requireNonNull(pEntity.getEffect(INEBRIATED)).getDuration() : 0;
             if (time > 3600) {
                 super.applyEffectTick(pEntity, amplifier);
                 if (Config.useBetterStun) {
-                    InebriatedToxicFoodItem.addEffectWithoutCanBeAffected(pEntity, new MobEffectInstance(WEAK_POISON.get(), time, amplifier), null);
-                }else pEntity.addEffect(new MobEffectInstance(WEAK_POISON.get(), time, amplifier));
+                    InebriatedToxicFoodItem.addEffectWithoutCanBeAffected(pEntity, new MobEffectInstance(WEAK_POISON, time, amplifier), null);
+                }else pEntity.addEffect(new MobEffectInstance(WEAK_POISON, time, amplifier));
                 pEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, time, amplifier));
                 pEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, time, amplifier));
                 pEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, amplifier));
@@ -46,6 +46,7 @@ public class InebriatedMobEffect extends BaseMobEffect {
 
             }
         }
+        return true;
     }
     @Override
     public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
@@ -58,7 +59,8 @@ public class InebriatedMobEffect extends BaseMobEffect {
         boolean isOP = pEntity instanceof Player player && player.isCreative();
         if (!isOP || isPowerful) {
             pEntity.invulnerableTime = 0;
-            pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))), damage);
+            ResourceKey<DamageType> drunk = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "drunk"));
+            pEntity.hurt(pEntity.damageSources().source(drunk, null), damage);
             pEntity.invulnerableTime = 0;
             if (isPowerful && (health - damage) > 0 && pEntity.getHealth() > (health - damage)) {
                 pEntity.setHealth(health - damage);
@@ -77,20 +79,18 @@ public class InebriatedMobEffect extends BaseMobEffect {
     }
 
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class InebriatedPotionEffect {
 
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void onAddToEntity(MobEffectEvent.Applicable event) {
             if (event != null && event.getEntity() != null) {
                 LivingEntity entity = event.getEntity();
-                if (!entity.getCommandSenderWorld().isClientSide
-                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()
-                        && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())) {
-                    event.setResult(Event.Result.ALLOW);
+                if (!entity.level().isClientSide()
+                        && event.getEffectInstance().getEffect().is(ImmortalersDelightMobEffect.INEBRIATED)
+                        && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE)) {
+                    event.setResult(MobEffectEvent.Applicable.Result.APPLY);
                 }
             }
         }
@@ -100,19 +100,19 @@ public class InebriatedMobEffect extends BaseMobEffect {
                 LivingEntity entity = event.getEntity();
 
                 if (entity instanceof Player player && player.isCreative()) return;
-                if (!entity.getCommandSenderWorld().isClientSide) {
-                    MobEffectInstance inebriated = entity.getEffect(ImmortalersDelightMobEffect.INEBRIATED.get());
-                    MobEffectInstance magicalReverse = entity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get());
+                if (!entity.level().isClientSide()) {
+                    MobEffectInstance inebriated = entity.getEffect(ImmortalersDelightMobEffect.INEBRIATED);
+                    MobEffectInstance magicalReverse = entity.getEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE);
                     int maxTime = magicalReverse == null ? 0 : (magicalReverse.getDuration() * 100) << magicalReverse.getAmplifier();
                     if (inebriated != null && inebriated.getDuration() > maxTime) {
                         if (event.getEffectInstance() != null
-                                && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.INEBRIATED.get()
-                                || event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.WEAK_POISON.get()
-                                || event.getEffectInstance().getEffect() == MobEffects.POISON
-                                || event.getEffectInstance().getEffect() == MobEffects.BLINDNESS
-                                || event.getEffectInstance().getEffect() == MobEffects.CONFUSION
-                                || event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN
-                                || event.getEffectInstance().getEffect() == MobEffects.WEAKNESS)) {
+                                && (event.getEffectInstance().getEffect().is(ImmortalersDelightMobEffect.INEBRIATED)
+                                || event.getEffectInstance().getEffect().is(ImmortalersDelightMobEffect.WEAK_POISON)
+                                || event.getEffectInstance().getEffect().is(MobEffects.POISON)
+                                || event.getEffectInstance().getEffect().is(MobEffects.BLINDNESS)
+                                || event.getEffectInstance().getEffect().is(MobEffects.CONFUSION)
+                                || event.getEffectInstance().getEffect().is(MobEffects.MOVEMENT_SLOWDOWN)
+                                || event.getEffectInstance().getEffect().is(MobEffects.WEAKNESS))) {
                             event.setCanceled(true);
                         }
                     }

@@ -5,8 +5,11 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -83,10 +86,11 @@ public class ModBrushableBlockEntity extends BlockEntity {
 
     public void unpackLootTable(Player pPlayer) {
         if (this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null) {
-            LootTable loottable = this.level.getServer().getLootData().getLootTable(this.lootTable);
+            ResourceKey<LootTable> lootTableKey = ResourceKey.create(Registries.LOOT_TABLE, Objects.requireNonNull(this.lootTable));
+            LootTable loottable = this.level.getServer().reloadableRegistries().getLootTable(lootTableKey);
             if (pPlayer instanceof ServerPlayer) {
                 ServerPlayer serverplayer = (ServerPlayer)pPlayer;
-                CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, this.lootTable);
+                CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, lootTableKey);
             }
 
             LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level))
@@ -179,7 +183,7 @@ public class ModBrushableBlockEntity extends BlockEntity {
 
     private boolean tryLoadLootTable(CompoundTag pTag) {
         if (pTag.contains("LootTable", 8)) {
-            this.lootTable = new ResourceLocation(pTag.getString("LootTable"));
+            this.lootTable = ResourceLocation.parse(pTag.getString("LootTable"));
             this.lootTableSeed = pTag.getLong("LootTableSeed");
             return true;
         } else {
@@ -200,17 +204,26 @@ public class ModBrushableBlockEntity extends BlockEntity {
         }
     }
 
+    /** 1.21+ {@link ItemStack#save} throws on empty stacks; only persist when non-empty. */
+    private static void putItemIfNonEmpty(CompoundTag parent, HolderLookup.Provider registries, ItemStack stack) {
+        if (!stack.isEmpty()) {
+            CompoundTag itemTag = new CompoundTag();
+            stack.save(registries, itemTag);
+            parent.put(ITEM_TAG, itemTag);
+        }
+    }
+
     /**
      * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the chunk or when
      * many blocks change at once. This compound comes back to you clientside in {handleUpdateTag}
      */
-    public CompoundTag getUpdateTag() {
-        CompoundTag compoundtag = super.getUpdateTag();
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag compoundtag = super.getUpdateTag(registries);
         if (this.hitDirection != null) {
             compoundtag.putInt("hit_direction", this.hitDirection.ordinal());
         }
 
-        compoundtag.put("item", this.item.save(new CompoundTag()));
+        putItemIfNonEmpty(compoundtag, registries, this.item);
         return compoundtag;
     }
 
@@ -218,9 +231,14 @@ public class ModBrushableBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    public void load(CompoundTag pTag) {
-        if (!this.tryLoadLootTable(pTag) && pTag.contains("item")) {
-            this.item = ItemStack.of(pTag.getCompound("item"));
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
+        if (!this.tryLoadLootTable(pTag)) {
+            if (pTag.contains(ITEM_TAG)) {
+                this.item = ItemStack.parse(registries, pTag.getCompound(ITEM_TAG)).orElse(ItemStack.EMPTY);
+            } else {
+                this.item = ItemStack.EMPTY;
+            }
         }
 
         if (pTag.contains("hit_direction")) {
@@ -229,9 +247,10 @@ public class ModBrushableBlockEntity extends BlockEntity {
 
     }
 
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.saveAdditional(pTag, registries);
         if (!this.trySaveLootTable(pTag)) {
-            pTag.put("item", this.item.save(new CompoundTag()));
+            putItemIfNonEmpty(pTag, registries, this.item);
         }
 
     }

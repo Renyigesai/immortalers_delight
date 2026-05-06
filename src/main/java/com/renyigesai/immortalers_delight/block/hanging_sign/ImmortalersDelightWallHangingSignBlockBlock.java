@@ -14,7 +14,7 @@ public class ImmortalersDelightWallHangingSignBlockBlock extends WallHangingSign
 
 
     public ImmortalersDelightWallHangingSignBlockBlock(Properties pProperties, WoodType pType) {
-        super(pProperties, pType);
+        super(pType, pProperties);
     }
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new ImmortalersDelightHangingSignBlockEntity(pPos, pState);

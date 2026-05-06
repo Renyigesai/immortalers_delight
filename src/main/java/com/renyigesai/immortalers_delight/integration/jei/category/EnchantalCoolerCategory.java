@@ -22,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 
 public class EnchantalCoolerCategory implements IRecipeCategory<EnchantalCoolerRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(ImmortalersDelightMod.MODID, "enchantal_cooler");
+    public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "enchantal_cooler");
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(ImmortalersDelightMod.MODID, "textures/gui/enchantal_cooler_jei.png");
+            ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/gui/enchantal_cooler_jei.png");
 
     public final IDrawable back;
     public final IDrawable icon;

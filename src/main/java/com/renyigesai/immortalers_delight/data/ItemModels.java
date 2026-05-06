@@ -10,11 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -36,27 +36,29 @@ public class ItemModels extends ItemModelProvider {
             if (isAnnotationPresent){
                 try {
                     Object object = field.get(null);
-                    RegistryObject<Item> deferredItem = null;
-                    if (object instanceof RegistryObject<?> registryObject){
+                    DeferredHolder<Item, Item> deferredItem = null;
+                    if (object instanceof DeferredHolder<?, ?> registryObject){
                         if (Item.class.isAssignableFrom(registryObject.get().getClass())){
-                            deferredItem = (RegistryObject<Item>) registryObject;
+                            @SuppressWarnings("unchecked")
+                            DeferredHolder<Item, Item> asItem = (DeferredHolder<Item, Item>) registryObject;
+                            deferredItem = asItem;
                         }
-                        if (deferredItem != null){
-                            ItemData annotation = field.getAnnotation(ItemData.class);
-                            ItemData.ModelType model = annotation.model();
-                            if (model != ItemData.ModelType.CUSTOM) {
-                                Item item = deferredItem.get();
-                                if (model == ItemData.ModelType.GENERAL) {
-                                    basicItem(item);
-                                }
-                                if (model == ItemData.ModelType.TOOL) {
-                                    toolItem(item);
-                                }
-                                if (isBlockItem(item)){
-                                    BlockItem blockItem = (BlockItem) item;
-                                    if (isBlockModType(model)){
-                                        blockItem(blockItem::getBlock,model);
-                                    }
+                    }
+                    if (deferredItem != null){
+                        ItemData annotation = field.getAnnotation(ItemData.class);
+                        ItemData.ModelType model = annotation.model();
+                        if (model != ItemData.ModelType.CUSTOM) {
+                            Item item = deferredItem.get();
+                            if (model == ItemData.ModelType.GENERAL) {
+                                basicItem(item);
+                            }
+                            if (model == ItemData.ModelType.TOOL) {
+                                toolItem(item);
+                            }
+                            if (isBlockItem(item)){
+                                BlockItem blockItem = (BlockItem) item;
+                                if (isBlockModType(model)){
+                                    blockItem(blockItem::getBlock,model);
                                 }
                             }
                         }
@@ -110,7 +112,7 @@ public class ItemModels extends ItemModelProvider {
     private ItemModelBuilder createToolItem(ResourceLocation item, String name) {
         return getBuilder(item.toString()+name)
                 .parent(new ModelFile.UncheckedModelFile("item/handheld"))
-                .texture("layer0",new  ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
     }
 
     private String name(Block block) {

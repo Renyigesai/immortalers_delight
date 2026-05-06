@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModBrushableBlock extends BrushableBlock {
     public ModBrushableBlock(Block pTurnsInto, Properties pProperties, SoundEvent pBrushSound, SoundEvent pBrushCompletedSound) {
-        super(pTurnsInto, pProperties, pBrushSound, pBrushCompletedSound);
+        super(pTurnsInto, pBrushSound, pBrushCompletedSound, pProperties);
     }
 
     @Override

@@ -16,13 +16,11 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -39,16 +37,14 @@ import javax.annotation.Nullable;
 public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
     //这个类用于处理使用实体模型的物品的模型
     private final EntityModelSet entityModelSet;
-    private final ItemModelShaper itemModelShaper;
-    private static final ResourceLocation ALFALFA_DABABA_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/custom/alfalfa_dababa.png");
+    private static final ResourceLocation ALFALFA_DABABA_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/custom/alfalfa_dababa.png");
     private AlfalfaDababaModel alfalfaDababaModel;
-    private static final ResourceLocation BREAD_OF_WAR_TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/custom/jeng_nanu.png");
+    private static final ResourceLocation BREAD_OF_WAR_TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/custom/jeng_nanu.png");
     private BreadOfWarModel breadOfWarModel;
 
     public ItemTESRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
         super(pBlockEntityRenderDispatcher,  pEntityModelSet);
         this.entityModelSet = pEntityModelSet;
-        this.itemModelShaper = new net.minecraftforge.client.model.ForgeItemModelShaper(Minecraft.getInstance().getModelManager());
         this.alfalfaDababaModel = new AlfalfaDababaModel(this.entityModelSet.bakeLayer(AlfalfaDababaModel.ALFALFA_DABABA));
         this.breadOfWarModel = new BreadOfWarModel(this.entityModelSet.bakeLayer(BreadOfWarModel.BREAD_OF_WAR));
     }
@@ -64,7 +60,7 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
 
         Minecraft minecraft = Minecraft.getInstance();
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        float partialTick = minecraft.getPartialTick();
+        float partialTick = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
         BakedModel bakedModel = itemRenderer.getModel(pStack,null,null,1);
         float ageInTicks = minecraft.player == null ? 0F : minecraft.player.tickCount + partialTick;
         float pullAmount = BoneKnifeItem.getPullingAmount(pStack, partialTick);
@@ -83,7 +79,7 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
                 pPoseStack.pushPose();
                 pPoseStack.scale(1.0F, -1.0F, -1.0F);
                 VertexConsumer vertexconsumer1 = ItemRenderer.getFoilBufferDirect(pBuffer, this.breadOfWarModel.renderType(BREAD_OF_WAR_TEXTURE), false, pStack.hasFoil());
-                this.breadOfWarModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                this.breadOfWarModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, -1);
                 pPoseStack.popPose();
             }
 
@@ -128,11 +124,8 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
             pPoseStack.mulPose(Axis.XP.rotationDegrees(xRotation));
             pPoseStack.mulPose(Axis.YP.rotationDegrees(yRotation));
             pPoseStack.mulPose(Axis.ZP.rotationDegrees(zRotation));
-            ItemStack stack = //new ItemStack(ImmortalersDelightItems.WARPED_LAUREL.get());
-                    new ItemStack(ImmortalersDelightItems.DEBUG_ITEM.get());
-            stack.setDamageValue(DebugItem.BONE_KNIFE_MODEL);
-            BakedModel usingbakedmodel = itemRenderer.getModel(stack,minecraft.level,null,0);
-            itemRenderer.render(pStack, ItemDisplayContext.NONE, false, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, usingbakedmodel);
+            BakedModel usingbakedmodel = itemRenderer.getModel(pStack, minecraft.level, null, 0);
+            itemRenderer.render(pStack, pDisplayContext, false, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, usingbakedmodel);
             pPoseStack.popPose();
         }
         if (item  == ImmortalersDelightItems.LARGE_COLUMN.get()) {
@@ -153,10 +146,10 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
                 pPoseStack.popPose();
             } else {
                 pPoseStack.pushPose();
-                //pModel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(pPoseStack, pModel, pDisplayContext, pLeftHand);
+                //pModel = net.neoforged.neoforge.client.ForgeHooksClient.handleCameraTransforms(pPoseStack, pModel, pDisplayContext, pLeftHand);
                 pPoseStack.scale(1.0F, -1.0F, -1.0F);
                 VertexConsumer vertexconsumer1 = ItemRenderer.getFoilBufferDirect(pBuffer, this.alfalfaDababaModel.renderType(ALFALFA_DABABA_TEXTURE), false, pStack.hasFoil());
-                this.alfalfaDababaModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                this.alfalfaDababaModel.renderToBuffer(pPoseStack, vertexconsumer1, pPackedLight, pPackedOverlay, -1);
                 pPoseStack.popPose();
             }
 

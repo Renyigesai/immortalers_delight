@@ -55,11 +55,11 @@ public class AlfalfaCropBlock extends ReapCropBlock {
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         if (!worldIn.isAreaLoaded(pos, 1)) return;
-        if (!isValidBonemealTarget(worldIn, pos, state, false)) return;
+        if (!isValidBonemealTarget(worldIn, pos, state)) return;
 
         if (worldIn.getRawBrightness(pos,0) >= 9) {
-            float f = CropBlock.getGrowthSpeed(this, worldIn, pos);
-            if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0)) {
+            float f = CropBlock.getGrowthSpeed(state, worldIn, pos);
+            if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(worldIn, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0)) {
                 int currentAge = state.getValue(AGE);
                 if (currentAge < this.getMaxAge()) {
                     //实现作物的生长，在生长速度不足时不能达到成熟
@@ -83,7 +83,7 @@ public class AlfalfaCropBlock extends ReapCropBlock {
                         }
                     }
                 }
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(worldIn, pos, state);
             }
         }
     }

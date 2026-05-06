@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class RotatingRoastMeatModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation ROTATING_ROAST_MEAT = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "rotating_roast_meat"), "main");
+	public static final ModelLayerLocation ROTATING_ROAST_MEAT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "rotating_roast_meat"), "main");
 	private final ModelPart all;
 	private final ModelPart meat;
 	private final ModelPart row;
@@ -52,8 +52,8 @@ public class RotatingRoastMeatModel<T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+		all.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
 	}
 
 	public ModelPart getAll() {

@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.util;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -9,12 +10,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DifficultyModeUtil {
 
     private static boolean isPowerBattleMode = false;
@@ -23,7 +24,7 @@ public class DifficultyModeUtil {
     private static byte armorProgress = 0;
     private static byte armorToughnessProgress = 0;
     @SubscribeEvent
-    public static void onPlayerAttackOrHurt(LivingHurtEvent evt) {
+    public static void onPlayerAttackOrHurt(LivingDamageEvent.Pre evt) {
         LivingEntity hurtOne = evt.getEntity();
         Entity attacker = evt.getSource().getEntity();
         //System.out.println("这里是难度控制");
@@ -31,10 +32,10 @@ public class DifficultyModeUtil {
             return;
         }
         if (hurtOne instanceof Player player) {
-            checkPlayerAttribute(player, evt.getAmount());
+            checkPlayerAttribute(player, evt.getNewDamage());
         }
         if (attacker instanceof Player player) {
-            checkPlayerAttribute(player, evt.getAmount());
+            checkPlayerAttribute(player, evt.getNewDamage());
         }
          //System.out.println("玩家总得分" +  (damageProgress + healthProgress + armorProgress + armorToughnessProgress));
         if (damageProgress + healthProgress + armorProgress + armorToughnessProgress >= 4) {

@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class MoonlightBeamModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "moonlight_beam"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "moonlight_beam"), "main");
 	private final ModelPart head;
 
 	public MoonlightBeamModel(ModelPart root) {
@@ -38,8 +38,8 @@ public class MoonlightBeamModel<T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int packedColor) {
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, packedColor);
 	}
 	public ModelPart getCore() {
 		return this.head;

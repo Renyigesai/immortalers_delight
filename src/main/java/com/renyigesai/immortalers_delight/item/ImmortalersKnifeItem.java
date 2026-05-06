@@ -1,13 +1,14 @@
 package com.renyigesai.immortalers_delight.item;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,15 +21,18 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -36,14 +40,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -60,10 +62,14 @@ public class ImmortalersKnifeItem extends KnifeItem {
     protected final float attackSpeed;
     protected final float extra_attackDamage;
     protected final float extra_attackSpeed;
+    private final float attackDamageModifier;
+    private final float attackSpeedModifier;
     public int getTypeId() {return this.type_id;}
     public ImmortalersKnifeItem(int type, Tier tier, float attackDamage, float attackSpeed, Properties properties) {
-        super(tier, attackDamage, attackSpeed, properties);
+        super(tier, ImmortalersDelightItems.withTierToolAttributes(properties, tier, attackDamage, attackSpeed));
         this.type_id = type;
+        this.attackDamageModifier = attackDamage;
+        this.attackSpeedModifier = attackSpeed;
         this.attackDamage = attackDamage + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeed;
         this.extra_attackDamage = 0;
@@ -71,8 +77,10 @@ public class ImmortalersKnifeItem extends KnifeItem {
     }
 
     public ImmortalersKnifeItem(int type, Tier tier, float attackDamage, float attackSpeed, float extra_attackDamage, float extra_attackSpeed, Properties properties) {
-        super(tier, attackDamage, attackSpeed, properties);
+        super(tier, ImmortalersDelightItems.withTierToolAttributes(properties, tier, attackDamage, attackSpeed));
         this.type_id = type;
+        this.attackDamageModifier = attackDamage;
+        this.attackSpeedModifier = attackSpeed;
         this.attackDamage = attackDamage + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeed;
         this.extra_attackDamage = extra_attackDamage;
@@ -80,47 +88,53 @@ public class ImmortalersKnifeItem extends KnifeItem {
     }
 
     @Override
-    public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+    public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
         int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
         int type = this.type_id;
         if (type == PILLAGER_KNIFE_TYPE) {
-            if (enchantment == Enchantments.MOB_LOOTING) level += isPowerful ? 4 : 2;
+            if (enchantment.is(Enchantments.LOOTING)) level += isPowerful ? 4 : 2;
         }
         if (type == BONE_KNIFE_TYPE) {
-            if (enchantment == Enchantments.MOB_LOOTING && level > 0) level -= 1;
+            if (enchantment.is(Enchantments.LOOTING) && level > 0) level -= 1;
         }
         return level;
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack)
-    {
-        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.<Attribute, AttributeModifier>create();
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+        ItemAttributeModifiers base = ImmortalersDelightItems.tierToolModifiers(getTier(), attackDamageModifier, attackSpeedModifier);
         boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-        if (equipmentSlot == EquipmentSlot.MAINHAND) {
-            multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeed + (isPowerful ? extra_attackSpeed : 0), AttributeModifier.Operation.ADDITION));
-            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", (double)this.attackDamage + (isPowerful ? extra_attackDamage : 0), AttributeModifier.Operation.ADDITION));
-            return multimap;
+        if (!isPowerful || (extra_attackDamage == 0 && extra_attackSpeed == 0)) {
+            return base;
         }
-//        else if (equipmentSlot == EquipmentSlot.OFFHAND) {
-//            boolean flag = stack.getOrCreateTag().contains(ANCIENT_KNIFE_COMBO_SKILL, Tag.TAG_BYTE)
-//                    && stack.getOrCreateTag().getBoolean(ANCIENT_KNIFE_COMBO_SKILL);
-//            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", flag ? (isPowerful ? 2.125F : 1.333F) : 0, AttributeModifier.Operation.MULTIPLY_TOTAL));
-//            return multimap;
-//        }
-        return super.getDefaultAttributeModifiers(equipmentSlot);
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+        for (ItemAttributeModifiers.Entry entry : base.modifiers()) {
+            builder.add(entry.attribute(), entry.modifier(), entry.slot());
+        }
+        if (extra_attackDamage != 0) {
+            builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "knife_power_damage"), extra_attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        }
+        if (extra_attackSpeed != 0) {
+            builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "knife_power_speed"), extra_attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        }
+        return builder.build();
+    }
+
+    /** Farmer's Delight {@code TextUtils} expects {@code tooltip.<path>}, not {@code tooltip.<namespace:path>}. */
+    private String farmersDelightTooltipPath() {
+        return BuiltInRegistries.ITEM.getKey(this).getPath();
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (this.type_id == ANCIENT_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath(), new Object[0]);
             tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
         }
         if (this.type_id == NEW_ANCIENT_KNIFE_TYPE) {
             for (int i = 0; i < 3; i++) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + "." + ((i == 2 && DifficultyModeUtil.isPowerBattleMode()) ? "power" : i), new Object[0]);
+                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath() + "." + ((i == 2 && DifficultyModeUtil.isPowerBattleMode()) ? "power" : i), new Object[0]);
                 if(i == 1) {
                     tooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
                 } else if (i == 2) {
@@ -131,22 +145,20 @@ public class ImmortalersKnifeItem extends KnifeItem {
             }
         }
         if (this.type_id == BONE_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath(), new Object[0]);
             tooltip.add(textEmpty.withStyle(ChatFormatting.YELLOW));
-            MutableComponent textEmpty1 = TextUtils.getTranslation("tooltip." + this + ".1", new Object[0]);
+            MutableComponent textEmpty1 = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath() + ".1", new Object[0]);
             tooltip.add(textEmpty1.withStyle(ChatFormatting.RED));
         }
 
+        super.appendHoverText(stack, context, tooltip, isAdvanced);
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class ImmortalersKnifeEvents {
         @SubscribeEvent
-        public static void ImmortalersKnifeAttack(LivingHurtEvent event) {
-            if (event.isCanceled()) return;
+        public static void ImmortalersKnifeAttack(LivingDamageEvent.Pre event) {
 
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             LivingEntity hurtOne = event.getEntity();
@@ -156,18 +168,16 @@ public class ImmortalersKnifeItem extends KnifeItem {
                 ItemStack toolStack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!toolStack.isEmpty() && toolStack.getItem() instanceof ImmortalersKnifeItem knife) {
                     if (knife.getTypeId() == 1) {
-                        hurtOne.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.WEAK_WITHER.get(), 320, isPowerful ? 2 : 1));
+                        hurtOne.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.WEAK_WITHER, 320, isPowerful ? 2 : 1));
                     }
                     if (knife.getTypeId() == 2) {
                         ItemStack toolStack2 = attacker.getItemInHand(InteractionHand.OFF_HAND);
                         if (!toolStack2.isEmpty() && toolStack2.is(ImmortalersDelightItems.ANCIENT_BLADE.get())) {
-                            float buffer = event.getAmount() * 0.6F;
+                            float buffer = event.getNewDamage() * 0.6F;
                             if (!isPowerful && buffer > 4) buffer = 4;
-                            event.setAmount(event.getAmount() + buffer);
+                            event.setNewDamage(event.getNewDamage() + buffer);
                             if (attacker instanceof ServerPlayer serverPlayer && !serverPlayer.getAbilities().instabuild) {
-                                toolStack2.hurtAndBreak(1, serverPlayer, (action) -> {
-                                    action.broadcastBreakEvent(InteractionHand.OFF_HAND);
-                                });
+                                toolStack2.hurtAndBreak(1, serverPlayer, EquipmentSlot.OFFHAND);
                             }
                         }
                     }
@@ -184,7 +194,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
                 BlockPos pos = event.getPos();
                 BlockState state = event.getLevel().getBlockState(pos);
                 Block block = state.getBlock();
-                if (state.is(ModTags.Blocks.DROPS_CAKE_SLICE)) {
+                if (state.is(ImmortalersDelightTags.FARMERSDELIGHT_DROPS_CAKE_SLICE)) {
                     level.setBlock(pos, (BlockState) Blocks.CAKE.defaultBlockState().setValue(CakeBlock.BITES, 1), 3);
                     Block.dropResources(state, level, pos);
                     ItemUtils.spawnItemEntity(level, new ItemStack((ItemLike) ModItems.CAKE_SLICE.get()), (double)pos.getX(), (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, -0.05, 0.0, 0.0);

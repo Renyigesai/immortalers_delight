@@ -1,11 +1,11 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.block.ReapCropBlock;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -13,6 +13,7 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
@@ -29,8 +30,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import vectorwing.farmersdelight.common.registry.ModSounds;
-
 import java.util.List;
 import java.util.OptionalInt;
 
@@ -107,10 +106,10 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
         if (pLevel.getRawBrightness(pPos, 0) >= 9) {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
-                float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(219.0F / f) + 1) == 0)) {
+                float f = getGrowthSpeed(pState, pLevel, pPos);
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt((int)(219.0F / f) + 1) == 0)) {
                     this.growCrops(pLevel, pPos, pState);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         } else {
@@ -222,7 +221,7 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
                 int d = getDistanceAt(blockstate);
                 if (d == 0) {f1 = 10.0F;f += f1;break;}
                 if (d < 5
-                    //blockstate.canSustainPlant(p_52274_, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, (net.minecraftforge.common.IPlantable) p_52273_)
+                    //blockstate.canSustainPlant(p_52274_, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, (net.neoforged.neoforge.common.IPlantable) p_52273_)
                 ) {
                     f1 = 1.0F;
                     if (d < 3
@@ -280,7 +279,7 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
     @Override
-    public boolean isValidBonemealTarget(LevelReader p_255715_, BlockPos p_52259_, BlockState p_52260_, boolean p_52261_) {
+    public boolean isValidBonemealTarget(LevelReader p_255715_, BlockPos p_52259_, BlockState p_52260_) {
         return p_52260_.getValue(PERSISTENT);
     }
     @Override
@@ -289,8 +288,7 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
             p_221040_.setBlock(p_221042_, this.getStateForAge(this.getAge(p_221043_) + 1), 2);
         }
     }
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult growingLeavesUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int age = state.getValue(AGE);
         if (age >= FRUIT_AGE) {
             boolean temp = false;
@@ -305,10 +303,28 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
             }
             if (temp){
                 level.setBlock(pos,state.setValue(AGE,0),3);
-                level.playSound((Player)null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = growingLeavesUse(state, level, pos, player, hand, hitResult);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = growingLeavesUse(state, level, pos, player, InteractionHand.MAIN_HAND, hitResult);
+        if (result != InteractionResult.PASS) {
+            return result;
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 }

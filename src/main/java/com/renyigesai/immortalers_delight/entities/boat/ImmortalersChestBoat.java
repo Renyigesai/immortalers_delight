@@ -19,7 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -35,6 +35,7 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,7 +44,7 @@ import java.util.function.IntFunction;
 public class ImmortalersChestBoat extends ChestBoat {
     private NonNullList<ItemStack> modItemStacks = NonNullList.withSize(27, ItemStack.EMPTY);
     @Nullable
-    private ResourceLocation lootTable;
+    private ResourceKey<LootTable> lootTable;
     private long lootTableSeed;
 
     public ImmortalersChestBoat(EntityType<? extends Boat> entityType, Level level) {
@@ -71,14 +72,14 @@ public class ImmortalersChestBoat extends ChestBoat {
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        this.addChestVehicleSaveData(compoundTag);
+        this.addChestVehicleSaveData(compoundTag, this.registryAccess());
         compoundTag.putString("ModType", this.getBoatVariant().getSerializedName());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.readChestVehicleSaveData(compoundTag);
+        this.readChestVehicleSaveData(compoundTag, this.registryAccess());
         if (compoundTag.contains("ModType", 8)) {
             this.setVariant(ImmortalersChestBoat.Type.byName(compoundTag.getString("ModType")));
         }
@@ -201,13 +202,13 @@ public class ImmortalersChestBoat extends ChestBoat {
 
     @Override
     @Nullable
-    public ResourceLocation getLootTable() {
+    public ResourceKey<LootTable> getLootTable() {
         return this.lootTable;
     }
 
     @Override
-    public void setLootTable(@Nullable ResourceLocation resourceLocation) {
-        this.lootTable = resourceLocation;
+    public void setLootTable(@Nullable ResourceKey<LootTable> lootTableKey) {
+        this.lootTable = lootTableKey;
     }
 
     @Override
@@ -248,9 +249,10 @@ public class ImmortalersChestBoat extends ChestBoat {
         return Type.byId(this.entityData.get(DATA_ID_MOD_TYPE));
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_MOD_TYPE, ImmortalersChestBoat.Type.HIMEKAIDO.ordinal());
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_MOD_TYPE, ImmortalersChestBoat.Type.HIMEKAIDO.ordinal());
     }
     public static enum Type implements StringRepresentable {
         HIMEKAIDO(ImmortalersDelightBlocks.HIMEKAIDO_PLANKS.get(), "himekaido"),

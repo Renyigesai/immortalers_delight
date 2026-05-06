@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class RotatingRoastMeatRenderer implements BlockEntityRenderer<RotatingRoastMeatBlockEntity> {
     private final RotatingRoastMeatModel<?> model;
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/rotating_roast_meat.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/rotating_roast_meat.png");
 
     public RotatingRoastMeatRenderer(BlockEntityRendererProvider.Context pContext) {
         this.model = new RotatingRoastMeatModel<>(pContext.bakeLayer(RotatingRoastMeatModel.ROTATING_ROAST_MEAT));
@@ -33,7 +33,7 @@ public class RotatingRoastMeatRenderer implements BlockEntityRenderer<RotatingRo
 //        }else {
 //            this.model.getAll().yRot = (float) Math.toRadians(blender.getRprogress(pPartialTick) * 360);
 //        }
-        this.model.renderToBuffer(poseStack, vertexConsumer, i, i1, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(poseStack, vertexConsumer, i, i1, -1);
         poseStack.popPose();
     }
 }

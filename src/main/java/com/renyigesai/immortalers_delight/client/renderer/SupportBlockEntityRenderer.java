@@ -18,10 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class SupportBlockEntityRenderer implements BlockEntityRenderer<SupportBlockEntity> {
     public SupportBlockEntityRenderer(BlockEntityRendererProvider.Context pContext){
@@ -47,7 +47,7 @@ public class SupportBlockEntityRenderer implements BlockEntityRenderer<SupportBl
 
     }
 
-//    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
+//    @EventBusSubscriber(value = Dist.CLIENT)
 //    public class ClientEventHandler {
 //        @SubscribeEvent
 //        public static void onClientEvent(FMLClientSetupEvent event){

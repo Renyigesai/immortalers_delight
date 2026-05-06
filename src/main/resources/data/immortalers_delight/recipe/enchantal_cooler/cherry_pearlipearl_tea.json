@@ -1,0 +1,21 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:pearlip"
+    },
+    {
+      "item": "minecraft:cherry_leaves"
+    },
+    {
+      "item": "immortalers_delight:leisamboo_tea"
+    }
+  ],
+  "container": {
+    "id": "minecraft:glass_bottle"
+  },
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:cherry_pearlipearl_tea"
+  }
+}

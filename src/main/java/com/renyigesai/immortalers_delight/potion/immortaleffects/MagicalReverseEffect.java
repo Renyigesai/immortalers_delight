@@ -9,15 +9,15 @@ import com.renyigesai.immortalers_delight.util.task.ScheduledExecuteTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 //
-//@Mod.EventBusSubscriber
+//@EventBusSubscriber
 //public class MagicalReverseEffect {
 //    /*
 //    这个类能对实体进行标记（以及解除标记），

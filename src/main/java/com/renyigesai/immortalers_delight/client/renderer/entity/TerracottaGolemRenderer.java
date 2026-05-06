@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class TerracottaGolemRenderer extends MobRenderer<TerracottaGolem, TerracottaGolemModel<TerracottaGolem>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/terracotta_golem.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/terracotta_golem/terracotta_golem.png");
 
     public TerracottaGolemRenderer(EntityRendererProvider.Context pContext) {
         super(pContext,

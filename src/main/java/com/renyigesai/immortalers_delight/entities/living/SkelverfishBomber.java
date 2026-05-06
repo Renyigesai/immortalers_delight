@@ -25,11 +25,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.level.ExplosionEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -60,11 +59,12 @@ public class SkelverfishBomber extends SkelverfishBase{
     /**
      * 定义同步数据（网络同步的实体属性）
      */
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_SWELL_DIR, -1); // 默认未膨胀状态
-        this.entityData.define(DATA_IS_POWERED, false); // 默认不带电
-        this.entityData.define(DATA_IS_IGNITED, false); // 默认未点燃
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_SWELL_DIR, -1); // 默认未膨胀状态
+        builder.define(DATA_IS_POWERED, false); // 默认不带电
+        builder.define(DATA_IS_IGNITED, false); // 默认未点燃
     }
 
     /**

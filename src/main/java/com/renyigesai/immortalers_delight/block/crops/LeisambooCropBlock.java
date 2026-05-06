@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,22 +17,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.IForgeShearable;
-
 import javax.annotation.Nullable;
 
-public class LeisambooCropBlock extends BushBlock implements LiquidBlockContainer, IForgeShearable,BonemealableBlock {
+public class LeisambooCropBlock extends BushBlock implements LiquidBlockContainer, BonemealableBlock {
+    public static final MapCodec<LeisambooCropBlock> CODEC = simpleCodec(LeisambooCropBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final VoxelShape BOX = box(2.0D,0.0D,2.0D,14.0D,8.0D,14.0D);
     public LeisambooCropBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -52,13 +58,13 @@ public class LeisambooCropBlock extends BushBlock implements LiquidBlockContaine
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int age = pState.getValue(AGE);
-        if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(2) == 0)) {
+        if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(2) == 0)) {
             if (age != 2){
                 pLevel.setBlock(pPos,pState.setValue(AGE,age+1),3);
             }else {
                 pLevel.setBlockAndUpdate(pPos, ImmortalersDelightBlocks.LEISAMBOO_STALK.get().defaultBlockState().setValue(LeisambooStalkBlock.WATERLOGGED,true));
             }
-            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+            net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
         }
     }
 
@@ -72,7 +78,8 @@ public class LeisambooCropBlock extends BushBlock implements LiquidBlockContaine
         return Fluids.WATER.getSource(false);
     }
 
-    public boolean canPlaceLiquid(BlockGetter p_154505_, BlockPos p_154506_, BlockState p_154507_, Fluid p_154508_) {
+    @Override
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
         return false;
     }
 
@@ -86,7 +93,7 @@ public class LeisambooCropBlock extends BushBlock implements LiquidBlockContaine
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         return true;
     }
 

@@ -1,35 +1,259 @@
 {
   "variants": {
-    "facing=east,bites=0": {"model": "immortalers_delight:block/large_column_0", "y": 270},
-    "facing=east,bites=1": {"model": "immortalers_delight:block/large_column_1", "y": 270},
-    "facing=east,bites=2": {"model": "immortalers_delight:block/large_column_2", "y": 270},
-    "facing=east,bites=3": {"model": "immortalers_delight:block/large_column_3", "y": 270},
-    "facing=east,bites=4": {"model": "immortalers_delight:block/large_column_4", "y": 270},
-    "facing=east,bites=5": {"model": "immortalers_delight:block/large_column_5", "y": 270},
-    "facing=east,bites=6": {"model": "immortalers_delight:block/large_column_6", "y": 270},
-
-    "facing=north,bites=0": {"model": "immortalers_delight:block/large_column_0", "y": 180},
-    "facing=north,bites=1": {"model": "immortalers_delight:block/large_column_1", "y": 180},
-    "facing=north,bites=2": {"model": "immortalers_delight:block/large_column_2", "y": 180},
-    "facing=north,bites=3": {"model": "immortalers_delight:block/large_column_3", "y": 180},
-    "facing=north,bites=4": {"model": "immortalers_delight:block/large_column_4", "y": 180},
-    "facing=north,bites=5": {"model": "immortalers_delight:block/large_column_5", "y": 180},
-    "facing=north,bites=6": {"model": "immortalers_delight:block/large_column_6", "y": 180},
-
-    "facing=south,bites=0": {"model": "immortalers_delight:block/large_column_0"},
-    "facing=south,bites=1": {"model": "immortalers_delight:block/large_column_1"},
-    "facing=south,bites=2": {"model": "immortalers_delight:block/large_column_2"},
-    "facing=south,bites=3": {"model": "immortalers_delight:block/large_column_3"},
-    "facing=south,bites=4": {"model": "immortalers_delight:block/large_column_4"},
-    "facing=south,bites=5": {"model": "immortalers_delight:block/large_column_5"},
-    "facing=south,bites=6": {"model": "immortalers_delight:block/large_column_6"},
-
-    "facing=west,bites=0": {"model": "immortalers_delight:block/large_column_0", "y": 90},
-    "facing=west,bites=1": {"model": "immortalers_delight:block/large_column_1", "y": 90},
-    "facing=west,bites=2": {"model": "immortalers_delight:block/large_column_2", "y": 90},
-    "facing=west,bites=3": {"model": "immortalers_delight:block/large_column_3", "y": 90},
-    "facing=west,bites=4": {"model": "immortalers_delight:block/large_column_4", "y": 90},
-    "facing=west,bites=5": {"model": "immortalers_delight:block/large_column_5", "y": 90},
-    "facing=west,bites=6": {"model": "immortalers_delight:block/large_column_6", "y": 90}
+    "bites=0,facing=east": {
+      "model": "immortalers_delight:block/large_column_0",
+      "y": 270
+    },
+    "bites=0,facing=north": {
+      "model": "immortalers_delight:block/large_column_0",
+      "y": 180
+    },
+    "bites=0,facing=south": {
+      "model": "immortalers_delight:block/large_column_0"
+    },
+    "bites=0,facing=west": {
+      "model": "immortalers_delight:block/large_column_0",
+      "y": 90
+    },
+    "bites=1,facing=east": {
+      "model": "immortalers_delight:block/large_column_1",
+      "y": 270
+    },
+    "bites=1,facing=north": {
+      "model": "immortalers_delight:block/large_column_1",
+      "y": 180
+    },
+    "bites=1,facing=south": {
+      "model": "immortalers_delight:block/large_column_1"
+    },
+    "bites=1,facing=west": {
+      "model": "immortalers_delight:block/large_column_1",
+      "y": 90
+    },
+    "bites=2,facing=east": {
+      "model": "immortalers_delight:block/large_column_2",
+      "y": 270
+    },
+    "bites=2,facing=north": {
+      "model": "immortalers_delight:block/large_column_2",
+      "y": 180
+    },
+    "bites=2,facing=south": {
+      "model": "immortalers_delight:block/large_column_2"
+    },
+    "bites=2,facing=west": {
+      "model": "immortalers_delight:block/large_column_2",
+      "y": 90
+    },
+    "bites=3,facing=east": {
+      "model": "immortalers_delight:block/large_column_3",
+      "y": 270
+    },
+    "bites=3,facing=north": {
+      "model": "immortalers_delight:block/large_column_3",
+      "y": 180
+    },
+    "bites=3,facing=south": {
+      "model": "immortalers_delight:block/large_column_3"
+    },
+    "bites=3,facing=west": {
+      "model": "immortalers_delight:block/large_column_3",
+      "y": 90
+    },
+    "bites=4,facing=east": {
+      "model": "immortalers_delight:block/large_column_4",
+      "y": 270
+    },
+    "bites=4,facing=north": {
+      "model": "immortalers_delight:block/large_column_4",
+      "y": 180
+    },
+    "bites=4,facing=south": {
+      "model": "immortalers_delight:block/large_column_4"
+    },
+    "bites=4,facing=west": {
+      "model": "immortalers_delight:block/large_column_4",
+      "y": 90
+    },
+    "bites=5,facing=east": {
+      "model": "immortalers_delight:block/large_column_5",
+      "y": 270
+    },
+    "bites=5,facing=north": {
+      "model": "immortalers_delight:block/large_column_5",
+      "y": 180
+    },
+    "bites=5,facing=south": {
+      "model": "immortalers_delight:block/large_column_5"
+    },
+    "bites=5,facing=west": {
+      "model": "immortalers_delight:block/large_column_5",
+      "y": 90
+    },
+    "bites=6,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=6,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=6,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=6,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=7,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=7,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=7,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=7,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=8,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=8,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=8,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=8,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=9,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=9,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=9,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=9,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=10,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=10,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=10,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=10,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=11,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=11,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=11,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=11,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=12,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=12,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=12,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=12,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=13,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=13,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=13,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=13,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=14,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=14,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=14,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=14,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=15,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=15,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=15,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=15,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    },
+    "bites=16,facing=east": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 270
+    },
+    "bites=16,facing=north": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 180
+    },
+    "bites=16,facing=south": {
+      "model": "immortalers_delight:block/large_column_6"
+    },
+    "bites=16,facing=west": {
+      "model": "immortalers_delight:block/large_column_6",
+      "y": 90
+    }
   }
 }

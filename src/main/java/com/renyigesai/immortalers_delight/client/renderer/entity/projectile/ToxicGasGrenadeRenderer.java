@@ -30,13 +30,13 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ToxicGasGrenadeRenderer extends EntityRenderer<ToxicGasGrenadeEntity> {
-    public static final ModelLayerLocation MODEL_LOCATION = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "gas_bomb"), "main");
-    private static final ResourceLocation LOCATION = new ResourceLocation(ImmortalersDelightMod.MODID,"textures/entity/custom/empty.png");
+    public static final ModelLayerLocation MODEL_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "gas_bomb"), "main");
+    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "textures/entity/custom/empty.png");
     // 凋灵头颅的模型实例，基于SkullModel（骷髅头模型）实现
     private final ModSkullModel model;
     public ToxicGasGrenadeRenderer(EntityRendererProvider.Context pContext) {
@@ -77,7 +77,7 @@ public class ToxicGasGrenadeRenderer extends EntityRenderer<ToxicGasGrenadeEntit
         float f1 = Mth.lerp(pPartialTicks, pEntity.xRotO, pEntity.getXRot());
         VertexConsumer vertexconsumer = pBuffer.getBuffer(this.model.renderType(this.getTextureLocation(pEntity)));
         this.model.setupAnim(0.0F, f, f1);
-        this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(pPoseStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, -1);
         pPoseStack.popPose();
 
         pPoseStack.pushPose();

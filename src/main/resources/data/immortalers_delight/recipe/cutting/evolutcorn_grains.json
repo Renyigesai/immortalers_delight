@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  },
+  "result": [
+    {
+      "count": 1,
+      "id": "immortalers_delight:evolutcorn_grains"
+    },
+    {
+      "id": "immortalers_delight:ancient_fiber"
+    }
+  ]
+}

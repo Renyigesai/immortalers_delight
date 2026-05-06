@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import java.util.Objects;
 
 //public class BaseImmortalEffectTask extends ScheduledExecuteTask {
-////    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.LINGERING_FLAVOR.get();
+////    private final MobEffect THIS_EFFECT = ImmortalersDelightMobEffect.LINGERING_FLAVOR;
 ////    private final LivingEntity pLivingEntity;
 ////    private final Long expireTime;
 ////    /*

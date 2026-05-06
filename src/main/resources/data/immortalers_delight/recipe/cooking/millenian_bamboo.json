@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "minecraft:bamboo"
+    }
+  ],
+  "container": {
+    "id": "minecraft:bamboo_block"
+  },
+  "result": {
+    "id": "immortalers_delight:millenian_bamboo"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

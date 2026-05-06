@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:packed_mud"
+    }
+  },
+  "result": {
+    "count": 6,
+    "id": "immortalers_delight:packed_mud_wall"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:cooked_sniffer_tail"
+    }
+  ],
+  "result": [
+    {
+      "count": 2,
+      "id": "immortalers_delight:cooked_sniffer_steak"
+    },
+    {
+      "id": "minecraft:bone"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  }
+}

@@ -1,4 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
@@ -14,11 +15,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.Objects;
 
@@ -65,33 +65,31 @@ public class WarmCurrentSurgesMobEffect extends BaseMobEffect {
 
 
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class WarmCurrentSurgesPotionEffect {
         @SubscribeEvent
         public static void onEntityAddEffect(MobEffectEvent.Applicable event) {
             if (event != null && event.getEntity() != null) {
                 Entity entity = event.getEntity();
                 if (entity instanceof LivingEntity livingEntity
-                        && livingEntity.hasEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get())
-                        && event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN) {
-                    //int time = Objects.requireNonNull(livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get())).getDuration();
-                    MobEffectInstance thisEffect = livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get());
+                        && livingEntity.hasEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES)
+                        && event.getEffectInstance().getEffect().is(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    //int time = Objects.requireNonNull(livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES)).getDuration();
+                    MobEffectInstance thisEffect = livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES);
                     int lv = thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect ? effect.getTruthUsingAmplifier(thisEffect.getAmplifier()) : 0;
                     //int timeEvt = event.getEffectInstance().getDuration();
                     int lvEvt = event.getEffectInstance().getAmplifier();
                     if (lv >= lvEvt){
-                        event.setResult(Event.Result.DENY);
+                        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                     }
                 }
             }
         }
 
         @SubscribeEvent
-        public static void onCreatureHurt(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+        public static void onCreatureHurt(LivingDamageEvent.Pre evt) {
+            if (evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
@@ -103,7 +101,7 @@ public class WarmCurrentSurgesMobEffect extends BaseMobEffect {
 
             if (!hurtOne.level().isClientSide) {
                 if (attacker != null){
-                    MobEffectInstance thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get());
+                    MobEffectInstance thisEffect = attacker.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES);
                     if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect effect) {
                         int lv = effect.getTruthUsingAmplifier(thisEffect.getAmplifier());
                         float damage = hurtOne.getRemainingFireTicks() > 1 ? 4 << lv : 2 << lv;

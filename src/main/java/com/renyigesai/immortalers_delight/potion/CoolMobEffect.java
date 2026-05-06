@@ -1,6 +1,6 @@
 package com.renyigesai.immortalers_delight.potion;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
@@ -12,13 +12,12 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CoolMobEffect extends BaseMobEffect {
 
@@ -31,28 +30,26 @@ public class CoolMobEffect extends BaseMobEffect {
         return true;
     }
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(
+            modid = ImmortalersDelightMod.MODID)
     public static class CoolPotionEffect {
         @SubscribeEvent
         public static void onUseItemFinish(LivingEntityUseItemEvent.Finish event) {
             if (event != null && event.getEntity() != null) {
                 ItemStack stack = event.getResultStack();
                 LivingEntity livingEntity = event.getEntity();
-                if (stack.getItem().isEdible() && noCoolFood(stack,livingEntity)) {
-                    MobEffectInstance thisEffect = livingEntity.getEffect(ImmortalersDelightMobEffect.COOL.get());
-                    if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect) {
-                        int lv = ((BaseMobEffect)thisEffect.getEffect()).getTruthUsingAmplifier(thisEffect.getAmplifier());
+                if (stack.getFoodProperties(livingEntity) != null && noCoolFood(stack, livingEntity)) {
+                    MobEffectInstance thisEffect = livingEntity.getEffect(ImmortalersDelightMobEffect.COOL);
+                    if (thisEffect != null && thisEffect.getEffect().value() instanceof BaseMobEffect) {
+                        int lv = ((BaseMobEffect) thisEffect.getEffect().value()).getTruthUsingAmplifier(thisEffect.getAmplifier());
                         int time = 0;
                         MobEffectInstance effectInstance = livingEntity.getEffect(MobEffects.DAMAGE_RESISTANCE);
                         if (effectInstance != null) time = effectInstance.getDuration();
 
-                        FoodProperties food = stack.getItem().getFoodProperties(stack, livingEntity);
+                        FoodProperties food = stack.getFoodProperties(livingEntity);
                         if (food != null) {
-                            int nutrition = food.getNutrition();
-                            float saturation = food.getSaturationModifier();
+                            int nutrition = food.nutrition();
+                            float saturation = food.saturation();
                             float foodValue = nutrition * 2.0f * saturation + nutrition;
                             time += foodValue * 20 * (lv > 3 ? (lv - 2) : 1);
                             livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, time, Math.min(lv, 3)));
@@ -64,29 +61,32 @@ public class CoolMobEffect extends BaseMobEffect {
         }
 
         @SubscribeEvent
-        public static void onCreatureHurt(LivingHurtEvent evt) {
-            if (evt.isCanceled() || evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+        public static void onCreatureHurt(LivingDamageEvent.Pre evt) {
+            if (evt.getSource().is(DamageTypeTags.BYPASSES_RESISTANCE)) {
                 return;
             }
             LivingEntity hurtOne = evt.getEntity();
 
             if (!hurtOne.level().isClientSide && DifficultyModeUtil.isPowerBattleMode()) {
                 if (!evt.getSource().is(DamageTypeTags.BYPASSES_ARMOR) || !evt.getSource().is(DamageTypeTags.BYPASSES_SHIELD)){
-                    MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.COOL.get());
-                    if (thisEffect != null && thisEffect.getEffect() instanceof BaseMobEffect) {
+                    MobEffectInstance thisEffect = hurtOne.getEffect(ImmortalersDelightMobEffect.COOL);
+                    if (thisEffect != null && thisEffect.getEffect().value() instanceof BaseMobEffect) {
                         int lv = thisEffect.getAmplifier();
                         lv++;
                         float buffer = hurtOne.getRemainingFireTicks() <= 1 ? (float) (0.9675*Math.exp(-0.0372*lv)) : (float) (0.9344*Math.exp(-0.1154*lv));
-                        evt.setAmount(Math.min(evt.getAmount()*buffer, evt.getAmount()));
+                        evt.setNewDamage(Math.min(evt.getNewDamage()*buffer, evt.getNewDamage()));
                     }
                 }
             }
         }
 
         public static boolean noCoolFood(ItemStack stack, LivingEntity entity){
-            List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(entity)).getEffects();
-            for (Pair<MobEffectInstance, Float> effect : effects) {
-                if (effect.getFirst().getEffect() == ImmortalersDelightMobEffect.COOL.get()) {
+            FoodProperties fp = stack.getFoodProperties(entity);
+            if (fp == null) {
+                return true;
+            }
+            for (FoodProperties.PossibleEffect pe : fp.effects()) {
+                if (pe.effect().getEffect().is(ImmortalersDelightMobEffect.COOL)) {
                     return false;
                 }
             }

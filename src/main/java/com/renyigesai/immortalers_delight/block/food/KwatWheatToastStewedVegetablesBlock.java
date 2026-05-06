@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.block.food;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,7 +31,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import static net.minecraft.world.level.block.Block.simpleCodec;
+
 public class KwatWheatToastStewedVegetablesBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<KwatWheatToastStewedVegetablesBlock> CODEC = simpleCodec(KwatWheatToastStewedVegetablesBlock::new);
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,6);
     public static final VoxelShape BOX = box(3.0D,0.0D,3.0D,13.0D,10.0D,13.0D);
 
@@ -38,13 +44,24 @@ public class KwatWheatToastStewedVegetablesBlock extends HorizontalDirectionalBl
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        return eat(state, level, pos, player,hand);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = eat(state, level, pos, player, hand);
+        return BlockItemInteraction.from(level, result);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return eat(state, level, pos, player, InteractionHand.MAIN_HAND);
     }
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand){

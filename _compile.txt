@@ -1,0 +1,2063 @@
+﻿To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :createMinecraftArtifacts UP-TO-DATE
+
+> Task :compileJava
+.\gradlew.bat : E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\StackedFoodBlo
+ck.java:117: 璀﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        return stack.is(ModTags.KNIVES);
+所在位置 C:\Users\admin\AppData\Local\Temp\ps-script-3a86e1cc-63c4-472e-9cea-7b09219ba033.ps1:84 字符: 51
++ ... s_delight-master"; .\gradlew.bat compileJava --no-daemon 2>&1 | Out-F ...
++                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (E:\mod\immortal...odTags.KNIVES);:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                               ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bu
+s.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.
+GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bu
+s.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.
+GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bu
+s.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLanternBl
+ockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.
+GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\RotatingRoastMeatBlock.ja
+va:93: 璀﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        if (stack.is(ModTags.KNIVES)) {
+                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\RotatingRoastMeatBlock.ja
+va:145: 璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        return state.is(ModTags.HEAT_SOURCES) && state
+.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(boolea
+nProperty);
+                               ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\ZeaPancakeBLock.java:73: 
+璀﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        boolean isKnives = hand_stack.is(ModTags.KNIVES) || hand_sta
+ck.is(ImmortalersDelightTags.KNIVES);
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanBlo
+ck.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus =
+ EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus =
+ EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus =
+ EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bu
+s.MOD,value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.
+MOD,value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bu
+s.MOD,value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.
+MOD,value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bu
+s.MOD,value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.jav
+a:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.
+MOD,value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡: 
+[removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java:6
+2: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscri
+ber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscribe
+r.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscri
+ber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscribe
+r.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscri
+ber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Event
+BusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubscribe
+r.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeologic
+al_team\PercussionProber.java:92: 閿欒: height 鍦?EntityDimensions 涓槸 private 璁块棶鎺у埗
+        return pDimensions.height - 0.28125F;
+                          ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeologic
+al_team\PercussionProber.java:336: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 populateDefaultEquipmentEnchantments搴旂敤鍒扮粰瀹氱被鍨?
+        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty); // 鐢熸垚瑁呭闄勯瓟
+            ^
+  闇€瑕? ServerLevelAccessor,RandomSource,DifficultyInstance
+  鎵惧埌:    RandomSource,DifficultyInstance
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeologic
+al_team\PercussionProber.java:337: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 finalizeSpawn搴旂敤鍒扮粰瀹氱被鍨?
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+                    ^
+  闇€瑕? ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData
+  鎵惧埌:    ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData,CompoundTag
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbusher.
+java:72: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 finalizeSpawn搴旂敤鍒扮粰瀹氱被鍨?
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+                          ^
+  闇€瑕? ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData
+  鎵惧埌:    ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData,CompoundTag
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbusher.
+java:76: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+                    new AttributeModifier(HARD_HEALTH,
+                    ^
+  闇€瑕? ResourceLocation,double,Operation
+  鎵惧埌:    UUID,String,float,Operation
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbusher.
+java:84: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+                    new AttributeModifier(NORMAL_HEALTH,
+                    ^
+  闇€瑕? ResourceLocation,double,Operation
+  鎵惧埌:    UUID,String,float,Operation
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:96: 
+璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        if (stateBelow.is(ModTags.HEAT_SOURCES)) {
+                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:98: 
+璀﹀憡: [removal] ModTags 涓殑 HEAT_CONDUCTORS 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        } else if (stateBelow.is(ModTags.HEAT_CONDUCTORS)) 
+{
+                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:100:
+ 璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            if (stateFurtherBelow.is(ModTags.HEAT_SOURCES)) {
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidType.java:19: 璀﹀
+憡: [removal] FluidType 涓殑 initializeClient(Consumer<IClientFluidTypeExtensions>) 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    public void init
+ializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.M
+OD, value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.M
+OD, value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.M
+OD, value = Dist.CLIENT)
+                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.java:
+21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, b
+us = EventBusSubscriber.Bus.MOD)
+                                                             ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD)
+                                                                                     ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, b
+us = EventBusSubscriber.Bus.MOD)
+                                                             ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD)
+                                                                                     ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, b
+us = EventBusSubscriber.Bus.MOD)
+                                                             ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus
+ = EventBusSubscriber.Bus.MOD)
+                                                                                     ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscribe
+r.Bus.MOD, value = Dist.CLIENT)
+                                       ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.
+Bus.MOD, value = Dist.CLIENT)
+                                                               ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscribe
+r.Bus.MOD, value = Dist.CLIENT)
+                                       ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.
+Bus.MOD, value = Dist.CLIENT)
+                                                               ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscribe
+r.Bus.MOD, value = Dist.CLIENT)
+                                       ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀憡:
+ [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.
+Bus.MOD, value = Dist.CLIENT)
+                                                               ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod
+.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.M
+ODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod
+.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.M
+ODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod
+.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilities.
+java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid = ImmortalersDelightMod.M
+ODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelight
+Mod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelightMo
+d.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelight
+Mod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelightMo
+d.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelight
+Mod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttribu
+tes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(modid =ImmortalersDelightMo
+d.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrinkItem.java:103: 璀﹀憡: [remov
+al] Configuration 涓殑 FOOD_EFFECT_TOOLTIP 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrinkItem.java:109: 閿欒: 鏃犳硶灏嗙被
+ TextUtils涓殑鏂规硶 addFoodEffectTooltip搴旂敤鍒扮粰瀹氱被鍨?
+                TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
+                         ^
+  闇€瑕? ItemStack,Consumer<Component>,float,float
+  鎵惧埌:    ItemStack,List<Component>,float
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightItems.java:14
+43: 閿欒: 鎵句笉鍒扮鍙?                        if (itemstack.isEdible()) {
+                                     ^
+  绗﹀彿:   鏂规硶 isEdible()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.jav
+a:40: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE,"dea196b4-3b49-e888-6b9b-a3d17013c587",0.15, Attribu
+teModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                    ^
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+    鏂规硶 PrehistoricPowersMobEffect.addAttributeModifier(@org.jetbrains.annotations.NotNull Attribute,@org.jetbrains.ann
+otations.NotNull String,double,@org.jetbrains.annotations.NotNull Operation)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? Holder<Attribute>鏃犳硶杞崲涓篅org.jetbrains.annotations.NotNull Attribute)
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.jav
+a:49: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModifi
+er.Operation.ADD_VALUE));
+            ^
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.jav
+a:59: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 3.0D, Attri
+buteModifier.Operation.ADD_VALUE)
+                    ^
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, 
+value = Dist.CLIENT)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, 
+value = Dist.CLIENT)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD
+, value = Dist.CLIENT)
+                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.jav
+a:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, 
+value = Dist.CLIENT)
+                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:127: 璀﹀憡: [re
+moval] Configuration 涓殑 FOOD_EFFECT_TOOLTIP 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?        if ((Boolean) Configuration.FOOD_EFFECT_TOOLTIP.g
+et()) {
+                                   ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [re
+moval] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?            bus = EventBusSubscriber.Bus.GAME
+                                    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:5
+2: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:6
+9: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+                                                                                          ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:7
+4: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:7
+8: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        } else if (super.getFoodProperties() != null) {
+                        ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:7
+9: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+            this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
+                                                                  ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java:8
+2: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        return super.getFoodProperties();
+                    ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\GasToxicFoodItem.java:37: 
+閿欒: 鎵句笉鍒扮鍙?        if (item.isEdible()) {
+                ^
+  绗﹀彿:   鏂规硶 isEdible()
+  浣嶇疆: 绫诲瀷涓篒tem鐨勫彉閲?item
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\GasToxicFoodItem.java:39: 
+閿欒: 鎵句笉鍒扮鍙?            for (Pair<MobEffectInstance, Float> pair : p_21064_.getFoodProperties(p_21066_).getEffects()) 
+{
+                                                                                           ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.jav
+a:97: 閿欒: 鏃犳硶灏嗙被 MobEffectUtil涓殑鏂规硶 formatDuration搴旂敤鍒扮粰瀹氱被鍨?
+                    effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(")
+");
+                                                                       ^
+  闇€瑕? MobEffectInstance,float,float
+  鎵惧埌:    MobEffectInstance,float
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.jav
+a:133: 閿欒: 鎵句笉鍒扮鍙?                            for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.getDog
+FoodProperties().getEffects()) {
+                                                                                                                   ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?@org.jetbrains.annotations.Nullable FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.jav
+a:133: 閿欒: 鎵句笉鍒扮鍙?                            for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.getDog
+FoodProperties().getEffects()) {
+                                ^
+  绗﹀彿:   绫?Pair
+  浣嶇疆: 绫?DogFoodEvent
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\InebriatedToxicFoodItem.ja
+va:106: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+                mobeffect.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmpli
+fier());
+                         ^
+  闇€瑕? AttributeMap
+  鎵惧埌:    LivingEntity,AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\InebriatedToxicFoodItem.ja
+va:107: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+                mobeffect.addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifie
+r());
+                         ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    LivingEntity,AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\NeedStrawDrinkItem.java:60
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\NeedStrawDrinkItem.java:67
+: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        return super.getFoodProperties();
+                    ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:10
+2: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:11
+5: 閿欒: 鎵句笉鍒扮鍙?            for (Pair<MobEffectInstance, Float> pair : shieldLikeFoodItem.getAheadFoodProperties().getE
+ffects()) {
+                                                                                                  ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?@org.jetbrains.annotations.Nullable FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:12
+4: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:15
+5: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+                                                                                          ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:16
+0: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:16
+4: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        } else if (super.getFoodProperties() != null) {
+                        ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:16
+5: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+            this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
+                                                                  ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:16
+8: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+        return super.getFoodProperties();
+                    ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersBoatItem.java:83: 閿欒
+: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersChestBoatItem.java:8
+4: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersKnifeItem.java:177: 
+閿欒: 鎵句笉鍒扮鍙?                                toolStack2.hurtAndBreak(1, serverPlayer, EquipmentSlot.OFF_HAND);
+                                                                                      ^
+  绗﹀彿:   鍙橀噺 OFF_HAND
+  浣嶇疆: 绫?EquipmentSlot
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\InebriatedToxicDrinkBlockItem.j
+ava:37: 閿欒: 鎵句笉鍒扮鍙?        if (item.isEdible()) {
+                ^
+  绗﹀彿:   鏂规硶 isEdible()
+  浣嶇疆: 绫诲瀷涓篒tem鐨勫彉閲?item
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\InebriatedToxicDrinkBlockItem.j
+ava:39: 閿欒: 鎵句笉鍒扮鍙?            for (Pair<MobEffectInstance, Float> pair : stack.getFoodProperties(livingEntity).getEf
+fects()) {
+                                                                                            ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\SnifferBrushItem.java:75: 閿欒: 
+鎵句笉鍒扮鍙?                    pLevel.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC.value(), SoundSource.BLOCKS);
+                                                                                ^
+  绗﹀彿:   鏂规硶 value()
+  浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?BRUSH_GENERIC
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\TooltipItemNameBlockItem.java:3
+5: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PillagersKnifeItem.java:
+149: 閿欒: 鎵句笉鍒扮鍙?                    Holder<Potion> potionHolder = pc.potion().orElse(Potions.WATER);
+                           ^
+  绗﹀彿:   绫?Potion
+  浣嶇疆: 绫?ImmortalersKnifeEvents
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PlaceableShieldItem.java
+:103: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PlaceableShieldItem.java
+:116: 閿欒: 鏃犳硶灏嗙被 ShieldItem涓殑鏂规硶 getUseDuration搴旂敤鍒扮粰瀹氱被鍨?
+        if (this.type == 2 && timeLeft <= this.getUseDuration(stack) - 32) {
+                                              ^
+  闇€瑕? ItemStack,LivingEntity
+  鎵惧埌:    ItemStack
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:200: 閿欒: 鎵句笉鍒扮鍙?        if (pShooter instanceof Player player && net.neoforged.neoforge.event.ForgeEventFactory.on
+ArrowLoose(pCrossbowStack, pShooter.level(), player, 1, true) < 0) return;
+                                                                             ^
+  绗﹀彿:   绫?ForgeEventFactory
+  浣嶇疆: 绋嬪簭鍖?net.neoforged.neoforge.event
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:256: 閿欒: 鎵句笉鍒扮鍙?            pLevel.playSound((Player)null, pShooter.getX(), pShooter.getY(), pShooter.getZ(), Soun
+dEvents.CROSSBOW_SHOOT.value(), SoundSource.PLAYERS, 1.0F, pSoundPitch);
+                                                                                                                       
+ ^
+  绗﹀彿:   鏂规硶 value()
+  浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?CROSSBOW_SHOOT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:265: 閿欒: 鏃犳硶灏嗙被 ArrowItem涓殑鏂规硶 createArrow搴旂敤鍒扮粰瀹氱被鍨?
+        AbstractArrow abstractarrow = arrowitem.createArrow(pLevel, pAmmoStack, pLivingEntity);
+                                               ^
+  闇€瑕? Level,ItemStack,LivingEntity,ItemStack
+  鎵惧埌:    Level,ItemStack,LivingEntity
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:270: 閿欒: 鎵句笉鍒扮鍙?        abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT.value());
+                                                            ^
+  绗﹀彿:   鏂规硶 value()
+  浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?CROSSBOW_HIT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:273: 閿欒: setPierceLevel(byte) 鍦?AbstractArrow 涓槸 private 璁块棶鎺у埗
+            abstractarrow.setPierceLevel((byte)i);
+                         ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:380: 閿欒: 鏃犳硶灏嗙被 ItemStack涓殑鏂规硶 getUseDuration搴旂敤鍒扮粰瀹氱被鍨?
+            float f = (float)(pStack.getUseDuration() - pCount) / (float) getModChargeDuration(pStack);
+                                    ^
+  闇€瑕? LivingEntity
+  鎵惧埌:    娌℃湁鍙傛暟
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.ja
+va:402: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\message\DeathlessEffectPayload.java:
+22: 閿欒: 鎵句笉鍒扮鍙?            ByteBufCodecs.map(HashMap::new, ByteBufCodecs.UUID, ByteBufCodecs.FLOAT),
+                                                         ^
+  绗﹀彿:   鍙橀噺 UUID
+  浣嶇疆: 鎺ュ彛 ByteBufCodecs
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\mixin\SnifferMixin.java:47: 閿欒: get
+HeadBlock() 鍦?Sniffer 涓槸 private 璁块棶鎺у埗
+        BlockPos headBlock = self.getHeadBlock();
+                                 ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\network\ClientProxy.java:85: 閿欒: 鎵句
+笉鍒扮鍙?        return Minecraft.getInstance().getPartialTick();
+                                      ^
+  绗﹀彿:   鏂规硶 getPartialTick()
+  浣嶇疆: 绫?Minecraft
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BurnTheBoatsMobEffect.java:10
+0: 閿欒: 鎵句笉鍒扮鍙?                    evt.setCanceled(true);
+                       ^
+  绗﹀彿:   鏂规硶 setCanceled(boolean)
+  浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?evt
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:45: 閿欒: 鎵
+句笉鍒扮鍙?                if (stack.getItem().isEdible() && noCoolFood(stack,livingEntity)) {
+                                   ^
+  绗﹀彿:   鏂规硶 isEdible()
+  浣嶇疆: 绫?Item
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:55: 閿欒: 鎵
+句笉鍒扮鍙?                            int nutrition = food.getNutrition();
+                                                ^
+  绗﹀彿:   鏂规硶 getNutrition()
+  浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:56: 閿欒: 鎵
+句笉鍒扮鍙?                            float saturation = food.getSaturationModifier();
+                                                   ^
+  绗﹀彿:   鏂规硶 getSaturationModifier()
+  浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:88: 閿欒: 鎵
+句笉鍒扮鍙?            List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(entity
+)).getEffects();
+                                                                                                                  ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+49: 閿欒: 鎵句笉鍒扮鍙?                            itemstack.getOrCreateTag();
+                                     ^
+  绗﹀彿:   鏂规硶 getOrCreateTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+50: 閿欒: 鎵句笉鍒扮鍙?                            if (!itemstack.getTag().contains(BOOK_EDITING, 99)) {
+                                          ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+51: 閿欒: 鎵句笉鍒扮鍙?                                itemstack.getTag().putInt(BOOK_EDITING, 0);
+                                         ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+54: 閿欒: 鎵句笉鍒扮鍙?                            int progress = itemstack.getTag().getInt(BOOK_EDITING);
+                                                    ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+57: 閿欒: 鎵句笉鍒扮鍙?                                itemstack.getTag().putInt(BOOK_EDITING, progress + 25);
+                                         ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+60: 閿欒: 鎵句笉鍒扮鍙?                                itemstack.getTag().putInt(BOOK_EDITING, progress - 1000);
+                                         ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.java:
+91: 閿欒: 鎵句笉鍒扮鍙?            CompoundTag tag = stack.getTag();
+                                   ^
+  绗﹀彿:   鏂规硶 getTag()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?stack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:25
+: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+            float minHealth = pEntity.hasEffect(INEBRIATED.get()) ? 1.0F : pEntity.getMaxHealth() * 0.5F;
+                                                              ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:29
+: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                    pEntity.removeEffect(WEAK_POISON.get());
+                                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:34
+: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                pEntity.hurt(pEntity.damageSources().magic(), pEntity.hasEffect(INEBRIATED.get()) ? 1.6f * damage : dam
+age);
+                                                                                              ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:41
+: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                    pEntity.removeEffect(WEAK_WITHER.get());
+                                                        ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:51
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:55
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+            super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+                 ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:61
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+             ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageResistMobEffect.java:75
+: 閿欒: 鎵句笉鍒扮鍙?                            MobEffectInstance healBuff =isPowerful ? new MobEffectInstance(MobEffects.HE
+AL,1, thisEffect.getAmplifier()) : new MobEffectInstance(ModEffects.COMFORT.get(),52,thisEffect.getAmplifier());
+                                                                                                                       
+                                                            ^
+  绗﹀彿:   鏂规硶 get()
+  浣嶇疆: 绫诲瀷涓篐older<MobEffect>鐨勫彉閲?COMFORT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\immortaleffects\FreezeEffect.
+java:149: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: DeferredHolder<MobEffect,MobEffect>鏃犳硶杞崲涓篗obEffect
+                MobEffect thisEffect = ImmortalersDelightMobEffect.LET_IT_FREEZE;
+                                                                  ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\immortaleffects\StunEffect.ja
+va:175: 閿欒: 鎵句笉鍒扮鍙?                event.setCanceled(true);
+                     ^
+  绗﹀彿:   鏂规硶 setCanceled(boolean)
+  浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?event
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java:4
+7: 閿欒: 鎵句笉鍒扮鍙?                if (stack.getItem().isEdible() && noIncandescenceFood(stack,entity)) {
+                                   ^
+  绗﹀彿:   鏂规硶 isEdible()
+  浣嶇疆: 绫?Item
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java:5
+6: 閿欒: 鎵句笉鍒扮鍙?                            int nutrition = food.getNutrition();
+                                                ^
+  绗﹀彿:   鏂规硶 getNutrition()
+  浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java:5
+7: 閿欒: 鎵句笉鍒扮鍙?                            float saturation = food.getSaturationModifier();
+                                                   ^
+  绗﹀彿:   鏂规硶 getSaturationModifier()
+  浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java:1
+03: 閿欒: 鎵句笉鍒扮鍙?            List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodPropert
+ies(entity)).getEffects();
+                                                                                                                  ^
+  绗﹀彿:   鏂规硶 getEffects()
+  浣嶇疆: 绫?FoodProperties
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:35: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+            ^
+  闇€瑕? AttributeMap
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:44: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:51: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: Attribute鏃犳硶杞崲涓篐older<Attribute>
+                AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
+                                                                                            ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:55: 閿欒: 鎵句笉鍒扮鍙?                    attributeinstance.addPermanentModifier(new AttributeModifier(attributemodifier.
+getId(), this.getDescriptionId() + " " + lv, this.getAttributeModifierValue(lv, attributemodifier), attributemodifier.g
+etOperation()));
+                                                                                                                       
+                                                                                                 ^
+  绗﹀彿:   鏂规硶 getOperation()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?attributemodifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:55: 閿欒: 鎵句笉鍒扮鍙?                    attributeinstance.addPermanentModifier(new AttributeModifier(attributemodifier.
+getId(), this.getDescriptionId() + " " + lv, this.getAttributeModifierValue(lv, attributemodifier), attributemodifier.g
+etOperation()));
+                                                                                                  ^
+  绗﹀彿:   鏂规硶 getId()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?attributemodifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:58: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        } else super.addAttributeModifiers(pLivingEntity, pAttributeMap, lv);
+                    ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:62: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:64: 閿欒: 鎵句笉鍒扮鍙?        if (pModifier.getOperation().toValue() == 2) {
+                     ^
+  绗﹀彿:   鏂规硶 getOperation()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:66: 閿欒: 鎵句笉鍒扮鍙?            for (int i = 0; i <= pAmplifier; ++i) {buffer *= pModifier.getAmount() + 1;}
+                                                                      ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:69: 閿欒: 鎵句笉鍒扮鍙?        return pModifier.getAmount() * (double)(pAmplifier + 1);
+                        ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:72: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:74: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+        AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(pUuid), this::getDescriptionId, pAm
+ount * 2, pOperation);
+                                              ^
+  闇€瑕? ResourceLocation,double,Operation
+  鎵惧埌:    UUID,this::getD[...]ionId,double,@org.jetbrains.annotations.NotNull Operation
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:76: 閿欒: 瀵逛簬addAttributeModifier(@org.jetbrains.annotations.NotNull Attribute,@org.jetbrains.annotations.NotNull Str
+ing,double,@org.jetbrains.annotations.NotNull Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+        return super.addAttributeModifier(pAttribute, pUuid, pAmount, pOperation);
+                    ^
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? @org.jetbrains.annotations.NotNull Attribute鏃犳硶杞崲涓篐older<Attribute>)
+    鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+      (鍙傛暟涓嶅尮閰? @org.jetbrains.annotations.NotNull Attribute鏃犳硶杞崲涓篐older<Attribute>)
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:79: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.ja
+va:82: 閿欒: 鎵句笉鍒扮鍙?        return super.getAttributeModifiers();
+                    ^
+  绗﹀彿: 鏂规硶 getAttributeModifiers()
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:45
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+            ^
+  闇€瑕? AttributeMap
+  鎵惧埌:    LivingEntity,AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:49
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+            this.addAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+                ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    LivingEntity,AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:63
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:66
+: 閿欒: 鎵句笉鍒扮鍙?        if (pModifier.getOperation().toValue() == 2) {
+                     ^
+  绗﹀彿:   鏂规硶 getOperation()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:67
+: 閿欒: 鎵句笉鍒扮鍙?            if (isPowerful) return pModifier.getAmount() * (double)(pAmplifier * 3 + 3);
+                                            ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:68
+: 閿欒: 鎵句笉鍒扮鍙?            return pModifier.getAmount() * (double)(pAmplifier + 3);
+                            ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:70
+: 閿欒: 鎵句笉鍒扮鍙?        if (pModifier.getOperation().toValue() == 0) {
+                     ^
+  绗﹀彿:   鏂规硶 getOperation()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:71
+: 閿欒: 鎵句笉鍒扮鍙?            if (isPowerful) return pModifier.getAmount() * (double)(pAmplifier * 2 + 2);
+                                            ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:72
+: 閿欒: 鎵句笉鍒扮鍙?            return pModifier.getAmount() * (double)(pAmplifier + 2);
+                            ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:74
+: 閿欒: 鎵句笉鍒扮鍙?        return pModifier.getAmount() * (double)(pAmplifier + 1);
+                        ^
+  绗﹀彿:   鏂规硶 getAmount()
+  浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:16
+0: 閿欒: 鎵句笉鍒扮鍙?                        evt.setCanceled(true);
+                           ^
+  绗﹀彿:   鏂规硶 setCanceled(boolean)
+  浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?evt
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:67: 
+閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:77: 
+閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+             ^
+  闇€瑕? AttributeMap
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:80: 
+閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:92: 
+閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+        super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+             ^
+  闇€瑕? AttributeMap,int
+  鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\EnchantalCoolerScreen.java:51
+: 閿欒: 鏃犳硶灏嗙被 AbstractContainerScreen<T>涓殑鏂规硶 renderBackground搴旂敤鍒扮粰瀹氱被鍨?
+        renderBackground(poseStack);
+        ^
+  闇€瑕? GuiGraphics,int,int,float
+  鎵惧埌:    GuiGraphics
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?  鍏朵腑, T鏄被鍨嬪彉閲?
+    T鎵╁睍宸插湪绫?AbstractContainerScreen涓０鏄庣殑AbstractContainerMenu
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\TerracottaGolemScreen.java:34
+: 閿欒: 鏃犳硶灏嗙被 InventoryScreen涓殑鏂规硶 renderEntityInInventoryFollowsMouse搴旂敤鍒扮粰瀹氱被鍨?
+        InventoryScreen.renderEntityInInventoryFollowsMouse(p_282553_, i + 51, j + 60, 17, (float)(i + 51) - this.xMous
+e, (float)(j + 75 - 50) - this.yMouse, golem);
+                       ^
+  闇€瑕? GuiGraphics,int,int,int,int,int,float,float,float,LivingEntity
+  鎵惧埌:    GuiGraphics,int,int,int,float,float,TerracottaGolem
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\TerracottaGolemScreen.java:52
+: 閿欒: 鏃犳硶灏嗙被 AbstractContainerScreen<T>涓殑鏂规硶 renderBackground搴旂敤鍒扮粰瀹氱被鍨?
+        this.renderBackground(p_281697_);
+            ^
+  闇€瑕? GuiGraphics,int,int,float
+  鎵惧埌:    GuiGraphics
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?  鍏朵腑, T鏄被鍨嬪彉閲?
+    T鎵╁睍宸插湪绫?AbstractContainerScreen涓０鏄庣殑AbstractContainerMenu
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficulty
+DataStorage.java:8: 閿欒: DifficultyDataStorage涓嶆槸鎶借薄鐨? 骞朵笖鏈鐩朓NBTSerializable涓殑鎶借薄鏂规硶deserializeNBT(Provider,Compound
+Tag)
+public class DifficultyDataStorage implements INBTSerializable<CompoundTag> {
+       ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficulty
+DataStorage.java:24: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficulty
+DataStorage.java:33: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTimeDa
+taStorage.java:16: 閿欒: ExitTimeDataStorage涓嶆槸鎶借薄鐨? 骞朵笖鏈鐩朓NBTSerializable涓殑鎶借薄鏂规硶deserializeNBT(Provider,CompoundTag
+)
+public class ExitTimeDataStorage implements INBTSerializable<CompoundTag> {
+       ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTimeDa
+taStorage.java:32: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTimeDa
+taStorage.java:41: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:38: 閿欒: 鎵句笉鍒扮
+鍙?            MobEffect effectInput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(inputEffectName));
+                                                                ^
+  绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+  浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:39: 閿欒: 鎵句笉鍒扮
+鍙?            MobEffect effectOutput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(outputEffectName))
+;
+                                                                 ^
+  绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+  浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:114: 閿欒: 鎵句笉鍒
+扮鍙?                effectInput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(inputEffectName));
+                                                          ^
+  绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+  浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\LivingDamageUtil.java:135: 閿欒:
+ 鏃犳硶灏嗙被 Player涓殑鏂规硶 disableShield搴旂敤鍒扮粰瀹氱被鍨?
+                            if (hurtOne instanceof Player player && willBeDisableShield(attacker,hurtOne,attacker.getMa
+inHandItem())) player.disableShield(true);
+                                                                                                                       
+                     ^
+  闇€瑕? 娌℃湁鍙傛暟
+  鎵惧埌:    boolean
+  鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:35: 
+閿欒: 鎵句笉鍒扮鍙?        float rarityLevel = enchantment.getRarity() == Enchantment.Rarity.VERY_RARE ? 0
+                                       ^
+  绗﹀彿:   鏂规硶 getRarity()
+  浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:35: 
+閿欒: 鎵句笉鍒扮鍙?        float rarityLevel = enchantment.getRarity() == Enchantment.Rarity.VERY_RARE ? 0
+                                                                  ^
+  绗﹀彿:   鍙橀噺 Rarity
+  浣嶇疆: 绫?Enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:36: 
+閿欒: 鎵句笉鍒扮鍙?                : (enchantment.getRarity() == Enchantment.Rarity.RARE ? 1
+                              ^
+  绗﹀彿:   鏂规硶 getRarity()
+  浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:36: 
+閿欒: 鎵句笉鍒扮鍙?                : (enchantment.getRarity() == Enchantment.Rarity.RARE ? 1
+                                                         ^
+  绗﹀彿:   鍙橀噺 Rarity
+  浣嶇疆: 绫?Enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:37: 
+閿欒: 鎵句笉鍒扮鍙?                : (enchantment.getRarity() == Enchantment.Rarity.UNCOMMON ? 2
+                              ^
+  绗﹀彿:   鏂规硶 getRarity()
+  浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:37: 
+閿欒: 鎵句笉鍒扮鍙?                : (enchantment.getRarity() == Enchantment.Rarity.UNCOMMON ? 2
+                                                         ^
+  绗﹀彿:   鍙橀噺 Rarity
+  浣嶇疆: 绫?Enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:39: 
+閿欒: 鎵句笉鍒扮鍙?        return 0.86F + 0.3F*(rarityLevel + (enchantment.isTreasureOnly() ? -1 : 0));
+                                                       ^
+  绗﹀彿:   鏂规硶 isTreasureOnly()
+  浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:85: 
+閿欒: 鎵句笉鍒扮鍙?        Map<Enchantment, Integer> enchantments = isEnchantBook ? getEnchantedBookEnchantments(itemstack) :
+ EnchantmentHelper.getEnchantments(itemstack);
+                                                                                                                       
+     ^
+  绗﹀彿:   鏂规硶 getEnchantments(ItemStack)
+  浣嶇疆: 绫?EnchantmentHelper
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:90: 
+閿欒: 鎵句笉鍒扮鍙?            if (entry.getKey().isCurse()) {
+                              ^
+  绗﹀彿:   鏂规硶 isCurse()
+  浣嶇疆: 绫?Enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:103:
+ 閿欒: 鎵句笉鍒扮鍙?                if (!entry.getKey().isCurse() && entry.getValue() < getMaxReinforcedEnchantLevel(entry.ge
+tKey().getMaxLevel())) {
+                                   ^
+  绗﹀彿:   鏂规硶 isCurse()
+  浣嶇疆: 绫?Enchantment
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:108:
+ 閿欒: 鎵句笉鍒扮鍙?                            getOperationCount(itemstack.getBaseRepairCost()),
+                                                       ^
+  绗﹀彿:   鏂规硶 getBaseRepairCost()
+  浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:119:
+ 閿欒: 鎵句笉鍒扮鍙?                    EnchantedBookItem.addEnchantment(itemstack, enchantmentinstance);
+                                     ^
+  绗﹀彿:   鏂规硶 addEnchantment(ItemStack,EnchantmentInstance)
+  浣嶇疆: 绫?EnchantedBookItem
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:134:
+ 閿欒: 鎵句笉鍒扮鍙?            ListTag enchantmentTagList = EnchantedBookItem.getEnchantments(stack);
+                                                          ^
+  绗﹀彿:   鏂规硶 getEnchantments(ItemStack)
+  浣嶇疆: 绫?EnchantedBookItem
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:145:
+ 閿欒: 鎵句笉鍒扮鍙?                        .map(BuiltInRegistries.ENCHANTMENT::get)
+                                              ^
+  绗﹀彿:   鍙橀噺 ENCHANTMENT
+  浣嶇疆: 绫?BuiltInRegistries
+E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\world\tree\BigOakTreeGrower.java:544
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?    @Override
+    ^
+娉? 鏌愪簺杈撳叆鏂囦欢浣跨敤鎴栬鐩栦簡宸茶繃鏃剁殑 API銆?
+娉? 鏈夊叧璇︾粏淇℃伅, 璇蜂娇鐢?-Xlint:deprecation 閲嶆柊缂栬瘧銆?
+娉? 鏌愪簺杈撳叆鏂囦欢棰濆浣跨敤鎴栬鐩栦簡鏍囪涓哄緟鍒犻櫎鐨勫凡杩囨椂 API銆?
+娉? E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\sextlotus_lantern\Sextlotus
+LightHelper.java浣跨敤浜嗘湭缁忔鏌ユ垨涓嶅畨鍏ㄧ殑鎿嶄綔銆?
+娉? 鏈夊叧璇︾粏淇℃伅, 璇蜂娇鐢?-Xlint:unchecked 閲嶆柊缂栬瘧銆?
+娉? 鏌愪簺娑堟伅宸茬粡杩囩畝鍖? 璇蜂娇鐢?-Xdiags:verbose 閲嶆柊缂栬瘧浠ヨ幏寰楀畬鏁磋緭鍑?
+138 涓敊璇?
+100 涓鍛?
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///E:/mod/immortalers_delight-master/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeolog
+ical_team\PercussionProber.java:336: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 populateDefaultEquipmentEnchantments搴旂敤鍒扮粰瀹氱被鍨?
+          this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty); // 鐢熸垚瑁呭闄勯瓟
+              ^
+    闇€瑕? ServerLevelAccessor,RandomSource,DifficultyInstance
+    鎵惧埌:    RandomSource,DifficultyInstance
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeolog
+ical_team\PercussionProber.java:337: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 finalizeSpawn搴旂敤鍒扮粰瀹氱被鍨?
+          return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+                      ^
+    闇€瑕? ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData
+    鎵惧埌:    ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData,CompoundTag
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbushe
+r.java:72: 閿欒: 鏃犳硶灏嗙被 Mob涓殑鏂规硶 finalizeSpawn搴旂敤鍒扮粰瀹氱被鍨?
+          pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+                            ^
+    闇€瑕? ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData
+    鎵惧埌:    ServerLevelAccessor,DifficultyInstance,MobSpawnType,SpawnGroupData,CompoundTag
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbushe
+r.java:76: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+                      new AttributeModifier(HARD_HEALTH,
+                      ^
+    闇€瑕? ResourceLocation,double,Operation
+    鎵惧埌:    UUID,String,float,Operation
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\SkelverfishAmbushe
+r.java:84: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+                      new AttributeModifier(NORMAL_HEALTH,
+                      ^
+    闇€瑕? ResourceLocation,double,Operation
+    鎵惧埌:    UUID,String,float,Operation
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrinkItem.java:109: 閿欒: 鏃犳硶灏
+嗙被 TextUtils涓殑鏂规硶 addFoodEffectTooltip搴旂敤鍒扮粰瀹氱被鍨?
+                  TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
+                           ^
+    闇€瑕? ItemStack,Consumer<Component>,float,float
+    鎵惧埌:    ItemStack,List<Component>,float
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:69: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+                                                                                            ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:78: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          } else if (super.getFoodProperties() != null) {
+                          ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:79: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+              this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
+                                                                    ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:82: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          return super.getFoodProperties();
+                      ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.j
+ava:97: 閿欒: 鏃犳硶灏嗙被 MobEffectUtil涓殑鏂规硶 formatDuration搴旂敤鍒扮粰瀹氱被鍨?
+                      effectDescription.append(" (").append(MobEffectUtil.formatDuration(effectInstance, 1.0F)).append(
+")");
+                                                                         ^
+    闇€瑕? MobEffectInstance,float,float
+    鎵惧埌:    MobEffectInstance,float
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\InebriatedToxicFoodItem.
+java:106: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+                  mobeffect.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmp
+lifier());
+                           ^
+    闇€瑕? AttributeMap
+    鎵惧埌:    LivingEntity,AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\InebriatedToxicFoodItem.
+java:107: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+                  mobeffect.addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplif
+ier());
+                           ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    LivingEntity,AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\NeedStrawDrinkItem.java:
+67: 閿欒: 鏃犳硶灏嗘帴鍙?IItemExtension涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          return super.getFoodProperties();
+                      ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+155: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          return DifficultyModeUtil.isPowerBattleMode() ? this.poweredFoodProperties : super.getFoodProperties();
+                                                                                            ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+164: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          } else if (super.getFoodProperties() != null) {
+                          ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+165: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+              this.noEffectFoodProperties = this.notEffectFood(super.getFoodProperties());
+                                                                    ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+168: 閿欒: 鏃犳硶灏嗙被 PowerfulAbleFoodItem涓殑鏂规硶 getFoodProperties搴旂敤鍒扮粰瀹氱被鍨?
+          return super.getFoodProperties();
+                      ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PlaceableShieldItem.ja
+va:116: 閿欒: 鏃犳硶灏嗙被 ShieldItem涓殑鏂规硶 getUseDuration搴旂敤鍒扮粰瀹氱被鍨?
+          if (this.type == 2 && timeLeft <= this.getUseDuration(stack) - 32) {
+                                                ^
+    闇€瑕? ItemStack,LivingEntity
+    鎵惧埌:    ItemStack
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:265: 閿欒: 鏃犳硶灏嗙被 ArrowItem涓殑鏂规硶 createArrow搴旂敤鍒扮粰瀹氱被鍨?
+          AbstractArrow abstractarrow = arrowitem.createArrow(pLevel, pAmmoStack, pLivingEntity);
+                                                 ^
+    闇€瑕? Level,ItemStack,LivingEntity,ItemStack
+    鎵惧埌:    Level,ItemStack,LivingEntity
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:380: 閿欒: 鏃犳硶灏嗙被 ItemStack涓殑鏂规硶 getUseDuration搴旂敤鍒扮粰瀹氱被鍨?
+              float f = (float)(pStack.getUseDuration() - pCount) / (float) getModChargeDuration(pStack);
+                                      ^
+    闇€瑕? LivingEntity
+    鎵惧埌:    娌℃湁鍙傛暟
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+55: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+              super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+                   ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+61: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+               ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:35: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+              ^
+    闇€瑕? AttributeMap
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:58: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          } else super.addAttributeModifiers(pLivingEntity, pAttributeMap, lv);
+                      ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:74: 閿欒: 鏃犳硶灏嗚褰?AttributeModifier涓殑鏋勯€犲櫒 AttributeModifier搴旂敤鍒扮粰瀹氱被鍨?
+          AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(pUuid), this::getDescriptionId, p
+Amount * 2, pOperation);
+                                                ^
+    闇€瑕? ResourceLocation,double,Operation
+    鎵惧埌:    UUID,this::getD[...]ionId,double,@org.jetbrains.annotations.NotNull Operation
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+45: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          this.removeAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+              ^
+    闇€瑕? AttributeMap
+    鎵惧埌:    LivingEntity,AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+49: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+              this.addAttributeModifiers(pLivingEntity, pLivingEntity.getAttributes(), pAmplifier);
+                  ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    LivingEntity,AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:77
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 removeAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+               ^
+    闇€瑕? AttributeMap
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:92
+: 閿欒: 鏃犳硶灏嗙被 MobEffect涓殑鏂规硶 addAttributeModifiers搴旂敤鍒扮粰瀹氱被鍨?
+          super.addAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+               ^
+    闇€瑕? AttributeMap,int
+    鎵惧埌:    @org.jetbrains.annotations.NotNull LivingEntity,@org.jetbrains.annotations.NotNull AttributeMap,int
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\EnchantalCoolerScreen.java:
+51: 閿欒: 鏃犳硶灏嗙被 AbstractContainerScreen<T>涓殑鏂规硶 renderBackground搴旂敤鍒扮粰瀹氱被鍨?
+          renderBackground(poseStack);
+          ^
+    闇€瑕? GuiGraphics,int,int,float
+    鎵惧埌:    GuiGraphics
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?    鍏朵腑, T鏄被鍨嬪彉閲?
+      T鎵╁睍宸插湪绫?AbstractContainerScreen涓０鏄庣殑AbstractContainerMenu
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\TerracottaGolemScreen.java:
+34: 閿欒: 鏃犳硶灏嗙被 InventoryScreen涓殑鏂规硶 renderEntityInInventoryFollowsMouse搴旂敤鍒扮粰瀹氱被鍨?
+          InventoryScreen.renderEntityInInventoryFollowsMouse(p_282553_, i + 51, j + 60, 17, (float)(i + 51) - this.xMo
+use, (float)(j + 75 - 50) - this.yMouse, golem);
+                         ^
+    闇€瑕? GuiGraphics,int,int,int,int,int,float,float,float,LivingEntity
+    鎵惧埌:    GuiGraphics,int,int,int,float,float,TerracottaGolem
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\screen\TerracottaGolemScreen.java:
+52: 閿欒: 鏃犳硶灏嗙被 AbstractContainerScreen<T>涓殑鏂规硶 renderBackground搴旂敤鍒扮粰瀹氱被鍨?
+          this.renderBackground(p_281697_);
+              ^
+    闇€瑕? GuiGraphics,int,int,float
+    鎵惧埌:    GuiGraphics
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?    鍏朵腑, T鏄被鍨嬪彉閲?
+      T鎵╁睍宸插湪绫?AbstractContainerScreen涓０鏄庣殑AbstractContainerMenu
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\LivingDamageUtil.java:135: 閿欒
+: 鏃犳硶灏嗙被 Player涓殑鏂规硶 disableShield搴旂敤鍒扮粰瀹氱被鍨?
+                              if (hurtOne instanceof Player player && willBeDisableShield(attacker,hurtOne,attacker.get
+MainHandItem())) player.disableShield(true);
+                                                                                                                       
+                       ^
+    闇€瑕? 娌℃湁鍙傛暟
+    鎵惧埌:    boolean
+    鍘熷洜: 瀹為檯鍙傛暟鍒楄〃鍜屽舰寮忓弬鏁板垪琛ㄩ暱搴︿笉鍚?
+  娉? 鏌愪簺杈撳叆鏂囦欢棰濆浣跨敤鎴栬鐩栦簡鏍囪涓哄緟鍒犻櫎鐨勫凡杩囨椂 API銆?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.j
+ava:40: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+                      .addAttributeModifier(Attributes.ATTACK_DAMAGE,"dea196b4-3b49-e888-6b9b-a3d17013c587",0.15, Attri
+buteModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                      ^
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+      鏂规硶 PrehistoricPowersMobEffect.addAttributeModifier(@org.jetbrains.annotations.NotNull Attribute,@org.jetbrains.a
+nnotations.NotNull String,double,@org.jetbrains.annotations.NotNull Operation)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? Holder<Attribute>鏃犳硶杞崲涓篅org.jetbrains.annotations.NotNull Attribute)
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.j
+ava:49: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+              .addAttributeModifier(Attributes.ATTACK_DAMAGE,"7aadc50d-fcf7-43f6-a1c6-af5f56246aa7",-3.0, AttributeModi
+fier.Operation.ADD_VALUE));
+              ^
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightMobEffect.j
+ava:59: 閿欒: 瀵逛簬addAttributeModifier(Holder<Attribute>,String,double,Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+                      .addAttributeModifier(Attributes.ATTACK_DAMAGE, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 3.0D, Att
+ributeModifier.Operation.ADD_VALUE)
+                      ^
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? String鏃犳硶杞崲涓篟esourceLocation)
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:76: 閿欒: 瀵逛簬addAttributeModifier(@org.jetbrains.annotations.NotNull Attribute,@org.jetbrains.annotations.NotNull S
+tring,double,@org.jetbrains.annotations.NotNull Operation), 鎵句笉鍒板悎閫傜殑鏂规硶
+          return super.addAttributeModifier(pAttribute, pUuid, pAmount, pOperation);
+                      ^
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,double,Operation)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? @org.jetbrains.annotations.NotNull Attribute鏃犳硶杞崲涓篐older<Attribute>)
+      鏂规硶 MobEffect.addAttributeModifier(Holder<Attribute>,ResourceLocation,Operation,Int2DoubleFunction)涓嶉€傜敤
+        (鍙傛暟涓嶅尮閰? @org.jetbrains.annotations.NotNull Attribute鏃犳硶杞崲涓篐older<Attribute>)
+  娉? 鏈夊叧璇︾粏淇℃伅, 璇蜂娇鐢?-Xlint:deprecation 閲嶆柊缂栬瘧銆?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.j
+ava:133: 閿欒: 鎵句笉鍒扮鍙?                              for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.ge
+tDogFoodProperties().getEffects()) {
+                                  ^
+    绗﹀彿:   绫?Pair
+    浣嶇疆: 绫?DogFoodEvent
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersKnifeItem.java:177
+: 閿欒: 鎵句笉鍒扮鍙?                                  toolStack2.hurtAndBreak(1, serverPlayer, EquipmentSlot.OFF_HAND);
+                                                                                        ^
+    绗﹀彿:   鍙橀噺 OFF_HAND
+    浣嶇疆: 绫?EquipmentSlot
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PillagersKnifeItem.jav
+a:149: 閿欒: 鎵句笉鍒扮鍙?                      Holder<Potion> potionHolder = pc.potion().orElse(Potions.WATER);
+                             ^
+    绗﹀彿:   绫?Potion
+    浣嶇疆: 绫?ImmortalersKnifeEvents
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:200: 閿欒: 鎵句笉鍒扮鍙?          if (pShooter instanceof Player player && net.neoforged.neoforge.event.ForgeEventFactor
+y.onArrowLoose(pCrossbowStack, pShooter.level(), player, 1, true) < 0) return;
+                                                                               ^
+    绗﹀彿:   绫?ForgeEventFactory
+    浣嶇疆: 绋嬪簭鍖?net.neoforged.neoforge.event
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\message\DeathlessEffectPayload.jav
+a:22: 閿欒: 鎵句笉鍒扮鍙?              ByteBufCodecs.map(HashMap::new, ByteBufCodecs.UUID, ByteBufCodecs.FLOAT),
+                                                           ^
+    绗﹀彿:   鍙橀噺 UUID
+    浣嶇疆: 鎺ュ彛 ByteBufCodecs
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:35
+: 閿欒: 鎵句笉鍒扮鍙?          float rarityLevel = enchantment.getRarity() == Enchantment.Rarity.VERY_RARE ? 0
+                                                                    ^
+    绗﹀彿:   鍙橀噺 Rarity
+    浣嶇疆: 绫?Enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:36
+: 閿欒: 鎵句笉鍒扮鍙?                  : (enchantment.getRarity() == Enchantment.Rarity.RARE ? 1
+                                                           ^
+    绗﹀彿:   鍙橀噺 Rarity
+    浣嶇疆: 绫?Enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:37
+: 閿欒: 鎵句笉鍒扮鍙?                  : (enchantment.getRarity() == Enchantment.Rarity.UNCOMMON ? 2
+                                                           ^
+    绗﹀彿:   鍙橀噺 Rarity
+    浣嶇疆: 绫?Enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:14
+5: 閿欒: 鎵句笉鍒扮鍙?                          .map(BuiltInRegistries.ENCHANTMENT::get)
+                                                ^
+    绗﹀彿:   鍙橀噺 ENCHANTMENT
+    浣嶇疆: 绫?BuiltInRegistries
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\entities\living\illager_archaeolog
+ical_team\PercussionProber.java:92: 閿欒: height 鍦?EntityDimensions 涓槸 private 璁块棶鎺у埗
+          return pDimensions.height - 0.28125F;
+                            ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:273: 閿欒: setPierceLevel(byte) 鍦?AbstractArrow 涓槸 private 璁块棶鎺у埗
+              abstractarrow.setPierceLevel((byte)i);
+                           ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\mixin\SnifferMixin.java:47: 閿欒: g
+etHeadBlock() 鍦?Sniffer 涓槸 private 璁块棶鎺у埗
+          BlockPos headBlock = self.getHeadBlock();
+                                   ^
+  娉? 鏈夊叧璇︾粏淇℃伅, 璇蜂娇鐢?-Xlint:unchecked 閲嶆柊缂栬瘧銆?
+  娉? 鏌愪簺杈撳叆鏂囦欢浣跨敤鎴栬鐩栦簡宸茶繃鏃剁殑 API銆?
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:52: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\EdibleBlockFoodItem.java
+:74: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\NeedStrawDrinkItem.java:
+60: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+102: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+124: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+160: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersBoatItem.java:83: 
+閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\ImmortalersChestBoatItem.java
+:84: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\TooltipItemNameBlockItem.java
+:35: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\PlaceableShieldItem.ja
+va:103: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:402: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+51: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:44: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:62: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:72: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:79: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+63: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:67
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\VulnerableMobEffect.java:80
+: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficul
+tyDataStorage.java:24: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficul
+tyDataStorage.java:33: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTime
+DataStorage.java:32: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTime
+DataStorage.java:41: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\world\tree\BigOakTreeGrower.java:5
+44: 閿欒: 鏂规硶涓嶄細瑕嗙洊鎴栧疄鐜拌秴绫诲瀷鐨勬柟娉?      @Override
+      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\StackedFoodBlock.java:117: 璀
+﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          return stack.is(ModTags.KNIVES);
+                                 ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLantern
+BlockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscribe
+r.Bus.GAME
+              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\warped_lantern\WarpedLantern
+BlockEntity.java:75: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.
+Bus.GAME
+                                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\RotatingRoastMeatBlock.
+java:93: 璀﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          if (stack.is(ModTags.KNIVES)) {
+                              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\RotatingRoastMeatBlock.
+java:145: 璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          return state.is(ModTags.HEAT_SOURCES) && s
+tate.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(bo
+oleanProperty);
+                                 ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\food\ZeaPancakeBLock.java:73
+: 璀﹀憡: [removal] ModTags 涓殑 KNIVES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          boolean isKnives = hand_stack.is(ModTags.KNIVES) || hand
+_stack.is(ImmortalersDelightTags.KNIVES);
+                                                  ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanB
+lock.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.
+GAME
+              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\tangyuan\UnfinishedTangyuanB
+lock.java:318: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GA
+ME
+                                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 
+璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDelightMod.MODID,
+ bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                           ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\ClientEventHelper.java:13: 
+璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, b
+us = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+                                                                                   ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.j
+ava:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(bus = EventBusSubscribe
+r.Bus.MOD,value = Dist.CLIENT)
+                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\client\model\SpikeTrapBakedModel.j
+ava:124: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(bus = EventBusSubscriber.
+Bus.MOD,value = Dist.CLIENT)
+                                                  ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡
+: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BaseMobEffect.java:114: 璀﹀憡
+: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+                                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java
+:62: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\EsteemedGuestMobEffect.java
+:62: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+                                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Eve
+ntBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSub
+scriber.Bus.MOD)
+                                                           ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\Config.java:18: 璀﹀憡: [removal] Eve
+ntBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = EventBusSubsc
+riber.Bus.MOD)
+                                                                                   ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [
+removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\data\DataGenerator.java:21: 璀﹀憡: [
+removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+                                              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:96
+: 璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          if (stateBelow.is(ModTags.HEAT_SOURCES)) {
+                                   ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:98
+: 璀﹀憡: [removal] ModTags 涓殑 HEAT_CONDUCTORS 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          } else if (stateBelow.is(ModTags.HEAT_CONDUCTOR
+S)) {
+                                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidsBlock.java:10
+0: 璀﹀憡: [removal] ModTags 涓殑 HEAT_SOURCES 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              if (stateFurtherBelow.is(ModTags.HEAT_SOURCES
+)) {
+                                              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\HotSpringFluidType.java:19: 
+璀﹀憡: [removal] FluidType 涓殑 initializeClient(Consumer<IClientFluidTypeExtensions>) 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      public void 
+initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                  ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.jav
+a:21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(bus = EventBusSubscriber.B
+us.MOD, value = Dist.CLIENT)
+                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\fluid\ImmortalersDelightFluids.jav
+a:21: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(bus = EventBusSubscriber.Bus
+.MOD, value = Dist.CLIENT)
+                                                  ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(modid = ImmortalersDelightMod.MODI
+D, bus = EventBusSubscriber.Bus.MOD)
+                                                               ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:191: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(modid = ImmortalersDelightMod.MODID,
+ bus = EventBusSubscriber.Bus.MOD)
+                                                                                       ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(modid = MODID, bus = EventBusSubsc
+riber.Bus.MOD, value = Dist.CLIENT)
+                                         ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\ImmortalersDelightMod.java:225: 璀﹀
+憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?      @EventBusSubscriber(modid = MODID, bus = EventBusSubscri
+ber.Bus.MOD, value = Dist.CLIENT)
+                                                                 ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilitie
+s.java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDeligh
+tMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                           ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightCapabilitie
+s.java:13: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid = ImmortalersDelightM
+od.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                   ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttri
+butes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid =ImmortalersDel
+ightMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightEntityAttri
+butes.java:11: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(modid =ImmortalersDelig
+htMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+                                                                                  ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrinkItem.java:103: 璀﹀憡: [rem
+oval] Configuration 涓殑 FOOD_EFFECT_TOOLTIP 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
+                           ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.j
+ava:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(bus = EventBusSubscriber.Bus
+.MOD, value = Dist.CLIENT)
+                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightParticles.j
+ava:10: 璀﹀憡: [removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?  @EventBusSubscriber(bus = EventBusSubscriber.Bus.M
+OD, value = Dist.CLIENT)
+                                              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:127: 璀﹀憡: [
+removal] Configuration 涓殑 FOOD_EFFECT_TOOLTIP 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?          if ((Boolean) Configuration.FOOD_EFFECT_TOOLT
+IP.get()) {
+                                     ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [
+removal] EventBusSubscriber 涓殑 bus() 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+              ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\DrillRodItem.java:141: 璀﹀憡: [
+removal] EventBusSubscriber 涓殑 Bus 宸茶繃鏃? 涓旀爣璁颁负寰呭垹闄?              bus = EventBusSubscriber.Bus.GAME
+                                      ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\init\ImmortalersDelightItems.java:
+1443: 閿欒: 鎵句笉鍒扮鍙?                          if (itemstack.isEdible()) {
+                                       ^
+    绗﹀彿:   鏂规硶 isEdible()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\GasToxicFoodItem.java:37
+: 閿欒: 鎵句笉鍒扮鍙?          if (item.isEdible()) {
+                  ^
+    绗﹀彿:   鏂规硶 isEdible()
+    浣嶇疆: 绫诲瀷涓篒tem鐨勫彉閲?item
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\GasToxicFoodItem.java:39
+: 閿欒: 鎵句笉鍒扮鍙?              for (Pair<MobEffectInstance, Float> pair : p_21064_.getFoodProperties(p_21066_).getEffects
+()) {
+                                                                                             ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ImmortalersDogFoodItem.j
+ava:133: 閿欒: 鎵句笉鍒扮鍙?                              for(Pair<MobEffectInstance, Float> pair : immortalersDogFoodItem.ge
+tDogFoodProperties().getEffects()) {
+                                                                                                                     ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?@org.jetbrains.annotations.Nullable FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\food\ShieldLikeFoodItem.java:
+115: 閿欒: 鎵句笉鍒扮鍙?              for (Pair<MobEffectInstance, Float> pair : shieldLikeFoodItem.getAheadFoodProperties().
+getEffects()) {
+                                                                                                    ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?@org.jetbrains.annotations.Nullable FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\InebriatedToxicDrinkBlockItem
+.java:37: 閿欒: 鎵句笉鍒扮鍙?          if (item.isEdible()) {
+                  ^
+    绗﹀彿:   鏂规硶 isEdible()
+    浣嶇疆: 绫诲瀷涓篒tem鐨勫彉閲?item
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\InebriatedToxicDrinkBlockItem
+.java:39: 閿欒: 鎵句笉鍒扮鍙?              for (Pair<MobEffectInstance, Float> pair : stack.getFoodProperties(livingEntity).g
+etEffects()) {
+                                                                                              ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\SnifferBrushItem.java:75: 閿欒
+: 鎵句笉鍒扮鍙?                      pLevel.playSound(player, blockPos, SoundEvents.BRUSH_GENERIC.value(), SoundSource.BLOCK
+S);
+                                                                                  ^
+    绗﹀彿:   鏂规硶 value()
+    浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?BRUSH_GENERIC
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:256: 閿欒: 鎵句笉鍒扮鍙?              pLevel.playSound((Player)null, pShooter.getX(), pShooter.getY(), pShooter.getZ(), 
+SoundEvents.CROSSBOW_SHOOT.value(), SoundSource.PLAYERS, 1.0F, pSoundPitch);
+                                                                                                                       
+   ^
+    绗﹀彿:   鏂规硶 value()
+    浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?CROSSBOW_SHOOT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\item\weapon\RepeatingCrossbowItem.
+java:270: 閿欒: 鎵句笉鍒扮鍙?          abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT.value());
+                                                              ^
+    绗﹀彿:   鏂规硶 value()
+    浣嶇疆: 绫诲瀷涓篠oundEvent鐨勫彉閲?CROSSBOW_HIT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\network\ClientProxy.java:85: 閿欒: 
+鎵句笉鍒扮鍙?          return Minecraft.getInstance().getPartialTick();
+                                        ^
+    绗﹀彿:   鏂规硶 getPartialTick()
+    浣嶇疆: 绫?Minecraft
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\BurnTheBoatsMobEffect.java:
+100: 閿欒: 鎵句笉鍒扮鍙?                      evt.setCanceled(true);
+                         ^
+    绗﹀彿:   鏂规硶 setCanceled(boolean)
+    浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?evt
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:45: 閿欒:
+ 鎵句笉鍒扮鍙?                  if (stack.getItem().isEdible() && noCoolFood(stack,livingEntity)) {
+                                     ^
+    绗﹀彿:   鏂规硶 isEdible()
+    浣嶇疆: 绫?Item
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:55: 閿欒:
+ 鎵句笉鍒扮鍙?                              int nutrition = food.getNutrition();
+                                                  ^
+    绗﹀彿:   鏂规硶 getNutrition()
+    浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:56: 閿欒:
+ 鎵句笉鍒扮鍙?                              float saturation = food.getSaturationModifier();
+                                                     ^
+    绗﹀彿:   鏂规硶 getSaturationModifier()
+    浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CoolMobEffect.java:88: 閿欒:
+ 鎵句笉鍒扮鍙?              List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodProperties(en
+tity)).getEffects();
+                                                                                                                    ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:49: 閿欒: 鎵句笉鍒扮鍙?                              itemstack.getOrCreateTag();
+                                       ^
+    绗﹀彿:   鏂规硶 getOrCreateTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:50: 閿欒: 鎵句笉鍒扮鍙?                              if (!itemstack.getTag().contains(BOOK_EDITING, 99)) {
+                                            ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:51: 閿欒: 鎵句笉鍒扮鍙?                                  itemstack.getTag().putInt(BOOK_EDITING, 0);
+                                           ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:54: 閿欒: 鎵句笉鍒扮鍙?                              int progress = itemstack.getTag().getInt(BOOK_EDITING);
+                                                      ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:57: 閿欒: 鎵句笉鍒扮鍙?                                  itemstack.getTag().putInt(BOOK_EDITING, progress + 25);
+                                           ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:60: 閿欒: 鎵句笉鍒扮鍙?                                  itemstack.getTag().putInt(BOOK_EDITING, progress - 1000);
+                                           ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\CulturalLegacyMobEffect.jav
+a:91: 閿欒: 鎵句笉鍒扮鍙?              CompoundTag tag = stack.getTag();
+                                     ^
+    绗﹀彿:   鏂规硶 getTag()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?stack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageResistMobEffect.java:
+75: 閿欒: 鎵句笉鍒扮鍙?                              MobEffectInstance healBuff =isPowerful ? new MobEffectInstance(MobEffect
+s.HEAL,1, thisEffect.getAmplifier()) : new MobEffectInstance(ModEffects.COMFORT.get(),52,thisEffect.getAmplifier());
+                                                                                                                       
+                                                              ^
+    绗﹀彿:   鏂规硶 get()
+    浣嶇疆: 绫诲瀷涓篐older<MobEffect>鐨勫彉閲?COMFORT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\immortaleffects\StunEffect.
+java:175: 閿欒: 鎵句笉鍒扮鍙?                  event.setCanceled(true);
+                       ^
+    绗﹀彿:   鏂规硶 setCanceled(boolean)
+    浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?event
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java
+:47: 閿欒: 鎵句笉鍒扮鍙?                  if (stack.getItem().isEdible() && noIncandescenceFood(stack,entity)) {
+                                     ^
+    绗﹀彿:   鏂规硶 isEdible()
+    浣嶇疆: 绫?Item
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java
+:56: 閿欒: 鎵句笉鍒扮鍙?                              int nutrition = food.getNutrition();
+                                                  ^
+    绗﹀彿:   鏂规硶 getNutrition()
+    浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java
+:57: 閿欒: 鎵句笉鍒扮鍙?                              float saturation = food.getSaturationModifier();
+                                                     ^
+    绗﹀彿:   鏂规硶 getSaturationModifier()
+    浣嶇疆: 绫诲瀷涓篎oodProperties鐨勫彉閲?food
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\IncandescenceMobEffect.java
+:103: 閿欒: 鎵句笉鍒扮鍙?              List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(stack.getFoodPro
+perties(entity)).getEffects();
+                                                                                                                    ^
+    绗﹀彿:   鏂规硶 getEffects()
+    浣嶇疆: 绫?FoodProperties
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:55: 閿欒: 鎵句笉鍒扮鍙?                      attributeinstance.addPermanentModifier(new AttributeModifier(attributemodif
+ier.getId(), this.getDescriptionId() + " " + lv, this.getAttributeModifierValue(lv, attributemodifier), attributemodifi
+er.getOperation()));
+                                                                                                                       
+                                                                                                   ^
+    绗﹀彿:   鏂规硶 getOperation()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?attributemodifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:55: 閿欒: 鎵句笉鍒扮鍙?                      attributeinstance.addPermanentModifier(new AttributeModifier(attributemodif
+ier.getId(), this.getDescriptionId() + " " + lv, this.getAttributeModifierValue(lv, attributemodifier), attributemodifi
+er.getOperation()));
+                                                                                                    ^
+    绗﹀彿:   鏂规硶 getId()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?attributemodifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:64: 閿欒: 鎵句笉鍒扮鍙?          if (pModifier.getOperation().toValue() == 2) {
+                       ^
+    绗﹀彿:   鏂规硶 getOperation()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:66: 閿欒: 鎵句笉鍒扮鍙?              for (int i = 0; i <= pAmplifier; ++i) {buffer *= pModifier.getAmount() + 1;}
+                                                                        ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:69: 閿欒: 鎵句笉鍒扮鍙?          return pModifier.getAmount() * (double)(pAmplifier + 1);
+                          ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+66: 閿欒: 鎵句笉鍒扮鍙?          if (pModifier.getOperation().toValue() == 2) {
+                       ^
+    绗﹀彿:   鏂规硶 getOperation()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+67: 閿欒: 鎵句笉鍒扮鍙?              if (isPowerful) return pModifier.getAmount() * (double)(pAmplifier * 3 + 3);
+                                              ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+68: 閿欒: 鎵句笉鍒扮鍙?              return pModifier.getAmount() * (double)(pAmplifier + 3);
+                              ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+70: 閿欒: 鎵句笉鍒扮鍙?          if (pModifier.getOperation().toValue() == 0) {
+                       ^
+    绗﹀彿:   鏂规硶 getOperation()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+71: 閿欒: 鎵句笉鍒扮鍙?              if (isPowerful) return pModifier.getAmount() * (double)(pAmplifier * 2 + 2);
+                                              ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+72: 閿欒: 鎵句笉鍒扮鍙?              return pModifier.getAmount() * (double)(pAmplifier + 2);
+                              ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+74: 閿欒: 鎵句笉鍒扮鍙?          return pModifier.getAmount() * (double)(pAmplifier + 1);
+                          ^
+    绗﹀彿:   鏂规硶 getAmount()
+    浣嶇疆: 绫诲瀷涓篈ttributeModifier鐨勫彉閲?pModifier
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\SmokeAbstinenceEffect.java:
+160: 閿欒: 鎵句笉鍒扮鍙?                          evt.setCanceled(true);
+                             ^
+    绗﹀彿:   鏂规硶 setCanceled(boolean)
+    浣嶇疆: 绫诲瀷涓篜re鐨勫彉閲?evt
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:38: 閿欒: 鎵句笉
+鍒扮鍙?              MobEffect effectInput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(inputEffectName
+));
+                                                                  ^
+    绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+    浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:39: 閿欒: 鎵句笉
+鍒扮鍙?              MobEffect effectOutput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(outputEffectNa
+me));
+                                                                   ^
+    绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+    浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\EffectUtils.java:114: 閿欒: 鎵句
+笉鍒扮鍙?                  effectInput = BuiltInRegistries.MOB_EFFECT.getValue(ResourceLocation.parse(inputEffectName));
+                                                            ^
+    绗﹀彿:   鏂规硶 getValue(ResourceLocation)
+    浣嶇疆: 绫诲瀷涓篟egistry<MobEffect>鐨勫彉閲?MOB_EFFECT
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:35
+: 閿欒: 鎵句笉鍒扮鍙?          float rarityLevel = enchantment.getRarity() == Enchantment.Rarity.VERY_RARE ? 0
+                                         ^
+    绗﹀彿:   鏂规硶 getRarity()
+    浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:36
+: 閿欒: 鎵句笉鍒扮鍙?                  : (enchantment.getRarity() == Enchantment.Rarity.RARE ? 1
+                                ^
+    绗﹀彿:   鏂规硶 getRarity()
+    浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:37
+: 閿欒: 鎵句笉鍒扮鍙?                  : (enchantment.getRarity() == Enchantment.Rarity.UNCOMMON ? 2
+                                ^
+    绗﹀彿:   鏂规硶 getRarity()
+    浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:39
+: 閿欒: 鎵句笉鍒扮鍙?          return 0.86F + 0.3F*(rarityLevel + (enchantment.isTreasureOnly() ? -1 : 0));
+                                                         ^
+    绗﹀彿:   鏂规硶 isTreasureOnly()
+    浣嶇疆: 绫诲瀷涓篍nchantment鐨勫彉閲?enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:85
+: 閿欒: 鎵句笉鍒扮鍙?          Map<Enchantment, Integer> enchantments = isEnchantBook ? getEnchantedBookEnchantments(itemstac
+k) : EnchantmentHelper.getEnchantments(itemstack);
+                                                                                                                       
+       ^
+    绗﹀彿:   鏂规硶 getEnchantments(ItemStack)
+    浣嶇疆: 绫?EnchantmentHelper
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:90
+: 閿欒: 鎵句笉鍒扮鍙?              if (entry.getKey().isCurse()) {
+                                ^
+    绗﹀彿:   鏂规硶 isCurse()
+    浣嶇疆: 绫?Enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:10
+3: 閿欒: 鎵句笉鍒扮鍙?                  if (!entry.getKey().isCurse() && entry.getValue() < getMaxReinforcedEnchantLevel(entr
+y.getKey().getMaxLevel())) {
+                                     ^
+    绗﹀彿:   鏂规硶 isCurse()
+    浣嶇疆: 绫?Enchantment
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:10
+8: 閿欒: 鎵句笉鍒扮鍙?                              getOperationCount(itemstack.getBaseRepairCost()),
+2 actionable tasks: 1 executed, 1 up-to-date
+                                                         ^
+    绗﹀彿:   鏂规硶 getBaseRepairCost()
+    浣嶇疆: 绫诲瀷涓篒temStack鐨勫彉閲?itemstack
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:11
+9: 閿欒: 鎵句笉鍒扮鍙?                      EnchantedBookItem.addEnchantment(itemstack, enchantmentinstance);
+                                       ^
+    绗﹀彿:   鏂规硶 addEnchantment(ItemStack,EnchantmentInstance)
+    浣嶇疆: 绫?EnchantedBookItem
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\ReinforcedEnchantUtil.java:13
+4: 閿欒: 鎵句笉鍒扮鍙?              ListTag enchantmentTagList = EnchantedBookItem.getEnchantments(stack);
+                                                            ^
+    绗﹀彿:   鏂规硶 getEnchantments(ItemStack)
+    浣嶇疆: 绫?EnchantedBookItem
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:82: 閿欒: 鎵句笉鍒扮鍙?          return super.getAttributeModifiers();
+                      ^
+    绗﹀彿: 鏂规硶 getAttributeModifiers()
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\Difficul
+tyDataStorage.java:8: 閿欒: DifficultyDataStorage涓嶆槸鎶借薄鐨? 骞朵笖鏈鐩朓NBTSerializable涓殑鎶借薄鏂规硶deserializeNBT(Provider,Compou
+ndTag)
+  public class DifficultyDataStorage implements INBTSerializable<CompoundTag> {
+         ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\util\datautil\datastorage\ExitTime
+DataStorage.java:16: 閿欒: ExitTimeDataStorage涓嶆槸鎶借薄鐨? 骞朵笖鏈鐩朓NBTSerializable涓殑鎶借薄鏂规硶deserializeNBT(Provider,CompoundT
+ag)
+  public class ExitTimeDataStorage implements INBTSerializable<CompoundTag> {
+         ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+25: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+              float minHealth = pEntity.hasEffect(INEBRIATED.get()) ? 1.0F : pEntity.getMaxHealth() * 0.5F;
+                                                                ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+29: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                      pEntity.removeEffect(WEAK_POISON.get());
+                                                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+34: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                  pEntity.hurt(pEntity.damageSources().magic(), pEntity.hasEffect(INEBRIATED.get()) ? 1.6f * damage : d
+amage);
+                                                                                                ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\DamageOnTimeMobEffect.java:
+41: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: MobEffect鏃犳硶杞崲涓篐older<MobEffect>
+                      pEntity.removeEffect(WEAK_WITHER.get());
+                                                          ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\immortaleffects\FreezeEffec
+t.java:149: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: DeferredHolder<MobEffect,MobEffect>鏃犳硶杞崲涓篗obEffect
+                  MobEffect thisEffect = ImmortalersDelightMobEffect.LET_IT_FREEZE;
+                                                                    ^
+  E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\potion\PrehistoricPowersMobEffect.
+java:51: 閿欒: 涓嶅吋瀹圭殑绫诲瀷: Attribute鏃犳硶杞崲涓篐older<Attribute>
+                  AttributeInstance attributeinstance = pAttributeMap.getInstance(entry.getKey());
+                                                                                              ^
+  娉? E:\mod\immortalers_delight-master\src\main\java\com\renyigesai\immortalers_delight\block\sextlotus_lantern\Sextlot
+usLightHelper.java浣跨敤浜嗘湭缁忔鏌ユ垨涓嶅畨鍏ㄧ殑鎿嶄綔銆?
+  娉? 鏌愪簺娑堟伅宸茬粡杩囩畝鍖? 璇蜂娇鐢?-Xdiags:verbose 閲嶆柊缂栬瘧浠ヨ幏寰楀畬鏁磋緭鍑?
+  138 涓敊璇?
+  100 涓鍛?
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 9s

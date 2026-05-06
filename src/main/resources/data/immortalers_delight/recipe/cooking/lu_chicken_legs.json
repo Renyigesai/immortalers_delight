@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "immortalers_delight:warped_laurel"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_paste"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:lu_chicken_legs"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -17,7 +17,7 @@ import net.minecraft.client.model.geom.builders.*;
 
 public class WarpedLaurelHitBoxModel <T extends EffectCloudBaseEntity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ImmortalersDelightMod.MODID, "warped_laurel_hitbox"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "warped_laurel_hitbox"), "main");
     private final ModelPart all;
     private final ModelPart core;
     private final ModelPart layer_inside;
@@ -111,7 +111,7 @@ public class WarpedLaurelHitBoxModel <T extends EffectCloudBaseEntity> extends E
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        all.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int packedColor) {
+        all.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, packedColor);
     }
 }

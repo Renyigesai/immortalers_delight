@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class ImmortalersDelightWallSignBlock extends WallSignBlock {
     public ImmortalersDelightWallSignBlock(Properties p_58068_, WoodType p_58069_) {
-        super(p_58068_, p_58069_);
+        super(p_58069_, p_58068_);
     }
     public BlockEntity newBlockEntity(BlockPos p_154556_, BlockState p_154557_) {
         return new ImmortalersDelightSignBlockEntity(p_154556_, p_154557_);

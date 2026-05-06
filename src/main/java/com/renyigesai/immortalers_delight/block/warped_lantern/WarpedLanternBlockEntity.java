@@ -1,9 +1,11 @@
 package com.renyigesai.immortalers_delight.block.warped_lantern;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import com.renyigesai.immortalers_delight.block.sextlotus_lantern.SextlotusLightHelper;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -12,10 +14,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.level.block.CropGrowEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -24,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Mod.EventBusSubscriber
 public class WarpedLanternBlockEntity extends BlockEntity {
 
     protected boolean useExtraTick = true;
@@ -40,9 +41,10 @@ public class WarpedLanternBlockEntity extends BlockEntity {
 
     //=======================基础功能部分，实现方块实体的通用逻辑并管理数据==========================//
 
-    public void load(@NotNull CompoundTag pTag) {
+    @Override
+    protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.Provider registries) {
         this.addToPoses();
-        super.load(pTag);
+        super.loadAdditional(pTag, registries);
     }
 
     public void setRemoved() {
@@ -67,15 +69,12 @@ public class WarpedLanternBlockEntity extends BlockEntity {
 
     //=======================需求实现部分，实现当前方块实体的功能=========================//
 
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
+    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID)
     public static class WarpedLanternBlockEvents {
         //标记当前是否需要额外刻。
         private static int needExtraTick = 0;
         @SubscribeEvent
-        public static void onBlockGrow(BlockEvent.CropGrowEvent.Pre event) {
+        public static void onBlockGrow(CropGrowEvent.Pre event) {
             //检测是否在正确的世界
             if (event.getLevel() instanceof ServerLevel serverLevel) {
                 //每次随机刻有25%概率额外进行随机刻，额外的随机刻也会触发25%概率，因此实际概率约为30%
@@ -102,9 +101,9 @@ public class WarpedLanternBlockEntity extends BlockEntity {
             }
         }
         @SubscribeEvent
-        public static void doExtraTick(@Nonnull TickEvent.LevelTickEvent event) {
+        public static void doExtraTick(@Nonnull LevelTickEvent.Pre event) {
 
-            if (event.level instanceof ServerLevel serverLevel && event.phase.equals(TickEvent.Phase.START)) {
+            if (event.getLevel() instanceof ServerLevel serverLevel) {
                 if (needExtraTick <= 0) return;
 
                 if (blocksNeedTick.size() > 0) {
@@ -114,10 +113,10 @@ public class WarpedLanternBlockEntity extends BlockEntity {
                     //遍历所有需要处理的方块
                     for (BlockPos pos : tickingBlocks.keySet()) {
                         //仅在相同的维度时处理
-                        if (event.level.dimension().toString().equals(tickingBlocks.get(pos))) {
+                        if (event.getLevel().dimension().toString().equals(tickingBlocks.get(pos))) {
                             //仅当区块加载时才处理，避免强制加载区块
                             BlockState state = SextlotusLightHelper.getBlockStateIfLoaded(serverLevel, pos);
-                            if (!state.isAir() && state.getBlock().isRandomlyTicking(state)) {
+                            if (!state.isAir() && state.isRandomlyTicking()) {
                                 blocksNeedTick.remove(pos);
                                 spawnParticle(serverLevel, pos, 1);
                                 state.randomTick(serverLevel, pos, serverLevel.getRandom());

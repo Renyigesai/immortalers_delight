@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.food;
 
-import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
+import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightFoodProperties;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.PoweredFoodProperties;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
 
+    public static final MapCodec<SuperKwatBurgerBlock> CODEC = simpleCodec(SuperKwatBurgerBlock::new);
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,3);
     public static final VoxelShape BOX = box(1.0D,0.0D,1.0D,15.0D,12.0D,15.0D);
 
@@ -45,17 +48,36 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult burgerUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         ItemStack hand_stack = player.getItemInHand(hand);
-        if (!(hand_stack.getItem() instanceof DrinkItem)){
+        if (!(hand_stack.getItem() instanceof DrinkItem)) {
             return eat(state, level, pos, player);
         }
-        return super.use(state, level, pos, player, hand, hitResult);
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        InteractionResult result = burgerUse(state, level, pos, player, hand);
+        if (result != InteractionResult.PASS) {
+            return BlockItemInteraction.from(level, result);
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        InteractionResult result = burgerUse(state, level, pos, player, InteractionHand.MAIN_HAND);
+        return result != InteractionResult.PASS ? result : super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     public InteractionResult eat(BlockState state, Level level, BlockPos pos, Player player){
@@ -64,7 +86,7 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
             if (player.canEat(false)){
                 FoodProperties foodproperties = DifficultyModeUtil.isPowerBattleMode() ?
                         PoweredFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_SLICE : ImmortalersDelightFoodProperties.SUPER_KWAT_WHEAT_HAMBURGER_SLICE;
-                player.getFoodData().eat(foodproperties.getNutrition(), foodproperties.getSaturationModifier());
+                player.getFoodData().eat(foodproperties);
                 addFoodPoisonEffect(foodproperties, level, player);
                 level.gameEvent(player, GameEvent.EAT, pos);
                 level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
@@ -82,19 +104,15 @@ public class SuperKwatBurgerBlock extends HorizontalDirectionalBlock {
      * @param entity 食用物品的实体，即要添加药水效果的对象。
      */
     private void addFoodPoisonEffect(FoodProperties foodProperties, Level level, LivingEntity entity) {
-        // 检查该物品是否为可食用物品
-        if (foodProperties != null) {
-            // 遍历物品的食物属性中定义的所有药水效果及其概率
-            for (Pair<MobEffectInstance, Float> pair : foodProperties.getEffects()) {
-                // 条件判断：
-                // 1. 当前不是客户端，因为药水效果的添加通常在服务器端处理，以保证数据一致性。
-                // 2. 药水效果实例不为空，确保有有效的药水效果。
-                if (!level.isClientSide && pair.getFirst() != null) {
-                    // 创建一个新的药水效果实例，使用原有的药水效果实例作为模板。
-                    // 然后将该药水效果添加到食用物品的实体上。
-                    entity.addEffect(new MobEffectInstance(pair.getFirst()));
-                }
+        if (foodProperties == null || level.isClientSide) {
+            return;
+        }
+        for (FoodProperties.PossibleEffect pe : foodProperties.effects()) {
+            if (entity.getRandom().nextFloat() >= pe.probability()) {
+                continue;
             }
+            MobEffectInstance base = pe.effectSupplier().get();
+            entity.addEffect(new MobEffectInstance(base.getEffect(), 200, base.getAmplifier()));
         }
     }
 

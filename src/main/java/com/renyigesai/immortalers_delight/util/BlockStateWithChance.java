@@ -13,7 +13,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.FarmersDelight;
 import vectorwing.farmersdelight.common.Configuration;
 
@@ -45,7 +44,7 @@ public class BlockStateWithChance {
 //     */
 //    public JsonElement serialize() {
 //        JsonObject json = new JsonObject();
-//        ResourceLocation resourceLocation = ForgeRegistries.BLOCKS.getKey(this.state.getBlock());
+//        ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(this.state.getBlock());
 //        json.addProperty(BLOCK_RECODE, resourceLocation.toString());
 //
 //        this.state.getProperties().forEach(property -> {

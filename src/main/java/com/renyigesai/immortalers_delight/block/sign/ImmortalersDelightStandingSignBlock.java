@@ -10,7 +10,7 @@ public class ImmortalersDelightStandingSignBlock extends StandingSignBlock {
 
 
     public ImmortalersDelightStandingSignBlock(Properties p_56273_, WoodType p_56274_) {
-        super(p_56273_, p_56274_);
+        super(p_56274_, p_56273_);
     }
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {

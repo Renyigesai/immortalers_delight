@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.block.crops;
 
+import com.mojang.serialization.MapCodec;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,12 +26,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 import static com.renyigesai.immortalers_delight.block.crops.PearlipearlStalkBlock.IS_LEAVES;
+import static net.minecraft.world.level.block.Block.simpleCodec;
 
 public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements BonemealableBlock {
+    public static final MapCodec<PearlipearlBeanBlock> CODEC = simpleCodec(PearlipearlBeanBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public PearlipearlBeanBlock(Properties p_54120_) {
         super(p_54120_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, Integer.valueOf(0)));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -53,10 +61,10 @@ public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements 
         if (i < 2 ) {
             if (pLevel.getBlockState(pPos.above().relative(pState.getValue(FACING))).is(ImmortalersDelightBlocks.PEARLIPEARL_STALK.get())
                     && pLevel.getBlockState(pPos.above().relative(pState.getValue(FACING))).getValue(IS_LEAVES) == ImmortalersDelightBlocks.PEARLIPEARL_STALK.get().defaultBlockState().setValue(PearlipearlStalkBlock.IS_LEAVES,true).getValue(IS_LEAVES)
-                    && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pLevel.random.nextInt(8) == 0)
+                    && net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pLevel.random.nextInt(8) == 0)
             ) {
                 pLevel.setBlock(pPos, pState.setValue(AGE, i + 1), 2);
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
             }
 
         }
@@ -92,7 +100,7 @@ public class PearlipearlBeanBlock extends HorizontalDirectionalBlock implements 
     }
 
     // 判断是否可以对当前方块使用骨粉的方法
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState) {
         // 获取上方方块的状态
         BlockState blockstate = pLevel.getBlockState(pPos.above());
         // 判断上方方块是否可以被替换
