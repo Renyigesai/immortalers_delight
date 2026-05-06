@@ -1431,10 +1431,10 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
 
         GOLDEN_HIMEKAIDO = registerWithTab("golden_himekaido", () ->
-                new GoldenHimkaidoFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false),true, true,false));
+                new GoldenHimkaidoFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false),true, false,false));
 
         ENCHANTED_GOLDEN_HIMEKAIDO = registerWithTab("enchanted_golden_himekaido", () ->
-                new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
+                new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,false,true,3,1.0));
 
         HIMEKAIDO_JELLY = registerWithTab("himekaido_jelly", () ->
                 new DrinkItem(ImmortalersDelightBlocks.HIMEKAIDO_JELLY.get(),new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)){
