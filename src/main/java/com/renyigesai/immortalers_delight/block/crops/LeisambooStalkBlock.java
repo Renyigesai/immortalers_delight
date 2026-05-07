@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -34,6 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.CommonHooks;
 import java.util.List;
 
+/** Rooted segment: survive on dirt/sand/gravel only if this block space is water ({@link #WATERLOGGED} or water fluid); stacked segments always survive. */
 public class LeisambooStalkBlock extends Block implements SimpleWaterloggedBlock, BonemealableBlock {
     public static final MapCodec<LeisambooStalkBlock> CODEC = simpleCodec(LeisambooStalkBlock::new);
     public static final BooleanProperty IS_LEAVES = BooleanProperty.create("is_leaves");
@@ -122,14 +123,6 @@ public class LeisambooStalkBlock extends Block implements SimpleWaterloggedBlock
             }
             if (CommonHooks.canCropGrow(level, pos, state, randomSource.nextInt(3) == 0)) {
                 /*最大高度小于3时尝试向上生长一次*/
-//                if (i < 2){
-//                    level.setBlockAndUpdate(pos.above(), this.defaultBlockState().setValue(IS_LEAVES,true));
-//                    level.setBlock(pos,state.setValue(IS_LEAVES,false),3);
-//                    CommonHooks.fireCropGrowPost(level, pos.above(), this.defaultBlockState());
-//                }
-//                if (i == 2){
-//                    level.setBlock(pos,state.setValue(IS_TEA,true),3);
-//                }
                 growBamboo(state,level,pos,i);
             }
         }
@@ -154,27 +147,23 @@ public class LeisambooStalkBlock extends Block implements SimpleWaterloggedBlock
         return super.updateShape(p_57179_, p_57180_, p_57181_, p_57182_, p_57183_, p_57184_);
     }
 
-
-    public boolean canSurvive(BlockState p_57175_, LevelReader p_57176_, BlockPos p_57177_) {
-        BlockState soil = p_57176_.getBlockState(p_57177_.below());
-        if (soil.canSustainPlant(p_57176_, p_57177_.below(), Direction.UP, p_57175_).isTrue()) return true;
-        BlockState blockstate = p_57176_.getBlockState(p_57177_.below());
-        if (blockstate.is(this)) {
+    private static boolean stemHasWater(BlockState state, LevelReader level, BlockPos pos) {
+        if (state.getValue(WATERLOGGED)) {
             return true;
-        } else {
-            if (blockstate.is(BlockTags.DIRT) || blockstate.is(BlockTags.SAND)) {
-                BlockPos blockpos = p_57177_.below();
-
-                for(Direction direction : Direction.Plane.HORIZONTAL) {
-                    BlockState blockstate1 = p_57176_.getBlockState(blockpos.relative(direction));
-                    FluidState fluidstate = p_57176_.getFluidState(blockpos.relative(direction));
-                    if (p_57175_.canBeHydrated(p_57176_, p_57177_, fluidstate, blockpos.relative(direction)) || blockstate1.is(Blocks.FROSTED_ICE)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
+        FluidState fluid = level.getFluidState(pos);
+        return !fluid.isEmpty() && fluid.is(FluidTags.WATER);
+    }
+
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockState below = level.getBlockState(pos.below());
+        if (below.is(this)) {
+            return true;
+        }
+        if (below.is(BlockTags.DIRT) || below.is(BlockTags.SAND) || below.is(Blocks.GRAVEL)) {
+            return stemHasWater(state, level, pos);
+        }
+        return false;
     }
 
     @Override
@@ -182,7 +171,6 @@ public class LeisambooStalkBlock extends Block implements SimpleWaterloggedBlock
         boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
         return this.defaultBlockState().setValue(WATERLOGGED, flag);
     }
-
 
     public FluidState getFluidState(BlockState pState) {
         return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
