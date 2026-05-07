@@ -28,19 +28,13 @@ public class GrindstoneHammerItem extends ImmortalersHammerItem {
         return UseAnim.BOW;
     }
 
-    public int getUseDuration(ItemStack pStack) {
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 20;
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player player, InteractionHand pUsedHand) {
-//        HitResult hitResult = this.calculateHitResult(player);
-//        if (hitResult.getType() == HitResult.Type.BLOCK) {
-////            if (player.level().getBlockState(pContext.getClickedPos()).getBlock() instanceof BaseEntityBlock) {
-////                return InteractionResult.PASS;
-////            }
-//
-//        }
         player.startUsingItem(pUsedHand);
         return InteractionResultHolder.success(player.getItemInHand(pUsedHand));
     }

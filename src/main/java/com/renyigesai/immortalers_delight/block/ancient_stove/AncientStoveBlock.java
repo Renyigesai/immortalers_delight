@@ -52,6 +52,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.ItemAbilities;
+import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 import vectorwing.farmersdelight.common.registry.ModDamageTypes;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
@@ -64,10 +65,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopper {
-
-    public static final BooleanProperty LIT;
-    public static final DirectionProperty FACING;
+public class AncientStoveBlock extends AbstractStoveBlock implements WeatheringCopper {
 
     private final WeatheringCopper.WeatherState weatherState;
     private final boolean waxed;
@@ -87,117 +85,54 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
         super(properties);
         this.weatherState = weatherState;
         this.waxed = waxed;
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     private static EquipmentSlot slotForHand(InteractionHand hand) {
         return hand == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
     }
 
-    private InteractionResult stoveUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack heldStack = player.getItemInHand(hand);
-        Item heldItem = heldStack.getItem();
-        boolean instabuild = player.getAbilities().instabuild;
-
-        if (!this.waxed && heldStack.is(Items.HONEYCOMB) && waxed(level,player,heldStack,state,pos,instabuild)){
-            return InteractionResult.SUCCESS;
-        }
-
-        if (heldItem instanceof AxeItem){
-            if (this.waxed && waxedOff(level,player,heldStack,hand,state,pos,instabuild)){
-                return InteractionResult.SUCCESS;
-            }
-            Block scrape = getScrape(state.getBlock());
-            if (scrape != null){
-                BlockState newState = scrape.defaultBlockState().setValue(LIT,state.getValue(LIT)).setValue(FACING,state.getValue(FACING));
-                level.setBlockAndUpdate(pos,newState);
-                if (!instabuild) {
-                    heldStack.hurtAndBreak(1, player, slotForHand(hand));
-                }
-                level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                level.levelEvent(3005,pos,0);
-                return InteractionResult.SUCCESS;
-            }
-            return InteractionResult.PASS;
-        }
-
-        if (weatherState == WeatheringCopper.WeatherState.OXIDIZED){
-            return InteractionResult.PASS;
-        }
-
-        if (state.getValue(LIT)) {
-            if (heldStack.canPerformAction(ItemAbilities.SHOVEL_DOUSE)) {
-                this.extinguish(state, level, pos);
-                heldStack.hurtAndBreak(1, player, slotForHand(hand));
-                return InteractionResult.SUCCESS;
-            }
-
-            if (heldItem == Items.WATER_BUCKET) {
-                if (!level.isClientSide()) {
-                    level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                }
-
-                this.extinguish(state, level, pos);
-                if (!player.isCreative()) {
-                    player.setItemInHand(hand, new ItemStack(Items.BUCKET));
-                }
-
-                return InteractionResult.SUCCESS;
-            }
-        } else {
-            if (heldItem instanceof FlintAndSteelItem) {
-                level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, MathUtils.RAND.nextFloat() * 0.4F + 0.8F);
-                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
-                heldStack.hurtAndBreak(1, player, slotForHand(hand));
-                return InteractionResult.SUCCESS;
-            }
-
-            if (heldItem instanceof FireChargeItem) {
-                level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (MathUtils.RAND.nextFloat() - MathUtils.RAND.nextFloat()) * 0.2F + 1.0F);
-                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), 11);
-                if (!player.isCreative()) {
-                    heldStack.shrink(1);
-                }
-
-                return InteractionResult.SUCCESS;
-            }
-        }
-
-        BlockEntity tileEntity = level.getBlockEntity(pos);
-        if (tileEntity instanceof AncientStoveBlockEntity stoveEntity) {
-            int stoveSlot = stoveEntity.getNextEmptySlot();
-            if (stoveSlot < 0 || stoveEntity.isStoveBlockedAbove()) {
-                return InteractionResult.PASS;
-            }
-
-            Optional<CampfireCookingRecipe> recipe = stoveEntity.getMatchingRecipe(new SingleRecipeInput(heldStack), stoveSlot);
-            if (recipe.isPresent()) {
-                if (!level.isClientSide && stoveEntity.addItem(player.getAbilities().instabuild ? heldStack.copy() : heldStack, (CampfireCookingRecipe)recipe.get(), stoveSlot)) {
-                    return InteractionResult.SUCCESS;
-                }
-
-                return InteractionResult.CONSUME;
-            }
-        }
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        return BlockItemInteraction.from(level, stoveUse(state, level, pos, player, hand, hit));
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        return stoveUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
-    }
 
     @Override
     protected MapCodec<? extends AncientStoveBlock> codec() {
         return DIRECT_CODEC;
     }
 
-    private boolean waxed(Level level,Player player,ItemStack heldStack, BlockState state,BlockPos pos,boolean instabuild){
+    @Override
+    public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+
+        Item heldItem = heldStack.getItem();
+        boolean instabuild = player.getAbilities().instabuild;
+
+        if (!this.waxed && heldStack.is(Items.HONEYCOMB) && waxed(level,player,heldStack,state,pos,instabuild)){
+            return ItemInteractionResult.SUCCESS;
+        }
+
+        if (heldItem instanceof AxeItem){
+            if (this.waxed && waxedOff(level,player,heldStack,hand,state,pos,instabuild)){
+                return ItemInteractionResult.SUCCESS;
+            }
+            Block scrape = getScrape(state.getBlock());
+            if (scrape != null){
+                BlockState newState = scrape.defaultBlockState().setValue(LIT,state.getValue(LIT)).setValue(FACING,state.getValue(FACING));
+                level.setBlockAndUpdate(pos,newState);
+                if (!instabuild) {
+                    heldStack.hurtAndBreak(1,player,slotForHand(hand));
+                }
+                level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.levelEvent(3005,pos,0);
+                return ItemInteractionResult.SUCCESS;
+            }
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        if (weatherState == WeatheringCopper.WeatherState.OXIDIZED){
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        return super.useItemOn(heldStack, state, level, pos, player, hand, hit);
+    }
+
+    private boolean waxed(Level level, Player player, ItemStack heldStack, BlockState state, BlockPos pos, boolean instabuild){
         Block block = this.WAXED_BY_BLOCK.get().get(this);
         if (block != null){
             if (player instanceof ServerPlayer) {
@@ -285,72 +220,6 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
         }
     }
 
-    public RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
-    }
-
-    public void extinguish(BlockState state, Level level, BlockPos pos) {
-        level.setBlock(pos, (BlockState)state.setValue(LIT, false), 2);
-        double x = (double)pos.getX() + 0.5;
-        double y = (double)pos.getY();
-        double z = (double)pos.getZ() + 0.5;
-        level.playLocalSound(x, y, z, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F, false);
-    }
-
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return (BlockState)((BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())).setValue(LIT, weatherState != WeatheringCopper.WeatherState.OXIDIZED);
-    }
-
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        boolean isLit = (Boolean)level.getBlockState(pos).getValue(LIT);
-        if (isLit && !entity.fireImmune() && entity instanceof LivingEntity living
-                && EnchantmentHelper.getItemEnchantmentLevel(
-                        entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FROST_WALKER),
-                        living.getItemBySlot(EquipmentSlot.FEET)) <= 0) {
-            entity.hurt(ModDamageTypes.getSimpleDamageSource(level, ModDamageTypes.STOVE_BURN), 1.0F);
-        }
-
-        super.stepOn(level, pos, state, entity);
-    }
-
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tileEntity = level.getBlockEntity(pos);
-            if (tileEntity instanceof AncientStoveBlockEntity) {
-                ItemUtils.dropItems(level, pos, ((AncientStoveBlockEntity)tileEntity).getInventory());
-            }
-
-            super.onRemove(state, level, pos, newState, isMoving);
-        }
-
-    }
-
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(new Property[]{LIT, FACING});
-    }
-
-    public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
-        if (stateIn.getValue(LIT)) {
-            double x = (double)pos.getX() + 0.5;
-            double y = (double)pos.getY();
-            double z = (double)pos.getZ() + 0.5;
-            if (rand.nextInt(10) == 0) {
-                level.playLocalSound(x, y, z, (SoundEvent) ModSounds.BLOCK_STOVE_CRACKLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
-            }
-
-            Direction direction = (Direction)stateIn.getValue(HorizontalDirectionalBlock.FACING);
-            Direction.Axis direction$axis = direction.getAxis();
-            double horizontalOffset = rand.nextDouble() * 0.6 - 0.3;
-            double xOffset = direction$axis == Direction.Axis.X ? (double)direction.getStepX() * 0.52 : horizontalOffset;
-            double yOffset = rand.nextDouble() * 6.0 / 16.0;
-            double zOffset = direction$axis == Direction.Axis.Z ? (double)direction.getStepZ() * 0.52 : horizontalOffset;
-            level.addParticle(ParticleTypes.SMOKE, x + xOffset, y + yOffset, z + zOffset, 0.0, 0.0, 0.0);
-            level.addParticle(ParticleTypes.FLAME, x + xOffset, y + yOffset, z + zOffset, 0.0, 0.0, 0.0);
-        }
-
-    }
-
     @javax.annotation.Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return ((BlockEntityType)ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get()).create(pos,state);
@@ -358,21 +227,9 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
 
     @javax.annotation.Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return state.getValue(LIT) ? createTickerHelper(blockEntityType, ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), level.isClientSide ? AncientStoveBlockEntity::animationTick : AncientStoveBlockEntity::cookingTick) : null;
+        return state.getValue(LIT) ? createTickerHelper(blockEntityType, ImmortalersDelightBlocks.ANCIENT_STOVE_ENTITY.get(), level.isClientSide ? AncientStoveBlockEntity::particleTick : AncientStoveBlockEntity::serverTick) : null;
     }
 
-    @javax.annotation.Nullable
-    public PathType getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-        return state.getValue(LIT) ? PathType.DAMAGE_FIRE : null;
-    }
-
-    public BlockState rotate(BlockState pState, Rotation pRot) {
-        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
-    }
-
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-    }
 
     public boolean isRandomlyTicking(BlockState pState) {
         return getNext(pState.getBlock()).isPresent()/* && !pState.getValue(LIT)*/;
@@ -399,10 +256,5 @@ public class AncientStoveBlock extends BaseEntityBlock implements WeatheringCopp
             }
         }
         return null;
-    }
-
-    static {
-        LIT = BlockStateProperties.LIT;
-        FACING = BlockStateProperties.HORIZONTAL_FACING;
     }
 }
