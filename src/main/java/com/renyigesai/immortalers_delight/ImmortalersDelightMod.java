@@ -138,7 +138,7 @@ public class ImmortalersDelightMod {
 
         modEventBus.addListener(ImmortalersNetwork::register);
 
-
+        ImmortalersDelightDataComponents.REGISTER.register(modEventBus);
 
         ImmortalersDelightItems.REGISTER.register(modEventBus);
 
@@ -163,8 +163,6 @@ public class ImmortalersDelightMod {
         ImmortalersDelightBiomeFeatures.FEATURES.register(modEventBus);
 
         ImmortalersDelightMenuTypes.MENUS.register(modEventBus);
-
-
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(modEventBus);
 
@@ -368,37 +366,37 @@ public class ImmortalersDelightMod {
 
             ItemProperties.register(ImmortalersDelightItems.DEBUG_ITEM.get(), ResourceLocation.fromNamespaceAndPath(MODID, "model_type"), (stack, world, entity, seed) -> stack.getDamageValue());
 
-            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "pull"), (stack, world, entity, seed) -> {
-
-                if (entity == null || entity.getUseItem() != stack) {
-
-                    return 0.0F;
-
-                } else {
-
-                    return RepeatingCrossbowItem.isModCharged(stack) ? 0.0F : (float)(stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / RepeatingCrossbowItem.getModChargeDuration(stack);
-
-                }
-
-            });
-
-            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "pulling"), (stack, world, entity, seed) -> {
-
-                return entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
-
-            });
-
-            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "charged"), (stack, world, entity, seed) -> {
-
-                return RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
-
-            });
-
-            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "firework"), (stack, world, entity, seed) -> {
-
-                return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
-
-            });
+//            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "pull"), (stack, world, entity, seed) -> {
+//
+//                if (entity == null || entity.getUseItem() != stack) {
+//
+//                    return 0.0F;
+//
+//                } else {
+//
+//                    return RepeatingCrossbowItem.isModCharged(stack) ? 0.0F : (float)(stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / RepeatingCrossbowItem.getModChargeDuration(stack,entity);
+//
+//                }
+//
+//            });
+//
+//            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "pulling"), (stack, world, entity, seed) -> {
+//
+//                return entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
+//
+//            });
+//
+//            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "charged"), (stack, world, entity, seed) -> {
+//
+//                return RepeatingCrossbowItem.isModCharged(stack) ? 1.0F : 0.0F;
+//
+//            });
+//
+//            ItemProperties.register(ImmortalersDelightItems.REPEATING_CROSSBOW.get(), ResourceLocation.fromNamespaceAndPath(MODID, "firework"), (stack, world, entity, seed) -> {
+//
+//                return RepeatingCrossbowItem.isModCharged(stack) && RepeatingCrossbowItem.containsChargedModProjectile(stack,Items.FIREWORK_ROCKET) ? 1.0F : 0.0F;
+//
+//            });
 
             ItemProperties.register(ImmortalersDelightItems.LARGE_COLUMN.get(), ResourceLocation.fromNamespaceAndPath(MODID, "blocking"), (stack, world, entity, seed) -> {
 

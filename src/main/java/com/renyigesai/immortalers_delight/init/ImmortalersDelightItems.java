@@ -1602,7 +1602,7 @@ public class ImmortalersDelightItems {
                 new GrindstoneHammerItem(ImmortalersTiers.GRINDSTONE_HAMMER,3.5f,-3.55f,new Item.Properties()));
 
         REPEATING_CROSSBOW = registerWithTab("repeating_crossbow",()->
-                new RepeatingCrossbowItem((new Item.Properties()).stacksTo(1).durability(465)));
+                new RepeatingCrossbowItem((new Item.Properties()).stacksTo(1).durability(465).component(ImmortalersDelightDataComponents.SHOOT_COUNT.get(),0)));
         SPOON = registerWithTab("spoon",()->
                 new SpoonItem(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN.get(), (new Item.Properties()).durability(64)));
         //隐藏
