@@ -184,6 +184,9 @@ public class AncientWoodBoat extends ImmortalersBoat {
 
             float riderYOffset = (float) passenger.getVehicleAttachmentPoint(this).y;
             float f1 = (float) ((this.isRemoved() ? (double) 0.01F : this.getPassengersRidingOffset()) + riderYOffset);
+            if (passenger instanceof Player){
+                f1 = f1 - 1f;
+            }
             Vec3 vector3d = (new Vec3(x, 0.0D, z)).yRot(-this.getYRot() * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
             function.accept(passenger, this.getX() + vector3d.x, this.getY() + (double) f1, this.getZ() + vector3d.z);
             passenger.setYRot(passenger.getYRot() + this.deltaRotation);

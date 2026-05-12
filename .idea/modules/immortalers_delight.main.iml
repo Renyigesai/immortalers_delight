@@ -9,8 +9,8 @@
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>FORGE</platformType>
           <platformType>MIXIN</platformType>
+          <platformType>NEOFORGE</platformType>
           <platformType>MCP</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
@@ -18,10 +18,8 @@
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="D:\immortalers_delight\immortalers_delight\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="parchment_2023.09.03-1.20.1" />
-    <option name="minecraftVersion" value="1.20.1" />
-    <option name="platformVersion" value="47.1.0" />
+    <option name="minecraftVersion" value="1.21.1" />
+    <option name="platformVersion" value="21.1.228" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>

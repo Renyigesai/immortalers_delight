@@ -105,6 +105,9 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
             float f = this.getSinglePassengerXOffset();
             float riderYOffset = (float) pPassenger.getVehicleAttachmentPoint(this).y;
             float f1 = (float)((this.isRemoved() ? (double)0.01F : this.getPassengersRidingOffset()) + riderYOffset);
+            if (pPassenger instanceof Player){
+                f1 = f1 - 0.9f;
+            }
             if (this.getPassengers().size() > 1) {
                 int i = this.getPassengers().indexOf(pPassenger);
                 if (i == 0) {

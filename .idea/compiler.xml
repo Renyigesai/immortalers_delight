@@ -4,8 +4,12 @@
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
+        <option name="disableTargetValidator" value="true" />
+        <option name="outRefMapFile" value="G:\mod_working_area\immortalers_delight-1.21.1Neo\immortalers_delight-1.21.1Neo\build\tmp\immortalers_delight.refmap.json" />
+        <option name="quiet" value="true" />
         <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../new/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/6d1c8bf4c28e697f472a83bd6add76ec4951734/mixin-0.8.5-processor.jar" />
+          <entry name="D:/new/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-common/0.5.3/13ad40ee435e671fec18e3f0d6afec8c874b08b5/mixinextras-common-0.5.3.jar" />
+          <entry name="D:/new/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/3d051c66329d162a52fc062f7da912c37904a6a0/mixin-0.8.7-processor.jar" />
         </processorPath>
         <module name="immortalers_delight.main" />
       </profile>
