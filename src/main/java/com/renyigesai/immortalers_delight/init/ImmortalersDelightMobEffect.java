@@ -30,7 +30,11 @@ public class ImmortalersDelightMobEffect {
 
     public static final RegistryObject<MobEffect> GAS_POISON = REGISTRY.register("gas_poison", GasPoisonMobEffect::new);
     public static final RegistryObject<MobEffect> INEBRIATED = REGISTRY.register("inebriated", InebriatedMobEffect::new);
-    public static final RegistryObject<MobEffect> BURN_THE_BOATS = REGISTRY.register("burn_the_boats", BurnTheBoatsMobEffect::new);
+    public static final RegistryObject<MobEffect> BURN_THE_BOATS = REGISTRY.register("burn_the_boats", ()->
+            new BurnTheBoatsMobEffect()
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, "5F8A2B7D-9C4E-4130-A729-6D3BF08C1E52", 3.0D, AttributeModifier.Operation.ADDITION)
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, "73D1EC95-860F-475B-92AC-1578E406BD2F", (double)0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, "C29047A6-351D-482E-BF71-09536AC28D74", (double)0.1F, AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> CULTURAL_LEGACY = REGISTRY.register("cultural_legacy", CulturalLegacyMobEffect::new);
     public static final RegistryObject<MobEffect> VITALITY = REGISTRY.register("vitality", VitalityMobEffect::new);
     public static final RegistryObject<MobEffect> SATIATED = REGISTRY.register("satiated", SatiatedMobEffect::new);

@@ -41,7 +41,7 @@ public class EnchantalCoolerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer inv, Level pLevel) {
+    public boolean matches(@NotNull SimpleContainer inv, @NotNull Level pLevel) {
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 

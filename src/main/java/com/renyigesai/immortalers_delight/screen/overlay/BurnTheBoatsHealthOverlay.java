@@ -4,11 +4,15 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -174,9 +178,7 @@ public class BurnTheBoatsHealthOverlay {
 			// 如果当前图标位置与再生效果帧数相同，调整y坐标
 			if (i == regen) y -= 2;
 			//计算触发血线
-			int lv = player.hasEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())? Objects.requireNonNull(player.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get())).getAmplifier() :0;
-			lv++;
-			float workHealth = (healthMax * lv) / (2 * (lv + 1)) > 3 * (lv + 1) ? 3 * (lv + 1) : (healthMax * lv)/ (2 * (lv + 1));
+			float workHealth = getBurnTheBoatsUsingHealth(player);
 			// 计算当前栏的有效生命值
 			float effectiveHealthOfBar = (health / 2.0F - i);
 			float effectiveWorkHealthOfBar = (workHealth / 2.0F - i);
@@ -201,5 +203,24 @@ public class BurnTheBoatsHealthOverlay {
 
 		// 禁用混合模式
 		RenderSystem.disableBlend();
+	}
+
+	public static float getBurnTheBoatsUsingHealth(LivingEntity entity) {
+		boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+		MobEffectInstance burnTheBoats = entity.getEffect(ImmortalersDelightMobEffect.BURN_THE_BOATS.get());
+		if (burnTheBoats != null && burnTheBoats.getEffect() instanceof BaseMobEffect) {
+			int lv = burnTheBoats.getAmplifier();
+			int truthLv = ((BaseMobEffect) burnTheBoats.getEffect()).getTruthUsingAmplifier(lv);
+			lv++;
+			truthLv++;
+			float workProgress = entity.getMaxHealth() * truthLv / (2 * (truthLv + 1));
+			float workHealth = 3 * (truthLv + 1);
+			if (isPowerful) {
+				return Math.max(workProgress, workHealth);
+			} else {
+				return Math.min(workProgress, workHealth);
+			}
+		}
+		return 0;
 	}
 }

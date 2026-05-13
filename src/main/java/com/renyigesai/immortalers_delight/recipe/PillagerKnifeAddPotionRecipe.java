@@ -28,7 +28,7 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    public boolean matches(SimpleContainer inv, Level pLevel) {
+    public boolean matches(@NotNull SimpleContainer inv, @NotNull Level pLevel) {
         boolean hasPotion = false;
 
         if (this.getContainer().isEmpty() || this.getContainer().is(inv.getItem(4).getItem())) {

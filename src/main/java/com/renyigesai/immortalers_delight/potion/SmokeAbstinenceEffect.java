@@ -74,9 +74,8 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
         return pModifier.getAmount() * (double)(pAmplifier + 1);
     }
 
-    //添加效果，效果等级随本效果等级提升
+    //生效时去除旧版中所派生的效果
     //I级破烟的效果为力量II、抗火、急迫III、抗性II、生命恢复，普通模式为加算等级，否则为乘算等级
-    //不使用抗性提升以免出现抗性V
     static void removeEffects(LivingEntity entity, int pAmplifier){
         entity.removeEffect(MobEffects.DAMAGE_BOOST);
         entity.removeEffect(MobEffects.FIRE_RESISTANCE);
@@ -155,7 +154,7 @@ public class SmokeAbstinenceEffect extends BaseMobEffect {
                     }
                     //因为原意为派生抗火进行防火，因此其防火效果与抗火互斥
                     MobEffectInstance effect3 = hurtOne.getEffect(MobEffects.FIRE_RESISTANCE);
-                    if (effect3 == null) {
+                    if (effect3 == null && evt.getSource().is(DamageTypeTags.IS_FIRE)) {
                         evt.setAmount(0);
                         evt.setCanceled(true);
                     }

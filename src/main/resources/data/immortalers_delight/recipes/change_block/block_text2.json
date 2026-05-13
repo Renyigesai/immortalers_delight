@@ -1,0 +1,15 @@
+{
+  "type": "immortalers_delight:change_block",
+  "change_type": "immortalers_delight:nectar_jelly",
+  "needblocks": [
+    {
+      "block": {
+        "Name": "kaleidoscope_cookery:cold_cut_ham_slices"
+      }
+    }
+  ],
+  "output": {
+    "Name": "kaleidoscope_cookery:cold_cut_ham_slices",
+    "bites": "0"
+  }
+}

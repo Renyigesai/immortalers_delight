@@ -75,7 +75,7 @@ public class KwatWheatCrop extends ReapCropBlock {
 
     public KwatWheatCrop(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.defaultBlockState().setValue(POISON,true));
+        this.registerDefaultState(this.defaultBlockState().setValue(POISON,false));
     }
 
     @Override
@@ -92,29 +92,61 @@ public class KwatWheatCrop extends ReapCropBlock {
         return super.getDrops(p_287732_, p_287596_);
     }
 
+    //方块状态发生变化时会调用的方法
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        if (state.getValue(POISON) && !pNewState.is(state.getBlock()) && !pMovedByPiston) {
+            makeAreaOfEffectCloud(level,pPos);
+        } else super.onRemove(state, level, pPos, pNewState, pMovedByPiston);
+    }
+    //Forge扩展的、方块被玩家破坏时会调用的方法，底层原理为调用下方的playerWillDestroy，但这个方法多一个判断判定方块是否会真的被破坏（破坏可以通过事件拦截）
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
+    //方块被玩家破坏时会调用的方法，通常用于多部分的方块(例如门)被破坏时的连锁破坏
+    @Override
+    public void playerWillDestroy(@NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull Player pPlayer) {
+        if (pState.getValue(POISON) && pState.getValue(AGE) == 7) {
+            System.out.println("playerWillDestroy");
+            makeAreaOfEffectCloud(pLevel,pPos);
+        }
+        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+    }
+
+    //制造毒云，用于瓦斯麦轰击
+    private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
+        System.out.println("makeAreaOfEffectCloud");
+        if (level.isClientSide()) return;
+        EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX(), pPos.getY(), pPos.getZ());
+
+        effectCloud.setRadius(3.0F);
+        effectCloud.setRadiusOnUse(-0.1F);
+        effectCloud.setWaitTime(10);
+        effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 3.0f);
+        effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
+
+        effectCloud.setPotion(ImmortalersDelightPotions.STRONG_GAS.get());
+
+        level.addFreshEntity(effectCloud);
+    }
+    //方块被实体踩踏时会调用的方法
     public void entityInside(BlockState state, Level level, BlockPos pPos, Entity pEntity) {
+        System.out.println("entityInside");
         super.entityInside(state, level, pPos, pEntity);
         if (pEntity instanceof LivingEntity) {
             int age = state.getValue(AGE);
-            if (age == 7) {
-                if (state.getValue(POISON) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, pEntity)) {
-                    makeAreaOfEffectCloud(level,pPos);
-                } else {
-                    List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(3.0D, 3.0D, 3.0D));
-                    if (!list.isEmpty()) {
-                        for (LivingEntity livingentity : list) {
-                            if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
-                                livingentity.hurt(level.damageSources().cactus(), 2.0F);
-                                livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
-                            }else {
-                                if (livingentity instanceof ServerPlayer serverPlayer) {
-                                    ImmortalersDelightMod.RESIST_GAS_POISONING_TRIGGER.trigger(serverPlayer);
-                                }
+            if (state.getValue(POISON) && age >= this.getMaxAge() - 1) {
+                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, new AABB(pPos).inflate(3.0D, 3.0D, 3.0D));
+                if (!list.isEmpty()) {
+                    for (LivingEntity livingentity : list) {
+                        if (!(livingentity.getItemBySlot(EquipmentSlot.HEAD).is(ImmortalersDelightItems.GOLDEN_FABRIC_VEIL.get()))){
+                            livingentity.hurt(level.damageSources().cactus(), 2.0F);
+                            livingentity.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.GAS_POISON.get(),120,1));
+                        }else {
+                            if (livingentity instanceof ServerPlayer serverPlayer) {
+                                ImmortalersDelightMod.RESIST_GAS_POISONING_TRIGGER.trigger(serverPlayer);
                             }
                         }
                     }
@@ -123,14 +155,6 @@ public class KwatWheatCrop extends ReapCropBlock {
                 level.setBlock(pPos, state.setValue(AGE,5).setValue(POISON,false), 3);
             }
         }
-    }
-
-    @Override
-    public void playerWillDestroy(@NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull Player pPlayer) {
-        if (pState.getValue(POISON) && pState.getValue(AGE) == 7) {
-            makeAreaOfEffectCloud(pLevel,pPos);
-        }
-        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
     @Override
@@ -183,22 +207,11 @@ public class KwatWheatCrop extends ReapCropBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE,POISON);
     }
-
-    private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
-        if (level.isClientSide()) return;
-        EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX(), pPos.getY(), pPos.getZ());
-
-        effectCloud.setRadius(3.0F);
-        effectCloud.setRadiusOnUse(-0.1F);
-        effectCloud.setWaitTime(10);
-        effectCloud.setRadiusPerTick(-(effectCloud.getRadius() / (float)effectCloud.getDuration()) * 3.0f);
-        effectCloud.setParticle(ImmortalersDelightParticleTypes.KWAT.get());
-
-        effectCloud.setPotion(ImmortalersDelightPotions.STRONG_GAS.get());
-
-        level.addFreshEntity(effectCloud);
+    //什么情况下这个方块需要随机刻
+    public boolean isRandomlyTicking(BlockState pState) {
+        return !pState.getValue(POISON);
     }
-
+    //随机刻生长，在生长到成熟后再生长一次获得poison状态
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
@@ -206,10 +219,12 @@ public class KwatWheatCrop extends ReapCropBlock {
             int i = this.getAge(pState);
             if (i < this.getMaxAge()) {
                 float f = getGrowthSpeed(this, pLevel, pPos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(25.0F / f) + 1) == 0)) {
+                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int) (pState.getValue(POISON) ? 25.0F / f : 25.0F - f) + 1) == 0)) {
                     pLevel.setBlock(pPos, pState.setValue(getAgeProperty(),i + 1), 2);
                     net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
                 }
+            } else {
+                pLevel.setBlock(pPos, pState.setValue(POISON,true), 2);
             }
         }
     }

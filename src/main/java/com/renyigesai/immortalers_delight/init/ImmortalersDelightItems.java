@@ -47,6 +47,9 @@ public class ImmortalersDelightItems {
     /*系列装饰方块--姬海棠*/
 
     /*捆装类物品*/
+
+    @ItemData(zhCn = "远古花蜜果冻冰",model = ItemData.ModelType.TOOL)
+    public static final RegistryObject<Item> ANCIENT_NECTAR_JELLY;
     @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
     @ItemData(zhCn = "箱装姬海棠",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
@@ -1602,7 +1605,8 @@ public class ImmortalersDelightItems {
         //隐藏
         SEALED_ANCIENT_RATIONS = register("sealed_ancient_rations",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));
-
+        ANCIENT_NECTAR_JELLY = register("ancient_nectar_jelly",()->
+                new NectarJellyLikeItem((new Item.Properties()).stacksTo(1).durability(465)));
         /*
         火把花相关物品
         */

@@ -1,0 +1,16 @@
+{
+  "type": "immortalers_delight:change_block",
+  "change_type": "immortalers_delight:nectar_jelly",
+  "needblocks": [
+    {
+      "tag": "forge:stone"
+    }
+  ],
+  "output": {
+    "Name": "immortalers_delight:super_kwat_wheat_hamburger",
+    "Properties": {
+      "bites": "1",
+      "fancing": "east"
+    }
+  }
+}

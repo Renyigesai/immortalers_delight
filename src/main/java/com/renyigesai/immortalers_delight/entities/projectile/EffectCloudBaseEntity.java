@@ -415,8 +415,8 @@ public class EffectCloudBaseEntity extends Entity implements TraceableEntity {
         List<MobEffectInstance> list = Lists.newArrayList();
         for(MobEffectInstance mobeffectinstance : this.potion.getEffects()) {
             // 药水自带效果的持续时间缩短为1/4（因为效果云会周期性施加）,若是超凡模式，效果时间先提升至5分之8
-            list.add(new MobEffectInstance(mobeffectinstance.getEffect(), mobeffectinstance.mapDuration((p_267926_) -> {
-                return (DifficultyModeUtil.isPowerBattleMode() ? p_267926_ * 2 : p_267926_) / (DifficultyModeUtil.isPowerBattleMode() ? 5 : 4);
+            list.add(new MobEffectInstance(mobeffectinstance.getEffect(), mobeffectinstance.mapDuration((duration) -> {
+                return (DifficultyModeUtil.isPowerBattleMode() ? duration * 2 : duration) / (DifficultyModeUtil.isPowerBattleMode() ? 5 : 4);
             }), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible()));
         }
         list.addAll(this.effects); // 添加额外效果

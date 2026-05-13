@@ -1,0 +1,17 @@
+{
+  "type": "immortalers_delight:change_block",
+  "change_type": "immortalers_delight:nectar_jelly",
+  "needblocks": [
+    {
+      "block": {
+        "Name": "mynethersdelight:stuffed_hoglin"
+      }
+    }
+  ],
+  "output": {
+    "Name": "mynethersdelight:stuffed_hoglin",
+    "Properties": {
+      "servings": "11"
+    }
+  }
+}
