@@ -1,9 +1,6 @@
 {
   "type": "farmersdelight:cooking",
-  "container": {
-    "count": 1,
-    "id": "minecraft:bowl"
-  },
+  "cookingtime": 200,
   "experience": 0.35,
   "ingredients": [
     {
@@ -19,8 +16,10 @@
       "item": "minecraft:torchflower"
     }
   ],
+  "container": {
+    "id": "minecraft:bowl"
+  },
   "result": {
-    "count": 1,
     "id": "immortalers_delight:mapo_doufu"
   }
 }

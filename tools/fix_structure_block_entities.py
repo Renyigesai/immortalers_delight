@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Fix cabinet block-entity tags in 1.21.1 structure templates (structure/)."""
+"""Set correct cabinet block-entity ids in 1.21.1 structure templates (structure/)."""
 from pathlib import Path
 
 import nbtlib
+from nbtlib import String
 
 ROOT = Path(__file__).resolve().parent.parent
 STRUCTURE = ROOT / "src/main/resources/data/immortalers_delight/structure"
@@ -23,14 +24,16 @@ def fix_file(path: Path) -> int:
     for block in nbt.get("blocks", []):
         if "nbt" not in block:
             continue
-        state = palette[block["state"]]
-        be_id = str(block["nbt"].get("id", ""))
+        state = palette[int(block["state"])]
+        be = block["nbt"]
         if state in MOD_CABINET_BLOCKS:
-            del block["nbt"]
-            fixed += 1
-        elif be_id == "farmersdelight:cabinet" and not state.startswith("farmersdelight:"):
-            del block["nbt"]
-            fixed += 1
+            if str(be.get("id", "")) != "immortalers_delight:cabinet":
+                be["id"] = String("immortalers_delight:cabinet")
+                fixed += 1
+        elif state.startswith("farmersdelight:") and "cabinet" in state:
+            if str(be.get("id", "")) != "farmersdelight:cabinet":
+                be["id"] = String("farmersdelight:cabinet")
+                fixed += 1
     if fixed:
         nbt.save(path, gzipped=True)
     return fixed
