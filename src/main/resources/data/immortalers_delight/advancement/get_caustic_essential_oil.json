@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:caustic_essential_oil"
+      "id": "immortalers_delight:caustic_essential_oil"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_caustic_essential_oil.title"

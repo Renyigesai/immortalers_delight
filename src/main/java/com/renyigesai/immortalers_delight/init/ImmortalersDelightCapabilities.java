@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.block.entity.ImmortalersCabinetBlockEntity;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
 import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
@@ -16,6 +17,12 @@ public final class ImmortalersDelightCapabilities {
 
     @SubscribeEvent
     public static void register(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ImmortalersDelightBlocks.CABINET_BLOCK_ENTITY.get(),
+                (blockEntity, side) -> blockEntity instanceof ImmortalersCabinetBlockEntity cabinet
+                        ? new InvWrapper(cabinet)
+                        : null);
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ImmortalersDelightBlocks.ENCHANTAL_COOLER_ENTITY.get(),

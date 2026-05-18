@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:enchanted_golden_himekaido"
+      "id": "immortalers_delight:enchanted_golden_himekaido"
     },
     "title": {
       "translate": "advancements.immortalers_delight.the_ability_to_trigger_miracles.title"

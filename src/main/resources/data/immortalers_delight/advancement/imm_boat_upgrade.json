@@ -2,7 +2,7 @@
   "display": {
     "title": {"translate": "advancements.immortalers_delight.imm_boat_upgrade.title"},
     "description": {"translate": "advancements.immortalers_delight.imm_boat_upgrade.descr"},
-    "icon": {"item": "immortalers_delight:ancient_wood_boat"},
+    "icon": {"id": "immortalers_delight:ancient_wood_boat"},
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

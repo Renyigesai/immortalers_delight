@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:iced_black_tea"
+      "id": "immortalers_delight:iced_black_tea"
     },
     "title": {
       "translate": "advancements.immortalers_delight.eat_iced_black_tea.title"

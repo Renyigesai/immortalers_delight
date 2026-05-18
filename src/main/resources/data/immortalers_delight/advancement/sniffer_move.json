@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:sachets"
+      "id": "immortalers_delight:sachets"
     },
     "title": {
       "translate": "advancements.immortalers_delight.sniffer_move.title"

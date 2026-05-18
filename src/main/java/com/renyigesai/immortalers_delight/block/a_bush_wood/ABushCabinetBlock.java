@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import vectorwing.farmersdelight.common.block.CabinetBlock;
+import com.renyigesai.immortalers_delight.block.ImmortalersCabinetBlock;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
-public class ABushCabinetBlock extends CabinetBlock {
+public class ABushCabinetBlock extends ImmortalersCabinetBlock {
     public static final BooleanProperty LIT;
     public ABushCabinetBlock(Properties properties) {
         super(properties);

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:contains_tea_leisamboo"
+      "id": "immortalers_delight:contains_tea_leisamboo"
     },
     "title": {
       "translate": "advancements.immortalers_delight.the_eternal_flow.title"

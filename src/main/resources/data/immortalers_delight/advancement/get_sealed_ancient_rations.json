@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:sealed_ancient_rations."
+      "id": "immortalers_delight:sealed_ancient_rations."
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_sealed_ancient_rations.title"

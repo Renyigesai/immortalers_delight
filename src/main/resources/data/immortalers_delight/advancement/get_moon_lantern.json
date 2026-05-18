@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:sextlotus_lantern"
+      "id": "immortalers_delight:sextlotus_lantern"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_moon_lantern.title"

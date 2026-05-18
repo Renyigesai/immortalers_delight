@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:a_bush"
+      "id": "immortalers_delight:a_bush"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_a_bush.title"

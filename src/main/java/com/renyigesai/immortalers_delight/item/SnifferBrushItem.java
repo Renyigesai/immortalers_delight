@@ -137,14 +137,20 @@ public class SnifferBrushItem extends BrushItem {
             }
             //这里实现刷mod内的方块实体的逻辑
             else if (hitResult instanceof BlockHitResult blockhitresult && hitResult.getType() == HitResult.Type.BLOCK) {
+                BlockPos blockpos = blockhitresult.getBlockPos();
+                BlockState blockstate = pLevel.getBlockState(blockpos);
+                Block $$18 = blockstate.getBlock();
+                // 原版可疑砂砾/沙：直接走 BrushItem 逻辑（结构遗迹考古战利品依赖此路径）
+                if ($$18 instanceof BrushableBlock && !($$18 instanceof ModBrushableBlock)) {
+                    super.onUseTick(pLevel, pLivingEntity, pStack, pRemainingUseDuration);
+                    return;
+                }
+
                 int i = this.getUseDuration(pStack, pLivingEntity) - pRemainingUseDuration + 1;
                 boolean flag = i % 10 == 5;
                 if (flag) {
                     //这个标记表示我们是否处理了自己的逻辑并需要打断原版刷子的逻辑。
                     boolean needReturn = false;
-                    BlockPos blockpos = blockhitresult.getBlockPos();
-                    BlockState blockstate = pLevel.getBlockState(blockpos);
-                    Block $$18 = blockstate.getBlock();
                     if ($$18 instanceof ModBrushableBlock brushableblock) {
                         SoundEvent soundevent;
                         if (pLevel.isClientSide()) {
@@ -157,8 +163,6 @@ public class SnifferBrushItem extends BrushItem {
                         soundevent = brushableblock.getBrushSound();
                         pLevel.playSound(player, blockpos, soundevent, SoundSource.BLOCKS);
                         needReturn = true;
-                    } else {
-                        System.out.println("不是mod内方块");
                     }
                     if (!pLevel.isClientSide()) {
                         //判断mod内方块实体，刷扫并扣耐久
@@ -170,7 +174,7 @@ public class SnifferBrushItem extends BrushItem {
                                 pStack.hurtAndBreak(1, pLivingEntity, equipmentslot);
                             }
                             needReturn = true;
-                        } else System.out.println("mod内方块实体不存在");
+                        }
                     }
                     if (needReturn) return;
                 }

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:sextlotus_seeds"
+      "id": "immortalers_delight:sextlotus_seeds"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_sextlotus_seeds.title"

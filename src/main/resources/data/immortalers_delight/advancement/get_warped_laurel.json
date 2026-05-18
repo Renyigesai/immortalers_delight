@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:warped_laurel_seeds"
+      "id": "immortalers_delight:warped_laurel_seeds"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_warped_laurel.title"

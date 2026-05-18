@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:evolutcorn_hard_candy"
+      "id": "immortalers_delight:evolutcorn_hard_candy"
     },
     "title": {
       "translate": "advancements.immortalers_delight.eat_evolutcorn_hard_candy.title"

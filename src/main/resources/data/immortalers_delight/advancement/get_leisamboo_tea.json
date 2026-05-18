@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:leisamboo_tea"
+      "id": "immortalers_delight:leisamboo_tea"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_leisamboo_tea.title"

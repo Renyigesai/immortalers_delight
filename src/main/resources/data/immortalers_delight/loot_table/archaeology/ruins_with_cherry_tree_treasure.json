@@ -81,7 +81,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:grass",
+          "name": "minecraft:short_grass",
           "weight": 6,
           "functions": [
             {
@@ -271,8 +271,37 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:5800360,CustomPotionEffects:[{Id:1,Duration:9600},{Id:10,Duration:1200},{Id:11,Duration:1200,Amplifier:3},{Id:19,Duration:7200,Amplifier:3},{Id:20,Duration:6000,Amplifier:3}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 5800360,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:speed",
+                      "duration": 9600
+                    },
+                    {
+                      "id": "minecraft:regeneration",
+                      "duration": 1200
+                    },
+                    {
+                      "id": "minecraft:resistance",
+                      "duration": 1200,
+                      "amplifier": 3
+                    },
+                    {
+                      "id": "minecraft:poison",
+                      "duration": 7200,
+                      "amplifier": 3
+                    },
+                    {
+                      "id": "minecraft:wither",
+                      "duration": 6000,
+                      "amplifier": 3
+                    }
+                  ]
+                }
+              }
             }
           ]
         },

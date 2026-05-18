@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:onsen_tamago"
+      "id": "immortalers_delight:onsen_tamago"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_onsen_tamago.title"

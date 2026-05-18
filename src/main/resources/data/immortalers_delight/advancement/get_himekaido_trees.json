@@ -70,7 +70,7 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "immortalers_delight:himekaido_fruited_leaves"
+      "id": "immortalers_delight:himekaido_fruited_leaves"
     },
     "show_toast": true,
     "title": {

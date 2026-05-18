@@ -1,6 +1,11 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#forge:is_plains",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:meadow",
+    "minecraft:snowy_plains"
+  ],
   "step": "surface_structures",
   "spawn_overrides": {},
   "start_pool": "immortalers_delight:immortalers_relic/immortalers_relic",

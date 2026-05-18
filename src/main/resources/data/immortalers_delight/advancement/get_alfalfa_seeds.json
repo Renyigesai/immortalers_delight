@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:alfalfa_seeds"
+      "id": "immortalers_delight:alfalfa_seeds"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_alfalfa_seeds.title"

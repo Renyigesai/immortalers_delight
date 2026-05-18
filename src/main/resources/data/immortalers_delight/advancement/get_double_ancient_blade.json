@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:ancient_blade"
+      "id": "immortalers_delight:ancient_blade"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_double_ancient_blade.title"
@@ -18,19 +18,17 @@
     "has_two_ancient_blade": {
       "trigger": "minecraft:player_hurt_entity",
       "conditions": {
-        "damage": {
-          "source_entity": {
-            "equipment": {
-              "mainhand": {
-                "items": [
-                  "immortalers_delight:ancient_blade"
-                ]
-              },
-              "offhand": {
-                "items": [
-                  "immortalers_delight:ancient_blade"
-                ]
-              }
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": [
+                "immortalers_delight:ancient_blade"
+              ]
+            },
+            "offhand": {
+              "items": [
+                "immortalers_delight:ancient_blade"
+              ]
             }
           }
         }

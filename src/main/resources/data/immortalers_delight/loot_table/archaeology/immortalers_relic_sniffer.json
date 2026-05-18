@@ -52,8 +52,18 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:16693309,CustomPotionEffects:[{Id:5,Duration:2700}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 16693309,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:strength",
+                      "duration": 2700
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -63,8 +73,18 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:6056530,CustomPotionEffects:[{Id:18,Duration:1350}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 6056530,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:weakness",
+                      "duration": 1350
+                    }
+                  ]
+                }
+              }
             }
           ]
         },

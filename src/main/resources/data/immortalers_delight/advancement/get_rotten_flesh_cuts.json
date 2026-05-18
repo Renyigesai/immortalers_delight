@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:rotten_flesh_cuts"
+      "id": "immortalers_delight:rotten_flesh_cuts"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_rotten_flesh_cuts.title"
