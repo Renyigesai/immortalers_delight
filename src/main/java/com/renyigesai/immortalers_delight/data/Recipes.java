@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.data;
 
-import com.renyigesai.immortalers_delight.data.recipes.CookingRecipes;
 import com.renyigesai.immortalers_delight.data.recipes.EnchantalCoolerRecipes;
 import com.renyigesai.immortalers_delight.data.recipes.SmeltingRecipes;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -22,7 +21,6 @@ public class Recipes extends RecipeProvider {
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
         EnchantalCoolerRecipes.register(recipeOutput);
-        CookingRecipes.register(recipeOutput);
         SmeltingRecipes.register(recipeOutput);
     }
 }
