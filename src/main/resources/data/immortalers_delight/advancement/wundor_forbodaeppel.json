@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:himekaido_seed"
+      "id": "immortalers_delight:himekaido_seed"
     },
     "title": {
       "translate": "advancements.immortalers_delight.wundor_forbodaeppel.title"

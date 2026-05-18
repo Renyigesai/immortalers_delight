@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:torchflower_seeds"
+      "id": "minecraft:torchflower_seeds"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_torchflower_seeds.title"

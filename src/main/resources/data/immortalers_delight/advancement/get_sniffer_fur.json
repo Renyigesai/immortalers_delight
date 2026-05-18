@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:sniffer_fur"
+      "id": "immortalers_delight:sniffer_fur"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_sniffer_fur.title"

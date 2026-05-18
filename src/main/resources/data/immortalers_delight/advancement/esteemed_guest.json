@@ -20,7 +20,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "immortalers_delight:golden_kwat_toast"
+      "id": "immortalers_delight:golden_kwat_toast"
     },
     "show_toast": true,
     "title": {

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:piglin_odori_sake"
+      "id": "immortalers_delight:piglin_odori_sake"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_piglin_odori_sake.title"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:enchantal_cooler"
+      "id": "immortalers_delight:enchantal_cooler"
     },
     "title": {
       "translate": "advancements.immortalers_delight.ice_extract.title"

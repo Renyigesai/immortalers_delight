@@ -19,7 +19,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "immortalers_delight:popolutcorn"
+      "id": "immortalers_delight:popolutcorn"
     },
     "show_toast": true,
     "title": {

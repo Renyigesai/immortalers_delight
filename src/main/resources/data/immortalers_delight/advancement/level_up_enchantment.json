@@ -2,7 +2,7 @@
   "display": {
     "title": {"translate": "advancements.immortalers_delight.level_up_enchantment.title"},
     "description": {"translate": "advancements.immortalers_delight.level_up_enchantment.descr"},
-    "icon": {"item": "minecraft:writable_book"},
+    "icon": {"id": "minecraft:writable_book"},
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

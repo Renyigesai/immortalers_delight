@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:evolutcorn_grains"
+      "id": "immortalers_delight:evolutcorn_grains"
     },
     "title": {
       "translate": "advancements.immortalers_delight.ealdaec_gemhus.title"

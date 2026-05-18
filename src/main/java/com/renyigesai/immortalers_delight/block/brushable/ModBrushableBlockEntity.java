@@ -93,11 +93,14 @@ public class ModBrushableBlockEntity extends BlockEntity {
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, lootTableKey);
             }
 
+            var paramSet = this.lootTable != null && this.lootTable.getPath().contains("archaeology")
+                    ? LootContextParamSets.ARCHAEOLOGY
+                    : LootContextParamSets.CHEST;
             LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level))
                     .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition))
                     .withLuck(pPlayer.getLuck())
                     .withParameter(LootContextParams.THIS_ENTITY, pPlayer)
-                    .create(LootContextParamSets.CHEST);
+                    .create(paramSet);
             ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
             ItemStack itemstack;
             switch (objectarraylist.size()) {

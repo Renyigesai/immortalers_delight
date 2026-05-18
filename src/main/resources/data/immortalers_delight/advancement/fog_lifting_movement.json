@@ -18,7 +18,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "immortalers_delight:kwat_wheat"
+      "id": "immortalers_delight:kwat_wheat"
     },
     "show_toast": true,
     "title": {

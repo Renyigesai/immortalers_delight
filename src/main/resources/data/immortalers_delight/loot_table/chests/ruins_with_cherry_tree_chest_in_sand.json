@@ -30,8 +30,18 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:16693309,CustomPotionEffects:[{Id:5,Duration:2700}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 16693309,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:strength",
+                      "duration": 2700
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -41,8 +51,18 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:6056530,CustomPotionEffects:[{Id:18,Duration:1350}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 6056530,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:weakness",
+                      "duration": 1350
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -52,8 +72,19 @@
           "weight": 2,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:6732254,CustomPotionEffects:[{Id:1,Duration:1350,Amplifier:1}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 6732254,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:speed",
+                      "duration": 1350,
+                      "amplifier": 1
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -63,8 +94,23 @@
           "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:10175085,CustomPotionEffects:[{Id:1,Duration:1200},{Id:7,Duration:1,Amplifier:3}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 10175085,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:speed",
+                      "duration": 1200
+                    },
+                    {
+                      "id": "minecraft:instant_damage",
+                      "duration": 1,
+                      "amplifier": 3
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -74,8 +120,19 @@
           "weight": 2,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:11497292,CustomPotionEffects:[{Id:7,Duration:1,Amplifier:3}]}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_color": 11497292,
+                  "custom_effects": [
+                    {
+                      "id": "minecraft:instant_damage",
+                      "duration": 1,
+                      "amplifier": 3
+                    }
+                  ]
+                }
+              }
             }
           ]
         }

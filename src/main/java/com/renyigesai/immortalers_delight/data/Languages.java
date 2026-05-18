@@ -368,6 +368,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("resist_gas_poisoning",translateText("Wear a mask properly","戴好口罩"),translateText("Use golden fabric veil to resist gas poisoning.","利用绯炵金纱抵御瓦斯毒。"));
         createAdvancement("power_battle_mode",translateText("Activate power battle mode.","过去迟早会追上的"),translateText("Activate power battle mode.","开启超凡模式。"));
         createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一搜大船。"));
+        createAdvancement("build_large_boat",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一艘大船。"));
         createAdvancement("get_sextlotus_seeds",translateText("Lunar soil tide","月壤潮汐"),translateText("Obtain Sextlotus Seeds in Forest.","在森林获得既望莲子。"));
         createAdvancement("get_moon_lantern",translateText("Pseudo Moonlight","赝作月华"),translateText("Use the Moonlight Phantom Lamp to accelerate the growth of Sextlotus.","使用幻月灯促进既望莲的生长。"));
     }

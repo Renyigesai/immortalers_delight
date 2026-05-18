@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:pearlip_rice_roll_boat"
+      "id": "immortalers_delight:pearlip_rice_roll_boat"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_pearlip_rice_roll_boat.title"

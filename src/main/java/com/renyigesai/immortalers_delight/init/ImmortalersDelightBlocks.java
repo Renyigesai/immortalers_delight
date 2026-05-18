@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.BlockData;
 import com.renyigesai.immortalers_delight.block.*;
+import com.renyigesai.immortalers_delight.block.ImmortalersCabinetBlock;
 import com.renyigesai.immortalers_delight.block.a_bush_wood.ABushCabinetBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlock;
 import com.renyigesai.immortalers_delight.block.ancient_stove.AncientStoveBlockEntity;
@@ -53,6 +54,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
+import com.renyigesai.immortalers_delight.block.entity.ImmortalersCabinetBlockEntity;
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
@@ -62,6 +64,9 @@ public class ImmortalersDelightBlocks {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ImmortalersDelightMod.MODID);
+
+    /** Block entity for mod cabinet blocks (structure templates + world placement). */
+    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<ImmortalersCabinetBlockEntity>> CABINET_BLOCK_ENTITY;
 
     @BlockData
     public static final DeferredHolder<Block, Block> ENCHANTAL_COOLER;
@@ -168,7 +173,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final DeferredHolder<Block, Block> HIMEKAIDO_CABINET = BLOCKS.register("himekaido_cabinet",
-            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
+            () -> new ImmortalersCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
     public static final DeferredHolder<Block, Block> MILLENIAN_BAMBOO = BLOCKS.register("millenian_bamboo",
@@ -215,7 +220,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final DeferredHolder<Block, Block> ANCIENT_WOOD_CABINET = BLOCKS.register("ancient_wood_cabinet",
-            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
+            () -> new ImmortalersCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
     public static final DeferredHolder<Block, Block> ANCIENT_WOOD_STAIRS = BLOCKS.register("ancient_wood_stairs",
@@ -341,7 +346,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final DeferredHolder<Block, Block> LEISAMBOO_CABINET = BLOCKS.register("leisamboo_cabinet",
-            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
+            () -> new ImmortalersCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
     public static final DeferredHolder<Block, Block> LEISAMBOO_STAIRS = BLOCKS.register("leisamboo_stairs",
@@ -432,7 +437,7 @@ public class ImmortalersDelightBlocks {
 
     @BlockData
     public static final DeferredHolder<Block, Block> PEARLIP_SHELL_CABINET = BLOCKS.register("pearlip_shell_cabinet",
-            () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
+            () -> new ImmortalersCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final DeferredHolder<Block, Block> PEARLIP_SHELL_SIGN = BLOCKS.register("pearlip_shell_sign",
@@ -1074,6 +1079,15 @@ public class ImmortalersDelightBlocks {
                 ));
         WARPED_LANTERN_ENTITY = BLOCK_ENTITY_REGISTRY.register("warped_lantern",
                 ()-> BlockEntityType.Builder.of(WarpedLanternBlockEntity::new, WARPED_LANTERN.get()).build(null));
+
+        CABINET_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("cabinet", () -> BlockEntityType.Builder.of(
+                ImmortalersCabinetBlockEntity::new,
+                HIMEKAIDO_CABINET.get(),
+                ANCIENT_WOOD_CABINET.get(),
+                LEISAMBOO_CABINET.get(),
+                PEARLIP_SHELL_CABINET.get(),
+                A_BUSH_CABINET.get()
+        ).build(null));
 
     }
 

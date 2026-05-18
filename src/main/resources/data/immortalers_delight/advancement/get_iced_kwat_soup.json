@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:iced_kwat_soup"
+      "id": "immortalers_delight:iced_kwat_soup"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_iced_kwat_soup.title"

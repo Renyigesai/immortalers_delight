@@ -2,7 +2,7 @@
   "display": {
     "title": {"translate": "advancements.immortalers_delight.resist_gas_poisoning.title"},
     "description": {"translate": "advancements.immortalers_delight.resist_gas_poisoning.descr"},
-    "icon": {"item": "immortalers_delight:golden_fabric_veil"},
+    "icon": {"id": "immortalers_delight:golden_fabric_veil"},
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

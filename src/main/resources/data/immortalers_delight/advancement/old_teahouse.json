@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:leaf_tea"
+      "id": "immortalers_delight:leaf_tea"
     },
     "title": {
       "translate": "advancements.immortalers_delight.old_teahouse.title"
@@ -20,8 +20,14 @@
       "conditions": {
         "location": [
           {
-            "condition": "minecraft:block_state_property",
-            "block": "immortalers_delight:leaf_tea"
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "immortalers_delight:leaf_tea"
+                ]
+              }
+            }
           }
         ]
       }

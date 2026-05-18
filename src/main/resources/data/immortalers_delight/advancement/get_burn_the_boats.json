@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:pitcher_plant_barbecue"
+      "id": "immortalers_delight:pitcher_plant_barbecue"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_burn_the_boats.title"

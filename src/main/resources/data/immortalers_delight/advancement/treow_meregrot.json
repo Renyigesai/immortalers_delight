@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:pearlipearl"
+      "id": "immortalers_delight:pearlipearl"
     },
     "title": {
       "translate": "advancements.immortalers_delight.treow_meregrot.title"

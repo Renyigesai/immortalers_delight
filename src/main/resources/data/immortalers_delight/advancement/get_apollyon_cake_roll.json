@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:apollyon_cake_roll"
+      "id": "immortalers_delight:apollyon_cake_roll"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_apollyon_cake_roll.title"

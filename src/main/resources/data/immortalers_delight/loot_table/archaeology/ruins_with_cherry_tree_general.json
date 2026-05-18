@@ -215,8 +215,12 @@
           "weight": 2,
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{BlockEntityTag:{LootTable:\"immortalers_delight:chests/ruins_with_cherry_tree_chest_in_sand\"}}"
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:container_loot": {
+                  "loot_table": "immortalers_delight:chests/ruins_with_cherry_tree_chest_in_sand"
+                }
+              }
             },
             {
               "function": "minecraft:set_name",

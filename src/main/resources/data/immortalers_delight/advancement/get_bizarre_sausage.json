@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:bizarre_sausage"
+      "id": "immortalers_delight:bizarre_sausage"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_bizarre_sausage.title"

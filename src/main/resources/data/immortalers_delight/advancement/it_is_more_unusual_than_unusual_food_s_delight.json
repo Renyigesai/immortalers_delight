@@ -90,7 +90,7 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "immortalers_delight:stuffed_poisonous_potato"
+      "id": "immortalers_delight:stuffed_poisonous_potato"
     },
     "show_toast": true,
     "title": {

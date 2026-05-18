@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:millenian_bamboo"
+      "id": "immortalers_delight:millenian_bamboo"
     },
     "title": {
       "translate": "advancements.immortalers_delight.get_millenian_bamboo.title"

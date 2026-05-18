@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "immortalers_delight:baked_poisonous_potato"
+      "id": "immortalers_delight:baked_poisonous_potato"
     },
     "title": {
       "translate": "advancements.immortalers_delight.what_s_this_have_a_eat.title"
