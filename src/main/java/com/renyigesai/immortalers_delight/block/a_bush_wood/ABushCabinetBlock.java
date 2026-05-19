@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import com.renyigesai.immortalers_delight.block.ImmortalersCabinetBlock;
+import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 
 public class ABushCabinetBlock extends ImmortalersCabinetBlock {

@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:cooked_chicken"
+      "tag": "c:foods/cooked_chicken"
     },
     {
       "item": "immortalers_delight:pitcher_pod_petal"
@@ -12,7 +12,7 @@
       "item": "farmersdelight:tomato_sauce"
     },
     {
-      "item": "farmersdelight:onion"
+      "item": "c:foods/onion"
     },
     {
       "item": "minecraft:torchflower"

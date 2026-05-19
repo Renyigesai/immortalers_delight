@@ -1,4 +1,7 @@
 package com.renyigesai.immortalers_delight.item.weapon;
+import com.renyigesai.immortalers_delight.client.renderer.special_item.ItemTESRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
@@ -28,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -36,6 +40,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+
 public class BoneKnifeItem extends ImmortalersKnifeItem {
     public static final String TAG_USE_TIME = "UseTime";
     public static final String TAG_PREV_USE_TIME = "PrevUseTime";
@@ -183,6 +189,17 @@ public class BoneKnifeItem extends ImmortalersKnifeItem {
 
         }
 
+    }
+
+    @SuppressWarnings("removal")
+    @Override
+    public void initializeClient(Consumer<net.neoforged.neoforge.client.extensions.common.IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return new ItemTESRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+            }
+        });
     }
 //
 //    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, value = net.neoforged.api.distmarker.Dist.CLIENT)

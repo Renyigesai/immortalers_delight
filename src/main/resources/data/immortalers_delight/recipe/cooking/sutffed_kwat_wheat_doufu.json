@@ -20,10 +20,10 @@
     ],
     [
       {
-        "tag": "forge:raw_beef"
+        "tag": "c:foods/raw_beef"
       },
       {
-        "tag": "forge:raw_pork"
+        "tag": "c:foods/raw_pork"
       }
     ]
   ],

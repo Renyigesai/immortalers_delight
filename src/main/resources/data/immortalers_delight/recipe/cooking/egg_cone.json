@@ -5,7 +5,7 @@
       "item": "immortalers_delight:evolutcorn_grains"
     },
     {
-      "item": "minecraft:egg"
+      "tag": "c:eggs"
     }
   ],
   "result": {

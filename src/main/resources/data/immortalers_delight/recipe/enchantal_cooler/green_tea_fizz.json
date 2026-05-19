@@ -8,7 +8,7 @@
       "item": "minecraft:egg"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
       "item": "immortalers_delight:purgatory_ale"

@@ -6,7 +6,7 @@
       "item": "immortalers_delight:warped_laurel"
     },
     {
-      "tag": "forge:cooked_chicken"
+      "tag": "c:foods/cooked_chicken"
     },
     {
       "item": "immortalers_delight:kwat_wheat_paste"
@@ -15,10 +15,10 @@
       "item": "immortalers_delight:sextlotus_root_cuts"
     },
     {
-      "item": "farmersdelight:onion"
+      "item": "c:foods/onion"
     },
     {
-      "tag": "forge:bread"
+      "tag": "c:bread"
     }
   ],
   "result": {

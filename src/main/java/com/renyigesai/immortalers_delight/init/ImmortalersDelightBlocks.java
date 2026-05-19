@@ -55,6 +55,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
 import com.renyigesai.immortalers_delight.block.entity.ImmortalersCabinetBlockEntity;
+import vectorwing.farmersdelight.common.block.entity.CabinetBlockEntity;
+
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
@@ -907,7 +909,7 @@ public class ImmortalersDelightBlocks {
     public static final DeferredHolder<Block, Block> A_BUSH_PLANKS = BLOCKS.register("a_bush_planks",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
     @BlockData
-    public static final DeferredHolder<Block, CabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new ABushCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
+    public static final DeferredHolder<Block, ImmortalersCabinetBlock> A_BUSH_CABINET = BLOCKS.register("a_bush_cabinet",()-> new ABushCabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)));
 
     @BlockData
     public static final DeferredHolder<Block, StairBlock> A_BUSH_STAIRS = BLOCKS.register("a_bush_stairs",()-> new StairBlock(A_BUSH_PLANKS.get().defaultBlockState(),BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));

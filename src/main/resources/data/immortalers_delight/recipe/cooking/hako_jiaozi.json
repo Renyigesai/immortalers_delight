@@ -17,7 +17,7 @@
       "item": "minecraft:egg"
     },
     {
-      "tag": "forge:dough"
+      "tag": "c:foods/dough"
     }
   ],
   "recipe_book_tab": "misc",

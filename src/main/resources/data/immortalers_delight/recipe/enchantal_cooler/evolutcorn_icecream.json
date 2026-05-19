@@ -2,7 +2,7 @@
   "type": "immortalers_delight:enchantal_cooler",
   "ingredients": [
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
       "item": "immortalers_delight:evolutcorn"

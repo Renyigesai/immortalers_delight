@@ -18,7 +18,7 @@
     },
     [
       {
-        "tag": "forge:rawchicken"
+        "tag": "c:foods/raw_chicken"
       },
       {
         "item": "minecraft:chicken"

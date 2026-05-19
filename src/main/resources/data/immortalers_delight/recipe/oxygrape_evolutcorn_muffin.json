@@ -12,10 +12,10 @@
       "item": "immortalers_delight:evolutcorn_paste"
     },
     {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
       "item": "minecraft:sugar"

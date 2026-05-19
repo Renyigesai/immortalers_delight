@@ -8,13 +8,13 @@
     },
     [
       {
-        "tag": "forge:raw_chicken"
+        "tag": "c:foods/raw_chicken"
       },
       {
-        "tag": "forge:raw_pork"
+        "tag": "c:foods/raw_pork"
       },
       {
-        "tag": "forge:raw_beef"
+        "tag": "c:foods/raw_beef"
       }
     ],
     {

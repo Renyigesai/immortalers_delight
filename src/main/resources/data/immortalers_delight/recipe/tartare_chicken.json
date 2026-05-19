@@ -9,13 +9,13 @@
       "item": "farmersdelight:chicken_cuts"
     },
     {
-      "tag": "forge:raw_chicken"
+      "tag": "c:foods/raw_chicken"
     },
     {
       "item": "minecraft:spider_eye"
     },
     {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     },
     {
       "item": "minecraft:bowl"

@@ -1,15 +1,12 @@
 package com.renyigesai.immortalers_delight.block.entity;
 
+import com.renyigesai.immortalers_delight.block.ImmortalersCabinetBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,24 +18,26 @@ import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+import vectorwing.farmersdelight.common.block.entity.CabinetBlockEntity;
 import vectorwing.farmersdelight.common.registry.ModSounds;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 /**
- * Cabinet storage for mod wood cabinets. Uses {@link ImmortalersDelightBlocks#CABINET_BLOCK_ENTITY}
- * so structure/worldgen placement never binds Farmer's Delight's {@code farmersdelight:cabinet} type.
+ * FD {@link vectorwing.farmersdelight.common.block.entity.CabinetBlockEntity} always registers as
+ * {@code farmersdelight:cabinet}, which breaks structure placement on mod cabinet blocks.
  */
 public class ImmortalersCabinetBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(Level level, BlockPos pos, BlockState state) {
-            ImmortalersCabinetBlockEntity.this.playSound(state, ModSounds.BLOCK_CABINET_OPEN.get());
+            ImmortalersCabinetBlockEntity.this.playSound(state, (SoundEvent) ModSounds.BLOCK_CABINET_OPEN.get());
             ImmortalersCabinetBlockEntity.this.updateBlockState(state, true);
         }
 
         @Override
         protected void onClose(Level level, BlockPos pos, BlockState state) {
-            ImmortalersCabinetBlockEntity.this.playSound(state, ModSounds.BLOCK_CABINET_CLOSE.get());
+            ImmortalersCabinetBlockEntity.this.playSound(state, (SoundEvent)ModSounds.BLOCK_CABINET_CLOSE.get());
             ImmortalersCabinetBlockEntity.this.updateBlockState(state, false);
         }
 
@@ -59,21 +58,21 @@ public class ImmortalersCabinetBlockEntity extends RandomizableContainerBlockEnt
         super(ImmortalersDelightBlocks.CABINET_BLOCK_ENTITY.get(), pos, state);
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        if (!this.trySaveLootTable(tag)) {
-            ContainerHelper.saveAllItems(tag, this.items, registries);
+    public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.saveAdditional(compound, registries);
+        if (!this.trySaveLootTable(compound)) {
+            ContainerHelper.saveAllItems(compound, this.items, registries);
         }
+
     }
 
-    @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        if (!this.tryLoadLootTable(tag)) {
-            ContainerHelper.loadAllItems(tag, this.items, registries);
+        if (!this.tryLoadLootTable(compound)) {
+            ContainerHelper.loadAllItems(compound, this.items, registries);
         }
+
     }
 
     @Override
@@ -93,7 +92,7 @@ public class ImmortalersCabinetBlockEntity extends RandomizableContainerBlockEnt
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.chest");
+        return TextUtils.container("cabinet");
     }
 
     @Override
@@ -121,20 +120,20 @@ public class ImmortalersCabinetBlockEntity extends RandomizableContainerBlockEnt
         }
     }
 
-    private void updateBlockState(BlockState state, boolean open) {
+    void updateBlockState(BlockState state, boolean open) {
         if (this.level != null) {
-            this.level.setBlock(this.getBlockPos(), state.setValue(CabinetBlock.OPEN, open), 3);
+            this.level.setBlock(this.getBlockPos(), (BlockState)state.setValue(ImmortalersCabinetBlock.OPEN, open), 3);
         }
+
     }
 
     private void playSound(BlockState state, SoundEvent sound) {
-        if (this.level == null) {
-            return;
+        if (this.level != null) {
+            Vec3i cabinetFacingVector = ((Direction)state.getValue(ImmortalersCabinetBlock.FACING)).getNormal();
+            double x = (double)this.worldPosition.getX() + 0.5 + (double)cabinetFacingVector.getX() / 2.0;
+            double y = (double)this.worldPosition.getY() + 0.5 + (double)cabinetFacingVector.getY() / 2.0;
+            double z = (double)this.worldPosition.getZ() + 0.5 + (double)cabinetFacingVector.getZ() / 2.0;
+            this.level.playSound((Player)null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
         }
-        Vec3i facing = state.getValue(CabinetBlock.FACING).getNormal();
-        double x = this.worldPosition.getX() + 0.5D + facing.getX() / 2.0D;
-        double y = this.worldPosition.getY() + 0.5D + facing.getY() / 2.0D;
-        double z = this.worldPosition.getZ() + 0.5D + facing.getZ() / 2.0D;
-        this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
     }
 }

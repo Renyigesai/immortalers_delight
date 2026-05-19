@@ -3,16 +3,16 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:cooked_beef"
+      "tag": "c:foods/cooked_beef"
     },
     {
-      "tag": "forge:cooked_beef"
+      "tag": "c:foods/cooked_beef"
     },
     {
-      "tag": "forge:crops/cabbage"
+      "tag": "c:foods/cabbage"
     },
     {
-      "tag": "forge:crops/cabbage"
+      "tag": "c:foods/cabbage"
     },
     {
       "item": "immortalers_delight:pitcher_pod_petal"

@@ -14,7 +14,7 @@
       "item": "immortalers_delight:yogurt"
     },
     "c": {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     "d": {
       "item": "minecraft:sniffer_egg"
