@@ -1,7 +1,10 @@
 package com.renyigesai.immortalers_delight.entities.living;
 
+import com.renyigesai.immortalers_delight.api.mobbase.AntiCheesedMob;
 import com.renyigesai.immortalers_delight.entities.ai.ArmorSpiritAttackGoal;
+import com.renyigesai.immortalers_delight.entities.ai.StrangeArmourStandHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,7 +16,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class StrangeArmourStand extends ArmetSpiritBase {
+public class StrangeArmourStand extends ArmetSpiritBase implements AntiCheesedMob {
+    private int hurtTimeOut;
 
     public StrangeArmourStand(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -74,5 +78,44 @@ public class StrangeArmourStand extends ArmetSpiritBase {
         }
 
         this.walkAnimation.update(f, 0.2F);
+    }
+
+    @Override
+    public void setHealth(float health) {
+        if (health <= this.getHealth()) {
+            if (this.canLoseHealth()) StrangeArmourStandHelper.setStrangeArmourStandLost(this, 6);
+            else return;
+        }
+        super.setHealth(health);
+    }
+    @Override
+    public boolean canBeHurt() {
+        return this.hurtTimeOut >= 10;
+    }
+
+    @Override
+    public boolean canLoseHealth() {
+        if (this.level().isClientSide()) return false;
+        return StrangeArmourStandHelper.isStrangeArmourStandLost( this.level(), this.getUUID());
+    }
+
+    @Override
+    public float getAttackProportion() {
+        return 0;
+    }
+
+    @Override
+    public float getMinDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getDamageDivisor() {
+        return 0;
+    }
+
+    @Override
+    public boolean shouldBlastDamageHurt(LivingEntity target) {
+        return false;
     }
 }

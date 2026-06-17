@@ -4,10 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +22,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.tags.ITag;
+import net.minecraftforge.registries.tags.ITagManager;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -53,6 +59,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * @param pValues 流形式的 Value（方块状态/标签）
      */
     protected AggregatedBlock(Stream<? extends AggregatedBlock.Value> pValues) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock 构造方法");
         this.values = pValues.toArray((i) -> {
             return new AggregatedBlock.Value[i];
         });
@@ -63,6 +70,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * 若输入{橡木原木，原木标签}，在遍历、去重后得到对应可以匹配的方块为{橡木原木、桦木原木…(原木标签对应的所有方块)…}
      */
     public BlockState[] getBlockStates() {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock getBlockStates");
         if (this.blockStates == null) {
             this.blockStates = Arrays.stream(this.values).flatMap((value) -> {
                 return value.getBlocks().stream();
@@ -82,6 +90,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      */
     @Override
     public boolean test(@Nullable BlockState blockState) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock test");
         if (blockState == null) {
             return false;
         } else if (this.isEmpty()) {
@@ -127,6 +136,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * 返回所有【值与默认不同】的 Property<?>
      */
     public static Collection<Property<?>> getDefaultOrNonProperties(BlockState currentState, boolean isDefault) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock getDefaultOrNonProperties");
         Collection<Property<?>> diffProperties = new ArrayList<>();
 
         // 获取该方块的默认状态
@@ -160,23 +170,23 @@ public class AggregatedBlock implements Predicate<BlockState> {
     /**
      * 获取用于快速匹配的堆叠ID列表（用于合成界面快速检索）
      */
-    public IntList getStackingIds() {
-        if (this.stateIds == null || checkInvalidation()) {// 缓存判空/失效检查
-            this.markValid();// 标记缓存为最新版本
-            BlockState[] blockStates1 = this.getBlockStates();// 获取所有符合条件的方块状态
-            this.stateIds = new IntArrayList(blockStates1.length);// 初始化ID列表（容量适配）
-
-            for(BlockState state : blockStates1) {// 遍历所有方块状态，生成ID
-                this.stateIds.add(getStateIndex(state));
-            }
-
-            this.stateIds.sort(IntComparators.NATURAL_COMPARATOR);// 对ID排序，方便后续二分查找
-        }
-        return this.stateIds;// 返回缓存的ID列表
-    }
-    public static int getStateIndex(BlockState state) {
-        return BuiltInRegistries.BLOCK.getId(state.getBlock());
-    }
+//    public IntList getStackingIds() {
+//        if (this.stateIds == null || checkInvalidation()) {// 缓存判空/失效检查
+//            this.markValid();// 标记缓存为最新版本
+//            BlockState[] blockStates1 = this.getBlockStates();// 获取所有符合条件的方块状态
+//            this.stateIds = new IntArrayList(blockStates1.length);// 初始化ID列表（容量适配）
+//
+//            for(BlockState state : blockStates1) {// 遍历所有方块状态，生成ID
+//                this.stateIds.add(getStateIndex(state));
+//            }
+//
+//            this.stateIds.sort(IntComparators.NATURAL_COMPARATOR);// 对ID排序，方便后续二分查找
+//        }
+//        return this.stateIds;// 返回缓存的ID列表
+//    }
+//    public static int getStateIndex(BlockState state) {
+//        return BuiltInRegistries.BLOCK.getId(state.getBlock());
+//    }
 
     // 是否为空原料
     public boolean isEmpty() {
@@ -215,6 +225,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
 
     //合并多个原料(内部使用)
     public static AggregatedBlock fromValues(Stream<? extends AggregatedBlock.Value> pStream) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock fromValues");
         AggregatedBlock ingredient = new AggregatedBlock(pStream);
         return ingredient.isEmpty() ? EMPTY : ingredient;
     }
@@ -255,6 +266,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * 将原料写入网络数据包（发给客户端/服务端）
      */
     public void writeToNetwork(FriendlyByteBuf buf) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock writeToNetwork");
         // 写入Value数量
         buf.writeVarInt(this.values.length);
         for (Value value : this.values) {
@@ -271,9 +283,18 @@ public class AggregatedBlock implements Predicate<BlockState> {
         }
     }
     public static void writeBlockStateToNetwork(FriendlyByteBuf buf, BlockState state) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock writeBlockStateToNetwork");
         buf.writeBoolean(false); // 非Tag类型
         // 序列化BlockState（Minecraft内置方法）
-        buf.writeRegistryId(ForgeRegistries.BLOCKS, state.getBlock());
+        // 写入方块注册名，不写数字ID
+        ResourceLocation resourceLocation = net.minecraftforge.registries.ForgeRegistries.BLOCKS.getKey(state.getBlock());
+        if (resourceLocation != null) {
+            buf.writeResourceLocation(resourceLocation);
+        } else {
+            ImmortalersDelightMod.LOGGER.info("writeBlockStateToNetwork: " + "The block ID is null !" + "What do you want info :" + state.toString());
+            buf.writeResourceLocation(new ResourceLocation("minecraft", "air"));
+        }
+        //buf.writeRegistryId(ForgeRegistries.BLOCKS, state.getBlock());
         // 序列化BlockState的属性
         CompoundTag tag = new CompoundTag();
         // 手动把 ImmutableMap 转 CompoundTag
@@ -310,6 +331,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * 从网络数据包读取 AggregatedBlock
      */
     public static AggregatedBlock readFromNetwork(FriendlyByteBuf buf) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock readFromNetwork");
         int valueCount = buf.readVarInt();
         Stream.Builder<Value> valueStream = Stream.builder();
 
@@ -337,16 +359,25 @@ public class AggregatedBlock implements Predicate<BlockState> {
     }
     // 从网络数据包读取 BlockState
     public static BlockState readStateFromNetwork(FriendlyByteBuf buf) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock readStateFromNetwork");
         // 读取BlockState
-        Block block = buf.readRegistryIdSafe(Block.class);
-
+        //Block block = buf.readRegistryIdSafe(Block.class);
+        ResourceLocation blockLoc = buf.readResourceLocation();
+        Block block = ForgeRegistries.BLOCKS.getValue(blockLoc);
         // 读取 NBT 并恢复状态
         CompoundTag tag = buf.readNbt();
-        BlockState state = block.defaultBlockState();
+        BlockState state = null;
+        if (block != null) {
+            state = block.defaultBlockState();
+        } else {
+            ImmortalersDelightMod.LOGGER.info("readStateFromNetwork: " + "The block is null !" + "What do you want info :" + blockLoc);
+        }
 
-        if (tag != null) for (Property<?> prop : state.getProperties()) {
-            if (tag.contains(prop.getName())) {
-                state = setPropertyGeneric(state, prop, tag.getString(prop.getName()));
+        if (tag != null && state != null) {
+            for (Property<?> prop : state.getProperties()) {
+                if (tag.contains(prop.getName())) {
+                    state = setPropertyGeneric(state, prop, tag.getString(prop.getName()));
+                }
             }
         }
         return state;
@@ -364,6 +395,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * 从 JSON 读取 配方文件
      */
     public static AggregatedBlock fromJson(@Nullable JsonElement pJson, boolean pCanBeEmpty) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock fromJson");
         if (pJson != null && !pJson.isJsonNull()) {
             //判断是否是对象(即用{大括号}包裹的结构)
             if (pJson.isJsonObject()) {
@@ -398,6 +430,7 @@ public class AggregatedBlock implements Predicate<BlockState> {
      * { "tag": "minecraft:logs" }
      */
     public static AggregatedBlock.Value valueFromJson(JsonObject pJson) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock valueFromJson");
         if (pJson.has("block") && pJson.has("tag")) {
             throw new JsonSyntaxException("An ingredient entry cannot have both block and tag!");
         }
@@ -450,23 +483,30 @@ public class AggregatedBlock implements Predicate<BlockState> {
 //            throw new JsonParseException("An ingredient entry needs either a tag or an item");
 //        }
 //    }
-
-    public static Block blockFromJson(JsonObject pItemObject) {
-        String s = GsonHelper.getAsString(pItemObject, "block");
-        Block block = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.tryParse(s)).orElseThrow(() -> {
-            return new JsonSyntaxException("Unknown block '" + s + "'");
-        });
-        if (block == Blocks.AIR) {
-            throw new JsonSyntaxException("Empty ingredient not allowed here");
-        } else {
-            return block;
-        }
-    }
+//private static Block blockFromJson(String s) {
+//    ResourceLocation loc = ResourceLocation.tryParse(s);
+//    if (loc == null) throw new JsonSyntaxException("方块ID格式错误: " + s);
+//    Block block = ForgeRegistries.BLOCKS.getValue(loc);
+//    if (block == null) throw new JsonSyntaxException("未知方块: " + s);
+//    return block;
+//}
+//    public static Block blockFromJson(JsonObject pItemObject) {
+//        String s = GsonHelper.getAsString(pItemObject, "block");
+//        Block block = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.tryParse(s)).orElseThrow(() -> {
+//            return new JsonSyntaxException("Unknown block '" + s + "'");
+//        });
+//        if (block == Blocks.AIR) {
+//            throw new JsonSyntaxException("Empty ingredient not allowed here");
+//        } else {
+//            return block;
+//        }
+//    }
     /**
      * 将 BlockState 序列化为 Mojang 标准 JsonElement
      * 结构自动生成：{"Name":"xxx","Properties":{...}}
      */
     public static JsonElement blockStateToJson(BlockState state) {
+        ImmortalersDelightMod.LOGGER.info("AggregatedBlock blockStateToJson");
         DataResult<JsonElement> result = BlockState.CODEC.encodeStart(JsonOps.INSTANCE, state);
         return result.getOrThrow(false, errMsg -> {
             throw new JsonSyntaxException("序列化方块状态失败：" + errMsg);
@@ -557,15 +597,35 @@ public class AggregatedBlock implements Predicate<BlockState> {
          */
         @Override
         public Collection<BlockState> getBlocks() {
-            List<BlockState> list = Lists.newArrayList();
-            for(Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
-                list.add(holder.value().defaultBlockState());
+            List<BlockState> list = new ArrayList<>();
+            IForgeRegistry<Block> blockRegistry = ForgeRegistries.BLOCKS;
+            ITagManager<Block> tagManager = blockRegistry.tags();
+
+            if (tagManager != null) {
+                // 1. 获取标签，不存在返回空 ITag，不会空指针
+                ITag<Block> blockTag = tagManager.getTag(this.tag);
+                // 2. 遍历标签内所有方块 Holder
+                blockTag.stream().forEach(block -> {
+                    list.add(block.defaultBlockState());
+                });
             }
-            if (list.size() == 0) {
+
+            if (list.isEmpty()) {
                 list.add(Blocks.BARRIER.defaultBlockState());
             }
             return list;
         }
+//        @Override
+//        public Collection<BlockState> getBlocks() {
+//            List<BlockState> list = Lists.newArrayList();
+//            for(Holder<Block> holder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
+//                list.add(holder.value().defaultBlockState());
+//            }
+//            if (list.size() == 0) {
+//                list.add(Blocks.BARRIER.defaultBlockState());
+//            }
+//            return list;
+//        }
 
         // 序列化为 {"tag": "xxx"}
         @Override

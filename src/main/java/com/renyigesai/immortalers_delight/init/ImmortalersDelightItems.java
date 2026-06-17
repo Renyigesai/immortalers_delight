@@ -107,6 +107,8 @@ public class ImmortalersDelightItems {
     /*工具和武器*/
     @ItemData(zhCn = "谷物香囊")
     public static final RegistryObject<Item> SACHETS;
+    @ItemData(zhCn = "攀绳")
+    public static final RegistryObject<Item> CLIMBING_ROPE;
     @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL,group = NOT)
     public static final RegistryObject<Item> DRILL_ROD_WAND;
     @ItemData(zhCn = "锈蚀古刀",model = ItemData.ModelType.TOOL)
@@ -1578,6 +1580,8 @@ public class ImmortalersDelightItems {
 
         SACHETS = registerWithTab("sachets", () ->
                 new SachetsItem(fantasticItem(Rarity.UNCOMMON).durability(64),false,true));
+        CLIMBING_ROPE = registerWithTab("climbing_rope", () ->
+                new ClimbingRopeItem(fantasticItem(Rarity.UNCOMMON).durability(64)));
 
         //隐藏
         DRILL_ROD_WAND = register("drill_rod_wand", () ->
