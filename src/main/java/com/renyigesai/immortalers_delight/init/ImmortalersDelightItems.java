@@ -48,7 +48,7 @@ public class ImmortalersDelightItems {
 
     /*捆装类物品*/
 
-    @ItemData(zhCn = "远古花蜜果冻冰",model = ItemData.ModelType.TOOL)
+    @ItemData(zhCn = "远古花蜜果冻冰",model = ItemData.ModelType.TOOL,group = NOT)
     public static final RegistryObject<Item> ANCIENT_NECTAR_JELLY;
     @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
