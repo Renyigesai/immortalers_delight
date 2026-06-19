@@ -454,7 +454,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
-    @BlockData
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> PEARLIPEARL_BUNDLE = BLOCKS.register("pearlipearl_bundle",
             ()-> new PearlipearlBeanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(0.5F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).randomTicks()));
 

@@ -152,6 +152,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
     @ItemData(zhCn = "菅米")
     public static final RegistryObject<Item> TRAVARICE;
+    @ItemData(zhCn = "菅米粉")
+    public static final RegistryObject<Item> TRAVA_RICE_FLOUR;
     @ItemData(zhCn = "瓦斯麦")
     public static final RegistryObject<Item> KWAT_WHEAT;
     @ItemData(zhCn = "古苜蓿")
@@ -357,6 +359,18 @@ public class ImmortalersDelightItems {
     */
     @ItemData(zhCn = "菅米饭")
     public static final RegistryObject<Item> COOKED_TRAVARICE;
+    @ItemData(zhCn = "菅米八宝饭")
+    public static final RegistryObject<Item> EIGHT_BERRY_TRAVARICE_CAKE;
+    @ItemData(zhCn = "菅粥")
+    public static final RegistryObject<Item> TRAVA_CONGEE;
+    @ItemData(zhCn = "菅米加州卷")
+    public static final RegistryObject<Item> TRAVA_CALIFORNIA_ROLL;
+    @ItemData(zhCn = "切块菅米加州卷")
+    public static final RegistryObject<Item> TRAVA_CALIFORNIA_ROLL_SLICE;
+    @ItemData(zhCn = "菅粑")
+    public static final RegistryObject<Item> TRAVA_BAO;
+    @ItemData(zhCn = "菅米茶")
+    public static final RegistryObject<Item> TRAVARICE_TEA;
     @ItemData(zhCn = "菅牧典")
     public static final RegistryObject<Item> TRAVEER;
 
@@ -590,6 +604,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> FROSTY_CROWN_MOUSSE;
     @ItemData(zhCn = "霜冠慕斯切片")
     public static final RegistryObject<Item> FROSTY_CROWN_MOUSSE_SLICE;
+    @ItemData(zhCn = "冰披萨")
+    public static final RegistryObject<Item> ICE_PIZZA;
     @ItemData(zhCn = "玛格丽特酒冻")
     public static final RegistryObject<Item> FROZEN_MARGARITA_JELLY;
     @ItemData(zhCn = "炽烈精油")
@@ -1241,6 +1257,7 @@ public class ImmortalersDelightItems {
         TRAVAPLANK = registerWithTab("travaplank",()->new Item(basicItem()));
 
         TRAVARICE = registerWithTab("travarice",()->new ItemNameBlockItem(ImmortalersDelightBlocks.TRAVASTRUGGLER_SAPLING.get(), basicItem()));
+        TRAVA_RICE_FLOUR = registerWithTab("trava_rice_flour",()-> new Item(basicItem()));
 
         A_BUSH = registerWithTab("a_bush",()-> new TooltipItemNameBlockItem(ImmortalersDelightBlocks.A_BUSH.get(),basicItem(),Component.translatable("tooltip.immortalers_delight.a_bush").withStyle(ChatFormatting.GRAY)));
 
@@ -1385,6 +1402,12 @@ public class ImmortalersDelightItems {
         通天菅
         */
         COOKED_TRAVARICE = registerWithTab("cooked_travarice",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.COOKED_TRAVARICE),true));
+        EIGHT_BERRY_TRAVARICE_CAKE = registerWithTab("eight_berry_travarice_cake",()->new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.EIGHT_BERRY_TRAVARICE_CAKE),true));
+        TRAVA_CALIFORNIA_ROLL = foodItem("trava_california_roll",ImmortalersDelightFoodProperties.TRAVA_CALIFORNIA_ROLL,true);
+        TRAVA_CALIFORNIA_ROLL_SLICE = foodItem("trava_california_roll_slice",ImmortalersDelightFoodProperties.TRAVA_CALIFORNIA_ROLL_SLICE,true);
+        TRAVA_CONGEE = registerWithTab("trava_congee",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TRAVA_CONGEE),true));
+        TRAVA_BAO = foodItem("trava_bao",ImmortalersDelightFoodProperties.TRAVA_BAO,true);
+        TRAVARICE_TEA = registerWithTab("travarice_tea",TravariceTeaItem::new);
 
 
 
@@ -1425,10 +1448,10 @@ public class ImmortalersDelightItems {
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.HIMEKAIDO, Rarity.COMMON, false), true));
 
         GOLDEN_HIMEKAIDO = registerWithTab("golden_himekaido", () ->
-                new GoldenHimkaidoFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false),true, true,false));
+                new GoldenHimkaidoFoodItem(fantasticFoodItem(ImmortalersDelightFoodProperties.GOLDEN_HIMEKAIDO, Rarity.RARE, false),true, false,false));
 
         ENCHANTED_GOLDEN_HIMEKAIDO = registerWithTab("enchanted_golden_himekaido", () ->
-                new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,true,true,3,1.0));
+                new EnchantedGoldenHimekaidoFoodItem((new Item.Properties()).rarity(Rarity.EPIC).food(ImmortalersDelightFoodProperties.ENCHANTED_GOLDEN_HIMEKAIDO),true,false,true,3,1.0));
 
         HIMEKAIDO_JELLY = registerWithTab("himekaido_jelly", () ->
                 new DrinkItem(ImmortalersDelightBlocks.HIMEKAIDO_JELLY.get(),new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)){
@@ -1787,6 +1810,7 @@ public class ImmortalersDelightItems {
                 super.onUseTick(level, livingEntity, pStack, pRemainingUseDuration);
             }
                 });
+        ICE_PIZZA = foodItem("ice_pizza",ImmortalersDelightFoodProperties.ICE_PIZZA,true);
         FROZEN_MARGARITA_JELLY = registerWithTab("frozen_margarita_jelly",()->
                 new NeedStrawDrinkItem(foodItem(ImmortalersDelightFoodProperties.FROZEN_MARGARITA_JELLY),
                         null,

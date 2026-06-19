@@ -8,6 +8,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemUtils {
     public static void givePlayerItem(Player player, ItemStack item){
         player.getInventory().placeItemBackInInventory(item);
@@ -30,5 +33,19 @@ public class ItemUtils {
             }
         }
         return true;
+    }
+
+    public static List<ItemStack> splitIntoStacks(ItemStack item, int totalCount) {
+        List<ItemStack> result = new ArrayList<>();
+        int maxStackSize = item.getMaxStackSize();
+        int remaining = totalCount;
+        while (remaining > 0) {
+            int count = Math.min(remaining, maxStackSize);
+            ItemStack stack = item.copy();
+            stack.setCount(count);
+            result.add(stack);
+            remaining -= count;
+        }
+        return result;
     }
 }
