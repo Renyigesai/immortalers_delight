@@ -626,7 +626,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ONSEN_TAMAGO;
 
     /*石锅与新烹饪*/
-    @ItemData(zhCn = "怨泉桶")
+    @ItemData(zhCn = "怨泉桶",enUs = "Grudge Spring Bucket")
     public static final RegistryObject<Item> HOT_SPRING_BUCKET;
     @ItemData(zhCn = "石锅")
     public static final RegistryObject<Item> STONE_POT;
@@ -1890,7 +1890,7 @@ public class ImmortalersDelightItems {
         COOKED_SNIFFER_TAIL = foodItem("cooked_sniffer_tail",ImmortalersDelightFoodProperties.COOKED_SNIFFER_TAIL);
         RAW_SNIFFER_STEAK = foodItem("raw_sniffer_steak", ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK,true);
         COOKED_SNIFFER_STEAK = foodItem("cooked_sniffer_steak", ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, true);
-        SNIFFER_TRAVA_ZONGZI = foodItem("sniffer_trava_zongzi",ImmortalersDelightFoodProperties.SNIFFER_TRAVA_ZONGZI);
+        SNIFFER_TRAVA_ZONGZI = foodItem("sniffer_trava_zongzi",ImmortalersDelightFoodProperties.SNIFFER_TRAVA_ZONGZI,true);
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
