@@ -1,5 +1,5 @@
 {
-	"parent": "immortalers_delight:custom/pizza_slice2",
+	"parent": "immortalers_delight:custom/pizza",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "immortalers_delight:block/roasted_mushroom_pizza",

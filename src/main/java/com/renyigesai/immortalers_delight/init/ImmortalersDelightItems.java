@@ -104,6 +104,8 @@ public class ImmortalersDelightItems {
     /*工具和武器*/
     @ItemData(zhCn = "谷物香囊")
     public static final RegistryObject<Item> SACHETS;
+    @ItemData(zhCn = "攀绳")
+    public static final RegistryObject<Item> CLIMBING_ROPE;
     @ItemData(zhCn = "龙骨钎【WIP】",enUs = "Drill Rod Wand【WIP】",model = ItemData.ModelType.TOOL,group = NOT)
     public static final RegistryObject<Item> DRILL_ROD_WAND;
     @ItemData(zhCn = "锈蚀古刀",model = ItemData.ModelType.TOOL)
@@ -363,9 +365,9 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EIGHT_BERRY_TRAVARICE_CAKE;
     @ItemData(zhCn = "菅粥")
     public static final RegistryObject<Item> TRAVA_CONGEE;
-    @ItemData(zhCn = "菅米加州卷")
+    @ItemData(zhCn = "菅米加州卷",group = NOT)
     public static final RegistryObject<Item> TRAVA_CALIFORNIA_ROLL;
-    @ItemData(zhCn = "切块菅米加州卷")
+    @ItemData(zhCn = "切块菅米加州卷",group = NOT)
     public static final RegistryObject<Item> TRAVA_CALIFORNIA_ROLL_SLICE;
     @ItemData(zhCn = "菅粑")
     public static final RegistryObject<Item> TRAVA_BAO;
@@ -606,6 +608,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> FROSTY_CROWN_MOUSSE_SLICE;
     @ItemData(zhCn = "冰披萨")
     public static final RegistryObject<Item> ICE_PIZZA;
+    @ItemData(zhCn = "冰披萨片")
+    public static final RegistryObject<Item> ICE_PIZZA_SLICE;
     @ItemData(zhCn = "玛格丽特酒冻")
     public static final RegistryObject<Item> FROZEN_MARGARITA_JELLY;
     @ItemData(zhCn = "炽烈精油")
@@ -700,6 +704,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> RAW_SNIFFER_STEAK;
     @ItemData(zhCn = "熟嗅探兽肉排")
     public static final RegistryObject<Item> COOKED_SNIFFER_STEAK;
+    @ItemData(zhCn = "嗅菅粽子")
+    public static final RegistryObject<Item> SNIFFER_TRAVA_ZONGZI;
 
     /*船*/
     @ItemData(zhCn = "姬海棠木船")
@@ -1599,9 +1605,12 @@ public class ImmortalersDelightItems {
         SACHETS = registerWithTab("sachets", () ->
                 new SachetsItem(fantasticItem(Rarity.UNCOMMON).durability(64),false,true));
 
+        CLIMBING_ROPE = registerWithTab("climbing_rope", () ->
+                new ClimbingRopeItem(fantasticItem(Rarity.UNCOMMON).durability(64)));
+
         //隐藏
         DRILL_ROD_WAND = register("drill_rod_wand", () ->
-                new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));
+                new DrillRodItem(1,-2.4F, ImmortalersTiers.MAGIC_POWERED, BlockTags.MINEABLE_WITH_PICKAXE,ImmortalersDelightTags.Blocks.MINEABLE_WITH_DRILL_ROD,fantasticItem(Rarity.RARE),4));
 
         RUSTY_ANCIENT_BLADE = registerWithTab("rusty_ancient_blade", () ->
                 new ImmortalersKnifeItem(ImmortalersKnifeItem.ANCIENT_KNIFE_TYPE,ImmortalersTiers.RUSTY_IRON,2,-2.0f,2,0,new Item.Properties()));
@@ -1810,7 +1819,10 @@ public class ImmortalersDelightItems {
                 super.onUseTick(level, livingEntity, pStack, pRemainingUseDuration);
             }
                 });
-        ICE_PIZZA = foodItem("ice_pizza",ImmortalersDelightFoodProperties.ICE_PIZZA,true);
+
+        ICE_PIZZA = block(ImmortalersDelightBlocks.ICE_PIZZA);
+        ICE_PIZZA_SLICE = foodItem("ice_pizza_slice",ImmortalersDelightFoodProperties.ICE_PIZZA);
+
         FROZEN_MARGARITA_JELLY = registerWithTab("frozen_margarita_jelly",()->
                 new NeedStrawDrinkItem(foodItem(ImmortalersDelightFoodProperties.FROZEN_MARGARITA_JELLY),
                         null,
@@ -1878,6 +1890,7 @@ public class ImmortalersDelightItems {
         COOKED_SNIFFER_TAIL = foodItem("cooked_sniffer_tail",ImmortalersDelightFoodProperties.COOKED_SNIFFER_TAIL);
         RAW_SNIFFER_STEAK = foodItem("raw_sniffer_steak", ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK,true);
         COOKED_SNIFFER_STEAK = foodItem("cooked_sniffer_steak", ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, true);
+        SNIFFER_TRAVA_ZONGZI = foodItem("sniffer_trava_zongzi",ImmortalersDelightFoodProperties.SNIFFER_TRAVA_ZONGZI);
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->
