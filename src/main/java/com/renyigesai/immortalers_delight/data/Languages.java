@@ -155,7 +155,7 @@ public class Languages extends LanguageProvider {
     }
 
     private void addFluids(){
-        add("fluid_type.immortalers.delight.hot_spring","Grudge Spring","怨泉");
+        add("fluid_type.immortalers_delight.hot_spring","Grudge Spring","怨泉");
     }
 
     private void addTooltips(){
@@ -423,6 +423,13 @@ public class Languages extends LanguageProvider {
         add("creativetab_immortalers_delight_main_tab","Immortalers Delight Main","千古乐事 主物品");
         add("creativetab_immortalers_delight_decorative_blocks_tab","Immortalers Delight Decorative Blocks","千古乐事 装饰方块");
         add("config.jade.plugin_immortalers_delight.sniffer","Sniffer","嗅探兽");
+
+        add("item.minecraft.potion.effect.gas","Gas Potion","绯烬烈灼药水");
+        add("item.minecraft.splash_potion.effect.gas","Splash potion of Gas","喷溅型绯烬烈灼药水");
+        add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
+
+        add("tag.item.c.drinks.milk", "Milk", "牛奶");
+        add("tag.item.forge.milk", "Milk", "牛奶");
     }
 
     private void createDesc(String key,String en_us,String zh_cn){
@@ -456,6 +463,7 @@ public class Languages extends LanguageProvider {
 
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
+        add(FARMERSDELIGHT_TOOLTIP + ImmortalersDelightMod.MODID + ":" + key,en_us,zh_cn);
     }
     private void createMessage(String key,String en_us,String zh_cn){
         add(MESSAGE + key,en_us,zh_cn);

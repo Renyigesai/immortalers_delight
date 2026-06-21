@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:cooked_travarice"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_leaf"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_root_cuts"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "immortalers_delight:trava_california_roll"
+  }
+}

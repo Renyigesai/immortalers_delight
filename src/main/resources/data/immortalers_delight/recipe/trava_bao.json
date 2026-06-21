@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "immortalers_delight:trava_rice_flour"
+    },
+    {
+      "item": "immortalers_delight:trava_rice_flour"
+    },
+    {
+      "item": "immortalers_delight:trava_rice_flour"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "immortalers_delight:trava_bao"
+  }
+}

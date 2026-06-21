@@ -6,6 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemUtils {
     public static void givePlayerItem(Player player, ItemStack item){
         player.getInventory().placeItemBackInInventory(item);
@@ -19,5 +22,19 @@ public class ItemUtils {
 
     public static boolean isKnives(ItemStack handStack){
         return handStack.is(ImmortalersDelightTags.FARMERSDELIGHT_KNIVES) || handStack.is(ImmortalersDelightTags.KNIVES);
+    }
+
+    public static List<ItemStack> splitIntoStacks(ItemStack item, int totalCount) {
+        List<ItemStack> result = new ArrayList<>();
+        int maxStackSize = item.getMaxStackSize();
+        int remaining = totalCount;
+        while (remaining > 0) {
+            int count = Math.min(remaining, maxStackSize);
+            ItemStack stack = item.copy();
+            stack.setCount(count);
+            result.add(stack);
+            remaining -= count;
+        }
+        return result;
     }
 }

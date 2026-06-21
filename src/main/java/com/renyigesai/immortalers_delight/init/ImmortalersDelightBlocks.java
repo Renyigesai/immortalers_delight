@@ -562,6 +562,10 @@ public class ImmortalersDelightBlocks {
             new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final DeferredHolder<Block, Block> ICE_PIZZA = BLOCKS.register("ice_pizza",()->
+            new PizzaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.ICE_PIZZA_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final DeferredHolder<Block, Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
             () -> new KwatWheatCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 

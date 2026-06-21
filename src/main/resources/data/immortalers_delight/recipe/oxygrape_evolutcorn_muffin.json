@@ -15,7 +15,7 @@
       "tag": "forge:eggs"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:drinks/milk"
     },
     {
       "item": "minecraft:sugar"
