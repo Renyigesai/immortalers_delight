@@ -179,7 +179,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
         @SubscribeEvent
         public static void onCakeInteraction(PlayerInteractEvent.RightClickBlock event) {
             ItemStack toolStack = event.getEntity().getItemInHand(event.getHand());
-            if (toolStack.is(ImmortalersDelightTags.IMMORTAL_KNIVES)) {
+            if (toolStack.is(ImmortalersDelightTags.Items.IMMORTAL_KNIVES)) {
                 Level level = event.getLevel();
                 BlockPos pos = event.getPos();
                 BlockState state = event.getLevel().getBlockState(pos);

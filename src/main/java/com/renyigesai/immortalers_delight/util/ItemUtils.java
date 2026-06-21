@@ -23,7 +23,7 @@ public class ItemUtils {
     }
 
     public static boolean isKnives(ItemStack handStack){
-        return vectorwing.farmersdelight.common.utility.ItemUtils.isKnife(handStack) || handStack.is(ImmortalersDelightTags.KNIVES);
+        return vectorwing.farmersdelight.common.utility.ItemUtils.isKnife(handStack) || handStack.is(ImmortalersDelightTags.Items.KNIVES);
     }
 
     public static boolean isInventoryEmpty(IItemHandler inventory) {

@@ -46,10 +46,10 @@ public class NeedStrawDrinkItem extends InebriatedToxicFoodItem{
         ItemStack itemStack = super.finishUsingItem(stack, level, livingEntity);
         if (livingEntity instanceof Player player && !player.getAbilities().instabuild) {
             InteractionHand hand = livingEntity.getUsedItemHand();
-            if (player.getMainHandItem().is(ImmortalersDelightTags.STRAW)) {
+            if (player.getMainHandItem().is(ImmortalersDelightTags.Items.STRAW)) {
                 hand = InteractionHand.MAIN_HAND;
             }
-            if (player.getOffhandItem().is(ImmortalersDelightTags.STRAW)) {
+            if (player.getOffhandItem().is(ImmortalersDelightTags.Items.STRAW)) {
                 hand = InteractionHand.OFF_HAND;
             }
             player.getItemInHand(hand).shrink(1);
@@ -70,7 +70,7 @@ public class NeedStrawDrinkItem extends InebriatedToxicFoodItem{
     public FoodProperties getFoodProperties(ItemStack stack, @org.jetbrains.annotations.Nullable LivingEntity entity) {
         if (entity != null && haveStrawFoodProperties != null) {
             if (entity instanceof Player) {
-                if (entity.getOffhandItem().is(ImmortalersDelightTags.STRAW) || entity.getMainHandItem().is(ImmortalersDelightTags.STRAW)) {
+                if (entity.getOffhandItem().is(ImmortalersDelightTags.Items.STRAW) || entity.getMainHandItem().is(ImmortalersDelightTags.Items.STRAW)) {
                     if (DifficultyModeUtil.isPowerBattleMode()) {
                         return this.haveStrawPoweredFoodProperties;
                     }

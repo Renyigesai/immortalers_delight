@@ -156,10 +156,10 @@ public class UnfinishedTangyuanBlock extends BaseEntityBlock {
             else if (tangyuanBlockEntity.tryInput(heldStack, true) || tangyuanBlockEntity.tryInput(offhandStack, true)) {
                 // 处理副手物品的特殊情况（如装备类物品不能放置）
                 if (!offhandStack.isEmpty()) {
-                    if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
+                    if (hand.equals(InteractionHand.MAIN_HAND) && !offhandStack.is(ImmortalersDelightTags.Items.OFFHAND_EQUIPMENT) && !(heldStack.getItem() instanceof BlockItem)) {
                         return InteractionResult.PASS;
                     }
-                    if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ImmortalersDelightTags.OFFHAND_EQUIPMENT)) {
+                    if (hand.equals(InteractionHand.OFF_HAND) && offhandStack.is(ImmortalersDelightTags.Items.OFFHAND_EQUIPMENT)) {
                         return InteractionResult.PASS;
                     }
                 }

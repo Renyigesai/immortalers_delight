@@ -28,7 +28,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
     /**现在cactus_resistance标签内的物品不能被仙人掌摧毁了*/
     @Inject(method = "hurt",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;markHurt()V", shift = At.Shift.BEFORE),cancellable = true)
     private void hurt(DamageSource pSource, float pAmount, CallbackInfoReturnable<Boolean> cir){
-        if (this.getItem().is(ImmortalersDelightTags.CACTUS_RESISTANCE) && pSource.is(DamageTypes.CACTUS)){
+        if (this.getItem().is(ImmortalersDelightTags.Items.CACTUS_RESISTANCE) && pSource.is(DamageTypes.CACTUS)){
             cir.setReturnValue(false);
         }
     }

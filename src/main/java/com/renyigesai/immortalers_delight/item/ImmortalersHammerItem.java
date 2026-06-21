@@ -54,7 +54,7 @@ public class ImmortalersHammerItem extends DiggerItem {
 
     public static final int[] GIDDINESS_TIME = new int[]{16, 20, 24, 28, 32, 36, 40, 44};
     public ImmortalersHammerItem(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.MINEABLE_HAMMER, pProperties);
+        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.Blocks.MINEABLE_HAMMER, pProperties);
         this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
         this.attackSpeed = pAttackSpeedModifier;
         this.extra_attackDamage = 0;
@@ -62,7 +62,7 @@ public class ImmortalersHammerItem extends DiggerItem {
     }
 
     public ImmortalersHammerItem(int type, Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, float pExtraAttackDamage, float pExtraAttackSpeed, Properties pProperties) {
-        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.MINEABLE_HAMMER, pProperties);
+        super(pAttackDamageModifier, pAttackSpeedModifier, pTier, ImmortalersDelightTags.Blocks.MINEABLE_HAMMER, pProperties);
         this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
         this.attackSpeed = pAttackSpeedModifier;
         this.extra_attackDamage = pExtraAttackDamage;
@@ -174,19 +174,19 @@ public class ImmortalersHammerItem extends DiggerItem {
         public static void onItemTooltip(ItemTooltipEvent event) {
             ItemStack stack = event.getItemStack();
 
-            if (stack.is(ImmortalersDelightTags.IMMORTAL_KNIVES)) {
+            if (stack.is(ImmortalersDelightTags.Items.IMMORTAL_KNIVES)) {
                 MutableComponent textValue = Component.translatable(
                         "tooltip." +ImmortalersDelightMod.MODID+ ".is_immortalers_knives"
                 );
                 event.getToolTip().add(textValue.withStyle(ChatFormatting.BLUE));
             }
-            if (stack.is(ImmortalersDelightTags.IMMORTAL_HAMMERS)) {
+            if (stack.is(ImmortalersDelightTags.Items.IMMORTAL_HAMMERS)) {
                 MutableComponent textValue = Component.translatable(
                         "tooltip." +ImmortalersDelightMod.MODID+ ".is_immortalers_hammers"
                 );
                 event.getToolTip().add(textValue.withStyle(ChatFormatting.BLUE));
             }
-            if (stack.is(ImmortalersDelightTags.STRAW)) {
+            if (stack.is(ImmortalersDelightTags.Items.STRAW)) {
                 MutableComponent textValue = Component.translatable(
                         "tooltip." +ImmortalersDelightMod.MODID+ ".is_straw"
                 );

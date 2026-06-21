@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.data.recipes;
 
 import com.renyigesai.immortalers_delight.data.builder.ImmCookingPotRecipeBuilder;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import vectorwing.farmersdelight.common.tag.CommonTags;
@@ -45,6 +46,12 @@ public class CookingRecipes {
 
         ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.TRAVA_CONGEE.get(),1,200,0.35f,Items.BOWL)
                 .addIngredient(ImmortalersDelightItems.COOKED_TRAVARICE.get())
+                .build(consumer);
+
+        ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.SNIFFER_TRAVA_ZONGZI.get(),2,200,0.35f)
+                .addIngredient(ImmortalersDelightItems.TRAVARICE.get())
+                .addIngredient(ImmortalersDelightItems.RAW_SNIFFER_STEAK.get())
+                .addIngredient(ImmortalersDelightTags.Items.LEAVESS)
                 .build(consumer);
     }
 
