@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:trava_california_roll"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_knives"
+  },
+  "result": [
+    {
+      "item": {
+        "count": 3,
+        "id": "immortalers_delight:trava_california_roll_slice"
+      }
+    }
+  ]
+}

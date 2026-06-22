@@ -127,12 +127,14 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         List<ItemStack> stackList = new ArrayList<>();
         for (ItemEntity entity : itemEntityList) {
             ItemStack item = entity.getItem();
-            if (!item.isEmpty() && item.getCount() == 1) {
+            if (!item.isEmpty()) {
                 stackList.add(item);
             }
         }
         if (stackList.isEmpty())
             return;
+
+        int resultCount = getResultCount(stackList);
         Optional<HotSpringRecipe> recipeOptional = getCurrentRecipe(level,stackList);
         if (recipeOptional.isEmpty()){
             return;
@@ -140,9 +142,14 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         HotSpringRecipe recipe = recipeOptional.get();
         ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
         for (ItemEntity itemEntity : itemEntityList) {
-            itemEntity.remove(Entity.RemovalReason.DISCARDED);
+            int count = itemEntity.getItem().getCount();
+            if (count > resultCount){
+                itemEntity.getItem().shrink(resultCount);
+            }else {
+                itemEntity.remove(Entity.RemovalReason.DISCARDED);
+            }
         }
-        ItemUtils.spawnItemEntity(level,resultItem,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,0,0,0);
+        ItemUtils.splitIntoStacks(resultItem, resultCount).forEach(item -> ItemUtils.spawnItemEntity(level, item, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0));
         if (level instanceof ServerLevel serverLevel){
             for (int i = 0; i < 4; i++) {
                 Vec3 vec3 = new Vec3((double)((level.random.nextFloat() * 2.0F - 1.0F) * 0.4F), level.random.nextInt(4) * 0.25D - 0.25D, (double)((level.random.nextFloat() * 2.0F - 1.0F) * 0.4F));
@@ -180,5 +187,23 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         } else if (pEntity instanceof ItemEntity){
             pLevel.scheduleTick(pPos,this,5);
         }
+    }
+
+    private static int getResultCount(List<ItemStack> stackList) {
+        int maxCount = 1;
+        for (ItemStack stack : stackList) {
+            int itemCount = stack.getMaxStackSize();
+            if (itemCount > maxCount){
+                maxCount = itemCount;
+            }
+        }
+        int resultCount = maxCount;
+        for (ItemStack stack : stackList) {
+            int itemCount = stack.getCount();
+            if (itemCount < resultCount) {
+                resultCount = itemCount;
+            }
+        }
+        return Math.max(resultCount, 1);
     }
 }

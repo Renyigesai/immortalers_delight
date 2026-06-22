@@ -32,6 +32,12 @@
                 "immortalers_delight_blocking": 1
             },
             "model": "immortalers_delight:item/large_column_blocking"
+        },
+        {
+            "predicate": {
+                "immortalers_delight_flat_icon": 1
+            },
+            "model": "immortalers_delight:item/large_column_gui"
         }
     ]
 }

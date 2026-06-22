@@ -8,6 +8,8 @@ import com.mojang.logging.LogUtils;
 
 import com.renyigesai.immortalers_delight.advancement.*;
 
+import com.renyigesai.immortalers_delight.client.ClientEventHelper;
+import com.renyigesai.immortalers_delight.client.renderer.special_item.FlatItemIconModels;
 import com.renyigesai.immortalers_delight.client.model.*;
 
 import com.renyigesai.immortalers_delight.client.model.projectile.*;
@@ -169,6 +171,10 @@ public class ImmortalersDelightMod {
         ImmortalersDelightLootModifierSerializers.register(modEventBus);
 
         ImmortalersDelightRecipeTypes.register(modEventBus);
+
+        modEventBus.addListener(ClientEventHelper::registerClientExtensions);
+        modEventBus.addListener(FlatItemIconModels::onRegisterAdditionalModels);
+        modEventBus.addListener(FlatItemIconModels::onModelBake);
 
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 

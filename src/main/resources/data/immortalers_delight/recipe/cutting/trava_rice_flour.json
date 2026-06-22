@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:travarice"
+    }
+  ],
+  "tool": {
+    "tag": "immortalers_delight:tools/immortal_hammers"
+  },
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "immortalers_delight:trava_rice_flour"
+      }
+    }
+  ]
+}

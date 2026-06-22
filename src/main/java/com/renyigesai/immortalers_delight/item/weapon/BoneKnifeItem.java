@@ -191,16 +191,16 @@ public class BoneKnifeItem extends ImmortalersKnifeItem {
 
     }
 
-    @SuppressWarnings("removal")
-    @Override
-    public void initializeClient(Consumer<net.neoforged.neoforge.client.extensions.common.IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new ItemTESRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-            }
-        });
-    }
+//    @SuppressWarnings("removal")
+//    @Override
+//    public void initializeClient(Consumer<net.neoforged.neoforge.client.extensions.common.IClientItemExtensions> consumer) {
+//        consumer.accept(new IClientItemExtensions() {
+//            @Override
+//            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+//                return new ItemTESRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+//            }
+//        });
+//    }
 //
 //    @EventBusSubscriber(modid = ImmortalersDelightMod.MODID, value = net.neoforged.api.distmarker.Dist.CLIENT)
 //    public static class ClientEventBus{

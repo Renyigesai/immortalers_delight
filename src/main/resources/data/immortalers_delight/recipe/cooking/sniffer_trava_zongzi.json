@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredients": [
+    {
+      "item": "immortalers_delight:travarice"
+    },
+    {
+      "item": "immortalers_delight:raw_sniffer_steak"
+    },
+    {
+      "tag": "minecraft:leaves"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "immortalers_delight:sniffer_trava_zongzi"
+  }
+}

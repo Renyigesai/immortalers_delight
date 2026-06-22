@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredients": [
+    {
+      "item": "immortalers_delight:travarice"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:pearlipearl"
+    },
+    {
+      "item": "minecraft:sunflower"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn"
+    },
+    {
+      "item": "immortalers_delight:evolutcorn_hard_candy"
+    }
+  ],
+  "result": {
+    "id": "immortalers_delight:eight_berry_travarice_cake"
+  }
+}
