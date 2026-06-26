@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:wheat",
-    "minecraft:wheat_seeds"
+    "#immortalers_delight:wheat_ingredients"
   ]
 }

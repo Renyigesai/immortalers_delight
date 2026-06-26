@@ -38,7 +38,7 @@ BEEF_PORK_C_ARRAY = [{"tag": "c:foods/raw_beef"}, {"tag": "c:foods/raw_pork"}]
 CHICKEN_C_ARRAY = [{"tag": "c:foods/raw_chicken"}, {"item": "minecraft:chicken"}]
 
 REPLACEMENTS = {
-    norm(SUGAR_ARRAY): {"tag": "forge:sugar"},
+    norm(SUGAR_ARRAY): {"tag": "c:sugar"},
     norm(RAW_MEATS_ARRAY): {"tag": "forge:common_raw_meats"},
     norm(RAW_MEATS_C_ARRAY): {"tag": "forge:common_raw_meats"},
     norm(BEEF_PORK_ARRAY): {"tag": "forge:beef_or_pork"},

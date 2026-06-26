@@ -17,7 +17,7 @@
       "item": "minecraft:rotten_flesh"
     },
     {
-      "tag": "forge:rawchicken"
+      "tag": "c:foods/raw_chicken"
     }
   ],
   "container": {

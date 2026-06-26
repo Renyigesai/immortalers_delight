@@ -8,7 +8,7 @@
       "item": "minecraft:kelp"
     },
     {
-      "tag": "forge:raw_beef"
+      "tag": "c:foods/raw_beef"
     }
   ],
   "container": {

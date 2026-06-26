@@ -15,7 +15,7 @@
       "item": "minecraft:bowl"
     },
     {
-      "tag": "forge:vegetables/tomato"
+      "tag": "c:crops/tomato"
     }
   ],
   "result": {

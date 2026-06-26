@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:beef",
-    "minecraft:porkchop",
-    "minecraft:chicken"
+    "#immortalers_delight:common_raw_meats"
   ]
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sugar",
-    "immortalers_delight:evolutcorn_hard_candy"
+    "#c:sugar"
   ]
 }
