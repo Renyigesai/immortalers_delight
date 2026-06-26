@@ -2,14 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "aab"
+    "aa",
+    " b"
   ],
   "key": {
     "a": {
-      "item": "minecraft:lead"
+      "item": "farmersdelight:rope"
     },
     "b": {
-      "item": "immortalers_delight:travastruggler_log"
+      "item": "minecraft:stone"
     }
   },
   "result": {
