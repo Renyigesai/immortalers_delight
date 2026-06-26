@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "farmersdelight:cabbage"
+      "tag": "forge:salad_ingredients"
     },
     {
       "item": "farmersdelight:onion"
@@ -15,7 +15,7 @@
       "item": "minecraft:bowl"
     },
     {
-      "tag": "c:crops/tomato"
+      "tag": "forge:vegetables/tomato"
     }
   ],
   "result": {
