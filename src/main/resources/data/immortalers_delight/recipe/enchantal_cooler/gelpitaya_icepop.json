@@ -10,14 +10,9 @@
     {
       "item": "immortalers_delight:gelpitaya_flesh"
     },
-    [
-      {
-        "item": "minecraft:sugar"
-      },
-      {
-        "tag": "forge:sugar"
-      }
-    ]
+    {
+      "tag": "forge:sugar"
+    }
   ],
   "container": {
     "id": "minecraft:stick"

@@ -2,7 +2,7 @@
   "type": "farmersdelight:cooking",
   "ingredients": [
     {
-      "item": "minecraft:grass"
+      "item": "minecraft:short_grass"
     },
     {
       "item": "minecraft:seagrass"
@@ -16,14 +16,9 @@
     {
       "item": "immortalers_delight:alfalfa"
     },
-    [
-      {
-        "tag": "forge:crops/rice"
-      },
-      {
-        "tag": "forge:seeds/rice"
-      }
-    ]
+    {
+      "tag": "forge:crops/rice"
+    }
   ],
   "container": {
     "id": "minecraft:bowl"

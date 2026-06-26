@@ -10,22 +10,12 @@
     {
       "tag": "forge:crops/rice"
     },
-    [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
-    [
-      {
-        "tag": "c:foods/raw_beef"
-      },
-      {
-        "tag": "c:foods/raw_pork"
-      }
-    ]
+    {
+      "tag": "forge:mushrooms"
+    },
+    {
+      "tag": "forge:beef_or_pork"
+    }
   ],
   "result": {
     "count": 2,
