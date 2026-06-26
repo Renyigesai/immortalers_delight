@@ -7,14 +7,9 @@
     {
       "item": "immortalers_delight:himekaido"
     },
-    [
-      {
-        "item": "minecraft:sugar"
-      },
-      {
-        "tag": "forge:sugar"
-      }
-    ]
+    {
+      "tag": "c:sugar"
+    }
   ],
   "container": {
     "id": "minecraft:stick"

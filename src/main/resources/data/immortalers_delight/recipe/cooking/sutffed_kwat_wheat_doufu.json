@@ -8,24 +8,14 @@
       "item": "immortalers_delight:fry_kwat_wheat_doufu"
     },
     {
-      "tag": "forge:crops/rice"
+      "tag": "c:crops/rice"
     },
-    [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
-    [
-      {
-        "tag": "c:foods/raw_beef"
-      },
-      {
-        "tag": "c:foods/raw_pork"
-      }
-    ]
+    {
+      "tag": "c:foods/mushroom"
+    },
+    {
+      "tag": "immortalers_delight:beef_or_pork"
+    }
   ],
   "result": {
     "count": 2,

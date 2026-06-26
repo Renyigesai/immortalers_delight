@@ -7,14 +7,9 @@
     {
       "item": "minecraft:carrot"
     },
-    [
-      {
-        "item": "minecraft:sugar"
-      },
-      {
-        "tag": "forge:sugar"
-      }
-    ]
+    {
+      "tag": "c:sugar"
+    }
   ],
   "container": {
     "id": "minecraft:glass_bottle"

@@ -16,14 +16,9 @@
     {
       "item": "immortalers_delight:alfalfa"
     },
-    [
-      {
-        "tag": "forge:crops/wheat"
-      },
-      {
-        "tag": "forge:seeds/wheat"
-      }
-    ]
+    {
+      "tag": "immortalers_delight:wheat_ingredients"
+    }
   ],
   "result": {
     "id": "immortalers_delight:large_column"

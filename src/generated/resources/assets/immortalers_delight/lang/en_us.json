@@ -354,6 +354,8 @@
   "effect.immortalers_delight.weak_poison.description": "Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.",
   "effect.immortalers_delight.weak_wither": "Weak Wither",
   "effect.immortalers_delight.weak_wither.description": "Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.",
+  "emi.category.immortalers_delight.enchantal_cooler": "Enchantal Cooler",
+  "emi.category.immortalers_delight.hot_spring": "Grudge Spring",
   "entity.immortalers_delight.ancient_boat": "Ancient Boat",
   "entity.immortalers_delight.ancient_wood": "Ancient Wood Boat",
   "entity.immortalers_delight.ancient_wood.chest_boat": "Ancient Wood Chest Boat",

@@ -1,0 +1,28 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:roasted_mushroom_pizza"
+    }
+  ],
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "c:tools/knife"
+    },
+    {
+      "tag": "immortalers_delight:tools/immortal_knives"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "immortalers_delight:roasted_mushroom_pizza_slice",
+        "count": 4
+      }
+    }
+  ]
+}

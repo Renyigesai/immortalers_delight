@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.world.feature.ModConfigureFeature;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -46,7 +47,8 @@ public class EnchantAbleFoodItem extends ConsumableItem{
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (this.tooltipColorId != 9) {
-            MutableComponent textEmpty = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ ".colorful." + this);
+            String itemId = BuiltInRegistries.ITEM.getKey(this).getPath();
+            MutableComponent textEmpty = Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".colorful." + itemId);
             ChatFormatting color = ChatFormatting.getById(this.tooltipColorId);
             if (color != null) {tooltip.add(textEmpty.withStyle(color));}
         }

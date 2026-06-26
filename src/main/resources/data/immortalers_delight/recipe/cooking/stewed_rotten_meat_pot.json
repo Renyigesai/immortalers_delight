@@ -16,14 +16,9 @@
     {
       "item": "minecraft:rotten_flesh"
     },
-    [
-      {
-        "tag": "c:foods/raw_chicken"
-      },
-      {
-        "item": "minecraft:chicken"
-      }
-    ]
+    {
+      "tag": "c:foods/raw_chicken"
+    }
   ],
   "container": {
     "id": "minecraft:decorated_pot"

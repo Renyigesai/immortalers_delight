@@ -8,7 +8,7 @@
       "item": "minecraft:wheat"
     },
     {
-      "tag": "forge:crops/rice"
+      "tag": "c:crops/rice"
     }
   ],
   "container": {

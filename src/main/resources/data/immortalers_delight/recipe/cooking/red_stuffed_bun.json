@@ -6,17 +6,9 @@
     {
       "item": "immortalers_delight:kwat_wheat_dough"
     },
-    [
-      {
-        "tag": "c:foods/raw_chicken"
-      },
-      {
-        "tag": "c:foods/raw_pork"
-      },
-      {
-        "tag": "c:foods/raw_beef"
-      }
-    ],
+    {
+      "tag": "immortalers_delight:common_raw_meats"
+    },
     {
       "item": "minecraft:torchflower"
     },
