@@ -40,6 +40,7 @@ public class Languages extends LanguageProvider {
 
     private static final String ADVANCEMENT = "advancements.immortalers_delight.";
     private static final String CONTAINER = "container.immortalers_delight.";
+    private static final String EMI_CATEGORY = "emi.category.immortalers_delight.";
     private static final String TOOLTIP = "tooltip.immortalers_delight.";
     private static final String IS_COLORFUL = "colorful.";
     private static final String MESSAGE = "message.immortalers_delight.";
@@ -80,6 +81,7 @@ public class Languages extends LanguageProvider {
         addTooltips();
         addMessages();
         addContainers();
+        addEmiCategories();
         addEffects();
         addEntitys();
         addAdvancements();
@@ -244,6 +246,11 @@ public class Languages extends LanguageProvider {
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
         createContainer("hot_spring","Grudge Spring","怨泉");
+    }
+
+    private void addEmiCategories(){
+        createEmiCategory("enchantal_cooler","Enchantal Cooler","魔凝机");
+        createEmiCategory("hot_spring","Grudge Spring","怨泉");
     }
 
 
@@ -454,6 +461,10 @@ public class Languages extends LanguageProvider {
 
     private void createContainer(String key,String en_us,String zh_cn){
         add(CONTAINER + key,en_us,zh_cn);
+    }
+
+    private void createEmiCategory(String key,String en_us,String zh_cn){
+        add(EMI_CATEGORY + key,en_us,zh_cn);
     }
 
     private void createTooltip(String key,String zh_cn,String en_us){
