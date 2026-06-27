@@ -1581,7 +1581,7 @@ public class ImmortalersDelightItems {
         冒险相关物品
          */
         GOLDEN_FABRIC = registerWithTab("golden_fabric", () ->
-                new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
+                new ConsumableItem(fantasticItem(Rarity.RARE),false,false));
 
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(Holder.direct(ImmortalersArmorMaterials.GOLDEN_FABRIC), ArmorItem.Type.HELMET, fantasticItem(Rarity.RARE)));

@@ -45,6 +45,7 @@ public class Languages extends LanguageProvider {
     private static final String IS_COLORFUL = "colorful.";
     private static final String MESSAGE = "message.immortalers_delight.";
     private static final String FARMERSDELIGHT_TOOLTIP = "farmersdelight.tooltip.";
+    private static final String FARMERSDELIGHT_TOOLTIP_REVERSE = "tooltip.farmersdelight.";
     private static final String ENTITY = "entity.immortalers_delight.";
 
     public Languages(PackOutput output, String locale) {
@@ -240,6 +241,14 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("bone_knife","Charge up to deal more damage.","蓄力以造成更多伤害");
         createFarmersdelightTooltip("bone_knife.1","Looting -I","抢夺 -I");
         createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
+
+        createFarmersdelightTooltipReverse("vara_ji","Perhaps one would need to drink through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltipReverse("hong_mei_ling","You have gained a new understanding of \"using qi\"","你对“用气”有了新的理解……");
+        createFarmersdelightTooltipReverse("pearlip_beer","Perhaps one would need to drink through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltipReverse("sachets","Attract Sniffing Beasts.","吸引嗅探兽。");
+        createFarmersdelightTooltipReverse("golden_kwat_toast","Give away the pig spirit barbarian soldiers in exchange for the support of the fortress.","赠与猪灵蛮兵以换取堡垒的拥护。");
+        createFarmersdelightTooltipReverse("golden_kwat_toast_slice","Eat it in front of the pig spirit to command its respect and awe.","在猪灵面前食用以令其敬畏。");
+        createFarmersdelightTooltip("bizarre_sausage","Your dog wants this.","你的狗狗想要这个。");
 
     }
 
@@ -437,6 +446,10 @@ public class Languages extends LanguageProvider {
 
         add("tag.item.c.drinks.milk", "Milk", "牛奶");
         add("tag.item.forge.milk", "Milk", "牛奶");
+
+        add("item.minecraft.potion.effect.gas","Gas Potion","绯烬烈灼药水");
+        add("item.minecraft.splash_potion.effect.gas","Splash potion of Gas","喷溅型绯烬烈灼药水");
+        add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
     }
 
     private void createDesc(String key,String en_us,String zh_cn){
@@ -475,6 +488,9 @@ public class Languages extends LanguageProvider {
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
         add(FARMERSDELIGHT_TOOLTIP + ImmortalersDelightMod.MODID + ":" + key,en_us,zh_cn);
+    }
+    private void createFarmersdelightTooltipReverse(String key,String en_us,String zh_cn){
+        add(FARMERSDELIGHT_TOOLTIP_REVERSE + key,en_us,zh_cn);
     }
     private void createMessage(String key,String en_us,String zh_cn){
         add(MESSAGE + key,en_us,zh_cn);
