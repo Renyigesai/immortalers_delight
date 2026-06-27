@@ -134,14 +134,26 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
         }
 
         poseStack.pushPose();
-        if (displayContext != ItemDisplayContext.GUI) {
-            poseStack.translate(0.5F, 0.5F, 0.5F);
+        if (displayContext == ItemDisplayContext.FIXED) {
+            // Cutting board already positions and rotates the stack in CuttingBoardRenderer.
+            renderFlatModelLists(itemRenderer, iconModel, stack, packedLight, packedOverlay, poseStack, buffer);
+        } else {
+            if (displayContext != ItemDisplayContext.GUI) {
+                poseStack.translate(0.5F, 0.5F, 0.5F);
+            }
+
+            boolean leftHand = displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND
+                    || displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+            iconModel.getTransforms().getTransform(displayContext).apply(leftHand, poseStack);
+            renderFlatModelLists(itemRenderer, iconModel, stack, packedLight, packedOverlay, poseStack, buffer);
         }
 
-        boolean leftHand = displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND
-                || displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
-        iconModel.getTransforms().getTransform(displayContext).apply(leftHand, poseStack);
+        poseStack.popPose();
+    }
 
+    private static void renderFlatModelLists(ItemRenderer itemRenderer, BakedModel iconModel, ItemStack stack,
+                                             int packedLight, int packedOverlay, PoseStack poseStack,
+                                             MultiBufferSource buffer) {
         var renderTypes = iconModel.getRenderTypes(stack, true);
         if (renderTypes.isEmpty()) {
             RenderType fallback = Sheets.translucentItemSheet();
@@ -153,8 +165,6 @@ public class ItemTESRenderer extends BlockEntityWithoutLevelRenderer {
                 itemRenderer.renderModelLists(iconModel, stack, packedLight, packedOverlay, poseStack, vertexConsumer);
             }
         }
-
-        poseStack.popPose();
     }
 
     private static boolean isFlatDisplay(ItemDisplayContext displayContext) {
