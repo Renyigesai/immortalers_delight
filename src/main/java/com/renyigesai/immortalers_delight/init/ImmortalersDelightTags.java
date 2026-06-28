@@ -24,8 +24,8 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> MILK = createItemTag("milk");
     public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
-    /** Farmer's Delight `#farmersdelight:knives` (avoid deprecated `ModTags.KNIVES`). */
-    public static final TagKey<Item> FARMERSDELIGHT_KNIVES = TagKey.create(Registries.ITEM, ResourceLocation.parse("farmersdelight:knives"));
+    /** Farmer's Delight `#farmersdelight:tools/knives`. */
+    public static final TagKey<Item> FARMERSDELIGHT_KNIVES = TagKey.create(Registries.ITEM, ResourceLocation.parse("farmersdelight:tools/knives"));
     public static final TagKey<Block> FARMERSDELIGHT_HEAT_SOURCES = TagKey.create(Registries.BLOCK, ResourceLocation.parse("farmersdelight:heat_sources"));
     public static final TagKey<Block> FARMERSDELIGHT_HEAT_CONDUCTORS = TagKey.create(Registries.BLOCK, ResourceLocation.parse("farmersdelight:heat_conductors"));
     /** Mirrors Farmer's Delight offhand equipment tag for interactions that must ignore offhand items. */

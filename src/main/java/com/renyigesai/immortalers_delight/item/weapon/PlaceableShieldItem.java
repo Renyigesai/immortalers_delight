@@ -13,6 +13,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightPotions;
 import com.renyigesai.immortalers_delight.item.ImmortalersShieldItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -106,7 +107,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
         tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             if (this.type == 2) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
         }

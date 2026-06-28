@@ -8,6 +8,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.item.PowerfulAbleFoodItem;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -134,7 +135,7 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
 
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
 
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
             if (this.type == 1) tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             if (this.type == 2) tooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
             if (this.type == 3) tooltip.add(textEmpty.withStyle(ChatFormatting.RED));

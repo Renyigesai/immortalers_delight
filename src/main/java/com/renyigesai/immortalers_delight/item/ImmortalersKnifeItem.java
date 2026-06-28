@@ -3,11 +3,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -47,7 +47,6 @@ import net.neoforged.fml.common.Mod;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
@@ -121,20 +120,15 @@ public class ImmortalersKnifeItem extends KnifeItem {
         return builder.build();
     }
 
-    /** Farmer's Delight {@code TextUtils} expects {@code tooltip.<path>}, not {@code tooltip.<namespace:path>}. */
-    private String farmersDelightTooltipPath() {
-        return BuiltInRegistries.ITEM.getKey(this).getPath();
-    }
-
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (this.type_id == ANCIENT_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath(), new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
             tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
         }
         if (this.type_id == NEW_ANCIENT_KNIFE_TYPE) {
             for (int i = 0; i < 3; i++) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath() + "." + ((i == 2 && DifficultyModeUtil.isPowerBattleMode()) ? "power" : i), new Object[0]);
+                MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this, "." + ((i == 2 && DifficultyModeUtil.isPowerBattleMode()) ? "power" : i));
                 if(i == 1) {
                     tooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
                 } else if (i == 2) {
@@ -145,9 +139,9 @@ public class ImmortalersKnifeItem extends KnifeItem {
             }
         }
         if (this.type_id == BONE_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath(), new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
             tooltip.add(textEmpty.withStyle(ChatFormatting.YELLOW));
-            MutableComponent textEmpty1 = TextUtils.getTranslation("tooltip." + farmersDelightTooltipPath() + ".1", new Object[0]);
+            MutableComponent textEmpty1 = TooltipUtils.farmersDelightTranslation(this, ".1");
             tooltip.add(textEmpty1.withStyle(ChatFormatting.RED));
         }
 

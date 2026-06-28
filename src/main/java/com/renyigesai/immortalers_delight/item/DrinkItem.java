@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.Configuration;
-import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class DrinkItem extends ItemNameBlockItem {
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             if (this.hasCustomToolTip) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+                MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
                 tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             }
             if (this.hasPotionEffectTooltip) {
