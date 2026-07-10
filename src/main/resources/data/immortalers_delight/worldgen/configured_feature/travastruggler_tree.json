@@ -34,7 +34,7 @@
           "data": {
             "Name": "immortalers_delight:travastruggler_leaves",
             "Properties": {
-              "distance": "0",
+              "distance": "7",
               "persistent": "false",
               "waterlogged": "false"
             }
@@ -45,7 +45,7 @@
           "data": {
             "Name": "immortalers_delight:travastruggler_leaves_travarice",
             "Properties": {
-              "distance": "0",
+              "distance": "7",
               "persistent": "false",
               "waterlogged": "false"
             }

@@ -11,15 +11,15 @@ public final class ModTreeGrowers {
 
     public static final TreeGrower HIMEKAIDO = new TreeGrower(
             ImmortalersDelightMod.MODID + ":himekaido",
-            Optional.of(ModConfigureFeature.HIMEKAIDO_TREE_KEY),
             Optional.empty(),
-            Optional.empty()
+            Optional.empty(),
+            Optional.of(ModConfigureFeature.HIMEKAIDO_TREE_KEY)
     );
 
     public static final TreeGrower TRAVASTRUGGLER = new TreeGrower(
             ImmortalersDelightMod.MODID + ":travastruggler",
             Optional.of(ModConfigureFeature.TRAVASTRUGGLER_TREE_KYE),
             Optional.empty(),
-            Optional.empty()
+            Optional.of(ModConfigureFeature.TRAVASTRUGGLER_TREE_KYE)
     );
 }

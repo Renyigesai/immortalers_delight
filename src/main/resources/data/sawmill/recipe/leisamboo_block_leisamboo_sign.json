@@ -1,0 +1,12 @@
+{
+  "type": "sawmill:woodcutting",
+  "group": "logs",
+  "ingredient": {
+    "item": "immortalers_delight:leisamboo_block"
+  },
+  "ingredient_count": 1,
+  "result": {
+    "id": "immortalers_delight:leisamboo_sign",
+    "count": 2
+  }
+}
