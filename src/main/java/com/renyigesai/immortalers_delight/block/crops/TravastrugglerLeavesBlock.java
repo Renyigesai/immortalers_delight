@@ -25,16 +25,16 @@ public class TravastrugglerLeavesBlock extends LeavesBlock implements Bonemealab
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (this.decaying(state)) {
-            dropResources(state, level, pos);
-            level.removeBlock(pos, false);
+        super.randomTick(state, level, pos, random);
+        if (!level.getBlockState(pos).is(this)) {
             return;
         }
         if (!level.isAreaLoaded(pos, 1)) {
             return;
         }
-        if (CommonHooks.canCropGrow(level, pos, state, random.nextInt(20) == 0)) {
-            growTravarice(state, level, pos);
+        BlockState current = level.getBlockState(pos);
+        if (CommonHooks.canCropGrow(level, pos, current, random.nextInt(20) == 0)) {
+            growTravarice(current, level, pos);
         }
     }
 
