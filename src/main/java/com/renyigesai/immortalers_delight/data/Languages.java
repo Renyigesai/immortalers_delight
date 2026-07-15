@@ -185,7 +185,7 @@ public class Languages extends LanguageProvider {
         createTooltip("cut_ku_mesh_non","你需要用刀切开它","You need a knife to cut it.");
         createTooltip("cut_large_column","你需要用斧子劈开它","You need an axe to split it.");
         createTooltip("cut_pod_shell_burger_meat","你需要用刀切开它","You need a knife to cut it.");
-        createTooltip("warped_laurel_seeds","可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为怨泉§r。","It can be planted on the §fsoul sand§r. When it matures, it will convert the surrounding §fwater into a grudge spring§r");
+        createTooltip("warped_laurel_seeds","可被种植在§f耕地§r或§f灵魂沙§r上；种在灵魂沙上成熟时，会将周围的§f水转换为怨泉§r。","Can be planted on §ffarmland§r or §fsoul sand§r. When planted on soul sand and matured, it converts surrounding §fwater into a grudge spring§r");
         createTooltip("gelpitaya_seeds",
                 "可被种植在§f仙人掌§r上。§7于砧板：§f小刀§r切开果实得果肉；§f锤§r（手持式砂轮、砂轮方块等）加工果肉得种子。农夫乐事小刀可用。§r",
                 "Plant on §fcacti§r. §7Cutting board: §fknife§r → flesh; §fhammer§r (grindstone hammer/block) → seeds. Farmer's Delight knives work.§r");

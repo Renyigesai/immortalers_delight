@@ -751,5 +751,5 @@
   "tooltip.immortalers_delight.spoon": "将碗放置为空盘子",
   "tooltip.immortalers_delight.super_kwat_burger": "不同寻常的分量",
   "tooltip.immortalers_delight.tooltip_item_name_block_item": "§o按住Shift查看更多",
-  "tooltip.immortalers_delight.warped_laurel_seeds": "可被种植在§f灵魂沙§r上，成熟时将周围的§f水转换为怨泉§r。"
+  "tooltip.immortalers_delight.warped_laurel_seeds": "可被种植在§f耕地§r或§f灵魂沙§r上；种在灵魂沙上成熟时，会将周围的§f水转换为怨泉§r。"
 }
