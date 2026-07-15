@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.crops;
 
 import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.util.BlockItemInteraction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,36 +19,35 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import java.util.List;
 
 public class HimekaidoLeavesFruited extends LeavesBlock {
     public HimekaidoLeavesFruited(Properties p_49795_) {
         super(p_49795_);
     }
+
     @Override
     public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
         return true;
     }
 
     private InteractionResult leavesUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (Config.rightClickHarvest) {
-            if (level.isClientSide){
-                return InteractionResult.SUCCESS;
-            }
-            if (level instanceof ServerLevel level1) {
-                List<ItemStack> stacks = getDrops(state, level1, pos, null);
-                if (!stacks.isEmpty()) {
-                    for (ItemStack stack : stacks) {
-                        popResource(level, pos, stack);
-                    }
-                    int distance = state.getValue(DISTANCE);
-                    level.setBlockAndUpdate(pos, ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
-                    level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-                    return InteractionResult.SUCCESS;
-                }
-            }
+        if (!Config.rightClickHarvest) {
+            return InteractionResult.PASS;
         }
-        return InteractionResult.PASS;
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        // Do not use block loot for right-click — empty-tool loot can return the leaf item itself.
+        int count = 1 + level.getRandom().nextInt(3);
+        popResource(level, pos, new ItemStack(ImmortalersDelightItems.HIMEKAIDO.get(), count));
+        BlockState reset = ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState()
+                .setValue(DISTANCE, state.getValue(DISTANCE))
+                .setValue(PERSISTENT, state.getValue(PERSISTENT))
+                .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
+                .setValue(HimekaidoLeavesGrowing.GROW, true);
+        level.setBlockAndUpdate(pos, reset);
+        level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
