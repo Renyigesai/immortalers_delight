@@ -64,8 +64,14 @@ public class HimekaidoLeavesGrowing extends LeavesBlock {
         if (!pState.getValue(GROW)) return;
         if (!pLevel.isAreaLoaded(pPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, pRandom.nextInt(35) == 0)) {
-            int distance = pState.getValue(DISTANCE);
-            pLevel.setBlockAndUpdate(pPos, this.fruit.defaultBlockState().setValue(HimekaidoLeavesGrowing.DISTANCE, distance));
+            BlockState next = this.fruit.defaultBlockState()
+                    .setValue(DISTANCE, pState.getValue(DISTANCE))
+                    .setValue(PERSISTENT, pState.getValue(PERSISTENT))
+                    .setValue(WATERLOGGED, pState.getValue(WATERLOGGED));
+            if (next.hasProperty(GROW)) {
+                next = next.setValue(GROW, true);
+            }
+            pLevel.setBlockAndUpdate(pPos, next);
             net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
         }
     }

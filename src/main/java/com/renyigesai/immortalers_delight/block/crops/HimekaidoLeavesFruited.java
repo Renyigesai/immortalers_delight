@@ -40,7 +40,8 @@ public class HimekaidoLeavesFruited extends LeavesBlock {
         // Do not use block loot for right-click — empty-tool loot can return the leaf item itself.
         int count = 1 + level.getRandom().nextInt(3);
         popResource(level, pos, new ItemStack(ImmortalersDelightItems.HIMEKAIDO.get(), count));
-        BlockState reset = ImmortalersDelightBlocks.HIMEKAIDO_LEAVES.get().defaultBlockState()
+        // 采后回到「盛开」并可继续结果：盛开 → 结果 → 采摘 → 盛开 …
+        BlockState reset = ImmortalersDelightBlocks.HIMEKAIDO_FLOWERING_LEAVES.get().defaultBlockState()
                 .setValue(DISTANCE, state.getValue(DISTANCE))
                 .setValue(PERSISTENT, state.getValue(PERSISTENT))
                 .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
