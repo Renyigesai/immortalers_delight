@@ -81,13 +81,13 @@ public class HimekaidoShrubBlock extends ReapCropBlock {
      * 巨大化
      */
     public void performBonemeal(ServerLevel serverLevel, RandomSource source, BlockPos pos, BlockState state) {
-        /*
-        巨大化条件：此处要求阶段6且生长速度不小于9
-         */
+        // age 6 + growth speed >= 3 (moist farmland, not overcrowded) → grow tree
         if (this.getAge(state) == EXTRA_HARVEST_AGE && getGrowthSpeed(state, serverLevel, pos) >= 3.0f) {
-            ModTreeGrowers.HIMEKAIDO.growTree(serverLevel, serverLevel.getChunkSource().getGenerator(), pos, state, source);
+            ModTreeGrowers.HIMEKAIDO.growTree(
+                    serverLevel, serverLevel.getChunkSource().getGenerator(), pos, state, source);
+            return;
         }
-        else serverLevel.setBlock(pos, this.getStateForAge( this.getAge(state) + 1), 2);
+        serverLevel.setBlock(pos, this.getStateForAge(this.getAge(state) + 1), 2);
     }
     /**
      * 定义收获的行为逻辑，并给玩家进行巨大化操作的空间

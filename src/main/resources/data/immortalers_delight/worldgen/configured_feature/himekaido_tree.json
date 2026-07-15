@@ -26,7 +26,8 @@
           "data": {
             "Name": "immortalers_delight:himekaido_leaves",
             "Properties": {
-              "persistent": "7",
+              "distance": "7",
+              "persistent": "false",
               "grow": "false"
             }
           }
@@ -36,7 +37,8 @@
           "data": {
             "Name": "immortalers_delight:himekaido_fruited_leaves",
             "Properties": {
-              "persistent": "7"
+              "distance": "7",
+              "persistent": "false"
             }
           }
         },
@@ -45,7 +47,8 @@
           "data": {
             "Name": "immortalers_delight:himekaido_flowering_leaves",
             "Properties": {
-              "persistent": "7",
+              "distance": "7",
+              "persistent": "false",
               "grow": "false"
             }
           }

@@ -133,25 +133,32 @@ public class PearlipearlStalkBlock extends HorizontalDirectionalBlock implements
 
     public boolean canSurvive(BlockState p_57175_, LevelReader p_57176_, BlockPos p_57177_) {
         BlockState soil = p_57176_.getBlockState(p_57177_.below());
-        if (soil.canSustainPlant(p_57176_, p_57177_.below(), Direction.UP, p_57175_).isTrue()) return true;
-        BlockState blockstate = p_57176_.getBlockState(p_57177_.below());
-        if (blockstate.is(this)) {
+        net.neoforged.neoforge.common.util.TriState soilDecision =
+                soil.canSustainPlant(p_57176_, p_57177_.below(), Direction.UP, p_57175_);
+        if (!soilDecision.isDefault()) {
+            return soilDecision.isTrue();
+        }
+        // Stacked stalk segments
+        if (soil.is(this)) {
             return true;
-        } else {
-            if (blockstate.is(BlockTags.DIRT) || blockstate.is(BlockTags.SAND)) {
-                BlockPos blockpos = p_57177_.below();
-
-                for(Direction direction : Direction.Plane.HORIZONTAL) {
-                    BlockState blockstate1 = p_57176_.getBlockState(blockpos.relative(direction));
-                    FluidState fluidstate = p_57176_.getFluidState(blockpos.relative(direction));
-                    if (p_57175_.canBeHydrated(p_57176_, p_57177_, fluidstate, blockpos.relative(direction)) || blockstate1.is(Blocks.FROSTED_ICE)) {
-                        return true;
-                    }
+        }
+        // Restores pre-1.21 IPlantable(Plains) behaviour; FarmBlock is not in #dirt
+        if (soil.is(BlockTags.DIRT) || soil.getBlock() instanceof net.minecraft.world.level.block.FarmBlock) {
+            return true;
+        }
+        // Sand still needs adjacent water (sugar-cane / beach style)
+        if (soil.is(BlockTags.SAND)) {
+            BlockPos blockpos = p_57177_.below();
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                BlockState blockstate1 = p_57176_.getBlockState(blockpos.relative(direction));
+                FluidState fluidstate = p_57176_.getFluidState(blockpos.relative(direction));
+                if (p_57175_.canBeHydrated(p_57176_, p_57177_, fluidstate, blockpos.relative(direction))
+                        || blockstate1.is(Blocks.FROSTED_ICE)) {
+                    return true;
                 }
             }
-
-            return false;
         }
+        return false;
     }
 
     private InteractionResult pearlipUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {

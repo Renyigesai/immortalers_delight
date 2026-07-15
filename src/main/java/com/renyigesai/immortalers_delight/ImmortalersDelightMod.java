@@ -7,6 +7,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import com.mojang.logging.LogUtils;
 
 import com.renyigesai.immortalers_delight.advancement.*;
+import com.renyigesai.immortalers_delight.compat.MoonlightWoodCompat;
 
 import com.renyigesai.immortalers_delight.client.ClientEventHelper;
 import com.renyigesai.immortalers_delight.client.renderer.special_item.FlatItemIconModels;
@@ -131,6 +132,7 @@ public class ImmortalersDelightMod {
 
 
     public ImmortalersDelightMod(IEventBus modEventBus) {
+        MoonlightWoodCompat.register();
 
         NeoForge.EVENT_BUS.register(this);
 

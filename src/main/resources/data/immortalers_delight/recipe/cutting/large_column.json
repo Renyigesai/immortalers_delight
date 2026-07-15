@@ -1,0 +1,21 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:large_column"
+    }
+  ],
+  "tool": [
+    {
+      "tag": "minecraft:axes"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "immortalers_delight:large_column_slice",
+        "count": 2
+      }
+    }
+  ]
+}

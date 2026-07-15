@@ -9,10 +9,11 @@ import java.util.Optional;
 public final class ModTreeGrowers {
     private ModTreeGrowers() {}
 
+    // TreeGrower(name, megaTree, tree, flowers) — tree must be the regular-growth slot
     public static final TreeGrower HIMEKAIDO = new TreeGrower(
             ImmortalersDelightMod.MODID + ":himekaido",
-            Optional.of(ModConfigureFeature.HIMEKAIDO_TREE_KEY),
             Optional.empty(),
+            Optional.of(ModConfigureFeature.HIMEKAIDO_TREE_KEY),
             Optional.empty()
     );
 
@@ -20,6 +21,6 @@ public final class ModTreeGrowers {
             ImmortalersDelightMod.MODID + ":travastruggler",
             Optional.of(ModConfigureFeature.TRAVASTRUGGLER_TREE_KYE),
             Optional.empty(),
-            Optional.empty()
+            Optional.of(ModConfigureFeature.TRAVASTRUGGLER_TREE_KYE)
     );
 }

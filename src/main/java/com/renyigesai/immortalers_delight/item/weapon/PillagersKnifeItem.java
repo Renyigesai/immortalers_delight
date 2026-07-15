@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.item.ImmortalersKnifeItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.Holder;
@@ -78,7 +79,7 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem {
             pTooltip.add(textValue.withStyle(ChatFormatting.YELLOW));
         }
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
             pTooltip.add(textEmpty.withStyle(ChatFormatting.DARK_PURPLE));
             PotionContents contents = pStack.get(DataComponents.POTION_CONTENTS);
             if (contents != null) {
@@ -86,7 +87,7 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem {
             }
         }
         if (this.type_id == PILLAGER_KNIFE_TYPE) {
-            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + ".default_enchantment." + (DifficultyModeUtil.isPowerBattleMode() ? "power." + 1 : 1), new Object[0]);
+            MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this, ".default_enchantment." + (DifficultyModeUtil.isPowerBattleMode() ? "power." + 1 : 1));
             pTooltip.add(textEmpty.withStyle(ChatFormatting.GRAY));
         }
 

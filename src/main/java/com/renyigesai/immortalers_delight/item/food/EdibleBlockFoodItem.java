@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.item.food;
 import com.renyigesai.immortalers_delight.api.AntiFeedingFoodItem;
 import com.renyigesai.immortalers_delight.item.DrinkItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -59,7 +60,7 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             if (this.hasCustomToolTip) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this, new Object[0]);
+                MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this);
                 tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             }
             if (this.hasPotionEffectTooltip) {

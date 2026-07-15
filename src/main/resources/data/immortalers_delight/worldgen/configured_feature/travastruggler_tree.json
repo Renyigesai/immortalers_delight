@@ -32,23 +32,13 @@
         {
           "weight": 5,
           "data": {
-            "Name": "immortalers_delight:travastruggler_leaves",
-            "Properties": {
-              "distance": "0",
-              "persistent": "false",
-              "waterlogged": "false"
-            }
+            "Name": "immortalers_delight:travastruggler_leaves"
           }
         },
         {
           "weight": 2,
           "data": {
-            "Name": "immortalers_delight:travastruggler_leaves_travarice",
-            "Properties": {
-              "distance": "0",
-              "persistent": "false",
-              "waterlogged": "false"
-            }
+            "Name": "immortalers_delight:travastruggler_leaves_travarice"
           }
         },
         {

@@ -4,6 +4,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
@@ -127,7 +128,7 @@ public class DrillRodItem extends DiggerItem {
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             if (this.tooltipCount > 0) {
                 for (int i = 0; i < this.tooltipCount; i++) {
-                    MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + "." + i, new Object[0]);
+                    MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this, "." + i);
                     tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
                 }
             }

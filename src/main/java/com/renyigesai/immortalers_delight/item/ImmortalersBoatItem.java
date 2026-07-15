@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.entities.boat.ImmortalersBoat;
+import com.renyigesai.immortalers_delight.util.TooltipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -84,7 +85,7 @@ public class ImmortalersBoatItem extends Item {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.ENABLE_FOOD_EFFECT_TOOLTIP.get()) {
             if (this.type == ImmortalersBoat.Type.ANCIENT_WOOD) {
-                MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this + "." + this.type.getName(), new Object[0]);
+                MutableComponent textEmpty = TooltipUtils.farmersDelightTranslation(this, "." + this.type.getName());
                 tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
             }
         }

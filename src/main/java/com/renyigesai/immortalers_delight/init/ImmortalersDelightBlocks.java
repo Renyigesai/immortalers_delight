@@ -26,6 +26,7 @@ import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.UnfinishedTangyuanBlock;
 import com.renyigesai.immortalers_delight.block.tree.ModTreeGrowers;
+import com.renyigesai.immortalers_delight.block.tree.TravastrugglerSaplingBlock;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlock;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlockEntity;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
@@ -620,7 +621,7 @@ public class ImmortalersDelightBlocks {
     通天竹
     */
     @BlockData
-    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new SaplingBlock(ModTreeGrowers.TRAVASTRUGGLER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_SAPLING = BLOCKS.register("travastruggler_sapling", () -> new TravastrugglerSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     @BlockData
     public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LOG = BLOCKS.register("travastruggler_log", ()-> travastrugglerLog());
@@ -632,7 +633,7 @@ public class ImmortalersDelightBlocks {
     public static final DeferredHolder<Block, Block> TRAVA_PLANKS = BLOCKS.register("trava_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2).ignitedByLava().sound(SoundType.BAMBOO_WOOD).mapColor(MapColor.COLOR_GRAY)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LEAVES = BLOCKS.register("travastruggler_leaves", () -> new TravastrugglerLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final DeferredHolder<Block, Block> TRAVASTRUGGLER_LEAVES_TRAVARICE = BLOCKS.register("travastruggler_leaves_travarice", () -> new TravastrugglerLeavesTravariceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
@@ -895,7 +896,7 @@ public class ImmortalersDelightBlocks {
     });
     /*烟杆*/
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final DeferredHolder<Block, Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).lightLevel(SimpleLavaloggedBlock.litBlockLight())));
+    public static final DeferredHolder<Block, Block> A_BUSH = BLOCKS.register("a_bush",()-> new AbushBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).dynamicShape().randomTicks().offsetType(BlockBehaviour.OffsetType.XZ).lightLevel(SimpleLavaloggedBlock.litBlockLight())));
 
     @BlockData
     public static final DeferredHolder<Block, BasicsLogsBlock> A_BUSH_LOG = BLOCKS.register("a_bush_log",()-> log(MapColor.WOOD, MapColor.PODZOL));
