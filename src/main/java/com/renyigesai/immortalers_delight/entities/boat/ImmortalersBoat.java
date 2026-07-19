@@ -159,8 +159,8 @@ public class ImmortalersBoat extends Boat {
     }
 
     private boolean buildLargeBoat(ItemStack hand, ItemStack otherHand, Player pPlayer) {
-        if (hand.is(ImmortalersDelightTags.ANCIENT_BOAT_NEED_1) && hand.getCount() >= Config.ancientBoatNeeded_1
-                && otherHand.is(ImmortalersDelightTags.ANCIENT_BOAT_NEED_2) && otherHand.getCount() >= Config.ancientBoatNeeded_2){
+        if (hand.is(ImmortalersDelightTags.Items.ANCIENT_BOAT_NEED_1) && hand.getCount() >= Config.ancientBoatNeeded_1
+                && otherHand.is(ImmortalersDelightTags.Items.ANCIENT_BOAT_NEED_2) && otherHand.getCount() >= Config.ancientBoatNeeded_2){
             AncientWoodBoat largeBoat = new AncientWoodBoat(this.level(), this.getX(), this.getY(), this.getZ());
             if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(Config.ancientBoatNeeded_1);

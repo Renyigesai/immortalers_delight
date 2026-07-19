@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -102,7 +103,7 @@ public class TravastrugglerLeavesTravariceBlock extends LeavesBlock {
                 if (temp) {
                     BlockState blockstate = ImmortalersDelightBlocks.TRAVASTRUGGLER_LEAVES.get().defaultBlockState().setValue(TravastrugglerLeavesTravariceBlock.DISTANCE,state.getValue(DISTANCE)).setValue(TravastrugglerLeavesTravariceBlock.PERSISTENT,state.getValue(PERSISTENT)).setValue(TravastrugglerLeavesTravariceBlock.WATERLOGGED,state.getValue(WATERLOGGED));
                     level.setBlockAndUpdate(pos, blockstate);
-                    level.playSound(null, pos, ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                    level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
         }

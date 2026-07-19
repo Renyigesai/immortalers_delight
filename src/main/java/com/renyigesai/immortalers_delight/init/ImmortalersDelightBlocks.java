@@ -31,7 +31,6 @@ import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +52,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
-import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.function.ToIntFunction;
 
@@ -456,7 +454,7 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<Block> EVOLUTCORN = BLOCKS.register("evolutcorn",
             () -> new EvolutcornBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
 
-    @BlockData
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> PEARLIPEARL_BUNDLE = BLOCKS.register("pearlipearl_bundle",
             ()-> new PearlipearlBeanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(0.5F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).randomTicks()));
 
@@ -556,7 +554,11 @@ public class ImmortalersDelightBlocks {
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> ROASTED_MUSHROOM_PIZZA = BLOCKS.register("roasted_mushroom_pizza",()->
-            new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
+            new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> ICE_PIZZA = BLOCKS.register("ice_pizza",()->
+            new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ICE_PIZZA_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",

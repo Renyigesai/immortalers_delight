@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
@@ -304,7 +305,7 @@ public class HimekaidoLeavesGrowingOld extends ReapCropBlock {
             }
             if (temp){
                 level.setBlock(pos,state.setValue(AGE,0),3);
-                level.playSound((Player)null, pos, (SoundEvent) ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                level.playSound((Player)null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS;
             }
         }

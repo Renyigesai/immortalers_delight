@@ -111,26 +111,26 @@ public class SextlotusCropBlock extends ReapCropBlock{
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof SextlotusCropBlock) return 0;
 
-        if (max >= 3 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_COAL)) {
+        if (max >= 3 && state.is(ImmortalersDelightTags.Blocks.SEXTLOTUS_TRANSFORM_COAL)) {
             if (level.getRandom().nextFloat() < chance) level.setBlockAndUpdate(pos, Blocks.COAL_BLOCK.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
             return 3;
         }
-        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_DIRT)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.Blocks.SEXTLOTUS_TRANSFORM_DIRT)) {
             level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
             return 1;
         }
-        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SAND) || state.is(Blocks.COARSE_DIRT)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.Blocks.SEXTLOTUS_TRANSFORM_SAND) || state.is(Blocks.COARSE_DIRT)) {
             if (!state.is(Blocks.COARSE_DIRT)) level.setBlockAndUpdate(pos, Blocks.COARSE_DIRT.defaultBlockState());
             else level.setBlockAndUpdate(pos, Blocks.SAND.defaultBlockState());
             return 1;
         }
-        if (max >= 1 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_AIR) || state.is(Blocks.DEAD_BUSH)) {
+        if (max >= 1 && state.is(ImmortalersDelightTags.Blocks.SEXTLOTUS_TRANSFORM_AIR) || state.is(Blocks.DEAD_BUSH)) {
             if (!state.is(Blocks.DEAD_BUSH)) level.setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), Block.UPDATE_CLIENTS);
             else level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             return 1;
         }
-        if (max >= 2 && state.is(ImmortalersDelightTags.SEXTLOTUS_TRANSFORM_SPECIAL)) {
+        if (max >= 2 && state.is(ImmortalersDelightTags.Blocks.SEXTLOTUS_TRANSFORM_SPECIAL)) {
             if (state.getBlock() instanceof CoralBlock coralBlock) {
                 Block deadBlock = ReflectionUtil.getCoralDeadBlock(coralBlock);
                 if (deadBlock != null) {

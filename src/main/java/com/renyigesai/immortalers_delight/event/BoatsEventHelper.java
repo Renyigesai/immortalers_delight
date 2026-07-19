@@ -77,8 +77,8 @@ public class BoatsEventHelper {
 
 
     private static boolean buildLargeChestBoat(ItemStack itemStack, ItemStack itemStackInOtherHand, Player player, ServerLevel serverLevel, ImmortalersChestBoat chestboat) {
-        if (itemStack.is(ImmortalersDelightTags.ANCIENT_CHEST_BOAT_NEED_1) && itemStack.getCount() >= Config.ancientChestBoatNeeded_1
-                && itemStackInOtherHand.is(ImmortalersDelightTags.ANCIENT_CHEST_BOAT_NEED_2) && itemStackInOtherHand.getCount() >= Config.ancientChestBoatNeeded_2) {
+        if (itemStack.is(ImmortalersDelightTags.Items.ANCIENT_CHEST_BOAT_NEED_1) && itemStack.getCount() >= Config.ancientChestBoatNeeded_1
+                && itemStackInOtherHand.is(ImmortalersDelightTags.Items.ANCIENT_CHEST_BOAT_NEED_2) && itemStackInOtherHand.getCount() >= Config.ancientChestBoatNeeded_2) {
             AncientWoodChestBoat largeBoat = new AncientWoodChestBoat(serverLevel, chestboat.getX(), chestboat.getY(), chestboat.getZ());
             largeBoat.setVariant(chestboat.getBoatVariant());
             largeBoat.setCanopies(true);

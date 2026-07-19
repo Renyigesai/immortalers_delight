@@ -22,7 +22,7 @@ public class AncientStoveBlockEntityRenderer implements BlockEntityRenderer<Anci
     @Override
     public void render(AncientStoveBlockEntity cncientStoveBlockEntity, float v, PoseStack poseStack, MultiBufferSource buffer, int combinedOverlayIn, int i1) {
         Direction direction = ((Direction)cncientStoveBlockEntity.getBlockState().getValue(StoveBlock.FACING)).getOpposite();
-        ItemStackHandler inventory = cncientStoveBlockEntity.getInventory();
+        ItemStackHandler inventory = cncientStoveBlockEntity.getItems();
         int posLong = (int)cncientStoveBlockEntity.getBlockPos().asLong();
 
         for(int i = 0; i < inventory.getSlots(); ++i) {

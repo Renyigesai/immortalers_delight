@@ -1,18 +1,18 @@
 {
   "variants": {
     "bites=0,facing=east": {
-      "model": "immortalers_delight:block/roasted_mushroom_pizza_1",
+      "model": "immortalers_delight:block/roasted_mushroom_pizza",
       "y": 90
     },
     "bites=0,facing=north": {
-      "model": "immortalers_delight:block/roasted_mushroom_pizza_1"
+      "model": "immortalers_delight:block/roasted_mushroom_pizza"
     },
     "bites=0,facing=south": {
-      "model": "immortalers_delight:block/roasted_mushroom_pizza_1",
+      "model": "immortalers_delight:block/roasted_mushroom_pizza",
       "y": 180
     },
     "bites=0,facing=west": {
-      "model": "immortalers_delight:block/roasted_mushroom_pizza_1",
+      "model": "immortalers_delight:block/roasted_mushroom_pizza",
       "y": 270
     },
     "bites=1,facing=east": {

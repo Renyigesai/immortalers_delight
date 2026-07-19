@@ -5,17 +5,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import vectorwing.farmersdelight.common.block.PieBlock;
 
 import java.util.function.Supplier;
 
-public class RoastedMushroomPizzaBlock extends PieBlock {
+public class PizzaBlock extends PieBlock {
     protected static final VoxelShape SHAPE;
-    public RoastedMushroomPizzaBlock(Properties properties, Supplier<Item> pieSlice) {
+    public PizzaBlock(Properties properties, Supplier<Item> pieSlice) {
         super(properties, pieSlice);
     }
 

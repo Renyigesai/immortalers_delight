@@ -179,12 +179,12 @@ public class ImmortalersKnifeItem extends KnifeItem {
         @SubscribeEvent
         public static void onCakeInteraction(PlayerInteractEvent.RightClickBlock event) {
             ItemStack toolStack = event.getEntity().getItemInHand(event.getHand());
-            if (toolStack.is(ImmortalersDelightTags.IMMORTAL_KNIVES)) {
+            if (toolStack.is(ImmortalersDelightTags.Items.IMMORTAL_KNIVES)) {
                 Level level = event.getLevel();
                 BlockPos pos = event.getPos();
                 BlockState state = event.getLevel().getBlockState(pos);
                 Block block = state.getBlock();
-                if (state.is(ModTags.DROPS_CAKE_SLICE)) {
+                if (state.is(ModTags.Blocks.DROPS_CAKE_SLICE)) {
                     level.setBlock(pos, (BlockState) Blocks.CAKE.defaultBlockState().setValue(CakeBlock.BITES, 1), 3);
                     Block.dropResources(state, level, pos);
                     ItemUtils.spawnItemEntity(level, new ItemStack((ItemLike) ModItems.CAKE_SLICE.get()), (double)pos.getX(), (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, -0.05, 0.0, 0.0);

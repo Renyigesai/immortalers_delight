@@ -26,7 +26,7 @@ public class FrostyCrownMousseBlock extends PieBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return OUTLINE_SHAPE;
     }
 
     @Override

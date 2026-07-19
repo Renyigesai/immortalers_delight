@@ -69,7 +69,7 @@ public class ScarletDevilsCakeBlock extends HorizontalDirectionalBlock implement
         }
         if (bites < 8){
             player.getFoodData().eat(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get(), new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()));
-            addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()),level,player,bites);
+            addFoodPoisonEffect(new ItemStack(ImmortalersDelightItems.SCARLET_DEVILS_CAKE_SLICE.get()),level,player,bites + 1);
             setBlock(bites + 1,state,level,pos);
             level.gameEvent(player, GameEvent.EAT, pos);
             level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);

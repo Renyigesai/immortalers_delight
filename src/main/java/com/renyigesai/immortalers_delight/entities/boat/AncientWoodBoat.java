@@ -212,7 +212,7 @@ public class AncientWoodBoat extends ImmortalersBoat {
     }
 
     private boolean addChest(ItemStack hand, Player pPlayer) {
-        if (hand.is(ImmortalersDelightTags.ANCIENT_CHEST_BOAT_NEED_2) && hand.getCount() >= Config.ancientBoatNeeded_2){
+        if (hand.is(ImmortalersDelightTags.Items.ANCIENT_CHEST_BOAT_NEED_2) && hand.getCount() >= Config.ancientBoatNeeded_2){
             AncientWoodChestBoat boat = new AncientWoodChestBoat(this.level(), this.getX(), this.getY(), this.getZ());
             if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(Config.ancientBoatNeeded_2);

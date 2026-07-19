@@ -10,33 +10,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class ImmortalersDelightTags {
-    public static final TagKey<Biome> IS_CRIMSON_FOREST = createBiomeTag("is_crimson_forest");
-    public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
-    public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
-    public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
 
-    public static final TagKey<Item> ANCIENT_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_boat_need_1");
-    public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_boat_need_2");
-    public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_chest_boat_need_1");
-    public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_chest_boat_need_2");
-    public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
-    public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
-    public static final TagKey<Item> MILK = createItemTag("milk");
-    public static final TagKey<Item> STRAW = createImmItemTag("straw");
-    public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
-    public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createBlockTag("mineable/drill_rod");
-    public static final TagKey<Block> MINEABLE_HAMMER = createBlockTag("mineable/meat_tenderizer");
-    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_AIR = createBlockTag("sextlotus_transform_air");
-    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SAND = createBlockTag("sextlotus_transform_sand");
-    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_DIRT = createBlockTag("sextlotus_transform_dirt");
-    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_COAL = createBlockTag("sextlotus_transform_coal");
-    public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SPECIAL = createBlockTag("sextlotus_transform_special");
-
-    public static final TagKey<EntityType<?>> IMMORTAL_NORMAL_MOBS = createEntityTag("normal_mobs");
-
-    public static final TagKey<EntityType<?>> IMMORTAL_ELITE_MOBS = createEntityTag("elite_mobs");
-
-    public static final TagKey<EntityType<?>> IMMORTAL_MID_BOSS = createEntityTag("mid_boss");
 
     private static TagKey<Biome> createBiomeTag(String pName) {
         return TagKey.create(Registries.BIOME, ImmortalersDelightMod.prefix(pName));
@@ -46,15 +20,59 @@ public class ImmortalersDelightTags {
         return TagKey.create(Registries.ITEM, ImmortalersDelightMod.prefix(pName));
     }
 
-    private static TagKey<Item> createItemTag(String pName) {
+    private static TagKey<Item> createForgeItemTag(String pName) {
         return TagKey.create(Registries.ITEM, new ResourceLocation("forge",pName));
     }
 
-    private static TagKey<Block> createBlockTag(String pName) {
+    private static TagKey<Item> createItemTag(String pName) {
+        return TagKey.create(Registries.ITEM, new ResourceLocation("minecraft",pName));
+    }
+
+    private static TagKey<Block> createImmBlockTag(String pName) {
         return TagKey.create(Registries.BLOCK, ImmortalersDelightMod.prefix(pName));
     }
 
     private static TagKey<EntityType<?>> createEntityTag(String pName) {
         return TagKey.create(Registries.ENTITY_TYPE, ImmortalersDelightMod.prefix(pName));
+    }
+
+    public static class Items{
+        public static final TagKey<Item> ANCIENT_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_boat_need_1");
+        public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_boat_need_2");
+        public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_chest_boat_need_1");
+        public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_chest_boat_need_2");
+        public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
+        public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
+        public static final TagKey<Item> OFFHAND_EQUIPMENT = createImmItemTag("offhand_equipment");
+        public static final TagKey<Item> MILK = createForgeItemTag("milk");
+        public static final TagKey<Item> STRAW = createImmItemTag("straw");
+        public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
+        public static final TagKey<Item> CACTUS_RESISTANCE = createImmItemTag("cactus_resistance");
+        public static final TagKey<Item> LEAVESS = createItemTag("leaves");
+    }
+
+    public static class Blocks{
+        public static final TagKey<Block> MINEABLE_WITH_DRILL_ROD = createImmBlockTag("mineable/drill_rod");
+        public static final TagKey<Block> MINEABLE_HAMMER = createImmBlockTag("mineable/meat_tenderizer");
+        public static final TagKey<Block> SEXTLOTUS_TRANSFORM_AIR = createImmBlockTag("sextlotus_transform_air");
+        public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SAND = createImmBlockTag("sextlotus_transform_sand");
+        public static final TagKey<Block> SEXTLOTUS_TRANSFORM_DIRT = createImmBlockTag("sextlotus_transform_dirt");
+        public static final TagKey<Block> SEXTLOTUS_TRANSFORM_COAL = createImmBlockTag("sextlotus_transform_coal");
+        public static final TagKey<Block> SEXTLOTUS_TRANSFORM_SPECIAL = createImmBlockTag("sextlotus_transform_special");
+    }
+
+    public static class EntityTypes{
+        public static final TagKey<EntityType<?>> IMMORTAL_NORMAL_MOBS = createEntityTag("normal_mobs");
+
+        public static final TagKey<EntityType<?>> IMMORTAL_ELITE_MOBS = createEntityTag("elite_mobs");
+
+        public static final TagKey<EntityType<?>> IMMORTAL_MID_BOSS = createEntityTag("mid_boss");
+    }
+
+    public static class Biomes{
+        public static final TagKey<Biome> IS_CRIMSON_FOREST = createBiomeTag("is_crimson_forest");
+        public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
+        public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
+        public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
     }
 }

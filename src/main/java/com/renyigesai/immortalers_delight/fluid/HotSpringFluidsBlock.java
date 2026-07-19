@@ -38,7 +38,6 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.*;
 
-//待优化
 public class HotSpringFluidsBlock extends LiquidBlock {
 
     public HotSpringFluidsBlock() {
@@ -90,11 +89,11 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     //温泉热源逻辑，在下界以外同厨锅，补充了温泉在下界沸腾的设定，在下界则是单独的温泉方块即可(避免出现大片温泉高频查配方导致卡顿)
     public boolean isHeatSources(Level level, BlockPos pos){
         BlockState stateBelow = level.getBlockState(pos.below());
-        if (stateBelow.is(ModTags.HEAT_SOURCES)) {
+        if (stateBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
             return stateBelow.hasProperty(BlockStateProperties.LIT) ? stateBelow.getValue(BlockStateProperties.LIT) : !stateBelow.getFluidState().is(ImmortalersDelightFluids.HOT_SPRING.get());
-        } else if (stateBelow.is(ModTags.HEAT_CONDUCTORS)) {
+        } else if (stateBelow.is(ModTags.Blocks.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = level.getBlockState(pos.below(2));
-            if (stateFurtherBelow.is(ModTags.HEAT_SOURCES)) {
+            if (stateFurtherBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
                 if (stateFurtherBelow.hasProperty(BlockStateProperties.LIT)) {
                     return (Boolean)stateFurtherBelow.getValue(BlockStateProperties.LIT);
                 }
@@ -124,12 +123,14 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         List<ItemStack> stackList = new ArrayList<>();
         for (ItemEntity entity : itemEntityList) {
             ItemStack item = entity.getItem();
-            if (!item.isEmpty() && item.getCount() == 1) {
+            if (!item.isEmpty()) {
                 stackList.add(item);
             }
         }
         if (stackList.isEmpty())
             return;
+
+        int resultCount = getResultCount(stackList);
         Optional<HotSpringRecipe> recipeOptional = getCurrentRecipe(level,stackList);
         if (recipeOptional.isEmpty()){
             return;
@@ -137,9 +138,14 @@ public class HotSpringFluidsBlock extends LiquidBlock {
         HotSpringRecipe recipe = recipeOptional.get();
         ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
         for (ItemEntity itemEntity : itemEntityList) {
-            itemEntity.remove(Entity.RemovalReason.DISCARDED);
+            int count = itemEntity.getItem().getCount();
+            if (count > resultCount){
+                itemEntity.getItem().shrink(resultCount);
+            }else {
+                itemEntity.remove(Entity.RemovalReason.DISCARDED);
+            }
         }
-        ItemUtils.spawnItemEntity(level,resultItem,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,0,0,0);
+        ItemUtils.splitIntoStacks(resultItem,resultCount).forEach(item -> ItemUtils.spawnItemEntity(level,item,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,0,0,0));
         if (level instanceof ServerLevel serverLevel){
             for (int i = 0; i < 4; i++) {
                 Vec3 vec3 = new Vec3((double)((level.random.nextFloat() * 2.0F - 1.0F) * 0.4F), level.random.nextInt(4) * 0.25D - 0.25D, (double)((level.random.nextFloat() * 2.0F - 1.0F) * 0.4F));
@@ -152,6 +158,24 @@ public class HotSpringFluidsBlock extends LiquidBlock {
             }
             level.playSound(null,pos,SoundEvents.FIRE_EXTINGUISH,SoundSource.BLOCKS);
         }
+    }
+
+    private static int getResultCount(List<ItemStack> stackList) {
+        int maxCount = 1;
+        for (ItemStack stack : stackList) {
+            int itemCount = stack.getMaxStackSize();
+            if (itemCount > maxCount){
+                maxCount = itemCount;
+            }
+        }
+        int resultCount = maxCount;
+        for (ItemStack stack : stackList) {
+            int itemCount = stack.getCount();
+            if (itemCount < resultCount) {
+                resultCount = itemCount;
+            }
+        }
+        return Math.max(resultCount, 1);
     }
 
     @Override

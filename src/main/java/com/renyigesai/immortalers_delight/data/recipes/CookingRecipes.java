@@ -2,11 +2,10 @@ package com.renyigesai.immortalers_delight.data.recipes;
 
 import com.renyigesai.immortalers_delight.data.builder.ImmCookingPotRecipeBuilder;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.tag.ForgeTags;
-import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
+import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import java.util.function.Consumer;
 
@@ -35,7 +34,25 @@ public class CookingRecipes {
                 .addIngredient(Items.TORCHFLOWER)
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
-                .addIngredient(ForgeTags.DOUGH).build(consumer);
+                .addIngredient(CommonTags.Items.DOUGH).build(consumer);
+
+        ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.EIGHT_BERRY_TRAVARICE_CAKE.get(),1,200,0.35f,Items.BOWL)
+                .addIngredient(ImmortalersDelightItems.TRAVARICE.get())
+                .addIngredient(ImmortalersDelightItems.HIMEKAIDO.get())
+                .addIngredient(ImmortalersDelightItems.PEARLIPEARL.get())
+                .addIngredient(Items.SUNFLOWER)
+                .addIngredient(ImmortalersDelightItems.EVOLUTCORN.get())
+                .addIngredient(ImmortalersDelightItems.EVOLUTCORN_HARD_CANDY.get()).build(consumer);
+
+        ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.TRAVA_CONGEE.get(),1,200,0.35f,Items.BOWL)
+                .addIngredient(ImmortalersDelightItems.COOKED_TRAVARICE.get())
+                .build(consumer);
+
+        ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.SNIFFER_TRAVA_ZONGZI.get(),2,200,0.35f)
+                .addIngredient(ImmortalersDelightItems.TRAVARICE.get())
+                .addIngredient(ImmortalersDelightItems.RAW_SNIFFER_STEAK.get())
+                .addIngredient(ImmortalersDelightTags.Items.LEAVESS)
+                .build(consumer);
     }
 
 }
