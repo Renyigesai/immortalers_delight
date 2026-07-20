@@ -49,6 +49,8 @@ public class EdibleBlockFoodItem extends DrinkItem implements AntiFeedingFoodIte
     protected void addAheadFoodEffect(ItemStack stack, Level level, LivingEntity livingEntity) {
 
     }
+
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));

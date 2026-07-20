@@ -121,6 +121,8 @@ public class ShieldLikeFoodItem extends PowerfulAbleFoodItem implements AntiFeed
         }
     }
 
+
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (this.type == 3) tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));

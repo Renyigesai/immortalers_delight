@@ -81,6 +81,8 @@ public class ImmortalersChestBoatItem extends Item {
         }
     }
 
+
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if ((Boolean) Configuration.FOOD_EFFECT_TOOLTIP.get()) {

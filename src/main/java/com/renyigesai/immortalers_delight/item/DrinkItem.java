@@ -95,6 +95,7 @@ public class DrinkItem extends ItemNameBlockItem {
         }
     }
 
+    @SuppressWarnings({"all"})
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("farmersdelight.tooltip.drink_block_item").withStyle(ChatFormatting.GRAY));
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {

@@ -68,6 +68,8 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
         return dogFoodProperties;
     }
 
+
+    @SuppressWarnings({"all"})
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltip, isAdvanced);
         if ((Boolean)Configuration.FOOD_EFFECT_TOOLTIP.get()) {

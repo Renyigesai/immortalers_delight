@@ -127,6 +127,7 @@ public class DrillRodItem extends DiggerItem {
         return level;
     }
 
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if ((Boolean) Configuration.FOOD_EFFECT_TOOLTIP.get()) {

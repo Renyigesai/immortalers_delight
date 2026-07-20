@@ -48,6 +48,8 @@ public class PillagersKnifeItem extends ImmortalersKnifeItem {
     /**
      * Allows items to add custom lines of information to the mouseover description.
      */
+
+    @SuppressWarnings({"all"})
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         if (pStack.getOrCreateTag().contains(MAX_POTION_COUNT) && pStack.getOrCreateTag().getInt(MAX_POTION_COUNT) > 0) {
             int max = pStack.getOrCreateTag().getInt(MAX_POTION_COUNT);

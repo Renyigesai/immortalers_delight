@@ -1610,8 +1610,8 @@ public class ImmortalersDelightItems {
         CLIMBING_ROPE = registerWithTab("climbing_rope", () ->
                 new ClimbingRopeItem(fantasticItem(Rarity.UNCOMMON).durability(64)));
 
-        CLIMBING_ROPE = registerWithTab("climbing_rope", () ->
-                new ClimbingRopeItem(fantasticItem(Rarity.UNCOMMON).durability(64)));
+        //CLIMBING_ROPE = registerWithTab("climbing_rope", () ->
+        //        new ClimbingRopeItem(fantasticItem(Rarity.UNCOMMON).durability(64)));
 
         //隐藏
         DRILL_ROD_WAND = register("drill_rod_wand", () ->

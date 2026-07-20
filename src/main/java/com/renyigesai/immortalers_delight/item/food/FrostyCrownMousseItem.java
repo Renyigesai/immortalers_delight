@@ -68,6 +68,8 @@ public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
             livingEntity.setSharedFlagOnFire(false);
         }
     }
+
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {

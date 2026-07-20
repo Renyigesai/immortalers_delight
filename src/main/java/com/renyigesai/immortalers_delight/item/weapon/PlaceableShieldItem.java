@@ -99,6 +99,7 @@ public class PlaceableShieldItem extends ImmortalersShieldItem {
         }
     }
 
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("tooltip." + ImmortalersDelightMod.MODID + ".can_place_on_plate").withStyle(ChatFormatting.GRAY));

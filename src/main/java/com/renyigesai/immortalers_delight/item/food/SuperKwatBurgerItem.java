@@ -45,6 +45,8 @@ public class SuperKwatBurgerItem extends EdibleBlockFoodItem {
 //        }
 //        super.releaseUsing(stack, level, consumer, timeLeft);
 //    }
+
+    @SuppressWarnings({"all"})
     @Override
     public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
