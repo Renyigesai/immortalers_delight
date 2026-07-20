@@ -1263,4 +1263,23 @@ public class ImmortalersDelightFoodProperties {
     public static final FoodProperties SCARLET_DEVILS_CAKE = new FoodProperties.Builder().nutrition(20).saturationMod(0.6F).effect(() ->new MobEffectInstance(MobEffects.DAMAGE_BOOST,5400,3),1F).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),4800,0),1F).effect(()-> new MobEffectInstance(MobEffects.HEAL,1,0),1F).build();
 
 
+    public static final FoodProperties ICE_PIZZA = new FoodProperties.Builder().nutrition(3).saturationMod(0.5F).build();
+    public static final FoodProperties TRAVA_BAO = new FoodProperties.Builder().nutrition(6).saturationMod(0.5F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),600),1f).build();
+    public static final FoodProperties TRAVA_CONGEE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.KEEP_A_FAST.get(),9600),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),1200),1f).build();
+    public static final FoodProperties EIGHT_BERRY_TRAVARICE_CAKE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5F).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),3600),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),3600,1),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.VITALITY.get(),3600),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.CULTURAL_LEGACY.get(),3600,1),1f).build();
+    public static final FoodProperties TRAVA_CALIFORNIA_ROLL = new FoodProperties.Builder().nutrition(6).saturationMod(0.5F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),3600),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),3600,1),1f)
+            .build();
+    public static final FoodProperties TRAVA_CALIFORNIA_ROLL_SLICE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5F)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),1200),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.MOONBRIGHT.get(),1200,1),1f)
+            .build();
+
+    public static final FoodProperties TRAVARICE_TEA = new FoodProperties.Builder().alwaysEat().build();
+
+    public static final FoodProperties SNIFFER_TRAVA_ZONGZI = new FoodProperties.Builder().nutrition(10).saturationMod(0.55f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1200),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),3600),1f).build();
+
+
+
 }

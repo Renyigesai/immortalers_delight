@@ -556,7 +556,11 @@ public class ImmortalersDelightBlocks {
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> ROASTED_MUSHROOM_PIZZA = BLOCKS.register("roasted_mushroom_pizza",()->
-            new RoastedMushroomPizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
+            new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ROASTED_MUSHROOM_PIZZA_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> ICE_PIZZA = BLOCKS.register("ice_pizza",()->
+            new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.ICE_PIZZA_SLICE));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final RegistryObject<Block> KWAT_WHEAT = BLOCKS.register("kwat_wheat",
