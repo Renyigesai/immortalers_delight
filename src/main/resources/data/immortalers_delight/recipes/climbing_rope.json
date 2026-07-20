@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aab"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:lead"
+    },
+    "b": {
+      "item": "immortalers_delight:travastruggler_log"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:climbing_rope",
+    "count": 1
+  }
+}

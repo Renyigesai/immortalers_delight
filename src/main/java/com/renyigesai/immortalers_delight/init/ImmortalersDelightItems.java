@@ -704,8 +704,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> TRAVA_CALIFORNIA_ROLL_SLICE;
     @ItemData(zhCn = "菅粑")
     public static final RegistryObject<Item> TRAVA_BAO;
-//    @ItemData(zhCn = "菅米茶")
-//    public static final RegistryObject<Item> TRAVARICE_TEA;
+    @ItemData(zhCn = "菅米茶")
+    public static final RegistryObject<Item> TRAVARICE_TEA;
 
 
     @ItemData(zhCn = "冰披萨")
@@ -1952,7 +1952,7 @@ public class ImmortalersDelightItems {
         TRAVA_CALIFORNIA_ROLL_SLICE = foodItem("trava_california_roll_slice",ImmortalersDelightFoodProperties.TRAVA_CALIFORNIA_ROLL_SLICE,true);
         TRAVA_CONGEE = registerWithTab("trava_congee",()-> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.TRAVA_CONGEE),true));
         TRAVA_BAO = foodItem("trava_bao",ImmortalersDelightFoodProperties.TRAVA_BAO,true);
-        //TRAVARICE_TEA = registerWithTab("travarice_tea",TravariceTeaItem::new);
+        TRAVARICE_TEA = registerWithTab("travarice_tea",TravariceTeaItem::new);
 
         ICE_PIZZA = block(ImmortalersDelightBlocks.ICE_PIZZA);
         ICE_PIZZA_SLICE = foodItem("ice_pizza_slice",ImmortalersDelightFoodProperties.ICE_PIZZA);
