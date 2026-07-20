@@ -18,6 +18,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -80,11 +82,15 @@ public class DebugItem extends Item {
     public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
         System.out.println("hurtEnemy");
         if (!target.level().isClientSide()) {
-            LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getMaxHealth());
-            if (target.isDeadOrDying()) {
-                System.out.println("target is dead");
-                target.die(attacker.damageSources().mobAttack(attacker));
-            }
+//            LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getMaxHealth());
+//            if (target.isDeadOrDying()) {
+//                System.out.println("target is dead");
+//                target.die(attacker.damageSources().mobAttack(attacker));
+//            }
+            float maxHealth = target.getMaxHealth();
+            double baseHealth = target.getAttributeBaseValue(Attributes.MAX_HEALTH);
+            System.out.println("target's maxHealth:" + maxHealth);
+            System.out.println("target's baseHealth:" + baseHealth);
         }
 
 
@@ -95,13 +101,13 @@ public class DebugItem extends Item {
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         System.out.println("onLeftClickEntity");
         if (entity instanceof LivingEntity target && player instanceof ServerPlayer attacker) {
-            if (!target.level().isClientSide()) {
-                LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getHealth());
-                if (target.isDeadOrDying()) {
-                    System.out.println("target is dead");
-                    target.die(attacker.damageSources().mobAttack(attacker));
-                }
-            }
+//            if (!target.level().isClientSide()) {
+//                LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getHealth());
+//                if (target.isDeadOrDying()) {
+//                    System.out.println("target is dead");
+//                    target.die(attacker.damageSources().mobAttack(attacker));
+//                }
+//            }
         }
 
         return super.onLeftClickEntity(stack, player, entity);

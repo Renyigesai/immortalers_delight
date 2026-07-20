@@ -1,9 +1,16 @@
 package com.renyigesai.immortalers_delight.potion;
 
+import com.mojang.brigadier.ParseResults;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.context.ParsedCommandNode;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.item.weapon.GoldenFabricArmor;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import com.renyigesai.immortalers_delight.util.task.TimekeepingTask;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -15,23 +22,21 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
 public class GasPoisonMobEffect extends BaseMobEffect {
+    private static Map<UUID,Long> entitiesNeedExempt = new HashMap<>();
     public GasPoisonMobEffect() {
         super(MobEffectCategory.HARMFUL, 9574964);
     }
@@ -51,8 +56,15 @@ public class GasPoisonMobEffect extends BaseMobEffect {
     public void applyEffectTickInControl(LivingEntity pEntity, int amplifier) {
         if (this == GAS_POISON.get() && !pEntity.level().isClientSide()) {
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            float health = pEntity.getHealth();
-            float damage = (20 > pEntity.getMaxHealth() ? 20 : pEntity.getMaxHealth()) * 0.06F;
+            //获取实体的最大生命与生命上限的基础属性
+            float maxHealth = pEntity.getMaxHealth();
+            double baseHealth = 20;
+            //玩家的默认基础生命为20，同时处理一些不具有原版血条的特殊生物
+            if (!(pEntity instanceof Player) && pEntity.getAttribute(Attributes.MAX_HEALTH) != null) {
+                baseHealth = pEntity.getAttributeBaseValue(Attributes.MAX_HEALTH);
+            }
+            //计算伤害：伤害为固定值，按照目标的生命增益倍率放大
+            float damage = (float) (1.2 * maxHealth / baseHealth);
             if (!isPowerful && damage > 6 + 3 * amplifier) {
                 damage = 6+3*amplifier;
             }
@@ -97,42 +109,65 @@ public class GasPoisonMobEffect extends BaseMobEffect {
             bus = Mod.EventBusSubscriber.Bus.FORGE
     )
     public static class GasPoisonPotionEffect {
-
-//        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingAttack(LivingAttackEvent event) {
-//            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-//                if (event.isCanceled()) event.setCanceled(false);
-//                LivingEntity pEntity = event.getEntity();
-//                float health = pEntity.getHealth();
-//                float damage = event.getAmount();
-//                //记录应该减扣至的血量
-//                entityDamage.put(pEntity.getUUID(), health - damage);
-//            }
-//        }
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingHurt(LivingHurtEvent event) {
-//            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-//                if (event.isCanceled()) event.setCanceled(false);
-//            }
-//        }
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingDamage(LivingDamageEvent event) {
-//            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-//            LivingEntity pEntity = event.getEntity();
-//            if (entityDamage.containsKey(pEntity.getUUID())) {
-//                float health = pEntity.getHealth();
-//                float needHealth = entityDamage.get(pEntity.getUUID());
-//                //如果发现被减伤了(当前血量减伤害值大于记录的血量)
-//                if (isPowerful && health - event.getAmount() > needHealth) {
-//                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
-//                    event.setAmount(0.0F);
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        public static void onOpUseCommand(CommandEvent event) {
+            if (event.isCanceled()) return;
+//            String rawInput = event.getParseResults().getReader().getString();
+//            System.out.println(rawInput);
+//
+//            // 判断是否是 effect clear
+//            if (rawInput.startsWith("effect clear")) {
+//                System.out.println("Somebody use the effect clear command. ");
+//                CommandSourceStack source = event.getParseResults().getContext().getSource();
+//                Player player = source.getPlayer(); // 获取执行者
+//                if (player != null) {
+//                    System.out.println("Who use the command? "+player.getUUID());
 //                }
-//                entityDamage.remove(pEntity.getUUID());
 //            }
-//        }
+            List<ParsedCommandNode<CommandSourceStack>> nodes =
+                    event.getParseResults().getContext().getNodes();
+
+            if (nodes.size() < 2) return;
+
+            // 第一个节点是 "effect"，第二个节点是 "clear"
+            String rootNode = nodes.get(0).getNode().getName();
+            String subNode = nodes.get(1).getNode().getName();
+
+            // 确认是 /effect clear 命令
+            if ("effect".equals(rootNode) && "clear".equals(subNode)) {
+                //System.out.println("Somebody use the effect clear command. ");
+                ParseResults<CommandSourceStack> parse = event.getParseResults();
+
+                // 获取命令发送者信息
+//                CommandSourceStack source = parse.getContext().getSource();
+//                String senderName = source.getTextName();
+//                ServerLevel level = source.getLevel();
+//                System.out.println("Who use the command? "+ senderName);
+//                System.out.println("Is client? "+ level.isClientSide());
+                boolean hasTargets = nodes.size() >= 3 && "targets".equals(nodes.get(2).getNode().getName());
+                if (!hasTargets) {return;}
+
+                // 将目标添加到豁免列表
+                CommandContext<CommandSourceStack> ctx = parse.getContext().build(parse.getReader().getString());
+                try {
+                    // 读取目标实体
+                    Collection<? extends Entity> targets = EntityArgument.getEntities(ctx, "targets");
+
+                    // 调试信息
+                    String sender = ctx.getSource().getTextName();
+                    System.out.println(sender + " 对 " + targets.size() + " 个目标清除效果");
+
+                    //将目标添加到豁免实体表
+                    for (Entity entity : targets) {
+                        if (entity instanceof LivingEntity living) {
+                            entitiesNeedExempt.put(living.getUUID(), TimekeepingTask.getImmortalTickTime());
+                        }
+                    }
+                } catch (CommandSyntaxException ignored) {
+
+                }
+            }
+        }
         @SubscribeEvent
         public static void onRemoveFromEntity(MobEffectEvent.Remove event) {
             if (event != null && event.getEntity() != null) {
@@ -150,10 +185,26 @@ public class GasPoisonMobEffect extends BaseMobEffect {
                             || event.getEffectInstance().getEffect() == MobEffects.CONFUSION
                             || event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN
                             || event.getEffectInstance().getEffect() == MobEffects.WEAKNESS)) {
-                        event.setCanceled(true);
+                        if (!needExemptEntity(entity)) event.setCanceled(true);
                     }
                 }
             }
+        }
+
+        //通过豁免实体列表来判定是否可以解除
+        private static boolean needExemptEntity(LivingEntity entity) {
+            //如果不在豁免列表中，直接返回否定
+            if (entitiesNeedExempt.get(entity.getUUID()) != null) {
+                boolean needBreak = false;
+                //如果在且是新鲜的解除指令，改为可以解除
+                if (Math.abs(entitiesNeedExempt.get(entity.getUUID()) - TimekeepingTask.getImmortalTickTime()) < 100) {
+                    needBreak = true;
+                }
+                //如果是已超时的解除指令，清表
+                if (!needBreak) entitiesNeedExempt.remove(entity.getUUID());
+                return needBreak;
+            }
+            return false;
         }
     }
 }
