@@ -31,11 +31,11 @@ public class HotSpringEmiRecipe extends BasicEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(new EmiTexture(BACKGROUND, 0, 0, 186, 119), 0, 0);
-        int x0 = 25;
-        int y0 = 39;
+        int x0 = 24;
+        int y0 = 38;
         int step = 18;
         if (!inputs.isEmpty()) {
-            widgets.addSlot(inputs.get(0), x0 + 19, y0 - 8);
+            widgets.addSlot(inputs.get(0), x0 + 19, y0 - 8).drawBack(false);
         }
         int inputIndex = 1;
         outer:
@@ -45,10 +45,10 @@ public class HotSpringEmiRecipe extends BasicEmiRecipe {
                     break outer;
                 }
                 int yOff = col == 1 ? 10 : 1;
-                widgets.addSlot(inputs.get(inputIndex), x0 + col * step + 1, y0 + row * step + yOff);
+                widgets.addSlot(inputs.get(inputIndex), x0 + col * step + 1, y0 + row * step + yOff).drawBack(false);
                 inputIndex++;
             }
         }
-        widgets.addSlot(outputs.get(0), 144, 57).recipeContext(this);
+        widgets.addSlot(outputs.get(0), 144, 57).large(true).drawBack(false).recipeContext(this); // 144, 57 这个位置应该是不对的
     }
 }
