@@ -41,20 +41,20 @@ public class EnchantalCoolerEmiRecipe extends BasicEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(new EmiTexture(BACKGROUND, 0, 0, 138, 86), 0, 0);
-        int x0 = 13;
-        int y0 = 16;
+        int x0 = 12;
+        int y0 = 15;
         int step = 18;
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < 2; col++) {
                 int idx = row * 2 + col;
                 if (idx < inputs.size()) {
-                    widgets.addSlot(inputs.get(idx), x0 + col * step + 1, y0 + row * step + 1);
+                    widgets.addSlot(inputs.get(idx), x0 + col * step + 1, y0 + row * step + 1).drawBack(false);
                 }
             }
         }
         if (hasContainer) {
-            widgets.addSlot(containerSlot, 99, 55);
+            widgets.addSlot(containerSlot, 99, 55).drawBack(false);
         }
-        widgets.addSlot(outputs.get(0), 99, 25).recipeContext(this);
+        widgets.addSlot(outputs.get(0), 99, 25).drawBack(false).recipeContext(this);
     }
 }
