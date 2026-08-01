@@ -38,7 +38,7 @@ public class SnifferDropSeedEvent extends Event {
     }
 
     /**
-     * Present when fired from {@link com.renyigesai.immortalers_delight.mixin.SnifferMixin} (normal digging flow).
+     * Present when fired from sniffer dig loot flow (GLM and/or More Sniffer Flowers compat mixin).
      */
     @Nullable
     public Sniffer getSniffer() {
