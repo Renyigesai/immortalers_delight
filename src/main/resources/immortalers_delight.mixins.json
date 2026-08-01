@@ -4,11 +4,13 @@
   "package": "com.renyigesai.immortalers_delight.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "immortalers_delight.refmap.json",
+  "plugin": "com.renyigesai.immortalers_delight.mixin.ImmortalersDelightMixinPlugin",
   "mixins": [
     "ItemEntityMixin",
     "PlayerMixin",
     "SnifferMixin",
-    "JigsawStructureMixin"
+    "JigsawStructureMixin",
+    "MoreSnifferFlowersAddItemsModifierMixin"
   ],
   "client": [
   ],

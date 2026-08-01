@@ -82,6 +82,9 @@ dependencies {
 
     compileOnly 'maven.modrinth:jade:15.6.0+neoforge'
 
+    // Optional soft-compat target (More Sniffer Flowers clears sniffer dig loot)
+    compileOnly files('libs/MoreSnifferFlowers-1.21.1-neo-6.6.6.jar')
+
     annotationProcessor 'io.github.llamalad7:mixinextras-common:0.5.3'
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.3'
     annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
