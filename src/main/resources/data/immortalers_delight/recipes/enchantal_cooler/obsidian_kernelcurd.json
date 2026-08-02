@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "forge:slimeballs"
+    },
+    {
+      "item": "immortalers_delight:obsidian_walnut_milk"
+    },
+    {
+      "item": "immortalers_delight:obsidian_walnut_milk"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:obsidian_kernelcurd",
+    "count": 1
+  }
+}

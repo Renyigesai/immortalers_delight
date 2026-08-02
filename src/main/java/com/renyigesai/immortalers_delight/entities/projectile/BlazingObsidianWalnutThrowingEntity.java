@@ -1,0 +1,276 @@
+package com.renyigesai.immortalers_delight.entities.projectile;
+
+import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
+import com.renyigesai.immortalers_delight.init.*;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
+import com.renyigesai.immortalers_delight.potion.InfernalForgingMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+
+public class BlazingObsidianWalnutThrowingEntity extends ThrowableItemProjectile {
+    private int explosionPower = 1;
+    private boolean hasBoomed = false;//记录客户端是否已经生成过爆炸特效
+    private int explosionTime = 0;//爆炸时间，用于服务端记录何时应该删除实体
+    private static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(BlazingObsidianWalnutThrowingEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Boolean> DATA_BOOM = SynchedEntityData.defineId(BlazingObsidianWalnutThrowingEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public BlazingObsidianWalnutThrowingEntity(EntityType<? extends BlazingObsidianWalnutThrowingEntity> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
+
+    public BlazingObsidianWalnutThrowingEntity(Level pLevel, LivingEntity pShooter) {
+        super(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(), pShooter, pLevel);
+    }
+
+    public BlazingObsidianWalnutThrowingEntity(Level pLevel, double pX, double pY, double pZ) {
+        super(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(), pX, pY, pZ, pLevel);
+    }
+
+    /**
+     * 定义该实体的同步数据（原版重写方法，实体初始化时调用）
+     * 用于注册需要在服务端和客户端之间同步的实体数据，此处注册危险级标记
+     */
+    protected void defineSynchedData() {
+        // 初始化同步数据，默认该凋灵头颅为非危险级（false）
+        this.entityData.define(DATA_BOOM, false);
+        this.entityData.define(DATA_DANGEROUS,false);
+        super.defineSynchedData();
+    }
+
+    /**
+     * 判断该凋灵头颅是否为危险级（来自无敌状态的凋灵BOSS光环）
+     * 危险级头颅具有更强的方块破坏能力
+     * @return 是否为危险级凋灵头颅
+     */
+    public boolean isDangerous() {
+        // 从同步实体数据中获取危险级标记
+        return this.entityData.get(DATA_DANGEROUS);
+    }
+    public boolean isBoom() {
+        // 从同步实体数据中获取危险级标记
+        return this.entityData.get(DATA_BOOM);
+    }
+
+    /**
+     * 设置该凋灵头颅是否为危险级
+     * 通常由凋灵BOSS在发射头颅时根据自身状态设置
+     * @param pInvulnerable 是否为危险级（对应凋灵BOSS的无敌状态）
+     */
+    public void setDangerous(boolean pInvulnerable) {
+        // 向同步实体数据中写入危险级标记，自动同步到客户端
+        this.entityData.set(DATA_DANGEROUS, pInvulnerable);
+    }
+    public void setBoom(boolean pInvulnerable) {
+        // 向同步实体数据中写入危险级标记，自动同步到客户端
+        this.entityData.set(DATA_BOOM, pInvulnerable);
+    }
+
+    protected Item getDefaultItem() {
+        return ImmortalersDelightItems.BLAZING_OBSIDIAN_WALNUT.get();
+    }
+
+    private ParticleOptions getParticle() {
+        ItemStack itemstack = this.getItemRaw();
+        return (ParticleOptions)(itemstack.isEmpty() ? new ItemParticleOption(ParticleTypes.ITEM, itemstack) : ParticleTypes.FLAME);
+    }
+
+    public void handleEntityEvent(byte pId) {
+        if (pId == 3) {
+            ParticleOptions particleoptions = this.getParticle();
+            for(int i = 0; i < 8; ++i) {
+                this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            }
+        }
+
+    }
+
+    public void tick() {
+        super.tick();
+        boolean flag = this.isBoom(); // 当前是否处于引爆状态
+        //服务端行为，超时销毁弹射物
+        if (!this.level().isClientSide()) {
+            if (this.tickCount > 40 && !flag) {
+                //飞行过长时间爆炸
+                this.boom();
+                this.explosionTime = this.tickCount;
+            }
+            if (flag) {
+                //爆炸后，不再移动，静待删除
+                this.setDeltaMovement(0,0,0);
+            }
+            //超时删除
+            if (this.tickCount > 20 + this.explosionTime){
+                this.discard();
+                ItemEntity output = new ItemEntity(
+                        this.level(),
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        new ItemStack(ImmortalersDelightItems.OBSIDIAN_WALNUT_KERNEL.get(),this.getItem().getCount()));
+                output.setDeltaMovement(this.getDeltaMovement());
+                this.level().addFreshEntity(output);
+            }
+        } else {
+            //客户端行为，生成特效
+            if (flag && !this.hasBoomed) {
+                this.sendParticle2002(this.random, this.getEyePosition());
+                //记录已经生成特效，避免重复生成
+                this.hasBoomed = true;
+            }
+
+        }
+    }
+    public int bitLength(int n) {
+        return 32 - Integer.numberOfLeadingZeros(n);
+    }
+    public float boomDamage(LivingEntity livingEntity, boolean isPowerful) {
+        //基础爆炸威力为4（等同tnt）
+        int power = 4;
+        //令燃胡桃可以应用燃起来了的爆炸威力加成
+        MobEffectInstance instance = livingEntity.getEffect(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get());
+        if (instance != null && instance.getEffect() instanceof BaseMobEffect effect) {
+            //计算燃起来了的爆炸威力加成
+            int lv = effect.getTruthUsingAmplifier(instance.getAmplifier()) + 1;
+            int ex = 1 << lv;
+            power += ex;
+        }
+        //计算爆心爆炸伤害
+        float f = isPowerful ? 0.65f*(this.bitLength(power)) : 1;
+        return 7 * (f * f + f) * power + 1;
+    }
+
+    public void boom() {
+        //有主人的效果
+        if (this.getOwner() != null && this.getOwner() instanceof LivingEntity livingEntity) {
+            //获取使用者的攻击力
+            AttributeInstance attributeInstance = livingEntity.getAttribute(Attributes.ATTACK_DAMAGE);
+            float damage = attributeInstance != null ? (float) attributeInstance.getValue() : 0f;
+            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
+            //令燃胡桃可以应用火成的伤害加成
+            MobEffectInstance instance = livingEntity.getEffect(ImmortalersDelightMobEffect.INFERNAL_FORGING.get());
+            if (damage > 0 && instance != null && instance.getEffect() instanceof BaseMobEffect effect) {
+                //计算火成的伤害加成
+                damage *= 1 + InfernalForgingMobEffect.getEntitiesWithStacks().getOrDefault(livingEntity.getUUID(),(byte)0) * (effect.getTruthUsingAmplifier(instance.getAmplifier()) + 2) * 0.03;
+            }
+            //计算基础爆炸伤害与爆炸范围
+            float baseDamage = this.boomDamage(livingEntity,isPowerful);
+            damage += baseDamage;
+            float range = this.bitLength((int) baseDamage);
+
+            //造成范围伤害
+            BlazingObsidianWalnutItem.performBlastAttack(livingEntity, this.getEyePosition(), range,
+                    this.damageSources().explosion(this,livingEntity), damage,
+                    true,false,true);
+        } else {
+            boolean flag = !net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this.getOwner());
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, flag, Level.ExplosionInteraction.MOB);
+        }
+
+        this.setBoom(true);
+        this.explosionTime = this.tickCount;
+    }
+    /**
+     * Called when this EntityFireball hits a block or entity.
+     */
+    protected void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        if (!this.level().isClientSide) {
+            //首次碰撞时爆炸
+            if (!this.isBoom()) {
+                this.boom();
+            }
+        }
+    }
+
+    //模拟游戏事件2002生成声音和粒子（这个特效不在投掷物的代码内）
+    public void sendParticle2002(RandomSource randomsource, Vec3 pPos){
+
+        //客户端行为：生成粒子效果
+        Vec3 center = new Vec3(this.getX(), this.getY() + 0.5, this.getZ());
+        float radius = 3.3f;
+        for (int i = 0; i < 32; i++) {
+            double angle = 2 * Math.PI * Math.random();
+            double r = radius * Math.sqrt(Math.random());
+            double x = center.x + r * Math.cos(angle);
+            double z = center.z + r * Math.sin(angle);
+            double y = center.y;
+            if (r <= radius / 3) {
+                this.level().addParticle(
+                        ParticleTypes.SMOKE, false, x, y, z, 0, 0.025, 0
+                );
+            } else this.level().addParticle(
+                    ParticleTypes.LAVA, false, x, y, z, 0, 0.025, 0
+            );
+        }
+        ShockWaveParticleOption particleOption = new ShockWaveParticleOption(7);
+        this.level().addAlwaysVisibleParticle(particleOption, false, this.getX(), this.getY() + 0.25, this.getZ(), 0.0D, 0.0D, 0.0D);
+
+        for(int i = 0; i < 8; ++i) {
+            float dx = 0;
+            float dy = 0;
+            float dz = 0;
+            if (i >= 1) {
+                if (i <= 6) {
+                    dx = (float) Math.sin(i);
+                    dz = (float) Math.cos(i);
+                } else dy = 0.6f;
+            }
+            this.level().addParticle(ImmortalersDelightParticleTypes.HUGE_SMOKE.get(), pPos.x + dx, pPos.y + dy, pPos.z + dz, randomsource.nextGaussian() * 0.15D, randomsource.nextDouble() * 0.2D, randomsource.nextGaussian() * 0.15D);
+        }
+
+        ParticleOptions particleoptions = ParticleTypes.LAVA;
+
+        for(int k2 = 0; k2 < 100; ++k2) {
+            double d13 = randomsource.nextDouble() * 4.0D;
+            double d19 = randomsource.nextDouble() * Math.PI * 2.0D;
+            double d25 = Math.cos(d19) * d13;
+            double d30 = 0.01D + randomsource.nextDouble() * 0.5D;
+            double d31 = Math.sin(d19) * d13;
+            this.level().addParticle(particleoptions,
+                    pPos.x + d25 * 0.1D, pPos.y + 0.3D, pPos.z + d31 * 0.1D,
+                    d25, d30, d31);
+        }
+
+        this.level().playLocalSound(BlockPos.containing(pPos), SoundEvents.GENERIC_EXPLODE, SoundSource.NEUTRAL, 1.0F, randomsource.nextFloat() * 0.1F + 0.9F, false);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putByte("ExplosionPower", (byte)this.explosionPower);
+    }
+
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("ExplosionPower", 99)) {
+            this.explosionPower = pCompound.getByte("ExplosionPower");
+        }
+
+    }
+}

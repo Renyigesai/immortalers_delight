@@ -109,7 +109,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //        if (entityHasEffect.get(uuid) == null) {
 //            return;
 //        }
-//        Long expireTime = entityHasEffect.get(uuid).getTime();
+//        Long expireTime = entityHasEffect.get(uuid).getType();
 //
 //        /*
 //        如果当前系统时间超过了结束时刻，取消效果（将实体从Map中移除，取消计划任务）
@@ -133,7 +133,7 @@ import java.util.concurrent.ConcurrentHashMap;
 ////                    UUID uuid1 = entry.getKey();
 ////                    EffectData effectData = entry.getValue();
 ////                    ImmortalersDelightMod.LOGGER.info("UUID: " + uuid1 + ", Effect Level: " + effectData.getAmplifier() +
-////                            ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+////                            ", Duration: " + effectData.getType() + ", Task ID " + effectData.getTaskId());
 ////                }
 //
 //                Long durationTime = expireTime - TimekeepingTask.getImmortalTickTime();
@@ -219,7 +219,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //            /*
 //            修正时刻，存盘的Map里存的时间理论上为[上次关服时间 + 剩余持续时间]，因此减去一个上次关服时间再加上当前时间即可保持持续时间不变
 //             */
-//            Long trueTime = dataOld.getTime() - ExitTimeSaveLoadHelper.loadExitTime(serverLevel) + TimekeepingTask.getImmortalTickTime();
+//            Long trueTime = dataOld.getType() - ExitTimeSaveLoadHelper.loadExitTime(serverLevel) + TimekeepingTask.getImmortalTickTime();
 //            EffectData newOne = new EffectData(dataOld, trueTime, dataOld.getAmplifier(), dataOld.getTaskId());
 //            entityHasEffect.put(uuidOld,newOne);
 //        }
@@ -230,7 +230,7 @@ import java.util.concurrent.ConcurrentHashMap;
 //            UUID uuid = entry.getKey();
 //            EffectData effectData = entry.getValue();
 //            ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
-//                    ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+//                    ", Duration: " + effectData.getType() + ", Task ID " + effectData.getTaskId());
 //        }
 //    }
 //    /**

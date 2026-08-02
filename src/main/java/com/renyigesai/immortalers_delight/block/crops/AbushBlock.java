@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.Tags;
 
 public class AbushBlock extends Block implements SimpleLavaloggedBlock, BonemealableBlock {
 
@@ -88,7 +89,7 @@ public class AbushBlock extends Block implements SimpleLavaloggedBlock, Bonemeal
     }
 
     protected boolean mayPlaceOn(BlockState pState) {
-        return pState.is(Blocks.NETHERRACK);
+        return pState.is(Tags.Blocks.NETHERRACK) || pState.is(Blocks.MAGMA_BLOCK);
     }
 
     @Override

@@ -1,7 +1,24 @@
 {
-  "parent": "immortalers_delight:block/evolutcorn_hard_candy",
-  "textures": {
-    "0": "immortalers_delight:block/evolutcorn_hard_candy_8",
-		"particle": "immortalers_delight:block/evolutcorn_hard_candy_8"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"1": "immortalers_delight:block/tray_top",
+		"2": "immortalers_delight:block/tray_bottom"
+	},
+	"elements": [
+		{
+			"name": "tray",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#1"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#2"}
+			}
+		}
+	]
 }

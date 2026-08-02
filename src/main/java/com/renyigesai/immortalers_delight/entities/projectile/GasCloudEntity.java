@@ -228,7 +228,7 @@ public class GasCloudEntity extends EffectCloudBaseEntity{
                         0.0D             // 速度（无作用）
                 );
             } else if (level.isClientSide()) {
-                System.out.println("生成冲击波粒子");
+                //System.out.println("生成冲击波粒子");
                 level.addAlwaysVisibleParticle(particleOption, x, y, z, 0.0D, 0.0D, 0.0D);
             }
         }

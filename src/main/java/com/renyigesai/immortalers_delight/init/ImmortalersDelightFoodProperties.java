@@ -1276,6 +1276,47 @@ public class ImmortalersDelightFoodProperties {
 
     public static final FoodProperties TRAVARICE_TEA = new FoodProperties.Builder().alwaysEat().build();
 
+    public static final FoodProperties BAKED_OBSIDIAN_WALNUT = new FoodProperties.Builder()
+            .nutrition(20).saturationMod(0.25f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),1800,3),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),600),1f)
+            .build();
+    public static final FoodProperties OBSIDIAN_KERNELCURD = new FoodProperties.Builder()
+            .nutrition(12).saturationMod(0.25f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),1200),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),800),1f)
+            .build();
+    public static final FoodProperties OBSIDIAN_WALNUT_KERNEL = new FoodProperties.Builder()
+            .nutrition(5).saturationMod(1)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),100),1f)
+            .build();
+    public static final FoodProperties OBSIDIAN_WALNUT_MILK = new FoodProperties.Builder()
+            .nutrition(10).saturationMod(0.25f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),200),1f)
+            .alwaysEat()
+            .build();
+    public static final FoodProperties SYRUP_WITH_KERNELCURD = new FoodProperties.Builder()
+            .nutrition(10).saturationMod(1)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),1000,1),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),1000,2),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON.get(),3600,1),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE.get(),1800),1f)
+            .build();
+    public static final FoodProperties WALNUT_ICECREAM = new FoodProperties.Builder()
+            .nutrition(6).saturationMod(1)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),3600,1),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.COOL.get(),1200),1f)
+            .alwaysEat()
+            .build();
+    public static final FoodProperties WALNUT_PIE_SLICE = new FoodProperties.Builder()
+            .nutrition(10).saturationMod(0.25f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.SATIATED.get(),400),1f)
+            .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),4000),1f)
+            .build();
+//    public static final FoodProperties TRAVARICE_TEA = new FoodProperties.Builder()
+//            .alwaysEat()
+//            .build();
+
     public static final FoodProperties SNIFFER_TRAVA_ZONGZI = new FoodProperties.Builder().nutrition(10).saturationMod(0.55f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.PREHISTORIC_POWERS.get(),1200),1f).effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.UNYIELDING.get(),3600),1f).build();
 
     //TRAVARICE_TEA

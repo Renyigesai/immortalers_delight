@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "immortalers_delight:obsidian_walnut_kernel"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:obsidian_walnut_milk",
+    "count": 1
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_door",
+  "key": {
+    "a": {
+      "item": "immortalers_delight:obsidian_walnut_kernel"
+    },
+    "b": {
+      "item": "minecraft:egg"
+    },
+    "c": {
+      "tag": "forge:milk"
+    },
+    "d": {
+      "item": "minecraft:gunpowder"
+    },
+    "e": {
+      "item": "immortalers_delight:evolutcorn_pie_crust"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "bcb",
+    "ded"
+  ],
+  "result": {
+    "count": 3,
+    "item": "immortalers_delight:walnut_pie"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,15 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:obsidian_kernelcurd"
+    }
+  ],
+  "container": {
+    "item": "immortalers_delight:egg_cone"
+  },
+  "output": {
+    "item": "immortalers_delight:walnut_icecream",
+    "count": 1
+  }
+}

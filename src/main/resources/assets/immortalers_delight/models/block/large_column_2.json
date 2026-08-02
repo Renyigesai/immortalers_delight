@@ -1,7 +1,51 @@
 {
-  "parent": "immortalers_delight:block/large_column",
-  "textures": {
-    "0": "immortalers_delight:block/large_column_2",
-		"particle": "immortalers_delight:block/large_column_2"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "immortalers_delight:block/tray_bottom",
+		"2": "immortalers_delight:block/tray_top",
+		"4": "immortalers_delight:block/alfalfa_dababa",
+		"particle": "immortalers_delight:block/tray_bottom"
+	},
+	"elements": [
+		{
+			"from": [2, 2, 2],
+			"to": [14, 7, 14],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 4.5, 8]},
+			"faces": {
+				"north": {"uv": [6, 8.5, 0, 6], "rotation": 180, "texture": "#4"},
+				"east": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"south": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"west": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"up": {"uv": [0, 0, 6, 6], "rotation": 270, "texture": "#4"},
+				"down": {"uv": [6, 0, 12, 6], "texture": "#4"}
+			}
+		},
+		{
+			"from": [2, 7, 2],
+			"to": [14, 12, 14],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 9.5, 8]},
+			"faces": {
+				"north": {"uv": [6, 8.5, 0, 6], "rotation": 180, "texture": "#4"},
+				"east": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"south": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"west": {"uv": [0, 6, 6, 8.5], "texture": "#4"},
+				"up": {"uv": [0, 0, 6, 6], "rotation": 270, "texture": "#4"},
+				"down": {"uv": [6, 0, 12, 6], "texture": "#4"}
+			}
+		},
+		{
+			"name": "tray",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#2"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#1"}
+			}
+		}
+	]
 }

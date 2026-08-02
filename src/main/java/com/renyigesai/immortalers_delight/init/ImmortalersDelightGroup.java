@@ -3,15 +3,16 @@ package com.renyigesai.immortalers_delight.init;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.api.annotation.ItemData;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BakedObsidianWalnutItem;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 
 public class ImmortalersDelightGroup {
@@ -57,6 +58,8 @@ public class ImmortalersDelightGroup {
                             if (annotation != null && tab.equals(annotation.group())){
                                 Item item = deferredItem.get();
                                 output.accept(item);
+                                ItemStack itemStack = addSpecialItem(item);
+                                if (!itemStack.isEmpty()) output.accept(itemStack);
                             }
                         }
                     }
@@ -66,4 +69,20 @@ public class ImmortalersDelightGroup {
             }
         }
     }
+
+    private static @NotNull ItemStack addSpecialItem(Item item) {
+        ItemStack output = ItemStack.EMPTY;
+        if (item instanceof BakedObsidianWalnutItem) {
+            output = new ItemStack(item);
+            output.getOrCreateTag().putBoolean(BakedObsidianWalnutItem.TAG_PERSISTENT, true);
+            return output;
+        }
+        if (item instanceof BlazingObsidianWalnutItem) {
+            output = new ItemStack(item);
+            output.getOrCreateTag().putBoolean(BlazingObsidianWalnutItem.TAG_PERSISTENT, true);
+            return output;
+        }
+        return output;
+    }
+
 }

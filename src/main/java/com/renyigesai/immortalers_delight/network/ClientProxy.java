@@ -1,6 +1,8 @@
 package com.renyigesai.immortalers_delight.network;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
+import com.renyigesai.immortalers_delight.message.client.ClientPacketHandlers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
@@ -41,6 +43,11 @@ public class ClientProxy extends CommonProxy {
     public static Map<UUID, Integer> bossBarRenderTypes = new HashMap<>();
     public static List<UUID> blockedEntityRenders = new ArrayList<>();
     private Entity referencedMob = null;
+
+    @Override
+    public void handleEffectMessage(ImmortalersEffectMessage message) {
+        ClientPacketHandlers.handleImmortalersEffect(message);
+    }
 
 //    @OnlyIn(Dist.CLIENT)
 //    public static Callable<BlockEntityWithoutLevelRenderer> getTEISR() {

@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.client.particle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.client.model.projectile.HugeSmokeParticleModel;
 import net.minecraft.client.Camera;
@@ -110,8 +111,18 @@ public class HugeSmokeParticle extends Particle {
     }
 
     protected void doOnTick() {
-        this.gCol *= 0.96F; // 绿通道每帧乘以0.96（衰减4%）
-        this.bCol *= 0.9F;  // 蓝通道每帧乘以0.9（衰减10%）
+
+        if (this.age < (this.lifetime / 2)) {
+            //爆炸特效变暗变橙
+            if (this.age > (this.lifetime / 4)) {
+                this.gCol *= 0.96F; // 绿通道每帧乘以0.96（衰减4%）
+                this.bCol *= 0.9F;  // 蓝通道每帧乘以0.9（衰减10%）
+            }
+        } else {
+            //烟雾特效恢复原色
+            this.gCol = 1.0F;
+            this.bCol = 1.0F;
+        }
         if (this.age == 1) {
             float f = this.random.nextFloat();
             boolean flag = this.random.nextBoolean();
@@ -156,6 +167,12 @@ public class HugeSmokeParticle extends Particle {
         posestack.translate(0, -zoom, 0);
         //执行额外操作，方便子类重写
         doOnRender(pBuffer,pRenderInfo,pPartialTicks);
+
+        // 创建一个旋转矩阵，实现烟雾特效的转动效果
+        float f2 = (float)this.age + pPartialTicks;
+        posestack.mulPose(Axis.YP.rotationDegrees(Mth.sin(f2 * 0.015F) * 180.0F));
+//        posestack.mulPose(Axis.XP.rotationDegrees(Mth.cos(f2 * 0.01F) * 180.0F));
+//        posestack.mulPose(Axis.ZP.rotationDegrees(Mth.sin(f2 * 0.015F) * 360.0F));
 
         // 获取渲染缓冲区源
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();

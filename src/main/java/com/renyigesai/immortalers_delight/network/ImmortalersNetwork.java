@@ -1,16 +1,12 @@
 package com.renyigesai.immortalers_delight.network;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.message.DeathlessEffectPacket;
+import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
+import com.renyigesai.immortalers_delight.message.KeyAuxiliaryMessage;
 import com.renyigesai.immortalers_delight.message.TerracottaGolemMessage;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
@@ -81,10 +77,17 @@ public static SimpleChannel getChannel() {
         );
         getChannel().registerMessage(
                 nextPacketId(), // 包唯一ID
-                DeathlessEffectPacket.class, // 自定义包类
-                DeathlessEffectPacket::write, // 序列化方法（写入 PacketBuffer）
-                DeathlessEffectPacket::read, // 反序列化方法（从 PacketBuffer 读取）
-                DeathlessEffectPacket::handle // 包处理方法（服务端/客户端处理逻辑）
+                ImmortalersEffectMessage.class, // 自定义包类
+                ImmortalersEffectMessage::write, // 序列化方法（写入 PacketBuffer）
+                ImmortalersEffectMessage::read, // 反序列化方法（从 PacketBuffer 读取）
+                ImmortalersEffectMessage::handle // 包处理方法（服务端/客户端处理逻辑）
+        );
+        getChannel().registerMessage(
+                nextPacketId(), // 包唯一ID
+                KeyAuxiliaryMessage.class, // 自定义包类
+                KeyAuxiliaryMessage::write, // 序列化方法（写入 PacketBuffer）
+                KeyAuxiliaryMessage::read, // 反序列化方法（从 PacketBuffer 读取）
+                KeyAuxiliaryMessage::handle // 包处理方法（服务端/客户端处理逻辑）
         );
     }
 

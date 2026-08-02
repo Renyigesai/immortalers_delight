@@ -19,6 +19,11 @@ public class ImmortalersDelightTags {
     private static TagKey<Item> createImmItemTag(String pName) {
         return TagKey.create(Registries.ITEM, ImmortalersDelightMod.prefix(pName));
     }
+    public static final TagKey<Biome> IS_CRIMSON_FOREST = createBiomeTag("is_crimson_forest");
+    public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
+    public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
+    public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
+    public static final TagKey<Biome> IS_BASALT_DELTAS = createBiomeTag("is_basalt_deltas");
 
     private static TagKey<Item> createForgeItemTag(String pName) {
         return TagKey.create(Registries.ITEM, new ResourceLocation("forge",pName));

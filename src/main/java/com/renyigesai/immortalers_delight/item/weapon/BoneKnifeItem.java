@@ -98,20 +98,20 @@ public class BoneKnifeItem extends ImmortalersKnifeItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {
-        boolean var10000;
-        label30: {
+        boolean b;
+        judgement: {
             super.inventoryTick(stack, level, entity, i, held);
             if (entity instanceof LivingEntity living) {
                 if (living.getItemInHand(InteractionHand.MAIN_HAND) == stack) {
-                    var10000 = true;
-                    break label30;
+                    b = true;
+                    break judgement;
                 }
             }
 
-            var10000 = false;
+            b = false;
         }
 
-        boolean holding = var10000;
+        boolean holding = b;
         int useTime = getUseTime(stack);
         if (level.isClientSide()) {
             CompoundTag tag = stack.getOrCreateTag();

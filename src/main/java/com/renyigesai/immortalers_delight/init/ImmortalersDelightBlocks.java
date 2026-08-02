@@ -28,13 +28,20 @@ import com.renyigesai.immortalers_delight.block.tree.TravastrugglerTreeGrower;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlock;
 import com.renyigesai.immortalers_delight.block.warped_lantern.WarpedLanternBlockEntity;
 import com.renyigesai.immortalers_delight.fluid.HotSpringFluidsBlock;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -53,6 +60,8 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.*;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class ImmortalersDelightBlocks {
@@ -1024,6 +1033,38 @@ public class ImmortalersDelightBlocks {
             return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
         }
     });
+
+
+    /*
+    胡桃相关方块
+    */
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> OBSIDIAN_WALNUT = BLOCKS.register("obsidian_walnut",
+            () -> new ObsidianWalnutCropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT).noCollission().strength(15.0F, 6.0F)
+                    .randomTicks().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
+                    .lightLevel(blockState -> blockState.getValue(ObsidianWalnutCropBlock.AGE) == 7 ? 15
+                            : blockState.getValue(ObsidianWalnutCropBlock.AGE) == 6 ? 12
+                            : 0 )
+            ));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> WALNUT_PIE = BLOCKS.register("walnut_pie",()->
+            new PieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),ImmortalersDelightItems.WALNUT_PIE_SLICE) {
+                @Override
+                public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
+                    if (!pLevel.isClientSide && ((pFallDistance - 3) > 0 || pEntity instanceof FallingBlockEntity)) {
+                        pLevel.explode(pEntity, pPos.getX() + 0.5, pPos.getY() + 1.5, pPos.getZ() + 0.5, this.getMaxBites() - pState.getValue(PieBlock.BITES), false, Level.ExplosionInteraction.MOB);
+                        pLevel.setBlock(pPos,Blocks.AIR.defaultBlockState(),Block.UPDATE_CLIENTS);
+                    }
+                    super.fallOn(pLevel,pState,pPos,pEntity,pFallDistance);
+                }
+                @Override
+                public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+                    pTooltip.add(Component.translatable("tooltip.immortalers_delight.walnut_pie").withStyle(ChatFormatting.GRAY));
+                }
+            });
+
 
     static {
         //方块实体 Block Entity

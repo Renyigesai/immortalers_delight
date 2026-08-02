@@ -64,4 +64,10 @@ public class ImmortalersDelightMobEffect {
                     .addAttributeModifier(Attributes.ATTACK_SPEED, "AF8B6E3F-3328-4C0A-AA36-5BA2BB9DBEF3", (double)0.1F, AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> MOONBRIGHT = REGISTRY.register("moon_bright", MoonBrightMobEffect::new);
 
+    public static final RegistryObject<MobEffect> INFERNAL_FORGING = REGISTRY.register("infernal_forging", ()->
+            new InfernalForgingMobEffect()
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, "542ED100-19FA-469B-84DE-75366F22C68D", 0.05D, AttributeModifier.Operation.ADDITION)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, "BD000FB3-BAF4-4655-B917-27F6E9086DC5", 0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+
+
 }

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:himekaido"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya_flesh"
+    },
+    {
+      "item": "immortalers_delight:obsidian_kernelcurd"
+    },
+    {
+      "item": "immortalers_delight:obsidian_kernelcurd"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "item": "immortalers_delight:syrup_with_kernelcurd"
+  }
+}

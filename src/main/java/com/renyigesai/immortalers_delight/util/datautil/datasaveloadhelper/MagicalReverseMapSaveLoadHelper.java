@@ -55,7 +55,7 @@ import java.util.UUID;
 //                UUID uuid = entry.getKey();
 //                EffectData effectData = entry.getValue();
 ////                ImmortalersDelightMod.LOGGER.info("UUID: " + uuid + ", Effect Level: " + effectData.getAmplifier() +
-////                        ", Duration: " + effectData.getTime() + ", Task ID " + effectData.getTaskId());
+////                        ", Duration: " + effectData.getType() + ", Task ID " + effectData.getTaskId());
 //            }
 //            MagicalReverseEffect.setPausing(true);
 //        }

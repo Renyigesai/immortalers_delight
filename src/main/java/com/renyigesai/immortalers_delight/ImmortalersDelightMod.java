@@ -32,6 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -175,12 +176,15 @@ public class ImmortalersDelightMod {
             modelLayers.put(SurveyorFangModel.SURVEYOR_FANG, SurveyorFangModel::createBodyLayer);
             modelLayers.put(EffectCloudModel.EFFECT_CLOUD_BASE, EffectCloudModel::createBodyLayer);
             modelLayers.put(HugeSmokeParticleModel.HUGE_SMOKE_PARTICLE, HugeSmokeParticleModel::createBodyLayer);
+            modelLayers.put(ScreenLayerParticleModel.SCREEN_LAYER_PARTICLE, ScreenLayerParticleModel::createBodyLayer);
             modelLayers.put(AlfalfaDababaModel.ALFALFA_DABABA, AlfalfaDababaModel::createBodyLayer);
             modelLayers.put(KiBlastRenderer.MODEL_LOCATION, KiBlastRenderer::createSkullLayer);
             modelLayers.put(WarpedLaurelHitBoxModel.LAYER_LOCATION, WarpedLaurelHitBoxModel::createBodyLayer);
             modelLayers.put(ToxicGasGrenadeRenderer.MODEL_LOCATION, ToxicGasGrenadeRenderer::createSkullLayer);
             modelLayers.put(MoonlightBeamModel.LAYER_LOCATION, MoonlightBeamModel::createBodyLayer);
             modelLayers.put(MoonArrowHitboxModel.LAYER_LOCATION, MoonArrowHitboxModel::createBodyLayer);
+            modelLayers.put(BlazingObsidianWalnutEntityRenderer.MODEL_LOCATION, BlazingObsidianWalnutEntityRenderer::createSkullLayer);
+
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
             modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
 
@@ -212,6 +216,7 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.KI_BLAST.get(), KiBlastRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), ToxicGasGrenadeRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(),MoonArrowHitboxRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(),BlazingObsidianWalnutEntityRenderer::new);
 
         }
 
@@ -261,6 +266,14 @@ public class ImmortalersDelightMod {
             ItemProperties.register(ImmortalersDelightItems.JENG_NANU.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
                 return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
             });
+        }
+
+        @SubscribeEvent
+        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            // 使用 event.registerAboveAll 方法将 Hud 的实例注册为最高优先级的 HUD 覆盖
+            // 第一个参数是一个 ResourceLocation 对象，用于指定 HUD 的唯一标识符
+            // 第二个参数是 Hud 的单例对象，通过 Hud.getInstance() 获取
+            event.registerAboveAll("infernal_forging_hud", InfernalForgingHUD.getInstance());
         }
     }
 

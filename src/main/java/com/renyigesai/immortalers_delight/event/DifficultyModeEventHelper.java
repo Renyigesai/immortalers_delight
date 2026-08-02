@@ -504,7 +504,7 @@ public class DifficultyModeEventHelper {
 //            UUID uuid = entity.getUUID();
 //            HashMap<UUID, EffectData> map = new HashMap<>(entityHasEffect);
 //            if (map.get(uuid) == null) {return;}
-//            Long expireTime = map.get(uuid).getTime();
+//            Long expireTime = map.get(uuid).getType();
 //            /* 具体效果的实现逻辑 */
 //            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
 //                reSpawnEntity(entity);
@@ -522,7 +522,7 @@ public class DifficultyModeEventHelper {
 //        if (deadEntity.level().isClientSide()) {return;}
 //        UUID uuid = deadEntity.getUUID();
 //        if (entityHasEffect.get(uuid) != null) {
-//            Long expireTime = entityHasEffect.get(uuid).getTime();
+//            Long expireTime = entityHasEffect.get(uuid).getType();
 //            /* 具体效果的实现逻辑 */
 //            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
 //                reSpawnEntity(deadEntity);
@@ -543,7 +543,7 @@ public class DifficultyModeEventHelper {
 //        if (deadEntity.level().isClientSide()) {return;}
 //        UUID uuid = deadEntity.getUUID();
 //        if (entityHasEffect.get(uuid) != null) {
-//            Long expireTime = entityHasEffect.get(uuid).getTime();
+//            Long expireTime = entityHasEffect.get(uuid).getType();
 //            /* 具体效果的实现逻辑 */
 //            if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
 //                reSpawnEntity(deadEntity);

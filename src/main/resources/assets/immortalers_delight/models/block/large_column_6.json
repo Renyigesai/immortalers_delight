@@ -1,7 +1,24 @@
 {
-  "parent": "immortalers_delight:block/large_column_slab",
-  "textures": {
-    "0": "immortalers_delight:block/large_column_6",
-		"particle": "immortalers_delight:block/large_column_6"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "immortalers_delight:block/tray_bottom",
+		"2": "immortalers_delight:block/tray_top",
+		"particle": "immortalers_delight:block/tray_bottom"
+	},
+	"elements": [
+		{
+			"name": "tray",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"faces": {
+				"north": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#1"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#2"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#1"}
+			}
+		}
+	]
 }

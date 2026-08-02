@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredients": [
+    {
+      "item": "immortalers_delight:fry_kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:fry_kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:torchflower_mustard"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "immortalers_delight:stinky_doufu"
+  }
+}

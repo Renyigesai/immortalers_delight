@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.network;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,6 +12,9 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonProxy {
+    public void handleEffectMessage(ImmortalersEffectMessage message) {
+        // 服务端无操作（或者可以加日志，但不需要更新能力）
+    }
 
     public void init() {
     }

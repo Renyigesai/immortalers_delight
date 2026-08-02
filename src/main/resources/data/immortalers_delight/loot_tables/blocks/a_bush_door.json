@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "immortalers_delight:a_bush_door",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "immortalers_delight:a_bush_door"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "immortalers_delight:blocks/a_bush_door"
+}

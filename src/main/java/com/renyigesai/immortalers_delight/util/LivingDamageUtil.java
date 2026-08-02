@@ -25,6 +25,8 @@ import net.minecraftforge.common.capabilities.CapabilityProvider;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LivingDamageUtil {
     /**
@@ -105,7 +107,7 @@ public class LivingDamageUtil {
     }
     public static boolean hurtEntity(LivingEntity hurtOne, DamageSource source, float pDamage) {
         float damage = pDamage;
-        if (!net.minecraftforge.common.ForgeHooks.onLivingAttack(hurtOne, source, damage)) return false;
+        //if (!net.minecraftforge.common.ForgeHooks.onLivingAttack(hurtOne, source, damage)) return false;
         if (hurtOne.level().isClientSide) {
             return false;
         } else if (hurtOne.isDeadOrDying()) {
@@ -143,11 +145,15 @@ public class LivingDamageUtil {
             }
 
             //进行基础设置，对实体实际造成扣血并修改相关量
+            float damage2 = net.minecraftforge.common.ForgeHooks.onLivingHurt(hurtOne, source, damage);
+            if (damage2 > damage) damage = damage2;
             hurtOne.setNoActionTime(0);
             hurtOne.walkAnimation.setSpeed(1.5F);
             hurtOne.invulnerableTime = 20;
             hurtOne.getCombatTracker().recordDamage(source, damage);
             hurtOne.gameEvent(GameEvent.ENTITY_DAMAGE);
+            float damage3 = net.minecraftforge.common.ForgeHooks.onLivingDamage(hurtOne, source, damage);
+            if (damage3 > damage) damage = damage3;
             hurtOne.hurtDuration = 10;
             hurtOne.hurtTime = hurtOne.hurtDuration;
             hurtOne.setHealth(hurtOne.getHealth() - damage);
@@ -250,37 +256,35 @@ public class LivingDamageUtil {
                 hurtOne.setAbsorptionAmount(hurtOne.getAbsorptionAmount() - f1);
                 hurtOne.gameEvent(GameEvent.ENTITY_DAMAGE);
             }
+//            Map map = new HashMap<>();
+//            if (map.containsKey())
+//            hurtOne.getPersistentData().contains("isFearFire");
         }
     }
 
 
 
-    // ====================== 修复： Forge 混淆兼容 ======================
+    // ====================== Forge 混淆兼容 ======================
     private static final Method ACTUALLY_HURT_METHOD;
 
     static {
         Method method = null;
         try {
-            // 1. 开发环境：尝试原名
             method = LivingEntity.class.getDeclaredMethod("actuallyHurt", DamageSource.class, float.class);
         } catch (NoSuchMethodException e) {
             try {
-                // 2. 生产/打包/整合包：尝试混淆名 m_6469_
                 method = LivingEntity.class.getDeclaredMethod("m_6475_", DamageSource.class, float.class);
             } catch (NoSuchMethodException ex) {
-                // 3. 都找不到 → 不抛异常！避免类初始化崩溃
                 method = null;
-                System.err.println("警告：无法找到 actuallyHurt 方法，将降级使用 hurt()");
             }
         }
-
         if (method != null) {
             method.setAccessible(true);
         }
         ACTUALLY_HURT_METHOD = method;
     }
 
-    // ====================== 修复：安全调用方法 ======================
+    // ====================== 安全调用方法 ======================
     public static void callActuallyHurt(LivingEntity entity, DamageSource source, float amount) {
         if (entity == null || source == null) return;
         if (entity.isDeadOrDying()) return;

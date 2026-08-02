@@ -109,7 +109,7 @@ public class KwatWheatCrop extends ReapCropBlock {
     @Override
     public void playerWillDestroy(@NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull Player pPlayer) {
         if (pState.getValue(POISON) && pState.getValue(AGE) == 7) {
-            System.out.println("playerWillDestroy");
+            //System.out.println("playerWillDestroy");
             makeAreaOfEffectCloud(pLevel,pPos);
         }
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
@@ -117,7 +117,7 @@ public class KwatWheatCrop extends ReapCropBlock {
 
     //制造毒云，用于瓦斯麦轰击
     private void makeAreaOfEffectCloud(Level level, BlockPos pPos) {
-        System.out.println("makeAreaOfEffectCloud");
+        //System.out.println("makeAreaOfEffectCloud");
         if (level.isClientSide()) return;
         EffectCloudBaseEntity effectCloud = new GasCloudEntity(level, pPos.getX(), pPos.getY(), pPos.getZ());
 
@@ -133,7 +133,7 @@ public class KwatWheatCrop extends ReapCropBlock {
     }
     //方块被实体踩踏时会调用的方法
     public void entityInside(BlockState state, Level level, BlockPos pPos, Entity pEntity) {
-        System.out.println("entityInside");
+        //System.out.println("entityInside");
         super.entityInside(state, level, pPos, pEntity);
         if (pEntity instanceof LivingEntity) {
             int age = state.getValue(AGE);
