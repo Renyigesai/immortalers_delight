@@ -61,4 +61,9 @@ public class ImmortalersDelightMobEffect {
                     .addAttributeModifier(Attributes.ATTACK_SPEED, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "smoke_abstinence_attack_speed"), (double)0.1F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> MOONBRIGHT = REGISTRY.register("moon_bright", MoonBrightMobEffect::new);
 
+    public static final DeferredHolder<MobEffect, MobEffect> INFERNAL_FORGING = REGISTRY.register("infernal_forging", () ->
+            new InfernalForgingMobEffect()
+                    .addAttributeModifier(Attributes.ATTACK_SPEED, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "infernal_forging_attack_speed"), 0.05D, AttributeModifier.Operation.ADD_VALUE)
+                    .addAttributeModifier(Attributes.ATTACK_DAMAGE, ResourceLocation.fromNamespaceAndPath(ImmortalersDelightMod.MODID, "infernal_forging_attack_damage"), 0.05D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+
 }

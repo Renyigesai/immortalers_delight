@@ -109,6 +109,7 @@ public class Config {
             .comment("This allows stun to have a more consistent effect on different mobs.")
             .define("useBetterStun", true);
     private static final ModConfigSpec.DoubleValue MININ_PROBABILITY = BUILDER.comment("Set the probability of the sniffer beast mining Mod items").defineInRange("mininProbability", 0.5,0.0,1.0);
+    private static final ModConfigSpec.IntValue INFERNAL_FORGING_ATTRIBUTE_MULTIPLIER = BUILDER.comment("The number of infernal forging effect's attribute will × this.").defineInRange("infernal forging attribute multiplier", 1, 0, Short.MAX_VALUE);
 
 
     public static final ModConfigSpec.ConfigValue<List<? extends List<?>>> EFFECTS_USING_LINEAR_GROWTH;
@@ -321,6 +322,7 @@ public class Config {
     public static boolean weakPoisonHealthOverlay;
 
     public static String powerBattleMode;
+    public static int infernal_forging_attribute_multiplier = 0;
 
 
     private static boolean validateItemName(final Object obj) {
@@ -382,6 +384,8 @@ public class Config {
         useBetterStun = USE_BETTER_STUN.get();
 
         mininProbability = MININ_PROBABILITY.get();
+
+        infernal_forging_attribute_multiplier = INFERNAL_FORGING_ATTRIBUTE_MULTIPLIER.get();
 
     }
 }

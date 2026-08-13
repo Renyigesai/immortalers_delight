@@ -156,4 +156,12 @@ public class PoweredFoodProperties {
             .effect(()-> new MobEffectInstance(ImmortalersDelightMobEffect.INCANDESCENCE,1600,1),1f)
             .build();
 
+    public static final FoodProperties SYRUP_WITH_KERNELCURD = new FoodProperties.Builder()
+            .nutrition(10).saturationModifier(1)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.COOL, 1200, 1), 1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.INFERNAL_FORGING, 3600, 2), 1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.RELIEVE_POISON, 3600, 2), 1f)
+            .effect(() -> new MobEffectInstance(ImmortalersDelightMobEffect.LET_IT_FREEZE, 3600), 1f)
+            .build();
+
 }

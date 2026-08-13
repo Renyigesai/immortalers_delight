@@ -108,7 +108,11 @@ public class ImmortalersChestBoat extends ChestBoat {
             vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,
                     new ItemStack(Items.STICK,2),pos.getX() + 0.5,pos.getY() + 0.5,pos.getZ() + 0.5,0.0,0.0,0.0);
             this.spawnAtLocation(new ItemStack(ImmortalersDelightItems.ANCIENT_WOOD_PLANKS.get(),3));
-        } else super.destroy(damageSource);
+            // Custom drops must still remove the entity; otherwise damage stays >40 and every hit re-drops.
+            this.kill();
+        } else {
+            super.destroy(damageSource);
+        }
         this.chestVehicleDestroyed(damageSource, this.level(), this);
     }
 

@@ -557,6 +557,29 @@ public class ImmortalersDelightBlocks {
     public static final DeferredHolder<Block, Block> HIMEKAIDO_YOGURT_PIE = BLOCKS.register("himekaido_yogurt_pie",()->
             new PieBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.HIMEKAIDO_YOGURT_PIE_SLICE));
 
+    @BlockData(dropType = BlockData.DropType.CUSTOM, zhCn = "曜石胡桃")
+    public static final DeferredHolder<Block, Block> OBSIDIAN_WALNUT = BLOCKS.register("obsidian_walnut",
+            () -> new ObsidianWalnutCropBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT).noCollission().strength(15.0F, 6.0F)
+                    .randomTicks().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)
+                    .lightLevel(blockState -> blockState.getValue(ObsidianWalnutCropBlock.AGE) == 7 ? 15
+                            : blockState.getValue(ObsidianWalnutCropBlock.AGE) == 6 ? 12
+                            : 0)
+            ));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM, zhCn = "胡桃仁派")
+    public static final DeferredHolder<Block, Block> WALNUT_PIE = BLOCKS.register("walnut_pie", () ->
+            new PieBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), ImmortalersDelightItems.WALNUT_PIE_SLICE) {
+                @Override
+                public void fallOn(net.minecraft.world.level.Level pLevel, BlockState pState, BlockPos pPos, net.minecraft.world.entity.Entity pEntity, float pFallDistance) {
+                    if (!pLevel.isClientSide && ((pFallDistance - 3) > 0 || pEntity instanceof net.minecraft.world.entity.item.FallingBlockEntity)) {
+                        pLevel.explode(pEntity, pPos.getX() + 0.5, pPos.getY() + 1.5, pPos.getZ() + 0.5, this.getMaxBites() - pState.getValue(PieBlock.BITES), false, net.minecraft.world.level.Level.ExplosionInteraction.MOB);
+                        pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
+                    super.fallOn(pLevel, pState, pPos, pEntity, pFallDistance);
+                }
+            });
+
     @BlockData(dropType = BlockData.DropType.CUSTOM)
     public static final DeferredHolder<Block, Block> GIANT_TART = BLOCKS.register("giant_tart",()-> new GiantTartBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE),ImmortalersDelightItems.GIANT_TART_SLICE));
 

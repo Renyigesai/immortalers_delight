@@ -1,0 +1,17 @@
+{
+  "type": "immortalers_delight:change_block",
+  "change_type": "immortalers_delight:nectar_jelly",
+  "needblocks": [
+    {
+      "block": {
+        "Name": "immortalers_delight:piglin_odori_sake",
+        "Properties": {
+        "pile": "4"
+        }
+      }
+    }
+  ],
+  "output": {
+    "Name": "minecraft:ancient_debris"
+  }
+}

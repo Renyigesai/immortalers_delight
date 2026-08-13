@@ -30,6 +30,9 @@ public final class ImmortalersDelightRecipeTypes {
 
         SERIALIZERS.register(TangyuanRecipe.Type.ID, () -> TangyuanRecipe.Serializer.INSTANCE);
         RECIPE_TYPE.register(TangyuanRecipe.Type.ID, () -> TangyuanRecipe.Type.INSTANCE);
+
+        SERIALIZERS.register(ChangeBlockRecipe.Type.ID, () -> ChangeBlockRecipe.Serializer.INSTANCE);
+        RECIPE_TYPE.register(ChangeBlockRecipe.Type.ID, () -> ChangeBlockRecipe.Type.INSTANCE);
     }
 
     public static void register(IEventBus modEventBus) {

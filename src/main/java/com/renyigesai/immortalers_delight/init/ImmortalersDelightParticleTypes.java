@@ -6,6 +6,8 @@ import com.mojang.serialization.MapCodec;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 
+import com.renyigesai.immortalers_delight.client.particle.ScreenLayerParticleOption;
+
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
 
 import com.renyigesai.immortalers_delight.client.particle.SnowFogParticleOption;
@@ -127,6 +129,21 @@ public class ImmortalersDelightParticleTypes {
             );
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> MOONLIGHT_BEAM = REGISTRY.register("moonlight_beam", () -> new SimpleParticleType(false));
+
+    public static final DeferredHolder<ParticleType<?>, ParticleType<ScreenLayerParticleOption>> INFERNAL_FORGING_SCREEN_LAYER =
+            REGISTRY.register("infernal_forging_screen_layer",
+                    () -> new ParticleType<>(false) {
+                        @Override
+                        public MapCodec<ScreenLayerParticleOption> codec() {
+                            return ScreenLayerParticleOption.CODEC;
+                        }
+
+                        @Override
+                        public StreamCodec<? super RegistryFriendlyByteBuf, ScreenLayerParticleOption> streamCodec() {
+                            return ScreenLayerParticleOption.STREAM_CODEC;
+                        }
+                    }
+            );
 
 }
 

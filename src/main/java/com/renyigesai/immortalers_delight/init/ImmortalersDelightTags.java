@@ -14,6 +14,7 @@ public class ImmortalersDelightTags {
     public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
     public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
     public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
+    public static final TagKey<Biome> IS_BASALT_DELTAS = createBiomeTag("is_basalt_deltas");
 
     public static final TagKey<Item> ANCIENT_BOAT_NEED_1 = createImmItemTag("boat_needs/ancient_boat_need_1");
     public static final TagKey<Item> ANCIENT_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_boat_need_2");
@@ -21,7 +22,7 @@ public class ImmortalersDelightTags {
     public static final TagKey<Item> ANCIENT_CHEST_BOAT_NEED_2 = createImmItemTag("boat_needs/ancient_chest_boat_need_2");
     public static final TagKey<Item> IMMORTAL_KNIVES = createImmItemTag("tools/immortal_knives");
     public static final TagKey<Item> IMMORTAL_HAMMERS = createImmItemTag("tools/immortal_hammers");
-    public static final TagKey<Item> MILK = createItemTag("milk");
+    public static final TagKey<Item> MILK = TagKey.create(Registries.ITEM, ResourceLocation.parse("c:drinks/milk"));
     public static final TagKey<Item> STRAW = createImmItemTag("straw");
     public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
     /** Farmer's Delight `#farmersdelight:tools/knives`. */
@@ -55,10 +56,6 @@ public class ImmortalersDelightTags {
 
     private static TagKey<Item> createImmItemTag(String pName) {
         return TagKey.create(Registries.ITEM, ImmortalersDelightMod.prefix(pName));
-    }
-
-    private static TagKey<Item> createItemTag(String pName) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", pName));
     }
 
     private static TagKey<Block> createBlockTag(String pName) {

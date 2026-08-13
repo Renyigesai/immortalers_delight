@@ -180,6 +180,7 @@ public class Languages extends LanguageProvider {
         createTooltip(IS_COLORFUL + "bowl_of_this_side_down","完全失重状态下你难以施力。","Unable to exert force in full weightlessness.");
         createTooltip("can_place_on_plate","可放置于空盘上","Placeable on empty plates.");
         createTooltip("spoon","将碗放置为空盘子","Place an bowl item with empty plate block.");
+        createTooltip("ancient_nectar_jelly","可修复受损的蛋糕、盛宴与派，或按配方改变方块。","Restores damaged cakes, feasts, and pies, or changes blocks via recipes.");
         createTooltip("nan_dough","使用岩浆块覆盖以进行烤制","Cover with magma blocks for baking.");
         createTooltip("is_straw","可作为吸管","can be use as a Straw");
         createTooltip("cut_ku_mesh_non","你需要用刀切开它","You need a knife to cut it.");
@@ -241,6 +242,20 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("bone_knife.1","Looting -I","抢夺 -I");
         createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
 
+        createTooltip("obsidian_walnut", "它看起来和火药一样易燃，也许打火石可以点燃它", "It seems as flammable as gunpowder. Perhaps a flint can ignite it.");
+        createTooltip("obsidian_walnut_1", "也许可以利用爆炸打开这坚硬的外壳", "An explosion may crack its tough shell open.");
+        createTooltip("obsidian_walnut_2", "[燃起来了]效果将导致自燃", "The [Warm Current Surges] effect causes spontaneous combustion.");
+        createTooltip("blazing_obsidian_walnut", "可投掷，在落点处产生爆炸并破碎", "Throwable. It explodes and shatters upon impact.");
+        createTooltip("blazing_obsidian_walnut_1", "[火成]效果的攻击力增益对其生效", "Attack damage bonuses from [Infernal Forging] apply to it.");
+        createTooltip("blazing_obsidian_walnut_2", "[燃起来了]效果将提升爆炸的威力", "[Warm Current Surges] increases the explosion's power.");
+        createTooltip("blazing_obsidian_walnut.persistent", "非常稳定，不会在携带时爆炸", "Extremely stable; will not explode while carried.");
+        createTooltip("blazing_obsidian_walnut.progress", "！ %d ！", "! %d !");
+        createTooltip(IS_COLORFUL + "blazing_obsidian_walnut", "它是不是在膨胀？", "Is it swelling?");
+        createTooltip("baked_obsidian_walnut.persistent", "非常稳定，不会在携带时起火", "Extremely stable; will not ignite while carried.");
+        createTooltip("baked_obsidian_walnut.progress", "！ %d ！", "! %d !");
+        createTooltip(IS_COLORFUL + "baked_obsidian_walnut", "它是不是在变红？", "Is it turning red?");
+        createTooltip("walnut_pie", "易爆品，请勿重压", "Explosive. Do not subject to heavy pressure.");
+
     }
 
     private void addContainers(){
@@ -285,6 +300,7 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
         createEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get(),"月明");
         createEffect(ImmortalersDelightMobEffect.VULNERABLE.get(),"脆弱");
+        createEffect(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),"火成");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。由酩酊效果产生时行为与中毒一致。");
         add("effect.immortalers_delight.weak_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
@@ -298,7 +314,6 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.keep_a_fast.description","When this effect is achieved, the player's hunger is reduced to half of the original value, and the cost of hunger is reduced to one-tenth of [effect level +1] during its duration (similar to Stamina enchantment, does not affect actions such as regenerating health). Restores (doubles) the player's hunger at the end of the effect, and the spilled hunger is reclaimed to immediately restore the player's life, the percentage of the recovery increases with the effect level.","获得该效果时将使得玩家的饥饿值与饱和度被压缩到原有值的一半，且持续期间饥饿值的消耗将降为［效果等级+1］分之一（与耐久附魔相似，不影响回复生命等行为）。在效果结束时使玩家的饥饿值与饱和度复原（翻倍），溢出的饥饿值与饱和度将回收以立即为玩家恢复生命。超凡模式下，会消耗饥饿值与饱和度恢复生命值。");
         add("effect.immortalers_delight.burn_the_boats.description","Grant Power III, Speed III, Urgency III, Jump III, and Resistance III for 15 seconds when health falls below a certain percentage. Causes the health bar to be partially covered with shields and flaming swords, and the covered part marks the health that triggers the effect","在生命值低于一定比例时，给予生物15秒力量III、迅捷III、急迫III、跳跃提升III、抗性提升III。使得生命条部分被盾牌与燃火的剑覆盖，覆盖的部分标记了触发该效果的生命值。超凡模式下，给予的效果等级进一步提升；遭受致命攻击时，可以消耗破釜效果免疫此次伤害。");
         add("effect.immortalers_delight.cultural_legacy.description","Increase the Enchantment level of the Enchantment table when near the Enchantment Table, and gain a certain amount of experience at the end of the effect.\nIt must take effect within the detection range of the bookshelf attached to the magic table, and the detection is about once every 4 seconds. A level 1 effect increases the enchantment level by 8 levels, and then each level increases the enchantment level by 4 levels, with a maximum effect of 8 levels, that is, a maximum of 36 enchantment levels.\n\nThis effect also allows the first and second enchantment options of the Enchanted table to reach level 30 (4 effects are required, Level 2 effects only allow the second enchantment to reach level 30), making it possible to consume level 2 or even level 1 for level 30 enchantment.","手持附魔书时，消耗经验值累积进度。消耗1000点进度有几率提升附魔等级，可循环提升至原版最高等级。超凡模式下，附魔的等级上限提升至原版2倍。");
-        add("effect.immortalers_delight.warm_current_surges.description","Warm Current Surges.","解除等级更低的缓慢效果。清除脚下的的雪和细雪。攻击时额外造成一次 火焰伤害，若目标处于着火状态，造成的伤害翻倍。超凡模式下，火焰伤害进一步提升。");
         add("effect.immortalers_delight.resistance_to_surroundings.description","Reduce the environmental damage received (such as freezing damage from fine snow, flame damage from fire, cactus damage, drowning damage, fall damage, etc.) to a minimum of 0.","减少所受环境伤害（如细雪的冰冻伤害、着火的火焰伤害、仙人掌伤害、溺水伤害、摔落伤害等），最低减为0。");
         add("effect.immortalers_delight.vitality.description","Restore health points when the health points are insufficient.","生命值不满时恢复生命值。");
         add("effect.immortalers_delight.satiated.description","Every 40 ticks, 1tick of saturation effect is derived. In Extraordinary Mode, every 20 ticks, 1tick of saturation effect is derived. When the hunger value or saturation is greater than or equal to 20, health points are restored","每40tick派生1tick饱和效果。超凡模式下，每20tick派生1tick饱和效果，饥饿值或饱和度大于等于20时，恢复生命值。");
@@ -312,6 +327,8 @@ public class Languages extends LanguageProvider {
         add("effect.immortalers_delight.let_it_freeze.description","The attack causes the target to briefly enter a cold state, reducing its speed and continuously subjecting it to frostbite. In non-supernatural mode, the target cannot be completely frozen.","攻击使目标短暂进入寒冷状态，降低速度并持续受到冻伤，非超凡模式下不能完全冻结目标。");
         add("effect.immortalers_delight.unyielding.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","受到有源伤害时获得短暂的无敌时间，超凡模式下也对环境伤害生效。");
         add("effect.immortalers_delight.smoke_abstinence.description","When receiving active damage, you will gain a short period of invincibility. This effect also applies to environmental damage in the extraordinary mode.","阻止幻翼生成，在下界时：获得力量II，急迫III，生命回复和抗火，如抗性提II般减免伤害。");
+        add("effect.immortalers_delight.infernal_forging.description","Stack [Heat] on consecutive hits. [Heat] grants attack speed bonus; once attack speed bonus reaches 4, it instead grants fire damage bonus.","连击时叠加[热力]，[热力]提供攻击速度加成，攻击速度达到4后改为提供火焰伤害加成。");
+        add("effect.immortalers_delight.warm_current_surges.description","Warm Current Surges. With Smoke Abstinence, fire damage can pierce fire immunity.","解除等级更低的缓慢效果。清除脚下的雪和细雪。攻击时额外造成火焰伤害；配合破烟时可破除火焰抗性。超凡模式下火焰伤害进一步提升。");
         add("effect.immortalers_delight.moon_bright","Illuminates nearby entities in the dark.\n" +
                 "Firing arrows at lit targets will cause them to be torn apart by Kuuvahki.\n" +
                 "After a short duration or when the target dies, it deals area damage to surrounding mobs.\n" +
@@ -385,6 +402,7 @@ public class Languages extends LanguageProvider {
         createEntity(ImmortalersDelightEntities.SCAVENGER.get(),"拼凑者");
         createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
         createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
+        createEntity(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(), "燃曜石胡桃");
         createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
@@ -407,9 +425,13 @@ public class Languages extends LanguageProvider {
         createMessage("effect.stun","You're reeling!","你头晕目眩！");
         createMessage("effect.freeze","You're freezing up!","你要冻僵了！");
         createMessage("effect.kuuvahki","The moonlight stings you!","月光刺痛了你！");
+        createMessage("blazing_obsidian_walnut_warning","The Blazing Obsidian Walnut's heat stings you...","灼燃胡桃的热度刺痛了你……");
     }
 
     private void adds(){
+        add("death.attack.black_snake","%1$s burned to death","%1$s 被烧死了");
+        add("death.attack.black_snake.item","%1$s was burnt to a crisp whilst fighting %2$s wielding %3$s","%1$s 在与持有 %3$s 的 %2$s 战斗时被烤得酥脆");
+        add("death.attack.black_snake.player","%1$s was burnt to a crisp whilst fighting %2$s","%1$s 在与 %2$s 战斗时被烤得酥脆");
         add("death.attack.drunk","%1$s Drunk on the asphalt","%1$s 醉倒在柏油路上");
         add("death.attack.drunk.item","%1$s was killed by %2$s using %3$s","%1$ 被 %2$s 杀死 %3$s");
         add("death.attack.drunk.player","%1$ died whilst trying to escap %2$s","%1$ 在试图逃跑时死亡 %2$s");

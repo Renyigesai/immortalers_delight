@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:change_block",
+  "change_type": "immortalers_delight:nectar_jelly",
+  "needblocks": [
+    {
+      "block": {
+        "Name": "immortalers_delight:super_kwat_wheat_hamburger"
+      }
+    }
+  ],
+  "output": {
+    "Name": "immortalers_delight:super_kwat_wheat_hamburger",
+    "Properties": {
+      "bites": "0"
+    }
+  },
+  "properties_keep_defult": ["bites"]
+}

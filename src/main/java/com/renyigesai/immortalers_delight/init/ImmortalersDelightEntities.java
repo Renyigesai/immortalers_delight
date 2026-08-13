@@ -97,6 +97,12 @@ public class ImmortalersDelightEntities {
                     .updateInterval(10)
                     .build("caustic_essential_oil"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<BlazingObsidianWalnutThrowingEntity>> BLAZING_OBSIDIAN_WALNUT =
+            ENTITY_TYPES.register("blazing_obsidian_walnut", () -> EntityType.Builder.<BlazingObsidianWalnutThrowingEntity>of(BlazingObsidianWalnutThrowingEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build("blazing_obsidian_walnut"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<MoonArrowHitboxEntity>> MOON_ARROW_HITBOX =
             ENTITY_TYPES.register("moon_arrow_hitbox", () -> EntityType.Builder.<MoonArrowHitboxEntity>of(MoonArrowHitboxEntity::new, MobCategory.MISC)

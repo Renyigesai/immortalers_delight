@@ -67,6 +67,8 @@ import net.neoforged.api.distmarker.Dist;
 
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 import net.neoforged.neoforge.common.NeoForge;
@@ -254,6 +256,10 @@ public class ImmortalersDelightMod {
 
             modelLayers.put(ToxicGasGrenadeRenderer.MODEL_LOCATION, ToxicGasGrenadeRenderer::createSkullLayer);
 
+            modelLayers.put(BlazingObsidianWalnutEntityRenderer.MODEL_LOCATION, BlazingObsidianWalnutEntityRenderer::createSkullLayer);
+
+            modelLayers.put(ScreenLayerParticleModel.SCREEN_LAYER_PARTICLE, ScreenLayerParticleModel::createBodyLayer);
+
             modelLayers.put(MoonlightBeamModel.LAYER_LOCATION, MoonlightBeamModel::createBodyLayer);
 
             modelLayers.put(MoonArrowHitboxModel.LAYER_LOCATION, MoonArrowHitboxModel::createBodyLayer);
@@ -279,6 +285,16 @@ public class ImmortalersDelightMod {
             event.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
 
             event.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
+
+        }
+
+
+
+        @SubscribeEvent
+
+        public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+
+            InfernalForgingHUD.register(event);
 
         }
 
@@ -327,6 +343,8 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.KI_BLAST.get(), KiBlastRenderer::new);
 
             event.registerEntityRenderer(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), ToxicGasGrenadeRenderer::new);
+
+            event.registerEntityRenderer(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(), BlazingObsidianWalnutEntityRenderer::new);
 
             event.registerEntityRenderer(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(),MoonArrowHitboxRenderer::new);
 

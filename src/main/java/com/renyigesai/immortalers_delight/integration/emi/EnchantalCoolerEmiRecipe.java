@@ -41,20 +41,22 @@ public class EnchantalCoolerEmiRecipe extends BasicEmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(new EmiTexture(BACKGROUND, 0, 0, 138, 86), 0, 0);
-        int x0 = 13;
-        int y0 = 16;
+        // Texture input frames are at (13,16)/(31,16)/(13,34)/(31,34); drawBack(false) aligns to frame origin.
+        int x0 = 12;
+        int y0 = 15;
         int step = 18;
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < 2; col++) {
                 int idx = row * 2 + col;
                 if (idx < inputs.size()) {
-                    widgets.addSlot(inputs.get(idx), x0 + col * step + 1, y0 + row * step + 1);
+                    widgets.addSlot(inputs.get(idx), x0 + col * step + 1, y0 + row * step + 1).drawBack(false);
                 }
             }
         }
+        // Container frame at (98,54) ~18px; output frame at (96,22) is 21px — center an 18px slot at (98,24).
         if (hasContainer) {
-            widgets.addSlot(containerSlot, 99, 55);
+            widgets.addSlot(containerSlot, 98, 54).drawBack(false);
         }
-        widgets.addSlot(outputs.get(0), 99, 25).recipeContext(this);
+        widgets.addSlot(outputs.get(0), 98, 24).drawBack(false).recipeContext(this);
     }
 }

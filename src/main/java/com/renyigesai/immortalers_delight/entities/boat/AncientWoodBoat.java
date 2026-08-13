@@ -42,8 +42,11 @@ public class AncientWoodBoat extends ImmortalersBoat {
         this.yo = pY;
         this.zo = pZ;
     }
+    @Override
     public void destroy(DamageSource damageSource) {
         this.spawnAtLocation(new ItemStack(ImmortalersDelightItems.ANCIENT_WOOD_LOG.get(),5));
+        // Custom drops must still remove the entity; otherwise damage stays >40 and every hit re-drops.
+        this.kill();
     }
 
     public double getPassengersRidingOffset() {

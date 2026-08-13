@@ -9,6 +9,9 @@ import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
 import com.renyigesai.immortalers_delight.item.food.*;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BakedObsidianWalnutItem;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.ObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.item.weapon.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -487,6 +490,8 @@ public class ImmortalersDelightItems {
 
     @ItemData(zhCn = "古代口粮包")
     public static final DeferredHolder<Item, Item> SEALED_ANCIENT_RATIONS;
+    @ItemData(zhCn = "远古花蜜果冻冰", enUs = "Ancient Nectar Jelly", model = ItemData.ModelType.CUSTOM)
+    public static final DeferredHolder<Item, Item> ANCIENT_NECTAR_JELLY;
     @ItemData(zhCn = "尖刺栅栏",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
     public static final DeferredHolder<Item, Item> SPIKE_BAR_BASE;
 
@@ -712,6 +717,28 @@ public class ImmortalersDelightItems {
     public static final DeferredHolder<Item, Item> COOKED_SNIFFER_STEAK;
     @ItemData(zhCn = "嗅菅粽子")
     public static final DeferredHolder<Item, Item> SNIFFER_TRAVA_ZONGZI;
+
+    /*曜石胡桃系列*/
+    @ItemData(zhCn = "曜石胡桃")
+    public static final DeferredHolder<Item, Item> OBSIDIAN_WALNUT;
+    @ItemData(zhCn = "烤曜石胡桃")
+    public static final DeferredHolder<Item, Item> BAKED_OBSIDIAN_WALNUT;
+    @ItemData(zhCn = "燃曜石胡桃")
+    public static final DeferredHolder<Item, Item> BLAZING_OBSIDIAN_WALNUT;
+    @ItemData(zhCn = "曜石胡桃仁")
+    public static final DeferredHolder<Item, Item> OBSIDIAN_WALNUT_KERNEL;
+    @ItemData(zhCn = "胡桃仁奶")
+    public static final DeferredHolder<Item, Item> OBSIDIAN_WALNUT_MILK;
+    @ItemData(zhCn = "胡桃仁豆腐")
+    public static final DeferredHolder<Item, Item> OBSIDIAN_KERNELCURD;
+    @ItemData(zhCn = "胡桃冰淇淋")
+    public static final DeferredHolder<Item, Item> WALNUT_ICECREAM;
+    @ItemData(zhCn = "凉仁碗")
+    public static final DeferredHolder<Item, Item> SYRUP_WITH_KERNELCURD;
+    @ItemData(zhCn = "胡桃仁派", model = ItemData.ModelType.BLOCK)
+    public static final DeferredHolder<Item, Item> WALNUT_PIE;
+    @ItemData(zhCn = "胡桃仁派切片")
+    public static final DeferredHolder<Item, Item> WALNUT_PIE_SLICE;
 
     /*船*/
     @ItemData(zhCn = "姬海棠木船")
@@ -1637,6 +1664,8 @@ public class ImmortalersDelightItems {
         //隐藏
         SEALED_ANCIENT_RATIONS = register("sealed_ancient_rations",()->
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));
+        ANCIENT_NECTAR_JELLY = register("ancient_nectar_jelly", () ->
+                new NectarJellyLikeItem(new Item.Properties().stacksTo(1).durability(465)));
 
         /*
         火把花相关物品
@@ -1894,6 +1923,22 @@ public class ImmortalersDelightItems {
         RAW_SNIFFER_STEAK = foodItem("raw_sniffer_steak", ImmortalersDelightFoodProperties.RAW_SNIFFER_STEAK,true);
         COOKED_SNIFFER_STEAK = foodItem("cooked_sniffer_steak", ImmortalersDelightFoodProperties.COOKED_SNIFFER_STEAK, true);
         SNIFFER_TRAVA_ZONGZI = foodItem("sniffer_trava_zongzi",ImmortalersDelightFoodProperties.SNIFFER_TRAVA_ZONGZI,true);
+
+        /*曜石胡桃系列物品*/
+        OBSIDIAN_WALNUT = registerWithTab("obsidian_walnut", () -> new ObsidianWalnutItem(ImmortalersDelightBlocks.OBSIDIAN_WALNUT.get(), basicItem()));
+        BAKED_OBSIDIAN_WALNUT = registerWithTab("baked_obsidian_walnut", () ->
+                new BakedObsidianWalnutItem(foodItem(ImmortalersDelightFoodProperties.BAKED_OBSIDIAN_WALNUT), true, false, 12));
+        BLAZING_OBSIDIAN_WALNUT = registerWithTab("blazing_obsidian_walnut", () ->
+                new BlazingObsidianWalnutItem(basicItem()));
+        OBSIDIAN_KERNELCURD = foodItem("obsidian_kernelcurd", ImmortalersDelightFoodProperties.OBSIDIAN_KERNELCURD, true);
+        OBSIDIAN_WALNUT_KERNEL = foodItem("obsidian_walnut_kernel", ImmortalersDelightFoodProperties.OBSIDIAN_WALNUT_KERNEL, true);
+        OBSIDIAN_WALNUT_MILK = registerWithTab("obsidian_walnut_milk", () ->
+                new EnchantAbleFoodItem(drinkItem(ImmortalersDelightFoodProperties.OBSIDIAN_WALNUT_MILK), true, false));
+        SYRUP_WITH_KERNELCURD = registerWithTab("syrup_with_kernelcurd", () ->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.SYRUP_WITH_KERNELCURD), PoweredFoodProperties.SYRUP_WITH_KERNELCURD, true, false));
+        WALNUT_ICECREAM = foodItem("walnut_icecream", ImmortalersDelightFoodProperties.WALNUT_ICECREAM, true);
+        WALNUT_PIE = block(ImmortalersDelightBlocks.WALNUT_PIE);
+        WALNUT_PIE_SLICE = foodItem("walnut_pie_slice", ImmortalersDelightFoodProperties.WALNUT_PIE_SLICE, true);
 
         //酒品
         DREUMK_WINE = registerWithTab("dreumk_wine",()->

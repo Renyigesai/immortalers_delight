@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "immortalers_delight:obsidian_walnut_milk"
+    },
+    {
+      "item": "immortalers_delight:obsidian_walnut_milk"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "immortalers_delight:obsidian_kernelcurd"
+  }
+}

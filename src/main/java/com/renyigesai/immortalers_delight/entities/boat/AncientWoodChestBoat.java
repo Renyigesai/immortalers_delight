@@ -88,6 +88,8 @@ public class AncientWoodChestBoat extends ImmortalersChestBoat{
     @Override
     public void destroy(DamageSource damageSource) {
         this.spawnAtLocation(new ItemStack(ImmortalersDelightItems.ANCIENT_WOOD_LOG.get(),5));
+        // Custom drops must still remove the entity; otherwise damage stays >40 and every hit re-drops.
+        this.kill();
         this.chestVehicleDestroyed(damageSource, this.level(), this);
     }
     @Override

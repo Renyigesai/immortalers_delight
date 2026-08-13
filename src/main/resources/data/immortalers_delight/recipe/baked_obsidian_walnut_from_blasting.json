@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "immortalers_delight:obsidian_walnut"
+  },
+  "result": {
+    "id": "immortalers_delight:baked_obsidian_walnut",
+    "count": 1
+  }
+}

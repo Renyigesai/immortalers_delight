@@ -80,6 +80,7 @@ public class SnifferEvent {
         itemStackHashMap.put(ImmortalersDelightTags.IS_WARPED_FOREST, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_warped_forest", level), level, pos, sniffer));
         itemStackHashMap.put(ImmortalersDelightTags.IS_ICE_SPIKES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_ice_spikes", level), level, pos, sniffer));
         itemStackHashMap.put(ImmortalersDelightTags.IS_NETHER_WASTES, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_nether_wastes", level), level, pos, sniffer));
+        itemStackHashMap.put(ImmortalersDelightTags.IS_BASALT_DELTAS, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_basalt_deltas", level), level, pos, sniffer));
         itemStackHashMap.put(BiomeTags.IS_MOUNTAIN, WorldUtils.getFromLootTableItemStack(WorldUtils.getLootTables("immortalers_delight:gameplay/id_sniffer_mountain", level), level, pos, sniffer));
         return itemStackHashMap;
     }
