@@ -1,18 +1,15 @@
 package com.renyigesai.immortalers_delight.fluid;
 
 import com.google.common.collect.ImmutableMap;
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -27,14 +24,11 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.ObjectUtils;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
-import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.*;
 
@@ -89,11 +83,11 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     //温泉热源逻辑，在下界以外同厨锅，补充了温泉在下界沸腾的设定，在下界则是单独的温泉方块即可(避免出现大片温泉高频查配方导致卡顿)
     public boolean isHeatSources(Level level, BlockPos pos){
         BlockState stateBelow = level.getBlockState(pos.below());
-        if (stateBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
+        if (stateBelow.is(ImmortalersDelightTags.Farmersdelight.HEAT_SOURCES)) {
             return stateBelow.hasProperty(BlockStateProperties.LIT) ? stateBelow.getValue(BlockStateProperties.LIT) : !stateBelow.getFluidState().is(ImmortalersDelightFluids.HOT_SPRING.get());
-        } else if (stateBelow.is(ModTags.Blocks.HEAT_CONDUCTORS)) {
+        } else if (stateBelow.is(ImmortalersDelightTags.Farmersdelight.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = level.getBlockState(pos.below(2));
-            if (stateFurtherBelow.is(ModTags.Blocks.HEAT_SOURCES)) {
+            if (stateFurtherBelow.is(ImmortalersDelightTags.Farmersdelight.HEAT_SOURCES)) {
                 if (stateFurtherBelow.hasProperty(BlockStateProperties.LIT)) {
                     return (Boolean)stateFurtherBelow.getValue(BlockStateProperties.LIT);
                 }

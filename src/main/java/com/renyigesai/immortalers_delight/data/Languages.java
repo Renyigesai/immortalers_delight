@@ -9,10 +9,13 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightEntities;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -45,6 +48,7 @@ public class Languages extends LanguageProvider {
     private static final String IS_COLORFUL = "colorful.";
     private static final String MESSAGE = "message.immortalers_delight.";
     private static final String FARMERSDELIGHT_TOOLTIP = "farmersdelight.tooltip.";
+    private static final String FARMERSDELIGHT_TOOLTIP_REVERSE = "tooltip.farmersdelight.";
     private static final String ENTITY = "entity.immortalers_delight.";
 
     public Languages(PackOutput output, String locale) {
@@ -86,6 +90,7 @@ public class Languages extends LanguageProvider {
         addEntitys();
         addAdvancements();
         adds();
+        addIngredientInfos();
     }
 
     private void addItems() throws IllegalAccessException {
@@ -268,6 +273,14 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("bone_knife.1","Looting -I","抢夺 -I");
         createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
 
+        createFarmersdelightTooltipReverse("vara_ji","Perhaps one would need to drink through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltipReverse("hong_mei_ling","You have gained a new understanding of \"using qi\"","你对“用气”有了新的理解……");
+        createFarmersdelightTooltipReverse("pearlip_beer","Perhaps one would need to drink through a straw.","也许需要一个吸管过滤着喝。");
+        createFarmersdelightTooltipReverse("sachets","Attract Sniffing Beasts.","吸引嗅探兽。");
+        createFarmersdelightTooltipReverse("golden_kwat_toast","Give away the pig spirit barbarian soldiers in exchange for the support of the fortress.","赠与猪灵蛮兵以换取堡垒的拥护。");
+        createFarmersdelightTooltipReverse("golden_kwat_toast_slice","Eat it in front of the pig spirit to command its respect and awe.","在猪灵面前食用以令其敬畏。");
+        createFarmersdelightTooltip("bizarre_sausage","Your dog wants this.","你的狗狗想要这个。");
+
     }
 
     private void addContainers(){
@@ -396,7 +409,7 @@ public class Languages extends LanguageProvider {
         createAdvancement("get_piglin_odori_sake",translateText("Now it's you who should be afraid!","现在该害怕的是你们！"),translateText("Get Piglin Odori Sake.","获得猪灵踊。"));
         createAdvancement("resist_gas_poisoning",translateText("Wear a mask properly","戴好口罩"),translateText("Use golden fabric veil to resist gas poisoning.","利用绯炵金纱抵御瓦斯毒。"));
         createAdvancement("power_battle_mode",translateText("Activate power battle mode.","过去迟早会追上的"),translateText("Activate power battle mode.","开启超凡模式。"));
-        createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一搜大船。"));
+        createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一艘大船。"));
         createAdvancement("get_sextlotus_seeds",translateText("Lunar soil tide","月壤潮汐"),translateText("Obtain Sextlotus Seeds in Forest.","在森林获得既望莲子。"));
         createAdvancement("get_moon_lantern",translateText("Pseudo Moonlight","赝作月华"),translateText("Use the Moonlight Phantom Lamp to accelerate the growth of Sextlotus.","使用幻月灯促进既望莲的生长。"));
     }
@@ -410,10 +423,6 @@ public class Languages extends LanguageProvider {
         createEntity(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), "下界咒焰");
         createEntity(ImmortalersDelightEntities.KI_BLAST.get(),"气功波");
         createEntity(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(), "邪月之触");
-//        createEntity(ImmortalersDelightEntities.IMMORTAL_BOAT.get(), "千古船");
-//        createEntity(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), "千古运输船");
-//        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_BOAT.get(), "古船");
-//        createEntity(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), "古船");
         createEntity("himekaido","Himekaido Boat","姬海棠木船");
         createEntity("himekaido.chest_boat","Himekaido Boat","姬海棠木运输船");
         createEntity("ancient_wood","Ancient Wood Boat","古木船");
@@ -455,6 +464,39 @@ public class Languages extends LanguageProvider {
         add("item.minecraft.potion.effect.gas","Gas Potion","绯烬烈灼药水");
         add("item.minecraft.splash_potion.effect.gas","Splash potion of Gas","喷溅型绯烬烈灼药水");
         add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
+
+//        add("jei.immortalers_delight.info.evolutcorn_grains","It was obtained by the sniffing animals by digging in the plains, snowfields, meadows and sunflower plains.","由嗅探兽在平原、雪原、草甸、向日葵平原挖掘获得。");
+    }
+
+    private void addIngredientInfos(){
+        for (Field field : ImmortalersDelightItems.class.getDeclaredFields()) {
+            boolean isAnnotationPresent = field.isAnnotationPresent(ItemData.class);
+            if (isAnnotationPresent){
+                try {
+                    Object object = field.get(null);
+                    RegistryObject<Item> deferredItem = null;
+                    if (object instanceof RegistryObject<?> registryObject){
+                        if (Item.class.isAssignableFrom(registryObject.get().getClass())){
+                            deferredItem = (RegistryObject<Item>) registryObject;
+                        }
+                        if (deferredItem != null){
+                            ItemData annotation = field.getAnnotation(ItemData.class);
+                            if (annotation != null){
+                                String en = annotation.enInfo();
+                                String zh = annotation.zhInfo();
+                                if (!en.isEmpty() && !zh.isEmpty()){
+                                    Item item = deferredItem.get();
+                                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+                                    add("jei.immortalers_delight." + key.getPath(),en,zh);
+                                }
+                            }
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     private void createDesc(String key,String en_us,String zh_cn){
@@ -488,6 +530,10 @@ public class Languages extends LanguageProvider {
 
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
+    }
+
+    private void createFarmersdelightTooltipReverse(String key,String en_us,String zh_cn){
+        add(FARMERSDELIGHT_TOOLTIP_REVERSE + key,en_us,zh_cn);
     }
     private void createMessage(String key,String en_us,String zh_cn){
         add(MESSAGE + key,en_us,zh_cn);

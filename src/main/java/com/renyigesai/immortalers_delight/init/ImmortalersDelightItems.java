@@ -51,7 +51,7 @@ public class ImmortalersDelightItems {
 
     /*捆装类物品*/
 
-    @ItemData(zhCn = "远古花蜜果冻冰",model = ItemData.ModelType.TOOL)
+    @ItemData(zhCn = "远古花蜜果冻冰",model = ItemData.ModelType.TOOL,group = NOT)
     public static final RegistryObject<Item> ANCIENT_NECTAR_JELLY;
     @ItemData(zhCn = "白垩玉黍粒袋",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> EVOLUTCORN_GRAIN_BAG;
@@ -148,7 +148,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> EVOLUTCORN;
     @ItemData(zhCn = "棱蕉")
     public static final RegistryObject<Item> PEARLIP;
-    @ItemData(zhCn = "棱珠")
+    @ItemData(zhCn = "棱珠",
+              zhInfo = "由嗅探兽在丛林、竹林、稀疏丛林挖掘获得。",
+              enInfo = "It is obtained by sniffing beasts digging in the jungle, bamboo forest, and sparse jungle."
+    )
     public static final RegistryObject<Item> PEARLIPEARL;
     @ItemData(zhCn = "姬海棠果")
     public static final RegistryObject<Item> HIMEKAIDO;
@@ -156,9 +159,15 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GOLDEN_HIMEKAIDO;
     @ItemData(zhCn = "金魔法果",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> ENCHANTED_GOLDEN_HIMEKAIDO;
-    @ItemData(zhCn = "含茶竹节")
+    @ItemData(zhCn = "含茶竹节",
+            zhInfo = "由嗅探兽在河流、冻河挖掘获得。",
+            enInfo = "It is obtained by sniffing beasts digging in rivers and frozen rivers."
+    )
     public static final RegistryObject<Item> CONTAINS_TEA_LEISAMBOO;
-    @ItemData(zhCn = "菅米")
+    @ItemData(zhCn = "菅米",
+            zhInfo = "由嗅探兽在草甸、冰封山峰、尖峭山峰、裸岩山峰、积雪的山坡、樱花树林挖掘获得。",
+            enInfo = "It is obtained by sniffing beasts digging in meadows, frozen peaks, steep peaks, bare rock peaks, snowy slopes, and cherry blossom forests."
+    )
     public static final RegistryObject<Item> TRAVARICE;
     @ItemData(zhCn = "菅米粉")
     public static final RegistryObject<Item> TRAVA_RICE_FLOUR;
@@ -168,28 +177,54 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ALFALFA;
     @ItemData(zhCn = "诡怨桂果")
     public static final RegistryObject<Item> WARPED_LAUREL;
-    @ItemData(zhCn = "冰蛟果")
+    @ItemData(zhCn = "冰蛟果",
+            zhInfo = "由嗅探兽在冰刺之地挖掘获得。",
+            enInfo = "Obtained by sniffing beasts digging in the Ice Spike Land."
+    )
     public static final RegistryObject<Item> GELPITAYA;
-    @ItemData(zhCn = "烬烟杆",enUs = "A'bush")
+    @ItemData(zhCn = "烬烟杆",
+            enUs = "A'bush",
+            zhInfo = "由嗅探兽在下界荒地挖掘获得。",
+            enInfo = "It is obtained by sniffing beasts digging in the wasteland of the Lower Realms."
+    )
     public static final RegistryObject<Item> A_BUSH;
     @ItemData(zhCn = "既望芜菁")
     public static final RegistryObject<Item> SEXTLOTUS_ROOT;
-    @ItemData(zhCn = "氧葡萄")
+    @ItemData(zhCn = "氧葡萄",
+            zhInfo = "氧葡萄植株自然生成于海底神殿。",
+            enInfo = "Oxygen grape plants naturally grow in the undersea temple."
+    )
     public static final RegistryObject<Item> OXYGRAPE;
 
-    @ItemData(zhCn = "白垩玉黍粒")
+    @ItemData(zhCn = "白垩玉黍粒",
+            zhInfo = "由嗅探兽在平原、雪原、草甸、向日葵平原挖掘获得。",
+            enInfo = "It was obtained by the sniffing animals by digging in the plains, snowfields, meadows and sunflower plains."
+    )
     public static final RegistryObject<Item> EVOLUTCORN_GRAINS;
-    @ItemData(zhCn = "姬海棠种子")
+    @ItemData(zhCn = "姬海棠种子",
+            zhInfo = "由嗅探兽在森林、繁花森林、桦木森林、原始桦木森林 、黑森林、雪林挖掘获得。",
+            enInfo = "It can be obtained by digging in the Forest, Flower Forest, Birch Forest, Primeval Birch Forest, Black Forest, and Snow Forest using a Sniffing Beast."
+    )
     public static final RegistryObject<Item> HIMEKAIDO_SEED;
-    @ItemData(zhCn = "瓦斯麦种子")
+    @ItemData(zhCn = "瓦斯麦种子",
+            zhInfo = "由嗅探兽在绯红森林挖掘获得。",
+            enInfo = "Obtained by sniffing beasts in the Crimson Forest.")
     public static final RegistryObject<Item> KWAT_WHEAT_SEEDS;
-    @ItemData(zhCn = "古苜蓿种子")
+    @ItemData(zhCn = "古苜蓿种子",
+            zhInfo = "由嗅探兽在任意群系挖掘获得。",
+            enInfo = "Obtained by sniffing beasts in any biome.")
     public static final RegistryObject<Item> ALFALFA_SEEDS;
-    @ItemData(zhCn = "诡怨桂种子")
+    @ItemData(zhCn = "诡怨桂种子",
+            zhInfo = "由嗅探兽在诡异森林挖掘获得。",
+            enInfo = "Obtained by sniffing beasts digging in the eerie forest."
+    )
     public static final RegistryObject<Item> WARPED_LAUREL_SEEDS;
     @ItemData(zhCn = "冰蛟果种子")
     public static final RegistryObject<Item> GELPITAYA_SEEDS;
-    @ItemData(zhCn = "既望莲子")
+    @ItemData(zhCn = "既望莲子",
+            zhInfo = "由嗅探兽在森林、繁花森林、桦木森林、原始桦木森林 、黑森林、雪林挖掘获得。",
+            enInfo = "It can be obtained by digging in the Forest, Flower Forest, Birch Forest, Primeval Birch Forest, Black Forest, and Snow Forest with a Sniffing Beast."
+    )
     public static final RegistryObject<Item> SEXTLOTUS_SEEDS;
 
 
@@ -718,7 +753,10 @@ public class ImmortalersDelightItems {
     /*
     耀石胡桃相关物品
     */
-    @ItemData(zhCn = "曜石胡桃")
+    @ItemData(zhCn = "曜石胡桃",
+            zhInfo = "由嗅探兽在玄武岩三角洲挖掘获得。",
+            enInfo = "It was excavated by a sniffing beast in the basalt delta."
+    )
     public static final RegistryObject<Item> OBSIDIAN_WALNUT;
     @ItemData(zhCn = "烤曜石胡桃")
     public static final RegistryObject<Item> BAKED_OBSIDIAN_WALNUT;
@@ -1610,8 +1648,7 @@ public class ImmortalersDelightItems {
         /*
         冒险相关物品
          */
-        GOLDEN_FABRIC = registerWithTab("golden_fabric", () ->
-                new ConsumableItem(fantasticItem(Rarity.RARE),false,true));
+        GOLDEN_FABRIC = registerWithTab("golden_fabric", () -> new Item(fantasticItem(Rarity.RARE)));
 
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));

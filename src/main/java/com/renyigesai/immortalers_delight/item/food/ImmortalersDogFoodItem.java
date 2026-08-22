@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
@@ -37,7 +38,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -128,7 +128,7 @@ public class ImmortalersDogFoodItem extends ConsumableItem {
             Entity target = event.getTarget();
             ItemStack itemStack = event.getItemStack();
             if (target instanceof LivingEntity entity) {
-                if (target.getType().is(ModTags.EntityTypes.DOG_FOOD_USERS)) {
+                if (target.getType().is(ImmortalersDelightTags.Farmersdelight.DOG_FOOD_USERS)) {
                     boolean isTameable = entity instanceof TamableAnimal;
                     if (entity.isAlive() && (!isTameable || ((TamableAnimal)entity).isTame()) && itemStack.getItem() instanceof ImmortalersDogFoodItem  immortalersDogFoodItem) {
                         List<MobEffectInstance> effects = Lists.newArrayList();

@@ -5,7 +5,6 @@ import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
-import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import java.util.function.Consumer;
 
@@ -34,7 +33,7 @@ public class CookingRecipes {
                 .addIngredient(Items.TORCHFLOWER)
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
                 .addIngredient(ImmortalersDelightItems.PITCHER_POD_PETAL.get())
-                .addIngredient(CommonTags.Items.DOUGH).build(consumer);
+                .addIngredient(ImmortalersDelightTags.Items.DOUGH).build(consumer);
 
         ImmCookingPotRecipeBuilder.cookingPotRecipe(ImmortalersDelightItems.EIGHT_BERRY_TRAVARICE_CAKE.get(),1,200,0.35f,Items.BOWL)
                 .addIngredient(ImmortalersDelightItems.TRAVARICE.get())

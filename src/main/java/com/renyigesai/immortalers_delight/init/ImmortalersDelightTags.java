@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import vectorwing.farmersdelight.common.tag.ModTags;
 
 public class ImmortalersDelightTags {
 
@@ -33,12 +34,24 @@ public class ImmortalersDelightTags {
         return TagKey.create(Registries.ITEM, new ResourceLocation("minecraft",pName));
     }
 
+    private static TagKey<Item> createFDItemTag(String pName) {
+        return TagKey.create(Registries.ITEM, new ResourceLocation("farmersdelight",pName));
+    }
+
     private static TagKey<Block> createImmBlockTag(String pName) {
         return TagKey.create(Registries.BLOCK, ImmortalersDelightMod.prefix(pName));
     }
 
+    private static TagKey<Block> createFDBlockTag(String pName) {
+        return TagKey.create(Registries.BLOCK, new ResourceLocation("farmersdelight",pName));
+    }
+
     private static TagKey<EntityType<?>> createEntityTag(String pName) {
         return TagKey.create(Registries.ENTITY_TYPE, ImmortalersDelightMod.prefix(pName));
+    }
+
+    private static TagKey<EntityType<?>> createFDEntityTag(String pName) {
+        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("farmersdelight",pName));
     }
 
     public static class Items{
@@ -54,6 +67,8 @@ public class ImmortalersDelightTags {
         public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
         public static final TagKey<Item> CACTUS_RESISTANCE = createImmItemTag("cactus_resistance");
         public static final TagKey<Item> LEAVESS = createItemTag("leaves");
+        public static final TagKey<Item> BUCKETS_WATER = createForgeItemTag("buckets/water");
+        public static final TagKey<Item> DOUGH = createForgeItemTag("dough");
     }
 
     public static class Blocks{
@@ -79,5 +94,13 @@ public class ImmortalersDelightTags {
         public static final TagKey<Biome> IS_WARPED_FOREST = createBiomeTag("is_warped_forest");
         public static final TagKey<Biome> IS_ICE_SPIKES = createBiomeTag("is_ice_spikes");
         public static final TagKey<Biome> IS_NETHER_WASTES = createBiomeTag("is_nether_wastes");
+    }
+
+    public static class Farmersdelight{
+        public static final TagKey<Item> KNIVES = createImmItemTag("tools/knives");
+        public static final TagKey<Block> DROPS_CAKE_SLICE = createFDBlockTag("drops_cake_slice");
+        public static final TagKey<Block> HEAT_SOURCES = createFDBlockTag("heat_sources");
+        public static final TagKey<Block> HEAT_CONDUCTORS = createFDBlockTag("heat_conductors");
+        public static final TagKey<EntityType<?>> DOG_FOOD_USERS = createFDEntityTag("dog_food_users");
     }
 }
