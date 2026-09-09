@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.mixin;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.Entity;
@@ -14,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityFireImmuneMixin extends net.minecraftforge.common.capabilities.CapabilityProvider<Entity> implements Nameable, EntityAccess, CommandSource, net.minecraftforge.common.extensions.IForgeEntity {
 
 
-    protected EntityFireImmuneMixin(Class<Entity> baseClass) {super(baseClass);}
-
-    protected EntityFireImmuneMixin(Class<Entity> baseClass, boolean isLazy) {super(baseClass, isLazy);}
+    protected EntityFireImmuneMixin(Class<Entity> baseClass) {
+        super(baseClass);
+    }
 
     @Inject(method = "fireImmune", at = @At("HEAD"), cancellable = true)
     private void checkCustomFireImmunity(CallbackInfoReturnable<Boolean> cir) {
