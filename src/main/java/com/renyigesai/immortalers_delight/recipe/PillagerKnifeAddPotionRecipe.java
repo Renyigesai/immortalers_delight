@@ -97,18 +97,21 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
 
         @Override
         public PillagerKnifeAddPotionRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-
-            // 动态获取原料数量
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
-
-            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(i)));
+            if (GsonHelper.isValidNode(pSerializedRecipe, "ingredients")) {
+                JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
+                for (int i = 0; i < ingredients.size(); i++) {
+                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
+                }
             }
-            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
+            ItemStack output = GsonHelper.isValidNode(pSerializedRecipe, "output")
+                    ? ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"))
+                    : new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get());
+            ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container")
+                    ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true)
+                    : new ItemStack(ImmortalersDelightItems.PILLAGER_KNIFE.get());
 
-            return new PillagerKnifeAddPotionRecipe(inputs, output,container,pRecipeId);
+            return new PillagerKnifeAddPotionRecipe(inputs, output, container, pRecipeId);
         }
 
         @Override
@@ -131,8 +134,8 @@ public class PillagerKnifeAddPotionRecipe extends EnchantalCoolerRecipe {
             for (Ingredient ingredient : pRecipe.getIngredients()) {
                 ingredient.toNetwork(pBuffer);
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
             pBuffer.writeItem(pRecipe.getContainer());
+            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
         }
     }
 }

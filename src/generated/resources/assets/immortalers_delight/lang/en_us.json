@@ -285,6 +285,8 @@
   "config.jade.plugin_immortalers_delight.sniffer": "Sniffer",
   "container.immortalers_delight.enchantal_cooler": "Enchantal Cooler",
   "container.immortalers_delight.hot_spring": "Grudge Spring",
+  "emi.category.immortalers_delight.enchantal_cooler": "Enchantal Cooler",
+  "emi.category.immortalers_delight.hot_spring": "Grudge Spring",
   "creativetab_immortalers_delight_decorative_blocks_tab": "Immortalers Delight Decorative Blocks",
   "creativetab_immortalers_delight_main_tab": "Immortalers Delight Main",
   "death.attack.drunk": "%1$s Drunk on the asphalt",

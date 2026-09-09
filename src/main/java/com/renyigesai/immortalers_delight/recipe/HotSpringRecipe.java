@@ -93,8 +93,8 @@ public class HotSpringRecipe implements Recipe<SimpleContainer> {
             // 动态获取原料数量
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
-            if (ingredients.size() > 10){
-                throw new JsonParseException("Too many ingredients for hot spring recipe! The max is 10");
+            if (ingredients.size() > 9){
+                throw new JsonParseException("Too many ingredients for hot spring recipe! The max is 9");
             }else {
                 for (int i = 0; i < ingredients.size(); i++) {
                     inputs.add(Ingredient.fromJson(ingredients.get(i)));

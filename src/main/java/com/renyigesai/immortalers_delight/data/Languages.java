@@ -286,6 +286,8 @@ public class Languages extends LanguageProvider {
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
         createContainer("hot_spring","Grudge Spring","怨泉");
+        add("emi.category.immortalers_delight.enchantal_cooler", "Enchantal Cooler", "魔凝机");
+        add("emi.category.immortalers_delight.hot_spring", "Grudge Spring", "怨泉");
     }
 
 
@@ -464,6 +466,7 @@ public class Languages extends LanguageProvider {
         add("item.minecraft.potion.effect.gas","Gas Potion","绯烬烈灼药水");
         add("item.minecraft.splash_potion.effect.gas","Splash potion of Gas","喷溅型绯烬烈灼药水");
         add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
+        createTooltip("ancient_nectar_jelly", "恢复未吃完的蛋糕、宴席和派，或按方块转换配方改变方块。", "Restores unfinished cakes, feasts, and pies, or transforms blocks using change-block recipes.");
 
 //        add("jei.immortalers_delight.info.evolutcorn_grains","It was obtained by the sniffing animals by digging in the plains, snowfields, meadows and sunflower plains.","由嗅探兽在平原、雪原、草甸、向日葵平原挖掘获得。");
     }
