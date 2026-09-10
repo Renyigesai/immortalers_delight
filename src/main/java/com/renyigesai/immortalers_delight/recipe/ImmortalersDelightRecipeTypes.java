@@ -29,6 +29,8 @@ public class ImmortalersDelightRecipeTypes {
             RECIPE_TYPE.register(HotSpringRecipe.Type.ID,() ->HotSpringRecipe.Type.INSTANCE);
             SERIALIZERS.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(PillagerKnifeAddPotionRecipe.Type.ID,() ->PillagerKnifeAddPotionRecipe.Type.INSTANCE);
+            SERIALIZERS.register(ChangeBlockRecipe.Type.ID, () -> ChangeBlockRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(ChangeBlockRecipe.Type.ID, () -> ChangeBlockRecipe.Type.INSTANCE);
             SERIALIZERS.register(TangyuanRecipe.Type.ID,() ->TangyuanRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(TangyuanRecipe.Type.ID,() ->TangyuanRecipe.Type.INSTANCE);
         });

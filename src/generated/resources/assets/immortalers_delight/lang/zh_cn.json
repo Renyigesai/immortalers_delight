@@ -285,6 +285,8 @@
   "config.jade.plugin_immortalers_delight.sniffer": "嗅探兽",
   "container.immortalers_delight.enchantal_cooler": "魔凝机",
   "container.immortalers_delight.hot_spring": "怨泉",
+  "emi.category.immortalers_delight.enchantal_cooler": "魔凝机",
+  "emi.category.immortalers_delight.hot_spring": "怨泉",
   "creativetab_immortalers_delight_decorative_blocks_tab": "千古乐事 装饰方块",
   "creativetab_immortalers_delight_main_tab": "千古乐事 主物品",
   "death.attack.drunk": "%1$s 醉倒在柏油路上",
