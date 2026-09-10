@@ -49,7 +49,7 @@
             "Properties": {
               "distance": "7",
               "persistent": "false",
-              "grow": "false"
+              "grow": "true"
             }
           }
         }

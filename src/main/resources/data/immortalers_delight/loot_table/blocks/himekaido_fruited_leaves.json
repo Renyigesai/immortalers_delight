@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -16,22 +16,22 @@
                     {
                       "condition": "minecraft:match_tool",
                       "predicate": {
-                        "items": [
-                          "minecraft:shears"
-                        ]
+                        "items": "minecraft:shears"
                       }
                     },
                     {
                       "condition": "minecraft:match_tool",
                       "predicate": {
-                        "enchantments": [
-                          {
-                            "enchantment": "minecraft:silk_touch",
-                            "levels": {
-                              "min": 1
+                        "predicates": {
+                          "minecraft:enchantments": [
+                            {
+                              "enchantments": "minecraft:silk_touch",
+                              "levels": {
+                                "min": 1
+                              }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
                     }
                   ]
@@ -42,10 +42,10 @@
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     },
     {
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:inverted",
@@ -55,22 +55,22 @@
               {
                 "condition": "minecraft:match_tool",
                 "predicate": {
-                  "items": [
-                    "minecraft:shears"
-                  ]
+                  "items": "minecraft:shears"
                 }
               },
               {
                 "condition": "minecraft:match_tool",
                 "predicate": {
-                  "enchantments": [
-                    {
-                      "enchantment": "minecraft:silk_touch",
-                      "levels": {
-                        "min": 1
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             ]
@@ -80,13 +80,18 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
           "functions": [
             {
               "add": false,
               "count": {
-                "min": 1,
-                "max": 3
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             },
@@ -97,8 +102,8 @@
           "name": "immortalers_delight:himekaido"
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     }
   ],
-  "random_sequence": "minecraft:blocks/acacia_leaves"
+  "random_sequence": "immortalers_delight:blocks/himekaido_fruited_leaves"
 }
