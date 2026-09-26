@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -40,10 +39,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
@@ -184,7 +181,7 @@ public class ImmortalersKnifeItem extends KnifeItem {
                 BlockPos pos = event.getPos();
                 BlockState state = event.getLevel().getBlockState(pos);
                 Block block = state.getBlock();
-                if (state.is(ModTags.Blocks.DROPS_CAKE_SLICE)) {
+                if (state.is(ImmortalersDelightTags.Farmersdelight.DROPS_CAKE_SLICE)) {
                     level.setBlock(pos, (BlockState) Blocks.CAKE.defaultBlockState().setValue(CakeBlock.BITES, 1), 3);
                     Block.dropResources(state, level, pos);
                     ItemUtils.spawnItemEntity(level, new ItemStack((ItemLike) ModItems.CAKE_SLICE.get()), (double)pos.getX(), (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, -0.05, 0.0, 0.0);

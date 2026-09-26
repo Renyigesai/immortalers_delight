@@ -3,6 +3,7 @@ package com.renyigesai.immortalers_delight.block.ancient_stove;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import com.renyigesai.immortalers_delight.api.farmersdelight.AbstractStoveBlock;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
 
 import java.util.Map;
 import java.util.Optional;

@@ -56,5 +56,25 @@
       <option name="name" value="maven2" />
       <option name="url" value="https://www.cursemaven.com" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="TerraformersMC" />
+      <option name="name" value="TerraformersMC" />
+      <option name="url" value="https://maven.terraformersmc.com/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="LatvianModder" />
+      <option name="name" value="LatvianModder" />
+      <option name="url" value="https://maven.latvian.dev/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Modrinth" />
+      <option name="name" value="Modrinth" />
+      <option name="url" value="https://api.modrinth.com/maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Architectury" />
+      <option name="name" value="Architectury" />
+      <option name="url" value="https://maven.architectury.dev/" />
+    </remote-repository>
   </component>
 </project>

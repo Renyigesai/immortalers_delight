@@ -1,5 +1,7 @@
 package com.renyigesai.immortalers_delight.block.ancient_stove;
 
+import com.renyigesai.immortalers_delight.api.farmersdelight.AbstractStoveBlock;
+import com.renyigesai.immortalers_delight.api.farmersdelight.AbstractStoveBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,8 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.ItemStackHandler;
-import vectorwing.farmersdelight.common.block.AbstractStoveBlock;
-import vectorwing.farmersdelight.common.block.entity.AbstractStoveBlockEntity;
 
 public class AncientStoveBlockEntity extends AbstractStoveBlockEntity {
 

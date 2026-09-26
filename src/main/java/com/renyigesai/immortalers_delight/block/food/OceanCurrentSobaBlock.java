@@ -24,13 +24,13 @@ import java.util.function.Supplier;
 public class OceanCurrentSobaBlock extends FeastBlock {
 
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-    public OceanCurrentSobaBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers, boolean hasServingParticles) {
-        super(properties, servingItem, hasLeftovers, hasServingParticles);
-        this.registerDefaultState(defaultBlockState()
-                .setValue(SERVINGS,4)
-                .setValue(FACING, Direction.NORTH)
-                .setValue(OPEN, false));
-    }
+//    public OceanCurrentSobaBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers) {
+//        super(properties, servingItem, hasLeftovers);
+//        this.registerDefaultState(defaultBlockState()
+//                .setValue(SERVINGS,4)
+//                .setValue(FACING, Direction.NORTH)
+//                .setValue(OPEN, false));
+//    }
 
     public OceanCurrentSobaBlock(Properties properties, Supplier<Item> servingItem, boolean hasLeftovers) {
         super(properties, servingItem, hasLeftovers);

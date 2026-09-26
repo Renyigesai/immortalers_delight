@@ -40,6 +40,13 @@ public @interface ItemData {
      */
     String group() default "immortalers_delight_main";
 
+    /**
+     * 物品的jei信息，可省略不写
+     * */
+    String enInfo() default "";
+
+    String zhInfo() default "";
+
 /**
  * 物品类型枚举类
  * 用于定义不同类型的物品分类

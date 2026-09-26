@@ -75,7 +75,7 @@ public class LargePieBlock extends PieBlock {
 
             Direction direction = player.getDirection().getOpposite();
             ItemUtils.spawnItemEntity(level, this.getPieSliceItem(), (double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
-            level.playSound((Player)null, pos, (SoundEvent) ModSounds.BLOCK_FOOD_SLICE.get(), SoundSource.PLAYERS, 0.8F, 0.8F);
+            level.playSound((Player)null, pos, (SoundEvent) ModSounds.BLOCK_CUTTING_BOARD_KNIFE.get(), SoundSource.PLAYERS, 0.8F, 0.8F);
             if (level instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), (double)pos.getX() + 0.5, (double)pos.getY() + 0.3, (double)pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.001);
             }
@@ -85,7 +85,7 @@ public class LargePieBlock extends PieBlock {
             player.awardStat(Stats.ITEM_USED.get(knife));
             return InteractionResult.SUCCESS;
         } else {
-            return super.cutSlice(level, pos, state.setValue(HALF,true), player, knife);
+            return super.cutSlice(level, pos, state.setValue(HALF,true), player);
         }
     }
 }

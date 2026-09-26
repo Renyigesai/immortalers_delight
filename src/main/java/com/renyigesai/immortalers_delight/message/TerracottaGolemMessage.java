@@ -1,15 +1,11 @@
 package com.renyigesai.immortalers_delight.message;
 
-import com.renyigesai.immortalers_delight.entities.living.TerracottaGolem;
-import com.renyigesai.immortalers_delight.screen.TerracottaGolemMenu;
-import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -27,12 +23,13 @@ public class TerracottaGolemMessage {
     }
 
     public static TerracottaGolemMessage read(FriendlyByteBuf buf) {
-        System.out.println("正在解码陶傀儡的包");
-        return new TerracottaGolemMessage(buf.readUnsignedByte(), buf.readVarInt(), buf.readInt());
+        TerracottaGolemMessage message = new TerracottaGolemMessage(buf.readUnsignedByte(), buf.readVarInt(), buf.readInt());
+        ImmortalersDelightMod.LOGGER.debug("Read {} discriminator={} direction=unknown id={} size={} entityId={}", TerracottaGolemMessage.class.getSimpleName(), ImmortalersNetwork.TERRACOTTA_GOLEM_MESSAGE_ID, message.id, message.size, message.entityId);
+        return message;
     }
 
     public static void write(TerracottaGolemMessage message, FriendlyByteBuf buf) {
-        System.out.println("正在构建陶傀儡的包");
+        ImmortalersDelightMod.LOGGER.debug("Write {} discriminator={} direction=unknown id={} size={} entityId={}", TerracottaGolemMessage.class.getSimpleName(), ImmortalersNetwork.TERRACOTTA_GOLEM_MESSAGE_ID, message.id, message.size, message.entityId);
         buf.writeByte(message.id);
         buf.writeVarInt(message.size);
         buf.writeInt(message.entityId);
@@ -55,27 +52,16 @@ public class TerracottaGolemMessage {
         public Handler() {
         }
 
-        public static void handle(TerracottaGolemMessage msg, Supplier<NetworkEvent.Context> context) {
-            context.get().enqueueWork(() -> {
-                openInventory(msg);
-            });
-            context.get().setPacketHandled(true);
-        }
-
-
-        @OnlyIn(Dist.CLIENT)
-        public static void openInventory(TerracottaGolemMessage packet) {
-            // 这个类以及其相关的注册代码可以删除，用不到
-//            Player player = Minecraft.getInstance().player;
-//            if (player != null) {
-//                Entity entity = player.level().getEntity(packet.getEntityId());
-//                if (entity instanceof TerracottaGolem golem) {
-//                    LocalPlayer clientplayerentity = Minecraft.getInstance().player;
-//                    TerracottaGolemMenu container = new TerracottaGolemMenu(packet.getId(), player.getInventory(), golem.getInventory(), golem);
-//                    clientplayerentity.containerMenu = container;
-//                    Minecraft.getInstance().setScreen(new TerracottaGolemScreen(container, player.getInventory(), golem));
-//                }
-//            }
+        public static void handle(TerracottaGolemMessage msg, Supplier<NetworkEvent.Context> supplier) {
+            NetworkEvent.Context context = supplier.get();
+            ImmortalersDelightMod.LOGGER.debug("Handle {} discriminator={} direction={} id={} size={} entityId={}", TerracottaGolemMessage.class.getSimpleName(), ImmortalersNetwork.TERRACOTTA_GOLEM_MESSAGE_ID, context.getDirection(), msg.id, msg.size, msg.entityId);
+            if (context.getDirection() != NetworkDirection.PLAY_TO_CLIENT) {
+                ImmortalersDelightMod.LOGGER.warn("Ignoring {} from direction {}", TerracottaGolemMessage.class.getSimpleName(), context.getDirection());
+                context.setPacketHandled(true);
+                return;
+            }
+            context.enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> () -> com.renyigesai.immortalers_delight.message.client.ClientPacketHandlers.handleTerracottaGolem(msg)));
+            context.setPacketHandled(true);
         }
     }
 }
