@@ -15,6 +15,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -28,46 +31,39 @@ import org.jetbrains.annotations.NotNull;
  * 凋灵头颅实体类，继承自抽象伤害投射物（AbstractHurtingProjectile）
  * 对应凋灵BOSS发射的头颅投射物，具有造成凋零伤害、触发爆炸的特性
  */
-public class KiBlastEntity extends AbstractHurtingProjectile {
+public class KiBlastEntity extends ThrowableItemProjectile {
     // 同步实体数据访问器：标记该凋灵头颅是否为"危险级"（来自无敌状态的凋灵BOSS光环）
     // 使用SynchedEntityData实现服务端与客户端的数据同步，序列化类型为布尔值
     private static final EntityDataAccessor<Boolean> DATA_DANGEROUS = SynchedEntityData.defineId(KiBlastEntity.class, EntityDataSerializers.BOOLEAN);
 
-    /**
-     * 构造方法1：通过实体类型和世界实例创建凋灵头颅
-     * 主要用于实体注册和自动生成场景
-     * @param pEntityType 凋灵头颅的实体类型
-     * @param pLevel 所在的游戏世界实例
-     */
-    public KiBlastEntity(EntityType<? extends KiBlastEntity> pEntityType, Level pLevel) {
+//    public KiBlastEntity(EntityType<? extends KiBlastEntity> pEntityType, Level pLevel) {
+//        super(pEntityType, pLevel);
+//    }
+//    public KiBlastEntity(Level pLevel, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ) {
+//        super(ImmortalersDelightEntities.KI_BLAST.get(), pShooter, pOffsetX, pOffsetY, pOffsetZ, pLevel);
+//    }
+
+    public KiBlastEntity(EntityType<? extends ThrowableItemProjectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    /**
-     * 构造方法2：通过发射者和偏移量创建凋灵头颅
-     * 凋灵BOSS发射头颅时的核心构造方法，指定发射者和初始运动偏移
-     * @param pLevel 所在的游戏世界实例
-     * @param pShooter 发射该头颅的活体实体（通常是凋灵BOSS）
-     * @param pOffsetX X轴运动偏移量
-     * @param pOffsetY Y轴运动偏移量
-     * @param pOffsetZ Z轴运动偏移量
-     */
-    public KiBlastEntity(Level pLevel, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ) {
-        super(ImmortalersDelightEntities.KI_BLAST.get(), pShooter, pOffsetX, pOffsetY, pOffsetZ, pLevel);
+    public KiBlastEntity(double pX, double pY, double pZ, Level pLevel) {
+        super(ImmortalersDelightEntities.KI_BLAST.get(), pX, pY, pZ, pLevel);
     }
 
-    @Override
+    public KiBlastEntity(LivingEntity pShooter, Level pLevel) {
+        super(ImmortalersDelightEntities.KI_BLAST.get(), pShooter, pLevel);
+    }
+
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide()) {
+            this.level().addParticle(getTrailParticle(),this.xOld,this.yOld,this.zOld,0, 0, 0);
+        }
+    }
+
     protected @NotNull ParticleOptions getTrailParticle() {
-        return ParticleTypes.GLOW_SQUID_INK;
-    }
-
-    /**
-     * 获取该投射物的运动惯性系数（原版重写方法）
-     * 该系数会与原始运动速度相乘，控制投射物的运动衰减/增强
-     * @return 惯性系数，此处返回0.96F（轻微的运动衰减，保持头颅飞行的稳定性）
-     */
-    protected float getInertia() {
-        return 0.96F;
+        return ParticleTypes.SOUL_FIRE_FLAME;
     }
 
     /**
@@ -180,6 +176,11 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
         return false;
     }
 
+    @Override
+    protected @NotNull Item getDefaultItem() {
+        return Items.SOUL_TORCH;
+    }
+
     /**
      * 定义该实体的同步数据（原版重写方法，实体初始化时调用）
      * 用于注册需要在服务端和客户端之间同步的实体数据，此处注册危险级标记
@@ -187,6 +188,7 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
     protected void defineSynchedData() {
         // 初始化同步数据，默认该凋灵头颅为非危险级（false）
         this.entityData.define(DATA_DANGEROUS, false);
+        super.defineSynchedData();
     }
 
     /**
@@ -209,12 +211,4 @@ public class KiBlastEntity extends AbstractHurtingProjectile {
         this.entityData.set(DATA_DANGEROUS, pInvulnerable);
     }
 
-    /**
-     * 判断该投射物是否应该在飞行中被火焰点燃（原版重写方法）
-     * 凋灵头颅不会被火焰点燃，故返回false
-     * @return 是否应该被点燃，固定返回false
-     */
-    protected boolean shouldBurn() {
-        return false;
-    }
 }

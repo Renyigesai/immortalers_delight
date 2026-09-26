@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:cooked_sniffer_steak"
+    },
+    {
+      "item": "immortalers_delight:fried_sniffer_egg"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    }
+  ],
+  "container": {
+    "item": "minecraft:sniffer_egg"
+  },
+  "result": {
+    "item": "immortalers_delight:ancient_oyakodon"
+  },
+  "experience": 8.35,
+  "cookingtime": 900
+}

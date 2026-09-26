@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/light_gray_candle_cake",
+  "textures": {
+    "bottom": "immortalers_delight:block/golden_cake_bottom",
+    "inside": "immortalers_delight:block/golden_cake_inner",
+    "particle": "immortalers_delight:block/golden_cake_side",
+    "side": "immortalers_delight:block/golden_cake_side",
+    "top": "immortalers_delight:block/golden_cake_top"
+  }
+}

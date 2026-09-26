@@ -54,6 +54,11 @@ public class ImmortalersDelightTags {
         public static final TagKey<Item> KNIVES = createImmItemTag("tools/immortal_knives");
         public static final TagKey<Item> CACTUS_RESISTANCE = createImmItemTag("cactus_resistance");
         public static final TagKey<Item> LEAVESS = createItemTag("leaves");
+        public static final TagKey<Item> FA_SWEETS = createImmItemTag("farmersdelight_sweets");
+        public static final TagKey<Item> NEED_PROGRESS = createImmItemTag("need_progress");
+        public static final TagKey<Item> ADDITIONAL_DISHES = createImmItemTag("additional_dishes");
+        public static final TagKey<Item> CAN_ADD_TO_BREAD = createImmItemTag("can_add_to_bread");
+        public static final TagKey<Item> FORGE_BREAD = createForgeItemTag("bread");
     }
 
     public static class Blocks{

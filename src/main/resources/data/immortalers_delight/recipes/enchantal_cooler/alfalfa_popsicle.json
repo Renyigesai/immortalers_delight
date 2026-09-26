@@ -1,0 +1,24 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:alfalfa"
+    },
+    {
+      "item": "immortalers_delight:ancient_fiber"
+    },
+    {
+      "item": "farmersdelight:cabbage"
+    },
+    {
+      "item": "minecraft:packed_ice"
+    }
+  ],
+  "container": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "immortalers_delight:alfalfa_popsicle",
+    "count": 1
+  }
+}

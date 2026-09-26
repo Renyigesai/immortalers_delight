@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "immortalers_delight:sextlotus_root_cuts"
+    },
+    {
+      "item": "immortalers_delight:moon_oil"
+    }
+  ],
+  "container": {
+    "item": "minecraft:paper"
+  },
+  "result": {
+    "item": "immortalers_delight:composite_fleshplate"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

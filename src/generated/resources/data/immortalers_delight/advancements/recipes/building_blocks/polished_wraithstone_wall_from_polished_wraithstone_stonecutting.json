@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_wraithstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:polished_wraithstone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "immortalers_delight:polished_wraithstone_wall_from_polished_wraithstone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_wraithstone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "immortalers_delight:polished_wraithstone_wall_from_polished_wraithstone_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -66,8 +66,16 @@ public enum ImmortalersArmorMaterials implements StringRepresentable, ArmorMater
     map.put(ArmorItem.Type.LEGGINGS, 0);
     map.put(ArmorItem.Type.CHESTPLATE, 0);
     map.put(ArmorItem.Type.HELMET, 0);
-    }), 28, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F, 0.01F, () -> {
+    }), 28, SoundEvents.ARMOR_EQUIP_GOLD, 0.5F, 0.01F, () -> {
         return Ingredient.of(ImmortalersDelightItems.GOLDEN_FABRIC.get());
+    }),
+    BAKA("baka", 424, Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
+        attribute.put(ArmorItem.Type.BOOTS, 5);
+        attribute.put(ArmorItem.Type.LEGGINGS, 7);
+        attribute.put(ArmorItem.Type.CHESTPLATE, 9);
+        attribute.put(ArmorItem.Type.HELMET, 5);
+    }), 28, SoundEvents.ARMOR_EQUIP_LEATHER, 4.0F, 0.7F, () -> {
+        return Ingredient.of(ImmortalersDelightItems.KWAT_WHEAT_TOAST.get());
     });
 
     public static final StringRepresentable.EnumCodec<net.minecraft.world.item.ArmorMaterials> CODEC = StringRepresentable.fromEnum(net.minecraft.world.item.ArmorMaterials::values);

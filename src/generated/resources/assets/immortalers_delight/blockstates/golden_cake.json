@@ -1,0 +1,151 @@
+{
+  "variants": {
+    "bites=0,candles=1": {
+      "model": "immortalers_delight:block/golden_cake"
+    },
+    "bites=0,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_candle"
+    },
+    "bites=0,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_candle_lit"
+    },
+    "bites=0,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_pink_candle"
+    },
+    "bites=0,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_pink_candle_lit"
+    },
+    "bites=0,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_green_candle"
+    },
+    "bites=0,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_green_candle_lit"
+    },
+    "bites=1,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice1"
+    },
+    "bites=1,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_white_candle"
+    },
+    "bites=1,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_white_candle_lit"
+    },
+    "bites=1,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_gray_candle"
+    },
+    "bites=1,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_gray_candle_lit"
+    },
+    "bites=1,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_red_candle"
+    },
+    "bites=1,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_red_candle_lit"
+    },
+    "bites=2,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice2"
+    },
+    "bites=2,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_orange_candle"
+    },
+    "bites=2,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_orange_candle_lit"
+    },
+    "bites=2,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_light_gray_candle"
+    },
+    "bites=2,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_light_gray_candle_lit"
+    },
+    "bites=2,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_black_candle"
+    },
+    "bites=2,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_black_candle_lit"
+    },
+    "bites=3,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice3"
+    },
+    "bites=3,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_magenta_candle"
+    },
+    "bites=3,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_magenta_candle_lit"
+    },
+    "bites=3,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_cyan_candle"
+    },
+    "bites=3,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_cyan_candle_lit"
+    },
+    "bites=3,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_torchflower"
+    },
+    "bites=3,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_torchflower_lit"
+    },
+    "bites=4,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice4"
+    },
+    "bites=4,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_light_blue_candle"
+    },
+    "bites=4,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_light_blue_candle_lit"
+    },
+    "bites=4,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_purple_candle"
+    },
+    "bites=4,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_purple_candle_lit"
+    },
+    "bites=4,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_blaze_rod"
+    },
+    "bites=4,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_blaze_rod_lit"
+    },
+    "bites=5,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice5"
+    },
+    "bites=5,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_yellow_candle"
+    },
+    "bites=5,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_yellow_candle_lit"
+    },
+    "bites=5,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_blue_candle"
+    },
+    "bites=5,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_blue_candle_lit"
+    },
+    "bites=5,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_sextlotus_leaf"
+    },
+    "bites=5,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_sextlotus_leaf_lit"
+    },
+    "bites=6,candles=1": {
+      "model": "immortalers_delight:block/golden_cake_slice6"
+    },
+    "bites=6,candles=2,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_lime_candle"
+    },
+    "bites=6,candles=2,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_lime_candle_lit"
+    },
+    "bites=6,candles=3,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_brown_candle"
+    },
+    "bites=6,candles=3,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_brown_candle_lit"
+    },
+    "bites=6,candles=4,lit=false": {
+      "model": "immortalers_delight:block/golden_cake_a_bush"
+    },
+    "bites=6,candles=4,lit=true": {
+      "model": "immortalers_delight:block/golden_cake_a_bush_lit"
+    }
+  }
+}

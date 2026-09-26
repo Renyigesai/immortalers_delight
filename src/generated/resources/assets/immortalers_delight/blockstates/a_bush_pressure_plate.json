@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "immortalers_delight:block/a_bush_pressure_plate"
+    },
+    "powered=true": {
+      "model": "immortalers_delight:block/a_bush_pressure_plate_down"
+    }
+  }
+}

@@ -25,7 +25,7 @@ public class ClientPacketHandlers {
         entity.getCapability(playerEffectOverlay).ifPresent((cap) -> {
             if (type == 1) cap.setDeathlessData(data);
             else if (type == 2) cap.setInfernalForgingData(data);
-
+            else if (type == 4) cap.setStunData(data);
         });
     }
 }

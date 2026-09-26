@@ -1,0 +1,162 @@
+{
+  "type": "minecraft:barter",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_upgrade_smithing_template",
+          "weight": 12,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_golden_apple",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_scrap",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_sword",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomBarterType:\"cursed_gold_sword_t1\",AttributeModifiers:[{AttributeName:\"generic.attack_damage\",Name:\"Weapon modifier\",Amount:7.5,Operation:0,UUID:[I;-885033517,16838040,-1533568973,-1875692113],Slot:\"mainhand\"},{AttributeName:\"generic.attack_speed\",Name:\"Weapon modifier\",Amount:-2.4,Operation:0,UUID:[I;-98353636,1098926181,-1340367685,-1744418141],Slot:\"mainhand\"},{AttributeName:\"generic.max_health\",Name:\"Health penalty mainhand\",Amount:-0.3,Operation:1,UUID:[I;100,100,100,3],Slot:\"mainhand\"},{AttributeName:\"generic.max_health\",Name:\"Health penalty offhand\",Amount:-0.3,Operation:1,UUID:[I;100,100,100,4],Slot:\"offhand\"}],Enchantments:[{id:\"minecraft:knockback\",lvl:5s},{id:\"minecraft:looting\",lvl:4s}]}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_sword",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomBarterType:\"blazing_gold_sword_t1\",AttributeModifiers:[{AttributeName:\"generic.attack_damage\",Name:\"Weapon modifier\",Amount:7.5,Operation:0,UUID:[I;-885033517,16838040,-1533568973,-1875692113],Slot:\"mainhand\"},{AttributeName:\"generic.attack_speed\",Name:\"Weapon modifier\",Amount:-2.4,Operation:0,UUID:[I;-98353636,1098926181,-1340367685,-1744418141],Slot:\"mainhand\"}],Enchantments:[{id:\"minecraft:knockback\",lvl:5s},{id:\"minecraft:looting\",lvl:4s}]}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:golden_knife",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomBarterType:\"blazing_gold_sword_t2\",AttributeModifiers:[{AttributeName:\"generic.attack_damage\",Name:\"Weapon modifier\",Amount:5.5,Operation:0,UUID:[I;-885033517,16838040,-1533568973,-1875692113],Slot:\"mainhand\"},{AttributeName:\"generic.attack_speed\",Name:\"Weapon modifier\",Amount:-2,Operation:0,UUID:[I;-98353636,1098926181,-1340367685,-1744418141],Slot:\"mainhand\"}],Enchantments:[{id:\"minecraft:knockback\",lvl:3s},{id:\"minecraft:looting\",lvl:3s}]}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_axe",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomBarterType:\"crushing_gold_axe\",AttributeModifiers:[{AttributeName:\"generic.attack_damage\",Name:\"Weapon modifier\",Amount:11.0,Operation:0,UUID:[I;-885033517,16838040,-1533568973,-1875692113],Slot:\"mainhand\"},{AttributeName:\"generic.attack_speed\",Name:\"Weapon modifier\",Amount:-3.0,Operation:0,UUID:[I;-98353636,1098926181,-1340367685,-1744418141],Slot:\"mainhand\"}],Enchantments:[{id:\"minecraft:looting\",lvl:3s},{id:\"minecraft:unbreaking\",lvl:3s}]}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_pickaxe",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomBarterType:\"executioner_gold_pickaxe\",AttributeModifiers:[{AttributeName:\"generic.attack_damage\",Name:\"Weapon modifier\",Amount:4.0,Operation:0,UUID:[I;-885033517,16838040,-1533568973,-1875692113],Slot:\"mainhand\"},{AttributeName:\"generic.attack_speed\",Name:\"Weapon modifier\",Amount:-2.4,Operation:0,UUID:[I;-98353636,1098926181,-1340367685,-1744418141],Slot:\"mainhand\"}],Enchantments:[{id:\"minecraft:knockback\",lvl:3s},{id:\"minecraft:looting\",lvl:4s},{id:\"minecraft:fortune\",lvl:5s}]}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:gameplay/piglin_bartering"
+}

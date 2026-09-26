@@ -12,23 +12,35 @@ import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BakedObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.ObsidianWalnutItem;
+import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.PieBoostFoodItem;
 import com.renyigesai.immortalers_delight.item.weapon.*;
+import com.renyigesai.immortalers_delight.potion.PrehistoricPowersMobEffect;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoulFireBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
 
@@ -472,17 +484,35 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> INFESTED_GRAVEL;
     @ItemData(zhCn = "虫蚀的沙子",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
     public static final RegistryObject<Item> INFESTED_SAND;
+    @ItemData(zhCn = "煤炭块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_COAL_BLOCK;
+    @ItemData(zhCn = "铜块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_COPPER_BLOCK;
+    @ItemData(zhCn = "铁块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_IRON_BLOCK;
+    @ItemData(zhCn = "红石块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_REDSTONE_BLOCK;
+    @ItemData(zhCn = "青金石块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_LAPIS_BLOCK;
+    @ItemData(zhCn = "金块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_GOLD_BLOCK;
+    @ItemData(zhCn = "绿宝石块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_EMERALD_BLOCK;
+    @ItemData(zhCn = "钻石块？",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> INFESTED_DIAMOND_BLOCK;
 //    @ItemData(zhCn = "Sniffer Rotating Roast Meat",model = ItemData.ModelType.CUSTOM,group = NOT)
 //    public static final RegistryObject<Item> SNIFFER_ROTATING_ROAST_MEAT;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
+    @ItemData(zhCn = "生成 匿伏骷蛊<一点都没完成,备战2027年上半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SKELVERFISH_AMBUSHER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
+    @ItemData(zhCn = "生成 高能骷蛊<一点都没完成,备战2027年上半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SKELVERFISH_BOMBER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
+    @ItemData(zhCn = "生成 重锤骷蛊<一点都没完成,备战2027年上半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
+    @ItemData(zhCn = "生成 可疑的盔甲架<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "生成 陶瓦傀儡<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> TERRACOTTA_GOLEM_SPAWN_EGG;
+    @ItemData(zhCn = "生成 拼凑者",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
 
     @ItemData(zhCn = "古代口粮包")
@@ -740,6 +770,83 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> WALNUT_PIE_SLICE;
 
 
+    /*
+    1.2.4更新合集
+    */
+    @ItemData(zhCn = "灵魂炸锅[WIP]", model = ItemData.ModelType.BLOCK)
+    public static final RegistryObject<Item> SOUL_INFUSER;
+    @ItemData(zhCn = "宿苜冰棍")
+    public static final RegistryObject<Item> ALFALFA_POPSICLE;
+
+    @ItemData(zhCn = "青叶摩卡")
+    public static final RegistryObject<Item> MOCHA_AOBA;
+
+    @ItemData(zhCn = "古老亲子丼")
+    public static final RegistryObject<Item> ANCIENT_OYAKODON;
+    @ItemData(zhCn = "碗装古老亲子丼")
+    public static final RegistryObject<Item> BOWL_OF_ANCIENT_OYAKODON;
+
+    @ItemData(zhCn = "洋流冷面")
+    public static final RegistryObject<Item> OCEAN_CURRENT_SOBA;
+    @ItemData(zhCn = "盘装洋流冷面")
+    public static final RegistryObject<Item> BOWL_OF_OCEAN_CURRENT_SOBA;
+
+    @ItemData(zhCn = "大酱炒笨蛋")
+    public static final RegistryObject<Item> SOY_PASTE_SCRAMBLED_EGGS;
+    @ItemData(zhCn = "大酱炒笨蛋盖饭")
+    public static final RegistryObject<Item> BOWL_OF_SOY_PASTE_SCRAMBLED_EGGS;
+
+    @ItemData(zhCn = "镀金蛋糕")
+    public static final RegistryObject<Item> GOLDEN_CAKE;
+    @ItemData(zhCn = "镀金蛋糕切片")
+    public static final RegistryObject<Item> GOLDEN_CAKE_SLICE;
+
+    @ItemData(zhCn = "月亮蛋糕")
+    public static final RegistryObject<Item> MOONLIGHT_CAKE;
+    @ItemData(zhCn = "月亮蛋糕切片")
+    public static final RegistryObject<Item> MOONLIGHT_CAKE_SLICE;
+
+    @ItemData(zhCn = "烟烬苦冰山熔岩")
+    public static final RegistryObject<Item> ABC_LAVA_GLACIER;
+    @ItemData(zhCn = "冰山熔岩切片")
+    public static final RegistryObject<Item> ABC_LAVA_GLACIER_SLICE;
+
+    @ItemData(zhCn = "既望巴斯克")
+    public static final RegistryObject<Item> SEXTLOTUS_BASQUE_CHEESECAKE;
+    @ItemData(zhCn = "巴斯克切片")
+    public static final RegistryObject<Item> SEXTLOTUS_BASQUE_CHEESECAKE_SLICE;
+
+    @ItemData(zhCn = "笨蛋三明治")
+    public static final RegistryObject<Item> BAKA_SANDWICH;
+
+
+    @ItemData(zhCn = "冰川薯条")
+    public static final RegistryObject<Item> GLACIER_FIRES;
+    @ItemData(zhCn = "冰火淇淋")
+    public static final RegistryObject<Item> ICE_AND_FIRE_CREAM;
+    @ItemData(zhCn = "合素肉饼")
+    public static final RegistryObject<Item> COMPOSITE_FLESHPLATE;
+    @ItemData(zhCn = "火鸟串")
+    public static final RegistryObject<Item> FIREBIRD_YAKITORI;
+    @ItemData(zhCn = "火神酥")
+    public static final RegistryObject<Item> VULCAN_PASTRY;
+    @ItemData(zhCn = "瓦斯麦米糕")
+    public static final RegistryObject<Item> KWAT_TTEOK;
+    @ItemData(zhCn = "丸子蛋菜汤")
+    public static final RegistryObject<Item> MEATBALL_EGG_VEG_SOUP;
+    @ItemData(zhCn = "芜菁糖")
+    public static final RegistryObject<Item> SUGAR_COATED_SEXTLOTUS;
+    @ItemData(zhCn = "芜菁天妇罗")
+    public static final RegistryObject<Item> SEXTLOTUS_MOCHI;
+    @ItemData(zhCn = "粗粝三明治")
+    public static final RegistryObject<Item> ROUGH_SANDWICH;
+    @ItemData(zhCn = "苜蓿花茶")
+    public static final RegistryObject<Item> ALFALFA_FLOWER_TEA;
+    @ItemData(zhCn = "盆底捞")
+    public static final RegistryObject<Item> PEN_DI_LAO;
+    @ItemData(zhCn = "炸水")
+    public static final RegistryObject<Item> FIRED_WATER;
+
     /*船*/
     @ItemData(zhCn = "姬海棠木船")
     public static final RegistryObject<Item> HIMEKAIDO_BOAT;
@@ -954,6 +1061,45 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item>PACKED_MUD_SLAB;
     @ItemData(zhCn = "泥坯墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
     public static final RegistryObject<Item>PACKED_MUD_WALL;
+
+    /*系列装饰方块--怨灵石*/
+    @ItemData(zhCn = "怨灵石",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
+    public static final RegistryObject<Item> WRAITHSTONE;
+    @ItemData(zhCn = "怨灵石楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> WRAITHSTONE_STAIRS;
+    @ItemData(zhCn = "怨灵石台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> WRAITHSTONE_SLAB;
+    @ItemData(zhCn = "怨灵石墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
+    public static final RegistryObject<Item> WRAITHSTONE_WALL;
+    @ItemData(zhCn = "磨制怨灵石",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
+    public static final RegistryObject<Item> POLISHED_WRAITHSTONE;
+    @ItemData(zhCn = "磨制怨灵石楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> POLISHED_WRAITHSTONE_STAIRS;
+    @ItemData(zhCn = "磨制怨灵石台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> POLISHED_WRAITHSTONE_SLAB;
+    @ItemData(zhCn = "磨制怨灵石墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
+    public static final RegistryObject<Item> POLISHED_WRAITHSTONE_WALL;
+    @ItemData(zhCn = "苔怨灵石",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
+    public static final RegistryObject<Item> MOSSY_WRAITHSTONE;
+    @ItemData(zhCn = "苔怨灵石楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> MOSSY_WRAITHSTONE_STAIRS;
+    @ItemData(zhCn = "苔怨灵石台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> MOSSY_WRAITHSTONE_SLAB;
+    @ItemData(zhCn = "苔怨灵石墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
+    public static final RegistryObject<Item> MOSSY_WRAITHSTONE_WALL;
+    @ItemData(zhCn = "怨灵石砖",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
+    public static final RegistryObject<Item>WRAITHSTONE_BRICK;
+    @ItemData(zhCn = "怨灵石砖楼梯",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item>WRAITHSTONE_BRICK_STAIRS;
+    @ItemData(zhCn = "怨灵石砖台阶",model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item>WRAITHSTONE_BRICK_SLAB;
+    @ItemData(zhCn = "怨灵石砖墙",model = ItemData.ModelType.WALL,group = OFF_MAIN)
+    public static final RegistryObject<Item>WRAITHSTONE_BRICK_WALL;
+    @ItemData(zhCn = "雕纹怨灵石",model = ItemData.ModelType.CUSTOM,group = OFF_MAIN)
+    public static final RegistryObject<Item>CHISELED_WRAITHSTONE;
+    @ItemData(zhCn = "恨火",model = ItemData.ModelType.BLOCK,group = NOT)
+    public static final RegistryObject<Item>HATRED_FIRE;
+
 
     static {
         DEBUG_ITEM = register("debug_item", () -> new DebugItem(new Item.Properties().durability(1024)));
@@ -1216,6 +1362,25 @@ public class ImmortalersDelightItems {
         PACKED_MUD_WALL = block(ImmortalersDelightBlocks.PACKED_MUD_WALL);
 
 
+        /*怨灵石*/
+        WRAITHSTONE = block(ImmortalersDelightBlocks.WRAITHSTONE);
+        WRAITHSTONE_STAIRS = block(ImmortalersDelightBlocks.WRAITHSTONE_STAIRS);
+        WRAITHSTONE_SLAB = block(ImmortalersDelightBlocks.WRAITHSTONE_SLAB);
+        WRAITHSTONE_WALL = block(ImmortalersDelightBlocks.WRAITHSTONE_WALL);
+        POLISHED_WRAITHSTONE = block(ImmortalersDelightBlocks.POLISHED_WRAITHSTONE);
+        POLISHED_WRAITHSTONE_STAIRS = block(ImmortalersDelightBlocks.POLISHED_WRAITHSTONE_STAIRS);
+        POLISHED_WRAITHSTONE_SLAB = block(ImmortalersDelightBlocks.POLISHED_WRAITHSTONE_SLAB);
+        POLISHED_WRAITHSTONE_WALL = block(ImmortalersDelightBlocks.POLISHED_WRAITHSTONE_WALL);
+        MOSSY_WRAITHSTONE = block(ImmortalersDelightBlocks.MOSSY_WRAITHSTONE);
+        MOSSY_WRAITHSTONE_STAIRS = block(ImmortalersDelightBlocks.MOSSY_WRAITHSTONE_STAIRS);
+        MOSSY_WRAITHSTONE_SLAB = block(ImmortalersDelightBlocks.MOSSY_WRAITHSTONE_SLAB);
+        MOSSY_WRAITHSTONE_WALL = block(ImmortalersDelightBlocks.MOSSY_WRAITHSTONE_WALL);
+        WRAITHSTONE_BRICK = block(ImmortalersDelightBlocks.WRAITHSTONE_BRICK);
+        WRAITHSTONE_BRICK_STAIRS = block(ImmortalersDelightBlocks.WRAITHSTONE_BRICK_STAIRS);
+        WRAITHSTONE_BRICK_SLAB = block(ImmortalersDelightBlocks.WRAITHSTONE_BRICK_SLAB);
+        WRAITHSTONE_BRICK_WALL = block(ImmortalersDelightBlocks.WRAITHSTONE_BRICK_WALL);
+        CHISELED_WRAITHSTONE = block(ImmortalersDelightBlocks.CHISELED_WRAITHSTONE);
+
         /*
         地牢工具箱
          */
@@ -1229,14 +1394,14 @@ public class ImmortalersDelightItems {
         //SPIKE_BAR = block(ImmortalersDelightBlocks.SPIKE_BAR);
         INFESTED_GRAVEL = block(ImmortalersDelightBlocks.INFESTED_GRAVEL);
         INFESTED_SAND = block(ImmortalersDelightBlocks.INFESTED_SAND);
-//        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
-//        INFESTED_COPPER_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COPPER_BLOCK);
-//        INFESTED_IRON_BLOCK = block(ImmortalersDelightBlocks.INFESTED_IRON_BLOCK);
-//        INFESTED_REDSTONE_BLOCK = block(ImmortalersDelightBlocks.INFESTED_REDSTONE_BLOCK);
-//        INFESTED_LAPIS_BLOCK = block(ImmortalersDelightBlocks.INFESTED_LAPIS_BLOCK);
-//        INFESTED_GOLD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_GOLD_BLOCK);
-//        INFESTED_EMERALD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_EMERALD_BLOCK);
-//        INFESTED_DIAMOND_BLOCK = block(ImmortalersDelightBlocks.INFESTED_DIAMOND_BLOCK);
+        INFESTED_COAL_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COAL_BLOCK);
+        INFESTED_COPPER_BLOCK = block(ImmortalersDelightBlocks.INFESTED_COPPER_BLOCK);
+        INFESTED_IRON_BLOCK = block(ImmortalersDelightBlocks.INFESTED_IRON_BLOCK);
+        INFESTED_REDSTONE_BLOCK = block(ImmortalersDelightBlocks.INFESTED_REDSTONE_BLOCK);
+        INFESTED_LAPIS_BLOCK = block(ImmortalersDelightBlocks.INFESTED_LAPIS_BLOCK);
+        INFESTED_GOLD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_GOLD_BLOCK);
+        INFESTED_EMERALD_BLOCK = block(ImmortalersDelightBlocks.INFESTED_EMERALD_BLOCK);
+        INFESTED_DIAMOND_BLOCK = block(ImmortalersDelightBlocks.INFESTED_DIAMOND_BLOCK);
 
         /*
         材料类物品
@@ -1758,7 +1923,19 @@ public class ImmortalersDelightItems {
         HAMBURGER_MEAT_SUSHI = foodItem("hamburger_meat_sushi",ImmortalersDelightFoodProperties.HAMBURGER_MEAT_SUSHI,true);;
 
         HONG_MEI_LING = registerWithTab("hong_mei_ling",()->
-                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.HONE_MEI_LING),true,true));
+                new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.HONE_MEI_LING),true,true){
+                    @Override
+                    public UseAnim getUseAnimation(ItemStack stack) {return stack.getOrCreateTag().contains("is_using") ? UseAnim.BOW : UseAnim.DRINK;}
+//                    @Override
+//                    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+//                        CompoundTag nbt = pStack.getOrCreateTag();
+//                        if (pLevel.isClientSide() && !nbt.contains("is_using") && pRemainingUseDuration + 1 <= this.getUseDuration(pStack) / 2) nbt.putBoolean("is_using",true);
+//                    }
+//                    @Override
+//                    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+//                        if (pEntity instanceof LivingEntity living && !living.isUsingItem() && pStack.getOrCreateTag().contains("is_using")) pStack.getOrCreateTag().remove("is_using");
+//                    }
+                });
 
         CARROT_TEA = registerWithTab("carrot_tea",()->
                 new ConsumableItem(drinkItem(ImmortalersDelightFoodProperties.CARROT_TEA),true));
@@ -2015,6 +2192,99 @@ public class ImmortalersDelightItems {
         WALNUT_PIE = block(ImmortalersDelightBlocks.WALNUT_PIE);
         WALNUT_PIE_SLICE = foodItem("walnut_pie_slice",ImmortalersDelightFoodProperties.WALNUT_PIE_SLICE, true);
 
+        //1.2.4更新合集
+        SOUL_INFUSER = block(ImmortalersDelightBlocks.SOUL_INFUSER);
+        ALFALFA_POPSICLE = registerWithTab("alfalfa_popsicle",()->
+                new AlfalfaPopsicleItem(foodItem(ImmortalersDelightFoodProperties.ALFALFA_POPSICLE),false,false));
+        MOCHA_AOBA = registerWithTab("mocha_aoba",()->
+                new MochaAobaItem(drinkItem(ImmortalersDelightFoodProperties.MOCHA_AOBA),false,false,14));
+        ANCIENT_OYAKODON = block(ImmortalersDelightBlocks.ANCIENT_OYAKODON);
+
+        BOWL_OF_ANCIENT_OYAKODON = registerWithTab("bowl_of_ancient_oyakodon",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.BOWL_OF_ANCIENT_OYAKODON).stacksTo(16),PoweredFoodProperties.BOWL_OF_ANCIENT_OYAKODON,true,false,14){
+                    @Override
+                    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity consumer) {
+                        if (consumer instanceof Player player && !player.level().isClientSide()) {
+                            CompoundTag nbt = player.getPersistentData();
+                            nbt.putBoolean(PrehistoricPowersMobEffect.USE_OLD_BUFFER,false); //添加临时强化标记
+                        }
+                        return super.finishUsingItem(stack,level,consumer);
+                    }
+                });
+
+        OCEAN_CURRENT_SOBA = block(ImmortalersDelightBlocks.OCEAN_CURRENT_SOBA);
+
+        BOWL_OF_OCEAN_CURRENT_SOBA = registerWithTab("bowl_of_ocean_current_soba",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_OCEAN_CURRENT_SOBA),PoweredFoodProperties.BOWL_OF_OCEAN_CURRENT_SOBA,true,false));
+
+        SOY_PASTE_SCRAMBLED_EGGS = registerWithTab("soy_paste_scrambled_eggs",()->
+                new EdibleBlockFoodItem(ImmortalersDelightBlocks.SOY_PASTE_SCRAMBLED_EGGS.get(), bowlFoodItem(ImmortalersDelightFoodProperties.SOY_PASTE_SCRAMBLED_EGGS),PoweredFoodProperties.SOY_PASTE_SCRAMBLED_EGGS,false));
+
+        BOWL_OF_SOY_PASTE_SCRAMBLED_EGGS = registerWithTab("bowl_of_soy_paste_scrambled_eggs",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.BOWL_OF_SOY_PASTE_SCRAMBLED_EGGS),PoweredFoodProperties.BOWL_OF_SOY_PASTE_SCRAMBLED_EGGS,true,false));
+
+        GOLDEN_CAKE = registerWithTab(ImmortalersDelightBlocks.GOLDEN_CAKE.getId().getPath(), () -> new BlockItem(ImmortalersDelightBlocks.GOLDEN_CAKE.get(), new Item.Properties()){
+            //标记为猪灵货币物品
+            @Override
+            public boolean isPiglinCurrency(ItemStack stack) {return true;}
+            @Override
+            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> tooltips, TooltipFlag pFlag) {tooltips.add(Component.translatable("tooltip.immortalers_delight." + this).withStyle(ChatFormatting.GRAY));super.appendHoverText(pStack,pLevel,tooltips,pFlag);}
+            });
+
+        GOLDEN_CAKE_SLICE = foodItem("golden_cake_slice",ImmortalersDelightFoodProperties.GOLDEN_CAKE_SLICE, true);
+
+        MOONLIGHT_CAKE = block(ImmortalersDelightBlocks.MOONLIGHT_CAKE);
+
+        MOONLIGHT_CAKE_SLICE = foodItem("moonlight_cake_slice",ImmortalersDelightFoodProperties.MOONLIGHT_CAKE_SLICE, true);
+
+        ABC_LAVA_GLACIER = block(ImmortalersDelightBlocks.ABC_LAVA_GLACIER);
+
+        ABC_LAVA_GLACIER_SLICE = registerWithTab("abc_lava_glacier_slice",()->
+                new PieBoostFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.ABC_LAVA_GLACIER_SLICE),true,false));
+
+        SEXTLOTUS_BASQUE_CHEESECAKE = block(ImmortalersDelightBlocks.SEXTLOTUS_BASQUE_CHEESECAKE);
+
+        SEXTLOTUS_BASQUE_CHEESECAKE_SLICE = registerWithTab("sextlotus_basque_cheesecake_slice",()->
+                new PieBoostFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.SEXTLOTUS_BASQUE_CHEESECAKE_SLICE),true,true));
+
+        BAKA_SANDWICH = registerWithTab("baka_sandwich",()->
+                new BakaArmor(ImmortalersArmorMaterials.BAKA,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
+        GLACIER_FIRES = registerWithTab("glacier_fires",()->
+                new GlacierFiresItem(foodItem(ImmortalersDelightFoodProperties.GLACIER_FIRES),PoweredFoodProperties.GLACIER_FIRES,true,false,14));
+        ICE_AND_FIRE_CREAM = registerWithTab("ice_and_fire_cream",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.ICE_AND_FIRE_CREAM),PoweredFoodProperties.ICE_AND_FIRE_CREAM,true,false,14){
+                    @Override
+                    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity consumer) {
+                        MobEffectInstance let = consumer.getEffect(ImmortalersDelightMobEffect.LET_IT_FREEZE.get());
+                        if (let != null) {
+                            consumer.addEffect(new MobEffectInstance(ImmortalersDelightMobEffect.WARM_CURRENT_SURGES.get(), let.getDuration(),let.getAmplifier()));
+                            consumer.removeEffect(ImmortalersDelightMobEffect.LET_IT_FREEZE.get());
+                        }
+                        return super.finishUsingItem(stack,level,consumer);
+                    }
+                });
+        COMPOSITE_FLESHPLATE = foodItem("composite_fleshplate",ImmortalersDelightFoodProperties.COMPOSITE_FLESHPLATE, true);
+        FIREBIRD_YAKITORI = registerWithTab("firebird_yakitori",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.FIREBIRD_YAKITORI),PoweredFoodProperties.FIREBIRD_YAKITORI, true,false));
+        VULCAN_PASTRY = foodItem("vulcan_pastry",ImmortalersDelightFoodProperties.VULCAN_PASTRY, true);
+
+        KWAT_TTEOK = foodItem("kwat_tteok",ImmortalersDelightFoodProperties.KWAT_TTEOK,true);
+        MEATBALL_EGG_VEG_SOUP = registerWithTab("meatball_egg_veg_soup",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.MEATBALL_EGG_VEG_SOUP),PoweredFoodProperties.MEATBALL_EGG_VEG_SOUP,true,false));
+        SEXTLOTUS_MOCHI = registerWithTab("sextlotus_mochi",()->
+                new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.SEXTLOTUS_MOCHI),PoweredFoodProperties.SEXTLOTUS_MOCHI,true,false));
+        SUGAR_COATED_SEXTLOTUS = foodItem("sugar_coated_sextlotus",ImmortalersDelightFoodProperties.SUGAR_COATED_SEXTLOTUS,true);
+        ROUGH_SANDWICH = registerWithTab("rough_sandwich",()->
+                new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.ROUGH_SANDWICH).stacksTo(16),PoweredFoodProperties.BOWL_OF_ANCIENT_OYAKODON,true,true,14){
+                    @Override
+                    public int getUseDuration(ItemStack stack) {return 300;}
+                });
+        ALFALFA_FLOWER_TEA = registerWithTab("alfalfa_flower_tea",()->
+                new DrinkItem(ImmortalersDelightBlocks.ALFALFA_FLOWER_TEA.get(), drinkItem(ImmortalersDelightFoodProperties.ALFALFA_FLOWER_TEA),true,true));
+        PEN_DI_LAO = registerWithTab("pen_di_lao",()->
+                new DrinkItem(ImmortalersDelightBlocks.PEN_DI_LAO.get(), drinkItem(ImmortalersDelightFoodProperties.PEN_DI_LAO),true,true));
+        FIRED_WATER = foodItem("fired_water",ImmortalersDelightFoodProperties.FIRED_WATER,true);
+
 
         //隐藏
         SKELVERFISH_AMBUSHER_SPAWN_EGG = register("skelverfish_ambusher_spawn_egg",()->
@@ -2025,10 +2295,12 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SKELVERFISH_THRASHER,1645516,6845733,new Item.Properties()));
         STRANGE_ARMOUR_STAND_SPAWN_EGG = register("strange_armour_stand_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND,1645516,6845733,new Item.Properties()));
+        TERRACOTTA_GOLEM_SPAWN_EGG = register("terracotta_golem_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.TERRACOTTA_GOLEM,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
-        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-
+        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new ImmortalersBucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+        HATRED_FIRE = block(ImmortalersDelightBlocks.HATRED_FIRE);
 
 
     }

@@ -1,9 +1,12 @@
 package com.renyigesai.immortalers_delight.util;
 
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.util.UUID;
 
 /**
  * 反射工具类
@@ -184,5 +187,29 @@ public class ReflectionUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //===========================用于访问Item的私有字段中工具属性两UUID============================//
+    public static final UUID BASE_ATTACK_DAMAGE_UUID;
+    public static final UUID BASE_ATTACK_SPEED_UUID;
+
+    static {
+        UUID damageUuid;
+        UUID speedUuid;
+        try {
+            // ObfuscationReflectionHelper.getPrivateValue 会根据当前运行环境自动在 SRG 名和反混淆名之间匹配
+            // 参数1: 目标类 class
+            // 参数2: 目标实例 (静态字段传 null)
+            // 参数3: 目标字段的 SRG 名称 (开发环境和生产环境通用)
+            damageUuid = ObfuscationReflectionHelper.getPrivateValue(Item.class, null, "f_41374_");
+            speedUuid  = ObfuscationReflectionHelper.getPrivateValue(Item.class, null, "f_41375_");
+        } catch (Exception e) {
+            // 提供硬编码回退值（兜底保障，避免因映射异常导致模组崩溃）
+            damageUuid = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+            speedUuid  = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
+        }
+
+        BASE_ATTACK_DAMAGE_UUID = damageUuid;
+        BASE_ATTACK_SPEED_UUID  = speedUuid;
     }
 }

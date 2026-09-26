@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:extra_spicy_pasta"
+    },
+    {
+      "item": "immortalers_delight:extra_spicy_pasta"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "minecraft:sniffer_egg"
+    },
+    {
+      "item": "minecraft:dried_kelp_block"
+    }
+  ],
+  "container": {
+    "item": "minecraft:barrel"
+  },
+  "result": {
+    "item": "immortalers_delight:ocean_current_soba"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

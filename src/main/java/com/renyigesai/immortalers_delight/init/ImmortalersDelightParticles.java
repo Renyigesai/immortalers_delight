@@ -21,6 +21,15 @@ public class ImmortalersDelightParticles {
         event.registerSpriteSet(ImmortalersDelightParticleTypes.MOONLIGHT_BEAM.get(), MoonlightBeamParticle::moonlightBeamParticleProvider);
         //event.registerSpriteSet(ImmortalersDelightParticleTypes.INFERNAL_FORGING_SCREEN_LAYER.get(), ScreenLayerParticle::screenLayerParticleProvider);
         event.registerSpriteSet(ImmortalersDelightParticleTypes.INFERNAL_FORGING_SCREEN_LAYER.get(), ScreenLayerParticle::screenLayerParticleProvider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.CIRCLE_TWINKLE.get(), CircleTwinkleParticle::baseSmokeProvider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.TWINKLE.get(), TwinkleParticle::baseSmokeProvider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.GOLDEN_LIGHT.get(), GoldenLightParticle::provider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.PURPLE_LIGHT.get(), PurpleLightParticle::provider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.GOLDEN_GLIMMER.get(), GoldenGlimmerParticle::provider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.PURPLE_GLIMMER.get(), PurpleGlimmerParticle::provider);
+        event.registerSpecial(ImmortalersDelightParticleTypes.SHOCKED_BLOCK.get(), new ShockedBlockParticle.Provider());
+        event.registerSpecial(ImmortalersDelightParticleTypes.RISE_BLOCK.get(), new RiseBlockParticle.Provider());
+
     }
 
 }

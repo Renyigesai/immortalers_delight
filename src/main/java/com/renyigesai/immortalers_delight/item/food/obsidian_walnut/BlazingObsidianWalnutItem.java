@@ -378,6 +378,23 @@ public class BlazingObsidianWalnutItem extends Item {
         tooltip.add(textEmpty1.withStyle(ChatFormatting.YELLOW));
         tooltip.add(textEmpty2.withStyle(ChatFormatting.YELLOW));
 
+//        ChatFormatting.BLACK;
+//        ChatFormatting.DARK_BLUE;
+//        ChatFormatting.DARK_GREEN;
+//        ChatFormatting.DARK_AQUA;
+//        ChatFormatting.DARK_RED;
+//        ChatFormatting.DARK_PURPLE;
+//        ChatFormatting.GOLD;
+//        ChatFormatting.GRAY;
+//        ChatFormatting.DARK_GRAY;
+//        ChatFormatting.BLUE;
+//        ChatFormatting.GREEN;
+//        ChatFormatting.AQUA;
+//        ChatFormatting.RED;
+//        ChatFormatting.LIGHT_PURPLE;
+//        ChatFormatting.YELLOW;
+//        ChatFormatting.WHITE;
+
         CompoundTag tag = stack.getOrCreateTag();
         if (tag.contains(TAG_PERSISTENT)) {
             MutableComponent textEmpty = Component.translatable("tooltip." + ImmortalersDelightMod.MODID+ "." + this + ".persistent");

@@ -2,8 +2,14 @@ package com.renyigesai.immortalers_delight.fluid;
 
 import com.google.common.collect.ImmutableMap;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
+import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
 import com.renyigesai.immortalers_delight.recipe.HotSpringRecipe;
+import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.ItemUtils;
+import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -13,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +30,9 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,6 +42,11 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.ObjectUtils;
 import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -40,12 +55,71 @@ import java.util.*;
 
 public class HotSpringFluidsBlock extends LiquidBlock {
 
+    List<BlockPos> needBecomeLava = new ArrayList<>();
+
     public HotSpringFluidsBlock() {
         super(ImmortalersDelightFluids.HOT_SPRING,
                 Properties.of().mapColor(MapColor.WATER).strength(100f)
                         .noCollission().noLootTable().liquid().pushReaction(PushReaction.DESTROY).sound(SoundType.EMPTY).replaceable().randomTicks());
     }
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        if (!this.shouldSpreadLiquid(pLevel,pPos,pState)) {
+            pLevel.scheduleTick(pPos, pState.getFluidState().getType(), this.getFluid().getTickDelay(pLevel));
+        } else super.onPlace(pState,pLevel,pPos,pOldState,pIsMoving);
 
+    }
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        //System.out.println("neighborChanged at {" + pPos + "}, fluid state: {" + pLevel.getFluidState(pPos) + "}" );
+        if (!this.shouldSpreadLiquid(pLevel,pPos,pState)) {
+            pLevel.scheduleTick(pPos, pState.getFluidState().getType(), this.getFluid().getTickDelay(pLevel));
+        } else super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    }
+    private boolean shouldSpreadLiquid(Level pLevel, BlockPos pPos, BlockState pState) {
+        boolean flag = pLevel.getBlockState(pPos.below()).is(Blocks.SOUL_SOIL);
+
+        for(Direction direction : POSSIBLE_FLOW_DIRECTIONS) {
+            BlockPos blockpos = pPos.relative(direction.getOpposite());
+            if (pLevel.getFluidState(blockpos).is(FluidTags.WATER)) {
+                Block block = flag ? ImmortalersDelightBlocks.MOSSY_WRAITHSTONE.get() : ImmortalersDelightBlocks.WRAITHSTONE.get();
+                pLevel.setBlockAndUpdate(pPos, block.defaultBlockState());
+                this.fizz(pLevel, pPos);
+                return false;
+            }
+
+            //使用计划刻将周围岩浆块延迟转化为岩浆，
+            if (!needBecomeLava.contains(blockpos) && pLevel.getBlockState(blockpos).is(Blocks.MAGMA_BLOCK)) {
+                needBecomeLava.add(blockpos);
+                pLevel.scheduleTick(pPos,this,5);
+                return false;
+            }
+
+            if (pLevel.getFluidState(blockpos).is(FluidTags.LAVA)) {
+                pLevel.setBlockAndUpdate(pPos, Blocks.MAGMA_BLOCK.defaultBlockState());
+                this.fizz(pLevel, pPos);
+                return false;
+            }
+        }
+
+        return true;
+    }
+    private void fizz(LevelAccessor pLevel, BlockPos pPos) {
+        pLevel.levelEvent(1501, pPos, 0);
+    }
+    //用于延迟将周围岩浆块转化为岩浆，避免卡服
+    private void changeToLava(Level pLevel, BlockPos pPos, BlockState pState) {
+        boolean flag2 = pLevel.getFluidState(pPos).isSource();
+        for(Direction direction : POSSIBLE_FLOW_DIRECTIONS) {
+            BlockPos blockpos = pPos.relative(direction.getOpposite());
+            if (pLevel.getBlockState(blockpos).is(Blocks.MAGMA_BLOCK)) {
+                int fl = !flag2 ? 2 : 0;
+                pLevel.setBlockAndUpdate(blockpos, Blocks.LAVA.defaultBlockState().setValue(LiquidBlock.LEVEL,fl));
+                this.fizz(pLevel, blockpos);
+                needBecomeLava.remove(blockpos);
+            }
+        }
+    }
 
     private Optional<HotSpringRecipe> getCurrentRecipe(Level level, List<ItemStack> list) {
         SimpleContainer inventory = new SimpleContainer(list.size());
@@ -84,6 +158,9 @@ public class HotSpringFluidsBlock extends LiquidBlock {
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         craftTick(pLevel,pPos);
+        changeToLava(pLevel,pPos,pState);
+        //定时清表
+        if (pLevel.getGameTime() % 1000 < 50) needBecomeLava.clear();
     }
 
     //温泉热源逻辑，在下界以外同厨锅，补充了温泉在下界沸腾的设定，在下界则是单独的温泉方块即可(避免出现大片温泉高频查配方导致卡顿)
@@ -202,4 +279,5 @@ public class HotSpringFluidsBlock extends LiquidBlock {
             pLevel.scheduleTick(pPos,this,5);
         }
     }
+
 }

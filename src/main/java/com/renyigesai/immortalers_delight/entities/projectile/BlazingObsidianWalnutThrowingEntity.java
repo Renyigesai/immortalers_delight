@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.entities.projectile;
 
 import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
+import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
@@ -27,6 +28,10 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -202,6 +207,26 @@ public class BlazingObsidianWalnutThrowingEntity extends ThrowableItemProjectile
             //首次碰撞时爆炸
             if (!this.isBoom()) {
                 this.boom();
+                spawnLava(this.level(),this.getOnPos(),2,2,2);
+            }
+        }
+    }
+
+
+    public void spawnLava(Level pLevel, BlockPos pPos, int x, int y, int z) {
+        if (this.isDangerous() || pLevel.isClientSide()) return;
+        for (int i = -x; i <= x; i++) {
+            for (int j = -y; j <= y; j++) {
+                for (int k = -z; k <= z; k++) {
+                    if (i != 0 || j > 0 || k != 0) {
+                        BlockPos blockPos = pPos.offset(i,j,k);
+                        BlockState blockState = pLevel.getBlockState(blockPos);
+                        if (blockState.is(ImmortalersDelightBlocks.HOT_SPRING_BLOCK.get())) {
+                            pLevel.setBlock(blockPos, Fluids.LAVA.defaultFluidState().createLegacyBlock(), 11);
+                            //pLevel.setBlockAndUpdate(blockPos, Blocks.NETHERRACK.defaultBlockState());
+                        }
+                    }
+                }
             }
         }
     }

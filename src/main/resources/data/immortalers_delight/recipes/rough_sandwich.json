@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "immortalers_delight:large_column_slice" },
+    { "item": "immortalers_delight:cooked_sniffer_steak" },
+    { "item": "minecraft:torchflower" },
+    { "item": "immortalers_delight:ancient_fiber" },
+    { "item": "immortalers_delight:large_column_slice" }
+  ],
+  "result": {
+    "item": "immortalers_delight:rough_sandwich",
+    "count": 1
+  }
+}

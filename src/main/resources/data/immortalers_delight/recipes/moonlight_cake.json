@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AFA",
+    "FBF",
+    "CCC"
+  ],
+  "key": {
+    "A": { "item": "immortalers_delight:sextlotus_root_cuts" },
+    "F": { "tag": "forge:milk" },
+    "B": { "item": "minecraft:sniffer_egg" },
+    "C": { "item": "immortalers_delight:pitcher_pod_petal" }
+  },
+  "result": {
+    "item": "immortalers_delight:moonlight_cake",
+    "count": 1
+  }
+}

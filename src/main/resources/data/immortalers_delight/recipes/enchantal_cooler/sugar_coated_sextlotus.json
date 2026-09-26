@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:sextlotus_root_cuts"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "container": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "immortalers_delight:sugar_coated_sextlotus",
+    "count": 1
+  }
+}

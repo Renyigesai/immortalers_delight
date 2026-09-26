@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.init;
 
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
+import com.renyigesai.immortalers_delight.screen.SoulInfuserMenu;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -20,4 +21,6 @@ public class ImmortalersDelightMenuTypes {
             () -> IForgeMenuType.create(TerracottaGolemMenu::new));
 
 
+    public static final RegistryObject<MenuType<SoulInfuserMenu>> SOUL_INFUSER_MENU = MENUS.register("soul_infuser_menu",
+            () -> IForgeMenuType.create(SoulInfuserMenu::new));
 }

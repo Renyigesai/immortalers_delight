@@ -7,6 +7,8 @@
   "mixins": [
     "EntityFireImmuneMixin",
     "ItemEntityMixin",
+    "LivingEntityMixin",
+    "PiglinAiMixin",
     "PlayerMixin",
     "SnifferMixin"
   ],
