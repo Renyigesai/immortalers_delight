@@ -85,7 +85,8 @@ public class SpikeTrapBakedModel implements BakedModel {
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState pState, @Nullable Direction pDirection, RandomSource pRandom) {
-        throw new AssertionError("IBakedModel::getQuads should never be called, only IForgeBakedModel::getQuads");
+        // 兜底处理：转发到 Forge 扩展方法，使用空的 ModelData 和 null RenderType
+        return getQuads(pState, pDirection, pRandom, ModelData.EMPTY, null);
     }
 
     //用于判断是否使用环境遮蔽

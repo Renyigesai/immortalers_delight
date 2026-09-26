@@ -1,4 +1,6 @@
 {
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "immortalers_delight:block/pearlipearl_bean",
@@ -10,23 +12,23 @@
 			"to": [11, 12, 14],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 14]},
 			"faces": {
-				"north": {"uv": [6, 1, 9, 4.5], "texture": "#0"},
-				"east": {"uv": [6, 1, 9, 4.5], "texture": "#0"},
-				"south": {"uv": [6, 1, 9, 4.5], "texture": "#0"},
-				"west": {"uv": [6, 1, 9, 4.5], "texture": "#0"},
+				"north": {"uv": [6, 2, 9, 5.5], "texture": "#0"},
+				"east": {"uv": [6, 2, 9, 5.5], "texture": "#0"},
+				"south": {"uv": [6, 2, 9, 5.5], "texture": "#0"},
+				"west": {"uv": [6, 2, 9, 5.5], "texture": "#0"},
 				"up": {"uv": [1, 1, 4, 4], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [1, 6, 4, 9], "rotation": 180, "texture": "#0"}
 			}
 		},
 		{
-			"from": [8, 12, 9],
-			"to": [8, 16, 19],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 14]},
+			"from": [8, 4, 10],
+			"to": [8, 16, 20],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 12, 16]},
 			"faces": {
 				"north": {"uv": [16, 11.5, 16, 15.5], "texture": "#0"},
-				"east": {"uv": [0, 14, 5, 16], "texture": "#0"},
+				"east": {"uv": [0, 10, 5, 16], "texture": "#0"},
 				"south": {"uv": [16, 12, 16, 16], "texture": "#0"},
-				"west": {"uv": [11, 4, 16, 6], "texture": "#0"},
+				"west": {"uv": [5, 10, 0, 16], "texture": "#0"},
 				"up": {"uv": [16, 10, 16, 16], "rotation": 180, "texture": "#0"},
 				"down": {"uv": [16, 10, 16, 16], "rotation": 180, "texture": "#0"}
 			}
@@ -36,6 +38,7 @@
 		{
 			"name": "group",
 			"origin": [7, 13, 5],
+			"scope": 0,
 			"color": 0,
 			"children": [0, 1]
 		}

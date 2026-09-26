@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "immortalers_delight:vulcan_coktail" },
+    { "item": "immortalers_delight:vulcan_coktail" },
+    { "item": "minecraft:wheat" },
+    { "item": "minecraft:wheat" },
+    { "item": "minecraft:wheat" }
+  ],
+  "result": {
+    "item": "immortalers_delight:vulcan_pastry",
+    "count": 2
+  }
+}

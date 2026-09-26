@@ -47,7 +47,9 @@ public class Languages extends LanguageProvider {
     private static final String TOOLTIP = "tooltip.immortalers_delight.";
     private static final String IS_COLORFUL = "colorful.";
     private static final String MESSAGE = "message.immortalers_delight.";
+    private static final String DOG_FOOD = "dog_food.when_feeding";
     private static final String FARMERSDELIGHT_TOOLTIP = "farmersdelight.tooltip.";
+    private static final String FARMERSDELIGHT_TOOLTIP_2 = "tooltip.farmersdelight.";
     private static final String FARMERSDELIGHT_TOOLTIP_REVERSE = "tooltip.farmersdelight.";
     private static final String ENTITY = "entity.immortalers_delight.";
 
@@ -229,6 +231,35 @@ public class Languages extends LanguageProvider {
                 "§f成熟后§r可以营造§f益于同类生长§r的环境","Grows with the §fmoon phase§r in §fdark areas§r\n" +
                 "Compels surrounding life to §foffer themselves to it§r as it grows.\n" +
                 "When §ffully grown§r, it fosters a §ffavorable environment for its own kind§r.");
+        createTooltip("blazing_obsidian_walnut","可投掷，在落点处产生爆炸并破碎","Throwable. It explodes and shatters upon impact.");
+        createTooltip("blazing_obsidian_walnut_1","[火成]效果的攻击力增益对其生效","Attack damage bonuses from [Ignition Forging] apply to it.");
+        createTooltip("blazing_obsidian_walnut_2","[燃起来了]效果将提升爆炸的威力","[Warm Current Surges] increases the explosion's power.");
+        createTooltip("blazing_obsidian_walnut.persistent","非常稳定，不会在携带时爆炸","Extremely stable; will not explode while carried.");
+        createTooltip(IS_COLORFUL + "blazing_obsidian_walnut","它是不是在膨胀？","Is it swelling?");
+        createTooltip("blazing_obsidian_walnut.progress","！ %d ！","! %d !");
+        createTooltip("baked_obsidian_walnut.persistent","非常稳定，不会在携带时起火","Extremely stable; will not ignite while carried.");
+        createTooltip(IS_COLORFUL + "baked_obsidian_walnut","它是不是在变红？","Is it turning red?");
+        createTooltip("baked_obsidian_walnut.progress","！ %d ！","! %d !");
+        createTooltip("obsidian_walnut","它看起来和火药一样易燃，也许打火石可以点燃它","It seems as flammable as gunpowder. Perhaps a flint can ignite it.");
+        createTooltip("obsidian_walnut_1","也许可以利用爆炸打开这坚硬的外壳","An explosion may crack its tough shell open.");
+        createTooltip("obsidian_walnut_2","[燃起来了]效果将导致自燃","The [Warm Current Surges] effect causes spontaneous combustion.");
+        createTooltip("walnut_pie","易爆品，请勿重压","Explosive. Do not subject to heavy pressure.");
+        createTooltip(IS_COLORFUL + "alfalfa_popsicle","如果你咬了一根冰棍，然后他是远古纤维做的，房间里的每个人都会死","If you take a bite of a popsicle made of ancient fibers, everyone in the room will die.");
+        createTooltip("alfalfa_popsicle_0","发动斩击对视野内所有生物造成法术伤害，在副手时伤害减半","Unleash a slash dealing magic damage to all creatures in sight. Damage is halved when held in the off‑hand.");
+        createTooltip("alfalfa_popsicle_1","具有[补益]效果时冷却极大幅度缩短","Cooldown is drastically reduced while under the [Satiated] effect.");
+        createTooltip(IS_COLORFUL + "mocha_aoba","快速吃下你另一只手拿的所有面包类食物，溢出的饱食度将转化为[补益]效果","Consume all bread‑type foods held in your other hand instantly. Excess saturation is converted into the [Satiated] effect.");
+        createTooltip("golden_fabric_veil","抵御绯烬尘霾，免疫绯烬烈灼","Protect against the burning dust and haze");
+        createTooltip("golden_fabric_veil_n","+2.5 魔咒保护系数", "+2.5 Enchantment Protection Factor");
+        createTooltip("golden_fabric_veil_p","+6.5 魔咒保护系数", "+6.5 Enchantment Protection Factor");
+        createTooltip("baka_sandwich", "无限夜视，免疫黑暗与失明", "Permanent Night Vision,immune to Darkness and Blindness");
+        createTooltip("baka_sandwich_p", "始终具有自然生命回复，并具有无法阻止的自然生命回复", "Always provides natural health regeneration, and another natural health regeneration can‘t be stop");
+        createTooltip("golden_cake", "猪灵愿意用最珍贵的物品换取它", "Piglins will trade their most precious goods for it.");
+        createTooltip(IS_COLORFUL + "bowl_of_ancient_oyakodon", "令你下一次获得的[洪荒之力]更加强大", "Makes your next gained [Prehistoric Powers] stronger.");
+        createTooltip(IS_COLORFUL + "glacier_fires", "再来一包？下次惠顾……", "Another pack? Come back soon...");
+        createTooltip(IS_COLORFUL + "ice_and_fire_cream", "将[冻结吧！]效果转换为[燃起来了！]效果", "Change your [Let it Freeze!] effect to [Warm Current Surges]");
+        createTooltip(IS_COLORFUL + "rough_sandwich","可以喂食其他生物，令其获得的[洪荒之力]更加强大","Feedable to other mobs, and makes then next gained [Prehistoric Powers] stronger.");
+
+        createTooltip("bread_jam.toppings", "加料 (%s/%s)：", "Applied Toppings (%s/%s): ");
 
         createFarmersdelightTooltip("lonely_spirit_wine","Hard to put into words","一言难尽的风味");
         createFarmersdelightTooltip("jeng_nanu","Blocks 4 instances of damage,\n" +
@@ -271,7 +302,11 @@ public class Languages extends LanguageProvider {
         createFarmersdelightTooltip("pillager_knife.default_enchantment.power.1","Looting IV","抢夺 IV");
         createFarmersdelightTooltip("bone_knife","Charge up to deal more damage.","蓄力以造成更多伤害");
         createFarmersdelightTooltip("bone_knife.1","Looting -I","抢夺 -I");
-        createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
+        createFarmersdelightTooltip("rough_sandwich","Special thanks to BaiFanXiaoMiao.","鸣谢：白帆小喵");
+        createFarmersdelightTooltip("alfalfa_flower_tea","Special thanks to BaiFanXiaoMiao.","鸣谢：白帆小喵");
+        createFarmersdelightTooltip("pen_di_lao","Special thanks to BaiFanXiaoMiao.","鸣谢：白帆小喵");
+
+//        createFarmersdelightTooltip("spoon","You need a %s to eat it.","你需要一个%s以食用它。");
 
         createFarmersdelightTooltipReverse("vara_ji","Perhaps one would need to drink through a straw.","也许需要一个吸管过滤着喝。");
         createFarmersdelightTooltipReverse("hong_mei_ling","You have gained a new understanding of \"using qi\"","你对“用气”有了新的理解……");
@@ -322,6 +357,8 @@ public class Languages extends LanguageProvider {
         createEffect(ImmortalersDelightMobEffect.SMOKE_ABSTINENCE.get(),"破烟");
         createEffect(ImmortalersDelightMobEffect.MOONBRIGHT.get(),"月明");
         createEffect(ImmortalersDelightMobEffect.VULNERABLE.get(),"脆弱");
+        createEffect(ImmortalersDelightMobEffect.INFERNAL_FORGING.get(),"火成");
+        createEffect(ImmortalersDelightMobEffect.CRISP_FORTITUDE.get(),"内在酥质");
         /*药水效果描述*/
         add("effect.immortalers_delight.weak_wither.description","Less harmful decay, less damage and no death. Gives 1 blight damage every 50 ticks, doubles each level, stops damage when health is less than 1, and does not make health less than 1.","更低危害的中毒，伤害更低且不会使得生命值低于50%。每40tick将给予1点魔法伤害，每级伤害值翻倍，在生命不大于生命上限的50%时会停止伤害，且该伤害不会令生命值低于50%。由酩酊效果产生时行为与中毒一致。");
         add("effect.immortalers_delight.weak_poison.description","Dissolves the toxic effects of lower levels, turning lower levels of decay into weak decay.","解除等级更低的中毒效果，将高等级的中毒效果转变为弱中毒，将凋零效果转变为弱凋零。超凡模式下，免疫中毒与弱中毒，凋零效果转变为弱凋零时等级降低，持续时间减少。");
@@ -355,6 +392,8 @@ public class Languages extends LanguageProvider {
                 "This effect is significantly stronger during a Full Moon.","在黑暗中令周围的实体发光。对发光的目标射出箭矢以令其受到月矩撕扯，在一段时间或目标死亡后对周围生物造成范围伤害。在满月夜这个效果将强得多。");
         add("effect.immortalers_delight.incandescence.description","Strength effects can be obtained or prolonged while eating. In Extraordinary Mode, attacks can set enemies on fire.","进食时可以获得或延长力量效果。超凡模式下，攻击能使敌人着火。");
         add("effect.immortalers_delight.vulnerable","Increases damage taken by 50% per level.","每级令所受伤害提升50%。");
+        add("effect.immortalers_delight.infernal_forging","Stack [Heat] on consecutive hits. [Heat] grants attack speed bonus; once attack speed bonus reaches 4, it instead grants fire damage bonus.","连击时叠加[热力]，[热力]提供攻击速度加成，攻击速度达到4后改为提供火焰伤害加成。");
+        add("effect.immortalers_delight.crisp_fortitude","After taking damage a set number of times, restore health equal to the total damage taken during this period.","受伤累计到一定次数后，恢复等同期间所受的所有伤害之和的生命。");
 
     }
 
@@ -439,6 +478,8 @@ public class Languages extends LanguageProvider {
         createMessage("effect.stun","You're reeling!","你头晕目眩！");
         createMessage("effect.freeze","You're freezing up!","你要冻僵了！");
         createMessage("effect.kuuvahki","The moonlight stings you!","月光刺痛了你！");
+        createMessage("soul_infuser.warming","Warning: Soul Agitation has reached a dangerous threshold!","警告：灵魂躁动达到危险值！");
+
     }
 
     private void adds(){
@@ -451,6 +492,9 @@ public class Languages extends LanguageProvider {
         add("death.attack.moon_arrow","%1$s It beyond the Roche limit.","%1$s 越过了希洛极限");
         add("death.attack.moon_arrow.item","%1$s was killed by %2$s using %3$s","%1$ 被 %2$s 杀死 %3$s");
         add("death.attack.moon_arrow.player","%1$s was killed by %2$s using %3$s","%1$ 在试图逃跑时死亡 %2$s");
+        add("death.attack.black_snake","%1$s burned to death","%1$s 被烧死了");
+        add("death.attack.black_snake.item","%1$s was burnt to a crisp whilst fighting %2$s wielding %3$s","%1$s 在与持有 %3$s 的 %2$s 战斗时被烤得酥脆");
+        add("death.attack.black_snake.player","%1$s was burnt to a crisp whilst fighting %2$s","%1$s 在与 %2$s 战斗时被烤得酥脆");
         add("potion.potency.4","V","V");
         add("potion.potency.5","VI","VI");
         add("potion.potency.6","VII","VII");
@@ -500,6 +544,64 @@ public class Languages extends LanguageProvider {
                 }
             }
         }
+
+        // ========== NBT物品名称 ==========
+        add("item.immortalers_delight.cursed_gold_sword_t1.name", "§6Tainted Ancient Gold Sword", "§6朽染古剑");
+        add("item.immortalers_delight.blazing_gold_sword_t1.name", "§6Molten Gold Flameblade", "§6熔金焰锋");
+        add("item.immortalers_delight.blazing_gold_sword_t2.name", "§eFlesh Scorcher", "§e炙肉者");
+        add("item.immortalers_delight.crushing_gold_axe.name", "§6Raging Boar Cleaver", "§6蛮猪怒斩");
+        add("item.immortalers_delight.executioner_gold_pickaxe.name", "§6Reforged Armor-Piercing Pickaxe", "§6重锻破甲镐");
+
+        // ========== NBT工具提示 ==========
+        createTooltip("skill_header",
+                "▪ 请勿在铁砧或砂轮操作此物品，以免技能失效 ▪",
+                "▪ Do not use this item on an anvil or grindstone, or its abilities will be lost ▪"
+        );
+
+        createTooltip("cursed_sword_1",
+                "对生命高于自身的敌人造成更高伤害，对 Boss、玩家伤害进一步提升",
+                "Deals increased damage to enemies with higher health than the user, with extra damage against bosses and players."
+        );
+        createTooltip("cursed_sword_2",
+                "命中目标时附加凋零 II",
+                "Inflicts Wither II on hit."
+        );
+
+        createTooltip("blazing_sword_t1_1",
+                "对生命高于自身的敌人造成更高伤害，对 Boss、玩家伤害进一步提升",
+                "Deals increased damage to enemies with higher health than the user, with extra damage against bosses and players."
+        );
+        createTooltip("blazing_sword_t1_2",
+                "命中目标时附加燃烧效果",
+                "Sets targets on fire on hit."
+        );
+
+        createTooltip("blazing_sword_t2_1",
+                "对生命高于自身的敌人造成更高伤害，对 Boss、玩家伤害进一步提升",
+                "Deals increased damage to enemies with higher health than the user, with extra damage against bosses and players."
+        );
+        createTooltip("blazing_sword_t2_2",
+                "命中目标时附加燃烧效果",
+                "Sets targets on fire on hit."
+        );
+
+        createTooltip("crushing_axe_1",
+                "命中目标时附加短暂的 脆弱 状态",
+                "Inflicts a brief [Vulnerable] effect on hit."
+        );
+        createTooltip("crushing_axe_2",
+                "大幅提升原木类方块的挖掘速度",
+                "Greatly increases mining speed on log-type blocks."
+        );
+
+        createTooltip("executioner_pickaxe_1",
+                "对无防具的目标伤害提升，对护甲值较高的生物伤害大幅提升",
+                "Deals increased damage to unarmored targets, and greatly increased damage to mobs with high armor value."
+        );
+        createTooltip("executioner_pickaxe_2",
+                "对需要挖掘等级的方块挖掘速度翻倍",
+                "Doubles mining speed on blocks that require a mining level."
+        );
     }
 
     private void createDesc(String key,String en_us,String zh_cn){
@@ -533,6 +635,7 @@ public class Languages extends LanguageProvider {
 
     private void createFarmersdelightTooltip(String key,String en_us,String zh_cn){
         add(FARMERSDELIGHT_TOOLTIP + key,en_us,zh_cn);
+        add(FARMERSDELIGHT_TOOLTIP_2 + key,en_us,zh_cn);
     }
 
     private void createFarmersdelightTooltipReverse(String key,String en_us,String zh_cn){

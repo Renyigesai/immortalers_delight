@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "immortalers_delight:polished_wraithstone"
+  },
+  "result": "immortalers_delight:polished_wraithstone_wall"
+}

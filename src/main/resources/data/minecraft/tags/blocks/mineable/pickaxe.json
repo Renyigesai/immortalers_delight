@@ -38,6 +38,23 @@
     "immortalers_delight:tenchimuyo",
     "immortalers_delight:this_side_down",
     "immortalers_delight:ku_mesh_non",
-    "immortalers_delight:warped_lantern"
+    "immortalers_delight:warped_lantern",
+    "immortalers_delight:chiseled_wraithstone",
+    "immortalers_delight:mossy_wraithstone",
+    "immortalers_delight:mossy_wraithstone_slab",
+    "immortalers_delight:mossy_wraithstone_stairs",
+    "immortalers_delight:mossy_wraithstone_wall",
+    "immortalers_delight:polished_wraithstone",
+    "immortalers_delight:polished_wraithstone_slab",
+    "immortalers_delight:polished_wraithstone_stairs",
+    "immortalers_delight:polished_wraithstone_wall",
+    "immortalers_delight:wraithstone",
+    "immortalers_delight:wraithstone_brick",
+    "immortalers_delight:wraithstone_brick_stairs",
+    "immortalers_delight:wraithstone_brick_wall",
+    "immortalers_delight:wraithstone_slab",
+    "immortalers_delight:wraithstone_stairs",
+    "immortalers_delight:wraithstone_wall",
+    "immortalers_delight:wraithstone_brick_slab"
   ]
 }

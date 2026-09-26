@@ -2,10 +2,8 @@ package com.renyigesai.immortalers_delight.init;
 
 import com.mojang.serialization.Codec;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.client.particle.ScreenLayerParticleOption;
-import com.renyigesai.immortalers_delight.client.particle.ShockWaveParticleOption;
-import com.renyigesai.immortalers_delight.client.particle.SnowFogParticleOption;
-import com.renyigesai.immortalers_delight.client.particle.SpiralSoulParticleOption;
+import com.renyigesai.immortalers_delight.client.particle.*;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -63,4 +61,47 @@ public class ImmortalersDelightParticleTypes {
                         }
                     }
             );
+
+    public static final RegistryObject<ParticleType<CircleTwinkleParticleOption>> CIRCLE_TWINKLE =
+            REGISTRY.register("circle_twinkle",
+                    () -> new ParticleType<>(false, CircleTwinkleParticleOption.DESERIALIZER) {
+                @Override
+                public Codec<CircleTwinkleParticleOption> codec() {return CircleTwinkleParticleOption.CODEC;}
+            }
+
+    );
+    public static final RegistryObject<ParticleType<TwinkleParticleOption>> TWINKLE =
+            REGISTRY.register("twinkle",
+                    () -> new ParticleType<>(false, TwinkleParticleOption.DESERIALIZER) {
+                        @Override
+                        public Codec<TwinkleParticleOption> codec() {return TwinkleParticleOption.CODEC;}
+                    }
+
+            );
+
+    public static final RegistryObject<SimpleParticleType> PURPLE_LIGHT = REGISTRY.register("purple_light", () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> GOLDEN_LIGHT = REGISTRY.register("golden_light", () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> PURPLE_GLIMMER = REGISTRY.register("purple_glimmer", () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> GOLDEN_GLIMMER = REGISTRY.register("golden_glimmer", () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<ParticleType<BlockParticleOption>> SHOCKED_BLOCK =
+            REGISTRY.register("shocked_block",
+                    () -> new ParticleType<BlockParticleOption>(false, BlockParticleOption.DESERIALIZER) {
+                        @Override
+                        public com.mojang.serialization.Codec<BlockParticleOption> codec() {
+                            return BlockParticleOption.codec(this);
+                        }
+                    });
+    public static final RegistryObject<ParticleType<BlockParticleOption>> RISE_BLOCK =
+            REGISTRY.register("rise_block",
+                    () -> new ParticleType<BlockParticleOption>(false, BlockParticleOption.DESERIALIZER) {
+                        @Override
+                        public com.mojang.serialization.Codec<BlockParticleOption> codec() {
+                            return BlockParticleOption.codec(this);
+                        }
+                    });
+
 }

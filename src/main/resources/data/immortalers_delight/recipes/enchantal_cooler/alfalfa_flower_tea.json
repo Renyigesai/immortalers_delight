@@ -1,0 +1,20 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "item": "immortalers_delight:alfalfa"
+    },
+    {
+      "item": "minecraft:lilac"
+    },
+    {
+      "item": "immortalers_delight:alfalfa_seeds"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:alfalfa_flower_tea"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EFE"
+  ],
+  "key": {
+    "A": { "item": "immortalers_delight:sextlotus_root_cuts" },
+    "B": { "item": "immortalers_delight:moon_oil" },
+    "C": { "item": "minecraft:egg" },
+    "D": { "item": "immortalers_delight:evolutcorn_paste" },
+    "E": { "item": "immortalers_delight:pitcher_pod_petal" },
+    "F": { "tag": "forge:milk" }
+  },
+  "result": {
+    "item": "immortalers_delight:sextlotus_basque_cheesecake",
+    "count": 1
+  }
+}

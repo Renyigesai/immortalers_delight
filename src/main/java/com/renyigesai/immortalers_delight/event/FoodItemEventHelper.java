@@ -11,6 +11,7 @@ import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
 import com.renyigesai.immortalers_delight.potion.GasPoisonMobEffect;
 import com.renyigesai.immortalers_delight.potion.MagicalReverseMobEffect;
 import com.renyigesai.immortalers_delight.potion.MagicalReversePotionEffect;
+import com.renyigesai.immortalers_delight.potion.PrehistoricPowersMobEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.DeathlessEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
@@ -86,7 +87,7 @@ public class FoodItemEventHelper {
                     }
                     //红美玲的气功波
                     if (stack.getItem() == ImmortalersDelightItems.HONG_MEI_LING.get()) {
-                        shootKiBlast(livingEntity);
+                        shootKiBlast(livingEntity,stack);
                     }
                     //瓦斯麦汤的buff
                     if (stack.getItem() == ImmortalersDelightItems.KWAT_SOUP.get()) {
@@ -124,6 +125,15 @@ public class FoodItemEventHelper {
                             tag.putBoolean(EAT_THIS_SIDE_DOWN,true);
                         }
                     }
+                    //瓦斯麦米糕食用后短时内不能解除弱中毒和缓慢
+                    if (stack.getItem() == ImmortalersDelightItems.KWAT_TTEOK.get()) {
+                        if (!livingEntity.isAlive()) return;
+                        if (livingEntity instanceof Player player) {
+                            CompoundTag tag = player.getPersistentData();
+                            tag.putBoolean(EAT_KWAT_TTEOK,true);
+                        }
+                    }
+
                     //会馆菲士生成相反效果对抗dot伤害
                     if (stack.getItem() == ImmortalersDelightItems.MORNING_FIZZ.get()) {
                         int time = livingEntity.getRemainingFireTicks();
@@ -156,7 +166,7 @@ public class FoodItemEventHelper {
         return false;
     }
 
-    public static void shootKiBlast(LivingEntity attacker) {
+    public static void shootKiBlast(LivingEntity attacker, ItemStack itemstack) {
         LivingEntity livingEntity = attacker;
         if (livingEntity.level() instanceof ServerLevel serverLevel) {
             //产生冲击波击退周围生物
@@ -180,8 +190,13 @@ public class FoodItemEventHelper {
         double spawnX = livingEntity.getX() + lookDirection.x;
         double spawnY = livingEntity.getEyeY() + lookDirection.y;
         double spawnZ = livingEntity.getZ() + lookDirection.z;
-        KiBlastEntity fireball = new KiBlastEntity(livingEntity.level(), livingEntity,
-                lookDirection.x * 0.5D, lookDirection.y * 0.5D,lookDirection.z * 0.5D);
+        KiBlastEntity fireball = new KiBlastEntity(livingEntity, livingEntity.level()
+//                lookDirection.x * 0.5D, lookDirection.y * 0.5D,lookDirection.z * 0.5D
+        );
+        fireball.setItem(itemstack);
+        fireball.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 3.15F, 1.0F);
+
+
         if (DifficultyModeUtil.isPowerBattleMode()) fireball.setDangerous(true);
         fireball.setPos(spawnX, spawnY, spawnZ);
         livingEntity.level().addFreshEntity(fireball);
@@ -237,6 +252,18 @@ public class FoodItemEventHelper {
                 }
             }
         }
+        // 食用瓦斯麦米糕的玩家被标记，如果尝试移除缓慢或弱中毒，在有力量效果时会无法移除
+        if (removingOne == MobEffects.MOVEMENT_SLOWDOWN || removingOne == MobEffects.POISON || removingOne == ImmortalersDelightMobEffect.WEAK_POISON.get()) {
+            CompoundTag tag = livingEntity.getPersistentData();
+            if (tag.contains(EAT_KWAT_TTEOK)) {
+                if (livingEntity.hasEffect(MobEffects.DAMAGE_BOOST)) {
+                    event.setResult(Event.Result.DENY);
+                    event.setCanceled(true);
+                } else {
+                    tag.remove(EAT_KWAT_TTEOK);
+                }
+            }
+        }
 
     }
 
@@ -270,6 +297,7 @@ public class FoodItemEventHelper {
     }
     public static final String DELETE_PIGLIN = ImmortalersDelightMod.MODID + "_delete_piglin";
     public static final String EAT_THIS_SIDE_DOWN = ImmortalersDelightMod.MODID+ "_this_side_down_eater";
+    public static final String EAT_KWAT_TTEOK = ImmortalersDelightMod.MODID+ "_kwat_tteok_eater";
     @SubscribeEvent
     public static void onPlayerFeed(PlayerInteractEvent.EntityInteractSpecific event) {
         if (event.getEntity() != null && event.getTarget() instanceof LivingEntity target){
@@ -295,6 +323,16 @@ public class FoodItemEventHelper {
                     if (!player.getAbilities().instabuild) {
                         itemStack.shrink(1);
                     }
+                }
+            }
+            //喂食粗粝三明治
+            if (itemStack.getItem() == ImmortalersDelightItems.ROUGH_SANDWICH.get()) {
+                InebriatedToxicFoodItem.addInebriatedEffect(itemStack,serverLevel,target);
+                CompoundTag nbt = target.getPersistentData();
+                nbt.putBoolean(PrehistoricPowersMobEffect.USE_OLD_BUFFER,true); //添加永久强化标记
+                if (itemStack.getCraftingRemainingItem() != ItemStack.EMPTY && !player.isCreative()) {
+                    player.addItem(itemStack.getCraftingRemainingItem());
+                    itemStack.shrink(1);
                 }
             }
             //诡异香肠喂狗

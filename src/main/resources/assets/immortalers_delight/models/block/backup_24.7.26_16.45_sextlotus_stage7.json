@@ -1,0 +1,74 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "immortalers_delight:block/sextlotus_stage7"
+	},
+	"elements": [
+		{
+			"from": [5, -1, 5],
+			"to": [11, 4, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, -1, 8]},
+			"faces": {
+				"north": {"uv": [0, 11, 3, 13.5], "texture": "#1"},
+				"east": {"uv": [3, 11, 6, 13.5], "texture": "#1"},
+				"south": {"uv": [3, 11, 6, 13.5], "texture": "#1"},
+				"west": {"uv": [3, 11, 6, 13.5], "texture": "#1"},
+				"up": {"uv": [3, 11, 0, 8], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0.8, 4, 8],
+			"to": [15.2, 20, 8],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 12, 8], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 0, 8, 8], "texture": "#1"},
+				"south": {"uv": [0, 0, 8, 8], "texture": "#1"}
+			}
+		},
+		{
+			"from": [8, 4, 0.8],
+			"to": [8, 20, 15.2],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 12, 8], "rescale": true},
+			"faces": {
+				"east": {"uv": [0, 0, 8, 8], "texture": "#1"},
+				"west": {"uv": [0, 0, 8, 8], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 8, 0],
+			"to": [16, 8, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 8]},
+			"faces": {
+				"up": {"uv": [8, 0, 16, 8], "texture": "#1"},
+				"down": {"uv": [8, 0, 16, 8], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 11, 0],
+			"to": [16, 11, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 9, 8]},
+			"faces": {
+				"up": {"uv": [8, 0, 16, 8], "texture": "#1"},
+				"down": {"uv": [8, 0, 16, 8], "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "all",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0]
+		},
+		1,
+		2,
+		3,
+		4
+	]
+}

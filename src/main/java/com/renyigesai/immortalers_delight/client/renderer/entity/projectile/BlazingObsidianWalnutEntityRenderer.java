@@ -81,7 +81,7 @@ public class BlazingObsidianWalnutEntityRenderer extends EntityRenderer<BlazingO
         pPoseStack.pushPose();
         pPoseStack.mulPose(Axis.YP.rotationDegrees(f));
         pPoseStack.mulPose(Axis.XP.rotationDegrees(f1 - 90));
-        pPoseStack.translate(0.0D, 0.25D, 0.1875D);
+        pPoseStack.translate(-0.5D, -0.25D, -0.25D);
         pPoseStack.scale(0.99F, 0.99F, 0.99F);
         //渲染一个方块模型
         BlockRenderDispatcher blockRenderDispatcher = Minecraft.getInstance().getBlockRenderer();

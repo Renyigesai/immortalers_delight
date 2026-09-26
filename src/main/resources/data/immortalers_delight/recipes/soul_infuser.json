@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abc",
+    "dad",
+    "eae"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "b": {
+      "item": "minecraft:soul_soil"
+    },
+    "c": {
+      "item": "minecraft:rib_armor_trim_smithing_template"
+    },
+    "d": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "e": {
+      "item": "minecraft:nether_bricks"
+    }
+  },
+  "result": {
+    "item": "immortalers_delight:soul_infuser",
+    "count": 1
+  }
+}

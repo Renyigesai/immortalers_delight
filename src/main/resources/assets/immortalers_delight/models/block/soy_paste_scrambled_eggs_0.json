@@ -1,0 +1,48 @@
+{
+	"render_type": "cutout",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "immortalers_delight:block/soy_paste_scrambled_eggs",
+		"particle": "immortalers_delight:block/soy_paste_scrambled_eggs"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [1, 0, 1],
+			"to": [15, 2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [3.5, 15.5, 7, 16], "texture": "#0"},
+				"east": {"uv": [0, 15.5, 3.5, 16], "texture": "#0"},
+				"south": {"uv": [10.5, 15.5, 14, 16], "texture": "#0"},
+				"west": {"uv": [7, 15.5, 10.5, 16], "texture": "#0"},
+				"up": {"uv": [7, 15.5, 3.5, 12], "texture": "#0"},
+				"down": {"uv": [10.5, 12, 7, 15.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "base_inside",
+			"from": [14, 2, 14],
+			"to": [2, 1, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [9, 4.25, 6, 4], "texture": "#0"},
+				"east": {"uv": [12, 4.25, 9, 4], "texture": "#0"},
+				"south": {"uv": [3, 4.25, 0, 4], "texture": "#0"},
+				"west": {"uv": [6, 4.25, 3, 4], "texture": "#0"},
+				"up": {"uv": [6, 4.25, 9, 7.25], "texture": "#0"},
+				"down": {"uv": [3, 7.25, 6, 4.25], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

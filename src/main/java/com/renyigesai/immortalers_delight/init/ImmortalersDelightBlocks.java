@@ -20,6 +20,8 @@ import com.renyigesai.immortalers_delight.block.sextlotus_lantern.*;
 import com.renyigesai.immortalers_delight.block.sextlotus_lantern.SextlotusLanternBlockEntity;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightStandingSignBlock;
 import com.renyigesai.immortalers_delight.block.sign.ImmortalersDelightWallSignBlock;
+import com.renyigesai.immortalers_delight.block.soul_infuser.SoulInfuserBlock;
+import com.renyigesai.immortalers_delight.block.soul_infuser.SoulInfuserBlockEntity;
 import com.renyigesai.immortalers_delight.block.support.SupportBlock;
 import com.renyigesai.immortalers_delight.block.support.SupportBlockEntity;
 import com.renyigesai.immortalers_delight.block.tangyuan.TangyuanBlockEntity;
@@ -99,6 +101,9 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> WARPED_LANTERN;
     public static final RegistryObject<BlockEntityType<WarpedLanternBlockEntity>> WARPED_LANTERN_ENTITY;
+    @BlockData
+    public static final RegistryObject<Block> SOUL_INFUSER;
+    public static final RegistryObject<BlockEntityType<SoulInfuserBlockEntity>> SOUL_INFUSER_ENTITY;
 
     @BlockData
     public static final RegistryObject<BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
@@ -340,6 +345,79 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> PACKED_MUD_WALL = BLOCKS.register("packed_mud_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).forceSolidOn()));
+
+
+    /*
+    怨灵石装饰方块
+     */
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE = BLOCKS.register("wraithstone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_STAIRS = BLOCKS.register("wraithstone_stairs",
+            () -> new StairBlock(WRAITHSTONE.get().defaultBlockState(),BlockBehaviour.Properties.copy(WRAITHSTONE.get())));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_SLAB = BLOCKS.register("wraithstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_WALL = BLOCKS.register("wraithstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE).forceSolidOn()));
+
+    @BlockData
+    public static final RegistryObject<Block> POLISHED_WRAITHSTONE = BLOCKS.register("polished_wraithstone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> POLISHED_WRAITHSTONE_STAIRS = BLOCKS.register("polished_wraithstone_stairs",
+            () -> new StairBlock(POLISHED_WRAITHSTONE.get().defaultBlockState(),BlockBehaviour.Properties.copy(POLISHED_WRAITHSTONE.get())));
+
+    @BlockData
+    public static final RegistryObject<Block> POLISHED_WRAITHSTONE_SLAB = BLOCKS.register("polished_wraithstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> POLISHED_WRAITHSTONE_WALL = BLOCKS.register("polished_wraithstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE).forceSolidOn()));
+
+    @BlockData
+    public static final RegistryObject<Block> MOSSY_WRAITHSTONE = BLOCKS.register("mossy_wraithstone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> MOSSY_WRAITHSTONE_STAIRS = BLOCKS.register("mossy_wraithstone_stairs",
+            () -> new StairBlock(MOSSY_WRAITHSTONE.get().defaultBlockState(),BlockBehaviour.Properties.copy(MOSSY_WRAITHSTONE.get())));
+
+    @BlockData
+    public static final RegistryObject<Block> MOSSY_WRAITHSTONE_SLAB = BLOCKS.register("mossy_wraithstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> MOSSY_WRAITHSTONE_WALL = BLOCKS.register("mossy_wraithstone_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE).forceSolidOn()));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_BRICK = BLOCKS.register("wraithstone_brick",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_BRICK_STAIRS = BLOCKS.register("wraithstone_brick_stairs",
+            () -> new StairBlock(WRAITHSTONE_BRICK.get().defaultBlockState(),BlockBehaviour.Properties.copy(WRAITHSTONE_BRICK.get())));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_BRICK_SLAB = BLOCKS.register("wraithstone_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    @BlockData
+    public static final RegistryObject<Block> WRAITHSTONE_BRICK_WALL = BLOCKS.register("wraithstone_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE).forceSolidOn()));
+
+    @BlockData
+    public static final RegistryObject<Block> CHISELED_WRAITHSTONE = BLOCKS.register("chiseled_wraithstone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
 
     /**
      * 溪竹制品
@@ -1065,6 +1143,49 @@ public class ImmortalersDelightBlocks {
                 }
             });
 
+    /*
+    * 1.2..4更新合集
+     */
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<ImmortalersCakeBlock> GOLDEN_CAKE = BLOCKS.register("golden_cake",
+            ()-> new ImmortalersCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel(blockState -> blockState.getValue(ImmortalersCakeBlock.LIT) ? 3
+                     : 0 ),ImmortalersDelightItems.JENG_NANU_SLICE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<ImmortalersCakeBlock> MOONLIGHT_CAKE = BLOCKS.register("moonlight_cake",
+            ()-> new ImmortalersCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel(blockState -> blockState.getValue(ImmortalersCakeBlock.LIT) ? 15
+                    : blockState.getValue(ImmortalersCakeBlock.BITES) == 0 ? 12
+                    : 3 ), ImmortalersDelightItems.ABC_OOKIE));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<AncientOyakodonBlock> ANCIENT_OYAKODON = BLOCKS.register("ancient_oyakodon",
+            ()-> new AncientOyakodonBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ImmortalersDelightItems.BOWL_OF_ANCIENT_OYAKODON,false));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<OceanCurrentSobaBlock> OCEAN_CURRENT_SOBA = BLOCKS.register("ocean_current_soba",
+            ()-> new OceanCurrentSobaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ImmortalersDelightItems.BOWL_OF_OCEAN_CURRENT_SOBA,true));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<SoyPasteScrambledEggsBlock> SOY_PASTE_SCRAMBLED_EGGS = BLOCKS.register("soy_paste_scrambled_eggs",
+            ()-> new SoyPasteScrambledEggsBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ImmortalersDelightItems.BOWL_OF_SOY_PASTE_SCRAMBLED_EGGS));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<LargePieBlock> ABC_LAVA_GLACIER = BLOCKS.register("abc_lava_glacier",
+            ()-> new LargePieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ImmortalersDelightItems.ABC_LAVA_GLACIER_SLICE));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<LargePieBlock> SEXTLOTUS_BASQUE_CHEESECAKE = BLOCKS.register("sextlotus_basque_cheesecake",
+            ()-> new LargePieBlock(BlockBehaviour.Properties.copy(Blocks.CAKE), ImmortalersDelightItems.SEXTLOTUS_BASQUE_CHEESECAKE_SLICE));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<HatredFireBlock> HATRED_FIRE = BLOCKS.register("hatred_fire",
+            ()-> new HatredFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).replaceable().noCollission().instabreak().lightLevel((p_152605_) -> {
+        return 13;
+    }).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> ALFALFA_FLOWER_TEA = BLOCKS.register("alfalfa_flower_tea",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(0.3F)));
+    @BlockData(dropType = BlockData.DropType.CUSTOM)
+    public static final RegistryObject<Block> PEN_DI_LAO = BLOCKS.register("pen_di_lao",()->new DrinksBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(0.3F)));
+
+
+
 
     static {
         //方块实体 Block Entity
@@ -1119,6 +1240,12 @@ public class ImmortalersDelightBlocks {
                 ));
         WARPED_LANTERN_ENTITY = BLOCK_ENTITY_REGISTRY.register("warped_lantern",
                 ()-> BlockEntityType.Builder.of(WarpedLanternBlockEntity::new, WARPED_LANTERN.get()).build(null));
+
+        SOUL_INFUSER = BLOCKS.register("soul_infuser",()->
+                new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()
+                ));
+        SOUL_INFUSER_ENTITY = BLOCK_ENTITY_REGISTRY.register("soul_infuser",
+                ()-> BlockEntityType.Builder.of(SoulInfuserBlockEntity::new, SOUL_INFUSER.get()).build(null));
 
     }
 

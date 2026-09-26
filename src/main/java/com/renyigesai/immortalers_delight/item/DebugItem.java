@@ -7,8 +7,13 @@ import com.renyigesai.immortalers_delight.Config;
 //import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.ExitTimeSaveLoadHelper;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
+import com.renyigesai.immortalers_delight.api.ILivingEntityExtension;
+import com.renyigesai.immortalers_delight.entities.living.PiecesHitboxEntity;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.LivingDamageUtil;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntArrayTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -18,6 +23,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -48,6 +55,15 @@ public class DebugItem extends Item {
         for (Field field : fields) {
             System.out.println(field.getName());
         }
+
+        IntArrayTag tag = NbtUtils.createUUID(BASE_ATTACK_DAMAGE_UUID);
+        System.out.println("攻击力" + tag);
+        System.out.println("攻击力：" + tag.getAsString());
+
+        tag = NbtUtils.createUUID(BASE_ATTACK_SPEED_UUID);
+        System.out.println("攻击速度" + tag);
+        System.out.println("攻击速度：" + tag.getAsString());
+
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
@@ -57,6 +73,23 @@ public class DebugItem extends Item {
             System.out.println(effect.getDescriptionId() + ":" + map.get(effect)[0] + ":" + map.get(effect)[1]);
         }
 
+//        if (!pContext.getLevel().isClientSide() && pContext.getPlayer() != null) {
+//
+//            PiecesHitboxEntity xia = new PiecesHitboxEntity(
+//                    pContext.getLevel(),
+//                    pContext.getClickedPos().getX(),
+//                    pContext.getClickedPos().getY() + 1,
+//                    pContext.getClickedPos().getZ(),
+//                    pContext.getPlayer().yHeadRot,
+//                    pContext.getPlayer()
+//            );
+//            //设置攻击力
+//            AttributeInstance atk = xia.getAttribute(Attributes.ATTACK_DAMAGE);
+//            if (atk != null) atk.setBaseValue(pContext.getPlayer().getAttributeValue(Attributes.ATTACK_DAMAGE));
+//            //设置范围
+//            xia.setRadius(2);
+//            pContext.getLevel().addFreshEntity(xia);
+//        }
 //        if (!pContext.getLevel().isClientSide()) {
 //            BlockState blockState = pContext.getLevel().getBlockState(pContext.getClickedPos());
 //            List<Property<?>> list = blockState.getProperties().stream().toList();
@@ -96,11 +129,15 @@ public class DebugItem extends Item {
         System.out.println("onLeftClickEntity");
         if (entity instanceof LivingEntity target && player instanceof ServerPlayer attacker) {
             if (!target.level().isClientSide()) {
-                LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getHealth());
-                if (target.isDeadOrDying()) {
-                    System.out.println("target is dead");
-                    target.die(attacker.damageSources().mobAttack(attacker));
-                }
+//                LivingDamageUtil.callActuallyHurt(target, attacker.damageSources().mobAttack(attacker), target.getHealth());
+//                if (target.isDeadOrDying()) {
+//                    System.out.println("target is dead");
+//                    target.die(attacker.damageSources().mobAttack(attacker));
+//                }
+                CompoundTag nbt = target.getPersistentData();
+                nbt.putBoolean("immortalers_delight_zi_wen_gui_tian",true);
+                if (target instanceof ILivingEntityExtension tool) tool.immortalers_delight$ziWenGuiTian(true);
+                target.die(attacker.damageSources().mobAttack(attacker));
             }
         }
 

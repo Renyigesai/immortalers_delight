@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.advancement.*;
 import com.renyigesai.immortalers_delight.client.model.*;
 import com.renyigesai.immortalers_delight.client.model.projectile.*;
+import com.renyigesai.immortalers_delight.client.model_layers.BakaHelmLayer;
 import com.renyigesai.immortalers_delight.client.renderer.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.*;
@@ -14,30 +15,43 @@ import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.weapon.RepeatingCrossbowItem;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
+import com.renyigesai.immortalers_delight.screen.SoulInfuserScreen;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.IllagerModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -47,6 +61,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -115,6 +130,34 @@ public class ImmortalersDelightMod {
         {
         };
     }
+
+    //这个方法不起作用
+    public static void registerFluidInteractions() {
+        FluidType hotSpring = ImmortalersDelightFluidTypes.HOT_SPRING_TYPE.get();
+
+        FluidInteractionRegistry.addInteraction(
+                hotSpring,
+                new FluidInteractionRegistry.InteractionInformation(
+                        (level, currentPos, relativePos, currentState) -> {
+                            boolean flag = level.getFluidState(relativePos).getFluidType() == ForgeMod.LAVA_TYPE.get();
+                            LOGGER.info("Checking interaction at {} -> {}: {}", currentPos, relativePos, flag);
+                            return flag;
+                        },
+                        Blocks.LAVA.defaultBlockState()
+                )
+        );
+        FluidInteractionRegistry.addInteraction(
+                ForgeMod.WATER_TYPE.get(),
+                new FluidInteractionRegistry.InteractionInformation(
+                        (level, currentPos, relativePos, currentState) ->{
+                            boolean flag = level.getFluidState(relativePos).getFluidType() == hotSpring;
+                            LOGGER.info("Checking interaction at {} -> {}: {}", currentPos, relativePos, flag);
+                            return flag;
+                        },
+                        (fluidState) -> ImmortalersDelightBlocks.WRAITHSTONE.get().defaultBlockState()
+                )
+        );
+    }
     public static void registerCriterionTrigger() {
         CriteriaTriggers.register(LEVEL_UP_ENCHANTMENT_TRIGGER);
         CriteriaTriggers.register(PASS_SNIFFER_COOLDOWN_TRIGGER);
@@ -133,6 +176,8 @@ public class ImmortalersDelightMod {
                         // 通用初始化内容
                         ImmortalersDelightMod.LOGGER.info("IMMORTALERS DELIGHT SETUP");
                         registerItemSetAdditions();
+                        registerFluidInteractions();
+
                         // 依次注册自定义包：示例 - 玩家打开生物背包界面的包（客户端→服务端）
 //                        ImmortalersNetwork.initChannel();
 //                        ImmortalersNetwork.registerPackets();
@@ -184,9 +229,19 @@ public class ImmortalersDelightMod {
             modelLayers.put(MoonlightBeamModel.LAYER_LOCATION, MoonlightBeamModel::createBodyLayer);
             modelLayers.put(MoonArrowHitboxModel.LAYER_LOCATION, MoonArrowHitboxModel::createBodyLayer);
             modelLayers.put(BlazingObsidianWalnutEntityRenderer.MODEL_LOCATION, BlazingObsidianWalnutEntityRenderer::createSkullLayer);
+            modelLayers.put(CircleTwinkleParticleModel.CIRCLE_TWINKLE_PARTICLE, CircleTwinkleParticleModel::createBodyLayer);
+            modelLayers.put(TwinkleParticleModel.TWINKLE_PARTICLE, TwinkleParticleModel::createBodyLayer);
+            modelLayers.put(PiecesCoreModel.PIECES_CORE, PiecesCoreModel::createBodyLayer);
+            modelLayers.put(PiecesOutsideLayerModel.PIECES_OUTSIDE, PiecesOutsideLayerModel::createBodyLayer);
+            modelLayers.put(PiecesPeripheryLayerModel.XIA_PIECES_LAYER, PiecesPeripheryLayerModel::createBodyLayer);
+            modelLayers.put(SoulInfuserModel.LAYER_LOCATION, SoulInfuserModel::createBodyLayer);
+            modelLayers.put(SoulFireballEntityRenderer.MODEL_LOCATION,SoulFireballEntityRenderer::createSkullLayer);
+            modelLayers.put(HatredfireBoltModel.LAYER_LOCATION, HatredfireBoltModel::createBodyLayer);
+            modelLayers.put(SoulBoomModel.LAYER_LOCATION, SoulBoomModel::createBodyLayer);
 
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
             modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
+            modelLayers.put(BakaHelmModel.LAYER_LOCATION, BakaHelmModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -202,6 +257,7 @@ public class ImmortalersDelightMod {
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.UNFINISHED_TANGYUAN_ENTITY.get(),TangyuanBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SUSPICIOUS_ASH_PILE_BLOCK_ENTITY.get(),NaanPitBlockRenderer::new);
             event.registerBlockEntityRenderer(ImmortalersDelightBlocks.ROTATING_ROAST_MEAT_ENTITY.get(),RotatingRoastMeatRenderer::new);
+            event.registerBlockEntityRenderer(ImmortalersDelightBlocks.SOUL_INFUSER_ENTITY.get(),SoulInfuserRenderer::new);
 
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_AMBUSHER.get(), SkelverfishRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_BOMBER.get(), SkelverfishBomberRenderer::new);
@@ -217,6 +273,10 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), ToxicGasGrenadeRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(),MoonArrowHitboxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(),BlazingObsidianWalnutEntityRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.XIA_PIECES.get(),XiaPiecesHitboxRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.SOUL_FIREBALL.get(),SoulFireballEntityRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.HATREDFIRE_BOLT.get(), HatredfireBoltRenderer::new);
+//            event.registerEntityRenderer(ImmortalersDelightEntities.HIJACKED_SOUL_INFUSER.get(), HijackedSoulInfuserRenderer::new);
 
         }
 
@@ -290,7 +350,62 @@ public class ImmortalersDelightMod {
             // 第一个参数是一个 ResourceLocation 对象，用于指定 HUD 的唯一标识符
             // 第二个参数是 Hud 的单例对象，通过 Hud.getInstance() 获取
             event.registerAboveAll("infernal_forging_hud", InfernalForgingHUD.getInstance());
+            event.registerAboveAll("crisp_fortitude_hud", CrispFortitudeHUD.getInstance());
+            event.registerAboveAll("food_progress", FoodProgressIndicatorHUD.getInstance());
         }
+
+        @SubscribeEvent
+        public static void addLayers(EntityRenderersEvent.AddLayers event) {
+            EntityModelSet modelSet = event.getEntityModels();
+
+            // 1. 为玩家的所有皮肤模型注入
+            for (String skinType : event.getSkins()) {
+                PlayerRenderer playerRenderer = event.getSkin(skinType);
+                if (playerRenderer != null) {
+                    playerRenderer.addLayer(new BakaHelmLayer<>(playerRenderer, modelSet));
+                }
+            }
+
+            // 2. 遍历整个实体注册表，通过辅助方法绕过泛型推导限制
+            for (EntityType<?> entityType : ForgeRegistries.ENTITY_TYPES) {
+                try {
+                    processEntityType(entityType, event, modelSet);
+                } catch (Exception e) {
+                    // 防御外部 Mod 的异常渲染器
+                }
+            }
+        }
+
+        // 辅助方法：通过泛型 T extends LivingEntity 捕获类型
+        @SuppressWarnings("unchecked")
+        private static <T extends LivingEntity> void processEntityType(
+                EntityType<?> entityType, EntityRenderersEvent.AddLayers event, EntityModelSet modelSet) {
+
+            // 强转为 LivingEntity 约束的 EntityType
+            EntityType<T> livingEntityType = (EntityType<T>) entityType;
+
+            // 此时匹配 event.getRenderer 的泛型签名约束
+            LivingEntityRenderer<T, ? extends EntityModel<T>> renderer = event.getRenderer(livingEntityType);
+
+            if (renderer != null) {
+                // 检查主模型是否为人型模型 (HumanoidModel)
+                if (renderer.getModel() instanceof HumanoidModel<?>) {
+                    // 进一步强转并安全挂载 Layer
+                    LivingEntityRenderer<T, HumanoidModel<T>> humanoidRenderer =
+                            (LivingEntityRenderer<T, HumanoidModel<T>>) renderer;
+
+                    humanoidRenderer.addLayer(new BakaHelmLayer<>(humanoidRenderer, modelSet));
+                }
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <T extends LivingEntity, M extends HumanoidModel<T>> void tryAddBakaHelmLayer(
+                LivingEntityRenderer<?, ?> renderer, EntityModelSet modelSet) {
+            LivingEntityRenderer<T, M> castedRenderer = (LivingEntityRenderer<T, M>) renderer;
+            castedRenderer.addLayer(new BakaHelmLayer<>(castedRenderer, modelSet));
+        }
+
     }
 
     public static ResourceLocation prefix(String name) {

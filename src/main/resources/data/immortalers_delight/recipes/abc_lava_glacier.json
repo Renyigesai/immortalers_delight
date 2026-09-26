@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "BCB",
+    "DFD"
+  ],
+  "key": {
+    "A": { "item": "immortalers_delight:ab_ash" },
+    "B": { "item": "minecraft:sugar" },
+    "C": { "item": "minecraft:egg" },
+    "D": { "item": "minecraft:cocoa_beans" },
+    "F": { "tag": "forge:milk" }
+  },
+  "result": {
+    "item": "immortalers_delight:abc_lava_glacier",
+    "count": 1
+  }
+}

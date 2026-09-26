@@ -1,0 +1,31 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:composite_fleshplate"
+    },
+    {
+      "item": "immortalers_delight:composite_fleshplate"
+    },
+    {
+      "item": "farmersdelight:cabbage"
+    },
+    {
+      "item": "farmersdelight:cabbage"
+    },
+    {
+      "item": "farmersdelight:cabbage"
+    },
+    {
+      "item": "minecraft:sniffer_egg"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "result": {
+    "item": "immortalers_delight:meatball_egg_veg_soup"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}

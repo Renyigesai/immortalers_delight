@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EFG"
+  ],
+  "key": {
+    "A": { "item": "immortalers_delight:ab_ash" },
+    "B": { "item": "immortalers_delight:a_bush" },
+    "C": { "item": "minecraft:gold_ingot" },
+    "D": { "item": "immortalers_delight:kwat_wheat_dough" },
+    "E": { "item": "minecraft:egg" },
+    "F": { "tag": "forge:milk" },
+    "G": { "item": "immortalers_delight:obsidian_walnut" }
+  },
+  "result": {
+    "item": "immortalers_delight:golden_cake",
+    "count": 1
+  }
+}
