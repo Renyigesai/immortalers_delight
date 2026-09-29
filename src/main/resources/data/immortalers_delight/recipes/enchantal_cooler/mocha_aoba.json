@@ -1,0 +1,18 @@
+{
+  "type": "immortalers_delight:enchantal_cooler",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:leaf_green_tea"
+    },
+    {
+      "item": "immortalers_delight:abc_offee"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "immortalers_delight:mocha_aoba",
+    "count": 1
+  }
+}

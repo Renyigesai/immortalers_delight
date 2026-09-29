@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "minecraft:cooked_chicken" },
+    { "item": "minecraft:cooked_chicken" },
+    { "item": "minecraft:cooked_chicken" },
+    { "item": "immortalers_delight:torchflower_mustard" },
+    { "item": "immortalers_delight:torchflower_mustard" },
+    { "item": "immortalers_delight:pitcher_pod_petal" },
+    { "item": "immortalers_delight:pitcher_pod_petal" },
+    { "item": "immortalers_delight:moon_oil" },
+    { "item": "minecraft:stick" }
+  ],
+  "result": {
+    "item": "immortalers_delight:firebird_yakitori",
+    "count": 1
+  }
+}

@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.potion;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+import com.renyigesai.immortalers_delight.api.IFearFireEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.util.LivingDamageUtil;
@@ -126,7 +127,10 @@ public class WarmCurrentSurgesMobEffect extends BaseMobEffect {
                         MobEffectInstance poYanEffect = attacker.getEffect(SMOKE_ABSTINENCE.get());
                         if (poYanEffect != null) blackSnake = true;
                         //实现破烟去除生物火焰抗性
-                        if (blackSnake) hurtOne.getPersistentData().putBoolean("immortalers_delight_fear_fire",true);
+                        if (blackSnake) {
+                            hurtOne.getPersistentData().putBoolean("immortalers_delight_fear_fire", true);
+                            if (hurtOne instanceof IFearFireEntity fearFire) fearFire.immortalers_delight$setFearFire(true);
+                        }
 
                         //触发附加火焰伤害要求伤害值不能过低，以限制连点器
                         if (!isPowerful) {
@@ -190,6 +194,8 @@ public class WarmCurrentSurgesMobEffect extends BaseMobEffect {
         //保底逻辑，如果没有成功出伤，原样使用hurt方法打一个伪装成火伤的真实伤害
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+            if (entityDamage.isEmpty()) return;
+
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             LivingEntity pEntity = event.getEntity();
 

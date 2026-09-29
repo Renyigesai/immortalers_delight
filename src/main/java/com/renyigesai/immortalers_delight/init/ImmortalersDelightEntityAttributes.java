@@ -18,5 +18,8 @@ public class ImmortalersDelightEntityAttributes {
         event.put(ImmortalersDelightEntities.SCAVENGER.get(), Scavenger.createScavengerAttributes().build());
         event.put(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER.get(), AncientMechanismCommander.createAttributes().build());
         event.put(ImmortalersDelightEntities.TERRACOTTA_GOLEM.get(), TerracottaGolem.createTerracottaGolemAttributes().build());
+        event.put(ImmortalersDelightEntities.XIA_PIECES.get(), PiecesHitboxEntity.createPiecesAttributes().build());
+//        event.put(ImmortalersDelightEntities.HIJACKED_SOUL_INFUSER.get(), SoulInfuserTargetEntity.createAttributes().build());
+
     }
 }

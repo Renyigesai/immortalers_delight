@@ -6,7 +6,8 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class EffectOverlayPlayerCapability implements INBTSerializable<CompoundTag> {
     private float deathlessData;
     private float infernalForgingData;
-    private float purplePower;
+    private float crispFortitudeData;
+    private float stunData;
 
     public float getDeathlessData() {
         return deathlessData;
@@ -16,9 +17,10 @@ public class EffectOverlayPlayerCapability implements INBTSerializable<CompoundT
         return infernalForgingData;
     }
 
-    public float getPurplePower() {
-        return purplePower;
+    public float getCrispFortitudeData() {
+        return crispFortitudeData;
     }
+    public float getStunData() {return stunData;}
 
     public void setDeathlessData(float deathlessData) {
         this.deathlessData = deathlessData;
@@ -28,22 +30,24 @@ public class EffectOverlayPlayerCapability implements INBTSerializable<CompoundT
         this.infernalForgingData = infernalForgingData;
     }
 
-    public void setPurplePower(float purplePower) {
-        this.purplePower = purplePower;
+    public void setCrispFortitudeData(float crispFortitudeData) {
+        this.crispFortitudeData = crispFortitudeData;
     }
 
+    public void setStunData(float stunData) {this.stunData = stunData;}
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag compoundTag= new CompoundTag();
         compoundTag.putFloat("DeathlessData",this.deathlessData);
         compoundTag.putFloat("InfernalForgingData",this.infernalForgingData);
-        compoundTag.putFloat("PurpleMP",this.purplePower);
-
+        compoundTag.putFloat("CrispFortitudeData",this.crispFortitudeData);
+        compoundTag.putFloat("StunData", this.stunData);
         return compoundTag;}
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.deathlessData = nbt.getFloat("DeathlessData");
         this.infernalForgingData = nbt.getFloat("InfernalForgingData");
-        this.purplePower = nbt.getFloat("PurpleMP");
+        this.crispFortitudeData = nbt.getFloat("CrispFortitudeData");
+        this.stunData = nbt.getFloat("StunData");
     }
 }

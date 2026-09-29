@@ -4,6 +4,10 @@
     "immortalers_delight:cracked_mud_tiles_wall",
     "immortalers_delight:mossy_mud_brick_wall",
     "immortalers_delight:cracked_mud_brick_wall",
-    "immortalers_delight:packed_mud_wall"
+    "immortalers_delight:packed_mud_wall",
+    "immortalers_delight:wraithstone_brick_wall",
+    "immortalers_delight:polished_wraithstone_wall",
+    "immortalers_delight:mossy_wraithstone_wall",
+    "immortalers_delight:wraithstone_wall"
   ]
 }

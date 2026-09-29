@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.potion;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -24,7 +25,8 @@ public class DamageOnTimeMobEffect extends BaseMobEffect {
         if (this == WEAK_POISON.get()) {
             float minHealth = pEntity.hasEffect(INEBRIATED.get()) ? 1.0F : pEntity.getMaxHealth() * 0.5F;
             if (pEntity.hasEffect(MobEffects.POISON)) {
-                int lv = pEntity.hasEffect(MobEffects.POISON)? Objects.requireNonNull(pEntity.getEffect(MobEffects.POISON)).getAmplifier():0;
+                MobEffectInstance instance = pEntity.getEffect(MobEffects.POISON);
+                int lv = instance != null ? instance.getAmplifier():0;
                 if (lv > amplifier) {
                     pEntity.removeEffect(WEAK_POISON.get());
                 } else pEntity.removeEffect(MobEffects.POISON);
@@ -36,7 +38,8 @@ public class DamageOnTimeMobEffect extends BaseMobEffect {
         }
         if (this == WEAK_WITHER.get()) {
             if (pEntity.hasEffect(MobEffects.WITHER)) {
-                int lv = pEntity.hasEffect(MobEffects.WITHER)? Objects.requireNonNull(pEntity.getEffect(MobEffects.WITHER)).getAmplifier():0;
+                MobEffectInstance instance = pEntity.getEffect(MobEffects.WITHER);
+                int lv = instance != null ? instance.getAmplifier():0;
                 if (lv > amplifier) {
                     pEntity.removeEffect(WEAK_WITHER.get());
                 } else pEntity.removeEffect(MobEffects.WITHER);

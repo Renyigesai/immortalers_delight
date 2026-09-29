@@ -68,6 +68,7 @@ public class ImmortalersDelightMobEffect {
             new InfernalForgingMobEffect()
                     .addAttributeModifier(Attributes.ATTACK_SPEED, "542ED100-19FA-469B-84DE-75366F22C68D", 0.05D, AttributeModifier.Operation.ADDITION)
                     .addAttributeModifier(Attributes.ATTACK_DAMAGE, "BD000FB3-BAF4-4655-B917-27F6E9086DC5", 0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final RegistryObject<MobEffect> CRISP_FORTITUDE = REGISTRY.register("crisp_fortitude", MoonBrightMobEffect::new);
 
 
 }

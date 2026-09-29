@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "immortalers_delight:block/a_bush_door_bottom",
+    "top": "immortalers_delight:block/a_bush_door_top"
+  }
+}

@@ -8,6 +8,8 @@
     "EntityFireImmuneMixin",
     "EntityMixin",
     "ItemEntityMixin",
+    "LivingEntityMixin",
+    "PiglinAiMixin",
     "PlayerMixin",
     "SnifferMixin",
     "SnifferDataMixin",

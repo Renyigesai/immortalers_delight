@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:alfalfa"
+    },
+    {
+      "tag": "forge:mushrooms"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "forge:pasta"
+    }
+  ],
+  "container": {
+    "item": "minecraft:flower_pot"
+  },
+  "result": {
+    "item": "immortalers_delight:pen_di_lao"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

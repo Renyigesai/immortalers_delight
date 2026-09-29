@@ -1,0 +1,37 @@
+{
+  "type": "immortalers_delight:soul_infuser",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    },
+    {
+      "item": "immortalers_delight:kwat_wheat_doufu"
+    }
+  ],
+  "output": {
+    "item": "immortalers_delight:fry_kwat_wheat_doufu",
+    "count": 9
+  },
+  "cookingtime": 200
+}

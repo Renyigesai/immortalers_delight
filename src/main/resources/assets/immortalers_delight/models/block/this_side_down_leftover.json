@@ -1,7 +1,36 @@
 {
-  "parent": "immortalers_delight:block/this_side_down",
-  "textures": {
-    "0": "immortalers_delight:block/this_side_down_leftover",
-		"particle": "immortalers_delight:block/this_side_down_leftover"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
+	"texture_size": [32, 32],
+	"textures": {
+		"3": "immortalers_delight:block/this_side_down_top",
+		"4": "immortalers_delight:block/this_side_down_side",
+		"particle": "immortalers_delight:block/this_side_down_stage0"
+	},
+	"elements": [
+		{
+			"from": [0.01, 4.01, 0.01],
+			"to": [15.99, 15.99, 15.99],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 12], "texture": "#4"},
+				"east": {"uv": [0, 0, 16, 12], "texture": "#4"},
+				"south": {"uv": [0, 0, 16, 12], "texture": "#4"},
+				"west": {"uv": [0, 0, 16, 12], "texture": "#4"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#3"}
+			}
+		},
+		{
+			"from": [16.01, 16.01, 16.01],
+			"to": [-0.01, 3.99, -0.01],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 12], "rotation": 180, "texture": "#4"},
+				"east": {"uv": [0, 0, 16, 12], "rotation": 180, "texture": "#4"},
+				"south": {"uv": [0, 0, 16, 12], "rotation": 180, "texture": "#4"},
+				"west": {"uv": [0, 0, 16, 12], "rotation": 180, "texture": "#4"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#3"}
+			}
+		}
+	]
 }

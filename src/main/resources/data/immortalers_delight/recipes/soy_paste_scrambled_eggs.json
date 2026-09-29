@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MGM",
+    "EEE",
+    "  B"
+  ],
+  "key": {
+    "M": { "item": "immortalers_delight:kwat_wheat_paste" },
+    "G": { "item": "immortalers_delight:warped_laurel" },
+    "E": { "item": "minecraft:egg" },
+    "B": { "item": "minecraft:bowl" }
+  },
+  "result": {
+    "item": "immortalers_delight:soy_paste_scrambled_eggs",
+    "count": 1
+  }
+}

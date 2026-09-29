@@ -124,4 +124,54 @@ public class ImmortalersDelightEntities {
     public static final RegistryObject<EntityType<TerracottaGolem>> TERRACOTTA_GOLEM =
             ENTITY_TYPES.register("terracotta_golem", () -> EntityType.Builder.of(TerracottaGolem::new, MobCategory.MISC)
                     .sized(2.0f, 2.0f).clientTrackingRange(10).build("terracotta_golem"));
+
+    public static final RegistryObject<EntityType<PiecesHitboxEntity>> XIA_PIECES =
+            ENTITY_TYPES.register("xia_pieces", () -> EntityType.Builder.<PiecesHitboxEntity>of(PiecesHitboxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(4.0F, 2.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("xia_pieces"));
+
+    public static final RegistryObject<EntityType<BlackPiecesHitboxEntity>> BLACK_PIECES =
+            ENTITY_TYPES.register("black_pieces", () -> EntityType.Builder.<BlackPiecesHitboxEntity>of(BlackPiecesHitboxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(4.0F, 2.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("black_pieces"));
+    public static final RegistryObject<EntityType<WhitePiecesHitboxEntity>> WHITE_PIECES =
+            ENTITY_TYPES.register("white_pieces", () -> EntityType.Builder.<WhitePiecesHitboxEntity>of(WhitePiecesHitboxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(4.0F, 2.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("white_pieces"));
+
+    public static final RegistryObject<EntityType<SoulFireballEntity>> SOUL_FIREBALL =
+            ENTITY_TYPES.register("soul_fireball", () -> EntityType.Builder.<SoulFireballEntity>of(SoulFireballEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build("soul_fireball"));
+
+    public static final RegistryObject<EntityType<HatredfireBoltEntity>> HATREDFIRE_BOLT =
+            ENTITY_TYPES.register("hatredfire_bolt", () -> EntityType.Builder.<HatredfireBoltEntity>of(HatredfireBoltEntity::new, MobCategory.MISC)
+                    .sized(0.875F, 0.875F)
+                    .clientTrackingRange(4)
+                    .updateInterval(10)
+                    .build("hatredfire_bolt"));
+
+    public static final RegistryObject<EntityType<BladeEnergy>> BLADE_ENERGY =
+            ENTITY_TYPES.register("blade_energy", () -> EntityType.Builder.of(BladeEnergy::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1)
+                    .build("blade_energy"));
+
+
+//    public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> HIJACKED_SOUL_INFUSER =
+//            ENTITY_TYPES.register("hijacked_soul_infuser", () -> EntityType.Builder.of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
+//                    .sized(2.0f, 2.0f).build("hijacked_soul_infuser"));
+
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "immortalers_delight:kwat_wheat_toast_slice" },
+    { "item": "immortalers_delight:kwat_wheat_toast_slice" },
+    { "item": "immortalers_delight:composite_fleshplate" }
+  ],
+  "result": {
+    "item": "immortalers_delight:baka_sandwich",
+    "count": 1
+  }
+}

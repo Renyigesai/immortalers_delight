@@ -4,9 +4,12 @@ import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticles;
 import com.renyigesai.immortalers_delight.item.food.InebriatedToxicFoodItem;
+import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
+import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -35,6 +38,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nonnull;
@@ -71,9 +75,18 @@ public class StunEffect {
         /* 将实体与Buff相关数据保存到Map */
         EffectData effectData = new EffectData(entity.blockPosition(),expireTime,amplifier,entity.getRandom().nextInt());
         entityHasEffect.put(uuid,effectData);
-        if (entity instanceof Player player) player.displayClientMessage(
-                Component.translatable("message." +ImmortalersDelightMod.MODID+ ".effect.stun", new Object[0]),
-                true);
+        if (entity instanceof Player player) {
+            player.displayClientMessage(
+                    Component.translatable("message." + ImmortalersDelightMod.MODID + ".effect.stun", new Object[0]),
+                    true);
+            if (player instanceof ServerPlayer serverPlayer) {
+            // 通知客户端更新眩晕剩余时间（用于HUD显示）
+            ImmortalersNetwork.getChannel().send(
+                    PacketDistributor.PLAYER.with(() -> serverPlayer),
+                    new ImmortalersEffectMessage(4, duration)
+            );
+            }
+        }
     }
 
     /**
@@ -94,6 +107,13 @@ public class StunEffect {
      */
     private static void onImmortalEffectRemove (LivingEntity entity) {
         //UUID uuid = entity.getUUID();
+        if (entity instanceof ServerPlayer serverPlayer) {
+            // 通知客户端眩晕已结束，清零HUD
+            ImmortalersNetwork.getChannel().send(
+                    PacketDistributor.PLAYER.with(() -> serverPlayer),
+                    new ImmortalersEffectMessage(4, 0)
+            );
+        }
     }
 
     /**

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "immortalers_delight:block/wraithstone",
+    "side": "immortalers_delight:block/wraithstone",
+    "top": "immortalers_delight:block/wraithstone"
+  }
+}

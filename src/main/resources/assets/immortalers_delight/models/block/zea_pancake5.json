@@ -1,21 +1,22 @@
 {
+	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "immortalers_delight:block/zea_pancake",
-		"particle": "immortalers_delight:block/zea_pancake"
+		"1": "immortalers_delight:block/tray_top",
+		"2": "immortalers_delight:block/tray_bottom"
 	},
 	"elements": [
 		{
+			"name": "tray",
 			"from": [1, 0, 1],
-			"to": [15, 1, 15],
-			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 1]},
+			"to": [15, 2, 15],
 			"faces": {
-				"north": {"uv": [7, 0, 14, 0.5], "texture": "#0"},
-				"east": {"uv": [7, 0.5, 14, 1], "texture": "#0"},
-				"south": {"uv": [0, 14.5, 7, 15], "texture": "#0"},
-				"west": {"uv": [0, 7, 7, 7.5], "texture": "#0"},
-				"up": {"uv": [0, 0, 7, 7], "texture": "#0"},
-				"down": {"uv": [0, 7.5, 7, 14.5], "texture": "#0"}
+				"north": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"east": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"south": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"west": {"uv": [1, 11, 15, 13], "texture": "#2"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#1"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#2"}
 			}
 		}
 	],
@@ -35,7 +36,7 @@
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, 225, 0],
+			"rotation": [0, -135, 0],
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"ground": {
@@ -43,7 +44,7 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, -135, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},
 		"fixed": {

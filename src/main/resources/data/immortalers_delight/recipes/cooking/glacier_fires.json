@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "immortalers_delight:gelpitaya"
+    },
+    {
+      "item": "immortalers_delight:gelpitaya"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "container": {
+    "item": "minecraft:paper"
+  },
+  "result": {
+    "item": "immortalers_delight:glacier_fires"
+  },
+  "experience": 0.35,
+  "cookingtime": 300
+}
