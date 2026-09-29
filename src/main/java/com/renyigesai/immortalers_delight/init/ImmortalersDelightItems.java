@@ -521,7 +521,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
     @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
-    @ItemData(zhCn = "刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    @ItemData(zhCn = "拼凑者刷怪蛋",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
     @ItemData(zhCn = "古械统领刷怪蛋",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG;

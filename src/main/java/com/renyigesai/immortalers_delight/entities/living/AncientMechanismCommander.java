@@ -18,14 +18,18 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -115,7 +119,7 @@ public class AncientMechanismCommander extends Monster {
 
     private void throwDynamite(LivingEntity target) { var bomb = new com.renyigesai.immortalers_delight.entities.projectile.AncientMechanismDynamiteEntity(level(), this); bomb.setPos(getX(), getEyeY() - .2, getZ()); bomb.shoot(target.getX() - getX(), target.getEyeY() - getEyeY(), target.getZ() - getZ(), 0.8F, 0.2F); level().addFreshEntity(bomb); }
     private void shootAt(LivingEntity target) { for (int i = -1; i <= 1; i++) { Arrow arrow = new Arrow(EntityType.ARROW, level()); arrow.setOwner(this); arrow.setPos(getX(), getEyeY(), getZ()); arrow.shoot(target.getX() - getX(), target.getEyeY() - getEyeY(), target.getZ() - getZ(), 1.8F, 10.0F); level().addFreshEntity(arrow); } }
-    private void summonSupport() { int count = 3 + random.nextInt(3); for (int i = 0; i < count; i++) { Raider mob = random.nextInt(100) < 65 ? new Pillager(EntityType.PILLAGER, level()) : new Vindicator(EntityType.VINDICATOR, level()); mob.moveTo(getX() + random.nextGaussian() * 2, getY(), getZ() + random.nextGaussian() * 2, random.nextFloat() * 360, 0); mob.setTarget(getTarget()); level().addFreshEntity(mob); } }
+    private void summonSupport() { int count = 3 + random.nextInt(3); for (int i = 0; i < count; i++) { Raider mob = random.nextInt(100) < 65 ? new Pillager(EntityType.PILLAGER, level()) : new Vindicator(EntityType.VINDICATOR, level()); mob.moveTo(getX() + random.nextGaussian() * 2, getY(), getZ() + random.nextGaussian() * 2, random.nextFloat() * 360, 0); if (mob instanceof Pillager pillager) { pillager.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW)); } else { mob.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE)); } mob.setDropChance(EquipmentSlot.MAINHAND, 0.0F); mob.setTarget(getTarget()); level().addFreshEntity(mob); } }
     private void grantRavagerBuff() { for (Raider raider : level().getEntitiesOfClass(Raider.class, new AABB(getX()-8, getY()-4, getZ()-8, getX()+8, getY()+4, getZ()+8))) { raider.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 400, 1)); raider.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE, 400, 1)); } }
     private void performMeleeAction() {
         LivingEntity target = getTarget();
@@ -123,7 +127,7 @@ public class AncientMechanismCommander extends Monster {
         float damage = (float)getAttributeValue(Attributes.ATTACK_DAMAGE) * (action == 1 ? 1.5F : 1.0F);
         if (action == 2) {
             for (LivingEntity victim : level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(3.0D))) {
-                if (victim != this && hasLineOfSight(victim)) victim.hurt(damageSources().mobAttack(this), damage);
+                if (victim != this && !(victim instanceof AbstractIllager) && hasLineOfSight(victim)) victim.hurt(damageSources().mobAttack(this), damage);
             }
         } else {
             target.hurt(damageSources().mobAttack(this), damage);
@@ -137,8 +141,13 @@ public class AncientMechanismCommander extends Monster {
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !(AncientMechanismCommander.this.getLastHurtByMob() instanceof AbstractIllager);
+            }
+        }.setAlertOthers());
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Villager.class, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
