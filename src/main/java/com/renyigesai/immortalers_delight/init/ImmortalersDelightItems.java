@@ -132,7 +132,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_BLADE;
     @ItemData(zhCn = "灾厄匕首",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> PILLAGER_KNIFE;
-    @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.TOOL)
+    @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> BONE_KNIFE;
     @ItemData(zhCn = "手持式砂轮",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> GRINDSTONE_HAMMER;
@@ -146,6 +146,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
     @ItemData(zhCn = "绯炵金纱")
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
+    @ItemData(zhCn = "若宫太刀",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> WAKIMAYA_TANTO;
 
     /*合成材料*/
     @ItemData(zhCn = "金丝织缕")
@@ -1817,6 +1819,8 @@ public class ImmortalersDelightItems {
 
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
+
+        WAKIMAYA_TANTO = registerWithTab("wakimaya_tanto",()-> new WakimayaTantoItem(new Item.Properties()));
 
         RAW_SNIFFER_SLICE = REGISTER.register("raw_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));

@@ -13,6 +13,7 @@ import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.weapon.RepeatingCrossbowItem;
+import com.renyigesai.immortalers_delight.item.weapon.WakimayaTantoItem;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.SoulInfuserScreen;
@@ -43,6 +44,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
@@ -242,6 +244,7 @@ public class ImmortalersDelightMod {
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
             modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
             modelLayers.put(BakaHelmModel.LAYER_LOCATION, BakaHelmModel::createBodyLayer);
+            modelLayers.put(BladeEnergyModel.BLADE_ENERGY, BladeEnergyModel::createBodyLayer);
 
             for (Map.Entry<ModelLayerLocation, Supplier<LayerDefinition>> entry : modelLayers.entrySet()) {
                 event.registerLayerDefinition(entry.getKey(), entry.getValue());
@@ -276,8 +279,14 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.XIA_PIECES.get(),XiaPiecesHitboxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SOUL_FIREBALL.get(),SoulFireballEntityRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.HATREDFIRE_BOLT.get(), HatredfireBoltRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.BLADE_ENERGY.get(), BladeEnergyRender::new);
 //            event.registerEntityRenderer(ImmortalersDelightEntities.HIJACKED_SOUL_INFUSER.get(), HijackedSoulInfuserRenderer::new);
 
+        }
+
+        @SubscribeEvent
+        public static void onAdditionalModel(ModelEvent.RegisterAdditional event){
+            event.register(new ResourceLocation(MODID,"item/wakimaya_tanto_render"));
         }
 
         @SubscribeEvent
@@ -341,6 +350,12 @@ public class ImmortalersDelightMod {
             });
             ItemProperties.register(ImmortalersDelightItems.JENG_NANU.get(), new ResourceLocation(MODID + "_" + "blocking"), (stack, world, entity, seed) -> {
                 return  entity != null &&  entity.isUsingItem() &&  entity.getUseItem() == stack ? 1.0F : 0.0F;
+            });
+            ItemProperties.register(ImmortalersDelightItems.WAKIMAYA_TANTO.get(), new ResourceLocation(MODID + "_" + "progress"), (stack, world, entity, seed) -> {
+                if (stack.getItem() instanceof WakimayaTantoItem){
+                    return WakimayaTantoItem.getBladeEnergyCooling(stack) >= 0.25f && WakimayaTantoItem.getBladeEnergyCooling(stack) < 0.45F ? 1.0F : 0.0F;
+                }
+                return  0.0F;
             });
         }
 

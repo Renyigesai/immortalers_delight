@@ -17,6 +17,7 @@ public class ImmortalersDelightParticleTypes {
     public static final RegistryObject<SimpleParticleType> STUN = REGISTRY.register("stun", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> HUGE_SMOKE = REGISTRY.register("huge_smoke", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> GAS_SMOKE = REGISTRY.register("gas_smoke", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> BLADE_LIGHT = REGISTRY.register("blade_light", () -> new SimpleParticleType(false));
     // 2. 注册带参数的粒子类型：ShockWaveParticle
     // 第一个参数：粒子ID（yourmod:extra_size）
     // 第二个参数：是否为“永远显示”（false=按常规视距渲染）

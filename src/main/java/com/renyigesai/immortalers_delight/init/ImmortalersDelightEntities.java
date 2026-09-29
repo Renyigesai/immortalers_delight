@@ -155,6 +155,13 @@ public class ImmortalersDelightEntities {
                     .updateInterval(10)
                     .build("hatredfire_bolt"));
 
+    public static final RegistryObject<EntityType<BladeEnergy>> BLADE_ENERGY =
+            ENTITY_TYPES.register("blade_energy", () -> EntityType.Builder.of(BladeEnergy::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(4)
+                    .updateInterval(1)
+                    .build("blade_energy"));
+
 
 //    public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> HIJACKED_SOUL_INFUSER =
 //            ENTITY_TYPES.register("hijacked_soul_infuser", () -> EntityType.Builder.of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
