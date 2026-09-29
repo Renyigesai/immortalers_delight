@@ -1619,7 +1619,7 @@ public class ImmortalersDelightItems {
         NETHER_CREAM_BREAD = registerWithTab("nether_cream_bread",() ->
                 new PowerfulAbleFoodItem(bowlFoodItem(ImmortalersDelightFoodProperties.NETHER_CREAM_BREAD),ImmortalersDelightFoodProperties.NETHER_CREAM_BREAD_POWERED,true,false));
 
-        KWAT_WHEAT_DOUFU = registerWithTab("kwat_wheat_doufu",() -> new ConsumableItem(bowlFoodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT_DOUFU),true));
+        KWAT_WHEAT_DOUFU = registerWithTab("kwat_wheat_doufu",() -> new ConsumableItem(foodItem(ImmortalersDelightFoodProperties.KWAT_WHEAT_DOUFU),true));
 
         FRY_KWAT_WHEAT_DOUFU = registerWithTab("fry_kwat_wheat_doufu",()->
                 new ConsumableItem(new Item.Properties().food(ImmortalersDelightFoodProperties.FRY_KWAT_WHEAT_DOUFU),true,false));
@@ -1882,7 +1882,7 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(foodItem(ImmortalersDelightFoodProperties.EVOLUTCORN_CHICKEN_BURGER),PoweredFoodProperties.EVOLUTCORN_CHICKEN_BURGER,true,false));
 
         VARA_JI = registerWithTab("vara_ji",()->
-                new NeedStrawDrinkItem(foodItem(ImmortalersDelightFoodProperties.VARA_JI),
+                new NeedStrawDrinkItem(new Item.Properties().food(ImmortalersDelightFoodProperties.VARA_JI).stacksTo(16).craftRemainder(ImmortalersDelightItems.EMPTY_BAMBOO_CUP.get()),
                         ImmortalersDelightFoodProperties.FILTERED_VARA_JI,
                         PoweredFoodProperties.VARA_JI,
                         PoweredFoodProperties.FILTERED_VARA_JI,
@@ -2015,9 +2015,11 @@ public class ImmortalersDelightItems {
         RAINBOW_FIZZ = register("rainbow_fizz",()->
                 new InebriatedToxicDrinkBlockItem(ImmortalersDelightBlocks.RAINBOW_FIZZ.get(), drinkItem(ImmortalersDelightFoodProperties.RAINBOW_FIZZ).rarity(Rarity.RARE),  true));
         SPARROW_WINE = registerWithTab("sparrow_wine",()->
-                new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.SPARROW_WINE),true));
+                new InebriatedToxicFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SPARROW_WINE).craftRemainder(ImmortalersDelightItems.EMPTY_BAMBOO_CUP.get()).stacksTo(16),true));
         DRAGON_SLAYING_ART = registerWithTab("dragon_slaying_art",()->
                 new InebriatedToxicFoodItem(drinkItem(ImmortalersDelightFoodProperties.DRAGON_SLAYING_ART),true));
+
+        //return (new Item.Properties()).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16).food(foodProperties);
 
 
         /*石锅*/
