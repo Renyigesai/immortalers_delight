@@ -16,6 +16,7 @@ public class ImmortalersDelightEntityAttributes {
         event.put(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(), SkelverfishThrasher.createSkelverfishThrasherAttributes().build());
         event.put(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(), StrangeArmourStand.createAttributes().build());
         event.put(ImmortalersDelightEntities.SCAVENGER.get(), Scavenger.createScavengerAttributes().build());
+        event.put(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER.get(), AncientMechanismCommander.createAttributes().build());
         event.put(ImmortalersDelightEntities.TERRACOTTA_GOLEM.get(), TerracottaGolem.createTerracottaGolemAttributes().build());
     }
 }
