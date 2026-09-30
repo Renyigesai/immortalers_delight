@@ -458,6 +458,7 @@ public class Languages extends LanguageProvider {
     private void addEntitys(){
         createEntity(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(),"Skelverfish Thrasher");
         createEntity(ImmortalersDelightEntities.SCAVENGER.get(),"拼凑者");
+        createEntity(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER.get(),"古械统领");
         createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
         createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
         createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");

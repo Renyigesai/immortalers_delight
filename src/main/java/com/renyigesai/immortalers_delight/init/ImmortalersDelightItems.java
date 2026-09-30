@@ -96,6 +96,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
     @ItemData(zhCn = "嗅探兽毛短榻榻米垫",group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
+    @ItemData(zhCn = "嗅探兽鞍")
+    public static final RegistryObject<Item> SNIFFER_SADDLE;
+    @ItemData(zhCn = "嗅探兽鞍升级套件")
+    public static final RegistryObject<Item> SNIFFER_SADDLE_UPGRADE;
 
     /**主物品栏物品**/
 
@@ -547,10 +551,13 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
     @ItemData(zhCn = "生成 可疑的盔甲架<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
+    @ItemData(zhCn = "拼凑者刷怪蛋",model = ItemData.ModelType.CUSTOM)
     @ItemData(zhCn = "生成 陶瓦傀儡<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> TERRACOTTA_GOLEM_SPAWN_EGG;
     @ItemData(zhCn = "生成 拼凑者",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
+    @ItemData(zhCn = "古械统领刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG;
 
     @ItemData(zhCn = "古代口粮包")
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
@@ -1840,6 +1847,12 @@ public class ImmortalersDelightItems {
 
         SNIFFER_FUR_BRUSH = registerWithTab("sniffer_fur_brush", () ->
                 new SnifferBrushItem(fantasticItem(Rarity.UNCOMMON).durability(384)));
+        
+        SNIFFER_SADDLE = registerWithTab("sniffer_saddle", () ->
+                new SnifferSaddleItem(fantasticItem(Rarity.UNCOMMON).stacksTo(1)));
+
+        SNIFFER_SADDLE_UPGRADE = registerWithTab("sniffer_saddle_upgrade", () ->
+                new com.renyigesai.immortalers_delight.item.SnifferSaddleUpgradeItem(fantasticItem(Rarity.RARE).stacksTo(16)));
 
         SACHETS = registerWithTab("sachets", () ->
                 new SachetsItem(fantasticItem(Rarity.UNCOMMON).durability(64),false,true));
@@ -2342,6 +2355,10 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.TERRACOTTA_GOLEM,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
+        ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG = registerWithTab("ancient_mechanism_commander_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER,0x252525,0x8C1F2D,new Item.Properties()));
+        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new ImmortalersBucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         HATRED_FIRE = block(ImmortalersDelightBlocks.HATRED_FIRE);
 

@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.item;
 
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
+import com.renyigesai.immortalers_delight.api.SnifferAnimations;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
@@ -71,6 +72,10 @@ public class SnifferBrushItem extends BrushItem {
             if (hitResult instanceof EntityHitResult entityHitResult && hitResult.getType() == HitResult.Type.ENTITY) {
                 //被刷毛的嗅探兽不移动
                 if (pRemainingUseDuration % 4 == 0 && pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer sniffer) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false,  false));
+
+                if (pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer brushedSniffer) {
+                    brushedSniffer.getEntityData().set(SnifferAnimations.HAPPY_TICKS, SnifferAnimations.HAPPY_DURATION_TICKS);
+                }
 
                 if ((this.getUseDuration(pStack) - pRemainingUseDuration + 1) == this.getUseDuration(pStack)/2) {
                     Entity entity = entityHitResult.getEntity();

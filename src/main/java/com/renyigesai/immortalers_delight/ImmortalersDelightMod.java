@@ -3,6 +3,8 @@ package com.renyigesai.immortalers_delight;
 import com.mojang.logging.LogUtils;
 import com.renyigesai.immortalers_delight.advancement.*;
 import com.renyigesai.immortalers_delight.client.model.*;
+import com.renyigesai.immortalers_delight.client.model.entity.SnifferSaddleModel;
+import com.renyigesai.immortalers_delight.client.model.entity.SnifferSaddleUpgradedModel;
 import com.renyigesai.immortalers_delight.client.model.projectile.*;
 import com.renyigesai.immortalers_delight.client.model_layers.BakaHelmLayer;
 import com.renyigesai.immortalers_delight.client.renderer.*;
@@ -220,6 +222,8 @@ public class ImmortalersDelightMod {
             modelLayers.put(AncientWoodChestBoatModel.ANCIENT_CHEST_BOAT, AncientWoodChestBoatModel::createBodyLayer);
             //modelLayers.put(ScavengerModel.SCARVENGER_MODEL, ScavengerModel::createBodyLayer);
             modelLayers.put(ScavengerModel.SCARVENGER_MODEL, IllagerModel::createBodyLayer);
+            modelLayers.put(AncientMechanismCommanderModel.ANCIENT_MECHANISM_COMMANDER, AncientMechanismCommanderModel::createBodyLayer);
+            modelLayers.put(AncientMechanismDynamiteModel.LAYER, AncientMechanismDynamiteModel::createBodyLayer);
             modelLayers.put(SurveyorFangModel.SURVEYOR_FANG, SurveyorFangModel::createBodyLayer);
             modelLayers.put(EffectCloudModel.EFFECT_CLOUD_BASE, EffectCloudModel::createBodyLayer);
             modelLayers.put(HugeSmokeParticleModel.HUGE_SMOKE_PARTICLE, HugeSmokeParticleModel::createBodyLayer);
@@ -243,6 +247,8 @@ public class ImmortalersDelightMod {
 
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
             modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
+            modelLayers.put(SnifferSaddleModel.LAYER_LOCATION, SnifferSaddleModel::createBodyLayer);
+            modelLayers.put(SnifferSaddleUpgradedModel.LAYER_LOCATION, SnifferSaddleUpgradedModel::createBodyLayer);
             modelLayers.put(BakaHelmModel.LAYER_LOCATION, BakaHelmModel::createBodyLayer);
             modelLayers.put(BladeEnergyModel.BLADE_ENERGY, BladeEnergyModel::createBodyLayer);
 
@@ -267,6 +273,7 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(), SkelverfishThrasherRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.STRANGE_ARMOUR_STAND.get(), StrangeArmourStandRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SCAVENGER.get(), ScavengerRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER.get(), AncientMechanismCommanderRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.TERRACOTTA_GOLEM.get(), TerracottaGolemRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SURVEYOR_FANG.get(),SurveyorFangRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),EffectCloudBaseRenderer::new);
@@ -274,6 +281,7 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.WARPED_LAUREL_HITBOX.get(), WarpedLaurelHitBoxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.KI_BLAST.get(), KiBlastRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), ToxicGasGrenadeRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.ANCIENT_MECHANISM_DYNAMITE.get(), AncientMechanismDynamiteRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.MOON_ARROW_HITBOX.get(),MoonArrowHitboxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.BLAZING_OBSIDIAN_WALNUT.get(),BlazingObsidianWalnutEntityRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.XIA_PIECES.get(),XiaPiecesHitboxRenderer::new);
@@ -285,6 +293,16 @@ public class ImmortalersDelightMod {
         }
 
         @SubscribeEvent
+        public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+            // 获取嗅探兽渲染器并添加鞍座层
+            var snifferRenderer = event.getRenderer(EntityType.SNIFFER);
+            if (snifferRenderer instanceof net.minecraft.client.renderer.entity.SnifferRenderer renderer) {
+                renderer.addLayer(new com.renyigesai.immortalers_delight.client.renderer.entity.layer.SnifferSaddleLayer(
+                    renderer, 
+                    new SnifferSaddleModel<>(event.getEntityModels().bakeLayer(SnifferSaddleModel.LAYER_LOCATION)),
+                    new SnifferSaddleUpgradedModel<>(event.getEntityModels().bakeLayer(SnifferSaddleUpgradedModel.LAYER_LOCATION))
+                ));
+            }
         public static void onAdditionalModel(ModelEvent.RegisterAdditional event){
             event.register(new ResourceLocation(MODID,"item/wakimaya_tanto_render"));
         }

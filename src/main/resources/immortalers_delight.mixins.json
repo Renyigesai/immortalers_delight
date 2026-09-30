@@ -6,13 +6,14 @@
   "refmap": "immortalers_delight.refmap.json",
   "mixins": [
     "EntityFireImmuneMixin",
+    "EntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PiglinAiMixin",
     "PlayerMixin",
-    "SnifferMixin"
-  ],
-  "client": [
+    "SnifferMixin",
+    "SnifferDataMixin",
+    "SnifferNBTMixin"
   ],
   "injectors": {
     "defaultRequire": 1

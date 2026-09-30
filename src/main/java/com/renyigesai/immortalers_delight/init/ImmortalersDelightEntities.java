@@ -50,6 +50,10 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("scavenger", () -> EntityType.Builder.of(Scavenger::new, MobCategory.MONSTER)
                     .sized(0.6f, 2.0f).build("scavenger"));
 
+    public static final RegistryObject<EntityType<AncientMechanismCommander>> ANCIENT_MECHANISM_COMMANDER =
+            ENTITY_TYPES.register("ancient_mechanism_commander", () -> EntityType.Builder.of(AncientMechanismCommander::new, MobCategory.MONSTER)
+                    .sized(1.2f, 2.6f).build("ancient_mechanism_commander"));
+
     public static final RegistryObject<EntityType<SurveyorFangEntity>> SURVEYOR_FANG =
             ENTITY_TYPES.register("sword_tipped_long_pole", () -> EntityType.Builder.<SurveyorFangEntity>of(SurveyorFangEntity::new, MobCategory.MISC)
             .sized(0.6F, 2.5F)
@@ -98,6 +102,9 @@ public class ImmortalersDelightEntities {
                     .clientTrackingRange(4)
                     .updateInterval(10)
                     .build("caustic_essential_oil"));
+    public static final RegistryObject<EntityType<AncientMechanismDynamiteEntity>> ANCIENT_MECHANISM_DYNAMITE =
+            ENTITY_TYPES.register("ancient_mechanism_dynamite", () -> EntityType.Builder.<AncientMechanismDynamiteEntity>of(AncientMechanismDynamiteEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.5F).clientTrackingRange(6).updateInterval(1).build("ancient_mechanism_dynamite"));
 
     public static final RegistryObject<EntityType<BlazingObsidianWalnutThrowingEntity>> BLAZING_OBSIDIAN_WALNUT =
             ENTITY_TYPES.register("blazing_obsidian_walnut", () -> EntityType.Builder.<BlazingObsidianWalnutThrowingEntity>of(BlazingObsidianWalnutThrowingEntity::new, MobCategory.MISC)
