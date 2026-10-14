@@ -52,6 +52,7 @@ public class Languages extends LanguageProvider {
     private static final String FARMERSDELIGHT_TOOLTIP_2 = "tooltip.farmersdelight.";
     private static final String FARMERSDELIGHT_TOOLTIP_REVERSE = "tooltip.farmersdelight.";
     private static final String ENTITY = "entity.immortalers_delight.";
+    private static final String KEY_MAPPING = "key.immortalers_delight.";
 
     public Languages(PackOutput output, String locale) {
         super(output, ImmortalersDelightMod.MODID, locale);
@@ -93,6 +94,7 @@ public class Languages extends LanguageProvider {
         addAdvancements();
         adds();
         addIngredientInfos();
+        addKeys();
     }
 
     private void addItems() throws IllegalAccessException {
@@ -258,6 +260,7 @@ public class Languages extends LanguageProvider {
         createTooltip(IS_COLORFUL + "glacier_fires", "再来一包？下次惠顾……", "Another pack? Come back soon...");
         createTooltip(IS_COLORFUL + "ice_and_fire_cream", "将[冻结吧！]效果转换为[燃起来了！]效果", "Change your [Let it Freeze!] effect to [Warm Current Surges]");
         createTooltip(IS_COLORFUL + "rough_sandwich","可以喂食其他生物，令其获得的[洪荒之力]更加强大","Feedable to other mobs, and makes then next gained [Prehistoric Powers] stronger.");
+        createTooltip("antique","佩戴时：","When wearing:");
 
         createTooltip("bread_jam.toppings", "加料 (%s/%s)：", "Applied Toppings (%s/%s): ");
 
@@ -321,6 +324,7 @@ public class Languages extends LanguageProvider {
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
         createContainer("hot_spring","Grudge Spring","怨泉");
+        createContainer("antique_bag","Antique Bag","古物包");
         add("emi.category.immortalers_delight.enchantal_cooler", "Enchantal Cooler", "魔凝机");
         add("emi.category.immortalers_delight.hot_spring", "Grudge Spring", "怨泉");
     }
@@ -512,6 +516,8 @@ public class Languages extends LanguageProvider {
         add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
         createTooltip("ancient_nectar_jelly", "恢复未吃完的蛋糕、宴席和派，或按方块转换配方改变方块。", "Restores unfinished cakes, feasts, and pies, or transforms blocks using change-block recipes.");
 
+        add("key." + ImmortalersDelightMod.MODID + "." + ImmortalersDelightMod.MODID,"Immortalers Delight","千古乐事");
+
 //        add("jei.immortalers_delight.info.evolutcorn_grains","It was obtained by the sniffing animals by digging in the plains, snowfields, meadows and sunflower plains.","由嗅探兽在平原、雪原、草甸、向日葵平原挖掘获得。");
     }
 
@@ -604,6 +610,14 @@ public class Languages extends LanguageProvider {
         );
     }
 
+    private void addKeys(){
+        createKey("auxiliary","Auxiliary","辅助按键");
+        createKey("antique_tool_slot_1","Antique Bag Quick Tool 1","古物包快捷工具1");
+        createKey("antique_tool_slot_2","Antique Bag Quick Tool 2","古物包快捷工具2");
+        createKey("antique_tool_slot_3","Antique Bag Quick Tool 3","古物包快捷工具3");
+    }
+
+
     private void createDesc(String key,String en_us,String zh_cn){
         add(ADVANCEMENT + key + ".descr",en_us,zh_cn);
     }
@@ -652,6 +666,10 @@ public class Languages extends LanguageProvider {
 
     private void createEntity(String key,String en_us,String zh_cn){
         add(ENTITY + key,en_us,zh_cn);
+    }
+
+    private void createKey(String key,String en_us,String zh_cn){
+        add(KEY_MAPPING + key,en_us,zh_cn);
     }
 
     @Override

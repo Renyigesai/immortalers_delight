@@ -33,8 +33,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class WakimayaTantoItem extends DiggerItem {
@@ -44,7 +43,7 @@ public class WakimayaTantoItem extends DiggerItem {
     public static final String NBT_BLADE_ENERGY_COOLING_OLD = "BladeEnergyCoolingOld";
     public static final String NBT_RELEASE = "Release";
     public WakimayaTantoItem(Properties pProperties) {
-        super(0, 0, new Tier() {
+        super(0, -2, new Tier() {
             @Override
             public int getUses() {
                 return 250;
@@ -52,12 +51,12 @@ public class WakimayaTantoItem extends DiggerItem {
 
             @Override
             public float getSpeed() {
-                return -2;
+                return 0;
             }
 
             @Override
             public float getAttackDamageBonus() {
-                return 8f;
+                return 7f;
             }
 
             @Override
@@ -67,7 +66,7 @@ public class WakimayaTantoItem extends DiggerItem {
 
             @Override
             public int getEnchantmentValue() {
-                return 15;
+                return 14;
             }
 
             @Override
@@ -269,4 +268,5 @@ public class WakimayaTantoItem extends DiggerItem {
     public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
         return !player.isCreative();
     }
+
 }

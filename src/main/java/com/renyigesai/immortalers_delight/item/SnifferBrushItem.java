@@ -1,11 +1,14 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.api.IPlayerLastAntiqueSlot;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticles;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagHandler;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -102,7 +105,17 @@ public class SnifferBrushItem extends BrushItem {
                                 break;
                             }
                         }
-                        sniffer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 599, lv + 1));
+                        lv = lv + 1;
+                        //1.2.4新增，背包内古物包存在苜蓿团块时，生命恢复等级增加三倍。
+                        AntiqueBagHandler.BagRecord lastAntiqueSlot = ((IPlayerLastAntiqueSlot) player).getLastAntiqueSlot();
+                        if (lastAntiqueSlot != null){
+                            if (lastAntiqueSlot.stack().getItem() instanceof AntiqueBagItem bagItem){
+                                if (bagItem.containsAntique(lastAntiqueSlot.stack(), ImmortalersDelightItems.ALFALFA_MASS.get())){
+                                    lv = lv * 3;
+                                }
+                            }
+                        }
+                        sniffer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 599, lv));
                         //回血消耗刷子耐久
                         if (!player.getAbilities().instabuild) {
                             itemDamage +=10;

@@ -15,6 +15,7 @@ import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.weapon.RepeatingCrossbowItem;
 import com.renyigesai.immortalers_delight.item.weapon.WakimayaTantoItem;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
+import com.renyigesai.immortalers_delight.screen.AntiqueBagScreen;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
 import com.renyigesai.immortalers_delight.screen.SoulInfuserScreen;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
@@ -309,6 +310,7 @@ public class ImmortalersDelightMod {
                         ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
                         MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
+                        MenuScreens.register(ImmortalersDelightMenuTypes.ANTIQUE_BAG_MENU.get(), AntiqueBagScreen::new);
                         registerItemProperties();
                         WeakWitherHealthOverlay.init();
                         WeakPoisonHealthOverlay.init();

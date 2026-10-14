@@ -8,6 +8,10 @@ import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
+import com.renyigesai.immortalers_delight.item.antique.AlfalfaMassItem;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagItem;
+import com.renyigesai.immortalers_delight.item.antique.NoBurningFireItem;
+import com.renyigesai.immortalers_delight.item.antique.RaggedPaperClipsItem;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BakedObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
@@ -15,7 +19,6 @@ import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.ObsidianWaln
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.PieBoostFoodItem;
 import com.renyigesai.immortalers_delight.item.weapon.*;
 import com.renyigesai.immortalers_delight.potion.PrehistoricPowersMobEffect;
-import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,18 +27,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoulFireBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -148,6 +145,14 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
     @ItemData(zhCn = "若宫太刀",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> WAKIMAYA_TANTO;
+    @ItemData(zhCn = "古物包")
+    public static final RegistryObject<Item> ANTIQUE_BAG;
+    @ItemData(zhCn = "苜蓿团块")
+    public static final RegistryObject<Item> ALFALFA_MASS;
+    @ItemData(zhCn = "碎镇纸")
+    public static final RegistryObject<Item> RAGGED_PAPER_CLIPS;
+    @ItemData(zhCn = "无灼火")
+    public static final RegistryObject<Item> NO_BURNING_FIRE;
 
     /*合成材料*/
     @ItemData(zhCn = "金丝织缕")
@@ -1821,6 +1826,14 @@ public class ImmortalersDelightItems {
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
 
         WAKIMAYA_TANTO = registerWithTab("wakimaya_tanto",()-> new WakimayaTantoItem(new Item.Properties()));
+
+        ANTIQUE_BAG = registerWithTab("antique_bag",()-> new AntiqueBagItem(new Item.Properties().stacksTo(1),6));
+
+        ALFALFA_MASS = registerWithTab("alfalfa_mass", AlfalfaMassItem::new);
+
+        RAGGED_PAPER_CLIPS = registerWithTab("ragged_paper_clips", RaggedPaperClipsItem::new);
+
+        NO_BURNING_FIRE = registerWithTab("no_burning_fire", NoBurningFireItem::new);
 
         RAW_SNIFFER_SLICE = REGISTER.register("raw_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));
