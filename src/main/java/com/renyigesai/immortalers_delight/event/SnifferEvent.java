@@ -7,7 +7,6 @@ import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightTags;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
-import com.renyigesai.immortalers_delight.mixin.SnifferMixin;
 import com.renyigesai.immortalers_delight.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -143,6 +142,18 @@ public class SnifferEvent {
             CompoundTag tag = sniffer.getPersistentData();
             if (tag.get(SNIFFER_BRUSHING_COOLDOWN) == null) tag.putInt(SNIFFER_BRUSHING_COOLDOWN, 0);
 
+            // 骑乘逻辑：如果嗅探兽有鞍座且玩家空手右键，则骑乘
+            if (player.getItemInHand(event.getHand()).isEmpty()) {
+                if (com.renyigesai.immortalers_delight.item.SnifferSaddleItem.hasSaddle(sniffer)) {
+                    if (!level.isClientSide) {
+                        player.startRiding(sniffer);
+                    }
+                    event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+                    event.setCanceled(true);
+                    return;
+                }
+            }
+
             if ((level instanceof ServerLevel serverLevel) && (player instanceof ServerPlayer serverPlayer)) {
                 if (!tag.contains(SNIFFER_BRUSHING_COOLDOWN, Tag.TAG_INT) || tag.getInt(SNIFFER_BRUSHING_COOLDOWN) <= 0) {
                     ItemStack oldStack = event.getItemStack();
@@ -157,6 +168,11 @@ public class SnifferEvent {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onSnifferJoinWorld(net.minecraftforge.event.entity.EntityJoinLevelEvent event) {
+        // EntityData 会自动同步，不需要手动发送网络包
     }
 
     @SubscribeEvent
