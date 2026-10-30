@@ -1002,19 +1002,19 @@ public class ImmortalersDelightBlocks {
     public static final RegistryObject<SlabBlock> A_BUSH_SLAB = BLOCKS.register("a_bush_slab",()-> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
     @BlockData(dropType = BlockData.DropType.CUSTOM)
-    public static final RegistryObject<DoorBlock> A_BUSH_DOOR = BLOCKS.register("a_bush_door",()-> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final RegistryObject<DoorBlock> A_BUSH_DOOR = BLOCKS.register("a_bush_door",()-> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR),ImmortalersDelightWoodSetType.A_BUSH));
 
     @BlockData
-    public static final RegistryObject<TrapDoorBlock> A_BUSH_TRAPDOOR = BLOCKS.register("a_bush_trapdoor",()-> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final RegistryObject<TrapDoorBlock> A_BUSH_TRAPDOOR = BLOCKS.register("a_bush_trapdoor",()-> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR),ImmortalersDelightWoodSetType.A_BUSH));
 
     @BlockData
-    public static final RegistryObject<FenceBlock> A_BUSH_FENCE = BLOCKS.register("a_bush_fence",()-> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<FenceBlock> A_BUSH_FENCE = BLOCKS.register("a_bush_fence",()-> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
 
     @BlockData
-    public static final RegistryObject<FenceGateBlock> A_BUSH_FENCE_GATE = BLOCKS.register("a_bush_fence_gate",()-> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodType.A_BUSH));
+    public static final RegistryObject<FenceGateBlock> A_BUSH_FENCE_GATE = BLOCKS.register("a_bush_fence_gate",()-> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE),ImmortalersDelightWoodType.A_BUSH));
 
     @BlockData
-    public static final RegistryObject<PressurePlateBlock> A_BUSH_PRESSURE_PLATE = BLOCKS.register("a_bush_pressure_plate",()-> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS),ImmortalersDelightWoodSetType.A_BUSH));
+    public static final RegistryObject<PressurePlateBlock> A_BUSH_PRESSURE_PLATE = BLOCKS.register("a_bush_pressure_plate",()-> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE),ImmortalersDelightWoodSetType.A_BUSH));
 
     @BlockData
     public static final RegistryObject<ButtonBlock> A_BUSH_BUTTON = BLOCKS.register("a_bush_button",()-> woodenButton(ImmortalersDelightWoodSetType.A_BUSH));

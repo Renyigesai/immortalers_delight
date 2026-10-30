@@ -556,7 +556,6 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SKELVERFISH_THRASHER_SPAWN_EGG;
     @ItemData(zhCn = "生成 可疑的盔甲架<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> STRANGE_ARMOUR_STAND_SPAWN_EGG;
-    @ItemData(zhCn = "拼凑者刷怪蛋",model = ItemData.ModelType.CUSTOM)
     @ItemData(zhCn = "生成 陶瓦傀儡<一点都没完成,备战2027年下半年>",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> TERRACOTTA_GOLEM_SPAWN_EGG;
     @ItemData(zhCn = "生成 拼凑者",model = ItemData.ModelType.CUSTOM)
@@ -2370,8 +2369,6 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
         ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG = registerWithTab("ancient_mechanism_commander_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER,0x252525,0x8C1F2D,new Item.Properties()));
-        HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new BucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new ImmortalersBucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         HATRED_FIRE = block(ImmortalersDelightBlocks.HATRED_FIRE);
 

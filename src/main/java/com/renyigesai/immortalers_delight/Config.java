@@ -24,6 +24,10 @@ public class Config {
 
     public static final ForgeConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER.comment("What you want the introduction message to be for the magic number").define("magicNumberIntroduction", "The magic number is... ");
 
+    private static final ForgeConfigSpec.IntValue MAX_SCAVENGERS_PER_RAID_WAVE = BUILDER
+            .comment("Maximum number of Scavengers that can spawn in each raid wave. Set to 0 to disable raid Scavenger spawns.")
+            .defineInRange("maxScavengersPerRaidWave", 3, 0, 64);
+
     // a list of strings that are treated as resource locations for items
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER.comment("A list of items to log on common setup.").defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), Config::validateItemName);
 
@@ -296,6 +300,7 @@ public class Config {
     }
 
     public static boolean logDirtBlock;
+    public static int maxScavengersPerRaidWave = 3;
     public static int magicNumber;
     public static int ancientBoatNeeded_1;
     public static int ancientChestBoatNeeded_1;
@@ -349,6 +354,7 @@ public class Config {
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
+        maxScavengersPerRaidWave = MAX_SCAVENGERS_PER_RAID_WAVE.get();
         logDirtBlock = LOG_DIRT_BLOCK.get();
         magicNumber = MAGIC_NUMBER.get();
         ancientBoatNeeded_1 = ANCIENT_BOAT_NEEDED_1_NUMBER.get();

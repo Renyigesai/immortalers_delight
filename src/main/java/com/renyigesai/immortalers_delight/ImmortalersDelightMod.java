@@ -304,6 +304,9 @@ public class ImmortalersDelightMod {
                     new SnifferSaddleUpgradedModel<>(event.getEntityModels().bakeLayer(SnifferSaddleUpgradedModel.LAYER_LOCATION))
                 ));
             }
+        }
+
+        @SubscribeEvent
         public static void onAdditionalModel(ModelEvent.RegisterAdditional event){
             event.register(new ResourceLocation(MODID,"item/wakimaya_tanto_render"));
         }
@@ -326,6 +329,8 @@ public class ImmortalersDelightMod {
                         EntityRenderers.register(ImmortalersDelightEntities.IMMORTAL_CHEST_BOAT.get(), pContext -> new ImmortalersBoatRenderer(pContext, true));
                         EntityRenderers.register(ImmortalersDelightEntities.ANCIENT_WOOD_CHEST_BOAT.get(), pContext -> new AncientWoodBoatRenderer(pContext, true));
                         ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
+                        ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.A_BUSH_DOOR.get(), RenderType.cutout());
+                        ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.A_BUSH_TRAPDOOR.get(), RenderType.cutout());
                         MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.ANTIQUE_BAG_MENU.get(), AntiqueBagScreen::new);

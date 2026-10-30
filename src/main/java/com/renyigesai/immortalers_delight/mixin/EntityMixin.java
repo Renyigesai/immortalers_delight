@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     
-    @Shadow public abstract CompoundTag getPersistentData();
+    @Shadow(remap = false) public abstract CompoundTag getPersistentData();
 
 }
