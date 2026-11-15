@@ -6,6 +6,7 @@ import com.renyigesai.immortalers_delight.entities.projectile.KiBlastEntity;
 import com.renyigesai.immortalers_delight.entities.projectile.SoulFireballEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersTrigger;
 import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.recipe.SoulInfuserRecipe;
@@ -20,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -45,6 +47,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
     // 0-8: 原料, 9: 输出, 10: 燃料
@@ -52,7 +55,26 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
     public static final int FUEL_SLOT = 10;
     private static final int[] INPUT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
 
-    private final ItemStackHandler inventory = new ItemStackHandler(11);
+    private UUID fuelSupplier;
+    private final ItemStackHandler inventory = new ItemStackHandler(11) {
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            ItemStack remainder = super.insertItem(slot, stack, simulate);
+            if (slot == FUEL_SLOT && !simulate && remainder.getCount() < stack.getCount()) {
+                fuelSupplier = null;
+                setChanged();
+            }
+            return remainder;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            if (slot == FUEL_SLOT && getStackInSlot(slot).isEmpty()) {
+                fuelSupplier = null;
+                setChanged();
+            }
+        }
+    };
     public int progress = 0;
     public int maxProgress = 200;
     public int charge = 0;          // 剩余充能
@@ -105,6 +127,10 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         return stack.is(ImmortalersDelightItems.MOON_OIL.get());
     }
 
+    public void recordFuelSupplier(ServerPlayer player) {
+        fuelSupplier = player.getUUID();
+        setChanged();
+    }
 
     private int animationTime = 0;//当前动画进行的时间，这个值仅客户端，注意这个值每次切换动画都重置
 
@@ -121,7 +147,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
     private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
     public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
 //        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
-        if (level.isClientSide) return;
+        if (!(level instanceof ServerLevel serverLevel)) return;
 
         // 检查过载爆炸
         if (entity.charge > 64) {
@@ -173,6 +199,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         Optional<SoulInfuserRecipe> recipeOpt = entity.getCurrentRecipe();
         boolean hasRecipe = recipeOpt.isPresent() && entity.canCraft(recipeOpt.get().getResultItem(level.registryAccess()));
 
+        UUID consumedFuelSupplier = null;
         // 每隔8秒（危险临界后12秒）吸收一次燃料
         if (hasRecipe) {
             entity.fuelTimer++;
@@ -184,7 +211,9 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
                         ItemUtils.spawnItemEntity(entity.level,fuelStack.getCraftingRemainingItem(),
                                 pos.getX(),pos.getY(),pos.getZ(),0.0f,0.0f,0.0f);
                     }
+                    consumedFuelSupplier = entity.fuelSupplier;
                     fuelStack.shrink(1);
+                    if (fuelStack.isEmpty()) entity.fuelSupplier = null;
                     entity.charge += 15;
                     //进入危险状态时发出警告
                     if (entity.charge >= 48) {
@@ -232,6 +261,10 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
             }
         }
 
+        if (entity.charge > 64 && consumedFuelSupplier != null) {
+            ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(consumedFuelSupplier);
+            if (player != null) ImmortalersTrigger.OVERLOAD_SOUL_INFUSER.trigger(player);
+        }
         setChanged(level, pos, state);
     }
 
@@ -324,6 +357,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         tag.putInt("MaxProgress", maxProgress);
         tag.putInt("Charge", charge);
         tag.putInt("FuelTimer", fuelTimer);
+        if (fuelSupplier != null) tag.putUUID("FuelSupplier", fuelSupplier);
     }
 
     @Override
@@ -334,6 +368,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         maxProgress = tag.getInt("MaxProgress");
         charge = tag.getInt("Charge");
         fuelTimer = tag.getInt("FuelTimer");
+        fuelSupplier = tag.hasUUID("FuelSupplier") ? tag.getUUID("FuelSupplier") : null;
     }
 
     @Override

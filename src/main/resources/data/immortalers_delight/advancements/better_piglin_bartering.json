@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:golden_cake"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.better_piglin_bartering.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.better_piglin_bartering.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "better_piglin_bartering": {
+      "trigger": "immortalers_delight:better_piglin_bartering"
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

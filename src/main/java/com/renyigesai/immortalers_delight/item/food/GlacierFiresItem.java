@@ -1,8 +1,10 @@
 package com.renyigesai.immortalers_delight.item.food;
 
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.init.ImmortalersTrigger;
 import com.renyigesai.immortalers_delight.item.PowerfulAbleFoodItem;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
@@ -32,8 +34,12 @@ public class GlacierFiresItem extends PowerfulAbleFoodItem {
         ItemStack result = super.finishUsingItem(stack, level, consumer);
 
         if (level.isClientSide()) return result;
-        if (consumer.getRandom().nextBoolean()) result.grow(1);
-        else if (DifficultyModeUtil.isPowerBattleMode()) {
+        if (consumer.getRandom().nextBoolean()) {
+            result.grow(1);
+            if (consumer instanceof ServerPlayer player) {
+                ImmortalersTrigger.GLACIER_FIRES_REFUND.trigger(player);
+            }
+        } else if (DifficultyModeUtil.isPowerBattleMode()) {
             MobEffectInstance instance = consumer.getEffect(ImmortalersDelightMobEffect.LET_IT_FREEZE.get());
             if (instance != null) {
                 int time = instance.getDuration();

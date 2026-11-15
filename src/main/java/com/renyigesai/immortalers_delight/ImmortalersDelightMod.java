@@ -121,6 +121,7 @@ public class ImmortalersDelightMod {
         ImmortalersDelightParticleTypes.REGISTRY.register(bus);
         ImmortalersDelightPotions.REGISTRY.register(bus);
         ImmortalersDelightBiomeFeatures.FEATURES.register(bus);
+        ImmortalersDelightStructureTypes.REGISTRY.register(bus);
         ImmortalersDelightMenuTypes.MENUS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         ImmortalersDelightEntities.ENTITY_TYPES.register(bus);
@@ -169,6 +170,7 @@ public class ImmortalersDelightMod {
         CriteriaTriggers.register(RESIST_GAS_POISONING_TRIGGER);
         CriteriaTriggers.register(POWER_BATTLE_MODE_TRIGGER);
         CriteriaTriggers.register(IMM_BOAT_UPGRADE_TRIGGER);
+        ImmortalersTrigger.register();
     }
 
     @Mod.EventBusSubscriber(modid = ImmortalersDelightMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

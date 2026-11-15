@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:glacier_fires"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.glacier_fires_refund.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.glacier_fires_refund.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "glacier_fires_refund": {
+      "trigger": "immortalers_delight:glacier_fires_refund"
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "immortalers_delight:terrain_checked_ruins",
+  "biomes": "#immortalers_delight:has_structure/garden_ruins",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "start_pool": "immortalers_delight:garden_ruins",
+  "size": 1,
+  "start_height": {
+    "absolute": -4
+  },
+  "project_start_to_heightmap": "WORLD_SURFACE",
+  "terrain_adaptation": "beard_thin",
+  "max_distance_from_center": 32,
+  "max_terrain_height_difference": 6
+}

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:wakimaya_tanto"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_wakimaya_tanto.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_wakimaya_tanto.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_wakimaya_tanto": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:wakimaya_tanto"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

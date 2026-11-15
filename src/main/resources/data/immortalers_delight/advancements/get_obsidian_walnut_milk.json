@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:obsidian_walnut_milk"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_obsidian_walnut_milk.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_obsidian_walnut_milk.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_obsidian_walnut_milk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:obsidian_walnut_milk"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

@@ -1,6 +1,5 @@
 package com.renyigesai.immortalers_delight.mixin;
 
-import com.renyigesai.immortalers_delight.api.ISnifferSaddleData;
 import com.renyigesai.immortalers_delight.api.SnifferAnimations;
 import com.renyigesai.immortalers_delight.api.event.SnifferDropSeedEvent;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -35,25 +33,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(Sniffer.class)
-public abstract class SnifferMixin extends Animal implements ISnifferSaddleData {
-
-    @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
+public abstract class SnifferMixin extends Animal {
 
     @Shadow @Final public AnimationState feelingHappyAnimationState;
 
     @Shadow protected abstract BlockPos getHeadBlock();
 
-    @Shadow public abstract void tick();
+    protected SnifferMixin(EntityType<? extends Animal> entityType, Level level) {
+        super(entityType, level);
+    }
 
-    protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
-        super(p_27557_, p_27558_);
-    }
-    
-    public boolean isSaddled() {
-        return SnifferSaddleItem.hasSaddle((Sniffer)(Object)this);
-    }
-    
-    
     @Inject(method = "tick", at = @At("TAIL"))
     private void immortalersDelight$tickHappyAnimation(CallbackInfo ci) {
         if (!this.level().isClientSide()) {
@@ -144,13 +133,9 @@ public abstract class SnifferMixin extends Animal implements ISnifferSaddleData 
     @Override
     public boolean canFallInLove() {
         CompoundTag tag = this.getPersistentData();
-        if (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT)){
-            return super.canFallInLove();
-        }
-        if (tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN,Tag.TAG_INT) && tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0){
-            return super.canFallInLove();
-        }
-        return false;
+        return (!tag.contains(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN, Tag.TAG_INT)
+                || tag.getInt(SnifferEvent.SNIFFER_TAIL_REGENERATION_COOLDOWN) == 0)
+                && super.canFallInLove();
     }
 
     @Override
@@ -162,7 +147,4 @@ public abstract class SnifferMixin extends Animal implements ISnifferSaddleData 
     protected boolean canRide(net.minecraft.world.entity.Entity entity) {
         return false;
     }
-
 }
-
-//opus5 牛逼

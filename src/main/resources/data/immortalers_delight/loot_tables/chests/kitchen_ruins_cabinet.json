@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 2
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cookie",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dried_kelp",
+          "weight": 2
+        }
+      ]
+    }
+  ],
+  "random_sequence": "immortalers_delight:chests/kitchen_ruins_cabinet"
+}

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:fired_water"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_fired_water.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_fired_water.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_fired_water": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:fired_water"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_soul_infuser"
+}

@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:blazing_obsidian_walnut"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.throw_blazing_obsidian_walnut.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.throw_blazing_obsidian_walnut.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "throw_blazing_obsidian_walnut": {
+      "trigger": "immortalers_delight:throw_blazing_obsidian_walnut"
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

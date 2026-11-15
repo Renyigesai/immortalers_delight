@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:no_burning_fire"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_no_burning_fire.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_no_burning_fire.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_no_burning_fire": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:no_burning_fire"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_antique_bag"
+}
