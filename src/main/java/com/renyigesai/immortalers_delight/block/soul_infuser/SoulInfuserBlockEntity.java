@@ -162,10 +162,10 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
             entity.actions.AnimationTick();
         }
     }
-    private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
-    public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
-//        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
-        if (!(level instanceof ServerLevel serverLevel)) return;
+//    private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
+//    public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
+////        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
+//        if (!(level instanceof ServerLevel serverLevel)) return;
 
     public static void combatTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
 
@@ -199,10 +199,11 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
             }
         }
     }
-//    private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
+    private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
     public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
 //        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
         if (level.isClientSide) return;
+        if (!(level instanceof ServerLevel serverLevel)) return;
 
         // 检查过载爆炸
         if (entity.charge >= 64) {
@@ -241,7 +242,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         // 每隔8秒（危险临界后12秒）吸收一次燃料
         if (hasRecipe) {
             entity.fuelTimer++;
-            if (entity.fuelTimer >= (entity.charge > 48 ? 240 : 160)) {
+            if (entity.charge == 0 || entity.fuelTimer >= (entity.charge > 48 ? 240 : 160)) {
                 entity.fuelTimer = 0;
                 ItemStack fuelStack = entity.inventory.getStackInSlot(FUEL_SLOT);
                 if (entity.isFuel(fuelStack)) {

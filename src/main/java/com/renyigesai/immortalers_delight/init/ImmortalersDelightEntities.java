@@ -193,8 +193,8 @@ public class ImmortalersDelightEntities {
             ENTITY_TYPES.register("pierce_soul", () -> EntityType.Builder.<PierceSoulEntity>of(PierceSoulEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(4)
-                    .updateInterval(10)
-                    .build("hatredfire_bolt"));
+                    .updateInterval(20)
+                    .build("pierce_soul"));
 
     public static final RegistryObject<EntityType<BladeEnergy>> BLADE_ENERGY =
             ENTITY_TYPES.register("blade_energy", () -> EntityType.Builder.of(BladeEnergy::new, MobCategory.MISC)
@@ -203,12 +203,6 @@ public class ImmortalersDelightEntities {
                     .updateInterval(1)
                     .build("blade_energy"));
 
-
-//    public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> HIJACKED_SOUL_INFUSER =
-//            ENTITY_TYPES.register("hijacked_soul_infuser", () -> EntityType.Builder.of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
-//                    .sized(2.0f, 2.0f).build("hijacked_soul_infuser"));
-                    .updateInterval(20)
-                    .build("pierce_soul"));
     public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> FOCUSED_SOUL =
             ENTITY_TYPES.register("focused_soul", () -> EntityType.Builder.<SoulInfuserTargetEntity>of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
                     .fireImmune()
