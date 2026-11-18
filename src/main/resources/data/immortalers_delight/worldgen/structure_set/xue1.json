@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "immortalers_delight:xue1",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1906847729,
+    "spacing": 32,
+    "separation": 12
+  }
+}

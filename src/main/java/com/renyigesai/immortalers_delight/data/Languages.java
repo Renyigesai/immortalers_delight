@@ -52,6 +52,7 @@ public class Languages extends LanguageProvider {
     private static final String FARMERSDELIGHT_TOOLTIP_2 = "tooltip.farmersdelight.";
     private static final String FARMERSDELIGHT_TOOLTIP_REVERSE = "tooltip.farmersdelight.";
     private static final String ENTITY = "entity.immortalers_delight.";
+    private static final String KEY_MAPPING = "key.immortalers_delight.";
 
     public Languages(PackOutput output, String locale) {
         super(output, ImmortalersDelightMod.MODID, locale);
@@ -93,6 +94,7 @@ public class Languages extends LanguageProvider {
         addAdvancements();
         adds();
         addIngredientInfos();
+        addKeys();
     }
 
     private void addItems() throws IllegalAccessException {
@@ -258,6 +260,7 @@ public class Languages extends LanguageProvider {
         createTooltip(IS_COLORFUL + "glacier_fires", "再来一包？下次惠顾……", "Another pack? Come back soon...");
         createTooltip(IS_COLORFUL + "ice_and_fire_cream", "将[冻结吧！]效果转换为[燃起来了！]效果", "Change your [Let it Freeze!] effect to [Warm Current Surges]");
         createTooltip(IS_COLORFUL + "rough_sandwich","可以喂食其他生物，令其获得的[洪荒之力]更加强大","Feedable to other mobs, and makes then next gained [Prehistoric Powers] stronger.");
+        createTooltip("antique","佩戴时：","When wearing:");
 
         createTooltip("bread_jam.toppings", "加料 (%s/%s)：", "Applied Toppings (%s/%s): ");
 
@@ -321,6 +324,7 @@ public class Languages extends LanguageProvider {
     private void addContainers(){
         createContainer("enchantal_cooler","Enchantal Cooler","魔凝机");
         createContainer("hot_spring","Grudge Spring","怨泉");
+        createContainer("antique_bag","Antique Bag","古物包");
         add("emi.category.immortalers_delight.enchantal_cooler", "Enchantal Cooler", "魔凝机");
         add("emi.category.immortalers_delight.hot_spring", "Grudge Spring", "怨泉");
     }
@@ -453,11 +457,32 @@ public class Languages extends LanguageProvider {
         createAdvancement("imm_boat_upgrade",translateText("Bigger! Better! Stronger!","更大！更好！更强！"),translateText("Build a large ship.","制造一艘大船。"));
         createAdvancement("get_sextlotus_seeds",translateText("Lunar soil tide","月壤潮汐"),translateText("Obtain Sextlotus Seeds in Forest.","在森林获得既望莲子。"));
         createAdvancement("get_moon_lantern",translateText("Pseudo Moonlight","赝作月华"),translateText("Use the Moonlight Phantom Lamp to accelerate the growth of Sextlotus.","使用幻月灯促进既望莲的生长。"));
+        createAdvancement("get_soul_infuser",translateText("Feast of Aidoneus","埃多纽斯之宴"),translateText("Obtain a Soul Infuser.","获得灵魂炸锅。"));
+        createAdvancement("overload_soul_infuser",translateText("Overcooked","胡闹厨房"),translateText("Overload a Soul Infuser.","使灵魂炸锅过载。"));
+        createAdvancement("get_wraithstone",translateText("Kaiseki","怀石料理"),translateText("Obtain any Wraithstone block.","获得任意怨灵石系列方块。"));
+        createAdvancement("get_fired_water",translateText("The Kids Next Door Are Drooling","隔壁小孩都馋哭了"),translateText("Obtain Fired Water.","获得炸水。"));
+        createAdvancement("get_oxygrape",translateText("Tears of the Stonevine","石藤沐泪"),translateText("Obtain Oxygrapes.","获得氧葡萄。"));
+        createAdvancement("get_ice_and_fire_cream",translateText("A Dance of Ice and Fire","冰与火之舞"),translateText("Obtain Ice and Fire Cream.","获得冰火淇淋。"));
+        createAdvancement("get_alfalfa_popsicle",translateText("Oh No…","哦不……"),translateText("Obtain an Alfalfa Popsicle.","获得宿苜冰棍。"));
+        createAdvancement("get_mocha_aoba",translateText("It Tastes Like Camellia!","是山茶花味的！"),translateText("Obtain Mocha Aoba.","获得青叶摩卡。"));
+        createAdvancement("glacier_fires_refund",translateText("Keep Munching!","噜起来了！"),translateText("Trigger the Glacier Fires buy-one-get-one offer.","触发冰川薯条的买一送一。"));
+        createAdvancement("get_obsidian_walnut_milk",translateText("Stuck Somewhere Strange","卡进了奇怪的地方"),translateText("Obtain Obsidian Walnut Milk.","获得胡桃仁奶。"));
+        createAdvancement("get_wakimaya_tanto",translateText("A Cup of Bushido?","要来一杯武士道吗？"),translateText("Obtain the Wakimaya Tanto.","获得若宫太刀。"));
+        createAdvancement("coat_pillager_knife",translateText("My Blade Is Deadly Poisonous","我这把刀可是剧毒的"),translateText("Take a potion-coated Pillager Knife from the Enchantal Cooler.","从魔凝机取出涂有药水效果的灾厄匕首。"));
+        createAdvancement("throw_blazing_obsidian_walnut",translateText("Explosive Dawn","爆裂黎明"),translateText("Throw a Blazing Obsidian Walnut.","投掷出一个燃曜石胡桃。"));
+        createAdvancement("get_baka_sandwich",translateText("What Kind of Sandwich Is This?","这是什么三明治？"),translateText("Obtain a Baka Sandwich.","获得笨蛋三明治。"));
+        createAdvancement("get_climbing_rope",translateText("Ancient and Practical","古老实用"),translateText("Obtain a Climbing Rope.","获得攀绳。"));
+        createAdvancement("get_antique_bag",translateText("Immortalers Delight Expansion Pack!","千古乐事“拓展”包！"),translateText("Obtain an Antique Bag.","获得古物包。"));
+        createAdvancement("get_alfalfa_mass",translateText("Grow, Grow, Grow","生长，生长，生长"),translateText("Obtain an Alfalfa Mass.","获得苜蓿团块。"));
+        createAdvancement("get_no_burning_fire",translateText("Let Me Be Your Flame","让我成为你的火焰"),translateText("Obtain No Burning Fire.","获得无灼火。"));
+        createAdvancement("get_ragged_paper_clips",translateText("Elegy for Freedom","自由之殇"),translateText("Obtain Ragged Paper Clips.","获得碎镇纸。"));
+        createAdvancement("better_piglin_bartering",translateText("A Word in Private","借一步说话"),translateText("Complete an advanced barter with a Piglin.","进行一次高级猪灵交易。"));
     }
 
     private void addEntitys(){
         createEntity(ImmortalersDelightEntities.SKELVERFISH_THRASHER.get(),"Skelverfish Thrasher");
         createEntity(ImmortalersDelightEntities.SCAVENGER.get(),"拼凑者");
+        createEntity(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER.get(),"古械统领");
         createEntity(ImmortalersDelightEntities.BASE_EFFECT_CLOUD.get(),"区域效果云");
         createEntity(ImmortalersDelightEntities.CAUSTIC_ESSENTIAL_OIL.get(), "炽烈精油");
         createEntity(ImmortalersDelightEntities.GAS_EFFECT_CLOUD.get(), "绯烬尘霾");
@@ -483,6 +508,8 @@ public class Languages extends LanguageProvider {
     }
 
     private void adds(){
+        add("guideme.immortalers_delight.guide_name", "Immortalers Delight Guide", "千古乐事指南");
+        add("guideme.immortalers_delight.guide_tooltip", "A field guide to ancient crops, cooking, and exploration.", "古代作物、烹饪与探索指南。");
         add("death.attack.drunk","%1$s Drunk on the asphalt","%1$s 醉倒在柏油路上");
         add("death.attack.drunk.item","%1$s was killed by %2$s using %3$s","%1$ 被 %2$s 杀死 %3$s");
         add("death.attack.drunk.player","%1$ died whilst trying to escap %2$s","%1$ 在试图逃跑时死亡 %2$s");
@@ -511,6 +538,8 @@ public class Languages extends LanguageProvider {
         add("item.minecraft.splash_potion.effect.gas","Splash potion of Gas","喷溅型绯烬烈灼药水");
         add("item.minecraft.lingering_potion.effect.gas","Lingering potion of Gas","滞留型绯烬烈灼药水");
         createTooltip("ancient_nectar_jelly", "恢复未吃完的蛋糕、宴席和派，或按方块转换配方改变方块。", "Restores unfinished cakes, feasts, and pies, or transforms blocks using change-block recipes.");
+
+        add("key." + ImmortalersDelightMod.MODID + "." + ImmortalersDelightMod.MODID,"Immortalers Delight","千古乐事");
 
 //        add("jei.immortalers_delight.info.evolutcorn_grains","It was obtained by the sniffing animals by digging in the plains, snowfields, meadows and sunflower plains.","由嗅探兽在平原、雪原、草甸、向日葵平原挖掘获得。");
     }
@@ -604,6 +633,14 @@ public class Languages extends LanguageProvider {
         );
     }
 
+    private void addKeys(){
+        createKey("auxiliary","Auxiliary","辅助按键");
+        createKey("antique_tool_slot_1","Antique Bag Quick Tool 1","古物包快捷工具1");
+        createKey("antique_tool_slot_2","Antique Bag Quick Tool 2","古物包快捷工具2");
+        createKey("antique_tool_slot_3","Antique Bag Quick Tool 3","古物包快捷工具3");
+    }
+
+
     private void createDesc(String key,String en_us,String zh_cn){
         add(ADVANCEMENT + key + ".descr",en_us,zh_cn);
     }
@@ -652,6 +689,10 @@ public class Languages extends LanguageProvider {
 
     private void createEntity(String key,String en_us,String zh_cn){
         add(ENTITY + key,en_us,zh_cn);
+    }
+
+    private void createKey(String key,String en_us,String zh_cn){
+        add(KEY_MAPPING + key,en_us,zh_cn);
     }
 
     @Override

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:alfalfa_popsicle"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_alfalfa_popsicle.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_alfalfa_popsicle.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_alfalfa_popsicle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:alfalfa_popsicle"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_alfalfa_seeds"
+}

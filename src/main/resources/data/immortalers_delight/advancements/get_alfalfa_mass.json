@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:alfalfa_mass"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_alfalfa_mass.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_alfalfa_mass.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_alfalfa_mass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immortalers_delight:alfalfa_mass"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:get_antique_bag"
+}

@@ -5,6 +5,7 @@ import com.renyigesai.immortalers_delight.block.soul_infuser.SoulInfuserBlockEnt
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -35,19 +36,19 @@ public class SoulInfuserMenu extends AbstractContainerMenu {
             }
         }
 
-        // 2. 左侧燃料栏位 (Slot 10)
-        this.addSlot(new SlotItemHandler(inv, SoulInfuserBlockEntity.FUEL_SLOT, 8, 68) {
-            @Override
-            public boolean mayPlace(@NotNull ItemStack stack) {
-                return blockEntity.isFuel(stack);
-            }
-        });
-
-        // 3. 右侧输出栏位 (Slot 9)
+        // 2. 右侧输出栏位 (Slot 9)
         this.addSlot(new SlotItemHandler(inv, SoulInfuserBlockEntity.OUTPUT_SLOT, 134, 41) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
+            }
+        });
+
+        // 3. 左侧燃料栏位 (Slot 10)
+        this.addSlot(new SlotItemHandler(inv, SoulInfuserBlockEntity.FUEL_SLOT, 8, 68) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return blockEntity.isFuel(stack);
             }
         });
 
@@ -82,6 +83,16 @@ public class SoulInfuserMenu extends AbstractContainerMenu {
         int maxCharge = tool > 48 ? 240 : 160; // 充燃料进度
         return charge != 0 ? Math.min(16, charge * 16 / maxCharge) : 0;
     }
+    @Override
+    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        int previousFuelCount = blockEntity.getInventory().getStackInSlot(SoulInfuserBlockEntity.FUEL_SLOT).getCount();
+        super.clicked(slotId, button, clickType, player);
+        ItemStack fuel = blockEntity.getInventory().getStackInSlot(SoulInfuserBlockEntity.FUEL_SLOT);
+        if (player instanceof ServerPlayer serverPlayer && fuel.getCount() > previousFuelCount && blockEntity.isFuel(fuel)) {
+            blockEntity.recordFuelSupplier(serverPlayer);
+        }
+    }
+
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;

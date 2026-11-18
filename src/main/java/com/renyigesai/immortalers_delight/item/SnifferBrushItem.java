@@ -1,11 +1,15 @@
 package com.renyigesai.immortalers_delight.item;
 
+import com.renyigesai.immortalers_delight.api.IPlayerLastAntiqueSlot;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlock;
 import com.renyigesai.immortalers_delight.block.brushable.ModBrushableBlockEntity;
+import com.renyigesai.immortalers_delight.api.SnifferAnimations;
 import com.renyigesai.immortalers_delight.event.SnifferEvent;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticles;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagHandler;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -72,6 +76,10 @@ public class SnifferBrushItem extends BrushItem {
                 //被刷毛的嗅探兽不移动
                 if (pRemainingUseDuration % 4 == 0 && pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer sniffer) sniffer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 5, false,  false));
 
+                if (pLevel instanceof ServerLevel && entityHitResult.getEntity() instanceof Sniffer brushedSniffer) {
+                    brushedSniffer.getEntityData().set(SnifferAnimations.HAPPY_TICKS, SnifferAnimations.HAPPY_DURATION_TICKS);
+                }
+
                 if ((this.getUseDuration(pStack) - pRemainingUseDuration + 1) == this.getUseDuration(pStack)/2) {
                     Entity entity = entityHitResult.getEntity();
                     BlockPos blockPos = entity.blockPosition();
@@ -102,7 +110,17 @@ public class SnifferBrushItem extends BrushItem {
                                 break;
                             }
                         }
-                        sniffer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 599, lv + 1));
+                        lv = lv + 1;
+                        //1.2.4新增，背包内古物包存在苜蓿团块时，生命恢复等级增加三倍。
+                        AntiqueBagHandler.BagRecord lastAntiqueSlot = ((IPlayerLastAntiqueSlot) player).getLastAntiqueSlot();
+                        if (lastAntiqueSlot != null){
+                            if (lastAntiqueSlot.stack().getItem() instanceof AntiqueBagItem bagItem){
+                                if (bagItem.containsAntique(lastAntiqueSlot.stack(), ImmortalersDelightItems.ALFALFA_MASS.get())){
+                                    lv = lv * 3;
+                                }
+                            }
+                        }
+                        sniffer.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 599, lv));
                         //回血消耗刷子耐久
                         if (!player.getAbilities().instabuild) {
                             itemDamage +=10;

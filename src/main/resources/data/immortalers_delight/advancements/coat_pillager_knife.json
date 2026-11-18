@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:pillager_knife"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.coat_pillager_knife.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.coat_pillager_knife.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "coat_pillager_knife": {
+      "trigger": "immortalers_delight:coat_pillager_knife"
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

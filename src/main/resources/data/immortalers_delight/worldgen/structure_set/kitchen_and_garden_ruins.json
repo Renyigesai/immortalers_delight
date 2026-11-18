@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "immortalers_delight:kitchen_ruins",
+      "weight": 1
+    },
+    {
+      "structure": "immortalers_delight:garden_ruins",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 853614270,
+    "spacing": 36,
+    "separation": 16
+  }
+}

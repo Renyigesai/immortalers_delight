@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:soul_infuser"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.overload_soul_infuser.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.overload_soul_infuser.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "overload_soul_infuser": {
+      "trigger": "immortalers_delight:overload_soul_infuser"
+    }
+  },
+  "parent": "immortalers_delight:get_soul_infuser"
+}

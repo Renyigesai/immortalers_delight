@@ -8,6 +8,7 @@ import com.renyigesai.immortalers_delight.entities.projectile.ToxicGasGrenadeEnt
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightParticleTypes;
+import com.renyigesai.immortalers_delight.init.ImmortalersTrigger;
 import com.renyigesai.immortalers_delight.potion.BaseMobEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -350,7 +352,9 @@ public class BlazingObsidianWalnutItem extends Item {
                 if (instance != null) {
                     arrow.setDangerous(true);
                 }
-                pLevel.addFreshEntity(arrow);
+                if (pLevel.addFreshEntity(arrow) && pEntityLiving instanceof ServerPlayer player) {
+                    ImmortalersTrigger.THROW_BLAZING_OBSIDIAN_WALNUT.trigger(player);
+                }
             }
             if (pEntityLiving instanceof Player pPlayer && !pPlayer.getAbilities().instabuild) {
                 itemstack.shrink(1);

@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.init;
 
+import com.renyigesai.immortalers_delight.screen.*;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerMenu;
 import com.renyigesai.immortalers_delight.screen.LargeCabinetMenu;
 import com.renyigesai.immortalers_delight.screen.SoulInfuserMenu;
@@ -24,6 +25,9 @@ public class ImmortalersDelightMenuTypes {
 
     public static final RegistryObject<MenuType<SoulInfuserMenu>> SOUL_INFUSER_MENU = MENUS.register("soul_infuser_menu",
             () -> IForgeMenuType.create(SoulInfuserMenu::new));
+
+    public static final RegistryObject<MenuType<AntiqueBagMenu>> ANTIQUE_BAG_MENU = MENUS.register("antique_bag_menu",
+            () -> IForgeMenuType.create(AntiqueBagMenu::create));
 
     public static final RegistryObject<MenuType<LargeCabinetMenu>> LARGE_CABINET_MENU =
             MENUS.register("large_cabinet_menu", () -> IForgeMenuType.create(LargeCabinetMenu::new));

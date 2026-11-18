@@ -2,11 +2,17 @@ package com.renyigesai.immortalers_delight.mixin;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.init.ImmortalersTrigger;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -18,8 +24,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mixin(PiglinAi.class)
 public class PiglinAiMixin {
@@ -30,11 +38,45 @@ public class PiglinAiMixin {
     @Unique
     private static final ResourceLocation BETTER_BARTER_LOOT_TABLE =
             new ResourceLocation(ImmortalersDelightMod.MODID, "gameplay/better_piglin_bartering");
+    @Unique
+    private static final String GOLDEN_CAKE_TRADER = "ImmortalersDelightGoldenCakeTrader";
+    @Unique
+    private static final String HOLD_IN_OFFHAND = "Lnet/minecraft/world/entity/monster/piglin/PiglinAi;holdInOffhand(Lnet/minecraft/world/entity/monster/piglin/Piglin;Lnet/minecraft/world/item/ItemStack;)V";
+
+    @Inject(method = "holdInOffhand", at = @At("HEAD"))
+    private static void clearPreviousTrader(Piglin piglin, ItemStack stack, CallbackInfo ci) {
+        piglin.getPersistentData().remove(GOLDEN_CAKE_TRADER);
+    }
+
+    @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = HOLD_IN_OFFHAND, shift = At.Shift.AFTER))
+    private static void recordHandedCakeTrader(Piglin piglin, Player player, InteractionHand hand,
+                                               CallbackInfoReturnable<InteractionResult> cir) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            immortalersDelight$recordTrader(piglin, serverPlayer);
+        }
+    }
+
+    @Inject(method = "pickUpItem", at = @At(value = "INVOKE", target = HOLD_IN_OFFHAND, shift = At.Shift.AFTER))
+    private static void recordThrownCakeTrader(Piglin piglin, ItemEntity item, CallbackInfo ci) {
+        if (item.getOwner() instanceof ServerPlayer serverPlayer) {
+            immortalersDelight$recordTrader(piglin, serverPlayer);
+        }
+    }
+
+    @Unique
+    private static void immortalersDelight$recordTrader(Piglin piglin, ServerPlayer player) {
+        if (piglin.getOffhandItem().is(ImmortalersDelightItems.GOLDEN_CAKE.get())) {
+            piglin.getPersistentData().putUUID(GOLDEN_CAKE_TRADER, player.getUUID());
+        }
+    }
 
     @Inject(method = "stopHoldingOffHandItem", at = @At("HEAD"), cancellable = true)
     private static void stopHoldingOffHandItem(Piglin piglin, boolean pShouldBarter, CallbackInfo ci) {
         // 获取猪灵当前副手里端详的物品
         ItemStack offhandItem = piglin.getItemInHand(InteractionHand.OFF_HAND);
+        CompoundTag data = piglin.getPersistentData();
+        UUID trader = data.hasUUID(GOLDEN_CAKE_TRADER) ? data.getUUID(GOLDEN_CAKE_TRADER) : null;
+        data.remove(GOLDEN_CAKE_TRADER);
 
         // 判定是目标物品、处于服务端且确实需要结算交易（pShouldBarter 为 true）
         if (pShouldBarter && offhandItem.is(ImmortalersDelightItems.GOLDEN_CAKE.get()) && piglin.level() instanceof ServerLevel serverLevel) {
@@ -53,6 +95,10 @@ public class PiglinAiMixin {
             // 产生战利品并返回，提前结束原版逻辑
             List<ItemStack> result = customTable.getRandomItems(lootParams);
             throwItems(piglin, result);
+            if (trader != null) {
+                ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(trader);
+                if (player != null) ImmortalersTrigger.BETTER_PIGLIN_BARTERING.trigger(player);
+            }
             ci.cancel();
         }
     }

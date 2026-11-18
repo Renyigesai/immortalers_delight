@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "immortalers_delight:wraithstone"
+    },
+    "title": {
+      "translate": "advancements.immortalers_delight.get_wraithstone.title"
+    },
+    "description": {
+      "translate": "advancements.immortalers_delight.get_wraithstone.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_wraithstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "immortalers_delight:wraithstone"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "immortalers_delight:root"
+}

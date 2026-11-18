@@ -1,9 +1,13 @@
 package com.renyigesai.immortalers_delight.screen;
 
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMenuTypes;
+import com.renyigesai.immortalers_delight.init.ImmortalersTrigger;
+import com.renyigesai.immortalers_delight.item.weapon.PillagersKnifeItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -11,6 +15,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -43,6 +48,18 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
+            }
+
+            @Override
+            public void onTake(Player player, ItemStack stack) {
+                super.onTake(player, stack);
+                if (player instanceof ServerPlayer serverPlayer
+                        && stack.is(ImmortalersDelightItems.PILLAGER_KNIFE.get())
+                        && stack.hasTag()
+                        && stack.getTag().getInt(PillagersKnifeItem.MAX_POTION_COUNT) > 0
+                        && !PotionUtils.getMobEffects(stack).isEmpty()) {
+                    ImmortalersTrigger.COAT_PILLAGER_KNIFE.trigger(serverPlayer);
+                }
             }
         });
         // 添加燃料槽 (6)
@@ -125,6 +142,9 @@ public class EnchantalCoolerMenu extends AbstractContainerMenu {
             }
             if (stackInSlot.getCount() == originalStack.getCount()) {
                 return ItemStack.EMPTY;
+            }
+            if (slotIndex == EnchantalCoolerBlockEntity.OUTPUT_SLOT) {
+                slot.onTake(player, originalStack);
             }
         }
         return originalStack;

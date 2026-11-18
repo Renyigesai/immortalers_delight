@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.event;
 
 
+import com.renyigesai.immortalers_delight.Config;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.entities.living.illager_archaeological_team.Scavenger;
 import com.renyigesai.immortalers_delight.entities.living.SkelverfishBase;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -86,13 +88,18 @@ public class SkelverfishEventHelper {
             sniffer.goalSelector.addGoal(3, new TemptGoal(sniffer, 3.0D, Ingredient.of(ImmortalersDelightItems.SACHETS.get()), false));
         }
         if (event.getEntity() instanceof Pillager pillager) {
-            if (pillager.hasActiveRaid() && pillager.level() instanceof ServerLevel serverLevel) {
+            if (!event.loadedFromDisk() && pillager.hasActiveRaid() && pillager.level() instanceof ServerLevel serverLevel) {
+                Raid raid = pillager.getCurrentRaid();
+                int wave = pillager.getWave();
+                int scavengerCount = (int) raid.getAllRaiders().stream()
+                        .filter(raider -> raider instanceof Scavenger && raider.getWave() == wave)
+                        .count();
                 int r = pillager.getRandom().nextInt(3);
-                if (r == 0) {
+                if (r == 0 && scavengerCount < Config.maxScavengersPerRaidWave) {
                     Scavenger scavenger = new Scavenger(ImmortalersDelightEntities.SCAVENGER.get(), pillager.level());
-                    scavenger.setCurrentRaid(pillager.getCurrentRaid());
                     scavenger.finalizeSpawn(serverLevel, pillager.level().getCurrentDifficultyAt(pillager.blockPosition()), MobSpawnType.SPAWNER, (SpawnGroupData)null, (CompoundTag)null);
                     scavenger.moveTo(pillager.getX(), pillager.getY(), pillager.getZ(), pillager.getYRot(), pillager.getXRot());
+                    raid.joinRaid(wave, scavenger, null, false);
                     pillager.level().addFreshEntity(scavenger);
                 }
                 if (r == 1 && pillager.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {

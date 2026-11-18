@@ -39,5 +39,7 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
         generator.addProvider(event.includeClient(), new Recipes(output));
 
+        //ai写的看门狗，15秒后强制退出，将就用。
+        DataGenWatchdog.start(15_000L);
     }
 }

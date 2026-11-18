@@ -8,6 +8,10 @@ import com.renyigesai.immortalers_delight.entities.boat.ImmortalersChestBoat;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
 import com.renyigesai.immortalers_delight.item.*;
 //import com.renyigesai.immortalers_delight.util.datautil.worlddata.BaseImmortalWorldData;
+import com.renyigesai.immortalers_delight.item.antique.AlfalfaMassItem;
+import com.renyigesai.immortalers_delight.item.antique.AntiqueBagItem;
+import com.renyigesai.immortalers_delight.item.antique.NoBurningFireItem;
+import com.renyigesai.immortalers_delight.item.antique.RaggedPaperClipsItem;
 import com.renyigesai.immortalers_delight.item.food.*;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BakedObsidianWalnutItem;
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.BlazingObsidianWalnutItem;
@@ -15,7 +19,6 @@ import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.ObsidianWaln
 import com.renyigesai.immortalers_delight.item.food.obsidian_walnut.PieBoostFoodItem;
 import com.renyigesai.immortalers_delight.item.weapon.*;
 import com.renyigesai.immortalers_delight.potion.PrehistoricPowersMobEffect;
-import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,18 +27,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoulFireBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -96,6 +93,10 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_FULL_TATAMI_MAT;
     @ItemData(zhCn = "嗅探兽毛短榻榻米垫",group = OFF_MAIN)
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
+    @ItemData(zhCn = "嗅探兽鞍")
+    public static final RegistryObject<Item> SNIFFER_SADDLE;
+    @ItemData(zhCn = "嗅探兽鞍升级套件")
+    public static final RegistryObject<Item> SNIFFER_SADDLE_UPGRADE;
 
     /**主物品栏物品**/
 
@@ -132,7 +133,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> ANCIENT_BLADE;
     @ItemData(zhCn = "灾厄匕首",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> PILLAGER_KNIFE;
-    @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.TOOL)
+    @ItemData(zhCn = "骨质匕首",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> BONE_KNIFE;
     @ItemData(zhCn = "手持式砂轮",model = ItemData.ModelType.TOOL)
     public static final RegistryObject<Item> GRINDSTONE_HAMMER;
@@ -146,6 +147,16 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
     @ItemData(zhCn = "绯炵金纱")
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
+    @ItemData(zhCn = "若宫太刀",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> WAKIMAYA_TANTO;
+    @ItemData(zhCn = "古物包")
+    public static final RegistryObject<Item> ANTIQUE_BAG;
+    @ItemData(zhCn = "苜蓿团块")
+    public static final RegistryObject<Item> ALFALFA_MASS;
+    @ItemData(zhCn = "碎镇纸")
+    public static final RegistryObject<Item> RAGGED_PAPER_CLIPS;
+    @ItemData(zhCn = "无灼火")
+    public static final RegistryObject<Item> NO_BURNING_FIRE;
     @ItemData(zhCn = "刺魂针",model = ItemData.ModelType.CUSTOM,group = NOT)
     public static final RegistryObject<Item> SOUL_SWORD;
 
@@ -551,6 +562,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> TERRACOTTA_GOLEM_SPAWN_EGG;
     @ItemData(zhCn = "生成 拼凑者",model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SCAVENGER_SPAWN_EGG;
+    @ItemData(zhCn = "古械统领刷怪蛋",model = ItemData.ModelType.CUSTOM)
+    public static final RegistryObject<Item> ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG;
 
     @ItemData(zhCn = "古代口粮包")
     public static final RegistryObject<Item> SEALED_ANCIENT_RATIONS;
@@ -1823,6 +1836,16 @@ public class ImmortalersDelightItems {
         GOLDEN_FABRIC_VEIL = registerWithTab("golden_fabric_veil", () ->
                 new GoldenFabricArmor(ImmortalersArmorMaterials.GOLDEN_FABRIC,ArmorItem.Type.HELMET,fantasticItem(Rarity.RARE)));
 
+        WAKIMAYA_TANTO = registerWithTab("wakimaya_tanto",()-> new WakimayaTantoItem(new Item.Properties()));
+
+        ANTIQUE_BAG = registerWithTab("antique_bag",()-> new AntiqueBagItem(new Item.Properties().stacksTo(1),6));
+
+        ALFALFA_MASS = registerWithTab("alfalfa_mass", AlfalfaMassItem::new);
+
+        RAGGED_PAPER_CLIPS = registerWithTab("ragged_paper_clips", RaggedPaperClipsItem::new);
+
+        NO_BURNING_FIRE = registerWithTab("no_burning_fire", NoBurningFireItem::new);
+
         RAW_SNIFFER_SLICE = REGISTER.register("raw_sniffer_slice", () ->
                 new ConsumableItem(fantasticFoodItem(ImmortalersDelightFoodProperties.RAW_SNIFFER_SLICE, Rarity.COMMON, false), true));
 
@@ -1841,6 +1864,12 @@ public class ImmortalersDelightItems {
 
         SNIFFER_FUR_BRUSH = registerWithTab("sniffer_fur_brush", () ->
                 new SnifferBrushItem(fantasticItem(Rarity.UNCOMMON).durability(384)));
+
+        SNIFFER_SADDLE = registerWithTab("sniffer_saddle", () ->
+                new SnifferSaddleItem(fantasticItem(Rarity.UNCOMMON).stacksTo(1)));
+
+        SNIFFER_SADDLE_UPGRADE = registerWithTab("sniffer_saddle_upgrade", () ->
+                new com.renyigesai.immortalers_delight.item.SnifferSaddleUpgradeItem(fantasticItem(Rarity.RARE).stacksTo(16)));
 
         SACHETS = registerWithTab("sachets", () ->
                 new SachetsItem(fantasticItem(Rarity.UNCOMMON).durability(64),false,true));
@@ -2346,6 +2375,8 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.TERRACOTTA_GOLEM,1645516,6845733,new Item.Properties()));
         SCAVENGER_SPAWN_EGG = registerWithTab("scavenger_spawn_egg",()->
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
+        ANCIENT_MECHANISM_COMMANDER_SPAWN_EGG = registerWithTab("ancient_mechanism_commander_spawn_egg",()->
+                new ForgeSpawnEggItem(ImmortalersDelightEntities.ANCIENT_MECHANISM_COMMANDER,0x252525,0x8C1F2D,new Item.Properties()));
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new ImmortalersBucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         HATRED_FIRE = block(ImmortalersDelightBlocks.HATRED_FIRE);
         TRAVASTRUGGLER_CABINET = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_CABINET);

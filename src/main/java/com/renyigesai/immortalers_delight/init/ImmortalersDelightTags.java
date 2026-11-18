@@ -74,6 +74,7 @@ public class ImmortalersDelightTags {
         public static final TagKey<Item> ADDITIONAL_DISHES = createImmItemTag("additional_dishes");
         public static final TagKey<Item> CAN_ADD_TO_BREAD = createImmItemTag("can_add_to_bread");
         public static final TagKey<Item> FORGE_BREAD = createForgeItemTag("bread");
+        public static final TagKey<Item> IS_ANTIQUE = createImmItemTag("is_antique");
     }
 
     public static class Blocks{

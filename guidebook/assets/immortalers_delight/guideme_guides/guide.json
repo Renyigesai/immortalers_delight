@@ -1,0 +1,15 @@
+{
+  "default_language": "en_us",
+  "item_settings": {
+    "display_name": {
+      "type": "translatable",
+      "translate": "guideme.immortalers_delight.guide_name"
+    },
+    "tooltip_lines": [
+      {
+        "translate": "guideme.immortalers_delight.guide_tooltip",
+        "color": "dark_gray"
+      }
+    ]
+  }
+}
