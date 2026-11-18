@@ -75,7 +75,7 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
 //    }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entity, float limbSwing, float baseY, float ageInTicks, float netHeadYaw, float headPitch) {
         // 1. 末影水晶上下悬浮正弦波公式 (作用于所有部件的 Y 轴 offset)
 //        float wave = Mth.sin(ageInTicks * 0.15F) / 2.0F + 0.5F;
 //        wave = (wave * wave + wave) * 0.2F; // 波动位移量
@@ -87,11 +87,11 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
         this.layer2.getAllParts().forEach(ModelPart::resetPose);
         this.layer3.getAllParts().forEach(ModelPart::resetPose);
 
-        float baseY = 8.0F;
-        this.core.y = baseY;
-        this.layer.y = baseY;
-        this.layer2.y = baseY;
-        this.layer3.y = baseY;
+        float basey = baseY * 16.0F;
+        this.core.y = basey;
+        this.layer.y = basey;
+        this.layer2.y = basey;
+        this.layer3.y = basey;
 
         // 2. 各层差速自转与空间倾角计算 (单位为弧度)
         float baseAngle = ageInTicks * 0.08F; // 基础角速度
@@ -134,7 +134,7 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
     }
 
     //用于方块实体渲染
-    public void setupAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(float limbSwing, float baseY, float ageInTicks, float netHeadYaw, float headPitch) {
 // 1. 末影水晶上下悬浮正弦波公式 (作用于所有部件的 Y 轴 offset)
 //        float wave = Mth.sin(ageInTicks * 0.15F) / 2.0F + 0.5F;
 //        wave = (wave * wave + wave) * 0.2F; // 波动位移量
@@ -146,11 +146,11 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
         this.layer2.getAllParts().forEach(ModelPart::resetPose);
         this.layer3.getAllParts().forEach(ModelPart::resetPose);
 
-        float baseY = 8.0F;
-        this.core.y = baseY;
-        this.layer.y = baseY;
-        this.layer2.y = baseY;
-        this.layer3.y = baseY;
+        float basey = baseY * 16.0F;
+        this.core.y = basey;
+        this.layer.y = basey;
+        this.layer2.y = basey;
+        this.layer3.y = basey;
 
         // 2. 各层差速自转与空间倾角计算 (单位为弧度)
         float baseAngle = ageInTicks * 0.08F; // 基础角速度
@@ -193,9 +193,10 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
     }
     protected float quadSize = 0.75F;
     protected float quadSize0 = 0;
-    public void explosionAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void awakenAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
         if (this.quadSize0 <= 0) this.quadSize0 = this.quadSize;
+
         float lastQuadSize = this.quadSize0;
 
         if (ageInTicks <= 14) {
@@ -212,7 +213,34 @@ public class SoulBoomModel <T extends Entity> extends EntityModel<T> {
                 this.quadSize += 0.5f * Mth.sin((f - 0.05f) * 0.5f * (float)Math.PI);
             }
         } else if (ageInTicks < 20) {
-            this.quadSize *= 0.5f;
+            this.quadSize *= 0.666f;
+        } else {
+            this.quadSize = 0.75f;
+            this.quadSize0 = 0;
+        }
+    }
+
+    public void explosionAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
+        if (this.quadSize0 <= 0) this.quadSize0 = this.quadSize;
+
+        float lastQuadSize = this.quadSize0;
+
+        if (ageInTicks <= 11) {
+            float f = ageInTicks / (float)11;
+            if (ageInTicks <= 3) {
+                float f1 = (float) ageInTicks / 5;
+                float f2 = lastQuadSize * (f1 * f * 20 * 11 / 64);
+                this.quadSize = f2 > 1f ? 1 : f2;
+            } else {
+                if (f > 0.5f) {
+                    f -= 0.5f;
+                    this.quadSize *= (1.3F + f * 0.6f);
+                } else this.quadSize *= (0.8F + f);
+                this.quadSize += 0.5f * Mth.sin((f - 0.05f) * 0.5f * (float)Math.PI);
+            }
+        } else if (ageInTicks < 15) {
+            this.quadSize *= 0.666f;
         } else {
             this.quadSize = 0.75f;
             this.quadSize0 = 0;

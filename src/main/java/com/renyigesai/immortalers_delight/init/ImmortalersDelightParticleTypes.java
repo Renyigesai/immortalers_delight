@@ -103,5 +103,7 @@ public class ImmortalersDelightParticleTypes {
                             return BlockParticleOption.codec(this);
                         }
                     });
+    public static final RegistryObject<SimpleParticleType> HATRED_FLAME = REGISTRY.register("hatred_flame", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> WARMING_RING_BIG = REGISTRY.register("warming_ring_big", () -> new SimpleParticleType(false));
 
 }

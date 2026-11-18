@@ -2,7 +2,7 @@ package com.renyigesai.immortalers_delight.client.model.projectile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.renyigesai.immortalers_delight.client.AnimationHelper;
+import com.renyigesai.immortalers_delight.client.animation.custom.AnimationHelper;
 import com.renyigesai.immortalers_delight.entities.projectile.MoonArrowHitboxEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

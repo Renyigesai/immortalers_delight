@@ -40,7 +40,7 @@ public class ModRenderTypes extends RenderStateShard {
                 .setShaderState(RENDERTYPE_EYES_SHADER) // 自发光无漫反射着色器
                 .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
                 .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)               // 常规 Alpha 混合，不丢失灰度
-                .setCullState(CULL)                                        // 禁用背面剔除（能量体双面可见）
+                .setCullState(CULL)                                        // 启用背面剔除（通常用于发光描边）
                 .setWriteMaskState(COLOR_WRITE)                               // 仅写颜色或 COLOR_DEPTH_WRITE
                 .setOverlayState(NO_OVERLAY)
                 .createCompositeState(false);
@@ -48,6 +48,51 @@ public class ModRenderTypes extends RenderStateShard {
         return RenderType.create(
                 "unlit_translucent",
                 DefaultVertexFormat.NEW_ENTITY,
+                VertexFormat.Mode.QUADS,
+                256,
+                true,
+                true,
+                state
+        );
+    });
+
+    public static final Function<ResourceLocation, RenderType> UNLIT_TRANSLUCENT_NO_CULL = Util.memoize((texture) -> {
+        RenderType.CompositeState state = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_EYES_SHADER) // 自发光无漫反射着色器
+                .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+                .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)               // 常规 Alpha 混合，不丢失灰度
+                .setCullState(NO_CULL)                                        // 禁用背面剔除（能量体双面可见）
+                .setWriteMaskState(COLOR_WRITE)                               // 仅写颜色或 COLOR_DEPTH_WRITE
+                .setOverlayState(NO_OVERLAY)
+                .createCompositeState(false);
+
+        return RenderType.create(
+                "unlit_translucent",
+                DefaultVertexFormat.NEW_ENTITY,
+                VertexFormat.Mode.QUADS,
+                256,
+                true,
+                true,
+                state
+        );
+    });
+
+    // 封装自定义的 ShaderStateShard
+    protected static final ShaderStateShard RENDERTYPE_UNLIT_BLOCK_SHADER =
+            new ShaderStateShard(ModShaders::getUnlitBlockShader);
+
+    public static final Function<ResourceLocation, RenderType> UNLIT_TRANSLUCENT_BLOCK = Util.memoize((texture) -> {
+        RenderType.CompositeState state = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_UNLIT_BLOCK_SHADER)             // 使用自定义的 BLOCK Shader
+                .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)           // 常规半透明混合
+                .setCullState(NO_CULL)                                    // 禁用背面剔除，光剑正反面立体透亮
+                .setWriteMaskState(COLOR_DEPTH_WRITE)                     // 必须写深度，防止手持穿透
+                .createCompositeState(false);
+
+        return RenderType.create(
+                "unlit_translucent_block",
+                DefaultVertexFormat.BLOCK,
                 VertexFormat.Mode.QUADS,
                 256,
                 true,

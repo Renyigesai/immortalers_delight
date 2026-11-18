@@ -8,6 +8,7 @@ import com.renyigesai.immortalers_delight.client.model_layers.BakaHelmLayer;
 import com.renyigesai.immortalers_delight.client.renderer.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.*;
 import com.renyigesai.immortalers_delight.client.renderer.entity.projectile.*;
+import com.renyigesai.immortalers_delight.client.renderer.special_item.LightsaberItemRenderer;
 import com.renyigesai.immortalers_delight.compat.init.Ltc2Items;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluidTypes;
 import com.renyigesai.immortalers_delight.fluid.ImmortalersDelightFluids;
@@ -15,6 +16,7 @@ import com.renyigesai.immortalers_delight.init.*;
 import com.renyigesai.immortalers_delight.item.weapon.RepeatingCrossbowItem;
 import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.screen.EnchantalCoolerScreen;
+import com.renyigesai.immortalers_delight.screen.LargeCabinetScreen;
 import com.renyigesai.immortalers_delight.screen.SoulInfuserScreen;
 import com.renyigesai.immortalers_delight.screen.TerracottaGolemScreen;
 import com.renyigesai.immortalers_delight.screen.overlay.*;
@@ -43,6 +45,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
@@ -235,9 +238,13 @@ public class ImmortalersDelightMod {
             modelLayers.put(PiecesOutsideLayerModel.PIECES_OUTSIDE, PiecesOutsideLayerModel::createBodyLayer);
             modelLayers.put(PiecesPeripheryLayerModel.XIA_PIECES_LAYER, PiecesPeripheryLayerModel::createBodyLayer);
             modelLayers.put(SoulInfuserModel.LAYER_LOCATION, SoulInfuserModel::createBodyLayer);
-            modelLayers.put(SoulFireballEntityRenderer.MODEL_LOCATION,SoulFireballEntityRenderer::createSkullLayer);
+            modelLayers.put(SoulInfuserTargetRenderer.MODEL_LOCATION,SoulInfuserTargetRenderer::createSkullLayer);
+            modelLayers.put(SoulFireballEntityModel.LAYER_LOCATION,SoulFireballEntityModel::createBodyLayer);
             modelLayers.put(HatredfireBoltModel.LAYER_LOCATION, HatredfireBoltModel::createBodyLayer);
             modelLayers.put(SoulBoomModel.LAYER_LOCATION, SoulBoomModel::createBodyLayer);
+            modelLayers.put(WarmingLayerModel.LAYER_LOCATION, WarmingLayerModel::createBodyLayer);
+            modelLayers.put(SoulFireHitboxEntityModel.LAYER_LOCATION, SoulFireHitboxEntityModel::createBodyLayer);
+            modelLayers.put(HatredFireHitBoxEntityRenderer.MODEL_LOCATION,HatredFireHitBoxEntityRenderer::createSkullLayer);
 
             modelLayers.put(BreadOfWarModel.BREAD_OF_WAR, BreadOfWarModel::createBodyLayer);
             modelLayers.put(RotatingRoastMeatModel.ROTATING_ROAST_MEAT,RotatingRoastMeatModel::createBodyLayer);
@@ -276,8 +283,11 @@ public class ImmortalersDelightMod {
             event.registerEntityRenderer(ImmortalersDelightEntities.XIA_PIECES.get(),XiaPiecesHitboxRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.SOUL_FIREBALL.get(),SoulFireballEntityRenderer::new);
             event.registerEntityRenderer(ImmortalersDelightEntities.HATREDFIRE_BOLT.get(), HatredfireBoltRenderer::new);
-//            event.registerEntityRenderer(ImmortalersDelightEntities.HIJACKED_SOUL_INFUSER.get(), HijackedSoulInfuserRenderer::new);
-
+            event.registerEntityRenderer(ImmortalersDelightEntities.HIJACKED_SOUL_INFUSER.get(), HijackedSoulInfuserRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.SOUL_FIRE_HITBOX.get(), SoulFireHitboxEntityRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.HATREDFIRE_HITBOX.get(), HatredFireHitBoxEntityRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.PIERCE_SOUL.get(), PierceSoulEntityRenderer::new);
+            event.registerEntityRenderer(ImmortalersDelightEntities.FOCUSED_SOUL.get(), SoulInfuserTargetRenderer::new);
         }
 
         @SubscribeEvent
@@ -300,6 +310,8 @@ public class ImmortalersDelightMod {
                         ItemBlockRenderTypes.setRenderLayer(ImmortalersDelightBlocks.LEISAMBOO_DOOR.get(), RenderType.cutout());
                         MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
+                        MenuScreens.register(ImmortalersDelightMenuTypes.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
+                        MenuScreens.register(ImmortalersDelightMenuTypes.LARGE_CABINET_MENU.get(), LargeCabinetScreen::new);
                         registerItemProperties();
                         WeakWitherHealthOverlay.init();
                         WeakPoisonHealthOverlay.init();
@@ -316,6 +328,12 @@ public class ImmortalersDelightMod {
 //            AftertasteHungerOverlay.init();
 //            KeepFastHungerOverlay.init();
 //            BurnTheBoatsHealthOverlay.init();
+        }
+
+        @SubscribeEvent
+        public static void onRegisterAdditionalModels(ModelEvent.RegisterAdditional event) {
+            // 注册额外需要烘焙的模型
+            event.register(LightsaberItemRenderer.BLADE_MODEL_LOC);
         }
 
         public static void registerItemProperties() {

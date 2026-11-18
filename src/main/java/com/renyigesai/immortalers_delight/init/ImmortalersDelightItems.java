@@ -146,6 +146,8 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_BRUSH;
     @ItemData(zhCn = "绯炵金纱")
     public static final RegistryObject<Item> GOLDEN_FABRIC_VEIL;
+    @ItemData(zhCn = "刺魂针",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final RegistryObject<Item> SOUL_SWORD;
 
     /*合成材料*/
     @ItemData(zhCn = "金丝织缕")
@@ -1138,6 +1140,9 @@ public class ImmortalersDelightItems {
     @ItemData(zhCn = "恨火",model = ItemData.ModelType.BLOCK,group = NOT)
     public static final RegistryObject<Item>HATRED_FIRE;
 
+    @ItemData(zhCn = "通天橱柜", model = ItemData.ModelType.BLOCK,group = OFF_MAIN)
+    public static final RegistryObject<Item> TRAVASTRUGGLER_CABINET;
+
 
     static {
         DEBUG_ITEM = register("debug_item", () -> new DebugItem(new Item.Properties().durability(1024)));
@@ -1873,6 +1878,9 @@ public class ImmortalersDelightItems {
                 new PowerfulAbleFoodItem(new Item.Properties().food(ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS),ImmortalersDelightFoodProperties.SEALED_ANCIENT_RATIONS_POWERED,true,false));
         ANCIENT_NECTAR_JELLY = register("ancient_nectar_jelly",()->
                 new NectarJellyLikeItem((new Item.Properties()).stacksTo(1).durability(465)));
+        SOUL_SWORD = register("soul_sword",()->
+            new SoulSwordItem((new Item.Properties()).durability(250)));
+
         /*
         火把花相关物品
         */
@@ -2340,7 +2348,7 @@ public class ImmortalersDelightItems {
                 new ForgeSpawnEggItem(ImmortalersDelightEntities.SCAVENGER,7833753,9127187,new Item.Properties()));
         HOT_SPRING_BUCKET = registerWithTab("hot_spring_bucket",()->new ImmortalersBucketItem(ImmortalersDelightFluids.HOT_SPRING,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         HATRED_FIRE = block(ImmortalersDelightBlocks.HATRED_FIRE);
-
+        TRAVASTRUGGLER_CABINET = block(ImmortalersDelightBlocks.TRAVASTRUGGLER_CABINET);
 
     }
 

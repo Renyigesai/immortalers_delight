@@ -10,6 +10,8 @@ import com.renyigesai.immortalers_delight.block.brushable.InfestedFallingBlock;
 import com.renyigesai.immortalers_delight.block.brushable.InfestedOreBlock;
 import com.renyigesai.immortalers_delight.block.brushable.SuspiciousAshPileBlock;
 import com.renyigesai.immortalers_delight.block.brushable.SuspiciousAshPileBlockEntity;
+import com.renyigesai.immortalers_delight.block.cabinets.LargeCabinetBlock;
+import com.renyigesai.immortalers_delight.block.cabinets.LargeCabinetBlockEntity;
 import com.renyigesai.immortalers_delight.block.crops.*;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlock;
 import com.renyigesai.immortalers_delight.block.enchantal_cooler.EnchantalCoolerBlockEntity;
@@ -104,6 +106,9 @@ public class ImmortalersDelightBlocks {
     @BlockData
     public static final RegistryObject<Block> SOUL_INFUSER;
     public static final RegistryObject<BlockEntityType<SoulInfuserBlockEntity>> SOUL_INFUSER_ENTITY;
+    @BlockData
+    public static final RegistryObject<Block> TRAVASTRUGGLER_CABINET;
+    public static final RegistryObject<BlockEntityType<LargeCabinetBlockEntity>> TRAVASTRUGGLER_CABINET_ENTITY;
 
     @BlockData
     public static final RegistryObject<BasicsLogsBlock> HIMEKAIDO_LOG = BLOCKS.register("himekaido_log",() ->
@@ -1246,6 +1251,10 @@ public class ImmortalersDelightBlocks {
                 ));
         SOUL_INFUSER_ENTITY = BLOCK_ENTITY_REGISTRY.register("soul_infuser",
                 ()-> BlockEntityType.Builder.of(SoulInfuserBlockEntity::new, SOUL_INFUSER.get()).build(null));
+        TRAVASTRUGGLER_CABINET = BLOCKS.register("travastruggler_cabinet", ()->
+                new LargeCabinetBlock(Block.Properties.copy(Blocks.BARREL)));
+        TRAVASTRUGGLER_CABINET_ENTITY = BLOCK_ENTITY_REGISTRY.register("travastruggler_cabinet_entity",
+                ()-> BlockEntityType.Builder.of(LargeCabinetBlockEntity::new, TRAVASTRUGGLER_CABINET.get()).build(null));
 
     }
 

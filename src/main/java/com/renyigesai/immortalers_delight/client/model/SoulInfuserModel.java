@@ -3,49 +3,63 @@ package com.renyigesai.immortalers_delight.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod; // 替换为你的Mod主类
+import com.renyigesai.immortalers_delight.block.soul_infuser.SoulInfuserBlockEntity;
+import com.renyigesai.immortalers_delight.client.animation.SoulInfuserAnimation;
+import com.renyigesai.immortalers_delight.client.animation.custom.AnimationHelper;
+import com.renyigesai.immortalers_delight.client.animation.custom.SoulInfuserAnimations;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.animation.definitions.SnifferAnimation;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
-public class SoulInfuserModel<T extends Entity> extends EntityModel<T> {
+import java.util.Map;
+
+public class SoulInfuserModel<T extends Entity> extends HierarchicalModel<T> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
             new ResourceLocation(ImmortalersDelightMod.MODID, "soul_infuser"), "main");
-    private final ModelPart all;
-    private final ModelPart head;
-    private final ModelPart base;
-    private final ModelPart ring_down;
-    private final ModelPart upper_body_parts11;
-    private final ModelPart upper_body_parts10;
-    private final ModelPart upper_body_parts9;
-    private final ModelPart upper_body_parts8;
-    private final ModelPart ring_center;
-    private final ModelPart upper_body_parts7;
-    private final ModelPart upper_body_parts6;
-    private final ModelPart upper_body_parts5;
-    private final ModelPart upper_body_parts4;
-    private final ModelPart ring_up;
-    private final ModelPart upper_body_parts3;
-    private final ModelPart upper_body_parts2;
-    private final ModelPart upper_body_parts1;
-    private final ModelPart upper_body_parts0;
+    public final ModelPart base;
+    public final ModelPart all;
+    public final ModelPart head;
+    public final ModelPart body;
+    public final ModelPart ring_down;
+    public final ModelPart upper_body_parts11;
+    public final ModelPart upper_body_parts10;
+    public final ModelPart upper_body_parts9;
+    public final ModelPart upper_body_parts8;
+    public final ModelPart ring_center;
+    public final ModelPart upper_body_parts7;
+    public final ModelPart upper_body_parts6;
+    public final ModelPart upper_body_parts5;
+    public final ModelPart upper_body_parts4;
+    public final ModelPart ring_up;
+    public final ModelPart upper_body_parts3;
+    public final ModelPart upper_body_parts2;
+    public final ModelPart upper_body_parts1;
+    public final ModelPart upper_body_parts0;
 
     public SoulInfuserModel(ModelPart root) {
+        this.base = root.getChild("base");
         this.all = root.getChild("all");
         this.head = this.all.getChild("head");
-        this.base = this.all.getChild("base");
-        this.ring_down = this.base.getChild("ring_down");
+        this.body = this.all.getChild("body");
+        this.ring_down = this.body.getChild("ring_down");
         this.upper_body_parts11 = this.ring_down.getChild("upper_body_parts11");
         this.upper_body_parts10 = this.ring_down.getChild("upper_body_parts10");
         this.upper_body_parts9 = this.ring_down.getChild("upper_body_parts9");
         this.upper_body_parts8 = this.ring_down.getChild("upper_body_parts8");
-        this.ring_center = this.base.getChild("ring_center");
+        this.ring_center = this.body.getChild("ring_center");
         this.upper_body_parts7 = this.ring_center.getChild("upper_body_parts7");
         this.upper_body_parts6 = this.ring_center.getChild("upper_body_parts6");
         this.upper_body_parts5 = this.ring_center.getChild("upper_body_parts5");
@@ -57,11 +71,11 @@ public class SoulInfuserModel<T extends Entity> extends EntityModel<T> {
         this.upper_body_parts0 = this.ring_up.getChild("upper_body_parts0");
     }
 
-
-
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition base = partdefinition.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-9.0F, -4.0F, -9.0F, 18.0F, 4.0F, 18.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
 
         PartDefinition all = partdefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
@@ -69,9 +83,9 @@ public class SoulInfuserModel<T extends Entity> extends EntityModel<T> {
                 .texOffs(0, 52).addBox(-5.0F, -9.0F, -5.0F, 10.0F, 14.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(20, 52).addBox(-5.0F, -4.1F, -5.0F, 10.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -9.0F, 0.0F));
 
-        PartDefinition base = all.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-9.0F, -1.0F, -9.0F, 18.0F, 4.0F, 18.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 0.0F));
+        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, 0.0F));
 
-        PartDefinition ring_down = base.addOrReplaceChild("ring_down", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
+        PartDefinition ring_down = body.addOrReplaceChild("ring_down", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
 
         PartDefinition upper_body_parts11 = ring_down.addOrReplaceChild("upper_body_parts11", CubeListBuilder.create().texOffs(0, 116).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(8.0F, 0.0F, -8.0F));
 
@@ -81,7 +95,7 @@ public class SoulInfuserModel<T extends Entity> extends EntityModel<T> {
 
         PartDefinition upper_body_parts8 = ring_down.addOrReplaceChild("upper_body_parts8", CubeListBuilder.create().texOffs(0, 80).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(8.0F, 0.0F, 8.0F));
 
-        PartDefinition ring_center = base.addOrReplaceChild("ring_center", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
+        PartDefinition ring_center = body.addOrReplaceChild("ring_center", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
 
         PartDefinition upper_body_parts7 = ring_center.addOrReplaceChild("upper_body_parts7", CubeListBuilder.create().texOffs(32, 116).addBox(-4.0F, -2.0F, -4.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -8.0F));
 
@@ -110,25 +124,69 @@ public class SoulInfuserModel<T extends Entity> extends EntityModel<T> {
 
     //用于生物模型渲染
     @Override
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float ageInTicks, float pNetHeadYaw, float pHeadPitch) {
 
     }
 
     //用于方块实体渲染
-    public void setupAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(SoulInfuserBlockEntity blockEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+//        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+//        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        resetAnim();
+        this.animate(blockEntity.getActions().awakenAnimationState, SoulInfuserAnimation.awaken, ageInTicks);
+        this.animate(blockEntity.getActions().idleAnimationState, SoulInfuserAnimation.idle, ageInTicks);
+        this.animate(blockEntity.getActions().attackFireRainAnimationState, SoulInfuserAnimation.attack_fire_rain, ageInTicks);
+        this.animate(blockEntity.getActions().attackExplodeAnimationState, SoulInfuserAnimation.attack_explode, ageInTicks);
+        this.animate(blockEntity.getActions().attackColumnAnimationState, SoulInfuserAnimation.attack_column, ageInTicks);
+        this.animate(blockEntity.getActions().attackSummonAnimationState, SoulInfuserAnimation.attack_summon, ageInTicks);
+        this.animate(blockEntity.getActions().attackFireRingAnimationState, SoulInfuserAnimation.attack_fire_ring, ageInTicks);
+        this.animate(blockEntity.getActions().attackFireballAnimationState, SoulInfuserAnimation.attack_fireball, ageInTicks);
+        this.animate(blockEntity.getActions().dieAnimationState, SoulInfuserAnimation.die, ageInTicks);
+    }
 
+    public void resetAnim() {
+        this.base.getAllParts().forEach(ModelPart::resetPose);
+        this.all.getAllParts().forEach(ModelPart::resetPose);
     }
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         all.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        base.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    public ModelPart getRingUp() {
-        return ring_up;
+    @Override
+    public @NotNull ModelPart root() {
+        return all;
     }
 
-    public ModelPart getRingDown() {
-        return ring_down;
+    public void animate(int animId, float ageInTicks) {
+        // 关键：每帧开始前将所有部件重置回初始绑定姿势（避免上一动画或上一状态残留导致错位）
+        this.resetAnim();
+
+        switch (animId) {
+            case 0: SoulInfuserAnimations.Awaken.apply(this, ageInTicks); break;
+            case 1: SoulInfuserAnimations.Idle.apply(this, ageInTicks); break;
+            case 2: SoulInfuserAnimations.AttackFireRain.apply(this, ageInTicks); break;
+            case 3: SoulInfuserAnimations.AttackExplode.apply(this, ageInTicks); break;
+            case 4: SoulInfuserAnimations.AttackColumn.apply(this, ageInTicks); break;
+            case 5: SoulInfuserAnimations.AttackSummon.apply(this, ageInTicks); break;
+            case 6: SoulInfuserAnimations.AttackFireRing.apply(this, ageInTicks); break;
+            case 7: SoulInfuserAnimations.AttackFireball.apply(this, ageInTicks); break;
+            case 14: SoulInfuserAnimations.Die.apply(this, ageInTicks); break;
+            default: break; // ID 15 (ID_NONE) 保持 resetAnim 的初始静止姿势
+//            case 0: SoulInfuserAnimations.Awaken.apply(this, ageInTicks); break;
+//            case 1: SoulInfuserAnimations.Idle.apply(this, ageInTicks); break;
+//            case 2: SoulInfuserAnimations.AttackFireRain.apply(this, ageInTicks); break;
+//            case 3: SoulInfuserAnimations.AttackExplode.apply(this, ageInTicks); break;
+//            case 4: SoulInfuserAnimations.AttackColumn.apply(this, ageInTicks); break;
+//            case 5: SoulInfuserAnimations.AttackSummon.apply(this, ageInTicks); break;
+//            case 6: SoulInfuserAnimations.AttackFireRing.apply(this, ageInTicks); break;
+//            case 7: SoulInfuserAnimations.AttackFireball.apply(this, ageInTicks); break;
+//            case 14: SoulInfuserAnimations.Die.apply(this, ageInTicks); break;
+//            default: break; // ID 15 (ID_NONE) 保持 resetAnim 的初始静止姿势
+        }
     }
+
+
 }

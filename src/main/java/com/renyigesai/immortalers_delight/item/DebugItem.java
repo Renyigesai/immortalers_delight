@@ -9,8 +9,16 @@ import com.renyigesai.immortalers_delight.Config;
 //import com.renyigesai.immortalers_delight.util.datautil.datasaveloadhelper.MagicalReverseMapSaveLoadHelper;
 import com.renyigesai.immortalers_delight.api.ILivingEntityExtension;
 import com.renyigesai.immortalers_delight.entities.living.PiecesHitboxEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.HatredFireHitBoxEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.HatredfireBoltEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.PierceSoulEntity;
+import com.renyigesai.immortalers_delight.entities.projectile.SoulFireHitboxEntity;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
+import com.renyigesai.immortalers_delight.message.ImmortalersEffectMessage;
+import com.renyigesai.immortalers_delight.network.ImmortalersNetwork;
 import com.renyigesai.immortalers_delight.util.EffectUtils;
 import com.renyigesai.immortalers_delight.util.LivingDamageUtil;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.NbtUtils;
@@ -25,15 +33,21 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Map;
 
 public class DebugItem extends Item {
@@ -56,13 +70,28 @@ public class DebugItem extends Item {
             System.out.println(field.getName());
         }
 
-        IntArrayTag tag = NbtUtils.createUUID(BASE_ATTACK_DAMAGE_UUID);
-        System.out.println("攻击力" + tag);
-        System.out.println("攻击力：" + tag.getAsString());
+        if (!pLevel.isClientSide()) {
+            List<LivingEntity> targets = pLevel.getEntitiesOfClass(
+                    LivingEntity.class, new AABB(pPlayer.getOnPos().above()).inflate(11),
+                    e ->e instanceof Enemy && e.isAlive());
+            for (LivingEntity entity : targets) {
+                HatredfireBoltEntity fireball = new HatredfireBoltEntity(pLevel,pPlayer,entity, 100);
+                pLevel.addFreshEntity(fireball);
+                break;
+            }
+            int j = 0;
+            PierceSoulEntity throwntrident = new PierceSoulEntity(pLevel, pPlayer, new ItemStack(ImmortalersDelightItems.SOUL_SWORD.get()));
+            throwntrident.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 2.5F + (float)j * 0.5F, 1.0F);
 
-        tag = NbtUtils.createUUID(BASE_ATTACK_SPEED_UUID);
-        System.out.println("攻击速度" + tag);
-        System.out.println("攻击速度：" + tag.getAsString());
+            pLevel.addFreshEntity(throwntrident);
+        }
+//        IntArrayTag tag = NbtUtils.createUUID(BASE_ATTACK_DAMAGE_UUID);
+//        System.out.println("攻击力" + tag);
+//        System.out.println("攻击力：" + tag.getAsString());
+//
+//        tag = NbtUtils.createUUID(BASE_ATTACK_SPEED_UUID);
+//        System.out.println("攻击速度" + tag);
+//        System.out.println("攻击速度：" + tag.getAsString());
 
         return super.use(pLevel, pPlayer, pUsedHand);
     }
@@ -73,8 +102,8 @@ public class DebugItem extends Item {
             System.out.println(effect.getDescriptionId() + ":" + map.get(effect)[0] + ":" + map.get(effect)[1]);
         }
 
-//        if (!pContext.getLevel().isClientSide() && pContext.getPlayer() != null) {
-//
+        if (!pContext.getLevel().isClientSide() && pContext.getPlayer() != null) {
+
 //            PiecesHitboxEntity xia = new PiecesHitboxEntity(
 //                    pContext.getLevel(),
 //                    pContext.getClickedPos().getX(),
@@ -83,13 +112,22 @@ public class DebugItem extends Item {
 //                    pContext.getPlayer().yHeadRot,
 //                    pContext.getPlayer()
 //            );
+//            HatredFireHitBoxEntity xia = new HatredFireHitBoxEntity(
+//                    pContext.getLevel(),
+//                    (double) pContext.getClickedPos().getX(),
+//                    pContext.getClickedPos().getY() + 1,
+//                    pContext.getClickedPos().getZ(),
+//                    pContext.getPlayer().yHeadRot,
+//                    30,(float) pContext.getPlayer().getAttributeValue(Attributes.ATTACK_DAMAGE),
+//                    pContext.getPlayer()
+//            );
 //            //设置攻击力
-//            AttributeInstance atk = xia.getAttribute(Attributes.ATTACK_DAMAGE);
-//            if (atk != null) atk.setBaseValue(pContext.getPlayer().getAttributeValue(Attributes.ATTACK_DAMAGE));
+////            AttributeInstance atk = xia.getAttribute(Attributes.ATTACK_DAMAGE);
+////            if (atk != null) atk.setBaseValue(pContext.getPlayer().getAttributeValue(Attributes.ATTACK_DAMAGE));
 //            //设置范围
-//            xia.setRadius(2);
+//            xia.setRadius(3.5f);
 //            pContext.getLevel().addFreshEntity(xia);
-//        }
+        }
 //        if (!pContext.getLevel().isClientSide()) {
 //            BlockState blockState = pContext.getLevel().getBlockState(pContext.getClickedPos());
 //            List<Property<?>> list = blockState.getProperties().stream().toList();
