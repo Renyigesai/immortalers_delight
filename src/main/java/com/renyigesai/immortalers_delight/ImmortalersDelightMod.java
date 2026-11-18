@@ -336,6 +336,7 @@ public class ImmortalersDelightMod {
                         MenuScreens.register(ImmortalersDelightMenuTypes.ENCHANTAL_COOLER_MENU.get(), EnchantalCoolerScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.TERRACOTTA_GOLEM_MENU.get(), TerracottaGolemScreen::new);
                         MenuScreens.register(ImmortalersDelightMenuTypes.ANTIQUE_BAG_MENU.get(), AntiqueBagScreen::new);
+                        MenuScreens.register(ImmortalersDelightMenuTypes.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
                         registerItemProperties();
                         WeakWitherHealthOverlay.init();
                         WeakPoisonHealthOverlay.init();

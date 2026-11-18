@@ -7,6 +7,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "immortalers_delight:ragged_paper_clips",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:sniffer_egg",
           "weight": 1
         },

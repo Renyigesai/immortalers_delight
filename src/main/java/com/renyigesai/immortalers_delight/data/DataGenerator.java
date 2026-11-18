@@ -4,6 +4,8 @@ package com.renyigesai.immortalers_delight.data;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.data.builder.SeriesBlockRecipeBuilder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -25,6 +27,7 @@ public class DataGenerator {
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
+        DataGenWatchdog.start(120_000L);
 
         // 生成方块模型 JSON，注意在生成BlockStateJSON的时候会校验这个所以要放上面
         generator.addProvider(
@@ -38,8 +41,18 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
         generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
         generator.addProvider(event.includeClient(), new Recipes(output));
+        generator.addProvider(event.includeClient(), new DataProvider() {
+            @Override
+            public CompletableFuture<?> run(CachedOutput cache) {
+                DataGenWatchdog.markComplete();
+                return CompletableFuture.completedFuture(null);
+            }
 
-        //ai写的看门狗，15秒后强制退出，将就用。
-        DataGenWatchdog.start(15_000L);
+            @Override
+            public String getName() {
+                return "Datagen completion marker";
+            }
+        });
+
     }
 }

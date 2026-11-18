@@ -18,7 +18,7 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 
 public class SnifferSaddleLayer extends RenderLayer<Sniffer, SnifferModel<Sniffer>> {
     private static final ResourceLocation SADDLE_TEXTURE = new ResourceLocation("immortalers_delight", "textures/entity/sniffer_saddle.png");
-    private static final ResourceLocation SADDLE_UPGRADED_TEXTURE = new ResourceLocation("immortalers_delight", "textures/entity/sniffer_saddle_upgraded.png");
+    private static final ResourceLocation SADDLE_UPGRADED_TEXTURE = SADDLE_TEXTURE;
     
     private final SnifferSaddleModel<Sniffer> saddleModel;
     private final SnifferSaddleUpgradedModel<Sniffer> saddleUpgradedModel;

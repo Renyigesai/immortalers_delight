@@ -95,7 +95,7 @@ public class ImmortalersDelightItems {
     public static final RegistryObject<Item> SNIFFER_FUR_HALF_TATAMI_MAT;
     @ItemData(zhCn = "嗅探兽鞍")
     public static final RegistryObject<Item> SNIFFER_SADDLE;
-    @ItemData(zhCn = "嗅探兽鞍升级套件")
+    @ItemData(zhCn = "嗅探兽鞍升级套件", model = ItemData.ModelType.CUSTOM)
     public static final RegistryObject<Item> SNIFFER_SADDLE_UPGRADE;
 
     /**主物品栏物品**/
