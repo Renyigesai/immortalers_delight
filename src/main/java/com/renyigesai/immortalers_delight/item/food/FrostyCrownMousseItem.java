@@ -11,7 +11,6 @@ import com.renyigesai.immortalers_delight.potion.VulnerableMobEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.FreezeEffect;
 import com.renyigesai.immortalers_delight.potion.immortaleffects.StunEffect;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
-import com.renyigesai.immortalers_delight.util.datautil.EffectData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.CompoundTag;
@@ -47,10 +46,7 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 import vectorwing.farmersdelight.data.EntityTags;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
     public static final String EAT_THIS = ImmortalersDelightMod.MODID+ "_frosty_crown_mousse_eater";
@@ -117,9 +113,10 @@ public class FrostyCrownMousseItem extends EdibleBlockFoodItem {
                 CompoundTag tag = entity.getPersistentData();
                 if (tag.contains(EAT_THIS, Tag.TAG_INT) && tag.getInt(EAT_THIS) > 0) {
 
-                    Map<UUID, EffectData> freezedEntitys = new HashMap<>(FreezeEffect.getEntityMap());
                     //如果玩家因为重启游戏等原因冻结状态丢了，从这里补一个
-                    if (!freezedEntitys.containsKey(entity.getUUID())) FreezeEffect.applyImmortalEffect(entity, tag.getInt(EAT_THIS), 2);
+                    if (!FreezeEffect.getEntityMap().containsKey(entity.getUUID())) {
+                        FreezeEffect.applyImmortalEffect(entity, tag.getInt(EAT_THIS), 2);
+                    }
 
                     if (tag.getInt(EAT_THIS) - 5 <= 0) {
                         tag.remove(EAT_THIS);

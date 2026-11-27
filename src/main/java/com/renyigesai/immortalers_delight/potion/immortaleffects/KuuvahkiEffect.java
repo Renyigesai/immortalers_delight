@@ -192,16 +192,15 @@ public class KuuvahkiEffect {
         if (entity == null || entity.isRemoved() || !entity.isAlive()) {return;}
         if (entity.level().isClientSide()) {return;}
         /* 获取当前实体的效果结束时刻 */
-        UUID uuid = entity.getUUID();
-        HashMap<UUID, EffectData> map = new HashMap<>(entityHasEffect);
-        if (map.get(uuid) == null) {return;}
-        Long expireTime = map.get(uuid).getTime();
+        EffectData effectData = entityHasEffect.get(entity.getUUID());
+        if (effectData == null) {return;}
+        long expireTime = effectData.getTime();
         /* 具体效果的实现逻辑 */
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
             // 每秒对实体造成2点伤害，每级翻倍
             if (entity.tickCount % 40 == 20) {
                 MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
-                int lv = map.get(uuid).getAmplifier();
+                int lv = effectData.getAmplifier();
                 if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
                 lv++;
 
@@ -235,13 +234,13 @@ public class KuuvahkiEffect {
     public static void onLivingDead(LivingDeathEvent event) {
         LivingEntity deadOne = event.getEntity();
         if (deadOne.level().isClientSide()) return;
-        Map<UUID, EffectData> map = new HashMap<>(entityHasEffect);
-        if (map.get(deadOne.getUUID()) != null) {
-            Long expireTime = map.get(deadOne.getUUID()).getTime();
+        EffectData effectData = entityHasEffect.get(deadOne.getUUID());
+        if (effectData != null) {
+            long expireTime = effectData.getTime();
             /* 具体效果的实现逻辑 */
             if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
                 MobEffect thisEffect = ImmortalersDelightMobEffect.MOONBRIGHT.get();
-                int lv = map.get(deadOne.getUUID()).getAmplifier();
+                int lv = effectData.getAmplifier();
                 if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
 
                 spawnBomb(deadOne, lv);

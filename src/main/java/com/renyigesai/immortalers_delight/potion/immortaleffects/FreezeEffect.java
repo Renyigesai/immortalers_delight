@@ -150,11 +150,12 @@ public class FreezeEffect {
                 if (thisEffect instanceof BaseMobEffect baseMobEffect) lv = baseMobEffect.getTruthUsingAmplifier(lv);
 
                 //在普通模式下，冻结伤害遵守原版的冻伤规则；超凡模式下则将所有不免疫细雪的实体视为寒冷脆弱的，并且可以对免疫细雪的实体造成伤害
-                float damage = 1 << lv;
-                float bufferByEntity = 1.0f;
-                if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES) || isPowerful) bufferByEntity = 5;
-                if (entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) bufferByEntity = isPowerful ? 1 : 0;
-                damage *= bufferByEntity;
+                boolean takesExtraFreezeDamage = entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES);
+                float multiplier = takesExtraFreezeDamage || isPowerful ? 5.0f : 1.0f;
+                if (entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) multiplier = isPowerful ? 1.0f : 0.0f;
+                // LivingEntity.hurt already multiplies freezing damage by five for these entities.
+                float vanillaMultiplier = takesExtraFreezeDamage ? 5.0f : 1.0f;
+                float damage = (1 << lv) * multiplier / vanillaMultiplier;
                 if (damage > 0) entity.hurt(entity.damageSources().freeze(), damage);
 
                 //普通模式加最多附加缓慢V，即不能将实体的速度减速到0；

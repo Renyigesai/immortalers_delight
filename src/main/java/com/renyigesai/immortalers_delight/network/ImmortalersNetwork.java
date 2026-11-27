@@ -18,7 +18,8 @@ public class ImmortalersNetwork {
     public static final int EFFECT_MESSAGE_ID = 1;
     public static final int KEY_AUXILIARY_MESSAGE_ID = 2;
     public static final int ANTIQUE_TOOL_KEY_C2S_PACKAGE_ID = 3;
-    public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    // Forge's development validation evaluates both safe suppliers before selecting the physical side.
+    public static CommonProxy PROXY = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
     public static SimpleChannel getChannel() { return ImmortalersDelightMod.NETWORK_WRAPPER; }
     public static <MSG> void sendMSGToServer(MSG message) { ImmortalersDelightMod.LOGGER.debug("Send {} direction={}", message.getClass().getSimpleName(), NetworkDirection.PLAY_TO_SERVER); getChannel().sendToServer(message); }
     public static <MSG> void sendMSGToAll(MSG message) { for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) sendNonLocal(message, player); }

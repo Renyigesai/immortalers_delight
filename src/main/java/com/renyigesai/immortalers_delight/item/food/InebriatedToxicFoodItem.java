@@ -1,5 +1,6 @@
 package com.renyigesai.immortalers_delight.item.food;
 
+import com.renyigesai.immortalers_delight.api.ILivingEntityExtension;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightItems;
@@ -12,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -33,7 +33,6 @@ import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class InebriatedToxicFoodItem extends DrinkableItem {
@@ -103,26 +102,7 @@ public class InebriatedToxicFoodItem extends DrinkableItem {
     }
 
     public static boolean addEffectWithoutCanBeAffected(LivingEntity livingEntity, MobEffectInstance pEffectInstance, @Nullable Entity source) {
-        Map<MobEffect, MobEffectInstance> activeEffects = livingEntity.getActiveEffectsMap();
-        MobEffectInstance mobeffectinstance = activeEffects.get(pEffectInstance.getEffect());
-        if (mobeffectinstance == null) {
-            activeEffects.put(pEffectInstance.getEffect(), pEffectInstance);
-            if (!livingEntity.level().isClientSide()) {
-                pEffectInstance.getEffect().addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                livingEntity.sendEffectToPassengers(pEffectInstance);
-            }
-            return true;
-        } else if (mobeffectinstance.update(pEffectInstance)) {
-            if (!livingEntity.level().isClientSide()) {
-                MobEffect mobeffect = pEffectInstance.getEffect();
-                mobeffect.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                mobeffect.addAttributeModifiers(livingEntity, livingEntity.getAttributes(), pEffectInstance.getAmplifier());
-                livingEntity.sendEffectToPassengers(pEffectInstance);
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return ((ILivingEntityExtension) livingEntity).immortalers_delight$addEffectWithoutApplicabilityCheck(pEffectInstance, source);
     }
 
     @Override

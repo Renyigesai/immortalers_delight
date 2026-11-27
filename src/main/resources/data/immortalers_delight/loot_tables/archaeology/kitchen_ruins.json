@@ -34,6 +34,11 @@
           "type": "minecraft:item",
           "name": "minecraft:brewer_pottery_sherd",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sniffer_egg",
+          "weight": 1
         }
       ]
     }

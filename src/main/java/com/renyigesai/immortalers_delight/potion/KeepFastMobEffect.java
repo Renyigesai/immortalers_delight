@@ -3,7 +3,6 @@ package com.renyigesai.immortalers_delight.potion;
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,13 +30,9 @@ public class KeepFastMobEffect extends BaseMobEffect {
             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
             int time = player.hasEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()) ? player.getEffect(ImmortalersDelightMobEffect.KEEP_A_FAST.get()).getDuration() : 0;
             if (time > 0) {
-                if (time == 1) {
-                    foodData.eat(foodLevel, saturation / (foodLevel * 2));
-                    if (foodLevel * 2 > 20 && amplifier > 1) player.heal(foodLevel * 2 - 20);
-                    if (saturation * 2 >= 20 && amplifier > 0) player.heal(saturation * 2 - 20);
-                }
                 if (isPowerful && player.isHurt()) {
-                    if (time % (10/(amplifier + 1)) == 0 && foodLevel >= 9) {
+                    int healInterval = Math.max(1, 10 / (amplifier + 1));
+                    if (time % healInterval == 0 && foodLevel >= 9) {
                         float health = 0;
                         if (time % 40 == 0) {
                             foodData.setFoodLevel(foodLevel - 1);
@@ -52,6 +47,18 @@ public class KeepFastMobEffect extends BaseMobEffect {
                 }
             }
         }
+    }
+
+    public void restoreFood(Player player, int amplifier) {
+        FoodData foodData = player.getFoodData();
+        int foodLevel = foodData.getFoodLevel();
+        float saturation = foodData.getSaturationLevel();
+        int effectiveAmplifier = getTruthUsingAmplifier(amplifier);
+        if (foodLevel > 0) {
+            foodData.eat(foodLevel, saturation / (foodLevel * 2));
+        }
+        if (foodLevel * 2 > 20 && effectiveAmplifier > 1) player.heal(foodLevel * 2 - 20);
+        if (saturation * 2 >= 20 && effectiveAmplifier > 0) player.heal(saturation * 2 - 20);
     }
 
     @Override
@@ -80,23 +87,6 @@ public class KeepFastMobEffect extends BaseMobEffect {
                         foodData.setFoodLevel(foodData.getFoodLevel() / 2);
                         foodData.setSaturation(foodData.getSaturationLevel() / 2);
                     }
-                }
-            }
-        }
-        @SubscribeEvent
-        public static void onRemoveFromEntity(MobEffectEvent.Remove event) {
-            if (event != null && event.getEntity() != null) {
-                Entity entity = event.getEntity();
-                if (!entity.getCommandSenderWorld().isClientSide
-                        && event.getEffectInstance() != null
-                        && event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.KEEP_A_FAST.get()
-                        && entity instanceof Player player) {
-                    FoodData foodData = player.getFoodData();
-                    int foodLevel = foodData.getFoodLevel();
-                    float saturation = foodData.getSaturationLevel();
-                    foodData.eat(foodLevel, saturation / (foodLevel * 2));
-                    if (foodLevel * 2 > 20 && event.getEffectInstance().getAmplifier() > 1) player.heal(foodLevel * 2 - 20);
-                    if (saturation * 2 >= 20 && event.getEffectInstance().getAmplifier() > 0) player.heal(saturation * 2 - 20);
                 }
             }
         }
