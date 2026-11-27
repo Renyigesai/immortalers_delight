@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.warden.AngerLevel;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -167,8 +168,8 @@ public class StunEffect {
         if (TimekeepingTask.getImmortalTickTime() <= expireTime) {
             int time = (int) ((expireTime - TimekeepingTask.getImmortalTickTime()) / 50);
             if (entity instanceof Player player) {
-                player.getCooldowns().addCooldown(player.getItemInHand(InteractionHand.MAIN_HAND).getItem(), time);
-                player.getCooldowns().addCooldown(player.getItemInHand(InteractionHand.OFF_HAND).getItem(), time);
+                extendHeldItemCooldown(player.getCooldowns(), player.getItemInHand(InteractionHand.MAIN_HAND), time);
+                extendHeldItemCooldown(player.getCooldowns(), player.getItemInHand(InteractionHand.OFF_HAND), time);
             } else if (entity instanceof Mob mob) {
                 mob.setTarget(null);
                 mob.getBrain().setMemory(MemoryModuleType.ANGRY_AT, Optional.empty());
@@ -184,6 +185,14 @@ public class StunEffect {
             }
 
         } else removeImmortalEffect(entity);
+    }
+
+    private static void extendHeldItemCooldown(ItemCooldowns cooldowns, ItemStack stack, int duration) {
+        if (duration <= 0 || stack.isEmpty()) return;
+        ItemCooldowns.CooldownInstance existing = cooldowns.cooldowns.get(stack.getItem());
+        if (existing == null || existing.endTime - cooldowns.tickCount < duration) {
+            cooldowns.addCooldown(stack.getItem(), duration);
+        }
     }
 
     @SubscribeEvent

@@ -37,7 +37,7 @@ public class CrispFortitudeMobEffect extends BaseMobEffect{
     public static ConcurrentHashMap<UUID,Byte> getEntitiesHurt() {return entitiesHurt;}
 
     public static int getMaxCharges(int lv) {
-        return 30 - lv * 3;
+        return Math.max(1, 30 - 3 * Math.min(lv, 10));
     }
 
     /*====实现基础功能支持：在buff去除时清除缓存数据====*/
@@ -75,9 +75,11 @@ public class CrispFortitudeMobEffect extends BaseMobEffect{
                         if (!hurtOne.level().isClientSide()) {
                             boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
                             //清空当前总计的伤害值回血
-                            double heal = entitiesLostHealthSum.getOrDefault(hurtOne.getUUID(),30.0d);
-                            if (isPowerful) hurtOne.setHealth((float) (hurtOne.getHealth() + heal));
-                            else hurtOne.heal((float) heal);
+                            double heal = entitiesLostHealthSum.getOrDefault(hurtOne.getUUID(), 0.0d);
+                            if (heal > 0) {
+                                if (isPowerful) hurtOne.setHealth((float) (hurtOne.getHealth() + heal));
+                                else hurtOne.heal((float) heal);
+                            }
 
                             entitiesLostHealthSum.remove(hurtOne.getUUID());
                             entitiesLostHealth.remove(hurtOne.getUUID());

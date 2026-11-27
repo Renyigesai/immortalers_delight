@@ -49,9 +49,12 @@ public class CrispFortitudeHUD implements IGuiOverlay {
             //计算叠层上限
             int maxCharge = CrispFortitudeMobEffect.getMaxCharges(lv);
             //计算透明度
-            float f2 = (float) CrispFortitudeMobEffect.getEntitiesHurt().get(player.getUUID()) / maxCharge;
-            if (f2 > 0.05 && f2 <= 1) {
-                this.renderTextureOverlay(guiGraphics, HUD, f2, screenWidth, screenHeight);
+            if (maxCharge > 0) {
+                int charge = CrispFortitudeMobEffect.getEntitiesHurt().getOrDefault(player.getUUID(), (byte) 0);
+                float opacity = (float) charge / maxCharge;
+                if (opacity > 0.05 && opacity <= 1) {
+                    this.renderTextureOverlay(guiGraphics, HUD, opacity, screenWidth, screenHeight);
+                }
             }
 
         }

@@ -7,6 +7,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "immortalers_delight:no_burning_fire",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:charcoal",
           "weight": 4
         },
@@ -28,6 +33,11 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:brewer_pottery_sherd",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sniffer_egg",
           "weight": 1
         }
       ]

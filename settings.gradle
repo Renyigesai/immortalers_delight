@@ -5,7 +5,6 @@ pluginManagement {
             name = 'MinecraftForge'
             url = 'https://maven.minecraftforge.net/'
         }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' } // Add this lin
     }
 }
@@ -15,4 +14,3 @@ plugins {
 }
 
 rootProject.name = 'immortalers_delight'
-include 'coremod', 'mainmod'

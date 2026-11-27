@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,11 +39,16 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
 public class InebriatedMobEffect extends BaseMobEffect {
+
+    private static final ResourceKey<DamageType> DRUNK_DAMAGE =
+            ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(ImmortalersDelightMod.MODID, "drunk"));
+    private static final ThreadLocal<DrunkDamageContext> ACTIVE_DRUNK_DAMAGE = new ThreadLocal<>();
 
     private static Map<UUID,Long> entitiesNeedExempt = new HashMap<>();
     private static Long timeNeedExempt = 0L;
@@ -84,9 +90,38 @@ public class InebriatedMobEffect extends BaseMobEffect {
         }
         boolean isOP = pEntity instanceof Player player && player.isCreative();
         if (!isOP || isPowerful) {
+            DamageSource source = new DamageSource(
+                    pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DRUNK_DAMAGE));
+            DrunkDamageContext previous = ACTIVE_DRUNK_DAMAGE.get();
+            ACTIVE_DRUNK_DAMAGE.set(new DrunkDamageContext(pEntity, source));
             pEntity.invulnerableTime = 0;
-            pEntity.hurt(new DamageSource(pEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))), damage);
-            pEntity.invulnerableTime = 0;
+            try {
+                pEntity.hurt(source, damage);
+            } finally {
+                if (previous == null) {
+                    ACTIVE_DRUNK_DAMAGE.remove();
+                } else {
+                    ACTIVE_DRUNK_DAMAGE.set(previous);
+                }
+                pEntity.invulnerableTime = 0;
+            }
+        }
+    }
+
+    private static final class DrunkDamageContext {
+        private final LivingEntity target;
+        private final DamageSource source;
+        private Float targetHealth;
+
+        private DrunkDamageContext(LivingEntity target, DamageSource source) {
+            this.target = target;
+            this.source = source;
+        }
+
+        @Nullable
+        private static DrunkDamageContext forHit(LivingEntity target, DamageSource source) {
+            DrunkDamageContext current = ACTIVE_DRUNK_DAMAGE.get();
+            return current != null && current.target == target && current.source == source ? current : null;
         }
     }
 
@@ -166,22 +201,14 @@ public class InebriatedMobEffect extends BaseMobEffect {
             }
         }
 
-        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
         //对玩家与效用生物，使用事件强化伤害
         //在伤害结算流程的开始记录伤害
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         public static void onLivingAttack(LivingAttackEvent event) {
-            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))) {
-                if (event.isCanceled()) event.setCanceled(false);
-
-                LivingEntity pEntity = event.getEntity();
-
-                if (pEntity instanceof Enemy) return;
-
-                float health = pEntity.getHealth();
-                float damage = event.getAmount();
-
-                entityDamage.put(pEntity.getUUID(), health - damage);
+            LivingEntity target = event.getEntity();
+            DrunkDamageContext hit = DrunkDamageContext.forHit(target, event.getSource());
+            if (hit != null && !(target instanceof Enemy)) {
+                hit.targetHealth = target.getHealth() - event.getAmount();
             }
         }
 
@@ -189,43 +216,25 @@ public class InebriatedMobEffect extends BaseMobEffect {
         //在伤害结算流程中取最高伤害
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         public static void onLivingHurt(LivingHurtEvent event) {
-            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:drunk")))) {
-                if (event.isCanceled()) event.setCanceled(false);
-
-                boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-                if (isPowerful) {
-                    LivingEntity pEntity = event.getEntity();
-
-                    if (pEntity instanceof Enemy) return;
-
-                    float health = pEntity.getHealth();
-                    float damage = event.getAmount();
-
-                    if ((health - damage) < entityDamage.get(pEntity.getUUID())) {
-                        entityDamage.put(pEntity.getUUID(), health - damage);
-                    }
-                }
+            LivingEntity target = event.getEntity();
+            DrunkDamageContext hit = DrunkDamageContext.forHit(target, event.getSource());
+            if (hit != null && hit.targetHealth != null && DifficultyModeUtil.isPowerBattleMode()) {
+                hit.targetHealth = Math.min(hit.targetHealth, target.getHealth() - event.getAmount());
             }
         }
         //对玩家与效用生物，使用事件强化伤害
         //如果被玩家减伤，修正伤害
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         public static void onLivingDamage(LivingDamageEvent event) {
-            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-            LivingEntity pEntity = event.getEntity();
+            LivingEntity target = event.getEntity();
+            DrunkDamageContext hit = DrunkDamageContext.forHit(target, event.getSource());
+            if (hit == null || hit.targetHealth == null) return;
 
-            if (pEntity instanceof Enemy) return;
-
-            if (entityDamage.containsKey(pEntity.getUUID())) {
-
-                float health = pEntity.getHealth();
-                float needHealth = entityDamage.get(pEntity.getUUID());
-
-                if (isPowerful && health - event.getAmount() > needHealth) {
-                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
-                    event.setAmount(0.0F);
-                }
-                entityDamage.remove(pEntity.getUUID());
+            float targetHealth = hit.targetHealth;
+            hit.targetHealth = null;
+            if (DifficultyModeUtil.isPowerBattleMode() && target.getHealth() - event.getAmount() > targetHealth) {
+                target.setHealth(Math.max(0.0F, targetHealth));
+                event.setAmount(0.0F);
             }
         }
         @SubscribeEvent(priority = EventPriority.HIGHEST)

@@ -25,6 +25,21 @@
           "weight": 2
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immortalers_delight:sealed_ancient_rations",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ]
     }
   ],
   "random_sequence": "immortalers_delight:chests/kitchen_ruins_cabinet"

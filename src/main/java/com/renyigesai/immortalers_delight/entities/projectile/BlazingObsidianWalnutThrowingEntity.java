@@ -121,23 +121,22 @@ public class BlazingObsidianWalnutThrowingEntity extends ThrowableItemProjectile
             if (this.tickCount > 40 && !flag) {
                 //飞行过长时间爆炸
                 this.boom();
-                this.explosionTime = this.tickCount;
             }
-            if (flag) {
+            if (this.isBoom()) {
                 //爆炸后，不再移动，静待删除
                 this.setDeltaMovement(0,0,0);
-            }
-            //超时删除
-            if (this.tickCount > 20 + this.explosionTime){
-                this.discard();
-                ItemEntity output = new ItemEntity(
-                        this.level(),
-                        this.getX(),
-                        this.getY(),
-                        this.getZ(),
-                        new ItemStack(ImmortalersDelightItems.OBSIDIAN_WALNUT_KERNEL.get(),this.getItem().getCount()));
-                output.setDeltaMovement(this.getDeltaMovement());
-                this.level().addFreshEntity(output);
+                //从引爆时开始计时，保留爆炸特效后再掉落胡桃仁
+                if (this.tickCount - this.explosionTime > 20) {
+                    this.discard();
+                    ItemEntity output = new ItemEntity(
+                            this.level(),
+                            this.getX(),
+                            this.getY(),
+                            this.getZ(),
+                            new ItemStack(ImmortalersDelightItems.OBSIDIAN_WALNUT_KERNEL.get(),this.getItem().getCount()));
+                    output.setDeltaMovement(this.getDeltaMovement());
+                    this.level().addFreshEntity(output);
+                }
             }
         } else {
             //客户端行为，生成特效

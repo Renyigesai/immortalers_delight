@@ -56,11 +56,11 @@ public class MagicalReverseMobEffect extends MobEffect {
             /*遍历获取到的所有负面效果，判断是否能反转并尝试去除*/
             for (Map.Entry<MobEffect, MobEffectInstance> entry : inputEffectsMap.entrySet()) {
                 boolean flag = isPowerful || (entry.getValue().getAmplifier() <= amplifier && entry.getValue().getDuration() >= 0);
-                if (flag) {
-                    if (reverseNormalEffect.get(entry.getKey()) != null) {
-                        outputEffectsMap.put(reverseNormalEffect.get(entry.getKey()), entry.getValue());
+                if (flag && pEntity.removeEffect(entry.getKey())) {
+                    MobEffect reversedEffect = reverseNormalEffect.get(entry.getKey());
+                    if (reversedEffect != null) {
+                        outputEffectsMap.put(reversedEffect, entry.getValue());
                     }
-                    pEntity.removeEffect(entry.getKey());
                 }
             }
             /*添加反转后的效果*/
