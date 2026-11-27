@@ -8,27 +8,17 @@ import com.renyigesai.immortalers_delight.client.model.HatredfireBoltModel;
 import com.renyigesai.immortalers_delight.client.renderer.ModRenderTypes;
 import com.renyigesai.immortalers_delight.entities.projectile.HatredfireBoltEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
 
 @OnlyIn(Dist.CLIENT)
 public class HatredfireBoltRenderer extends EntityRenderer<HatredfireBoltEntity> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/hatredfire_bolt.png");
-
-    // 使用半透明且不剔除背面的通道渲染多层火焰
-    private static final RenderType RENDER_TYPE = RenderType.eyes(TEXTURE);
-    private static final RenderType RENDER_TYPE_2 = RenderType.entityTranslucent(TEXTURE);
-    private static final float SIN_45 = (float) Math.sin(Math.PI / 4D);
-
     private final HatredfireBoltModel<HatredfireBoltEntity> model;
 
     public HatredfireBoltRenderer(EntityRendererProvider.Context context) {
@@ -41,18 +31,91 @@ public class HatredfireBoltRenderer extends EntityRenderer<HatredfireBoltEntity>
     public void render(HatredfireBoltEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
 
-        // 计算平滑插值 Tick
+        // 1. 获取部分刻时间
         float ageInTicks = (float) entity.tickCount + partialTicks;
 
-        // 3. 计算偏航角（水平旋转）的平滑插值，基于部分游戏刻，实现旋转动作的平滑过渡
-        float f = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
-        // 4. 计算俯仰角（垂直旋转）的平滑插值，实现上下摆动的平滑过渡
-        float f1 = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
-        // 驱动动画逻辑（自动绕几何中心转动与悬浮）
-        this.model.setupAnim(entity, 0.0F, 0.0F, ageInTicks, f, f1);
+        // 2. 核心平滑插值：利用 rotLerp 对偏航角与俯仰角做无卡顿过渡
+        // 注意：箭矢类实体通常朝向与移动方向一致，减 90 度是常规对齐操作（依据你自身模型摆放调整）
+        float interpolatedYaw = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
+        float interpolatedPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
+        // 3. 将模型旋转对准运动航向
+        poseStack.mulPose(Axis.YP.rotationDegrees(interpolatedYaw - 90.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(interpolatedPitch));
+
+        // 4. 驱动内部各层火焰转动与翻滚动画
+        this.model.setupAnim(entity, 0.0F, 0.0F, ageInTicks, interpolatedYaw, interpolatedPitch);
+
+        // 5. 自发光渲染输出 (满级光照 0xF000F0)
         VertexConsumer vertexConsumer = buffer.getBuffer(ModRenderTypes.UNLIT_TRANSLUCENT.apply(this.getTextureLocation(entity)));
         this.model.renderToBuffer(poseStack, vertexConsumer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
+        poseStack.popPose();
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(HatredfireBoltEntity entity) {
+        return TEXTURE;
+    }
+}
+
+
+//package com.renyigesai.immortalers_delight.client.renderer.entity.projectile;
+//
+//import com.mojang.blaze3d.vertex.PoseStack;
+//import com.mojang.blaze3d.vertex.VertexConsumer;
+//import com.mojang.math.Axis;
+//import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
+//import com.renyigesai.immortalers_delight.client.model.HatredfireBoltModel;
+//import com.renyigesai.immortalers_delight.client.renderer.ModRenderTypes;
+//import com.renyigesai.immortalers_delight.entities.projectile.HatredfireBoltEntity;
+//import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.RenderType;
+//import net.minecraft.client.renderer.entity.EnderDragonRenderer;
+//import net.minecraft.client.renderer.entity.EntityRenderer;
+//import net.minecraft.client.renderer.entity.EntityRendererProvider;
+//import net.minecraft.client.renderer.texture.OverlayTexture;
+//import net.minecraft.core.BlockPos;
+//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.util.Mth;
+//import net.minecraftforge.api.distmarker.Dist;
+//import net.minecraftforge.api.distmarker.OnlyIn;
+//import org.joml.Quaternionf;
+//
+//@OnlyIn(Dist.CLIENT)
+//public class HatredfireBoltRenderer extends EntityRenderer<HatredfireBoltEntity> {
+//    public static final ResourceLocation TEXTURE = new ResourceLocation(ImmortalersDelightMod.MODID, "textures/entity/hatredfire_bolt.png");
+//
+//    // 使用半透明且不剔除背面的通道渲染多层火焰
+//    private static final RenderType RENDER_TYPE = RenderType.eyes(TEXTURE);
+//    private static final RenderType RENDER_TYPE_2 = RenderType.entityTranslucent(TEXTURE);
+//    private static final float SIN_45 = (float) Math.sin(Math.PI / 4D);
+//
+//    private final HatredfireBoltModel<HatredfireBoltEntity> model;
+//
+//    public HatredfireBoltRenderer(EntityRendererProvider.Context context) {
+//        super(context);
+//        this.shadowRadius = 0.3F;
+//        this.model = new HatredfireBoltModel<>(context.bakeLayer(HatredfireBoltModel.LAYER_LOCATION));
+//    }
+//
+//    @Override
+//    public void render(HatredfireBoltEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+//        poseStack.pushPose();
+//
+//        // 计算平滑插值 Tick
+//        float ageInTicks = (float) entity.tickCount + partialTicks;
+//
+//        // 3. 计算偏航角（水平旋转）的平滑插值，基于部分游戏刻，实现旋转动作的平滑过渡
+//        float f = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
+//        // 4. 计算俯仰角（垂直旋转）的平滑插值，实现上下摆动的平滑过渡
+//        float f1 = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+//        // 驱动动画逻辑（自动绕几何中心转动与悬浮）
+//        this.model.setupAnim(entity, 0.0F, 0.0F, ageInTicks, f, f1);
+//
+//        VertexConsumer vertexConsumer = buffer.getBuffer(ModRenderTypes.UNLIT_TRANSLUCENT.apply(this.getTextureLocation(entity)));
+//        this.model.renderToBuffer(poseStack, vertexConsumer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
 //
 //        // 1. 获取时间与悬浮位移插值 (末影水晶非线性正弦波)
@@ -110,21 +173,21 @@ public class HatredfireBoltRenderer extends EntityRenderer<HatredfireBoltEntity>
 //        this.model.getCore().render(poseStack, vertexConsumer, fullBright, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 //        poseStack.popPose();
 
-        poseStack.popPose();
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-    }
-
-    /**
-     * 末影水晶的悬浮计算公式
-     */
-    private static float getHoverY(float ageInTicks) {
-        float wave = Mth.sin(ageInTicks * 0.15F) / 2.0F + 0.5F;
-        wave = (wave * wave + wave) * 0.2F; // 悬浮幅度缩放到 0.2 格左右
-        return wave - 0.1F;
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(HatredfireBoltEntity entity) {
-        return TEXTURE;
-    }
-}
+//        poseStack.popPose();
+//        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+//    }
+//
+//    /**
+//     * 末影水晶的悬浮计算公式
+//     */
+//    private static float getHoverY(float ageInTicks) {
+//        float wave = Mth.sin(ageInTicks * 0.15F) / 2.0F + 0.5F;
+//        wave = (wave * wave + wave) * 0.2F; // 悬浮幅度缩放到 0.2 格左右
+//        return wave - 0.1F;
+//    }
+//
+//    @Override
+//    public ResourceLocation getTextureLocation(HatredfireBoltEntity entity) {
+//        return TEXTURE;
+//    }
+//}

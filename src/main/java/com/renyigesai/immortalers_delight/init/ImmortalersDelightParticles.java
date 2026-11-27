@@ -30,6 +30,8 @@ public class ImmortalersDelightParticles {
         event.registerSpecial(ImmortalersDelightParticleTypes.SHOCKED_BLOCK.get(), new ShockedBlockParticle.Provider());
         event.registerSpecial(ImmortalersDelightParticleTypes.RISE_BLOCK.get(), new RiseBlockParticle.Provider());
         event.registerSpriteSet(ImmortalersDelightParticleTypes.BLADE_LIGHT.get(), BladeLightParticle::provider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.HATRED_FLAME.get(), HatredFlameParticle::provider);
+        event.registerSpriteSet(ImmortalersDelightParticleTypes.WARMING_RING_BIG.get(), WarmingRingBigParticle::provider);
 
     }
 

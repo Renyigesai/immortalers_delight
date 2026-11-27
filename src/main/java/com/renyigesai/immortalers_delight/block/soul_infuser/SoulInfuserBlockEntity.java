@@ -2,6 +2,7 @@ package com.renyigesai.immortalers_delight.block.soul_infuser;
 
 import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
 import com.renyigesai.immortalers_delight.block.WrappedHandler;
+import com.renyigesai.immortalers_delight.entities.living.SoulInfuserEntity;
 import com.renyigesai.immortalers_delight.entities.projectile.KiBlastEntity;
 import com.renyigesai.immortalers_delight.entities.projectile.SoulFireballEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
@@ -50,6 +51,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
+    // ====================== 状态与字段管理 ========================= //
     // 0-8: 原料, 9: 输出, 10: 燃料
     public static final int OUTPUT_SLOT = 9;
     public static final int FUEL_SLOT = 10;
@@ -84,8 +86,13 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final EnumMap<Direction, LazyOptional<WrappedHandler>> directionHandlers = new EnumMap<>(Direction.class);
 
+    private SoulInfuserAttackHelper actions;       // 行为驱动器，用于方块实体的战斗行为与动画
+    public SoulInfuserAttackHelper getActions() {return actions;}
+    public boolean needCheckAnimation = false;     // 动画切换标记，改为true时会让方块实体检查并尝试切换动画
+
     public SoulInfuserBlockEntity(BlockPos pos, BlockState state) {
         super(ImmortalersDelightBlocks.SOUL_INFUSER_ENTITY.get(), pos, state);
+        this.actions = new SoulInfuserAttackHelper(this.level,this.getBlockPos());
         this.dataAccess = new ContainerData() {
             @Override
             public int get(int index) {
@@ -136,46 +143,78 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
 
     public int getAnimationTime() {return animationTime;}
 
+    // ======================= Tick主逻辑 ======================== //
+    //客户端tick，虽然方块实体和AttackHelper都是两端的，但它没有EntityDataAccessor那样的自动同步，所以服务端需要方块状态协助同步
     public static void animationTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
         if (!level.isClientSide) return;
-//        System.out.println("灵魂炸锅客户端tick：" + entity.animationTime);
-        if (state.getValue(SoulInfuserBlock.AGE) != 1) {
-            SoulInfuserAttackHelper.AnimationTick(level,pos, entity.animationTime);
-            entity.animationTime++;
-        } else entity.animationTime=0;
+//        System.out.println("灵魂炸锅客户端tick：");
+        if (entity.needCheckAnimation) {
+//            System.out.println("查动画状态");
+            entity.actions.setLevel(entity.level);
+            entity.actions.setBlockPos(entity.worldPosition);
+
+            int newAnimation = state.hasProperty(SoulInfuserBlock.AGE) ? state.getValue(SoulInfuserBlock.AGE) : SoulInfuserAttackHelper.ID_IDLE;
+            entity.actions.checkAnimationType(newAnimation);
+            entity.needCheckAnimation = false;
+        }
+        if (state.getValue(SoulInfuserBlock.AGE) != SoulInfuserAttackHelper.ID_NONE) {
+//            System.out.println("方块实体执行客户端tick");
+            entity.actions.AnimationTick();
+        }
+    }
+//    private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
+//    public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
+////        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
+//        if (!(level instanceof ServerLevel serverLevel)) return;
+
+    public static void combatTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
+
+        //启动战斗状态
+        if (!entity.actions.isFighting()) {
+            entity.actions.setLevel(entity.level);
+            entity.actions.setBlockPos(entity.worldPosition);
+//            System.out.println("启动战斗状态");
+            // 先销毁容器内所有物品
+            for (int i = 0; i < entity.inventory.getSlots(); i++) {
+                entity.inventory.setStackInSlot(i, ItemStack.EMPTY);
+            }
+            level.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 2.0F, Level.ExplosionInteraction.BLOCK);
+            entity.actions.startFighting();
+            //利用方块状态同步到客户端，动画状态切换为出场爆炸
+            level.setBlockAndUpdate(pos, state.setValue(SoulInfuserBlock.AGE,SoulInfuserAttackHelper.ID_AWAKEN));
+            setChanged(level, pos, state);
+        } else {
+//            if (entity.actions.getAttackTime() % 20 == 0)System.out.println("战斗进行");
+            //战斗进行
+            entity.actions.AttackTick();
+            //战斗结束
+            if (entity.actions.needEndFighting()) {
+
+//                System.out.println("战斗结束");
+                entity.actions.endFighting();
+                entity.charge=0;
+                //利用方块状态同步到客户端，动画状态切换为无动画
+                level.setBlockAndUpdate(pos, state.setValue(SoulInfuserBlock.AGE,SoulInfuserAttackHelper.ID_NONE));
+                setChanged(level, pos, state);
+            }
+        }
     }
     private int attackTime = 0;//当前战斗已开始的时间，这个值仅服务端
     public static void craftTick(Level level, BlockPos pos, BlockState state, SoulInfuserBlockEntity entity) {
 //        System.out.println("灵魂炸锅服务端tick：" + entity.attackTime);
+        if (level.isClientSide) return;
         if (!(level instanceof ServerLevel serverLevel)) return;
 
         // 检查过载爆炸
-        if (entity.charge > 64) {
-            //启动攻击
-            if (entity.attackTime == 0) {
-                // 先销毁容器内所有物品
-                for (int i = 0; i < entity.inventory.getSlots(); i++) {
-                    entity.inventory.setStackInSlot(i, ItemStack.EMPTY);
-                }
-                level.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 2.0F, Level.ExplosionInteraction.BLOCK);
-                entity.attackTime++;
-                //利用方块状态同步到客户端，动画状态切换为出场爆炸
-                level.setBlockAndUpdate(pos, state.setValue(SoulInfuserBlock.AGE,0));
+        if (entity.charge >= 64) {
+            combatTick(level,pos,state,entity);
+            if (entity.charge < 127 && entity.actions.getAttackTime() > 100) {
+                entity.actions.endFighting();
+                entity.charge=0;
+                //利用方块状态同步到客户端，动画状态切换为无动画
+                level.setBlockAndUpdate(pos, state.setValue(SoulInfuserBlock.AGE,SoulInfuserAttackHelper.ID_NONE));
                 setChanged(level, pos, state);
-            } else {
-                //攻击进行
-                SoulInfuserAttackHelper.AttackTick(level,entity.worldPosition,entity.attackTime);
-                entity.attackTime++;
-                //攻击结束
-                if (entity.attackTime >= 100) {
-                    entity.attackTime=0;
-                    entity.charge=0;
-                    //利用方块状态同步到客户端，动画状态切换为无动画
-                    level.setBlockAndUpdate(pos, state.setValue(SoulInfuserBlock.AGE,1));
-                    setChanged(level, pos, state);
-                }
             }
-
             return;
         }
 
@@ -184,7 +223,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         if (state.getValue(SoulInfuserBlock.LIT) && entity.charge >= 48) {
             if (level.getGameTime() % 6 == 0){
                 if (level.getRandom().nextInt(5) != 0) return;
-                SoulInfuserAttackHelper.shootSoulFireBallRandom(level,pos);
+                entity.actions.shootSoulFireBallRandom(level,pos);
             }
         }
 
@@ -203,7 +242,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         // 每隔8秒（危险临界后12秒）吸收一次燃料
         if (hasRecipe) {
             entity.fuelTimer++;
-            if (entity.fuelTimer >= (entity.charge > 48 ? 240 : 160)) {
+            if (entity.charge == 0 || entity.fuelTimer >= (entity.charge > 48 ? 240 : 160)) {
                 entity.fuelTimer = 0;
                 ItemStack fuelStack = entity.inventory.getStackInSlot(FUEL_SLOT);
                 if (entity.isFuel(fuelStack)) {
@@ -322,6 +361,7 @@ public class SoulInfuserBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
+    // ======================= 容器交互、数据与持久化 ======================== //
     @Override
     public void onLoad() {
         super.onLoad();

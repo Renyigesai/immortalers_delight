@@ -15,20 +15,20 @@ public class EffectUtils {
      * @ param effectName 要检查的 MobEffect 的注册名
      * @ return 如果存在则返回 true, 否则返回 false
      */
-//    public static MobEffect get0therModMobEffect(String effectName) {
-//// 遍历所有已注册的 MobEffect
-//        for (MobEffect effect : ForgeRegistries.MOB_EFFECTS) {
-//// 获取当前 MobEffect 的注册名
-//            ResourceLocation registryName = Objects. requireNonNull(ForgeRegistries. MOB_EFFECTS. getKey(effect));
-////将注册名转换为字符串
-//            String currentEffectName = registryName. toString();
-////比较注册名和指定的字符串
-//            if (currentEffectName. equals(effectName)) {
-//                return effect;
-//            }
-//        }
-//        return ImmortalersDelightMobEffect.LINGERING_FLAVOR. get();
-//    }
+    public static MobEffect get0therModMobEffect(String effectName) {
+// 遍历所有已注册的 MobEffect
+        for (MobEffect effect : ForgeRegistries.MOB_EFFECTS) {
+// 获取当前 MobEffect 的注册名
+            ResourceLocation registryName = Objects. requireNonNull(ForgeRegistries. MOB_EFFECTS. getKey(effect));
+//将注册名转换为字符串
+            String currentEffectName = registryName. toString();
+//比较注册名和指定的字符串
+            if (currentEffectName. equals(effectName)) {
+                return effect;
+            }
+        }
+        return ImmortalersDelightMobEffect.LINGERING_FLAVOR. get();
+    }
 
     public static Map<MobEffect, MobEffect> get0therModMobEffect(List<? extends List<?>> source)
     {

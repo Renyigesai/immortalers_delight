@@ -1,6 +1,7 @@
 package com.renyigesai.immortalers_delight.block.soul_infuser;
 
 import com.renyigesai.immortalers_delight.block.DrinksBlock;
+import com.renyigesai.immortalers_delight.entities.living.SoulInfuserEntity;
 import com.renyigesai.immortalers_delight.init.ImmortalersDelightBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -50,7 +52,7 @@ public class SoulInfuserBlock extends BaseEntityBlock {
                 .setValue(FACING, Direction.NORTH)
                 .setValue(FILLING, false)
                 .setValue(LIT, false)
-                .setValue(AGE, 1));
+                .setValue(AGE, 15));
     }
 
     @Override
@@ -118,7 +120,7 @@ public class SoulInfuserBlock extends BaseEntityBlock {
             if (blockEntity instanceof SoulInfuserBlockEntity infuserEntity) {
                 NetworkHooks.openScreen((ServerPlayer) player, infuserEntity, pos);
                 return InteractionResult.CONSUME;
-            }
+            } else System.out.println("方块实体不对");
         }
         return InteractionResult.SUCCESS;
     }
@@ -143,6 +145,22 @@ public class SoulInfuserBlock extends BaseEntityBlock {
                 world.updateNeighbourForOutputSignal(pos, this);
             }
             super.onRemove(state, world, pos, newState, isMoving);
+        }
+    }
+
+    //当方块状态改变时，通知方块实体切动画了
+    @Override
+    public void onBlockStateChange(LevelReader level, BlockPos pos, BlockState oldState, BlockState newState) {
+        if (level.isClientSide() && newState.getBlock() instanceof SoulInfuserBlock) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof SoulInfuserBlockEntity infuserEntity) {
+                infuserEntity.needCheckAnimation = true;
+            }
+        } else if (!level.isClientSide() && !(newState.getBlock() == ImmortalersDelightBlocks.SOUL_INFUSER.get())){
+            if (SoulInfuserEntity.protectedPos.containsKey(pos)) {
+                SoulInfuserEntity.SoulInfuserEntityEvents.protectedState.put(pos, oldState);
+                SoulInfuserEntity.protectedPos.remove(pos);
+            }
         }
     }
 

@@ -35,6 +35,7 @@ public class SurveyorFangModel<T extends SurveyorFangEntity> extends Hierarchica
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
         //this.animate(entity.attackAnimationState, SurveyorFangAnimation.ATTACK,ageInTicks, 1.0f);
         // 步骤1：调整动画进度曲线，让开合动画“先快后慢”
         // pLimbSwing（0~1）→ f（0~1）：通过三次方运算，让动画前期变化快，后期趋于平缓
@@ -72,6 +73,9 @@ public class SurveyorFangModel<T extends SurveyorFangEntity> extends Hierarchica
         //this.base.y = this.upperJaw.y; // 尖牙底座与上颚同步位移
     }
 
+    public void upSideDown() {
+        this.root().xRot = 180 * Mth.DEG_TO_RAD;
+    }
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

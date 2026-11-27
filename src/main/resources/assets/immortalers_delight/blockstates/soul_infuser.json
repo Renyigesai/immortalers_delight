@@ -1,19 +1,11 @@
 {
-  "variants": {
-    "facing=east,lit=false": {"model": "immortalers_delight:block/soul_infuser", "y": 270},
-
-    "facing=north,lit=false": {"model": "immortalers_delight:block/soul_infuser", "y": 180},
-
-    "facing=south,lit=false": {"model": "immortalers_delight:block/soul_infuser"},
-
-    "facing=west,lit=false": {"model": "immortalers_delight:block/soul_infuser", "y": 90},
-
-    "facing=east,lit=true": {"model": "immortalers_delight:block/soul_infuser", "y": 270},
-
-    "facing=north,lit=true": {"model": "immortalers_delight:block/soul_infuser", "y": 180},
-
-    "facing=south,lit=true": {"model": "immortalers_delight:block/soul_infuser"},
-
-    "facing=west,lit=true": {"model": "immortalers_delight:block/soul_infuser", "y": 90}
-  }
+  "multipart": [
+    {
+      "when": { "lit": "true", "age": "0" },
+      "apply": [
+        { "model": "minecraft:block/soul_fire_floor0" },
+        { "model": "minecraft:block/soul_fire_floor1" }
+      ]
+    }
+  ]
 }

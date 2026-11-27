@@ -10,6 +10,8 @@ import com.renyigesai.immortalers_delight.entities.living.illager_archaeological
 import com.renyigesai.immortalers_delight.entities.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -155,12 +157,44 @@ public class ImmortalersDelightEntities {
                     .updateInterval(10)
                     .build("soul_fireball"));
 
+    public static final RegistryObject<EntityType<CollectiveSoulBoltEntity>> COLLECTIVE_SOUL_BOLT =
+            ENTITY_TYPES.register("collective_soul_bolt", () -> EntityType.Builder.<CollectiveSoulBoltEntity>of(CollectiveSoulBoltEntity::new, MobCategory.MISC)
+                    .sized(0.875F, 0.875F)
+                    .clientTrackingRange(8)
+//                    .updateInterval(10)
+                    .build("collective_soul_bolt"));
+    public static final RegistryObject<EntityType<SoulFireHitboxEntity>> SOUL_FIRE_HITBOX =
+            ENTITY_TYPES.register("soul_fire_hitbox", () -> EntityType.Builder.<SoulFireHitboxEntity>of(SoulFireHitboxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("soul_fire_hitbox"));
+
     public static final RegistryObject<EntityType<HatredfireBoltEntity>> HATREDFIRE_BOLT =
             ENTITY_TYPES.register("hatredfire_bolt", () -> EntityType.Builder.<HatredfireBoltEntity>of(HatredfireBoltEntity::new, MobCategory.MISC)
                     .sized(0.875F, 0.875F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .clientTrackingRange(8)
+//                    .updateInterval(10)
                     .build("hatredfire_bolt"));
+
+    public static final RegistryObject<EntityType<HatredFireHitBoxEntity>> HATREDFIRE_HITBOX =
+            ENTITY_TYPES.register("hatredfire_hitbox", () -> EntityType.Builder.<HatredFireHitBoxEntity>of(HatredFireHitBoxEntity::new, MobCategory.MISC)
+                    .fireImmune()
+                    .sized(6.0F, 6.0F)
+                    .clientTrackingRange(6)
+                    .updateInterval(20)
+                    .build("hatredfire_hitbox"));
+    public static final RegistryObject<EntityType<SoulInfuserEntity>> HIJACKED_SOUL_INFUSER =
+            ENTITY_TYPES.register("hijacked_soul_infuser", () -> EntityType.Builder.<SoulInfuserEntity>of(SoulInfuserEntity::new, MobCategory.MONSTER)
+                    .sized(3.0f, 2.0f).build("hijacked_soul_infuser"));
+
+    public static final RegistryObject<EntityType<PierceSoulEntity>> PIERCE_SOUL =
+            ENTITY_TYPES.register("pierce_soul", () -> EntityType.Builder.<PierceSoulEntity>of(PierceSoulEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build("pierce_soul"));
 
     public static final RegistryObject<EntityType<BladeEnergy>> BLADE_ENERGY =
             ENTITY_TYPES.register("blade_energy", () -> EntityType.Builder.of(BladeEnergy::new, MobCategory.MISC)
@@ -169,9 +203,11 @@ public class ImmortalersDelightEntities {
                     .updateInterval(1)
                     .build("blade_energy"));
 
-
-//    public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> HIJACKED_SOUL_INFUSER =
-//            ENTITY_TYPES.register("hijacked_soul_infuser", () -> EntityType.Builder.of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
-//                    .sized(2.0f, 2.0f).build("hijacked_soul_infuser"));
+    public static final RegistryObject<EntityType<SoulInfuserTargetEntity>> FOCUSED_SOUL =
+            ENTITY_TYPES.register("focused_soul", () -> EntityType.Builder.<SoulInfuserTargetEntity>of(SoulInfuserTargetEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.6F, 0.6F)
+                    .clientTrackingRange(8)
+                    .build("focused_soul"));
 
 }
