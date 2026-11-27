@@ -3,12 +3,19 @@ package com.renyigesai.immortalers_delight.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.renyigesai.immortalers_delight.api.ILivingEntityExtension;
+import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
+import com.renyigesai.immortalers_delight.item.weapon.GoldenFabricArmor;
 import com.renyigesai.immortalers_delight.potion.KeepFastMobEffect;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -64,6 +71,28 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntityE
             return true;
         }
         return original.call(entity, effect);
+    }
+
+    @WrapOperation(
+            method = "curePotionEffects",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;isCurativeItem(Lnet/minecraft/world/item/ItemStack;)Z", remap = false),
+            remap = false
+    )
+    private boolean immortalers_delight$checkGasPoisonMilkResistance(MobEffectInstance instance, ItemStack curativeItem, Operation<Boolean> original) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        MobEffect gasPoison = ImmortalersDelightMobEffect.GAS_POISON.get();
+        if (curativeItem.is(Items.MILK_BUCKET)
+                && entity.hasEffect(gasPoison)
+                && !(entity instanceof Player player && player.isCreative())
+                && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())
+                && !(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof GoldenFabricArmor)) {
+            MobEffect effect = instance.getEffect();
+            if (effect == gasPoison || effect == MobEffects.HUNGER || effect == MobEffects.BLINDNESS
+                    || effect == MobEffects.CONFUSION || effect == MobEffects.MOVEMENT_SLOWDOWN || effect == MobEffects.WEAKNESS) {
+                return false;
+            }
+        }
+        return original.call(instance, curativeItem);
     }
 
     @Inject(method = "onEffectRemoved", at = @At("TAIL"))

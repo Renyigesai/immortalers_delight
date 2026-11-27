@@ -1,8 +1,5 @@
 package com.renyigesai.immortalers_delight.potion;
 
-import com.renyigesai.immortalers_delight.ImmortalersDelightMod;
-import com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect;
-import com.renyigesai.immortalers_delight.item.weapon.GoldenFabricArmor;
 import com.renyigesai.immortalers_delight.util.DifficultyModeUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -13,21 +10,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import static com.renyigesai.immortalers_delight.init.ImmortalersDelightMobEffect.*;
 
@@ -89,71 +74,6 @@ public class GasPoisonMobEffect extends BaseMobEffect {
         } else {
             // 如果间隔小于等于0，则始终更新效果
             return true;
-        }
-    }
-
-    @Mod.EventBusSubscriber(
-            modid = ImmortalersDelightMod.MODID,
-            bus = Mod.EventBusSubscriber.Bus.FORGE
-    )
-    public static class GasPoisonPotionEffect {
-
-//        private static final Map<UUID,Float> entityDamage = new HashMap<UUID,Float>();
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingAttack(LivingAttackEvent event) {
-//            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-//                if (event.isCanceled()) event.setCanceled(false);
-//                LivingEntity pEntity = event.getEntity();
-//                float health = pEntity.getHealth();
-//                float damage = event.getAmount();
-//                //记录应该减扣至的血量
-//                entityDamage.put(pEntity.getUUID(), health - damage);
-//            }
-//        }
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingHurt(LivingHurtEvent event) {
-//            //这里是条件判断，什么伤害需要绝对真伤
-//            if (event.getSource().is(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("immortalers_delight:gas")))) {
-//                if (event.isCanceled()) event.setCanceled(false);
-//            }
-//        }
-//        @SubscribeEvent(priority = EventPriority.LOWEST)
-//        public static void onLivingDamage(LivingDamageEvent event) {
-//            boolean isPowerful = DifficultyModeUtil.isPowerBattleMode();
-//            LivingEntity pEntity = event.getEntity();
-//            if (entityDamage.containsKey(pEntity.getUUID())) {
-//                float health = pEntity.getHealth();
-//                float needHealth = entityDamage.get(pEntity.getUUID());
-//                //如果发现被减伤了(当前血量减伤害值大于记录的血量)
-//                if (isPowerful && health - event.getAmount() > needHealth) {
-//                    pEntity.setHealth(needHealth < 0.0F ? 0.0F : needHealth);
-//                    event.setAmount(0.0F);
-//                }
-//                entityDamage.remove(pEntity.getUUID());
-//            }
-//        }
-        @SubscribeEvent
-        public static void onRemoveFromEntity(MobEffectEvent.Remove event) {
-            if (event != null && event.getEntity() != null) {
-                LivingEntity entity = event.getEntity();
-
-                if (entity instanceof Player player && player.isCreative()) return;
-                if (!entity.getCommandSenderWorld().isClientSide
-                        && entity.hasEffect(ImmortalersDelightMobEffect.GAS_POISON.get())
-                        && !entity.hasEffect(ImmortalersDelightMobEffect.MAGICAL_REVERSE.get())
-                        && !(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof GoldenFabricArmor)) {
-                    if (event.getEffectInstance() != null
-                            && (event.getEffectInstance().getEffect() == ImmortalersDelightMobEffect.GAS_POISON.get()
-                            || event.getEffectInstance().getEffect() == MobEffects.HUNGER
-                            || event.getEffectInstance().getEffect() == MobEffects.BLINDNESS
-                            || event.getEffectInstance().getEffect() == MobEffects.CONFUSION
-                            || event.getEffectInstance().getEffect() == MobEffects.MOVEMENT_SLOWDOWN
-                            || event.getEffectInstance().getEffect() == MobEffects.WEAKNESS)) {
-                        event.setCanceled(true);
-                    }
-                }
-            }
         }
     }
 }
